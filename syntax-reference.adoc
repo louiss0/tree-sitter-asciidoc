@@ -1,0 +1,761 @@
+// Document attributes - These control document-wide settings and variables
+:doctype: article
+:toc: left
+:toclevels: 3
+:numbered:
+:source-highlighter: highlight.js
+:icons: font
+:experimental:
+:author: Your Name
+:email: your.email@example.com
+:revdate: {docdate}
+:version-label: Version
+:last-update-label: Last Updated
+// Custom attributes that can be referenced throughout the document
+:project-name: Asciidoc Syntax Reference
+:github-url: https://github.com/example/repo
+:company: Example Corp
+
+// Document title - This creates the main heading and sets document metadata
+= {project-name}: Complete Syntax Demonstration
+{author} <{email}>
+{version-label} 1.0, {revdate}
+
+// Document preamble - Content before the first section
+This document demonstrates all major Asciidoc syntax elements using actual markup rather than code examples. Each element is shown in action with explanatory comments to help you understand the syntax.
+
+// Level 1 section heading
+== Document Structure and Headers
+
+// Level 2 section heading
+=== Section Hierarchies
+
+// Level 3 section heading
+==== Subsection Example
+
+// Level 4 section heading
+===== Deep Subsection
+
+// Level 5 section heading - Maximum depth
+====== Deepest Level
+
+Sections create a hierarchical structure. Use 2-6 equal signs followed by a space and the title.
+
+// Discrete heading - doesn't appear in TOC or affect numbering
+[discrete]
+=== Discrete Heading
+
+This heading won't appear in the table of contents and doesn't affect section numbering.
+
+// Level 1 section - Text Formatting
+== Text Formatting Examples
+
+// Paragraph with various inline formatting
+This paragraph demonstrates *bold text*, _italic text_, and `monospace text`. You can also combine formatting like *_bold italic_* or `*bold monospace*`.
+
+// More advanced formatting options
+Here we show ^superscript^ and ~subscript~ text, plus #highlighted text# and [.underline]#underlined text#.
+
+// Special characters and escapes
+Use backslash to escape special characters: \*not bold\*, \_not italic\_, and \`not monospace\`.
+
+// Quotation marks and apostrophes
+"`Double curved quotes`" and '`single curved quotes`' are automatically formatted. Here's a regular apostrophe: don't vs. a curved one: don`'t.
+
+// Line breaks and paragraphs
+This line ends with a line break +
+and continues here on the next line.
+
+A blank line creates a new paragraph.
+
+// Hard line breaks
+[%hardbreaks]
+This paragraph uses hard breaks
+so every line break
+appears in the output
+without needing the + symbol.
+
+== Lists and Enumerations
+
+=== Unordered Lists
+
+// Basic unordered list
+* First level item
+* Another first level item
+** Second level item
+** Another second level item
+*** Third level item
+*** Another third level item
+**** Fourth level item
+***** Fifth level item (maximum depth)
+* Back to first level
+
+// Alternative markers for unordered lists
+- Dash marker item
+- Another dash item
+
+// Checklist items
+* [*] Completed task (checked)
+* [x] Another completed task
+* [ ] Incomplete task (unchecked)
+* [*] Partially complete task
+
+=== Ordered Lists
+
+// Basic numbered list
+. First numbered item
+. Second numbered item
+.. Sub-item a
+.. Sub-item b
+... Sub-sub-item i
+... Sub-sub-item ii
+.... Fourth level
+..... Fifth level (maximum depth)
+. Third numbered item
+
+// Different numbering styles
+[upperalpha]
+. First item (A)
+. Second item (B)
+. Third item (C)
+
+[lowerroman]
+. First item (i)
+. Second item (ii)
+. Third item (iii)
+
+// Starting with specific number
+[start=5]
+. Fifth item
+. Sixth item
+. Seventh item
+
+=== Description Lists
+
+// Horizontal description list
+First term:: Definition of the first term
+Second term:: Definition of the second term
+A longer term name:: This definition explains the longer term with more detail and spans multiple lines to show how text wraps.
+
+// Q&A style list
+[qanda]
+What is Asciidoc?::
+Asciidoc is a lightweight markup language for writing documentation.
+
+Why use Asciidoc?::
+It provides more features than Markdown while remaining readable in plain text.
+
+// Mixed list styles
+.Complex List Example
+. Numbered item with content
++
+This paragraph belongs to the numbered item above.
++
+* Nested unordered item
+* Another nested unordered item
+
+. Second numbered item
++
+[source,javascript]
+----
+// Code block within a list item
+function example() {
+    console.log("Hello from within a list!");
+}
+----
+
+== Links and Cross-References
+
+=== External Links
+
+// Basic external link
+Visit https://asciidoc.org for more information.
+
+// Link with custom text
+Check out the link:https://asciidoc.org[official Asciidoc website] for documentation.
+
+// Link with attributes
+link:https://github.com/example/repo[GitHub Repository^,role=external]
+
+// Email links
+Contact mailto:support@example.com[our support team] for help.
+
+// Link using attribute reference
+Visit the {github-url}[project repository] on GitHub.
+
+=== Internal Cross-References
+
+// Section references
+See <<Document Structure and Headers>> for information about headings.
+
+// Custom anchor reference
+Refer to <<custom-anchor,Custom Section>> below.
+
+// Reference with custom text
+Check out <<Lists and Enumerations,the lists section>> for examples.
+
+// Custom anchor point
+[[custom-anchor]]
+=== Custom Section Title
+
+This section can be referenced using the custom anchor defined above.
+
+// Inline anchor
+This paragraph has an [[inline-anchor]]inline anchor that can be referenced.
+
+=== Bibliography and Footnotes
+
+// Footnote reference
+This statement needs a citation.footnote:[Smith, John. "Asciidoc Guide." Documentation Press, 2023.]
+
+// Footnote with ID for reuse
+This is another citation.footnote:citation1[Johnson, Jane. "Markup Languages." Tech Publications, 2023.]
+
+// Reference the same footnote again
+Here's the same citation again.footnote:citation1[]
+
+== Images and Media
+
+=== Basic Images
+
+// Simple image inclusion
+image::images/example.png[]
+
+// Image with alt text and title
+image::images/diagram.png[Network Diagram,title="System Architecture Overview"]
+
+// Image with sizing
+image::images/logo.png[Company Logo,200,100]
+
+// Inline image
+This paragraph contains an inline image:images/icon.png[icon,16,16] within the text.
+
+=== Advanced Image Options
+
+// Image with all attributes
+.System Architecture
+image::images/architecture.png[Architecture Diagram,800,600,align=center,link=https://example.com/full-diagram]
+
+// Image with float
+image::images/sidebar-image.png[Sidebar Image,150,role=right]
+
+This text flows around the floated image on the right side of the page.
+
+=== Video and Audio
+
+// Video embedding
+video::demo-video.mp4[]
+
+// Video with options
+video::tutorial.mp4[width=640,height=480,poster=images/video-poster.png]
+
+// YouTube video
+video::dQw4w9WgXcQ[youtube,width=640,height=480]
+
+// Audio file
+audio::podcast-episode.mp3[]
+
+== Tables
+
+=== Basic Tables
+
+// Simple table
+|===
+|Column 1 |Column 2 |Column 3
+
+|Cell A1
+|Cell B1
+|Cell C1
+
+|Cell A2
+|Cell B2
+|Cell C2
+|===
+
+=== Advanced Tables
+
+// Table with title and formatting
+.Employee Information
+[cols="1,2,1,1",options="header,footer"]
+|===
+|ID |Name |Department |Salary
+
+|001
+|John Smith
+|Engineering
+|$75,000
+
+|002
+|Jane Doe
+|Marketing
+|$65,000
+
+|003
+|Bob Johnson
+|Sales
+|$70,000
+
+|TOTAL
+|3 Employees
+|3 Departments
+|$210,000
+|===
+
+// Table with alignment and styling
+[cols="<,^,>",stripes=even]
+|===
+|Left Aligned |Center Aligned |Right Aligned
+
+|This text is left-aligned
+|This text is centered
+|This text is right-aligned
+
+|More left content
+|More center content
+|More right content
+|===
+
+// Table with merged cells
+[cols="1,1,1"]
+|===
+|Cell 1,1 |Cell 1,2 |Cell 1,3
+
+2+|Merged cells spanning two columns |Cell 2,3
+
+|Cell 3,1 2+|Merged cells spanning two columns
+
+3+|This cell spans all three columns
+|===
+
+// CSV-style table
+[format=csv,options=header]
+|===
+Name,Age,City
+Alice,25,New York
+Bob,30,Los Angeles
+Charlie,35,Chicago
+|===
+
+== Block Elements
+
+=== Source Code Blocks
+
+// Basic source block
+[source]
+----
+// This is a plain code block
+function hello() {
+    console.log("Hello, World!");
+}
+----
+
+// Source block with language highlighting
+[source,javascript]
+----
+// JavaScript example with syntax highlighting
+const greeting = (name) => {
+    return `Hello, ${name}!`;
+};
+
+console.log(greeting("Asciidoc"));
+----
+
+// Source block with title and line numbers
+.Python Example
+[source,python,linenums]
+----
+def fibonacci(n):
+    """Generate Fibonacci sequence up to n terms."""
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+# Generate first 10 Fibonacci numbers
+fib_sequence = list(fibonacci(10))
+print(fib_sequence)
+----
+
+// Callout annotations in source blocks
+[source,java]
+----
+public class HelloWorld {
+    public static void main(String[] args) { // <1>
+        System.out.println("Hello, World!"); // <2>
+    } // <3>
+}
+----
+<1> Main method declaration
+<2> Print statement
+<3> End of main method
+
+=== Quote Blocks
+
+// Basic quote
+____
+This is a quote block. It's typically used for longer quotations or to highlight important text passages.
+____
+
+// Quote with attribution
+[quote,Albert Einstein]
+____
+Imagination is more important than knowledge. For knowledge is limited, whereas imagination embraces the entire world, stimulating progress, giving birth to evolution.
+____
+
+// Quote with citation
+[quote,Steve Jobs,Stanford Commencement Address 2005]
+____
+Stay hungry. Stay foolish.
+____
+
+=== Example Blocks
+
+// Basic example
+====
+This is an example block. It's used to showcase examples or demonstrate concepts in a visually distinct way.
+
+It can contain multiple paragraphs and other block elements.
+====
+
+// Example with title
+.Configuration Example
+====
+Here's how you might configure your application:
+
+[source,yaml]
+----
+server:
+  port: 8080
+  host: localhost
+database:
+  url: jdbc:postgresql://localhost/mydb
+  username: admin
+----
+====
+
+=== Sidebar Blocks
+
+// Basic sidebar
+****
+This is a sidebar block. It contains supplementary information that's related to the main content but not essential to the primary flow.
+
+Sidebars are great for:
+
+* Additional tips
+* Historical context
+* Related information
+* Warnings or notes
+****
+
+// Sidebar with title
+.Pro Tip
+****
+Use sidebars sparingly to avoid cluttering your document. They work best for truly supplementary information.
+****
+
+=== Literal Blocks
+
+// Literal block preserves formatting exactly
+....
+This is a literal block.
+    All spacing and line breaks
+        are preserved exactly as typed.
+No processing of markup occurs here.
+....
+
+// Listing block (alternative to literal)
+----
+This is a listing block.
+It also preserves formatting
+    but is typically used for code
+    when you don't want syntax highlighting.
+----
+
+=== Passthrough Blocks
+
+// Passthrough block (content goes directly to output)
+++++
+<div class="custom-html">
+    <p>This HTML will be passed through directly to the output.</p>
+    <script>console.log("JavaScript in passthrough block");</script>
+</div>
+++++
+
+=== Open Blocks
+
+// Open blocks can contain any content and apply styles
+--
+This is an open block. It's a generic container that can hold any type of content and can be styled with roles.
+
+You can put anything here:
+
+* Lists
+* Code blocks
+* Other nested blocks
+
+It's very flexible!
+--
+
+// Open block with role for styling
+[.lead]
+--
+This open block has the "lead" role applied, which might make it appear as a lead paragraph or introduction in your theme.
+--
+
+== Admonitions
+
+// The five standard admonition types
+
+[NOTE]
+====
+This is a NOTE admonition. Use it for general information that might be helpful but isn't critical.
+
+Notes can contain multiple paragraphs and other block elements like lists:
+
+* Point one
+* Point two
+* Point three
+====
+
+[TIP]
+====
+This is a TIP admonition. Use it for helpful suggestions or best practices that can improve the reader's experience.
+====
+
+[IMPORTANT]
+====
+This is an IMPORTANT admonition. Use it for information that the reader must understand to proceed successfully.
+====
+
+[WARNING]
+====
+This is a WARNING admonition. Use it to alert readers about potential problems or issues they should be aware of.
+====
+
+[CAUTION]
+====
+This is a CAUTION admonition. Use it for information about actions that could cause damage or have serious consequences.
+====
+
+// Custom admonition titles
+[NOTE]
+.Custom Note Title
+====
+You can customize the title of any admonition block by adding a title line after the admonition type.
+====
+
+// Inline admonitions
+NOTE: This is an inline note that appears within the text flow.
+
+TIP: Inline admonitions are more subtle than block admonitions.
+
+== Includes and Conditionals
+
+=== File Includes
+
+// Include another Asciidoc file
+// include::shared/common-content.adoc[]
+
+// Include with line ranges
+// include::examples/full-example.adoc[lines=1..10]
+
+// Include with tags
+// include::source/example.java[tag=main-method]
+
+// Include with indent
+// [indent=2]
+// include::config/example.yaml[]
+
+=== Conditional Content
+
+// Conditional based on attribute
+ifdef::draft[]
+This content only appears when the 'draft' attribute is set.
+endif::[]
+
+ifndef::production[]
+This development note won't appear in production builds.
+endif::[]
+
+// Multiple condition evaluation
+ifdef::backend-html5,backend-pdf[]
+This appears for HTML5 and PDF backends only.
+endif::[]
+
+ifeval::[{version} >= 2.0]
+This content requires version 2.0 or higher.
+endif::[]
+
+== Attributes and Variables
+
+=== Document Attributes
+
+// Attribute definition (done at document header)
+// :custom-attr: Custom Value
+// :version: 2.1
+// :api-url: https://api.example.com
+
+// Using attributes in text
+This document was created on {docdate} by {author}.
+
+The current version is {version-label} {revnumber}.
+
+// Conditional attributes
+:experimental:
+Press kbd:[Ctrl+C] to copy.
+Click the btn:[Save] button.
+Select menu:File[Save As] from the menu.
+
+// Attribute with default value
+The API endpoint is {api-url}[{api-url}].
+
+=== Built-in Attributes
+
+// Document information attributes
+Author: {author} +
+Email: {email} +
+Document date: {docdate} +
+Document time: {doctime} +
+Local date: {localdate} +
+Local time: {localtime}
+
+// System attributes
+Backend: {backend} +
+Backend version: {backend-version} +
+Safe mode: {safe-mode-level} +
+Asciidoctor version: {asciidoctor-version}
+
+=== Counter Attributes
+
+// Counter examples
+This is example {counter:example-num}. +
+This is example {counter:example-num}. +
+This is example {counter:example-num}.
+
+// Named counter with prefix/suffix
+Figure {counter2:figure-num:1}: Example diagram +
+Figure {counter2:figure-num}: Another diagram +
+Figure {counter2:figure-num}: Third diagram
+
+== Advanced Features
+
+=== Roles and Styling
+
+// Text with roles
+[.big]#Large text# and [.small]#small text#.
+
+[.red]#Red text# and [.blue]#blue text#.
+
+// Block with role
+[.center]
+This paragraph is centered.
+
+// Multiple roles
+[.lead.text-center]
+This paragraph has both lead and text-center roles applied.
+
+=== Macros and Extensions
+
+// Keyboard shortcuts
+Press kbd:[Ctrl+Alt+Delete] to restart.
+
+// Button references  
+Click the btn:[OK] button to continue.
+
+// Menu references
+Go to menu:File[New > Document] to create a new file.
+
+// Icons (requires :icons: font attribute)
+icon:heart[size=2x,role=red] Love Asciidoc!
+
+icon:github[] Check out the source code.
+
+=== Mathematical Expressions
+
+// Inline math (requires MathJax or similar)
+The formula is stem:[E = mc^2].
+
+// Block math
+[stem]
+++++
+sqrt(4) = 2
+++++
+
+// LaTeX-style math block
+latexmath:[x = {-b \pm \sqrt{b^2-4ac} \over 2a}]
+
+=== Comments
+
+// This is a single-line comment and won't appear in the output
+
+////
+This is a multi-line comment block.
+Nothing in this block will appear
+in the rendered output.
+
+You can use this for:
+- Draft content
+- Notes to yourself
+- Temporarily hiding content
+////
+
+== Conclusion
+
+This document demonstrates the comprehensive syntax capabilities of Asciidoc. Each element shown here uses actual Asciidoc markup to produce the formatted output, making this document both a reference and a practical example.
+
+// Appendix
+[appendix]
+== Additional Resources
+
+=== Useful Links
+
+* link:https://asciidoc.org[Official Asciidoc Website]
+* link:https://asciidoctor.org[Asciidoctor Processor]
+* link:https://docs.asciidoctor.org/asciidoc/latest/[Asciidoc Language Documentation]
+
+=== Quick Reference
+
+.Common Syntax Summary
+[cols="2,3,3"]
+|===
+|Element |Syntax |Result
+
+|Bold text
+|`*bold*`
+|*bold*
+
+|Italic text
+|`_italic_`  
+|_italic_
+
+|Monospace
+|`\`monospace\``
+|`monospace`
+
+|Unordered list
+|`* item`
+|• item
+
+|Ordered list
+|`. item`
+|1. item
+
+|Link
+|`\https://example.com[text]`
+|https://example.com[text]
+
+|Image
+|`image::path.png[]`
+|(image)
+
+|Code block
+|`[source,lang] \n----\ncode\n----`
+|(code block)
+|===
+
+// Document end - attributes and metadata can be referenced here
+---
+Document generated on {localdate} at {localtime} +
+Total sections: Multiple +
+Format: {backend} +
+Safe mode: {safe-mode-level}
