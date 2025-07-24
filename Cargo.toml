@@ -1,7 +1,7 @@
 [package]
 name = "tree-sitter-asciidoc"
 description = "This is the Zed Compatiable Tree sitter parser for Asciidoc"
-version = "1.0.0"
+version = "0.1.0"
 authors = ["Shelton Louis <louisshelton0@gmail.com>"]
 license = "MIT"
 readme = "README.md"

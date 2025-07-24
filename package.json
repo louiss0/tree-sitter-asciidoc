@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-asciidoc",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "This is the Zed Compatiable Tree sitter parser for Asciidoc",
   "repository": "https://github.com/louiss0/tree-sitter-asciidoc",
   "license": "MIT",
