@@ -9,3 +9,184 @@ Basic document structure
 (source_file
   (document_title)
 )
+
+
+====
+Document Attribute Declaration: Generic
+====
+:attribute-name: value
+----
+(source_file
+(document_attribute)
+)
+
+====
+Document Attribute Declaration: Boolean
+====
+:boolean-attribute: true
+----
+(source_file
+(document_attribute)
+)
+
+====
+Document Attribute Declaration: Integer
+
+====
+:integer-attribute: 123
+----
+(source_file
+(document_attribute)
+)
+
+====
+Document Attribute Declaration: Float
+====
+:float-attribute: 123.45
+----
+
+(source_file
+(document_attribute)
+)
+
+====
+Document Attribute Declaration: Dash Case
+====
+:attribute-name: dash-case
+----
+(source_file
+(document_attribute)
+)
+
+====
+Document Attribute Declaration: Snake Case
+====
+:attribute-name: snake_case
+----
+(source_file
+(document_attribute)
+)
+
+
+====
+Document Author Line: Single Author
+====
+
+Ben Berenstein
+----
+
+(source_file
+(document_author_line)
+)
+
+====
+Document Author Line: Multiple Authors
+====
+
+Alice Wonderland; Bob The Builder; Charlie Chaplin
+----
+
+(source_file
+(document_author_line)
+)
+
+====
+Document Author Line: Author with Email
+====
+
+Mark Bradio <markbradio@tmail.com>
+----
+
+(source_file
+(document_author_line)
+)
+
+
+====
+Document Revision Line
+====
+v2.0, 2024-03-20
+----
+(source_file
+(document_revision_line)
+)
+
+
+====
+Document Revision Line: Specific Version and Date Format
+====
+3.1, Jan 1, 2023
+
+----
+
+(source_file
+(document_revision_line)
+)
+
+====
+Document Revision Line: Version with Initial Textual Description
+====
+1.0: Initial version
+
+----
+
+(source_file
+(document_revision_line)
+)
+
+====
+Document Revision Line: Version with Major Rewrite Description
+====
+v2.0: Major rewrite
+
+----
+
+(source_file
+(document_revision_line)
+)
+
+====
+Document Revision Line: Version with Minor Fix Description
+====
+3.1: Minor fix
+
+----
+
+(source_file
+(document_revision_line)
+)
+
+====
+Document Revision Line: Version, ISO Date, and First Release Text
+====
+1.0, 2023-01-15: First release
+
+----
+
+(source_file
+(document_revision_line)
+)
+
+====
+Document Revision Line: Version, ISO Date, and New Features Text
+====
+
+v2.0, 2024-03-20: New features added
+
+----
+
+(source_file
+(document_revision_line)
+)
+
+====
+
+Document Revision Line: Version, Month Day, Year Date, and Bug Fixes Text
+====
+3.1, Feb 2, 2023: Bug fixes
+
+----
+
+(source_file
+(document_revision_line)
+)

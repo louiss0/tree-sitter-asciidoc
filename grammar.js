@@ -9,28 +9,61 @@
 
 const UNLIMITED_SPACE = /\s+/;
 const NEWLINE = /\n/;
-const HEADING_MARKER = /[\=#]/;
+const HEADING_MARKER = /=|#/;
 const BLOCK_DELIMITER = /(?:={4,}|-{4,}|\.{4,}|\*{4,}|\+{4,}|_{4,})/;
 const INLINE_FORMATTING_MARKER = /(?:\*|_|`|#|\+)/;
 const LINE_COMMENT_PREFIX = /\/\//;
 const ATTRIBUTE_LIST_START = /\[/;
 const ATTRIBUTE_LIST_END = /\]/;
 const DOC_ATTRIBUTE_DECLARATION_START = /:[a-zA-Z0-9_\-]+:/;
+const NAME = /[A-Z][a-z\.]+/;
+const EMAIL_ADDRESS = /[\w\s\.,]+@[\w\s\.,]+/;
 
 module.exports = grammar({
   name: "asciidoc",
 
   rules: {
     // TODO: add the actual grammar rules
-    source_file: ($) => choice($.document_title),
-    document_title: ($) =>
+    source_file: ($) =>
       seq(
-        field("marker", token(HEADING_MARKER)),
-        UNLIMITED_SPACE,
         choice(
-          field("title", /[\w\s]+/),
-          seq(field("title", /[\w\s]+:/), field("subtitle", /[\w\s]+/)),
+          $.document_author_line,
+          $.document_revision_line,
+          $.document_attribute,
+          $.document_title,
         ),
       ),
+    _semi_colon: () => token(";"),
+    document_title: ($) =>
+      seq(field("marker", HEADING_MARKER), field("title", seq(repeat1(/\w+/)))),
+
+    document_author_line: ($) =>
+      seq(
+        field(
+          "authors",
+          seq(repeat(seq(repeat1(NAME), $._semi_colon)), repeat1(NAME)),
+        ),
+        optional(field("email", seq("<", EMAIL_ADDRESS, ">"))),
+      ),
+
+    document_revision_line: ($) => {
+      const messageFieldRule = field("message", repeat(/\S+/));
+      const dateFieldRule = field("date", /[\w+\s\-,]+/);
+      const versionFieldRule = field("version", /v?\d+\.\d+/);
+      const colon = token(":");
+      const comma = token(",");
+      return choice(
+        seq(
+          versionFieldRule,
+          comma,
+          dateFieldRule,
+          optional(seq(colon, messageFieldRule)),
+        ),
+        seq(versionFieldRule, colon, messageFieldRule),
+        versionFieldRule,
+      );
+    },
+    document_attribute: ($) =>
+      seq(field("name", /:[a-zA-Z0-9_\-]+:/), field("value", /[^\\]+/)),
   },
 });
