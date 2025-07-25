@@ -1,5 +1,45 @@
 [
   {
+    "type": "document_attribute",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "document_author_line",
+    "named": true,
+    "fields": {
+      "authors": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          }
+        ]
+      },
+      "email": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "document_revision_line",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "document_title",
     "named": true,
     "fields": {}
@@ -14,10 +54,42 @@
       "required": true,
       "types": [
         {
+          "type": "document_attribute",
+          "named": true
+        },
+        {
+          "type": "document_author_line",
+          "named": true
+        },
+        {
+          "type": "document_revision_line",
+          "named": true
+        },
+        {
           "type": "document_title",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": ";",
+    "named": false
+  },
+  {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
   }
 ]
