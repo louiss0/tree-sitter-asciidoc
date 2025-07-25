@@ -1,12 +1,23 @@
 [
   {
-    "type": "source_file",
+    "type": "document_title",
     "named": true,
-    "root": true,
     "fields": {}
   },
   {
-    "type": "hello",
-    "named": false
+    "type": "source_file",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "document_title",
+          "named": true
+        }
+      ]
+    }
   }
 ]

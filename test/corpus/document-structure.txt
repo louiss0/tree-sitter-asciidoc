@@ -1,0 +1,11 @@
+====
+Basic document structure
+====
+
+= Main Title
+
+----
+
+(source_file
+  (document_title)
+)

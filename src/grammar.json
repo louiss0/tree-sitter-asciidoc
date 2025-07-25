@@ -3,8 +3,62 @@
   "name": "asciidoc",
   "rules": {
     "source_file": {
-      "type": "STRING",
-      "value": "hello"
+      "type": "REPEAT",
+      "content": {
+        "type": "SYMBOL",
+        "name": "document_title"
+      }
+    },
+    "document_title": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "marker",
+          "content": {
+            "type": "PATTERN",
+            "value": "[\\=#]"
+          }
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\s+"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "title",
+              "content": {
+                "type": "PATTERN",
+                "value": "[\\w\\s]+"
+              }
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "title",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[\\w\\s]+:"
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "subtitle",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[\\w\\s]+"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   },
   "extras": [

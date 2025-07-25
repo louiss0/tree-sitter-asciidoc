@@ -1,0 +1,388 @@
+= TODO
+
+== Bugs
+
+== Refactors
+
+[WARNING]
+.GrammarOverhaul
+====
+
+File: grammar.js
+Function: Complete grammar implementation - Currently only has placeholder "hello" rule
+Description:
+• Replace placeholder with complete Asciidoc grammar
+• Implement proper lexical analysis
+• Add error recovery mechanisms
+• Optimize for performance with large documents
+====
+
+== Features
+
+[IMPORTANT]
+.DocumentStructure
+====
+
+File: grammar.js
+Block: Document-level parsing rules
+Description:
+• Document title parsing (`= Title`)
+• Document attributes (`:attr: value`)
+• Document metadata (author, revision, date)
+• Preamble content before first section
+====
+
+[IMPORTANT]
+.SectionHeadings
+====
+
+File: grammar.js
+Block: Section hierarchy parsing
+Description:
+• Level 1-6 headings (`==` to `======`)
+• Discrete headings (`[discrete]`)
+• Section titles with formatting
+• Automatic section numbering support
+• Section anchors and cross-references
+====
+
+[IMPORTANT]
+.TextFormatting
+====
+
+File: grammar.js
+Block: Inline text formatting rules
+Description:
+• Bold text (`*bold*`)
+• Italic text (`_italic_`)
+• Monospace text (`` `mono` ``)
+• Combined formatting (`*_bold italic_*`)
+• Superscript (`^super^`)
+• Subscript (`~sub~`)
+• Highlighted text (`#highlight#`)
+• Underlined text (`[.underline]#text#`)
+• Smart quotes and apostrophes
+• Line breaks (`+`)
+• Hard line breaks (`[%hardbreaks]`)
+• Escape sequences (`\*`, `\_`, etc.)
+====
+
+[IMPORTANT]
+.Lists
+====
+
+File: grammar.js
+Block: List parsing implementation
+Description:
+• Unordered lists (`*`, `-` markers)
+• Nested unordered lists (up to 5 levels)
+• Ordered lists (`.` marker)
+• Nested ordered lists (up to 5 levels)
+• Different numbering styles (`[upperalpha]`, `[lowerroman]`)
+• Custom start numbers (`[start=5]`)
+• Description lists (`term:: definition`)
+• Q&A lists (`[qanda]`)
+• Checklist items (`* [x]`, `* [ ]`, `* [*]`)
+• Complex nested list structures
+• List continuation (`+`)
+====
+
+[IMPORTANT]
+.LinksAndReferences
+====
+
+File: grammar.js
+Block: Link and cross-reference parsing
+Description:
+• Auto-detected URLs (`https://example.com`)
+• Link macro (`link:url[text]`)
+• Link attributes (`^`, `role=external`)
+• Email links (`mailto:user@domain.com[text]`)
+• Internal cross-references (`<<section-id>>`)
+• Custom anchors (`[[anchor-id]]`)
+• Inline anchors
+• Attribute-based links (`{url}[text]`)
+====
+
+[IMPORTANT]
+.ImagesAndMedia
+====
+
+File: grammar.js
+Block: Media embedding parsing
+Description:
+• Basic image inclusion (`image::path.png[]`)
+• Image with attributes (alt text, title, dimensions)
+• Inline images (`image:icon.png[16,16]`)
+• Image positioning and styling
+• Video embedding (`video::file.mp4[]`)
+• YouTube video embedding
+• Audio file embedding (`audio::file.mp3[]`)
+• Media attribute parsing
+====
+
+[IMPORTANT]
+.Tables
+====
+
+File: grammar.js
+Block: Table structure parsing
+Description:
+• Basic table syntax (`|===`)
+• Table cells and rows
+• Table headers and footers
+• Column specifications (`[cols="1,2,3"]`)
+• Cell alignment (`<`, `^`, `>`)
+• Cell spanning (`2+|`, `3+|`)
+• Table formatting options
+• CSV-style tables (`[format=csv]`)
+• Table titles and captions
+====
+
+[IMPORTANT]
+.BlockElements
+====
+
+File: grammar.js
+Block: Block-level element parsing
+Description:
+• Source code blocks (`[source,lang]` + `----`)
+• Listing blocks (`----`)
+• Literal blocks (`....`)
+• Quote blocks (`____`)
+• Example blocks (`====`)
+• Sidebar blocks (`****`)
+• Passthrough blocks (`++++`)
+• Open blocks (`--`)
+• Block titles (`.Title`)
+• Block attributes and options
+• Nested block structures
+====
+
+[IMPORTANT]
+.Admonitions
+====
+
+File: grammar.js
+Block: Admonition block parsing
+Description:
+• Standard admonition types (NOTE, TIP, IMPORTANT, WARNING, CAUTION)
+• Block admonitions (`[NOTE]` + `====`)
+• Inline admonitions (`NOTE: text`)
+• Custom admonition titles
+• Admonition content parsing
+• Nested elements within admonitions
+====
+
+[IMPORTANT]
+.Attributes
+====
+
+File: grammar.js
+Block: Attribute system implementation
+Description:
+• Document attribute definitions (`:attr: value`)
+• Attribute references (`{attr}`)
+• Built-in attributes parsing
+• Counter attributes (`{counter:name}`)
+• Conditional attributes
+• Attribute substitution
+• Default value handling
+====
+
+[IMPORTANT]
+.ConditionalContent
+====
+
+File: grammar.js
+Block: Conditional processing rules
+Description:
+• `ifdef` conditions
+• `ifndef` conditions
+• `ifeval` conditions
+• Multiple condition evaluation
+• `endif` closing tags
+• Nested conditionals
+• Backend-specific content
+====
+
+[IMPORTANT]
+.IncludeDirectives
+====
+
+File: grammar.js
+Block: File inclusion parsing
+Description:
+• Basic include (`include::file.adoc[]`)
+• Include with line ranges (`[lines=1..10]`)
+• Include with tags (`[tag=section]`)
+• Include with indentation
+• Recursive include handling
+• Include attribute parsing
+====
+
+[IMPORTANT]
+.MacrosAndExtensions
+====
+
+File: grammar.js
+Block: Macro system implementation
+Description:
+• Keyboard macro (`kbd:[Ctrl+C]`)
+• Button macro (`btn:[OK]`)
+• Menu macro (`menu:File[Save As]`)
+• Icon macro (`icon:heart[]`)
+• Footnote macro (`footnote:[text]`)
+• Mathematical expressions (`stem:[formula]`)
+• LaTeX math (`latexmath:[formula]`)
+• Custom macro extensibility
+====
+
+[IMPORTANT]
+.RolesAndStyling
+====
+
+File: grammar.js
+Block: CSS role and styling support
+Description:
+• Inline roles (`[.role]#text#`)
+• Block roles (`[.role]`)
+• Multiple roles (`[.role1.role2]`)
+• Built-in role recognition
+• Role attribute parsing
+====
+
+[IMPORTANT]
+.Comments
+====
+
+File: grammar.js
+Block: Comment parsing implementation
+Description:
+• Single-line comments (`//`)
+• Multi-line comment blocks (`////`)
+• Comment content preservation
+• Comment nesting rules
+====
+
+[IMPORTANT]
+.TestSuite
+====
+
+File: test/corpus/
+Directory: Comprehensive test coverage
+Description:
+• Unit tests for each syntax element
+• Integration tests for complex documents
+• Edge case testing
+• Performance benchmarks
+• Regression test suite
+• Cross-platform compatibility tests
+====
+
+[IMPORTANT]
+.LanguageBindings
+====
+
+File: bindings/
+Directory: Language binding implementation
+Description:
+• Node.js binding completion
+• Rust binding implementation
+• Python binding setup
+• Go binding configuration
+• Swift binding for macOS/iOS
+• C binding for maximum compatibility
+====
+
+[IMPORTANT]
+.EditorIntegration
+====
+
+File: queries/
+Directory: Editor query files
+Description:
+• Syntax highlighting queries
+• Indentation queries
+• Folding queries
+• Symbol navigation queries
+• Zed editor specific optimizations
+• VS Code extension compatibility
+• Neovim TreeSitter integration
+====
+
+[IMPORTANT]
+.Documentation
+====
+
+File: README.md
+Documentation: Project documentation
+Description:
+• Complete installation instructions
+• Usage examples
+• API documentation
+• Contributing guidelines
+• Grammar specification document
+• Performance characteristics
+• Editor integration guides
+====
+
+[IMPORTANT]
+.BuildSystem
+====
+
+File: Makefile, package.json, Cargo.toml
+Build: Build and distribution setup
+Description:
+• Automated testing pipeline
+• Multi-platform builds
+• Package publishing
+• Continuous integration
+• Performance monitoring
+• Release automation
+====
+
+[IMPORTANT]
+.PerformanceOptimization
+====
+
+File: grammar.js
+Performance: Parser optimization
+Description:
+• Large document handling
+• Memory usage optimization
+• Parse tree size reduction
+• Incremental parsing support
+• Error recovery efficiency
+• Conflict resolution optimization
+====
+
+[IMPORTANT]
+.ErrorHandling
+====
+
+File: grammar.js
+Error: Robust error handling
+Description:
+• Graceful error recovery
+• Meaningful error messages
+• Partial parsing support
+• Syntax error reporting
+• Invalid markup handling
+• Recovery strategies
+====
+
+[IMPORTANT]
+.ComplianceTesting
+====
+
+File: test/compliance/
+Testing: Asciidoc specification compliance
+Description:
+• Official Asciidoc test suite
+• Compatibility with Asciidoctor
+• Cross-implementation testing
+• Specification edge cases
+• Behavioral consistency
+• Standards compliance verification
+====

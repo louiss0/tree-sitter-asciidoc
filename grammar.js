@@ -12,6 +12,16 @@ module.exports = grammar({
 
   rules: {
     // TODO: add the actual grammar rules
-    source_file: $ => "hello"
-  }
+    source_file: ($) => repeat($.document_title),
+    // space: ($) => /\s+/,
+    document_title: ($) =>
+      seq(
+        field("marker", /[\=#]/),
+        /\s+/,
+        choice(
+          field("title", /[\w\s]+/),
+          seq(field("title", /[\w\s]+:/), field("subtitle", /[\w\s]+/)),
+        ),
+      ),
+  },
 });
