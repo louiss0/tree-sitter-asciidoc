@@ -3,11 +3,13 @@
   "name": "asciidoc",
   "rules": {
     "source_file": {
-      "type": "REPEAT",
-      "content": {
-        "type": "SYMBOL",
-        "name": "document_title"
-      }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "document_title"
+        }
+      ]
     },
     "document_title": {
       "type": "SEQ",
@@ -16,8 +18,11 @@
           "type": "FIELD",
           "name": "marker",
           "content": {
-            "type": "PATTERN",
-            "value": "[\\=#]"
+            "type": "TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "[\\=#]"
+            }
           }
         },
         {
