@@ -43,5 +43,38 @@ module.exports = grammar({
           seq(field("title", /[\w\s]+:/), field("subtitle", /[\w\s]+/)),
         ),
       ),
+
+    document_author_line: ($) =>
+      seq(
+        field(
+          "authors",
+          seq(repeat(seq(repeat1(NAME), $._semi_colon)), repeat1(NAME)),
+        ),
+        optional(field("email", seq("<", EMAIL_ADDRESS, ">"))),
+      ),
+
+    document_revision_line: ($) => {
+      const messageFieldRule = field("message", repeat(/\S+/));
+      const dateFieldRule = field("date", /[\w+\s\-,]+/);
+      const versionFieldRule = field("version", /v?\d+\.\d+/);
+      const colon = token(":");
+      const comma = token(",");
+      return choice(
+        seq(
+          versionFieldRule,
+          comma,
+          dateFieldRule,
+          optional(seq(colon, messageFieldRule)),
+        ),
+        seq(versionFieldRule, colon, messageFieldRule),
+        versionFieldRule,
+      );
+    },
+    document_attribute: ($) =>
+      seq(
+        field("name", /:[a-zA-Z0-9_\-]+:/),
+        UNLIMITED_SPACE,
+        field("value", /[^\\]+/),
+      ),
   },
 });
