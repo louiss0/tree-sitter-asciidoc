@@ -9,7 +9,7 @@
 
 const UNLIMITED_SPACE = /\s+/;
 const NEWLINE = /\n/;
-const HEADING_MARKER = /[\=#]/;
+const HEADING_MARKER = /=|#/;
 const BLOCK_DELIMITER = /(?:={4,}|-{4,}|\.{4,}|\*{4,}|\+{4,}|_{4,})/;
 const INLINE_FORMATTING_MARKER = /(?:\*|_|`|#|\+)/;
 const LINE_COMMENT_PREFIX = /\/\//;
@@ -35,14 +35,7 @@ module.exports = grammar({
       ),
     _semi_colon: () => token(";"),
     document_title: ($) =>
-      seq(
-        field("marker", token(HEADING_MARKER)),
-        UNLIMITED_SPACE,
-        choice(
-          field("title", /[\w\s]+/),
-          seq(field("title", /[\w\s]+:/), field("subtitle", /[\w\s]+/)),
-        ),
-      ),
+      seq(field("marker", HEADING_MARKER), field("title", seq(repeat1(/\w+/)))),
 
     document_author_line: ($) =>
       seq(
@@ -71,10 +64,6 @@ module.exports = grammar({
       );
     },
     document_attribute: ($) =>
-      seq(
-        field("name", /:[a-zA-Z0-9_\-]+:/),
-        UNLIMITED_SPACE,
-        field("value", /[^\\]+/),
-      ),
+      seq(field("name", /:[a-zA-Z0-9_\-]+:/), field("value", /[^\\]+/)),
   },
 });

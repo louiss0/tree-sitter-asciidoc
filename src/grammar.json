@@ -42,50 +42,25 @@
           "type": "FIELD",
           "name": "marker",
           "content": {
-            "type": "TOKEN",
-            "content": {
-              "type": "PATTERN",
-              "value": "[\\=#]"
-            }
+            "type": "PATTERN",
+            "value": "=|#"
           }
         },
         {
-          "type": "PATTERN",
-          "value": "\\s+"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "title",
-              "content": {
-                "type": "PATTERN",
-                "value": "[\\w\\s]+"
-              }
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "FIELD",
-                  "name": "title",
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "[\\w\\s]+:"
-                  }
-                },
-                {
-                  "type": "FIELD",
-                  "name": "subtitle",
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "[\\w\\s]+"
-                  }
+          "type": "FIELD",
+          "name": "title",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "REPEAT1",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "\\w+"
                 }
-              ]
-            }
-          ]
+              }
+            ]
+          }
         }
       ]
     },
@@ -271,10 +246,6 @@
             "type": "PATTERN",
             "value": ":[a-zA-Z0-9_\\-]+:"
           }
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\s+"
         },
         {
           "type": "FIELD",
