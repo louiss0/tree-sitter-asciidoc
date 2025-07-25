@@ -16,13 +16,24 @@ const LINE_COMMENT_PREFIX = /\/\//;
 const ATTRIBUTE_LIST_START = /\[/;
 const ATTRIBUTE_LIST_END = /\]/;
 const DOC_ATTRIBUTE_DECLARATION_START = /:[a-zA-Z0-9_\-]+:/;
+const NAME = /[A-Z][a-z\.]+/;
+const EMAIL_ADDRESS = /[\w\s\.,]+@[\w\s\.,]+/;
 
 module.exports = grammar({
   name: "asciidoc",
 
   rules: {
     // TODO: add the actual grammar rules
-    source_file: ($) => choice($.document_title),
+    source_file: ($) =>
+      seq(
+        choice(
+          $.document_author_line,
+          $.document_revision_line,
+          $.document_attribute,
+          $.document_title,
+        ),
+      ),
+    _semi_colon: () => token(";"),
     document_title: ($) =>
       seq(
         field("marker", token(HEADING_MARKER)),
