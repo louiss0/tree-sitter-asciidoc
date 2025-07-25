@@ -4,19 +4,6 @@
 
 == Refactors
 
-[WARNING]
-.GrammarOverhaul
-====
-
-File: grammar.js
-Function: Complete grammar implementation - Currently only has placeholder "hello" rule
-Description:
-• Replace placeholder with complete Asciidoc grammar
-• Implement proper lexical analysis
-• Add error recovery mechanisms
-• Optimize for performance with large documents
-====
-
 == Features
 
 [IMPORTANT]
