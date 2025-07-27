@@ -117,7 +117,7 @@
                   },
                   {
                     "type": "PATTERN",
-                    "value": "[\\w\\s\\.,]+@[\\w\\s\\.,]+"
+                    "value": "[\\w \\.,]+@[\\w \\.,]+"
                   },
                   {
                     "type": "STRING",
@@ -159,7 +159,7 @@
               "name": "date",
               "content": {
                 "type": "PATTERN",
-                "value": "[\\w+\\s\\-,]+"
+                "value": "[ \\w\\-,]+"
               }
             },
             {
@@ -179,11 +179,20 @@
                       "type": "FIELD",
                       "name": "message",
                       "content": {
-                        "type": "REPEAT",
-                        "content": {
-                          "type": "PATTERN",
-                          "value": "\\S+"
-                        }
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "REPEAT1",
+                            "content": {
+                              "type": "PATTERN",
+                              "value": "[ \\-\\w]+"
+                            }
+                          },
+                          {
+                            "type": "PATTERN",
+                            "value": "\\n"
+                          }
+                        ]
                       }
                     }
                   ]
@@ -217,11 +226,20 @@
               "type": "FIELD",
               "name": "message",
               "content": {
-                "type": "REPEAT",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "\\S+"
-                }
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "REPEAT1",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[ \\-\\w]+"
+                    }
+                  },
+                  {
+                    "type": "PATTERN",
+                    "value": "\\n"
+                  }
+                ]
               }
             }
           ]

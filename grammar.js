@@ -7,7 +7,6 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
-const UNLIMITED_SPACE = /\s+/;
 const NEWLINE = /\n/;
 const HEADING_MARKER = /=|#/;
 const BLOCK_DELIMITER = /(?:={4,}|-{4,}|\.{4,}|\*{4,}|\+{4,}|_{4,})/;
@@ -17,7 +16,7 @@ const ATTRIBUTE_LIST_START = /\[/;
 const ATTRIBUTE_LIST_END = /\]/;
 const DOC_ATTRIBUTE_DECLARATION_START = /:[a-zA-Z0-9_\-]+:/;
 const NAME = /[A-Z][a-z\.]+/;
-const EMAIL_ADDRESS = /[\w\s\.,]+@[\w\s\.,]+/;
+const EMAIL_ADDRESS = /[\w \.,]+@[\w \.,]+/;
 
 module.exports = grammar({
   name: "asciidoc",
@@ -47,8 +46,11 @@ module.exports = grammar({
       ),
 
     document_revision_line: ($) => {
-      const messageFieldRule = field("message", repeat(/\S+/));
-      const dateFieldRule = field("date", /[\w+\s\-,]+/);
+      const messageFieldRule = field(
+        "message",
+        seq(repeat1(/[ \-\w]+/), NEWLINE),
+      );
+      const dateFieldRule = field("date", /[ \w\-,]+/);
       const versionFieldRule = field("version", /v?\d+\.\d+/);
       const colon = token(":");
       const comma = token(",");
