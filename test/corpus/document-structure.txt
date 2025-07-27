@@ -179,8 +179,8 @@ v2.0, 2024-03-20: New features added
 (document_revision_line)
 )
 
-====
 
+====
 Document Revision Line: Version, Month Day, Year Date, and Bug Fixes Text
 ====
 3.1, Feb 2, 2023: Bug fixes
