@@ -7,19 +7,6 @@
 == Features
 
 [IMPORTANT]
-.DocumentStructure
-====
-
-File: grammar.js
-Block: Document-level parsing rules
-Description:
-• Document title parsing (`= Title`)
-• Document attributes (`:attr: value`)
-• Document metadata (author, revision, date)
-• Preamble content before first section
-====
-
-[IMPORTANT]
 .SectionHeadings
 ====
 
@@ -36,24 +23,16 @@ Description:
 [IMPORTANT]
 .TextFormatting
 ====
-
 File: grammar.js
 Block: Inline text formatting rules
 Description:
-• Bold text (`*bold*`)
-• Italic text (`_italic_`)
-• Monospace text (`` `mono` ``)
 • Combined formatting (`*_bold italic_*`)
-• Superscript (`^super^`)
-• Subscript (`~sub~`)
-• Highlighted text (`#highlight#`)
 • Underlined text (`[.underline]#text#`)
 • Smart quotes and apostrophes
 • Line breaks (`+`)
 • Hard line breaks (`[%hardbreaks]`)
-• Escape sequences (`\*`, `\_`, etc.)
+• Escape sequences (`\\*`, `\\_`, etc.)
 ====
-
 [IMPORTANT]
 .Lists
 ====
@@ -168,7 +147,6 @@ Description:
 File: grammar.js
 Block: Attribute system implementation
 Description:
-• Document attribute definitions (`:attr: value`)
 • Attribute references (`{attr}`)
 • Built-in attributes parsing
 • Counter attributes (`{counter:name}`)
