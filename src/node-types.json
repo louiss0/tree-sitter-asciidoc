@@ -46,6 +46,45 @@
     }
   },
   {
+    "type": "admonition_content",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "admonition",
+          "named": true
+        },
+        {
+          "type": "cross_reference",
+          "named": true
+        },
+        {
+          "type": "image_block",
+          "named": true
+        },
+        {
+          "type": "listing_block",
+          "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "attribute",
     "named": true,
     "fields": {},
@@ -78,54 +117,135 @@
     "fields": {}
   },
   {
+    "type": "attribute_value",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "block_title",
     "named": true,
     "fields": {}
   },
   {
-    "type": "document_attribute",
+    "type": "bold_text",
     "named": true,
     "fields": {}
   },
   {
-    "type": "document_author_line",
+    "type": "cross_reference",
     "named": true,
-    "fields": {
-      "authors": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": ";",
-            "named": false
-          }
-        ]
-      },
-      "email": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "<",
-            "named": false
-          },
-          {
-            "type": ">",
-            "named": false
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "reference_id",
+          "named": true
+        }
+      ]
     }
   },
   {
-    "type": "document_revision_line",
+    "type": "image_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "image_alt",
+          "named": true
+        },
+        {
+          "type": "image_path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "list_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "text_formatting",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "listing_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_title",
+          "named": true
+        },
+        {
+          "type": "delimiter",
+          "named": true
+        },
+        {
+          "type": "listing_content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "listing_content",
     "named": true,
     "fields": {}
   },
   {
-    "type": "document_title",
+    "type": "monospace_text",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "ordered_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_title",
+          "named": true
+        },
+        {
+          "type": "list_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "paragraph",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "text_formatting",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "role_name",
@@ -150,23 +270,69 @@
           "named": true
         },
         {
-          "type": "document_attribute",
+          "type": "cross_reference",
           "named": true
         },
         {
-          "type": "document_author_line",
+          "type": "image_block",
           "named": true
         },
         {
-          "type": "document_revision_line",
+          "type": "listing_block",
           "named": true
         },
         {
-          "type": "document_title",
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "text_formatting",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "bold_text",
+          "named": true
+        },
+        {
+          "type": "monospace_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "unordered_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "list_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "*",
+    "named": false
   },
   {
     "type": ",",
@@ -181,11 +347,7 @@
     "named": false
   },
   {
-    "type": ";",
-    "named": false
-  },
-  {
-    "type": "<",
+    "type": "<<",
     "named": false
   },
   {
@@ -193,7 +355,7 @@
     "named": false
   },
   {
-    "type": ">",
+    "type": ">>",
     "named": false
   },
   {
@@ -205,19 +367,31 @@
     "named": false
   },
   {
-    "type": "admonition_content",
-    "named": true
+    "type": "`",
+    "named": false
   },
   {
     "type": "admonition_type",
     "named": true
   },
   {
-    "type": "attribute_value",
+    "type": "delimiter",
     "named": true
   },
   {
-    "type": "delimiter",
+    "type": "image::",
+    "named": false
+  },
+  {
+    "type": "image_alt",
+    "named": true
+  },
+  {
+    "type": "image_path",
+    "named": true
+  },
+  {
+    "type": "reference_id",
     "named": true
   }
 ]
