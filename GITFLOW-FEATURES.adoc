@@ -1,0 +1,190 @@
+= Git Flow Feature Branches for Tree-sitter Asciidoc
+:toc: left
+:toclevels: 2
+:icons: font
+
+== Overview
+
+This document tracks all Git Flow feature branches created for implementing Asciidoc syntax support in the tree-sitter parser. Each branch follows the naming convention `feature/{feature-name}` and is created from the `develop` branch.
+
+== Feature Branches
+
+=== Parser Grammar Features
+
+[cols="2,1,4", options="header"]
+|===
+| Feature Branch | Status | Description
+
+| `feature/section-headings`
+| [ ] Not Started
+| Level 1-6 headings (`==` to `======`), discrete headings, section titles with formatting, automatic section numbering support, section anchors and cross-references
+
+| `feature/text-formatting`
+| [ ] Not Started
+| Combined formatting (`*_bold italic_*`), underlined text, smart quotes and apostrophes, line breaks (`+`), hard line breaks (`[%hardbreaks]`), escape sequences
+
+| `feature/lists`
+| [ ] Not Started
+| Unordered lists (up to 5 levels), ordered lists with different numbering styles, description lists, Q&A lists, checklist items, complex nested structures, list continuation
+
+| `feature/links-and-references`
+| [ ] Not Started
+| Auto-detected URLs, link macro, link attributes, email links, internal cross-references, custom anchors, inline anchors, attribute-based links
+
+| `feature/images-and-media`
+| [ ] Not Started
+| Basic image inclusion, image attributes, inline images, image positioning and styling, video embedding, YouTube video support, audio file embedding
+
+| `feature/tables`
+| [ ] Not Started
+| Basic table syntax (`\|===`), table cells and rows, headers and footers, column specifications, cell alignment, cell spanning, CSV-style tables, table titles and captions
+
+| `feature/block-elements`
+| [ ] Not Started
+| Source code blocks, listing blocks, literal blocks, quote blocks, example blocks, sidebar blocks, passthrough blocks, open blocks, block titles and attributes, nested structures
+
+| `feature/admonitions`
+| [ ] Not Started
+| Standard admonition types (NOTE, TIP, IMPORTANT, WARNING, CAUTION), block admonitions, inline admonitions, custom admonition titles, nested elements within admonitions
+
+| `feature/attributes`
+| [ ] Not Started
+| Attribute references (`{attr}`), built-in attributes parsing, counter attributes, conditional attributes, attribute substitution, default value handling
+
+| `feature/conditional-content`
+| [ ] Not Started
+| `ifdef` conditions, `ifndef` conditions, `ifeval` conditions, multiple condition evaluation, `endif` closing tags, nested conditionals, backend-specific content
+
+| `feature/include-directives`
+| [ ] Not Started
+| Basic include (`include::file.adoc[]`), include with line ranges, include with tags, include with indentation, recursive include handling, include attribute parsing
+
+| `feature/macros-and-extensions`
+| [ ] Not Started
+| Keyboard macro (`kbd:[Ctrl+C]`), button macro, menu macro, icon macro, footnote macro, mathematical expressions (`stem:[]`), LaTeX math, custom macro extensibility
+
+| `feature/roles-and-styling`
+| [ ] Not Started
+| Inline roles (`[.role]#text#`), block roles, multiple roles, built-in role recognition, role attribute parsing
+
+| `feature/comments`
+| [ ] Not Started
+| Single-line comments (`//`), multi-line comment blocks (`////`), comment content preservation, comment nesting rules
+|===
+
+=== Infrastructure Features
+
+[cols="2,1,4", options="header"]
+|===
+| Feature Branch | Status | Description
+
+| `feature/test-suite`
+| [ ] Not Started
+| Unit tests for each syntax element, integration tests for complex documents, edge case testing, performance benchmarks, regression test suite, cross-platform compatibility tests
+
+| `feature/language-bindings`
+| [ ] Not Started
+| Node.js binding completion, Rust binding implementation, Python binding setup, Go binding configuration, Swift binding for macOS/iOS, C binding for maximum compatibility
+
+| `feature/editor-integration`
+| [ ] Not Started
+| Syntax highlighting queries, indentation queries, folding queries, symbol navigation queries, Zed editor specific optimizations, VS Code extension compatibility, Neovim TreeSitter integration
+
+| `feature/documentation`
+| [ ] Not Started
+| Complete installation instructions, usage examples, API documentation, contributing guidelines, grammar specification document, performance characteristics, editor integration guides
+
+| `feature/build-system`
+| [ ] Not Started
+| Automated testing pipeline, multi-platform builds, package publishing, continuous integration, performance monitoring, release automation
+
+| `feature/performance-optimization`
+| [ ] Not Started
+| Large document handling, memory usage optimization, parse tree size reduction, incremental parsing support, error recovery efficiency, conflict resolution optimization
+
+| `feature/error-handling`
+| [ ] Not Started
+| Graceful error recovery, meaningful error messages, partial parsing support, syntax error reporting, invalid markup handling, recovery strategies
+
+| `feature/compliance-testing`
+| [ ] Not Started
+| Official Asciidoc test suite, compatibility with Asciidoctor, cross-implementation testing, specification edge cases, behavioral consistency, standards compliance verification
+|===
+
+== Git Flow Process
+
+=== Working with Feature Branches
+
+. **Starting work on a feature:**
++
+[source,bash]
+----
+git checkout feature/{feature-name}
+----
+
+. **Making changes:**
+  - Implement the feature
+  - Write tests
+  - Update documentation
+
+. **Committing changes:** Follow Angular Conventional Commits standard
++
+[source,bash]
+----
+git add <files>
+git commit -m "feat(parser): implement section heading parsing
+
+- Add grammar rules for level 1-6 headings
+- Support discrete headings with [discrete] attribute
+- Parse section titles with inline formatting
+- Handle automatic section numbering
+- Implement section anchor generation"
+----
+
+. **Merging back to develop:**
++
+[source,bash]
+----
+git checkout develop
+git merge --no-ff feature/{feature-name}
+----
+
+. **Deleting the feature branch:**
++
+[source,bash]
+----
+git branch -d feature/{feature-name}
+----
+
+=== Commit Message Guidelines
+
+Following Angular Conventional Commits standard:
+
+* **feat**: A new feature
+* **fix**: A bug fix
+* **docs**: Documentation only changes
+* **style**: Changes that do not affect the meaning of the code
+* **refactor**: A code change that neither fixes a bug nor adds a feature
+* **perf**: A code change that improves performance
+* **test**: Adding missing tests or correcting existing tests
+* **build**: Changes that affect the build system or external dependencies
+* **ci**: Changes to CI configuration files and scripts
+* **chore**: Other changes that don't modify src or test files
+
+Format: `<type>(<scope>): <subject>`
+
+Example scopes for this project:
+* `parser`: Grammar and parsing logic
+* `bindings`: Language bindings
+* `queries`: Editor query files
+* `tests`: Test suite
+* `docs`: Documentation
+* `build`: Build system
+
+== Notes
+
+* All feature branches are created from `develop` branch
+* Each feature should be developed independently
+* Merge conflicts should be resolved by rebasing feature branches on latest `develop`
+* Feature branches should be short-lived and merged back as soon as the feature is complete
+* Use `--no-ff` flag when merging to preserve feature branch history
