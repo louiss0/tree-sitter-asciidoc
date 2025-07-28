@@ -73,6 +73,7 @@ Document Author Line: Single Author
 ====
 
 Ben Berenstein
+
 ----
 
 (source_file
@@ -95,6 +96,7 @@ Document Author Line: Author with Email
 ====
 
 Mark Bradio <markbradio@tmail.com>
+
 ----
 
 (source_file
