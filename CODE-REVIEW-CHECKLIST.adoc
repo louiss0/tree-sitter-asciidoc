@@ -1,0 +1,142 @@
+= Code Review Checklist for feature/text-formatting
+:toc:
+:toc-placement: left
+:sectnums:
+
+== Overview
+
+This document provides a comprehensive code review checklist for the `feature/text-formatting` branch of the tree-sitter-asciidoc parser.
+
+== Automated Review Status
+
+=== Test Results
+[%autowidth]
+|===
+| Test Type | Status | Details
+
+| Tree Sitter Tests
+| ✅ PASSED
+| All 26 tests passed with 100% success rate
+
+| Parse Performance
+| ⚠️ WARNING
+| Document structure test shows slow parse rate (970.584 bytes/ms)
+
+| Average Speed
+| ✅ GOOD
+| 12872 bytes/ms average speed
+|===
+
+== Tree Sitter Standards Compliance
+
+=== Grammar Structure
+- [ ] Grammar follows Tree Sitter naming conventions
+- [ ] Rules use snake_case naming
+- [ ] Inline rules prefixed with underscore (_)
+- [ ] Token rules use UPPER_CASE
+- [ ] Hidden rules properly marked with underscore prefix
+
+=== Performance Optimization
+- [ ] No excessive backtracking in regex patterns
+- [ ] Efficient use of choice() operator
+- [ ] Minimal use of repeat1() where repeat() suffices
+- [ ] Proper use of precedence to resolve conflicts
+
+=== Node Structure
+- [ ] Meaningful node names for AST
+- [ ] Proper field names for important child nodes
+- [ ] Appropriate use of alias() for cleaner AST
+
+== Asciidoc Standards Compliance
+
+=== Text Formatting Implementation
+- [ ] Bold text (*text*) correctly parsed
+- [ ] Italic text (_text_) correctly parsed
+- [ ] Monospace text (`text`) correctly parsed
+- [ ] Highlighted text (#text#) correctly parsed
+- [ ] Superscript (^text^) correctly parsed
+- [ ] Subscript (~text~) correctly parsed
+
+=== Inline Formatting Rules
+- [ ] Proper handling of nested formatting
+- [ ] Correct boundary detection (word boundaries)
+- [ ] Escaping mechanisms implemented
+- [ ] Unicode support verified
+
+== Code Quality
+
+=== Grammar.js
+- [ ] Clear and readable rule definitions
+- [ ] Proper documentation comments
+- [ ] Consistent indentation and formatting
+- [ ] No commented-out code blocks
+- [ ] Efficient regex patterns
+
+=== Generated Files
+- [ ] src/parser.c properly regenerated
+- [ ] src/grammar.json up to date
+- [ ] src/node-types.json reflects current grammar
+
+=== Test Coverage
+- [ ] Comprehensive test cases for each formatting type
+- [ ] Edge cases covered (empty, nested, escaped)
+- [ ] Performance tests included
+- [ ] Negative test cases (invalid syntax)
+
+== Manual Review Items
+
+=== Integration Testing
+- [ ] Test with real Asciidoc documents
+- [ ] Verify highlighting in supported editors
+- [ ] Check compatibility with language servers
+- [ ] Validate AST structure for downstream tools
+
+=== Documentation
+- [ ] Updated README with new features
+- [ ] Test corpus documented
+- [ ] API changes documented
+- [ ] Migration guide if breaking changes
+
+=== Git Flow Compliance
+- [ ] Feature branch created from develop
+- [ ] Commits follow Angular convention
+- [ ] No merge commits from other features
+- [ ] Ready to merge back to develop
+
+== Review Comments
+
+[NOTE]
+====
+Add specific review comments here during the review process.
+====
+
+== Approval Status
+
+[%autowidth]
+|===
+| Reviewer | Date | Status | Comments
+
+| 
+| 
+| 
+| 
+
+|===
+
+== Follow-up Actions
+
+[IMPORTANT]
+====
+List any required changes or improvements identified during the review.
+====
+
+1. Address slow parse rate in document structure test
+2. 
+3. 
+
+== Sign-off
+
+- [ ] All automated tests pass
+- [ ] Manual testing completed
+- [ ] Documentation updated
+- [ ] Ready for merge to develop branch
