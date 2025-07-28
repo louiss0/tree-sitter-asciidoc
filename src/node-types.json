@@ -10,7 +10,7 @@
     "fields": {
       "authors": {
         "multiple": true,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": ";",
