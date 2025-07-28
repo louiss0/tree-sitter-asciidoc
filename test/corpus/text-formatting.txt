@@ -1,0 +1,80 @@
+====
+TEXT_FORMATTING: Bold text with asterisks
+====
+*bold text*
+----
+(source_file
+  (text_formatting
+    (bold_text)))
+
+====
+TEXT_FORMATTING: Italic text with underscores
+====
+_italic text_
+----
+(source_file
+  (text_formatting
+    (italic_text)))
+
+====
+TEXT_FORMATTING: Monospace text with backticks
+====
+`monospace text`
+----
+(source_file
+  (text_formatting
+    (monospace_text)))
+
+====
+TEXT_FORMATTING: Highlighted text with hash marks
+====
+#highlighted text#
+----
+(source_file
+  (text_formatting
+    (highlighted_text)))
+
+====
+TEXT_FORMATTING: Superscript text
+====
+^superscript^
+----
+(source_file
+  (text_formatting
+    (superscript_text)))
+
+====
+TEXT_FORMATTING: Subscript text
+====
+~subscript~
+----
+(source_file
+  (text_formatting
+    (subscript_text)))
+
+====
+TEXT_FORMATTING: Bold text with multiple words
+====
+*bold text with spaces*
+----
+(source_file
+  (text_formatting
+    (bold_text)))
+
+====
+TEXT_FORMATTING: Italic text with punctuation
+====
+_italic text with punctuation!_
+----
+(source_file
+  (text_formatting
+    (italic_text)))
+
+====
+TEXT_FORMATTING: Monospace with special characters
+====
+`code with-dashes_and_underscores`
+----
+(source_file
+  (text_formatting
+    (monospace_text)))

@@ -21,6 +21,7 @@ module.exports = grammar({
           $.document_revision_line,
           $.document_attribute,
           $.document_title,
+          $.text_formatting,
         ),
       ),
 
@@ -116,6 +117,81 @@ module.exports = grammar({
       ),
     _document_attribute_name_marker: () => token(/:[a-zA-Z0-9_\-]+:/),
     _document_attribute_value_text: () => token(/[^\\]+/),
+
+    // Text formatting rules
+    text_formatting: ($) =>
+      choice(
+        $.bold_text,
+        $.italic_text,
+        $.monospace_text,
+        $.highlighted_text,
+        $.superscript_text,
+        $.subscript_text,
+      ),
+
+    bold_text: ($) =>
+      seq(
+        field("start_marker", $._text_formatting_bold_start),
+        field("content", $._text_formatting_bold_content),
+        field("end_marker", $._text_formatting_bold_end),
+      ),
+
+    italic_text: ($) =>
+      seq(
+        field("start_marker", $._text_formatting_italic_start),
+        field("content", $._text_formatting_italic_content),
+        field("end_marker", $._text_formatting_italic_end),
+      ),
+
+    monospace_text: ($) =>
+      seq(
+        field("start_marker", $._text_formatting_monospace_start),
+        field("content", $._text_formatting_monospace_content),
+        field("end_marker", $._text_formatting_monospace_end),
+      ),
+
+    highlighted_text: ($) =>
+      seq(
+        field("start_marker", $._text_formatting_highlighted_start),
+        field("content", $._text_formatting_highlighted_content),
+        field("end_marker", $._text_formatting_highlighted_end),
+      ),
+
+    superscript_text: ($) =>
+      seq(
+        field("start_marker", $._text_formatting_superscript_start),
+        field("content", $._text_formatting_superscript_content),
+        field("end_marker", $._text_formatting_superscript_end),
+      ),
+
+    subscript_text: ($) =>
+      seq(
+        field("start_marker", $._text_formatting_subscript_start),
+        field("content", $._text_formatting_subscript_content),
+        field("end_marker", $._text_formatting_subscript_end),
+      ),
+
+    // Private rules for text formatting - context-specific content
+    _text_formatting_bold_content: () => token(/[^*\n\r]+/),
+    _text_formatting_italic_content: () => token(/[^_\n\r]+/),
+    _text_formatting_monospace_content: () => token(/[^`\n\r]+/),
+    _text_formatting_highlighted_content: () => token(/[^#\n\r]+/),
+    _text_formatting_superscript_content: () => token(/[^^\n\r]+/),
+    _text_formatting_subscript_content: () => token(/[^~\n\r]+/),
+    
+    // Private rules for text formatting - markers
+    _text_formatting_bold_start: () => token("*"),
+    _text_formatting_bold_end: () => token("*"),
+    _text_formatting_italic_start: () => token("_"),
+    _text_formatting_italic_end: () => token("_"),
+    _text_formatting_monospace_start: () => token("`"),
+    _text_formatting_monospace_end: () => token("`"),
+    _text_formatting_highlighted_start: () => token("#"),
+    _text_formatting_highlighted_end: () => token("#"),
+    _text_formatting_superscript_start: () => token("^"),
+    _text_formatting_superscript_end: () => token("^"),
+    _text_formatting_subscript_start: () => token("~"),
+    _text_formatting_subscript_end: () => token("~"),
 
     // General private token rules
     _newline: () => token(/\n/),

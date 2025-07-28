@@ -1,5 +1,31 @@
 [
   {
+    "type": "bold_text",
+    "named": true,
+    "fields": {
+      "end_marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "*",
+            "named": false
+          }
+        ]
+      },
+      "start_marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "*",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "document_attribute",
     "named": true,
     "fields": {}
@@ -45,6 +71,84 @@
     "fields": {}
   },
   {
+    "type": "highlighted_text",
+    "named": true,
+    "fields": {
+      "end_marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "#",
+            "named": false
+          }
+        ]
+      },
+      "start_marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "#",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "italic_text",
+    "named": true,
+    "fields": {
+      "end_marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_",
+            "named": false
+          }
+        ]
+      },
+      "start_marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "monospace_text",
+    "named": true,
+    "fields": {
+      "end_marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "`",
+            "named": false
+          }
+        ]
+      },
+      "start_marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "`",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -68,9 +172,108 @@
         {
           "type": "document_title",
           "named": true
+        },
+        {
+          "type": "text_formatting",
+          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "subscript_text",
+    "named": true,
+    "fields": {
+      "end_marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "~",
+            "named": false
+          }
+        ]
+      },
+      "start_marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "~",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "superscript_text",
+    "named": true,
+    "fields": {
+      "end_marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "^",
+            "named": false
+          }
+        ]
+      },
+      "start_marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "^",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "text_formatting",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "bold_text",
+          "named": true
+        },
+        {
+          "type": "highlighted_text",
+          "named": true
+        },
+        {
+          "type": "italic_text",
+          "named": true
+        },
+        {
+          "type": "monospace_text",
+          "named": true
+        },
+        {
+          "type": "subscript_text",
+          "named": true
+        },
+        {
+          "type": "superscript_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "#",
+    "named": false
+  },
+  {
+    "type": "*",
+    "named": false
   },
   {
     "type": ",",
@@ -90,6 +293,22 @@
   },
   {
     "type": ">",
+    "named": false
+  },
+  {
+    "type": "^",
+    "named": false
+  },
+  {
+    "type": "_",
+    "named": false
+  },
+  {
+    "type": "`",
+    "named": false
+  },
+  {
+    "type": "~",
     "named": false
   }
 ]
