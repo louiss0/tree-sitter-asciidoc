@@ -1,0 +1,144 @@
+= Peer Review Request: Text Formatting Feature
+:author: Tree Sitter Asciidoc Team
+:date: {localdate}
+:branch: feature/text-formatting
+
+== Overview
+
+This document requests peer review for the text formatting feature implementation in the tree-sitter-asciidoc parser.
+
+== Feature Summary
+
+The text formatting feature adds support for parsing inline text formatting in Asciidoc documents, including:
+
+* Bold text (`*text*`)
+* Italic text (`_text_`)
+* Monospace text (backtick text backtick)
+* Highlighted text (`#text#`)
+* Superscript text (`^text^`)
+* Subscript text (`~text~`)
+
+== Review Scope
+
+=== Files Modified
+
+* `grammar.js` - Added inline formatting rules
+* `src/parser.c` - Regenerated parser
+* `src/grammar.json` - Updated grammar JSON
+* `src/node-types.json` - Added new node types
+* `test/corpus/text-formatting.txt` - Added comprehensive test cases
+
+=== Key Changes
+
+1. **Grammar Rules**: Implemented regex-based patterns for each formatting type
+2. **Node Structure**: Created consistent AST nodes for formatted text
+3. **Test Coverage**: Added 9 test cases covering basic formatting scenarios
+4. **Performance**: Optimized regex patterns to minimize backtracking
+
+== Automated Review Results
+
+[source,bash]
+----
+./run-code-review.sh
+----
+
+Current Status:
+* ✅ All Tree Sitter tests passing (26/26)
+* ⚠️ Performance warning on document structure test
+* ⚠️ One TODO comment in grammar.js
+* ✅ No debug statements
+* ✅ Generated files up to date
+* ✅ Naming conventions followed
+
+== Areas Requiring Review
+
+=== 1. Grammar Design
+Please review the regex patterns in `grammar.js` for:
+- Correctness of boundary detection
+- Efficiency of pattern matching
+- Compliance with Asciidoc specification
+
+=== 2. AST Structure
+Verify that the generated AST nodes:
+- Provide sufficient information for syntax highlighting
+- Support nested formatting scenarios
+- Are consistent with other Tree Sitter parsers
+
+=== 3. Test Coverage
+Review test cases for:
+- Edge case coverage
+- Negative test scenarios
+- Real-world usage patterns
+
+=== 4. Performance
+Address the slow parse rate warning:
+- Document structure test: 970.584 bytes/ms (below optimal)
+- Consider optimization strategies
+
+== Review Checklist
+
+Please use `CODE-REVIEW-CHECKLIST.adoc` for a comprehensive review.
+
+Key areas to focus on:
+- [ ] Asciidoc specification compliance
+- [ ] Tree Sitter best practices
+- [ ] Code quality and maintainability
+- [ ] Performance optimization opportunities
+- [ ] Documentation completeness
+
+== How to Review
+
+1. Check out the feature branch:
++
+[source,bash]
+----
+git checkout feature/text-formatting
+----
+
+2. Run automated tests:
++
+[source,bash]
+----
+./run-code-review.sh
+tree-sitter test
+----
+
+3. Test with real Asciidoc files:
++
+[source,bash]
+----
+tree-sitter parse <your-test-file.adoc>
+----
+
+4. Review the grammar implementation:
++
+[source,bash]
+----
+$EDITOR grammar.js
+----
+
+5. Complete the review checklist in `CODE-REVIEW-CHECKLIST.adoc`
+
+== Feedback Process
+
+Please provide feedback by:
+
+1. Adding comments to the review checklist
+2. Creating issues for any bugs found
+3. Suggesting improvements via comments
+4. Approving when ready for merge
+
+== Questions for Reviewers
+
+1. Are the regex patterns optimal for the use case?
+2. Should we support additional formatting combinations?
+3. Is the AST structure suitable for downstream tools?
+4. Any suggestions for performance improvements?
+
+== Timeline
+
+* Review requested: {localdate}
+* Target completion: Within 3 business days
+* Merge target: After addressing all feedback
+
+Thank you for your review!
