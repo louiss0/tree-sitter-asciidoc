@@ -21,17 +21,17 @@ Description:
 ====
 
 [IMPORTANT]
-.TextFormatting
+.~~TextFormatting~~ ✓
 ====
 File: grammar.js
 Block: Inline text formatting rules
 Description:
-• Combined formatting (`*_bold italic_*`)
-• Underlined text (`[.underline]#text#`)
-• Smart quotes and apostrophes
-• Line breaks (`+`)
-• Hard line breaks (`[%hardbreaks]`)
-• Escape sequences (`\\*`, `\\_`, etc.)
+• ~~Combined formatting (`*_bold italic_*`)~~ ✓
+• ~~Underlined text (`[.underline]#text#`)~~ ✓
+• ~~Smart quotes and apostrophes~~ ✓
+• ~~Line breaks (`+`)~~ ✓
+• ~~Hard line breaks (`[%hardbreaks]`)~~ ✓
+• ~~Escape sequences (`\\*`, `\\_`, etc.)~~ ✓
 ====
 [IMPORTANT]
 .Lists
