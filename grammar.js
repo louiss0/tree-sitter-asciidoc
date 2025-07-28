@@ -12,16 +12,21 @@
 module.exports = grammar({
   name: "asciidoc",
 
+  conflicts: $ => [
+  ],
+
   rules: {
     // TODO: add the actual grammar rules
     source_file: ($) =>
-      seq(
+      repeat(
         choice(
           $.document_author_line,
           $.document_revision_line,
           $.document_attribute,
           $.document_title,
-          $.text_formatting,
+          $.admonition,
+          $.admonition_block,
+          $._newline,
         ),
       ),
 
@@ -67,7 +72,7 @@ module.exports = grammar({
       ),
     _document_author_line_semi_colon: () => token(";"),
     _document_author_line_name: () => token(/[A-Z][a-z\.]+/),
-    _document_author_line_email_address: () => token(/[\w \.,]+@[\w \.,]+/),
+    _document_author_line_email_address: () => token(/[\w\.-]+@[\w\.-]+/),
     _document_author_line_email_start_marker: () => token("<"),
     _document_author_line_email_end_marker: () => token(">"),
 
@@ -116,7 +121,7 @@ module.exports = grammar({
         field("value", $._document_attribute_value_text),
       ),
     _document_attribute_name_marker: () => token(/:[a-zA-Z0-9_\-]+:/),
-    _document_attribute_value_text: () => token(/[^\\]+/),
+    _document_attribute_value_text: () => token(/[^\\\n\r]+/),
 
     // Text formatting rules
     text_formatting: ($) =>
@@ -192,6 +197,160 @@ module.exports = grammar({
     _text_formatting_superscript_end: () => token("^"),
     _text_formatting_subscript_start: () => token("~"),
     _text_formatting_subscript_end: () => token("~"),
+
+    // Admonition rules
+    admonition: ($) =>
+      seq(
+        $.admonition_type,
+        token(":"),
+        optional($._space),
+        $.admonition_content,
+      ),
+
+    admonition_block: ($) =>
+      seq(
+        $.attribute,
+        optional($.block_title),
+        $.delimiter,
+        $.admonition_content,
+        $.delimiter,
+      ),
+
+    admonition_type: () =>
+      token(choice("NOTE", "TIP", "IMPORTANT", "WARNING", "CAUTION")),
+
+    // For inline admonitions, content is simple text
+    admonition_content: () => token(/[^\n]+/),
+
+    // Attribute rules
+    attribute: ($) =>
+      seq(
+        "[",
+        choice(
+          seq(
+            $.admonition_type,
+            optional(seq(",", $.attribute_name, "=", $.attribute_value)),
+            optional(seq(".", $.role_name)),
+          ),
+          seq(
+            $.attribute_name,
+            optional(seq("=", $.attribute_value)),
+          ),
+        ),
+        "]",
+      ),
+
+    attribute_name: () => token(/[a-zA-Z][a-zA-Z0-9_-]*/),
+    attribute_value: () => token(/[^\]]+/),
+    role_name: () => token(/[a-zA-Z][a-zA-Z0-9_-]*/),
+
+    // Block structure rules
+    delimiter: () => token(/={4,}/),
+
+    block_title: ($) =>
+      seq(
+        ".",
+        repeat1(choice($._text, $._space)),
+        $._newline,
+      ),
+
+    // Paragraph and text rules
+    paragraph: ($) =>
+      seq(
+        repeat1(
+          choice(
+            $.text_formatting,
+            $._text,
+            $._space,
+          ),
+        ),
+        $._newline,
+      ),
+
+    _text: () => token(/[^\n\r\[\]\*_`#^~\s]+/),
+
+    // List rules (basic for now)
+    unordered_list: ($) =>
+      repeat1($.list_item),
+
+    ordered_list: ($) =>
+      seq(
+        optional($.block_title),
+        repeat1($.list_item),
+      ),
+
+    list_item: ($) =>
+      seq(
+        choice(
+          token(/\*[ \t]+/),
+          token(/\.[ \t]+/),
+          token(/-[ \t]+/),
+        ),
+        repeat1(
+          choice(
+            $.text_formatting,
+            $.admonition,
+            $._text,
+            $._space,
+          ),
+        ),
+        $._newline,
+      ),
+
+    // Basic block rules
+    listing_block: ($) =>
+      seq(
+        optional($.block_title),
+        field("delimiter", token(/----/)),
+        field("listing_content", repeat($._listing_line)),
+        field("delimiter", token(/----/)),
+      ),
+
+    _listing_line: () => token(/[^\n]*\n/),
+
+    // Table rules (basic)
+    table: ($) =>
+      seq(
+        $.table_delimiter,
+        repeat($.table_row),
+        $.table_delimiter,
+      ),
+
+    table_delimiter: () => token(/\|===/),
+
+    table_row: ($) =>
+      repeat1($.table_cell),
+
+    table_cell: ($) =>
+      seq(
+        token(/\|/),
+        repeat(choice($._text, $._space)),
+        $._newline,
+      ),
+
+    // Cross-reference rules
+    cross_reference: ($) =>
+      seq(
+        "<<",
+        field("reference_id", $._reference_text),
+        optional(seq(",", $._reference_text)),
+        ">>",
+      ),
+
+    _reference_text: () => token(/[^\<\>,]+/),
+
+    // Image rules
+    image_block: ($) =>
+      seq(
+        "image::",
+        field("image_path", $._path),
+        "[",
+        optional(field("image_alt", $._alt_text)),
+        "]",
+      ),
+
+    _path: () => token(/[^\[]+/),
+    _alt_text: () => token(/[^\]]+/),
 
     // General private token rules
     _newline: () => token(/\n/),

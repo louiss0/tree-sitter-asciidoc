@@ -1,0 +1,418 @@
+====
+ADMONITIONS: Inline NOTE
+====
+NOTE: This is an inline note admonition.
+----
+(source_file
+  (admonition
+    (admonition_type)
+    (admonition_content)))
+
+====
+ADMONITIONS: Inline TIP
+====
+TIP: Here's a helpful tip for you.
+----
+(source_file
+  (admonition
+    (admonition_type)
+    (admonition_content)))
+
+====
+ADMONITIONS: Inline IMPORTANT
+====
+IMPORTANT: Don't forget this important information.
+----
+(source_file
+  (admonition
+    (admonition_type)
+    (admonition_content)))
+
+====
+ADMONITIONS: Inline WARNING
+====
+WARNING: Be careful with this operation.
+----
+(source_file
+  (admonition
+    (admonition_type)
+    (admonition_content)))
+
+====
+ADMONITIONS: Inline CAUTION
+====
+CAUTION: Proceed with extreme caution.
+----
+(source_file
+  (admonition
+    (admonition_type)
+    (admonition_content)))
+
+====
+ADMONITIONS: Block NOTE
+====
+[NOTE]
+====
+This is a block note admonition.
+It can contain multiple paragraphs.
+
+And other content.
+====
+----
+(source_file
+  (admonition_block
+    (attribute
+      (admonition_type))
+    (delimiter)
+    (admonition_content
+      (paragraph)
+      (paragraph))
+    (delimiter)))
+
+====
+ADMONITIONS: Block TIP with title
+====
+[TIP]
+.Pro Tip
+====
+Use keyboard shortcuts to improve productivity.
+====
+----
+(source_file
+  (admonition_block
+    (attribute
+      (admonition_type))
+    (block_title)
+    (delimiter)
+    (admonition_content)
+    (delimiter)))
+
+====
+ADMONITIONS: Block IMPORTANT with formatted content
+====
+[IMPORTANT]
+====
+Remember to *backup* your data before proceeding.
+
+Use the `backup` command as follows:
+----
+backup --full /data
+----
+====
+----
+(source_file
+  (admonition_block
+    (attribute
+      (admonition_type))
+    (delimiter)
+    (admonition_content
+      (paragraph
+        (text_formatting
+          (bold_text)))
+      (paragraph
+        (text_formatting
+          (monospace_text)))
+      (listing_block
+        (delimiter)
+        (listing_content)
+        (delimiter)))
+    (delimiter)))
+
+====
+ADMONITIONS: Block WARNING with list
+====
+[WARNING]
+====
+This operation will:
+
+* Delete all existing data
+* Reset configuration to defaults
+* Require system restart
+====
+----
+(source_file
+  (admonition_block
+    (attribute
+      (admonition_type))
+    (delimiter)
+    (admonition_content
+      (paragraph)
+      (unordered_list
+        (list_item)
+        (list_item)
+        (list_item)))
+    (delimiter)))
+
+====
+ADMONITIONS: Block CAUTION with complex content
+====
+[CAUTION]
+====
+This is a dangerous operation.
+
+.Steps to follow:
+. Stop all services
+. Create a backup
+. Apply changes
+. Test thoroughly
+
+See <<safety-guidelines>> for more information.
+====
+----
+(source_file
+  (admonition_block
+    (attribute
+      (admonition_type))
+    (delimiter)
+    (admonition_content
+      (paragraph)
+      (ordered_list
+        (block_title)
+        (list_item)
+        (list_item)
+        (list_item)
+        (list_item))
+      (paragraph
+        (cross_reference
+          (reference_id))))
+    (delimiter)))
+
+====
+ADMONITIONS: Custom admonition title
+====
+[NOTE]
+.Remember This
+====
+Custom titles make admonitions more specific.
+====
+----
+(source_file
+  (admonition_block
+    (attribute
+      (admonition_type))
+    (block_title)
+    (delimiter)
+    (admonition_content)
+    (delimiter)))
+
+====
+ADMONITIONS: Nested admonitions
+====
+[WARNING]
+====
+Main warning message.
+
+NOTE: Additional note within the warning.
+
+Continue with warning content.
+====
+----
+(source_file
+  (admonition_block
+    (attribute
+      (admonition_type))
+    (delimiter)
+    (admonition_content
+      (paragraph)
+      (admonition
+        (admonition_type)
+        (admonition_content))
+      (paragraph))
+    (delimiter)))
+
+====
+ADMONITIONS: Admonition with icon customization
+====
+[NOTE,icon=info-circle]
+====
+This note uses a custom icon.
+====
+----
+(source_file
+  (admonition_block
+    (attribute
+      (admonition_type)
+      (attribute_name)
+      (attribute_value))
+    (delimiter)
+    (admonition_content)
+    (delimiter)))
+
+====
+ADMONITIONS: Inline admonition with formatting
+====
+TIP: Use the *bold* command or press `Ctrl+B`.
+----
+(source_file
+  (admonition
+    (admonition_type)
+    (admonition_content
+      (text_formatting
+        (bold_text))
+      (text_formatting
+        (monospace_text)))))
+
+====
+ADMONITIONS: Multiple inline admonitions
+====
+NOTE: First note.
+
+TIP: Helpful tip.
+
+WARNING: Be careful!
+----
+(source_file
+  (admonition
+    (admonition_type)
+    (admonition_content))
+  (admonition
+    (admonition_type)
+    (admonition_content))
+  (admonition
+    (admonition_type)
+    (admonition_content)))
+
+====
+ADMONITIONS: Admonition in list
+====
+* First item
+* NOTE: Important note in list
+* Third item
+----
+(source_file
+  (unordered_list
+    (list_item)
+    (list_item
+      (admonition
+        (admonition_type)
+        (admonition_content)))
+    (list_item)))
+
+====
+ADMONITIONS: Admonition with role
+====
+[NOTE.security]
+====
+This is a security-related note.
+====
+----
+(source_file
+  (admonition_block
+    (attribute
+      (admonition_type)
+      (role_name))
+    (delimiter)
+    (admonition_content)
+    (delimiter)))
+
+====
+ADMONITIONS: Long inline admonition
+====
+IMPORTANT: This is a very long inline admonition that spans multiple lines in the source but should be treated as a single admonition block with continuous content.
+----
+(source_file
+  (admonition
+    (admonition_type)
+    (admonition_content)))
+
+====
+ADMONITIONS: Admonition with example
+====
+[TIP]
+====
+.Example Usage
+----
+$ git commit -m "Initial commit"
+$ git push origin main
+----
+
+This shows how to commit and push changes.
+====
+----
+(source_file
+  (admonition_block
+    (attribute
+      (admonition_type))
+    (delimiter)
+    (listing_block
+      (block_title)
+      (delimiter)
+      (listing_content)
+      (delimiter))
+    (admonition_content
+      (paragraph))
+    (delimiter)))
+
+====
+ADMONITIONS: Admonition with table
+====
+[WARNING]
+====
+Critical thresholds:
+
+|===
+| Metric | Threshold
+| CPU | 80%
+| Memory | 90%
+| Disk | 95%
+|===
+====
+----
+(source_file
+  (admonition_block
+    (attribute
+      (admonition_type))
+    (delimiter)
+    (admonition_content
+      (paragraph)
+      (table
+        (table_delimiter)
+        (table_row
+          (table_cell)
+          (table_cell))
+        (table_row
+          (table_cell)
+          (table_cell))
+        (table_row
+          (table_cell)
+          (table_cell))
+        (table_row
+          (table_cell)
+          (table_cell))
+        (table_delimiter)))
+    (delimiter)))
+
+====
+ADMONITIONS: Admonition with image
+====
+[NOTE]
+====
+See the diagram below:
+
+image::workflow.png[Workflow Diagram]
+
+Follow the steps shown in the diagram.
+====
+----
+(source_file
+  (admonition_block
+    (attribute
+      (admonition_type))
+    (delimiter)
+    (admonition_content
+      (paragraph)
+      (image_block
+        (image_path)
+        (image_alt))
+      (paragraph))
+    (delimiter)))
+
+====
+ADMONITIONS: Empty admonition (edge case)
+====
+NOTE: 
+----
+(source_file
+  (admonition
+    (admonition_type)
+    (admonition_content)))

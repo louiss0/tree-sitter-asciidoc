@@ -1,29 +1,86 @@
 [
   {
-    "type": "bold_text",
+    "type": "admonition",
     "named": true,
-    "fields": {
-      "end_marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "*",
-            "named": false
-          }
-        ]
-      },
-      "start_marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "*",
-            "named": false
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "admonition_content",
+          "named": true
+        },
+        {
+          "type": "admonition_type",
+          "named": true
+        }
+      ]
     }
+  },
+  {
+    "type": "admonition_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "admonition_content",
+          "named": true
+        },
+        {
+          "type": "attribute",
+          "named": true
+        },
+        {
+          "type": "block_title",
+          "named": true
+        },
+        {
+          "type": "delimiter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attribute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "admonition_type",
+          "named": true
+        },
+        {
+          "type": "attribute_name",
+          "named": true
+        },
+        {
+          "type": "attribute_value",
+          "named": true
+        },
+        {
+          "type": "role_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attribute_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "block_title",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "document_attribute",
@@ -71,82 +128,9 @@
     "fields": {}
   },
   {
-    "type": "highlighted_text",
+    "type": "role_name",
     "named": true,
-    "fields": {
-      "end_marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "#",
-            "named": false
-          }
-        ]
-      },
-      "start_marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "#",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "italic_text",
-    "named": true,
-    "fields": {
-      "end_marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_",
-            "named": false
-          }
-        ]
-      },
-      "start_marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "monospace_text",
-    "named": true,
-    "fields": {
-      "end_marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "`",
-            "named": false
-          }
-        ]
-      },
-      "start_marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "`",
-            "named": false
-          }
-        ]
-      }
-    }
+    "fields": {}
   },
   {
     "type": "source_file",
@@ -154,9 +138,17 @@
     "root": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
+        {
+          "type": "admonition",
+          "named": true
+        },
+        {
+          "type": "admonition_block",
+          "named": true
+        },
         {
           "type": "document_attribute",
           "named": true
@@ -172,111 +164,16 @@
         {
           "type": "document_title",
           "named": true
-        },
-        {
-          "type": "text_formatting",
-          "named": true
         }
       ]
     }
-  },
-  {
-    "type": "subscript_text",
-    "named": true,
-    "fields": {
-      "end_marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "~",
-            "named": false
-          }
-        ]
-      },
-      "start_marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "~",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "superscript_text",
-    "named": true,
-    "fields": {
-      "end_marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "^",
-            "named": false
-          }
-        ]
-      },
-      "start_marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "^",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "text_formatting",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "bold_text",
-          "named": true
-        },
-        {
-          "type": "highlighted_text",
-          "named": true
-        },
-        {
-          "type": "italic_text",
-          "named": true
-        },
-        {
-          "type": "monospace_text",
-          "named": true
-        },
-        {
-          "type": "subscript_text",
-          "named": true
-        },
-        {
-          "type": "superscript_text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "#",
-    "named": false
-  },
-  {
-    "type": "*",
-    "named": false
   },
   {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": ".",
     "named": false
   },
   {
@@ -292,23 +189,35 @@
     "named": false
   },
   {
+    "type": "=",
+    "named": false
+  },
+  {
     "type": ">",
     "named": false
   },
   {
-    "type": "^",
+    "type": "[",
     "named": false
   },
   {
-    "type": "_",
+    "type": "]",
     "named": false
   },
   {
-    "type": "`",
-    "named": false
+    "type": "admonition_content",
+    "named": true
   },
   {
-    "type": "~",
-    "named": false
+    "type": "admonition_type",
+    "named": true
+  },
+  {
+    "type": "attribute_value",
+    "named": true
+  },
+  {
+    "type": "delimiter",
+    "named": true
   }
 ]

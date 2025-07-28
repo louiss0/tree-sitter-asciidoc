@@ -1,0 +1,351 @@
+====
+IMAGES_AND_MEDIA: Basic block image
+====
+image::sunset.jpg[]
+----
+(source_file
+  (image_block
+    (image_path)))
+
+====
+IMAGES_AND_MEDIA: Block image with alt text
+====
+image::diagram.png[Architecture Diagram]
+----
+(source_file
+  (image_block
+    (image_path)
+    (image_alt)))
+
+====
+IMAGES_AND_MEDIA: Block image with title
+====
+.System Architecture
+image::architecture.svg[]
+----
+(source_file
+  (image_block
+    (block_title)
+    (image_path)))
+
+====
+IMAGES_AND_MEDIA: Block image with dimensions
+====
+image::photo.jpg[Photo,width=600,height=400]
+----
+(source_file
+  (image_block
+    (image_path)
+    (image_alt)
+    (image_attribute)
+    (image_attribute)))
+
+====
+IMAGES_AND_MEDIA: Block image with scaling
+====
+image::large-image.png[Scaled Image,scale=50]
+----
+(source_file
+  (image_block
+    (image_path)
+    (image_alt)
+    (image_attribute)))
+
+====
+IMAGES_AND_MEDIA: Inline image
+====
+Click the image:icon.png[] icon to continue.
+----
+(source_file
+  (paragraph
+    (text)
+    (image_inline
+      (image_path))
+    (text)))
+
+====
+IMAGES_AND_MEDIA: Inline image with dimensions
+====
+Press image:button.png[16,16] to save.
+----
+(source_file
+  (paragraph
+    (text)
+    (image_inline
+      (image_path)
+      (image_dimension)
+      (image_dimension))
+    (text)))
+
+====
+IMAGES_AND_MEDIA: Inline image with alt text and dimensions
+====
+The image:logo.svg[Company Logo,32,32] represents our brand.
+----
+(source_file
+  (paragraph
+    (text)
+    (image_inline
+      (image_path)
+      (image_alt)
+      (image_dimension)
+      (image_dimension))
+    (text)))
+
+====
+IMAGES_AND_MEDIA: Image with positioning
+====
+image::photo.jpg[Photo,align=center]
+----
+(source_file
+  (image_block
+    (image_path)
+    (image_alt)
+    (image_attribute)))
+
+====
+IMAGES_AND_MEDIA: Image with role
+====
+[.thumb]
+image::thumbnail.jpg[Thumbnail]
+----
+(source_file
+  (image_block
+    (attribute
+      (role_name))
+    (image_path)
+    (image_alt)))
+
+====
+IMAGES_AND_MEDIA: Image with link
+====
+image::product.jpg[Product,link=https://shop.example.com]
+----
+(source_file
+  (image_block
+    (image_path)
+    (image_alt)
+    (image_attribute)))
+
+====
+IMAGES_AND_MEDIA: Image with multiple attributes
+====
+image::banner.jpg[Banner,width=800,height=200,align=center,role=header]
+----
+(source_file
+  (image_block
+    (image_path)
+    (image_alt)
+    (image_attribute)
+    (image_attribute)
+    (image_attribute)
+    (image_attribute)))
+
+====
+IMAGES_AND_MEDIA: Video block
+====
+video::intro.mp4[]
+----
+(source_file
+  (video_block
+    (video_path)))
+
+====
+IMAGES_AND_MEDIA: Video with poster
+====
+video::presentation.mp4[poster=thumbnail.jpg]
+----
+(source_file
+  (video_block
+    (video_path)
+    (video_attribute)))
+
+====
+IMAGES_AND_MEDIA: Video with dimensions and controls
+====
+video::tutorial.mp4[width=640,height=480,options=autoplay]
+----
+(source_file
+  (video_block
+    (video_path)
+    (video_attribute)
+    (video_attribute)
+    (video_attribute)))
+
+====
+IMAGES_AND_MEDIA: YouTube video
+====
+video::dQw4w9WgXcQ[youtube]
+----
+(source_file
+  (video_block
+    (video_id)
+    (video_service)))
+
+====
+IMAGES_AND_MEDIA: YouTube video with dimensions
+====
+video::abc123[youtube,width=560,height=315]
+----
+(source_file
+  (video_block
+    (video_id)
+    (video_service)
+    (video_attribute)
+    (video_attribute)))
+
+====
+IMAGES_AND_MEDIA: Vimeo video
+====
+video::123456789[vimeo]
+----
+(source_file
+  (video_block
+    (video_id)
+    (video_service)))
+
+====
+IMAGES_AND_MEDIA: Audio file
+====
+audio::podcast.mp3[]
+----
+(source_file
+  (audio_block
+    (audio_path)))
+
+====
+IMAGES_AND_MEDIA: Audio with options
+====
+audio::music.ogg[options="autoplay,loop"]
+----
+(source_file
+  (audio_block
+    (audio_path)
+    (audio_attribute)))
+
+====
+IMAGES_AND_MEDIA: Image from URL
+====
+image::https://example.com/remote-image.jpg[Remote Image]
+----
+(source_file
+  (image_block
+    (image_url)
+    (image_alt)))
+
+====
+IMAGES_AND_MEDIA: Image with data URI
+====
+image::data:image/png;base64,iVBORw0KGgoAAAANS[Embedded Image]
+----
+(source_file
+  (image_block
+    (image_data_uri)
+    (image_alt)))
+
+====
+IMAGES_AND_MEDIA: Image gallery with multiple images
+====
+[.gallery]
+--
+image::photo1.jpg[Photo 1]
+image::photo2.jpg[Photo 2]
+image::photo3.jpg[Photo 3]
+--
+----
+(source_file
+  (open_block
+    (attribute
+      (role_name))
+    (delimiter)
+    (image_block
+      (image_path)
+      (image_alt))
+    (image_block
+      (image_path)
+      (image_alt))
+    (image_block
+      (image_path)
+      (image_alt))
+    (delimiter)))
+
+====
+IMAGES_AND_MEDIA: Image in table cell
+====
+|===
+| Text | image:icon.png[]
+| image:photo.jpg[width=100] | Description
+|===
+----
+(source_file
+  (table
+    (table_delimiter)
+    (table_row
+      (table_cell)
+      (table_cell
+        (image_inline
+          (image_path))))
+    (table_row
+      (table_cell
+        (image_inline
+          (image_path)
+          (image_attribute)))
+      (table_cell))
+    (table_delimiter)))
+
+====
+IMAGES_AND_MEDIA: Captioned image
+====
+.Figure 1: System Overview
+image::system.png[caption="Figure 1: "]
+----
+(source_file
+  (image_block
+    (block_title)
+    (image_path)
+    (image_attribute)))
+
+====
+IMAGES_AND_MEDIA: SVG with interactive attribute
+====
+image::interactive.svg[Interactive Diagram,opts=interactive]
+----
+(source_file
+  (image_block
+    (image_path)
+    (image_alt)
+    (image_attribute)))
+
+====
+IMAGES_AND_MEDIA: Image with float attribute
+====
+image::sidebar.jpg[Sidebar Image,float=right]
+----
+(source_file
+  (image_block
+    (image_path)
+    (image_alt)
+    (image_attribute)))
+
+====
+IMAGES_AND_MEDIA: Responsive image
+====
+image::responsive.jpg[Responsive,width=100%,scaledwidth=100%]
+----
+(source_file
+  (image_block
+    (image_path)
+    (image_alt)
+    (image_attribute)
+    (image_attribute)))
+
+====
+IMAGES_AND_MEDIA: Image with fallback
+====
+image::photo.webp[Modern Format,fallback=photo.jpg]
+----
+(source_file
+  (image_block
+    (image_path)
+    (image_alt)
+    (image_attribute)))

@@ -1,0 +1,269 @@
+====
+SECTION_HEADINGS: Level 1 heading
+====
+== Main Title
+----
+(source_file
+  (section
+    (section_title)))
+
+====
+SECTION_HEADINGS: Level 2 heading
+====
+=== Subsection Title
+----
+(source_file
+  (section
+    (section_title)))
+
+====
+SECTION_HEADINGS: Level 3 heading
+====
+==== Sub-subsection Title
+----
+(source_file
+  (section
+    (section_title)))
+
+====
+SECTION_HEADINGS: Level 4 heading
+====
+===== Level 4 Title
+----
+(source_file
+  (section
+    (section_title)))
+
+====
+SECTION_HEADINGS: Level 5 heading
+====
+====== Level 5 Title
+----
+(source_file
+  (section
+    (section_title)))
+
+====
+SECTION_HEADINGS: Level 6 heading (maximum level)
+====
+======= Level 6 Title
+----
+(source_file
+  (section
+    (section_title)))
+
+====
+SECTION_HEADINGS: Discrete heading with attribute
+====
+[discrete]
+== Discrete Section Title
+----
+(source_file
+  (section
+    (attribute
+      (attribute_name))
+    (section_title)))
+
+====
+SECTION_HEADINGS: Section with inline formatting in title
+====
+== Section with *Bold* and _Italic_ Text
+----
+(source_file
+  (section
+    (section_title
+      (text_formatting
+        (bold_text))
+      (text_formatting
+        (italic_text)))))
+
+====
+SECTION_HEADINGS: Section with monospace in title
+====
+=== The `code` Section
+----
+(source_file
+  (section
+    (section_title
+      (text_formatting
+        (monospace_text)))))
+
+====
+SECTION_HEADINGS: Section with automatic numbering
+====
+:numbered:
+
+== Chapter One
+=== Section 1.1
+==== Section 1.1.1
+=== Section 1.2
+== Chapter Two
+----
+(source_file
+  (attribute_entry
+    (attribute_name))
+  (section
+    (section_title))
+  (section
+    (section_title))
+  (section
+    (section_title))
+  (section
+    (section_title))
+  (section
+    (section_title)))
+
+====
+SECTION_HEADINGS: Section with explicit anchor
+====
+[[main-section]]
+== Main Section
+----
+(source_file
+  (anchor
+    (anchor_id))
+  (section
+    (section_title)))
+
+====
+SECTION_HEADINGS: Section with inline anchor
+====
+== Main Section [[inline-anchor]]
+----
+(source_file
+  (section
+    (section_title
+      (anchor
+        (anchor_id)))))
+
+====
+SECTION_HEADINGS: Section with cross-reference
+====
+== Introduction
+
+See <<main-section>> for details.
+
+[[main-section]]
+== Main Section
+----
+(source_file
+  (section
+    (section_title))
+  (paragraph
+    (cross_reference
+      (reference_id)))
+  (anchor
+    (anchor_id))
+  (section
+    (section_title)))
+
+====
+SECTION_HEADINGS: Discrete heading at different levels
+====
+[discrete]
+=== Discrete Level 3
+
+[discrete]
+==== Discrete Level 4
+----
+(source_file
+  (section
+    (attribute
+      (attribute_name))
+    (section_title))
+  (section
+    (attribute
+      (attribute_name))
+    (section_title)))
+
+====
+SECTION_HEADINGS: Section with special characters in title
+====
+== Section & Title with "Quotes" and 'Apostrophes'
+----
+(source_file
+  (section
+    (section_title)))
+
+====
+SECTION_HEADINGS: Section with attribute substitution in title
+====
+:product-name: AsciiDoc
+
+== {product-name} User Guide
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (section
+    (section_title
+      (attribute_reference
+        (attribute_name)))))
+
+====
+SECTION_HEADINGS: Complex nested sections
+====
+= Document Title
+
+== Chapter 1
+Content of chapter 1.
+
+=== Section 1.1
+Content of section 1.1.
+
+==== Section 1.1.1
+Content of section 1.1.1.
+
+===== Section 1.1.1.1
+Content of section 1.1.1.1.
+
+====== Section 1.1.1.1.1
+Content of section 1.1.1.1.1.
+
+======= Section 1.1.1.1.1.1
+Maximum nesting level.
+
+== Chapter 2
+Back to level 2.
+----
+(source_file
+  (document_title)
+  (section
+    (section_title)
+    (paragraph))
+  (section
+    (section_title)
+    (paragraph))
+  (section
+    (section_title)
+    (paragraph))
+  (section
+    (section_title)
+    (paragraph))
+  (section
+    (section_title)
+    (paragraph))
+  (section
+    (section_title)
+    (paragraph))
+  (section
+    (section_title)
+    (paragraph)))
+
+====
+SECTION_HEADINGS: Section with trailing spaces (should be trimmed)
+====
+== Section Title   
+----
+(source_file
+  (section
+    (section_title)))
+
+====
+SECTION_HEADINGS: Invalid section levels (more than 6 equals)
+====
+======== Invalid Level 7
+----
+(source_file
+  (paragraph))

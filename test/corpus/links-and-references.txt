@@ -1,0 +1,372 @@
+====
+LINKS_AND_REFERENCES: Auto-detected HTTP URL
+====
+Visit https://example.com for more information.
+----
+(source_file
+  (paragraph
+    (text)
+    (url)
+    (text)))
+
+====
+LINKS_AND_REFERENCES: Auto-detected HTTPS URL with path
+====
+Check out https://github.com/asciidoctor/asciidoctor
+----
+(source_file
+  (paragraph
+    (text)
+    (url)))
+
+====
+LINKS_AND_REFERENCES: Auto-detected URL with query parameters
+====
+Search at https://www.google.com/search?q=asciidoc&lang=en
+----
+(source_file
+  (paragraph
+    (text)
+    (url)))
+
+====
+LINKS_AND_REFERENCES: Basic link macro
+====
+link:https://example.com[Example Website]
+----
+(source_file
+  (link
+    (link_url)
+    (link_text)))
+
+====
+LINKS_AND_REFERENCES: Link macro with relative URL
+====
+link:../docs/guide.html[User Guide]
+----
+(source_file
+  (link
+    (link_url)
+    (link_text)))
+
+====
+LINKS_AND_REFERENCES: Link with window attribute
+====
+link:https://example.com[Example Website^]
+----
+(source_file
+  (link
+    (link_url)
+    (link_text)
+    (link_attribute)))
+
+====
+LINKS_AND_REFERENCES: Link with role attribute
+====
+link:https://example.com[Example Website,role=external]
+----
+(source_file
+  (link
+    (link_url)
+    (link_text)
+    (link_attribute)))
+
+====
+LINKS_AND_REFERENCES: Link with multiple attributes
+====
+link:https://example.com[Example,role=external,window=_blank]
+----
+(source_file
+  (link
+    (link_url)
+    (link_text)
+    (link_attribute)
+    (link_attribute)))
+
+====
+LINKS_AND_REFERENCES: Email link without text
+====
+mailto:user@example.com[]
+----
+(source_file
+  (email_link
+    (email_address)))
+
+====
+LINKS_AND_REFERENCES: Email link with text
+====
+mailto:support@company.com[Contact Support]
+----
+(source_file
+  (email_link
+    (email_address)
+    (link_text)))
+
+====
+LINKS_AND_REFERENCES: Email link with subject
+====
+mailto:info@example.com?subject=Inquiry[Send Inquiry]
+----
+(source_file
+  (email_link
+    (email_address)
+    (email_subject)
+    (link_text)))
+
+====
+LINKS_AND_REFERENCES: Basic cross-reference
+====
+See <<introduction>> for an overview.
+----
+(source_file
+  (paragraph
+    (text)
+    (cross_reference
+      (reference_id))
+    (text)))
+
+====
+LINKS_AND_REFERENCES: Cross-reference with custom text
+====
+Refer to <<chapter-1,Chapter One>> for details.
+----
+(source_file
+  (paragraph
+    (text)
+    (cross_reference
+      (reference_id)
+      (reference_text))
+    (text)))
+
+====
+LINKS_AND_REFERENCES: Multiple cross-references
+====
+See <<intro>>, <<methodology>>, and <<conclusion>>.
+----
+(source_file
+  (paragraph
+    (text)
+    (cross_reference
+      (reference_id))
+    (text)
+    (cross_reference
+      (reference_id))
+    (text)
+    (cross_reference
+      (reference_id))
+    (text)))
+
+====
+LINKS_AND_REFERENCES: Block anchor
+====
+[[section-id]]
+== Section Title
+----
+(source_file
+  (anchor
+    (anchor_id))
+  (section
+    (section_title)))
+
+====
+LINKS_AND_REFERENCES: Inline anchor in paragraph
+====
+This is an important point.[[important-point]] Remember it.
+----
+(source_file
+  (paragraph
+    (text)
+    (anchor
+      (anchor_id))
+    (text)))
+
+====
+LINKS_AND_REFERENCES: Multiple anchors
+====
+[[primary-id]]
+[[secondary-id]]
+[[tertiary-id]]
+== Multi-referenced Section
+----
+(source_file
+  (anchor
+    (anchor_id))
+  (anchor
+    (anchor_id))
+  (anchor
+    (anchor_id))
+  (section
+    (section_title)))
+
+====
+LINKS_AND_REFERENCES: Attribute-based link
+====
+:project-url: https://github.com/asciidoctor/asciidoctor
+:project-name: Asciidoctor
+
+Visit the {project-url}[{project-name} project].
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (paragraph
+    (text)
+    (link
+      (attribute_reference
+        (attribute_name))
+      (link_text
+        (attribute_reference
+          (attribute_name))))
+    (text)))
+
+====
+LINKS_AND_REFERENCES: URL with attribute reference
+====
+:base-url: https://docs.example.com
+
+Check the documentation at {base-url}/guide.html
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (paragraph
+    (text)
+    (attribute_reference
+      (attribute_name))
+    (text)))
+
+====
+LINKS_AND_REFERENCES: Complex link with formatting
+====
+link:https://example.com[Visit *our* _website_ for `code` examples]
+----
+(source_file
+  (link
+    (link_url)
+    (link_text
+      (text)
+      (text_formatting
+        (bold_text))
+      (text)
+      (text_formatting
+        (italic_text))
+      (text)
+      (text_formatting
+        (monospace_text))
+      (text))))
+
+====
+LINKS_AND_REFERENCES: Link in list item
+====
+* First item
+* link:https://example.com[Example link]
+* Last item
+----
+(source_file
+  (unordered_list
+    (list_item)
+    (list_item
+      (link
+        (link_url)
+        (link_text)))
+    (list_item)))
+
+====
+LINKS_AND_REFERENCES: Cross-reference in admonition
+====
+NOTE: See <<important-section>> for critical information.
+----
+(source_file
+  (admonition
+    (admonition_type)
+    (admonition_content
+      (cross_reference
+        (reference_id)))))
+
+====
+LINKS_AND_REFERENCES: File link
+====
+link:file:///path/to/document.pdf[Local Document]
+----
+(source_file
+  (link
+    (link_url)
+    (link_text)))
+
+====
+LINKS_AND_REFERENCES: FTP link
+====
+link:ftp://ftp.example.com/pub/docs[FTP Archive]
+----
+(source_file
+  (link
+    (link_url)
+    (link_text)))
+
+====
+LINKS_AND_REFERENCES: IRC link
+====
+link:irc://irc.freenode.net/asciidoctor[Join our IRC channel]
+----
+(source_file
+  (link
+    (link_url)
+    (link_text)))
+
+====
+LINKS_AND_REFERENCES: Link with anchor
+====
+link:https://example.com#section-2[Jump to Section 2]
+----
+(source_file
+  (link
+    (link_url)
+    (link_text)))
+
+====
+LINKS_AND_REFERENCES: Bibliography anchor
+====
+[[bibliography]]
+[bibliography]
+== References
+----
+(source_file
+  (anchor
+    (anchor_id))
+  (section
+    (attribute
+      (attribute_name))
+    (section_title)))
+
+====
+LINKS_AND_REFERENCES: Escaped link
+====
+This is not a \link:https://example.com[link].
+----
+(source_file
+  (paragraph
+    (text)
+    (escaped_char)
+    (text)))
+
+====
+LINKS_AND_REFERENCES: URL in source block (not parsed as link)
+====
+[source,text]
+----
+Visit https://example.com for info
+----
+----
+(source_file
+  (source_block
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (delimiter)
+    (source_content)
+    (delimiter)))

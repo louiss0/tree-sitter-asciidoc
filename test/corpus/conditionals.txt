@@ -1,0 +1,359 @@
+====
+CONDITIONALS: Basic ifdef
+====
+ifdef::env-github[]
+This content is only shown on GitHub.
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (conditional_content)
+    (endif_directive)))
+
+====
+CONDITIONALS: Basic ifndef
+====
+ifndef::env-github[]
+This content is hidden on GitHub.
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifndef_directive
+      (condition))
+    (conditional_content)
+    (endif_directive)))
+
+====
+CONDITIONALS: Multiple conditions with OR
+====
+ifdef::env-github,env-gitlab[]
+This shows on GitHub or GitLab.
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition)
+      (condition))
+    (conditional_content)
+    (endif_directive)))
+
+====
+CONDITIONALS: Multiple conditions with AND
+====
+ifdef::backend-html5+env-production[]
+This shows only in HTML5 backend AND production.
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (conditional_content)
+    (endif_directive)))
+
+====
+CONDITIONALS: Basic ifeval
+====
+ifeval::["{backend}" == "html5"]
+HTML5 specific content here.
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifeval_directive
+      (expression))
+    (conditional_content)
+    (endif_directive)))
+
+====
+CONDITIONALS: Ifeval with numeric comparison
+====
+ifeval::[{sectnumlevels} > 2]
+Deep section numbering is enabled.
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifeval_directive
+      (expression))
+    (conditional_content)
+    (endif_directive)))
+
+====
+CONDITIONALS: Ifeval with complex expression
+====
+ifeval::["{doctype}" == "book" && {chapter} > 1]
+This is shown in books after chapter 1.
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifeval_directive
+      (expression))
+    (conditional_content)
+    (endif_directive)))
+
+====
+CONDITIONALS: Nested conditionals
+====
+ifdef::env-production[]
+Production environment.
+ifdef::feature-advanced[]
+Advanced features enabled.
+endif::[]
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (conditional_content)
+    (conditional_block
+      (ifdef_directive
+        (condition))
+      (conditional_content)
+      (endif_directive))
+    (endif_directive)))
+
+====
+CONDITIONALS: Else clause
+====
+ifdef::windows[]
+Windows specific instructions.
+else::[]
+Unix-like system instructions.
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (conditional_content)
+    (else_directive)
+    (conditional_content)
+    (endif_directive)))
+
+====
+CONDITIONALS: Multiple branches
+====
+ifdef::backend-html5[]
+HTML5 output
+else::[]
+ifdef::backend-pdf[]
+PDF output
+else::[]
+Other output
+endif::[]
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (conditional_content)
+    (else_directive)
+    (conditional_block
+      (ifdef_directive
+        (condition))
+      (conditional_content)
+      (else_directive)
+      (conditional_content)
+      (endif_directive))
+    (endif_directive)))
+
+====
+CONDITIONALS: Conditional with blocks
+====
+ifdef::show-examples[]
+.Example
+====
+This is an example block.
+====
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (example_block
+      (block_title)
+      (delimiter)
+      (example_content)
+      (delimiter))
+    (endif_directive)))
+
+====
+CONDITIONALS: Conditional with attributes
+====
+ifdef::custom-styling[]
+:example-caption: Custom Example
+:table-caption: Custom Table
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (attribute_entry
+      (attribute_name)
+      (attribute_value))
+    (attribute_entry
+      (attribute_name)
+      (attribute_value))
+    (endif_directive)))
+
+====
+CONDITIONALS: Backend specific content
+====
+ifdef::backend-html5[]
+++++
+<div class="custom-html">
+Custom HTML content
+</div>
+++++
+endif::[]
+
+ifdef::backend-pdf[]
+[.print-only]
+This appears only in PDF.
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (passthrough_block
+      (delimiter)
+      (passthrough_content)
+      (delimiter))
+    (endif_directive))
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (paragraph
+      (attribute
+        (role_name)))
+    (endif_directive)))
+
+====
+CONDITIONALS: Conditional includes
+====
+ifdef::include-glossary[]
+include::glossary.adoc[]
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (include_directive
+      (include_path))
+    (endif_directive)))
+
+====
+CONDITIONALS: Conditional list items
+====
+* Always shown
+ifdef::show-optional[]
+* Optional item 1
+* Optional item 2
+endif::[]
+* Also always shown
+----
+(source_file
+  (unordered_list
+    (list_item))
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (unordered_list
+      (list_item)
+      (list_item))
+    (endif_directive))
+  (unordered_list
+    (list_item)))
+
+====
+CONDITIONALS: Conditional table rows
+====
+|===
+| Header 1 | Header 2
+
+| Always | Shown
+ifdef::show-extra[]
+| Extra | Row
+endif::[]
+| Final | Row
+|===
+----
+(source_file
+  (table
+    (table_delimiter)
+    (table_header
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell))
+    (conditional_block
+      (ifdef_directive
+        (condition))
+      (table_row
+        (table_cell)
+        (table_cell))
+      (endif_directive))
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+CONDITIONALS: Named endif
+====
+ifdef::feature-a[]
+Feature A content
+endif::feature-a[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (conditional_content)
+    (endif_directive
+      (condition))))
+
+====
+CONDITIONALS: Empty conditional
+====
+ifdef::undefined-attribute[]
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (endif_directive)))
+
+====
+CONDITIONALS: Conditional with formatting
+====
+ifdef::highlight-important[]
+*This is important* and _must be noted_.
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (paragraph
+      (text_formatting
+        (bold_text))
+      (text)
+      (text_formatting
+        (italic_text))
+      (text))
+    (endif_directive)))

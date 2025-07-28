@@ -1,0 +1,384 @@
+====
+MACROS: Basic keyboard macro
+====
+Press kbd:[Enter] to continue.
+----
+(source_file
+  (paragraph
+    (text)
+    (keyboard_macro
+      (key_combination))
+    (text)))
+
+====
+MACROS: Keyboard macro with modifier keys
+====
+Use kbd:[Ctrl+C] to copy and kbd:[Ctrl+V] to paste.
+----
+(source_file
+  (paragraph
+    (text)
+    (keyboard_macro
+      (key_combination))
+    (text)
+    (keyboard_macro
+      (key_combination))
+    (text)))
+
+====
+MACROS: Complex keyboard shortcut
+====
+Press kbd:[Ctrl+Shift+P] to open command palette.
+----
+(source_file
+  (paragraph
+    (text)
+    (keyboard_macro
+      (key_combination))
+    (text)))
+
+====
+MACROS: Multiple key sequence
+====
+Type kbd:[Ctrl+K] followed by kbd:[Ctrl+C] to comment.
+----
+(source_file
+  (paragraph
+    (text)
+    (keyboard_macro
+      (key_combination))
+    (text)
+    (keyboard_macro
+      (key_combination))
+    (text)))
+
+====
+MACROS: Button macro
+====
+Click the btn:[OK] button to confirm.
+----
+(source_file
+  (paragraph
+    (text)
+    (button_macro
+      (button_text))
+    (text)))
+
+====
+MACROS: Multiple buttons
+====
+Choose btn:[Save] to keep changes or btn:[Cancel] to discard.
+----
+(source_file
+  (paragraph
+    (text)
+    (button_macro
+      (button_text))
+    (text)
+    (button_macro
+      (button_text))
+    (text)))
+
+====
+MACROS: Menu macro simple
+====
+Go to menu:File[Open] to open a file.
+----
+(source_file
+  (paragraph
+    (text)
+    (menu_macro
+      (menu_path)
+      (menu_item))
+    (text)))
+
+====
+MACROS: Menu macro with submenu
+====
+Select menu:View[Appearance > Theme] to change theme.
+----
+(source_file
+  (paragraph
+    (text)
+    (menu_macro
+      (menu_path)
+      (menu_item))
+    (text)))
+
+====
+MACROS: Menu macro with deep nesting
+====
+Navigate to menu:Tools[Options > Editor > Font] to change font.
+----
+(source_file
+  (paragraph
+    (text)
+    (menu_macro
+      (menu_path)
+      (menu_item))
+    (text)))
+
+====
+MACROS: Icon macro
+====
+Click the icon:save[] icon to save your work.
+----
+(source_file
+  (paragraph
+    (text)
+    (icon_macro
+      (icon_name))
+    (text)))
+
+====
+MACROS: Icon with size
+====
+The icon:heart[2x] indicates favorites.
+----
+(source_file
+  (paragraph
+    (text)
+    (icon_macro
+      (icon_name)
+      (icon_size))
+    (text)))
+
+====
+MACROS: Icon with role
+====
+Status: icon:check-circle[role=success] Complete
+----
+(source_file
+  (paragraph
+    (text)
+    (icon_macro
+      (icon_name)
+      (icon_attribute))
+    (text)))
+
+====
+MACROS: Basic footnote
+====
+This needs clarification.footnote:[This is explained in detail in Chapter 3.]
+----
+(source_file
+  (paragraph
+    (text)
+    (footnote_macro
+      (footnote_text))))
+
+====
+MACROS: Multiple footnotes
+====
+First point.footnote:[See reference 1.] Second point.footnote:[See reference 2.]
+----
+(source_file
+  (paragraph
+    (text)
+    (footnote_macro
+      (footnote_text))
+    (text)
+    (footnote_macro
+      (footnote_text))))
+
+====
+MACROS: Footnote with ID
+====
+Important fact.footnote:disclaimer[Subject to change without notice.]
+----
+(source_file
+  (paragraph
+    (text)
+    (footnote_macro
+      (footnote_id)
+      (footnote_text))))
+
+====
+MACROS: Footnote reference
+====
+As mentioned earlier.footnoteref:[disclaimer]
+----
+(source_file
+  (paragraph
+    (text)
+    (footnote_reference
+      (footnote_id))))
+
+====
+MACROS: Inline stem expression
+====
+The equation stem:[x^2 + y^2 = z^2] is famous.
+----
+(source_file
+  (paragraph
+    (text)
+    (stem_macro
+      (math_expression))
+    (text)))
+
+====
+MACROS: Block stem expression
+====
+[stem]
+++++
+\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+++++
+----
+(source_file
+  (stem_block
+    (attribute
+      (attribute_name))
+    (delimiter)
+    (math_content)
+    (delimiter)))
+
+====
+MACROS: LaTeX math inline
+====
+Einstein's equation is latexmath:[E = mc^2].
+----
+(source_file
+  (paragraph
+    (text)
+    (latexmath_macro
+      (math_expression))
+    (text)))
+
+====
+MACROS: AsciiMath inline
+====
+The quadratic formula is asciimath:[x = (-b +- sqrt(b^2 - 4ac))/(2a)].
+----
+(source_file
+  (paragraph
+    (text)
+    (asciimath_macro
+      (math_expression))
+    (text)))
+
+====
+MACROS: Pass macro
+====
+The HTML pass:[<u>underlined text</u>] is preserved.
+----
+(source_file
+  (paragraph
+    (text)
+    (pass_macro
+      (passthrough_content))
+    (text)))
+
+====
+MACROS: Pass with substitutions
+====
+Variable pass:c[{attribute}] with substitution.
+----
+(source_file
+  (paragraph
+    (text)
+    (pass_macro
+      (substitution_type)
+      (passthrough_content))
+    (text)))
+
+====
+MACROS: Image macro inline
+====
+Click image:icons/save.png[Save,16,16] to save.
+----
+(source_file
+  (paragraph
+    (text)
+    (image_inline
+      (image_path)
+      (image_alt)
+      (image_width)
+      (image_height))
+    (text)))
+
+====
+MACROS: Link macro in text
+====
+Visit link:https://example.com[our website] for more info.
+----
+(source_file
+  (paragraph
+    (text)
+    (link_macro
+      (url)
+      (link_text))
+    (text)))
+
+====
+MACROS: Anchor macro inline
+====
+This is important.anchor:note1[] Remember it.
+----
+(source_file
+  (paragraph
+    (text)
+    (anchor_macro
+      (anchor_id))
+    (text)))
+
+====
+MACROS: Cross reference macro
+====
+See xref:chapter1.adoc[Chapter 1] for details.
+----
+(source_file
+  (paragraph
+    (text)
+    (xref_macro
+      (target)
+      (link_text))
+    (text)))
+
+====
+MACROS: Include macro
+====
+include::common/header.adoc[]
+----
+(source_file
+  (include_directive
+    (include_path)))
+
+====
+MACROS: Audio macro
+====
+audio::music.mp3[options=autoplay]
+----
+(source_file
+  (audio_macro
+    (audio_path)
+    (audio_attributes)))
+
+====
+MACROS: Video macro
+====
+video::demo.mp4[width=640,height=480]
+----
+(source_file
+  (video_macro
+    (video_path)
+    (video_attributes)))
+
+====
+MACROS: Combined macros in paragraph
+====
+Press kbd:[Ctrl+S] or click btn:[Save] icon:save[] to save your work.footnote:[Autosave is also available.]
+----
+(source_file
+  (paragraph
+    (text)
+    (keyboard_macro
+      (key_combination))
+    (text)
+    (button_macro
+      (button_text))
+    (text)
+    (icon_macro
+      (icon_name))
+    (text)
+    (footnote_macro
+      (footnote_text))))

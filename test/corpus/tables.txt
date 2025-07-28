@@ -1,0 +1,581 @@
+====
+TABLES: Basic table
+====
+|===
+| Cell 1 | Cell 2
+| Cell 3 | Cell 4
+|===
+----
+(source_file
+  (table
+    (table_delimiter)
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with header row
+====
+|===
+| Header 1 | Header 2
+
+| Data 1 | Data 2
+| Data 3 | Data 4
+|===
+----
+(source_file
+  (table
+    (table_delimiter)
+    (table_header
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with title
+====
+.Employee Data
+|===
+| Name | Department
+| John | Engineering
+| Jane | Marketing
+|===
+----
+(source_file
+  (table
+    (block_title)
+    (table_delimiter)
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with column specifications
+====
+[cols="1,2,3"]
+|===
+| Narrow | Medium | Wide
+| A | B | C
+|===
+----
+(source_file
+  (table
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (table_delimiter)
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with percentage column widths
+====
+[cols="25%,50%,25%"]
+|===
+| Quarter | Half | Quarter
+| A | B | C
+|===
+----
+(source_file
+  (table
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (table_delimiter)
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with alignment specifications
+====
+[cols="<,^,>"]
+|===
+| Left | Center | Right
+| A | B | C
+|===
+----
+(source_file
+  (table
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (table_delimiter)
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with mixed column specs
+====
+[cols="1<,2^,1>"]
+|===
+| Left | Center | Right
+| Aligned | Aligned | Aligned
+|===
+----
+(source_file
+  (table
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (table_delimiter)
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with header and footer
+====
+|===
+| Header 1 | Header 2
+
+| Data 1 | Data 2
+| Data 3 | Data 4
+
+| Footer 1 | Footer 2
+|===
+----
+(source_file
+  (table
+    (table_delimiter)
+    (table_header
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_footer
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with column span
+====
+|===
+| Column 1 | Column 2 | Column 3
+2+| Spans 2 columns | Single
+| Single | 2+| Spans 2 columns
+|===
+----
+(source_file
+  (table
+    (table_delimiter)
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell
+        (cell_span))
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell
+        (cell_span)))
+    (table_delimiter)))
+
+====
+TABLES: Table with row span
+====
+|===
+| Column 1 | Column 2
+.2+| Spans 2 rows | A
+| B
+| C | D
+|===
+----
+(source_file
+  (table
+    (table_delimiter)
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell
+        (cell_span))
+      (table_cell))
+    (table_row
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with both column and row span
+====
+|===
+| A | B | C
+2.2+| Spans 2x2 | D
+| E
+| F | G | H
+|===
+----
+(source_file
+  (table
+    (table_delimiter)
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell
+        (cell_span))
+      (table_cell))
+    (table_row
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with formatted content
+====
+|===
+| *Bold* | _Italic_
+| `Code` | #Highlight#
+| link:example.com[Link] | image:icon.png[]
+|===
+----
+(source_file
+  (table
+    (table_delimiter)
+    (table_row
+      (table_cell
+        (text_formatting
+          (bold_text)))
+      (table_cell
+        (text_formatting
+          (italic_text))))
+    (table_row
+      (table_cell
+        (text_formatting
+          (monospace_text)))
+      (table_cell
+        (text_formatting
+          (highlighted_text))))
+    (table_row
+      (table_cell
+        (link))
+      (table_cell
+        (image_inline)))
+    (table_delimiter)))
+
+====
+TABLES: CSV format table
+====
+[format=csv]
+|===
+Name,Age,City
+John,30,New York
+Jane,25,Los Angeles
+|===
+----
+(source_file
+  (table
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (table_delimiter)
+    (csv_row)
+    (csv_row)
+    (csv_row)
+    (table_delimiter)))
+
+====
+TABLES: CSV table with header
+====
+[%header,format=csv]
+|===
+Product,Price,Stock
+Widget A,$10.00,50
+Widget B,$15.00,30
+|===
+----
+(source_file
+  (table
+    (attribute
+      (attribute_name)
+      (attribute_name)
+      (attribute_value))
+    (table_delimiter)
+    (csv_row)
+    (csv_row)
+    (csv_row)
+    (table_delimiter)))
+
+====
+TABLES: DSV format table
+====
+[format=dsv,separator=:]
+|===
+Name:Age:City
+John:30:New York
+Jane:25:Los Angeles
+|===
+----
+(source_file
+  (table
+    (attribute
+      (attribute_name)
+      (attribute_value)
+      (attribute_name)
+      (attribute_value))
+    (table_delimiter)
+    (dsv_row)
+    (dsv_row)
+    (dsv_row)
+    (table_delimiter)))
+
+====
+TABLES: Table with caption
+====
+.Table 1. Sales Data
+[caption="Table 1. "]
+|===
+| Q1 | Q2 | Q3 | Q4
+| 100 | 150 | 200 | 250
+|===
+----
+(source_file
+  (table
+    (block_title)
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (table_delimiter)
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with width attribute
+====
+[width=50%]
+|===
+| Narrow Table
+| Takes 50% width
+|===
+----
+(source_file
+  (table
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (table_delimiter)
+    (table_row
+      (table_cell))
+    (table_row
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with frame and grid options
+====
+[frame=all,grid=rows]
+|===
+| Row 1 Col 1 | Row 1 Col 2
+| Row 2 Col 1 | Row 2 Col 2
+|===
+----
+(source_file
+  (table
+    (attribute
+      (attribute_name)
+      (attribute_value)
+      (attribute_name)
+      (attribute_value))
+    (table_delimiter)
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with stripes
+====
+[stripes=even]
+|===
+| Row 1
+| Row 2
+| Row 3
+| Row 4
+|===
+----
+(source_file
+  (table
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (table_delimiter)
+    (table_row
+      (table_cell))
+    (table_row
+      (table_cell))
+    (table_row
+      (table_cell))
+    (table_row
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Nested table
+====
+|===
+| Outer 1
+a|
+[cols="2*"]
+!===
+! Inner A ! Inner B
+! Inner C ! Inner D
+!===
+| Outer 2
+|===
+----
+(source_file
+  (table
+    (table_delimiter)
+    (table_row
+      (table_cell))
+    (table_row
+      (table_cell
+        (table
+          (attribute
+            (attribute_name)
+            (attribute_value))
+          (table_delimiter)
+          (table_row
+            (table_cell)
+            (table_cell))
+          (table_row
+            (table_cell)
+            (table_cell))
+          (table_delimiter))))
+    (table_row
+      (table_cell))
+    (table_delimiter)))
+
+====
+TABLES: Table with AsciiDoc content cells
+====
+|===
+a| 
+* List item 1
+* List item 2
+
+a|
+[source,python]
+----
+print("Hello")
+----
+|===
+----
+(source_file
+  (table
+    (table_delimiter)
+    (table_row
+      (asciidoc_cell
+        (unordered_list
+          (list_item)
+          (list_item))))
+    (table_row
+      (asciidoc_cell
+        (source_block)))
+    (table_delimiter)))
+
+====
+TABLES: Table with multiple header rows
+====
+[cols="3*",options="header"]
+|===
+| Category | Subcategory | Value
+| A | A1 | 10
+| A | A2 | 20
+| B | B1 | 30
+|===
+----
+(source_file
+  (table
+    (attribute
+      (attribute_name)
+      (attribute_value)
+      (attribute_name)
+      (attribute_value))
+    (table_delimiter)
+    (table_header
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_row
+      (table_cell)
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))

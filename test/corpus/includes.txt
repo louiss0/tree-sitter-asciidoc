@@ -1,0 +1,174 @@
+====
+INCLUDES: Basic include directive
+====
+include::common/footer.adoc[]
+----
+(source_file
+  (include_directive
+    (include_path)))
+
+====
+INCLUDES: Include with line range
+====
+include::setup-instructions.adoc[lines=1..5]
+----
+(source_file
+  (include_directive
+    (include_path)
+    (line_range)))
+
+====
+INCLUDES: Include with tags
+====
+include::api-reference.adoc[tag=endpoint]
+----
+(source_file
+  (include_directive
+    (include_path)
+    (include_tag)))
+
+====
+INCLUDES: Include with indentation
+====
+include::code-example.adoc[indent=4]
+----
+(source_file
+  (include_directive
+    (include_path)
+    (indentation)))
+
+====
+INCLUDES: Multiple includes
+====
+include::chapter1.adoc[]
+include::chapter2.adoc[]
+----
+(source_file
+  (include_directive
+    (include_path))
+  (include_directive
+    (include_path)))
+
+====
+INCLUDES: Recursive include
+====
+include::book.adoc[]
+----
+(source_file
+  (include_directive
+    (include_path)))
+
+====
+INCLUDES: Include with attributes
+====
+include::{path-to-doc}/details.adoc[]
+----
+(source_file
+  (include_directive
+    (include_attribute)))
+
+====
+INCLUDES: Include with attribute substitution
+====
+:path-to-script: scripts/install.sh
+include::{path-to-script}[]
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (include_directive
+    (include_path_substitution)))
+
+====
+INCLUDES: Include with nested conditionals
+====
+ifdef::generate-pdf[]
+include::pdf-settings.adoc[]
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (include_directive
+      (include_path))
+    (endif_directive)))
+
+====
+INCLUDES: Include with comment
+====
+// Comment about the include
+include::legal-notices.adoc[]
+----
+(source_file
+  (comment)
+  (include_directive
+    (include_path)))
+
+====
+INCLUDES: Include with line continuation
+====
+include::multiline.adoc[lines=\
+1..10]
+----
+(source_file
+  (include_directive
+    (include_path)
+    (line_range)))
+
+====
+INCLUDES: Include with role
+====
+[role=important]
+include::overview.adoc[]
+----
+(source_file
+  (include_directive
+    (attribute
+      (role_name))
+    (include_path)))
+
+====
+INCLUDES: Include with missing file
+====
+include::nonexistent.adoc[]
+----
+(source_file
+  (include_directive
+    (include_path)))
+
+====
+INCLUDES: Templated includes
+====
+include::template.adoc[]
+----
+(source_file
+  (include_directive
+    (include_path)))
+
+====
+INCLUDES: Conditional inclusion
+====
+ifdef::advanced-features[]
+include::advanced.adoc[]
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (include_directive
+      (include_path))
+    (endif_directive)))
+
+====
+INCLUDES: Include with options
+====
+include::diagram.adoc[opts=inline]
+----
+(source_file
+  (include_directive
+    (include_path)
+    (options)))
+

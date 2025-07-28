@@ -1,0 +1,310 @@
+====
+TEXT_FORMATTING_ADVANCED: Combined bold and italic formatting
+====
+*_bold italic text_*
+----
+(source_file
+  (text_formatting
+    (bold_italic_text)))
+
+====
+TEXT_FORMATTING_ADVANCED: Alternative combined formatting
+====
+_*italic bold text*_
+----
+(source_file
+  (text_formatting
+    (italic_bold_text)))
+
+====
+TEXT_FORMATTING_ADVANCED: Underlined text with role
+====
+[.underline]#underlined text#
+----
+(source_file
+  (text_formatting
+    (role
+      (role_name))
+    (styled_text)))
+
+====
+TEXT_FORMATTING_ADVANCED: Multiple roles
+====
+[.red.bold.underline]#styled text#
+----
+(source_file
+  (text_formatting
+    (role
+      (role_name)
+      (role_name)
+      (role_name))
+    (styled_text)))
+
+====
+TEXT_FORMATTING_ADVANCED: Smart quotes - double quotes
+====
+"This is a quoted sentence."
+----
+(source_file
+  (paragraph
+    (smart_quotes
+      (quoted_text))))
+
+====
+TEXT_FORMATTING_ADVANCED: Smart quotes - single quotes and apostrophes
+====
+'Single quoted' and don't won't can't
+----
+(source_file
+  (paragraph
+    (smart_quotes
+      (quoted_text))
+    (text)
+    (apostrophe)
+    (text)
+    (apostrophe)
+    (text)
+    (apostrophe)))
+
+====
+TEXT_FORMATTING_ADVANCED: Line break with plus
+====
+First line +
+Second line
+----
+(source_file
+  (paragraph
+    (text)
+    (line_break)
+    (text)))
+
+====
+TEXT_FORMATTING_ADVANCED: Multiple line breaks
+====
+Line one +
+Line two +
+Line three
+----
+(source_file
+  (paragraph
+    (text)
+    (line_break)
+    (text)
+    (line_break)
+    (text)))
+
+====
+TEXT_FORMATTING_ADVANCED: Hard breaks attribute
+====
+[%hardbreaks]
+First line
+Second line
+Third line
+----
+(source_file
+  (paragraph
+    (attribute
+      (attribute_name))
+    (text)
+    (hard_break)
+    (text)
+    (hard_break)
+    (text)))
+
+====
+TEXT_FORMATTING_ADVANCED: Escaped asterisk
+====
+This is \*not bold\*
+----
+(source_file
+  (paragraph
+    (text)
+    (escaped_char)
+    (text)
+    (escaped_char)))
+
+====
+TEXT_FORMATTING_ADVANCED: Escaped underscore
+====
+This is \_not italic\_
+----
+(source_file
+  (paragraph
+    (text)
+    (escaped_char)
+    (text)
+    (escaped_char)))
+
+====
+TEXT_FORMATTING_ADVANCED: Escaped backtick
+====
+This is \`not monospace\`
+----
+(source_file
+  (paragraph
+    (text)
+    (escaped_char)
+    (text)
+    (escaped_char)))
+
+====
+TEXT_FORMATTING_ADVANCED: Escaped hash
+====
+This is \#not highlighted\#
+----
+(source_file
+  (paragraph
+    (text)
+    (escaped_char)
+    (text)
+    (escaped_char)))
+
+====
+TEXT_FORMATTING_ADVANCED: Escaped caret
+====
+This is \^not superscript\^
+----
+(source_file
+  (paragraph
+    (text)
+    (escaped_char)
+    (text)
+    (escaped_char)))
+
+====
+TEXT_FORMATTING_ADVANCED: Escaped tilde
+====
+This is \~not subscript\~
+----
+(source_file
+  (paragraph
+    (text)
+    (escaped_char)
+    (text)
+    (escaped_char)))
+
+====
+TEXT_FORMATTING_ADVANCED: Escaped backslash
+====
+This is a backslash: \\
+----
+(source_file
+  (paragraph
+    (text)
+    (escaped_char)))
+
+====
+TEXT_FORMATTING_ADVANCED: Complex nested formatting
+====
+*Bold with _italic_ inside* and _italic with *bold* inside_
+----
+(source_file
+  (text_formatting
+    (bold_text
+      (text_formatting
+        (italic_text))))
+  (text)
+  (text_formatting
+    (italic_text
+      (text_formatting
+        (bold_text)))))
+
+====
+TEXT_FORMATTING_ADVANCED: Formatting with punctuation boundaries
+====
+*bold*, _italic_, `code`, #highlight#, ^super^, ~sub~.
+----
+(source_file
+  (text_formatting
+    (bold_text))
+  (text)
+  (text_formatting
+    (italic_text))
+  (text)
+  (text_formatting
+    (monospace_text))
+  (text)
+  (text_formatting
+    (highlighted_text))
+  (text)
+  (text_formatting
+    (superscript_text))
+  (text)
+  (text_formatting
+    (subscript_text))
+  (text))
+
+====
+TEXT_FORMATTING_ADVANCED: Formatting across multiple words
+====
+*This is a longer bold text with multiple words*
+----
+(source_file
+  (text_formatting
+    (bold_text)))
+
+====
+TEXT_FORMATTING_ADVANCED: Mixed formatting in a paragraph
+====
+This paragraph has *bold*, _italic_, `code`, and regular text. +
+It also has a line break and [.underline]#underlined text#.
+----
+(source_file
+  (paragraph
+    (text)
+    (text_formatting
+      (bold_text))
+    (text)
+    (text_formatting
+      (italic_text))
+    (text)
+    (text_formatting
+      (monospace_text))
+    (text)
+    (line_break)
+    (text)
+    (text_formatting
+      (role
+        (role_name))
+      (styled_text))
+    (text)))
+
+====
+TEXT_FORMATTING_ADVANCED: Unconstrained formatting
+====
+**un**constrained and __un__constrained
+----
+(source_file
+  (text_formatting
+    (unconstrained_bold))
+  (text)
+  (text_formatting
+    (unconstrained_italic))
+  (text))
+
+====
+TEXT_FORMATTING_ADVANCED: Empty formatting (edge case)
+====
+** __ `` ## ^^ ~~
+----
+(source_file
+  (paragraph))
+
+====
+TEXT_FORMATTING_ADVANCED: Formatting with attribute substitution
+====
+:important: critical
+
+This is *{important}* information.
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (paragraph
+    (text)
+    (text_formatting
+      (bold_text
+        (attribute_reference
+          (attribute_name))))
+    (text)))

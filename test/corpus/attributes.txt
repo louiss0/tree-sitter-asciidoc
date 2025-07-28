@@ -1,0 +1,385 @@
+====
+ATTRIBUTES: Basic attribute entry
+====
+:author: John Doe
+:email: john@example.com
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (attribute_entry
+    (attribute_name)
+    (attribute_value)))
+
+====
+ATTRIBUTES: Attribute reference in text
+====
+:product: AsciiDoc
+
+The {product} processor is powerful.
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (paragraph
+    (text)
+    (attribute_reference
+      (attribute_name))
+    (text)))
+
+====
+ATTRIBUTES: Built-in attributes
+====
+Document version: {revnumber}
+Last updated: {docdate}
+Author: {author}
+----
+(source_file
+  (paragraph
+    (text)
+    (attribute_reference
+      (attribute_name)))
+  (paragraph
+    (text)
+    (attribute_reference
+      (attribute_name)))
+  (paragraph
+    (text)
+    (attribute_reference
+      (attribute_name))))
+
+====
+ATTRIBUTES: Counter attribute
+====
+.Step {counter:step}
+Do this first.
+
+.Step {counter:step}
+Then do this.
+
+.Step {counter:step}
+Finally, do this.
+----
+(source_file
+  (paragraph
+    (block_title
+      (counter_attribute
+        (attribute_name))))
+  (paragraph
+    (block_title
+      (counter_attribute
+        (attribute_name))))
+  (paragraph
+    (block_title
+      (counter_attribute
+        (attribute_name)))))
+
+====
+ATTRIBUTES: Counter with custom start
+====
+:step: 5
+
+.Step {counter:step}
+Starting from 6.
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (paragraph
+    (block_title
+      (counter_attribute
+        (attribute_name)))))
+
+====
+ATTRIBUTES: Unset attribute
+====
+:!important:
+:author!:
+----
+(source_file
+  (attribute_unset
+    (attribute_name))
+  (attribute_unset
+    (attribute_name)))
+
+====
+ATTRIBUTES: Conditional attribute with default
+====
+:env: production
+
+Environment: {env:development}
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (paragraph
+    (text)
+    (attribute_reference
+      (attribute_name)
+      (default_value))))
+
+====
+ATTRIBUTES: Attribute with spaces in value
+====
+:title: The Quick Brown Fox
+:description: A comprehensive guide to foxes \
+and their jumping abilities
+
+Title: {title}
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (attribute_entry
+    (attribute_name)
+    (attribute_value
+      (line_continuation)))
+  (paragraph
+    (text)
+    (attribute_reference
+      (attribute_name))))
+
+====
+ATTRIBUTES: Attribute concatenation
+====
+:first: Hello
+:second: World
+:combined: {first} {second}
+
+Result: {combined}
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (attribute_entry
+    (attribute_name)
+    (attribute_value
+      (attribute_reference
+        (attribute_name))
+      (attribute_reference
+        (attribute_name))))
+  (paragraph
+    (text)
+    (attribute_reference
+      (attribute_name))))
+
+====
+ATTRIBUTES: URL attributes
+====
+:github: https://github.com
+:repo: asciidoctor/asciidoctor
+:project-url: {github}/{repo}
+
+Visit {project-url}[our repository].
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (attribute_entry
+    (attribute_name)
+    (attribute_value
+      (attribute_reference
+        (attribute_name))
+      (attribute_reference
+        (attribute_name))))
+  (paragraph
+    (text)
+    (link
+      (attribute_reference
+        (attribute_name))
+      (link_text))))
+
+====
+ATTRIBUTES: Attribute in block attribute
+====
+:lang: python
+
+[source,{lang}]
+----
+print("Hello")
+----
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (source_block
+    (attribute
+      (attribute_name)
+      (attribute_reference
+        (attribute_name)))
+    (delimiter)
+    (source_content)
+    (delimiter)))
+
+====
+ATTRIBUTES: Multiple attribute references
+====
+:name: John
+:age: 30
+:city: New York
+
+{name} is {age} years old and lives in {city}.
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (paragraph
+    (attribute_reference
+      (attribute_name))
+    (text)
+    (attribute_reference
+      (attribute_name))
+    (text)
+    (attribute_reference
+      (attribute_name))
+    (text)))
+
+====
+ATTRIBUTES: Escaped attribute reference
+====
+:var: value
+
+This is a literal \{var} reference.
+This is an actual {var} substitution.
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (paragraph
+    (text)
+    (escaped_char)
+    (text))
+  (paragraph
+    (text)
+    (attribute_reference
+      (attribute_name))
+    (text)))
+
+====
+ATTRIBUTES: Attribute with special characters
+====
+:note-caption: ⚠️ Warning
+:version: 1.0.0-beta.1
+
+{note-caption}: Version {version}
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (paragraph
+    (attribute_reference
+      (attribute_name))
+    (text)
+    (attribute_reference
+      (attribute_name))))
+
+====
+ATTRIBUTES: Document header attributes
+====
+= Document Title
+:author: Jane Smith
+:email: jane@example.com
+:revnumber: 1.0
+:revdate: 2024-01-01
+:toc:
+:numbered:
+
+Content begins here.
+----
+(source_file
+  (document_header
+    (document_title)
+    (attribute_entry
+      (attribute_name)
+      (attribute_value))
+    (attribute_entry
+      (attribute_name)
+      (attribute_value))
+    (attribute_entry
+      (attribute_name)
+      (attribute_value))
+    (attribute_entry
+      (attribute_name)
+      (attribute_value))
+    (attribute_entry
+      (attribute_name))
+    (attribute_entry
+      (attribute_name)))
+  (paragraph))
+
+====
+ATTRIBUTES: Inline attribute definition
+====
+Normal text {set:var:value} and then use {var}.
+----
+(source_file
+  (paragraph
+    (text)
+    (inline_attribute_set
+      (attribute_name)
+      (attribute_value))
+    (text)
+    (attribute_reference
+      (attribute_name))
+    (text)))
+
+====
+ATTRIBUTES: Attribute in section title
+====
+:chapter: Introduction
+
+== {chapter}: Getting Started
+----
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (section
+    (section_title
+      (attribute_reference
+        (attribute_name)))))
+
+====
+ATTRIBUTES: Global attribute substitution
+====
+:experimental:
+:icons: font
+
+Press kbd:[Ctrl+C] to copy.
+----
+(source_file
+  (attribute_entry
+    (attribute_name))
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (paragraph
+    (text)
+    (keyboard_macro)
+    (text)))

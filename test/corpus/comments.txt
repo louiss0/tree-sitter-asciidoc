@@ -1,0 +1,272 @@
+====
+COMMENTS: Single-line comment
+====
+// This is a comment
+This is not a comment.
+----
+(source_file
+  (comment)
+  (paragraph))
+
+====
+COMMENTS: Multiple single-line comments
+====
+// First comment
+// Second comment
+// Third comment
+----
+(source_file
+  (comment)
+  (comment)
+  (comment))
+
+====
+COMMENTS: Comment with special characters
+====
+// TODO: Fix this bug!
+// NOTE: This is important @user
+// https://example.com - check this
+----
+(source_file
+  (comment)
+  (comment)
+  (comment))
+
+====
+COMMENTS: Comment between content
+====
+First paragraph.
+
+// Comment here
+
+Second paragraph.
+----
+(source_file
+  (paragraph)
+  (comment)
+  (paragraph))
+
+====
+COMMENTS: Basic comment block
+====
+////
+This is a comment block.
+It can span multiple lines.
+////
+----
+(source_file
+  (comment_block
+    (delimiter)
+    (comment_content)
+    (delimiter)))
+
+====
+COMMENTS: Comment block with code
+====
+////
+def example():
+    return "This code is commented out"
+////
+----
+(source_file
+  (comment_block
+    (delimiter)
+    (comment_content)
+    (delimiter)))
+
+====
+COMMENTS: Nested comment blocks
+====
+////
+Outer comment
+////
+Nested comment - this is NOT nested, just content
+////
+Back to outer
+////
+----
+(source_file
+  (comment_block
+    (delimiter)
+    (comment_content)
+    (delimiter)))
+
+====
+COMMENTS: Comment in list
+====
+* First item
+// Comment about next item
+* Second item
+* Third item
+----
+(source_file
+  (unordered_list
+    (list_item))
+  (comment)
+  (unordered_list
+    (list_item)
+    (list_item)))
+
+====
+COMMENTS: Comment in table
+====
+|===
+| Header 1 | Header 2
+
+// Comment in table
+| Cell 1 | Cell 2
+|===
+----
+(source_file
+  (table
+    (table_delimiter)
+    (table_header
+      (table_cell)
+      (table_cell))
+    (comment)
+    (table_row
+      (table_cell)
+      (table_cell))
+    (table_delimiter)))
+
+====
+COMMENTS: Comment before block
+====
+// This explains the following code
+[source,python]
+----
+print("Hello")
+----
+----
+(source_file
+  (comment)
+  (source_block
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (delimiter)
+    (source_content)
+    (delimiter)))
+
+====
+COMMENTS: Comment with attributes
+====
+// :author: John Doe - this is still a comment
+:author: Jane Doe
+----
+(source_file
+  (comment)
+  (attribute_entry
+    (attribute_name)
+    (attribute_value)))
+
+====
+COMMENTS: Inline comment (not supported)
+====
+This is text /* not a comment */ more text.
+----
+(source_file
+  (paragraph))
+
+====
+COMMENTS: Comment at end of line
+====
+Some text here // Comment at end
+----
+(source_file
+  (paragraph)
+  (comment))
+
+====
+COMMENTS: Empty comment
+====
+//
+----
+(source_file
+  (comment))
+
+====
+COMMENTS: Empty comment block
+====
+////
+////
+----
+(source_file
+  (comment_block
+    (delimiter)
+    (delimiter)))
+
+====
+COMMENTS: Comment with leading spaces
+====
+    // Indented comment
+Regular text
+----
+(source_file
+  (comment)
+  (paragraph))
+
+====
+COMMENTS: Comment block with delimiters inside
+====
+////
+This contains //// but it's just text
+Still inside the comment
+////
+----
+(source_file
+  (comment_block
+    (delimiter)
+    (comment_content)
+    (delimiter)))
+
+====
+COMMENTS: Comment affecting conditionals
+====
+ifdef::feature[]
+// This comment is inside conditional
+Feature content
+endif::[]
+----
+(source_file
+  (conditional_block
+    (ifdef_directive
+      (condition))
+    (comment)
+    (conditional_content)
+    (endif_directive)))
+
+====
+COMMENTS: Commented include
+====
+// include::file.adoc[]
+include::actual-file.adoc[]
+----
+(source_file
+  (comment)
+  (include_directive
+    (include_path)))
+
+====
+COMMENTS: Long comment block
+====
+////
+This is a very long comment block that contains multiple paragraphs
+and various content to ensure proper parsing.
+
+It might contain what looks like AsciiDoc:
+== Not a heading
+* Not a list item
+[source,code]
+----
+Not a code block
+----
+
+But it's all just comment content.
+////
+----
+(source_file
+  (comment_block
+    (delimiter)
+    (comment_content)
+    (delimiter)))

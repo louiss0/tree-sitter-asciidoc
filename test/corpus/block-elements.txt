@@ -1,0 +1,490 @@
+====
+BLOCK_ELEMENTS: Basic source code block
+====
+[source,python]
+----
+def hello():
+    print("Hello, World!")
+----
+----
+(source_file
+  (source_block
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (delimiter)
+    (source_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Source block with title
+====
+.Python Example
+[source,python]
+----
+import sys
+print(sys.version)
+----
+----
+(source_file
+  (source_block
+    (block_title)
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (delimiter)
+    (source_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Source block with line numbers
+====
+[source,java,linenums]
+----
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello");
+    }
+}
+----
+----
+(source_file
+  (source_block
+    (attribute
+      (attribute_name)
+      (attribute_value)
+      (attribute_name))
+    (delimiter)
+    (source_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Source block with callouts
+====
+[source,ruby]
+----
+require 'sinatra' # <1>
+
+get '/hi' do # <2>
+  "Hello World!" # <3>
+end
+----
+<1> Import Sinatra
+<2> Define route
+<3> Return response
+----
+(source_file
+  (source_block
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (delimiter)
+    (source_content
+      (callout))
+    (source_content
+      (callout))
+    (source_content
+      (callout))
+    (delimiter))
+  (callout_list
+    (callout_item)
+    (callout_item)
+    (callout_item)))
+
+====
+BLOCK_ELEMENTS: Basic listing block
+====
+----
+This is a listing block.
+It preserves formatting.
+    Including indentation.
+----
+----
+(source_file
+  (listing_block
+    (delimiter)
+    (listing_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Listing block with title
+====
+.Command Output
+----
+$ ls -la
+total 48
+drwxr-xr-x  6 user  staff   192 Jan  1 12:00 .
+drwxr-xr-x  5 user  staff   160 Jan  1 11:00 ..
+----
+----
+(source_file
+  (listing_block
+    (block_title)
+    (delimiter)
+    (listing_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Basic literal block
+====
+....
+This is a literal block.
+Special characters like * and _ are not processed.
+....
+----
+(source_file
+  (literal_block
+    (delimiter)
+    (literal_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Literal block with indented content
+====
+....
+    def example():
+        return "literal"
+....
+----
+(source_file
+  (literal_block
+    (delimiter)
+    (literal_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Basic quote block
+====
+[quote]
+____
+To be or not to be, that is the question.
+____
+----
+(source_file
+  (quote_block
+    (attribute
+      (attribute_name))
+    (delimiter)
+    (quote_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Quote block with attribution
+====
+[quote, William Shakespeare, Hamlet]
+____
+To be or not to be, that is the question.
+____
+----
+(source_file
+  (quote_block
+    (attribute
+      (attribute_name)
+      (attribute_value)
+      (attribute_value))
+    (delimiter)
+    (quote_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Quote block with citation
+====
+[quote, Douglas Adams, 'The Hitchhiker\'s Guide to the Galaxy']
+____
+The answer to the ultimate question of life,
+the universe, and everything is 42.
+____
+----
+(source_file
+  (quote_block
+    (attribute
+      (attribute_name)
+      (attribute_value)
+      (attribute_value))
+    (delimiter)
+    (quote_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Basic example block
+====
+====
+This is an example block.
+It can contain multiple paragraphs.
+
+And other content.
+====
+----
+(source_file
+  (example_block
+    (delimiter)
+    (example_content
+      (paragraph)
+      (paragraph))
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Example block with title
+====
+.Sample Configuration
+====
+server:
+  host: localhost
+  port: 8080
+====
+----
+(source_file
+  (example_block
+    (block_title)
+    (delimiter)
+    (example_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Basic sidebar block
+====
+****
+This is a sidebar.
+It's typically styled differently.
+****
+----
+(source_file
+  (sidebar_block
+    (delimiter)
+    (sidebar_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Sidebar with title
+====
+.Did you know?
+****
+Sidebars are perfect for tangential information
+that's related but not essential to the main text.
+****
+----
+(source_file
+  (sidebar_block
+    (block_title)
+    (delimiter)
+    (sidebar_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Basic passthrough block
+====
+++++
+<div class="custom">
+  <p>Raw HTML content</p>
+</div>
+++++
+----
+(source_file
+  (passthrough_block
+    (delimiter)
+    (passthrough_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Passthrough block for LaTeX
+====
+[pass]
+++++
+\begin{equation}
+E = mc^2
+\end{equation}
+++++
+----
+(source_file
+  (passthrough_block
+    (attribute
+      (attribute_name))
+    (delimiter)
+    (passthrough_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Basic open block
+====
+--
+This is an open block.
+It groups content together.
+
+It can contain multiple elements.
+--
+----
+(source_file
+  (open_block
+    (delimiter)
+    (open_content
+      (paragraph)
+      (paragraph))
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Open block with nested content
+====
+[sidebar]
+--
+.Nested Example
+====
+This example is inside an open block
+that's styled as a sidebar.
+====
+
+Regular paragraph in the sidebar.
+--
+----
+(source_file
+  (open_block
+    (attribute
+      (attribute_name))
+    (delimiter)
+    (example_block
+      (block_title)
+      (delimiter)
+      (example_content)
+      (delimiter))
+    (paragraph)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Nested blocks
+====
+====
+Example block containing:
+
+----
+A listing block
+----
+
+And regular text.
+====
+----
+(source_file
+  (example_block
+    (delimiter)
+    (example_content
+      (paragraph)
+      (listing_block
+        (delimiter)
+        (listing_content)
+        (delimiter))
+      (paragraph))
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Block with ID
+====
+[#custom-id]
+----
+Block with custom ID
+----
+----
+(source_file
+  (listing_block
+    (attribute
+      (attribute_id))
+    (delimiter)
+    (listing_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Block with role
+====
+[.important]
+====
+This is an important example.
+====
+----
+(source_file
+  (example_block
+    (attribute
+      (role_name))
+    (delimiter)
+    (example_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Block with multiple attributes
+====
+[#my-code.ruby.numberLines,start=10]
+----
+def process
+  # code here
+end
+----
+----
+(source_file
+  (listing_block
+    (attribute
+      (attribute_id)
+      (role_name)
+      (role_name)
+      (attribute_name)
+      (attribute_value))
+    (delimiter)
+    (listing_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Source block with highlighting
+====
+[source,python,highlight=2..3]
+----
+def calculate(x, y):
+    result = x + y
+    return result
+----
+----
+(source_file
+  (source_block
+    (attribute
+      (attribute_name)
+      (attribute_value)
+      (attribute_name)
+      (attribute_value))
+    (delimiter)
+    (source_content)
+    (delimiter)))
+
+====
+BLOCK_ELEMENTS: Complex nested structure
+====
+.Main Example
+====
+This example contains:
+
+.Nested Source
+[source,javascript]
+----
+console.log("Hello");
+----
+
+And a sidebar:
+
+****
+Important note here.
+****
+====
+----
+(source_file
+  (example_block
+    (block_title)
+    (delimiter)
+    (example_content
+      (paragraph)
+      (source_block
+        (block_title)
+        (attribute
+          (attribute_name)
+          (attribute_value))
+        (delimiter)
+        (source_content)
+        (delimiter))
+      (paragraph)
+      (sidebar_block
+        (delimiter)
+        (sidebar_content)
+        (delimiter)))
+    (delimiter)))
