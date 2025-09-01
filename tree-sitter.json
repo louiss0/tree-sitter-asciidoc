@@ -1,0 +1,41 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "asciidoc",
+      "camelcase": "Asciidoc",
+      "title": "Tree-Sitter-Asciidoc",
+      "scope": "source.asciidoc",
+      "file-types": [
+        "asc",
+        "adoc",
+        "asciidoc"
+      ],
+      "injection-regex": "^asciidoc$",
+      "class-name": "TreeSitterAsciidoc"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "This is my parser for Asciidoc",
+    "authors": [
+      {
+        "name": "Shelton Louis",
+        "email": "louisshelton0@gmail.com"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/louiss0/tree-sitter-asciidoc"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
