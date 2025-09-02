@@ -31,14 +31,14 @@ module.exports = grammar({
     blank_line: $ => prec.right(seq(repeat(/[ \t]/), $.newline)),
 
     // Attribute entries :name: value  
-    attr_name: $ => /[A-Za-z0-9_][A-Za-z0-9_-]*/,
-    attr_value: $ => /[^\n]*/,
+    _attr_name: $ => /[A-Za-z0-9_][A-Za-z0-9_-]*/,
+    _attr_value: $ => /[^\n]*/,
     attribute_entry: $ => seq(
       ":",
-      field("name", $.attr_name),
+      field("name", $._attr_name),
       ":",
       optional(/[ \t]+/),
-      field("value", $.attr_value),
+      field("value", $._attr_value),
       $.newline
     ),
 
