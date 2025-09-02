@@ -35,12 +35,14 @@ module.exports = grammar({
       $.paragraph
     ),
 
-    // Smart section structure - title with optional content that doesn't interfere with flat sections
+    // Smart section structure with limited nesting capability
     section: $ => prec.right(seq(
       $.section_title,
       repeat(choice(
         $.attribute_entry,
-        $.paragraph
+        $.paragraph,
+        // Allow nested sections but with lower precedence
+        prec(-1, $.section)
       ))
     )),
 

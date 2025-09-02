@@ -48,6 +48,14 @@
                 {
                   "type": "SYMBOL",
                   "name": "paragraph"
+                },
+                {
+                  "type": "PREC",
+                  "value": -1,
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "section"
+                  }
                 }
               ]
             }
