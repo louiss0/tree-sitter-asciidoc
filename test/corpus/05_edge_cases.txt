@@ -1,0 +1,81 @@
+================================================================================
+Indented headings should be paragraphs (not headings)
+================================================================================
+
+  = Indented level 1
+   == Indented level 2
+	=== Indented with tab
+
+--------------------------------------------------------------------------------
+
+(document
+  (paragraph (text))
+  (paragraph (text))
+  (paragraph (text)))
+
+================================================================================
+Invalid attribute patterns should be paragraphs
+================================================================================
+
+: missing name after colon
+:incomplete-because-no-second-colon
+:: double colon start
+::: triple colon
+
+--------------------------------------------------------------------------------
+
+(document
+  (paragraph (text))
+  (paragraph (text))
+  (paragraph (text))
+  (paragraph (text)))
+
+================================================================================
+Attributes with spaces in values and empty values
+================================================================================
+
+:name:    value with spaces
+:empty:
+:spaced: 	tabbed value
+
+--------------------------------------------------------------------------------
+
+(document
+  (attribute_entry (name) (value))
+  (attribute_entry (name) (value))
+  (attribute_entry (name) (value)))
+
+================================================================================
+Multiple consecutive blank lines
+================================================================================
+
+First paragraph
+
+
+Second paragraph after two blanks
+
+
+
+Third paragraph after three blanks
+
+--------------------------------------------------------------------------------
+
+(document
+  (paragraph (text))
+  (paragraph (text))
+  (paragraph (text)))
+
+================================================================================
+Headings with trailing spaces
+================================================================================
+
+= Title with trailing spaces   
+== Another with tabs	
+=== Mix of spaces and content   text here
+
+--------------------------------------------------------------------------------
+
+(document
+  (section (section_title (title)))
+  (section (section_title (title)))
+  (section (section_title (title))))
