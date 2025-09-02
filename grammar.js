@@ -46,11 +46,19 @@ module.exports = grammar({
     // Full section body scoping is complex and requires level-aware parsing
     section: $ => $.section_title,
 
-    // Paragraph text: any line that doesn't match other patterns
-    // Lower precedence allows section markers and attributes to win  
-    text: $ => token(prec(-1, /[^\r\n][^\r\n]*/)),
+    // Indented line: any line that starts with whitespace
+    // Higher precedence than section marker to catch indented "headings"
+    _indented_line: $ => token(prec(15, /[ \t]+.*/)),
 
-    // Paragraph: single text token (multiline handled by extras whitespace)
+    // Paragraph text: multi-line content until blank line or other construct
+    // Lower precedence allows section markers and attributes to win
+    // Also includes indented lines to handle them as paragraph content
+    text: $ => choice(
+      $._indented_line,
+      token(prec(-1, /[^\r\n][^\r\n]*(?:\r?\n[^\r\n:=][^\r\n]*)*/))
+    ),
+
+    // Paragraph: single text token that can span multiple lines
     paragraph: $ => $.text,
 
     // Attribute name: must be valid identifier

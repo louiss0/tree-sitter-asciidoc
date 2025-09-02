@@ -29,7 +29,7 @@
         "value": 10,
         "content": {
           "type": "PATTERN",
-          "value": "={1,6}[ \\t]+"
+          "value": "={1,5}[ \\t]+"
         }
       }
     },
@@ -57,16 +57,36 @@
       "type": "SYMBOL",
       "name": "section_title"
     },
-    "text": {
+    "_indented_line": {
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": -1,
+        "value": 15,
         "content": {
           "type": "PATTERN",
-          "value": "[^\\r\\n][^\\r\\n]*"
+          "value": "[ \\t]+.*"
         }
       }
+    },
+    "text": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_indented_line"
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": -1,
+            "content": {
+              "type": "PATTERN",
+              "value": "[^\\r\\n][^\\r\\n]*(?:\\r?\\n[^\\r\\n:=][^\\r\\n]*)*"
+            }
+          }
+        }
+      ]
     },
     "paragraph": {
       "type": "SYMBOL",

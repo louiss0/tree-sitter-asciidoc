@@ -88,15 +88,16 @@
     }
   },
   {
+    "type": "text",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": ":",
     "named": false
   },
   {
     "type": "name",
-    "named": true
-  },
-  {
-    "type": "text",
     "named": true
   },
   {
