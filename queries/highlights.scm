@@ -1,14 +1,12 @@
 ; AsciiDoc syntax highlighting
 
 ; Section titles
-(section_title
-  title: (title) @markup.heading)
+(section_title (title) @markup.heading)
 
 ; Attribute entries
 (attribute_entry
-  name: (name) @property
-  value: (value) @string)
+  name: (_attr_name) @property
+  value: (_attr_value) @string)
 
 ; Paragraph text
-(paragraph
-  (text) @text)
+(paragraph (text) @markup.text)
