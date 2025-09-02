@@ -78,7 +78,7 @@
     },
     "value": {
       "type": "PATTERN",
-      "value": "[^\\r\\n]+"
+      "value": "[^\\r\\n]*"
     },
     "attribute_entry": {
       "type": "PREC_DYNAMIC",
@@ -99,16 +99,8 @@
             "value": ":"
           },
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "value"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "value"
           }
         ]
       }

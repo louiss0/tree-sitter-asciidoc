@@ -55,15 +55,15 @@ module.exports = grammar({
     // Attribute name: must be valid identifier
     name: $ => /[A-Za-z_][A-Za-z0-9_-]*/,
     
-    // Attribute value: non-empty content (for optional values, this won't match)
-    value: $ => /[^\r\n]+/,
+    // Attribute value: any content to end of line, including empty/whitespace
+    value: $ => /[^\r\n]*/,
     
-    // Attribute entry with higher precedence, but allow fallback to paragraph
+    // Attribute entry: always has value (even if empty)
     attribute_entry: $ => prec.dynamic(5, seq(
       ":",
       $.name,
       ":",
-      optional($.value)
+      $.value
     )),
   },
 });
