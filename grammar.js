@@ -42,7 +42,8 @@ module.exports = grammar({
     // Section title: marker + title (spacing handled by marker token)
     section_title: $ => seq($._section_marker, $.title),
 
-    // Section node - Stage 1: just the title (body scoping comes later)
+    // Section node: title only for now (revert to simple approach)
+    // Full section body scoping is complex and requires level-aware parsing
     section: $ => $.section_title,
 
     // Paragraph text: any line that doesn't match other patterns
