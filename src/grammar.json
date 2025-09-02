@@ -27,8 +27,33 @@
       ]
     },
     "section": {
-      "type": "SYMBOL",
-      "name": "section_title"
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "section_title"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "attribute_entry"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "paragraph"
+                }
+              ]
+            }
+          }
+        ]
+      }
     },
     "section_title": {
       "type": "SEQ",
@@ -87,7 +112,7 @@
     },
     "attribute_entry": {
       "type": "PREC",
-      "value": 5,
+      "value": 10,
       "content": {
         "type": "SEQ",
         "members": [
@@ -159,6 +184,10 @@
     ],
     [
       "attribute_entry",
+      "paragraph"
+    ],
+    [
+      "name",
       "paragraph"
     ]
   ],
