@@ -322,6 +322,66 @@ Use external scanners (C code) only when grammar rules cannot handle:
 1. **Intuitive Structure** — Nodes correspond to recognizable language constructs
 2. **LR(1) Adherence** — Minimize conflicts, prefer unambiguous rules
 
+#### Whitespace Handling Best Practices
+
+**Core Principle:**
+- **Whitespace must NEVER appear as explicit AST nodes**
+- Use `extras` to handle spaces, tabs, and newlines invisibly
+- Tree-sitter automatically skips whitespace between tokens when defined in `extras`
+
+**Correct Configuration:**
+```javascript
+module.exports = grammar({
+  name: "asciidoc",
+  extras: $ => [/\s/],  // Handles all whitespace (spaces, tabs, newlines)
+  // OR if comments exist:
+  extras: $ => [/\s/, $.comment],
+  
+  rules: {
+    // Grammar rules without explicit whitespace handling
+  }
+});
+```
+
+**❌ INCORRECT Examples (Never Do This):**
+```javascript
+// DON'T create whitespace nodes
+newline: $ => /\r?\n/,
+blank_line: $ => prec.right(seq(repeat(/[ \t]/), $.newline)),
+
+// DON'T reference whitespace in rules
+paragraph: $ => seq($.text, $.newline),
+section_title: $ => seq('=', $.title, $.newline),
+
+// DON'T include whitespace in block choices
+block: $ => choice($.section, $.paragraph, $.blank_line),
+```
+
+**✅ CORRECT Examples:**
+```javascript
+// Let paragraphs span multiple lines naturally
+paragraph: $ => repeat1($.text),
+
+// Section titles end naturally at line boundaries
+section_title: $ => seq('=', /[ \t]+/, field('title', $.title)),
+
+// Attribute entries end naturally
+attribute_entry: $ => seq(':', field('name', $.name), ':', optional(field('value', $.value))),
+
+// Only meaningful constructs in block choices
+block: $ => choice($.section, $.attribute_entry, $.paragraph),
+```
+
+**Debugging Tips:**
+- Use `npx tree-sitter parse file.adoc --quiet --json` to verify AST contains no whitespace nodes
+- Use `npx tree-sitter debug-grammar` to analyze parsing conflicts
+- Check that `extras` field correctly handles your whitespace patterns
+
+**Important Notes:**
+- Ensure block-level tokens have sufficient precedence (e.g., `token(prec(2, '='))`) so paragraphs don't absorb them
+- Use `token()` strategically to create atomic tokens that can't be broken by whitespace
+- Test with documents containing various whitespace patterns (tabs, spaces, blank lines)
+
 **Performance Guidelines:**
 
 - **Prefer grammar rules** over external scanners when possible
