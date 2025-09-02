@@ -8,7 +8,7 @@ Indented headings should be paragraphs (not headings)
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (paragraph (text))
   (paragraph (text))
   (paragraph (text)))
@@ -24,7 +24,7 @@ Invalid attribute patterns should be paragraphs
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (paragraph (text))
   (paragraph (text))
   (paragraph (text))
@@ -40,7 +40,7 @@ Attributes with spaces in values and empty values
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (attribute_entry (name) (value))
   (attribute_entry (name) (value))
   (attribute_entry (name) (value)))
@@ -60,7 +60,7 @@ Third paragraph after three blanks
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (paragraph (text))
   (paragraph (text))
   (paragraph (text)))
@@ -75,7 +75,7 @@ Headings with trailing spaces
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (section (section_title (title)))
   (section (section_title (title)))
   (section (section_title (title))))

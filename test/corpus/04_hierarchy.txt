@@ -13,7 +13,7 @@ Paragraph under C
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (section
     (section_title (title))
     (paragraph (text))
@@ -42,7 +42,7 @@ Content for section 3
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (section
     (section_title (title))
     (paragraph (text)))
@@ -80,7 +80,7 @@ Content at level 6
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (section
     (section_title (title))
     (paragraph (text))
@@ -118,7 +118,7 @@ Subsection content
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (attribute_entry (name) (value))
   (section
     (section_title (title))

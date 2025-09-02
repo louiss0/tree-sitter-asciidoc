@@ -12,7 +12,7 @@ Some text.
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (attribute_entry (name) (value))
   (attribute_entry (name) (value))
   (section
@@ -33,7 +33,7 @@ Content here
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (attribute_entry (name) (value))
   (attribute_entry (name) (value))
   (section
@@ -49,7 +49,7 @@ Attribute entries with spaces in values
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (attribute_entry (name) (value))
   (attribute_entry (name) (value)))
 
@@ -63,7 +63,7 @@ Invalid attribute patterns should be paragraphs
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (paragraph (text))
   (paragraph (text))
   (paragraph (text)))
@@ -84,7 +84,7 @@ More content
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (attribute_entry (name) (value))
   (paragraph (text))
   (attribute_entry (name) (value))

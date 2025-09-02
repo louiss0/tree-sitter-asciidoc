@@ -17,7 +17,7 @@ module.exports = grammar({
   supertypes: $ => [$.block],
 
   rules: {
-    document: $ => repeat($.block),
+    source_file: $ => repeat($.block),
 
     block: $ => choice(
       $.section,

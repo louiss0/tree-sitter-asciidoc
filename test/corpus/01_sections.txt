@@ -11,7 +11,7 @@ Section titles with different levels
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (section
     (section_title (title)))
   (section
@@ -33,7 +33,7 @@ Single section with title
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (section
     (section_title (title))))
 
@@ -47,7 +47,7 @@ Section titles with varied spacing
 
 --------------------------------------------------------------------------------
 
-(document
+(source_file
   (section
     (section_title (title)))
   (section

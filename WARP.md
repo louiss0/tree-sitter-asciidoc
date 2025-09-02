@@ -131,8 +131,17 @@ module.exports = grammar({
   name: "asciidoc",
 
   rules: {
-    // TODO: add the actual grammar rules
-    source_file: $ => "hello"
+    // Root node follows tree-sitter convention
+    source_file: $ => repeat($.block),
+    
+    block: $ => choice(
+      $.section,
+      $.attribute_entry,
+      $.paragraph,
+      $.blank_line
+    ),
+    
+    // Additional grammar rules...
   }
 });
 ```
@@ -375,20 +384,6 @@ conflicts: $ => [
 - Include directives (`include::file.adoc[]`)
 - Conditional processing (`ifdef::`, `ifndef::`)
 
-### Node Naming Conventions
-
-```
-document
-├── section
-│   ├── section_title
-│   └── section_body
-├── paragraph
-├── list
-│   └── list_item
-├── delimited_block
-├── attribute_entry
-└── attribute_reference
-```
 
 **Supertypes:**
 - `block`: sections, paragraphs, lists, delimited blocks
@@ -524,13 +519,19 @@ npx tree-sitter highlight examples/sample.adoc
 
 **Standard Rule Naming Conventions:**
 
-- `source_file` — Root node representing entire file
-- `statement`/`expression` — Core language constructs
-- `block` — Scoped content containers
-- `type` — Type annotations and declarations
+**IMPORTANT: Tree-sitter Conventions (MUST FOLLOW):**
+- `source_file` — **REQUIRED** root node representing entire file (never use `document` or other names)
+- `_statement`/`_expression` — Core language constructs (hidden with `_` prefix if not in AST)
+- `block` — Scoped content containers 
 - `identifier` — Variable/function names (often used as `word` token)
 - `string` — String literals
 - `comment` — Comments (typically in `extras`)
+
+**AsciiDoc-Specific Naming:**
+- `section` — Document sections with titles
+- `attribute_entry` — `:name: value` pairs
+- `paragraph` — Text content blocks
+- `title` — Section and block titles
 
 **Structural Guidelines:**
 
