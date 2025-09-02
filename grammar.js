@@ -21,7 +21,8 @@ module.exports = grammar({
   extras: $ => [/\s/],
 
   conflicts: $ => [
-    [$.section]
+    [$.section],
+    [$.attribute_entry, $.paragraph]
   ],
   
   rules: {
@@ -33,17 +34,8 @@ module.exports = grammar({
       $.paragraph
     ),
 
-    // Hierarchical sections with level awareness
-    section: $ => prec.right(seq(
-      $.section_title,
-      repeat($._section_content)
-    )),
-
-    _section_content: $ => choice(
-      $.attribute_entry,
-      $.paragraph,
-      $.section
-    ),
+    // Simple section structure - just title without implicit body
+    section: $ => $.section_title,
 
     // Section title with field - require space after equals to avoid false positives
     section_title: $ => seq(
@@ -62,18 +54,18 @@ module.exports = grammar({
     // Text spans multiple lines until blank line or other construct
     text: $ => token(prec(-1, /[^\r\n][^\r\n]*(?:\r?\n[^\r\n:=][^\r\n]*)*/)),
 
-    // Attribute entry with separate name and value rules
-    attribute_entry: $ => seq(
+    // Attribute entry with strict field-based validation
+    attribute_entry: $ => prec(5, seq(
       token(':'),
       field('name', $.name),
       token.immediate(':'),
       field('value', optional($.value))
-    ),
+    )),
 
-    // Attribute name
+    // Attribute name - must be immediate
     name: $ => token.immediate(/[A-Za-z0-9][A-Za-z0-9_-]*/),
-
-    // Attribute value
+    
+    // Attribute value - must be immediate
     value: $ => token.immediate(/[^\r\n]*/),
   },
 });
