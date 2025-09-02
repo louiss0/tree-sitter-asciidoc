@@ -1,9 +1,7 @@
 ; AsciiDoc code folding
 
-; Fold section bodies
-(section
-  title: (section_title)
-  body: (_) @fold)
+; Fold sections
+(section) @fold
 
 ; Fold multi-line paragraphs
 (paragraph) @fold

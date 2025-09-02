@@ -10,9 +10,7 @@
 module.exports = grammar({
   name: "asciidoc",
 
-  extras: $ => [/[ \t]/],
-
-  // Remove conflicts to let precedence handle disambiguation
+  extras: $ => [/\s/],
 
   supertypes: $ => [$.block],
 
@@ -22,48 +20,38 @@ module.exports = grammar({
     block: $ => choice(
       $.section,
       $.attribute_entry,
-      $.blank_line,
       $.paragraph
     ),
 
-    // Basic structural elements
-    newline: $ => /\r?\n/,
-    blank_line: $ => prec.right(seq(repeat(/[ \t]/), $.newline)),
-
     // Attribute entries :name: value  
-    _attr_name: $ => /[A-Za-z0-9_][A-Za-z0-9_-]*/,
-    _attr_value: $ => /[^\n]*/,
-    attribute_entry: $ => seq(
-      ":",
-      field("name", $._attr_name),
-      ":",
-      optional(/[ \t]+/),
-      field("value", $._attr_value),
-      $.newline
-    ),
-
-    // Paragraphs - text that doesn't start with = or :
-    text: $ => token(prec(-1, /[^=:\n][^\n]*/)),
-    paragraph: $ => prec.left(seq(
-      repeat1(seq($.text, $.newline))
+    name: $ => /[A-Za-z0-9_][A-Za-z0-9_-]*/,
+    value: $ => /[^\r\n]*/,
+    attribute_entry: $ => prec(1, seq(
+      token(":"),
+      field("name", $.name),
+      token(":"),
+      optional(seq(/[ \t]+/, field("value", $.value)))
     )),
 
+    // Paragraphs - text that doesn't start with = (but can start with invalid :)
+    text: $ => token(prec(-1, /[^=\r\n][^\r\n]*/)),
+    paragraph: $ => prec.left(repeat1($.text)),
+
     // Section titles and hierarchical nesting - use token to ensure lexical priority
-    title: $ => /[^\n]+/,
+    title: $ => /[^\r\n]+/,
     
     section_title: $ => choice(
-      seq(token("="), /[ \t]+/, field("title", $.title), $.newline),
-      seq(token("=="), /[ \t]+/, field("title", $.title), $.newline),
-      seq(token("==="), /[ \t]+/, field("title", $.title), $.newline),
-      seq(token("===="), /[ \t]+/, field("title", $.title), $.newline),
-      seq(token("====="), /[ \t]+/, field("title", $.title), $.newline),
-      seq(token("======"), /[ \t]+/, field("title", $.title), $.newline)
+      seq(token(prec(2, "=")), /[ \t]+/, field("title", $.title)),
+      seq(token(prec(2, "==")), /[ \t]+/, field("title", $.title)),
+      seq(token(prec(2, "===")), /[ \t]+/, field("title", $.title)),
+      seq(token(prec(2, "====")), /[ \t]+/, field("title", $.title)),
+      seq(token(prec(2, "=====")), /[ \t]+/, field("title", $.title)),
+      seq(token(prec(2, "======")), /[ \t]+/, field("title", $.title))
     ),
 
     section: $ => prec.right(seq(
       field("title", $.section_title),
       repeat(choice(
-        $.blank_line,
         $.attribute_entry,
         $.paragraph,
         $.section // Recursive nesting

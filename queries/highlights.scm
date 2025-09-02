@@ -6,12 +6,9 @@
 
 ; Attribute entries
 (attribute_entry
-  name: (attr_name) @property
-  value: (attr_value) @string)
+  name: (name) @property
+  value: (value) @string)
 
 ; Paragraph text
 (paragraph
   (text) @text)
-
-; Basic structure
-(newline) @punctuation.whitespace
