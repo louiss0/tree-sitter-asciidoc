@@ -131,8 +131,17 @@ module.exports = grammar({
   name: "asciidoc",
 
   rules: {
-    // TODO: add the actual grammar rules
-    source_file: $ => "hello"
+    // Root node follows tree-sitter convention
+    source_file: $ => repeat($.block),
+    
+    block: $ => choice(
+      $.section,
+      $.attribute_entry,
+      $.paragraph,
+      $.blank_line
+    ),
+    
+    // Additional grammar rules...
   }
 });
 ```
@@ -313,6 +322,67 @@ Use external scanners (C code) only when grammar rules cannot handle:
 1. **Intuitive Structure** — Nodes correspond to recognizable language constructs
 2. **LR(1) Adherence** — Minimize conflicts, prefer unambiguous rules
 
+#### Whitespace Handling Best Practices
+
+**Core Principle:**
+- **Whitespace must NEVER appear as explicit AST nodes**
+- Use `extras` to handle spaces, tabs, and newlines invisibly
+- Tree-sitter automatically skips whitespace between tokens when defined in `extras`
+
+**Correct Configuration:**
+```javascript
+module.exports = grammar({
+  name: "asciidoc",
+  extras: $ => [/\s/],  // Handles all whitespace (spaces, tabs, newlines)
+  // OR if comments exist:
+  extras: $ => [/\s/, $.comment],
+  
+  rules: {
+    // Grammar rules without explicit whitespace handling
+  }
+});
+```
+
+**❌ INCORRECT Examples (Never Do This):**
+```javascript
+// DON'T create whitespace nodes
+newline: $ => /\r?\n/,
+blank_line: $ => prec.right(seq(repeat(/[ \t]/), $.newline)),
+
+// DON'T reference whitespace in rules
+paragraph: $ => seq($.text, $.newline),
+section_title: $ => seq('=', $.title, $.newline),
+
+// DON'T include whitespace in block choices
+block: $ => choice($.section, $.paragraph, $.blank_line),
+```
+
+**✅ CORRECT Examples:**
+```javascript
+// Let paragraphs span multiple lines naturally
+paragraph: $ => repeat1($.text),
+
+// Section titles end naturally at line boundaries
+section_title: $ => seq('=', /[ \t]+/, field('title', $.title)),
+
+// Attribute entries end naturally
+attribute_entry: $ => seq(':', field('name', $.name), ':', optional(field('value', $.value))),
+
+// Only meaningful constructs in block choices
+block: $ => choice($.section, $.attribute_entry, $.paragraph),
+```
+
+**Debugging Tips:**
+- Use `npx tree-sitter parse file.adoc --quiet --json` to verify AST contains no whitespace nodes
+- Use `npx tree-sitter debug-grammar` to analyze parsing conflicts
+- Check that `extras` field correctly handles your whitespace patterns
+
+**Important Notes:**
+- Ensure block-level tokens have sufficient precedence (e.g., `token(prec(2, '='))`) so paragraphs don't absorb them
+- Use `token()` strategically to create atomic tokens that can't be broken by whitespace
+- Test with documents containing various whitespace patterns (tabs, spaces, blank lines)
+- **Tree sitter doesn't allow $ or look ahead, regex must always be regex compatable.**
+
 **Performance Guidelines:**
 
 - **Prefer grammar rules** over external scanners when possible
@@ -348,65 +418,6 @@ conflicts: $ => [
 - **Primary Target**: AsciiDoc as implemented by Asciidoctor
 - **File Extensions**: `.adoc`, `.asciidoc`, `.asc`
 - **Reference**: The comprehensive EBNF specification in `asciidoc-ebnf.md`
-
-### Development Roadmap
-
-**Stage 1: Foundation (Current)**
-- Document structure and section titles (= to ======)
-- Paragraphs and blank lines
-- Basic attribute entries (`:attr: value`)
-- Attribute references (`{attr}`)
-
-**Stage 2: Lists and Blocks**
-- Unordered lists (`*`, `-`) and ordered lists (`1.`, `2.`)
-- Description lists (`term:: definition`)
-- Delimited blocks (listing `----`, literal `....`, etc.)
-- Block attributes and metadata
-
-**Stage 3: Inline Content**
-- Strong (`*bold*`), emphasis (`_italic_`), monospace (`` `code` ``)
-- Links and cross-references
-- Image macros (`image::path[]`)
-- Basic macros
-
-**Stage 4: Advanced Features**
-- Tables with complex cell formatting
-- Admonitions (NOTE, TIP, WARNING, etc.)
-- Include directives (`include::file.adoc[]`)
-- Conditional processing (`ifdef::`, `ifndef::`)
-
-### Node Naming Conventions
-
-```
-document
-├── section
-│   ├── section_title
-│   └── section_body
-├── paragraph
-├── list
-│   └── list_item
-├── delimited_block
-├── attribute_entry
-└── attribute_reference
-```
-
-**Supertypes:**
-- `block`: sections, paragraphs, lists, delimited blocks
-- `inline`: emphasis, strong, monospace, links, attribute references
-
-**Fields (using `field()` function):**
-- `title` for sections and blocks: `field("title", $.section_title)`
-- `name` and `value` for attributes: `field("name", $.attr_name), field("value", $.attr_value)`
-- `items` for lists: `field("items", repeat($.list_item))`
-
-### Context-Sensitive Features
-
-AsciiDoc has several features requiring careful parsing:
-
-- **Block Delimiters**: Same markers (----) for different block types
-- **Attribute Processing**: Inheritance and substitution rules
-- **Inline Markup**: Context-dependent recognition of formatting
-- **Include Processing**: File inclusion with attribute substitution
 
 
 ## Tests, Queries, and Fixtures
@@ -524,13 +535,19 @@ npx tree-sitter highlight examples/sample.adoc
 
 **Standard Rule Naming Conventions:**
 
-- `source_file` — Root node representing entire file
-- `statement`/`expression` — Core language constructs
-- `block` — Scoped content containers
-- `type` — Type annotations and declarations
+**IMPORTANT: Tree-sitter Conventions (MUST FOLLOW):**
+- `source_file` — **REQUIRED** root node representing entire file (never use `document` or other names)
+- `_statement`/`_expression` — Core language constructs (hidden with `_` prefix if not in AST)
+- `block` — Scoped content containers 
 - `identifier` — Variable/function names (often used as `word` token)
 - `string` — String literals
 - `comment` — Comments (typically in `extras`)
+
+**AsciiDoc-Specific Naming:**
+- `section` — Document sections with titles
+- `attribute_entry` — `:name: value` pairs
+- `paragraph` — Text content blocks
+- `title` — Section and block titles
 
 **Structural Guidelines:**
 

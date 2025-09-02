@@ -1,0 +1,29 @@
+:author: John Doe
+:version: 1.0
+:description: Sample AsciiDoc document for tree-sitter testing
+
+= Document Title
+
+This is the main document introduction paragraph.
+It spans multiple lines to test paragraph parsing.
+
+== Section Level 2
+
+Content under section level 2.
+
+:section-attr: local value
+
+More content with a local attribute.
+
+=== Subsection Level 3
+
+Deep nesting content here.
+
+== Another Level 2 Section  
+
+Final section content.
+
+NotAHeading because no space after equals
+:invalid-attr missing colon
+
+Regular paragraph content here.
