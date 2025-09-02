@@ -22,8 +22,8 @@
 enum ts_symbol_identifiers {
   sym_newline = 1,
   aux_sym_blank_line_token1 = 2,
-  sym_attr_name = 3,
-  sym_attr_value = 4,
+  sym__attr_name = 3,
+  sym__attr_value = 4,
   anon_sym_COLON = 5,
   aux_sym_attribute_entry_token1 = 6,
   sym_text = 7,
@@ -51,8 +51,8 @@ static const char * const ts_symbol_names[] = {
   [ts_builtin_sym_end] = "end",
   [sym_newline] = "newline",
   [aux_sym_blank_line_token1] = "blank_line_token1",
-  [sym_attr_name] = "attr_name",
-  [sym_attr_value] = "attr_value",
+  [sym__attr_name] = "_attr_name",
+  [sym__attr_value] = "_attr_value",
   [anon_sym_COLON] = ":",
   [aux_sym_attribute_entry_token1] = "attribute_entry_token1",
   [sym_text] = "text",
@@ -80,8 +80,8 @@ static const TSSymbol ts_symbol_map[] = {
   [ts_builtin_sym_end] = ts_builtin_sym_end,
   [sym_newline] = sym_newline,
   [aux_sym_blank_line_token1] = aux_sym_blank_line_token1,
-  [sym_attr_name] = sym_attr_name,
-  [sym_attr_value] = sym_attr_value,
+  [sym__attr_name] = sym__attr_name,
+  [sym__attr_value] = sym__attr_value,
   [anon_sym_COLON] = anon_sym_COLON,
   [aux_sym_attribute_entry_token1] = aux_sym_attribute_entry_token1,
   [sym_text] = sym_text,
@@ -118,12 +118,12 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = false,
     .named = false,
   },
-  [sym_attr_name] = {
-    .visible = true,
+  [sym__attr_name] = {
+    .visible = false,
     .named = true,
   },
-  [sym_attr_value] = {
-    .visible = true,
+  [sym__attr_value] = {
+    .visible = false,
     .named = true,
   },
   [anon_sym_COLON] = {
@@ -382,7 +382,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n') ADVANCE(21);
       END_STATE();
     case 12:
-      ACCEPT_TOKEN(sym_attr_name);
+      ACCEPT_TOKEN(sym__attr_name);
       if (lookahead == '-' ||
           ('0' <= lookahead && lookahead <= '9') ||
           ('A' <= lookahead && lookahead <= 'Z') ||
@@ -390,7 +390,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           ('a' <= lookahead && lookahead <= 'z')) ADVANCE(12);
       END_STATE();
     case 13:
-      ACCEPT_TOKEN(sym_attr_value);
+      ACCEPT_TOKEN(sym__attr_value);
       if (lookahead == '\t' ||
           lookahead == ' ') ADVANCE(9);
       if (lookahead != 0 &&
@@ -398,7 +398,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n') ADVANCE(16);
       END_STATE();
     case 14:
-      ACCEPT_TOKEN(sym_attr_value);
+      ACCEPT_TOKEN(sym__attr_value);
       if (lookahead == '\t' ||
           lookahead == ' ') ADVANCE(10);
       if (lookahead != 0 &&
@@ -406,7 +406,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n') ADVANCE(16);
       END_STATE();
     case 15:
-      ACCEPT_TOKEN(sym_attr_value);
+      ACCEPT_TOKEN(sym__attr_value);
       if (lookahead == '\t' ||
           lookahead == ' ') ADVANCE(15);
       if (lookahead != 0 &&
@@ -414,7 +414,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n') ADVANCE(16);
       END_STATE();
     case 16:
-      ACCEPT_TOKEN(sym_attr_value);
+      ACCEPT_TOKEN(sym__attr_value);
       if (lookahead != 0 &&
           lookahead != '\n') ADVANCE(16);
       END_STATE();
@@ -506,7 +506,7 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [ts_builtin_sym_end] = ACTIONS(1),
     [sym_newline] = ACTIONS(1),
     [aux_sym_blank_line_token1] = ACTIONS(3),
-    [sym_attr_name] = ACTIONS(1),
+    [sym__attr_name] = ACTIONS(1),
     [anon_sym_COLON] = ACTIONS(1),
     [aux_sym_attribute_entry_token1] = ACTIONS(1),
     [sym_text] = ACTIONS(1),
@@ -792,7 +792,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(3), 1,
       aux_sym_blank_line_token1,
     ACTIONS(104), 1,
-      sym_attr_value,
+      sym__attr_value,
     ACTIONS(106), 1,
       aux_sym_attribute_entry_token1,
   [172] = 3,
@@ -811,7 +811,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(115), 1,
       aux_sym_blank_line_token1,
     ACTIONS(117), 1,
-      sym_attr_name,
+      sym__attr_name,
   [196] = 2,
     ACTIONS(115), 1,
       aux_sym_blank_line_token1,
@@ -836,7 +836,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(3), 1,
       aux_sym_blank_line_token1,
     ACTIONS(127), 1,
-      sym_attr_value,
+      sym__attr_value,
   [231] = 2,
     ACTIONS(115), 1,
       aux_sym_blank_line_token1,
