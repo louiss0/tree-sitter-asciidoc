@@ -45,16 +45,16 @@ Content for section 3
 (source_file
   (section
     (section_title (title))
-    (paragraph (text)))
-  (section
-    (section_title (title))
     (paragraph (text))
     (section
       (section_title (title))
-      (paragraph (text))))
-  (section
-    (section_title (title))
-    (paragraph (text))))
+      (paragraph (text))
+      (section
+        (section_title (title))
+        (paragraph (text))
+        (section
+          (section_title (title))
+          (paragraph (text)))))))
 
 ================================================================================
 Deep nesting with all levels

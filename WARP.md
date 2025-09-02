@@ -381,6 +381,7 @@ block: $ => choice($.section, $.attribute_entry, $.paragraph),
 - Ensure block-level tokens have sufficient precedence (e.g., `token(prec(2, '='))`) so paragraphs don't absorb them
 - Use `token()` strategically to create atomic tokens that can't be broken by whitespace
 - Test with documents containing various whitespace patterns (tabs, spaces, blank lines)
+- **Tree sitter doesn't allow $ or look ahead, regex must always be regex compatable.**
 
 **Performance Guidelines:**
 
@@ -417,51 +418,6 @@ conflicts: $ => [
 - **Primary Target**: AsciiDoc as implemented by Asciidoctor
 - **File Extensions**: `.adoc`, `.asciidoc`, `.asc`
 - **Reference**: The comprehensive EBNF specification in `asciidoc-ebnf.md`
-
-### Development Roadmap
-
-**Stage 1: Foundation (Current)**
-- Document structure and section titles (= to ======)
-- Paragraphs and blank lines
-- Basic attribute entries (`:attr: value`)
-- Attribute references (`{attr}`)
-
-**Stage 2: Lists and Blocks**
-- Unordered lists (`*`, `-`) and ordered lists (`1.`, `2.`)
-- Description lists (`term:: definition`)
-- Delimited blocks (listing `----`, literal `....`, etc.)
-- Block attributes and metadata
-
-**Stage 3: Inline Content**
-- Strong (`*bold*`), emphasis (`_italic_`), monospace (`` `code` ``)
-- Links and cross-references
-- Image macros (`image::path[]`)
-- Basic macros
-
-**Stage 4: Advanced Features**
-- Tables with complex cell formatting
-- Admonitions (NOTE, TIP, WARNING, etc.)
-- Include directives (`include::file.adoc[]`)
-- Conditional processing (`ifdef::`, `ifndef::`)
-
-
-**Supertypes:**
-- `block`: sections, paragraphs, lists, delimited blocks
-- `inline`: emphasis, strong, monospace, links, attribute references
-
-**Fields (using `field()` function):**
-- `title` for sections and blocks: `field("title", $.section_title)`
-- `name` and `value` for attributes: `field("name", $.attr_name), field("value", $.attr_value)`
-- `items` for lists: `field("items", repeat($.list_item))`
-
-### Context-Sensitive Features
-
-AsciiDoc has several features requiring careful parsing:
-
-- **Block Delimiters**: Same markers (----) for different block types
-- **Attribute Processing**: Inheritance and substitution rules
-- **Inline Markup**: Context-dependent recognition of formatting
-- **Include Processing**: File inclusion with attribute substitution
 
 
 ## Tests, Queries, and Fixtures

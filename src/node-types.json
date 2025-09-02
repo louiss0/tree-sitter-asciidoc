@@ -109,6 +109,16 @@
     }
   },
   {
+    "type": "title",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "value",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": ":",
     "named": false
   },
@@ -118,14 +128,6 @@
   },
   {
     "type": "text",
-    "named": true
-  },
-  {
-    "type": "title",
-    "named": true
-  },
-  {
-    "type": "value",
     "named": true
   }
 ]

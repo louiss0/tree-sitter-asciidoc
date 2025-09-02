@@ -1,5 +1,5 @@
 ================================================================================
-Indented headings should be paragraphs (not headings)
+Indented headings are treated as valid headings
 ================================================================================
 
   = Indented level 1
@@ -9,9 +9,12 @@ Indented headings should be paragraphs (not headings)
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph (text))
-  (paragraph (text))
-  (paragraph (text)))
+  (section
+    (section_title (title))
+    (section
+      (section_title (title))
+      (section
+        (section_title (title))))))
 
 ================================================================================
 Invalid attribute patterns should be paragraphs
@@ -42,7 +45,7 @@ Attributes with spaces in values and empty values
 
 (source_file
   (attribute_entry (name) (value))
-  (attribute_entry (name) (value))
+  (attribute_entry (name))
   (attribute_entry (name) (value)))
 
 ================================================================================
@@ -76,6 +79,9 @@ Headings with trailing spaces
 --------------------------------------------------------------------------------
 
 (source_file
-  (section (section_title (title)))
-  (section (section_title (title)))
-  (section (section_title (title))))
+  (section
+    (section_title (title))
+    (section
+      (section_title (title))
+      (section
+        (section_title (title))))))
