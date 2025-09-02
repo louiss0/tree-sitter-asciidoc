@@ -21,7 +21,7 @@ module.exports = grammar({
   // WARP: Use /\s/ for all whitespace - no explicit whitespace nodes in AST
   // This handles spaces, tabs, and newlines invisibly between tokens
   extras: $ => [/\s/],
-
+  
   rules: {
     // Root node: only meaningful constructs (no whitespace blocks)
     source_file: $ => repeat(choice(
@@ -45,22 +45,25 @@ module.exports = grammar({
     // Section node - Stage 1: just the title (body scoping comes later)
     section: $ => $.section_title,
 
-    // Paragraph text: any line not starting with section markers or attributes
-    // Precedence -1 allows section markers and attributes to win when they match
-    // Pattern /[^\r\n:][^\r\n]*/ excludes lines starting with : or newline
-    text: $ => token(prec(-1, /[^\r\n:][^\r\n]*/)),
+    // Paragraph text: any line that doesn't match other patterns
+    // Lower precedence allows section markers and attributes to win  
+    text: $ => token(prec(-1, /[^\r\n][^\r\n]*/)),
 
     // Paragraph: single text token (multiline handled by extras whitespace)
     paragraph: $ => $.text,
 
-    // Attribute entries: :name: value pattern
-    _attr_name: $ => /[A-Za-z0-9_][A-Za-z0-9_-]*/,
-    _attr_value: $ => /[^\r\n]*/,
-    attribute_entry: $ => seq(
+    // Attribute name: must be valid identifier
+    name: $ => /[A-Za-z_][A-Za-z0-9_-]*/,
+    
+    // Attribute value: non-empty content (for optional values, this won't match)
+    value: $ => /[^\r\n]+/,
+    
+    // Attribute entry with higher precedence, but allow fallback to paragraph
+    attribute_entry: $ => prec.dynamic(5, seq(
       ":",
-      field("name", $._attr_name),
+      $.name,
       ":",
-      optional(field("value", $._attr_value))
-    ),
+      optional($.value)
+    )),
   },
 });

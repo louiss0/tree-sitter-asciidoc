@@ -5,8 +5,8 @@
 
 ; Attribute entries
 (attribute_entry
-  name: (_attr_name) @property
-  value: (_attr_value) @string)
+  (name) @property
+  (value) @string)
 
 ; Paragraph text
 (paragraph (text) @markup.text)

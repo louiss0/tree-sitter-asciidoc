@@ -2,7 +2,21 @@
   {
     "type": "attribute_entry",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "name",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "paragraph",
@@ -78,11 +92,19 @@
     "named": false
   },
   {
+    "type": "name",
+    "named": true
+  },
+  {
     "type": "text",
     "named": true
   },
   {
     "type": "title",
+    "named": true
+  },
+  {
+    "type": "value",
     "named": true
   }
 ]
