@@ -67,6 +67,8 @@ npx tree-sitter parse file.adoc --quiet --json
 - **Use local CLI** via `npx` to ensure consistent versions across team
 - **Generate before building** - the C parser is generated from `grammar.js`
 
+> **Version Note:** Advanced features like `token.immediate()`, `prec.dynamic()`, and `precedences` require Tree-sitter v0.20.0+. Check your version with `npx tree-sitter --version`.
+
 ## Prerequisites and Installation
 
 ### Core Requirements
@@ -135,13 +137,166 @@ module.exports = grammar({
 });
 ```
 
-**Key Concepts:**
+**Core DSL Functions:**
 
-- **Rules**: Define the syntax structure (`section_title: $ => seq('=', /\S+/)`)
-- **Precedence**: Resolve ambiguities (`prec(1, rule)`, `prec.left(rule)`)
-- **Fields**: Add semantic structure (`title: $.section_title`)
-- **Supertypes**: Group related nodes for queries (`supertypes: $ => [$.block, $.inline]`)
-- **Extras**: Whitespace and comments (`extras: $ => [/\s/, $.comment]`)
+- **Symbols (`$`)** — Reference other grammar rules with `$.rule_name`. Avoid names starting with `$.MISSING` or `$.UNEXPECTED`.
+- **Sequences `seq(rule1, rule2, ...)`** — Match rules consecutively (equivalent to EBNF concatenation).
+- **Alternatives `choice(rule1, rule2, ...)`** — Match one of several rules (equivalent to EBNF `|`).
+- **Repetitions `repeat(rule)`** — Match zero-or-more occurrences (EBNF `{x}`).
+- **Repetitions `repeat1(rule)`** — Match one-or-more occurrences (EBNF `x+`).
+- **Options `optional(rule)`** — Match zero or one occurrence (EBNF `[x]`).
+- **String/Regex literals** — Terminal symbols using JavaScript strings and regex patterns.
+
+**Precedence and Associativity:**
+
+- **Precedence `prec(number, rule)`** — Resolve LR(1) conflicts with numerical precedence.
+- **Left Associativity `prec.left([number], rule)`** — Prefer earlier-ending matches.
+- **Right Associativity `prec.right([number], rule)`** — Prefer later-ending matches.
+- **Dynamic Precedence `prec.dynamic(number, rule)`** — Runtime conflict resolution for ambiguous parsing.
+
+**Token Control:**
+
+- **Tokens `token(rule)`** — Force complex rules into single tokens.
+- **Immediate Tokens `token.immediate(rule)`** — Match without allowing whitespace before.
+
+**Node Shaping:**
+
+- **Aliases `alias(rule, name)`** — Change how nodes appear in syntax tree.
+- **Fields `field(name, rule)`** — Assign named access to child nodes.
+
+**Example with proper field usage:**
+```javascript
+section: $ => seq(
+  field("title", $.section_title),
+  field("body", $.section_body)
+)
+```
+
+### Grammar Fields and Properties
+
+**Grammar-level properties control parser behavior:**
+
+```javascript
+module.exports = grammar({
+  name: "asciidoc",
+
+  // Optional properties that modify parser behavior:
+  extras: $ => [/\s/, $.comment],           // Skip these tokens anywhere
+  inline: $ => [$.helper_rule],             // Remove from syntax tree
+  conflicts: $ => [[$.array, $.pattern]],   // Declare intentional ambiguities
+  externals: $ => [$.indent, $.dedent],     // External scanner tokens
+  word: $ => $.identifier,                  // Keyword extraction optimization
+  supertypes: $ => [$.statement],           // Group nodes for queries
+  precedences: $ => [                       // Named precedence levels
+    ['assignment', 'conditional', 'logical']
+  ],
+
+  rules: {
+    // Grammar rules...
+  }
+});
+```
+
+**Property Details:**
+
+- **`extras`** — Tokens that can appear anywhere (typically whitespace, comments). Default: `[/\s/]`.
+- **`inline`** — Rules to remove from AST by inlining their definitions.
+- **`conflicts`** — Arrays of rule sets with intentional LR(1) conflicts for GLR parsing.
+- **`externals`** — Tokens provided by external scanner (C code).
+- **`word`** — Single token for keyword extraction optimization (improves performance).
+- **`supertypes`** — Hidden rules grouped as supertypes in generated node types file.
+- **`precedences`** — Named precedence arrays for relative precedence (parse-time only).
+
+> **Performance Note:** Using `word` for keyword extraction significantly improves parser generation time and reduces lexer complexity.
+
+### Precedence and Associativity
+
+**Understanding Precedence Types:**
+
+1. **Lexical Precedence** — Which token to choose at a position: `token(prec(N, ...))`
+2. **Parse Precedence** — Which rule to reduce: `prec(N, rule)`, `prec.left(rule)`, `prec.right(rule)`
+
+**Parse Precedence Examples:**
+
+```javascript
+// Expression grammar with proper precedence
+binary_expression: $ => choice(
+  prec.left(2, seq($._expression, '*', $._expression)),  // Higher precedence
+  prec.left(1, seq($._expression, '+', $._expression)),  // Lower precedence
+),
+
+unary_expression: $ => prec(3, seq('-', $._expression)), // Highest precedence
+```
+
+**Dynamic Precedence for Runtime Resolution:**
+
+```javascript
+// Handle dangling-else ambiguity
+if_statement: $ => choice(
+  prec.dynamic(1, seq('if', $.condition, $.statement, 'else', $.statement)),
+  seq('if', $.condition, $.statement)
+),
+```
+
+**When to Use Each:**
+
+- **`prec.*`** functions: Resolve parse conflicts between rules
+- **`token(prec(...))`**: Resolve lexical conflicts between tokens
+- **Dynamic precedence**: Handle genuine ambiguities at runtime
+
+### Lexical Analysis
+
+**Context-Aware Lexing:**
+
+Tree-sitter performs lexing on-demand during parsing, only recognizing tokens valid at the current position.
+
+**Token Conflict Resolution (5-step precedence):**
+
+1. **Context-aware Lexing** — Only try tokens valid at current parse state
+2. **Lexical Precedence** — `token(prec(N, ...))` with higher N wins
+3. **Match Length** — Longer matches win (maximal munch)
+4. **Match Specificity** — String literals beat regex patterns
+5. **Rule Order** — Earlier grammar rules win
+
+**Token Functions:**
+
+```javascript
+// Force complex pattern into single token
+string_literal: $ => token(seq(
+  '"',
+  repeat(choice(/[^"\\]/, seq('\\', /./)))),
+  '"'
+)),
+
+// No whitespace allowed before token
+inline_code: $ => seq(
+  '`',
+  token.immediate(repeat1(choice(/[^`]/, '\\`'))),
+  '`'
+),
+```
+
+**Keyword Extraction:**
+
+Using `word` property enables automatic keyword optimization:
+
+```javascript
+module.exports = grammar({
+  word: $ => $.identifier,  // Enables keyword extraction
+  
+  rules: {
+    _expression: $ => choice(
+      $.identifier,
+      $.instanceof_expression,  // 'instanceof' becomes extracted keyword
+    ),
+    
+    instanceof_expression: $ => seq($._expression, 'instanceof', $._expression),
+    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+  }
+});
+```
+
+**Benefits:** Smaller lexer, better error detection, faster compilation.
 
 ### External Scanners
 
@@ -151,12 +306,40 @@ Use external scanners (C code) only when grammar rules cannot handle:
 - **Indentation-based structure**: Complex whitespace-significant syntax
 - **String interpolation**: Variable substitutions within strings
 
-### Performance Guidelines
+### Best Practices and Guidelines
+
+**Two Key Properties for Good Tree-sitter Grammars:**
+
+1. **Intuitive Structure** — Nodes correspond to recognizable language constructs
+2. **LR(1) Adherence** — Minimize conflicts, prefer unambiguous rules
+
+**Performance Guidelines:**
 
 - **Prefer grammar rules** over external scanners when possible
+- **Use `word` token** for keyword extraction (major performance boost)
 - **Avoid excessive conflicts** and ambiguous grammar constructs
 - **Use precedence** strategically to resolve conflicts
 - **Keep node names stable** once queries depend on them
+
+**Error Recovery Design:**
+
+- **Avoid overly-greedy tokens** that consume too much on errors
+- **Prefer smaller constructs** over large monolithic rules
+- **Use `conflicts`** only for genuine ambiguities, not grammar shortcuts
+- **Test error cases** to ensure graceful degradation
+
+**When to Use Conflicts:**
+
+```javascript
+// Genuine ambiguity: [x, y] as array vs destructuring pattern
+conflicts: $ => [
+  [$.array_literal, $.array_pattern],  // Both valid interpretations
+],
+```
+
+**Cross-reference with debugging commands:**
+- Use `npx tree-sitter debug-grammar` for conflict analysis
+- Use `npx tree-sitter parse --json --stat` for error investigation
 
 ## AsciiDoc Grammar Specifics
 
@@ -211,10 +394,10 @@ document
 - `block`: sections, paragraphs, lists, delimited blocks
 - `inline`: emphasis, strong, monospace, links, attribute references
 
-**Fields:**
-- `title` for sections and blocks
-- `name` and `value` for attributes
-- `items` for lists
+**Fields (using `field()` function):**
+- `title` for sections and blocks: `field("title", $.section_title)`
+- `name` and `value` for attributes: `field("name", $.attr_name), field("value", $.attr_value)`
+- `items` for lists: `field("items", repeat($.list_item))`
 
 ### Context-Sensitive Features
 
@@ -333,12 +516,35 @@ npx tree-sitter highlight examples/sample.adoc
 
 ### Grammar Development Patterns
 
-- **Start simple**: Implement basic patterns before complex ones
-- **Use precedence**: Resolve conflicts with `prec()` rather than grammar restructuring
+**Breadth-First Development Approach:**
+
+1. **Create skeleton structure** covering major language constructs
+2. **Implement breadth-first** — touch all major areas before diving deep
+3. **Iterate incrementally** — add features one construct at a time
+
+**Standard Rule Naming Conventions:**
+
+- `source_file` — Root node representing entire file
+- `statement`/`expression` — Core language constructs
+- `block` — Scoped content containers
+- `type` — Type annotations and declarations
+- `identifier` — Variable/function names (often used as `word` token)
+- `string` — String literals
+- `comment` — Comments (typically in `extras`)
+
+**Structural Guidelines:**
+
+- **Hidden rules**: Prefix with `_` for helpers that shouldn't appear in AST
+- **Field usage**: Use `field()` for named child access in important relationships
 - **Stable names**: Avoid renaming nodes once queries depend on them
-- **Field usage**: Use semantic fields for important relationships
-- **External scanners last**: Prefer grammar rules over external C code
-- **Don't use two of the same regex for nodes**: Ensure unique regex patterns for each node type.
+- **Unique patterns**: Don't reuse identical regex patterns for different nodes
+
+**Development Priorities:**
+
+1. **Grammar rules first**: Prefer grammar solutions over external scanners
+2. **Precedence for conflicts**: Use `prec()` rather than grammar restructuring
+3. **Conflicts for true ambiguity**: Use `conflicts` only for genuine ambiguous cases
+4. **External scanners last**: Only for context-sensitive features impossible in grammar
 
 ### Regular Validation
 
@@ -547,7 +753,11 @@ python -m twine upload dist/*
 ### Tree-sitter Documentation
 - [Tree-sitter Guide](https://tree-sitter.github.io/tree-sitter/)
 - [Creating Parsers](https://tree-sitter.github.io/tree-sitter/creating-parsers)
-- [Grammar DSL](https://tree-sitter.github.io/tree-sitter/creating-parsers#the-grammar-dsl)
+- [Grammar DSL Reference](https://tree-sitter.github.io/tree-sitter/creating-parsers/2-the-grammar-dsl.html)
+- [Writing the Grammar](https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html)
+- [Using Precedence](https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html#using-precedence)
+- [Lexical Analysis](https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html#lexical-analysis)
+- [Keyword Extraction](https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html#keyword-extraction)
 
 ### AsciiDoc References
 - [AsciiDoc Language Documentation](https://docs.asciidoctor.org/asciidoc/latest/)
@@ -555,9 +765,10 @@ python -m twine upload dist/*
 - [AsciiDoc EBNF Specification](./asciidoc-ebnf.md) (Local)
 
 ### Example Grammars
-- [tree-sitter-markdown](https://github.com/tree-sitter-grammars/tree-sitter-markdown)
-- [tree-sitter-rust](https://github.com/tree-sitter/tree-sitter-rust)
-- [tree-sitter-javascript](https://github.com/tree-sitter/tree-sitter-javascript)
+- [tree-sitter-markdown](https://github.com/tree-sitter-grammars/tree-sitter-markdown) — Whitespace-sensitive inline constructs
+- [tree-sitter-javascript](https://github.com/tree-sitter/tree-sitter-javascript) — Complex precedence patterns and conflicts
+- [tree-sitter-rust](https://github.com/tree-sitter/tree-sitter-rust) — Comprehensive grammar with word token usage
+- [tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python) — External scanner for indentation
 
 ### Repository Structure
 - [Tree-sitter.json Configuration](./tree-sitter.json)
