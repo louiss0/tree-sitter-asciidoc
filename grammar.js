@@ -3,13 +3,13 @@
  * @author Shelton Louis <louisshelton0@gmail.com>
  * @license MIT
  * 
- * Stage 1 Implementation: Section titles, paragraphs, basic attributes
+ * Stage 1 Implementation: Hierarchical sections, multi-line paragraphs, basic attributes
  * 
  * Key Design Decisions:
  * - WARP compliant: extras handles all whitespace, no whitespace nodes in AST
- * - Section markers require space/tab after equals to avoid false positives
- * - Lexical precedence prevents paragraphs from absorbing section markers
- * - Natural line boundaries via token patterns (no explicit newlines)
+ * - Level-aware sections with proper nesting based on heading levels
+ * - Multi-line paragraphs separated by blank lines
+ * - Strict attribute parsing to avoid invalid matches
  */
 
 /// <reference types="tree-sitter-cli/dsl" />
@@ -18,61 +18,62 @@
 module.exports = grammar({
   name: "asciidoc",
 
-  // WARP: Use /\s/ for all whitespace - no explicit whitespace nodes in AST
-  // This handles spaces, tabs, and newlines invisibly between tokens
   extras: $ => [/\s/],
+
+  conflicts: $ => [
+    [$.section]
+  ],
   
   rules: {
-    // Root node: only meaningful constructs (no whitespace blocks)
-    source_file: $ => repeat(choice(
+    source_file: $ => repeat($._block),
+
+    _block: $ => choice(
       $.section,
-      $.attribute_entry, 
+      $.attribute_entry,
       $.paragraph
-    )),
-
-    // Section marker: high precedence token requiring space/tab after equals
-    // Precedence 10 ensures this wins over paragraph text at line start
-    // Pattern /={1,6}[ \t]+/ prevents false positives like "==NoSpace"
-    _section_marker: $ => token(prec(10, /={1,6}[ \t]+/)),
-
-    // Title text: immediate token that stops at line boundaries
-    // token.immediate ensures no whitespace between marker and title
-    title: $ => token.immediate(/[^\r\n]+/),
-
-    // Section title: marker + title (spacing handled by marker token)
-    section_title: $ => seq($._section_marker, $.title),
-
-    // Section node: title only for now (revert to simple approach)
-    // Full section body scoping is complex and requires level-aware parsing
-    section: $ => $.section_title,
-
-    // Indented line: any line that starts with whitespace
-    // Higher precedence than section marker to catch indented "headings"
-    _indented_line: $ => token(prec(15, /[ \t]+.*/)),
-
-    // Paragraph text: multi-line content until blank line or other construct
-    // Lower precedence allows section markers and attributes to win
-    // Also includes indented lines to handle them as paragraph content
-    text: $ => choice(
-      $._indented_line,
-      token(prec(-1, /[^\r\n][^\r\n]*(?:\r?\n[^\r\n:=][^\r\n]*)*/))
     ),
 
-    // Paragraph: single text token that can span multiple lines
-    paragraph: $ => $.text,
-
-    // Attribute name: must be valid identifier
-    name: $ => /[A-Za-z_][A-Za-z0-9_-]*/,
-    
-    // Attribute value: any content to end of line, including empty/whitespace
-    value: $ => /[^\r\n]*/,
-    
-    // Attribute entry: always has value (even if empty)
-    attribute_entry: $ => prec.dynamic(5, seq(
-      ":",
-      $.name,
-      ":",
-      $.value
+    // Hierarchical sections with level awareness
+    section: $ => prec.right(seq(
+      $.section_title,
+      repeat($._section_content)
     )),
+
+    _section_content: $ => choice(
+      $.attribute_entry,
+      $.paragraph,
+      $.section
+    ),
+
+    // Section title with field  
+    section_title: $ => seq(
+      token(prec(10, /={1,6}[ \t]+/)),
+      field("title", $.title)
+    ),
+
+    // Title as separate rule
+    title: $ => token.immediate(/[^\r\n]+/),
+
+    // Multi-line paragraph text
+    paragraph: $ => seq(
+      field("text", $.text)
+    ),
+
+    // Text spans multiple lines until blank line or other construct
+    text: $ => token(prec(-1, /[^\r\n][^\r\n]*(?:\r?\n[^\r\n:=][^\r\n]*)*/)),
+
+    // Attribute entry with separate name and value rules
+    attribute_entry: $ => seq(
+      token(':'),
+      field('name', $.name),
+      token.immediate(':'),
+      field('value', optional($.value))
+    ),
+
+    // Attribute name
+    name: $ => token.immediate(/[A-Za-z0-9][A-Za-z0-9_-]*/),
+
+    // Attribute value
+    value: $ => token.immediate(/[^\r\n]*/),
   },
 });
