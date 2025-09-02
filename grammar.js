@@ -45,7 +45,7 @@ module.exports = grammar({
       $.section
     ),
 
-    // Section title with field  
+    // Section title with field - require space after equals to avoid false positives
     section_title: $ => seq(
       token(prec(10, /={1,6}[ \t]+/)),
       field("title", $.title)
