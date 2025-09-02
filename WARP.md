@@ -154,7 +154,7 @@ Use external scanners (C code) only when grammar rules cannot handle:
 ### Performance Guidelines
 
 - **Prefer grammar rules** over external scanners when possible
-- **Avoid excessive conflicts** and ambiguous grammar constructs  
+- **Avoid excessive conflicts** and ambiguous grammar constructs
 - **Use precedence** strategically to resolve conflicts
 - **Keep node names stable** once queries depend on them
 
@@ -225,146 +225,6 @@ AsciiDoc has several features requiring careful parsing:
 - **Inline Markup**: Context-dependent recognition of formatting
 - **Include Processing**: File inclusion with attribute substitution
 
-## Language Bindings
-
-All bindings consume the same generated C source files in `src/`.
-
-### Node.js Binding
-
-**Location**: `bindings/node/`
-**Files**: `index.js`, `binding.cc`, `index.d.ts`
-
-**Usage:**
-```javascript path=null start=null
-const Parser = require('tree-sitter');
-const Asciidoc = require('tree-sitter-asciidoc');
-
-const parser = new Parser();
-parser.setLanguage(Asciidoc);
-
-const tree = parser.parse('= Document Title\n\nParagraph content.');
-console.log(tree.rootNode.toString());
-```
-
-**Build**: `pnpm install` handles compilation via node-gyp
-
-### Rust Binding  
-
-**Location**: `bindings/rust/`
-**Files**: `Cargo.toml`, `lib.rs`, `build.rs`
-
-**Usage:**
-```rust path=null start=null
-use tree_sitter::{Language, Parser};
-
-extern "C" {
-    fn tree_sitter_asciidoc() -> Language;
-}
-
-fn main() {
-    let language = unsafe { tree_sitter_asciidoc() };
-    let mut parser = Parser::new();
-    parser.set_language(language).unwrap();
-    
-    let tree = parser.parse("= Title\n\nContent.", None).unwrap();
-    println!("{}", tree.root_node().to_sexp());
-}
-```
-
-**Build**: `cargo build` in bindings directory
-
-### Go Binding
-
-**Location**: `bindings/go/`
-**Files**: `binding.go`, `binding_test.go`
-
-**Usage:**
-```go path=null start=null
-package main
-
-import (
-    sitter "github.com/tree-sitter/go-tree-sitter"
-    "github.com/louiss0/tree-sitter-asciidoc"
-)
-
-func main() {
-    language := asciidoc.GetLanguage()
-    parser := sitter.NewParser()
-    parser.SetLanguage(language)
-    
-    tree := parser.Parse(nil, []byte("= Title\n\nContent."))
-    fmt.Println(tree.RootNode().String())
-}
-```
-
-**Build**: `go build` in bindings directory
-
-### Python Binding
-
-**Location**: Root directory with `pyproject.toml` and `setup.py`
-
-**Usage:**
-```python path=null start=null
-import tree_sitter_asciidoc as tsasciidoc
-from tree_sitter import Language, Parser
-
-ASCIIDOC_LANGUAGE = Language(tsasciidoc.language(), "asciidoc")
-parser = Parser()
-parser.set_language(ASCIIDOC_LANGUAGE)
-
-tree = parser.parse(b"= Title\n\nContent.")
-print(tree.root_node.sexp())
-```
-
-**Build**: `pip install .` builds and installs the package
-
-### Swift Binding
-
-**Location**: `bindings/swift/` or root-level `Package.swift`
-**Package**: TreeSitterAsciidoc
-
-**Usage:**
-```swift path=null start=null
-import TreeSitter
-import TreeSitterAsciidoc
-
-let parser = Parser()
-try parser.setLanguage(tree_sitter_asciidoc())
-
-let tree = parser.parse("= Title\n\nContent.")
-print(tree?.rootNode?.sexp ?? "Parse failed")
-```
-
-**Build**: `swift build`
-
-### C Binding
-
-**Usage**: Include parser sources directly in your build
-
-```c path=null start=null
-#include "tree_sitter/api.h"
-
-// Declare the language function
-TSLanguage *tree_sitter_asciidoc(void);
-
-int main() {
-    TSParser *parser = ts_parser_new();
-    ts_parser_set_language(parser, tree_sitter_asciidoc());
-    
-    TSTree *tree = ts_parser_parse_string(parser, NULL, "= Title\n\nContent.", 18);
-    TSNode root = ts_tree_root_node(tree);
-    
-    char *sexp = ts_node_string(root);
-    printf("%s\n", sexp);
-    
-    free(sexp);
-    ts_tree_delete(tree);
-    ts_parser_delete(parser);
-    return 0;
-}
-```
-
-**Build**: Link against `src/parser.c` and tree-sitter library
 
 ## Tests, Queries, and Fixtures
 
@@ -380,7 +240,7 @@ Section titles with different levels
 ================================================================================
 
 = Document Title
-== Level 2 Section  
+== Level 2 Section
 === Level 3 Section
 
 --------------------------------------------------------------------------------
@@ -415,7 +275,7 @@ npx tree-sitter test test/corpus/sections.txt
 ; Section titles
 (section_title) @markup.heading
 
-; Attributes  
+; Attributes
 (attribute_entry
   (name) @property
   (value) @string)
@@ -464,7 +324,7 @@ npx tree-sitter highlight examples/sample.adoc
 
 ### Test-Driven Development
 
-1. **Write failing test** describing desired behavior
+1. **Write test file** write the test files, but let me write the actual implementation, don't allow a test file to be empty.
 2. **Run tests** to see current failure
 3. **Modify grammar** to implement feature
 4. **Generate and test** until passing
@@ -478,6 +338,7 @@ npx tree-sitter highlight examples/sample.adoc
 - **Stable names**: Avoid renaming nodes once queries depend on them
 - **Field usage**: Use semantic fields for important relationships
 - **External scanners last**: Prefer grammar rules over external C code
+- **Don't use two of the same regex for nodes**: Ensure unique regex patterns for each node type.
 
 ### Regular Validation
 
@@ -512,7 +373,7 @@ npx tree-sitter test
 
 **CI-Centric Workflow** (If CI files detected):
 - Use `main` as always-deployable
-- Use `develop` for integration  
+- Use `develop` for integration
 - Frequent merges from `develop` to `main`
 - No dedicated release branches
 
@@ -614,7 +475,7 @@ npx tree-sitter debug-grammar
 # Parse with detailed statistics
 npx tree-sitter parse --quiet --stat file.adoc
 
-# Filter tests for specific failures  
+# Filter tests for specific failures
 npx tree-sitter test -f "section"
 
 # Get JSON AST for programmatic analysis
