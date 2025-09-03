@@ -26,6 +26,51 @@
     }
   },
   {
+    "type": "callout_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "callout_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "description_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "description_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ordered_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ordered_list_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "paragraph",
     "named": true,
     "fields": {
@@ -98,11 +143,27 @@
           "named": true
         },
         {
+          "type": "callout_list",
+          "named": true
+        },
+        {
+          "type": "description_list",
+          "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
           "type": "paragraph",
           "named": true
         },
         {
           "type": "section",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
           "named": true
         }
       ]
@@ -114,6 +175,21 @@
     "fields": {}
   },
   {
+    "type": "unordered_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "unordered_list_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "value",
     "named": true,
     "fields": {}
@@ -123,11 +199,27 @@
     "named": false
   },
   {
+    "type": "callout_item",
+    "named": true
+  },
+  {
+    "type": "description_item",
+    "named": true
+  },
+  {
     "type": "name",
     "named": true
   },
   {
+    "type": "ordered_list_item",
+    "named": true
+  },
+  {
     "type": "text",
+    "named": true
+  },
+  {
+    "type": "unordered_list_item",
     "named": true
   }
 ]

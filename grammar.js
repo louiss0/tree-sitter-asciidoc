@@ -20,12 +20,18 @@ module.exports = grammar({
 
   extras: $ => [/\s/],
   
+  conflicts: $ => [],
+  
   rules: {
     source_file: $ => repeat($._block),
 
     _block: $ => choice(
       $.attribute_entry,
       $.section,
+      $.unordered_list,
+      $.ordered_list, 
+      $.description_list,
+      $.callout_list,
       // Higher precedence paragraph for invalid patterns  
       prec(15, alias($.fake_heading_paragraph, $.paragraph)),
       prec(2, alias($.invalid_attribute_paragraph, $.paragraph)),
@@ -99,5 +105,36 @@ module.exports = grammar({
     
     // Attribute value - immediate pattern (only non-empty)
     value: $ => token.immediate(/[^\r\n]+/),
+
+    // ========================================================================
+    // LIST PARSING - Markdown-inspired marker-specific lists
+    // ========================================================================
+    
+    // Unordered lists - separate types for each marker for better grouping
+    unordered_list: $ => choice(
+      $._list_asterisk,
+      $._list_dash
+    ),
+    
+    _list_asterisk: $ => prec.right(10, repeat1(alias($._asterisk_list_item, $.unordered_list_item))),
+    _list_dash: $ => prec.right(10, repeat1(alias($._dash_list_item, $.unordered_list_item))),
+    
+    _asterisk_list_item: $ => token(prec(20, /\*[ \t]+[^\r\n]+/)),
+    _dash_list_item: $ => token(prec(20, /-[ \t]+[^\r\n]+/)),
+    
+    // Ordered lists
+    ordered_list: $ => prec.right(10, repeat1($.ordered_list_item)),
+    
+    ordered_list_item: $ => token(prec(20, /[0-9]+\.[ \t]+[^\r\n]+/)),
+    
+    // Description lists  
+    description_list: $ => prec.right(10, repeat1($.description_item)),
+    
+    description_item: $ => token(prec(20, /[^\r\n:]+::[ \t]+[^\r\n]+/)),
+    
+    // Callout lists
+    callout_list: $ => prec.right(10, repeat1($.callout_item)),
+    
+    callout_item: $ => token(prec(20, /<[0-9]+>[ \t]+[^\r\n]+/)),
   },
 });
