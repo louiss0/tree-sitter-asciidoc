@@ -11,6 +11,12 @@
 ; Paragraph text
 (paragraph (text) @markup.text)
 
+; Conditional directives
+(ifdef_open) @keyword
+(ifndef_open) @keyword
+(ifeval_open) @keyword
+(endif_directive) @keyword
+
 ; List highlighting
 (unordered_list_item) @markup.list
 (ordered_list_item) @markup.list

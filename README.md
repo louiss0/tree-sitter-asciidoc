@@ -13,6 +13,12 @@ This parser currently supports the following AsciiDoc elements:
 
 ### Block Elements
 - **Paragraphs** with multi-line support
+- **Conditional directives** (block-level only):
+  - **ifdef** blocks: `ifdef::attribute[]` ... `endif::[]`
+  - **ifndef** blocks: `ifndef::attribute[]` ... `endif::[]`
+  - **ifeval** blocks: `ifeval::[expression]` ... `endif::[]`
+  - Support for nested conditionals
+  - Multiple attribute targets: `ifdef::attr1,attr2,attr3[]`
 - **Lists** (comprehensive support):
   - **Unordered lists** with `*` and `-` markers
   - **Ordered lists** with numeric markers (e.g., `1.`, `10.`)
@@ -52,6 +58,48 @@ Complex Term:: This can be a longer description
 <10> Multi-digit callouts supported
 ```
 
+### Conditional Directives
+
+Block-level conditional directives allow content to be included or excluded based on attribute definitions:
+
+#### ifdef Blocks
+```asciidoc
+:backend: pdf
+
+ifdef::backend[]
+This content appears when 'backend' attribute is defined
+endif::[]
+
+ifdef::attr1,attr2[]
+Content for multiple attributes (OR logic)
+endif::[]
+```
+
+#### ifndef Blocks
+```asciidoc
+ifndef::draft[]
+Final content (appears when 'draft' is not defined)
+endif::[]
+```
+
+#### ifeval Blocks
+```asciidoc
+:version: 2.1
+
+ifeval::["{version}" >= "2.0"]
+Content for version 2.0 and later
+endif::[]
+```
+
+#### Nested Conditionals
+```asciidoc
+ifdef::platform[]
+ifdef::debug[]
+Debug content for specific platform
+endif::[]
+endif::[]
+```
+
 ### Grammar Compliance
 
 - **WARP Compliant**: All whitespace is handled through `extras`, no whitespace nodes in the AST
@@ -61,9 +109,13 @@ Complex Term:: This can be a longer description
 
 ### Current Limitations
 
-- List continuations (multi-paragraph items) not yet implemented
-- Nested lists not yet supported
-- Advanced list features (complex nesting, blocks within lists) pending
+- **Conditional directives:**
+  - Only block-level form supported (not inline conditional macros)
+  - Expression parsing in ifeval is basic (no quoted string handling)
+- **Lists:**
+  - List continuations (multi-paragraph items) not yet implemented
+  - Nested lists not yet supported
+  - Advanced list features (complex nesting, blocks within lists) pending
 
 ## Installation
 
@@ -133,12 +185,17 @@ This grammar can be used with any editor that supports tree-sitter, including:
 Contributions are welcome! This parser is actively being developed to support more AsciiDoc features.
 
 ### Planned Features
-- List continuations and nesting
-- Delimited blocks (listings, examples, quotes)
-- Tables
-- Inline formatting (bold, italic, monospace)
-- Cross-references and links
-- Admonitions
+- **Conditional directives:**
+  - Inline conditional macro support
+  - Enhanced ifeval expression parsing (quoted strings, operators)
+- **Lists:**
+  - List continuations and nesting
+- **Other blocks:**
+  - Delimited blocks (listings, examples, quotes)
+  - Tables
+  - Inline formatting (bold, italic, monospace)
+  - Cross-references and links
+  - Admonitions
 
 ## License
 
