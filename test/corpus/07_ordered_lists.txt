@@ -10,15 +10,9 @@ Simple ordered list
 
 (source_file
   (ordered_list
-    (ordered_list_item
-      (marker)
-      (content))
-    (ordered_list_item
-      (marker)
-      (content))
-    (ordered_list_item
-      (marker)
-      (content))))
+    (ordered_list_item)
+    (ordered_list_item)
+    (ordered_list_item)))
 
 ================================================================================
 Ordered list with multiple digits
@@ -32,15 +26,9 @@ Ordered list with multiple digits
 
 (source_file
   (ordered_list
-    (ordered_list_item
-      (marker)
-      (content))
-    (ordered_list_item
-      (marker)
-      (content))
-    (ordered_list_item
-      (marker)
-      (content))))
+    (ordered_list_item)
+    (ordered_list_item)
+    (ordered_list_item)))
 
 ================================================================================
 Not a list - missing space after period

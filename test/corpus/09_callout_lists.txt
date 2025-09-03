@@ -10,15 +10,9 @@ Simple callout list
 
 (source_file
   (callout_list
-    (callout_item
-      (marker)
-      (content))
-    (callout_item
-      (marker)
-      (content))
-    (callout_item
-      (marker)
-      (content))))
+    (callout_item)
+    (callout_item)
+    (callout_item)))
 
 ================================================================================
 Not a callout list - missing space after marker
