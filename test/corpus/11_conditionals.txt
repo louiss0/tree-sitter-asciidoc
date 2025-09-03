@@ -1,0 +1,241 @@
+================================================================================
+Basic ifdef block
+================================================================================
+
+:backend: pdf
+
+ifdef::backend[]
+== PDF Content
+Paragraph under conditional.
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (attribute_entry
+    (name)
+    (value))
+  (ifdef_block
+    (ifdef_open
+      (conditional_name)
+      (conditional_targets
+        (conditional_attr_name)))
+    (section
+      (section_title
+        (title)))
+    (paragraph
+      (text))
+    (endif_directive
+      (conditional_name))))
+
+================================================================================
+Basic ifndef block
+================================================================================
+
+ifndef::draft[]
+Final content only.
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ifndef_block
+    (ifndef_open
+      (conditional_name)
+      (conditional_targets
+        (conditional_attr_name)))
+    (paragraph
+      (text))
+    (endif_directive
+      (conditional_name))))
+
+================================================================================
+Basic ifeval block
+================================================================================
+
+:level: 2
+
+ifeval::[{level} > 1]
+== Title
+Content for level greater than 1.
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (attribute_entry
+    (name)
+    (value))
+  (ifeval_block
+    (ifeval_open
+      (conditional_name)
+      (ifeval_expression))
+    (section
+      (section_title
+        (title)))
+    (paragraph
+      (text))
+    (endif_directive
+      (conditional_name))))
+
+================================================================================
+Nested conditionals
+================================================================================
+
+ifdef::a[]
+ifdef::b[]
+Inner content
+endif::[]
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ifdef_block
+    (ifdef_open
+      (conditional_name)
+      (conditional_targets
+        (conditional_attr_name)))
+    (ifdef_block
+      (ifdef_open
+        (conditional_name)
+        (conditional_targets
+          (conditional_attr_name)))
+      (paragraph
+        (text))
+      (endif_directive
+        (conditional_name)))
+    (endif_directive
+      (conditional_name))))
+
+================================================================================
+Mixed conditional and description list
+================================================================================
+
+Term:: definition
+
+ifdef::flag[]
+Content inside conditional
+endif::[]
+
+Another:: item
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_item))
+  (ifdef_block
+    (ifdef_open
+      (conditional_name)
+      (conditional_targets
+        (conditional_attr_name)))
+    (paragraph
+      (text))
+    (endif_directive
+      (conditional_name)))
+  (description_list
+    (description_item)))
+
+================================================================================
+Multiple attribute targets
+================================================================================
+
+ifdef::attr1,attr2,attr3[]
+Multiple attributes checked
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ifdef_block
+    (ifdef_open
+      (conditional_name)
+      (conditional_targets
+        (conditional_attr_name)
+        (conditional_attr_name)
+        (conditional_attr_name)))
+    (paragraph
+      (text))
+    (endif_directive
+      (conditional_name))))
+
+================================================================================
+Conditional with lists and sections
+================================================================================
+
+ifdef::backend[]
+== Section in conditional
+
+- List item 1
+- List item 2
+
+1. Ordered item
+2. Another item
+
+Another paragraph
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ifdef_block
+    (ifdef_open
+      (conditional_name)
+      (conditional_targets
+        (conditional_attr_name)))
+    (section
+      (section_title
+        (title)))
+    (unordered_list
+      (unordered_list_item)
+      (unordered_list_item))
+    (ordered_list
+      (ordered_list_item)
+      (ordered_list_item))
+    (paragraph
+      (text))
+    (endif_directive
+      (conditional_name))))
+
+================================================================================
+Empty conditional block
+================================================================================
+
+ifdef::nonexistent[]
+endif::[]
+
+Normal content
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ifdef_block
+    (ifdef_open
+      (conditional_name)
+      (conditional_targets
+        (conditional_attr_name)))
+    (endif_directive
+      (conditional_name)))
+  (paragraph
+    (text)))
+
+================================================================================
+Complex ifeval expression
+================================================================================
+
+ifeval::["{version}" >= "2.0"]
+New feature content
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ifeval_block
+    (ifeval_open
+      (conditional_name)
+      (ifeval_expression))
+    (paragraph
+      (text))
+    (endif_directive
+      (conditional_name))))

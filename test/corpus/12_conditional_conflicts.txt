@@ -1,0 +1,199 @@
+================================================================================
+Description lists should not become conditionals
+================================================================================
+
+ifdef:: This should be a paragraph because space after colon
+Term:: definition
+
+ifdefnotablock:: another paragraph
+
+Another:: regular description item
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text))
+  (description_list
+    (description_item))
+  (paragraph
+    (text))
+  (description_list
+    (description_item)))
+
+================================================================================
+Paragraphs with directive-like words
+================================================================================
+
+This paragraph contains ifdef:: and ifndef:: words but
+they are in the middle of sentences, not at start of lines.
+
+The word endif:: can also appear here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text))
+  (paragraph
+    (text)))
+
+================================================================================
+Malformed conditionals should be paragraphs
+================================================================================
+
+ifdef::attr[extra content after bracket]
+ifndef::
+ifeval::[incomplete
+
+These look like conditionals but are malformed.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text))
+  (paragraph
+    (text))
+  (paragraph
+    (text))
+  (paragraph
+    (text)))
+
+================================================================================
+Mixing attributes and conditionals
+================================================================================
+
+:attr1: value1
+
+ifdef::attr1[]
+Content when attr1 is set
+endif::[]
+
+:attr2: value2
+
+ifndef::missing[]
+Content when missing is not set
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (attribute_entry
+    (name)
+    (value))
+  (ifdef_block
+    (ifdef_open
+      (conditional_name)
+      (conditional_targets
+        (conditional_attr_name)))
+    (paragraph
+      (text))
+    (endif_directive
+      (conditional_name)))
+  (attribute_entry
+    (name)
+    (value))
+  (ifndef_block
+    (ifndef_open
+      (conditional_name)
+      (conditional_targets
+        (conditional_attr_name)))
+    (paragraph
+      (text))
+    (endif_directive
+      (conditional_name))))
+
+================================================================================
+Triple colons are not conditionals
+================================================================================
+
+something::: this is not a conditional
+another:::word paragraph
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text))
+  (paragraph
+    (text)))
+
+================================================================================
+No targets in ifdef should still work
+================================================================================
+
+ifdef::[]
+Content without specific target
+endif::[]
+
+ifndef::[]
+Content for ifndef without target  
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ifdef_block
+    (ifdef_open
+      (conditional_name))
+    (paragraph
+      (text))
+    (endif_directive
+      (conditional_name)))
+  (ifndef_block
+    (ifndef_open
+      (conditional_name))
+    (paragraph
+      (text))
+    (endif_directive
+      (conditional_name))))
+
+================================================================================
+Conditionals with attributes inside sections
+================================================================================
+
+== Main Section
+
+:debug: true
+
+ifdef::debug[]
+Debug information here
+endif::[]
+
+=== Subsection
+
+ifndef::production[]
+Development content
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_title
+      (title))
+    (attribute_entry
+      (name)
+      (value))
+    (ifdef_block
+      (ifdef_open
+        (conditional_name)
+        (conditional_targets
+          (conditional_attr_name)))
+      (paragraph
+        (text))
+      (endif_directive
+        (conditional_name)))
+    (section
+      (section_title
+        (title))
+      (ifndef_block
+        (ifndef_open
+          (conditional_name)
+          (conditional_targets
+            (conditional_attr_name)))
+        (paragraph
+          (text))
+        (endif_directive
+          (conditional_name))))))

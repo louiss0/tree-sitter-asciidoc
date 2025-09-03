@@ -41,6 +41,29 @@
     }
   },
   {
+    "type": "conditional_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ifdef_block",
+          "named": true
+        },
+        {
+          "type": "ifeval_block",
+          "named": true
+        },
+        {
+          "type": "ifndef_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "description_list",
     "named": true,
     "fields": {},
@@ -50,6 +73,159 @@
       "types": [
         {
           "type": "description_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ifdef_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_entry",
+          "named": true
+        },
+        {
+          "type": "callout_list",
+          "named": true
+        },
+        {
+          "type": "conditional_block",
+          "named": true
+        },
+        {
+          "type": "description_list",
+          "named": true
+        },
+        {
+          "type": "endif_directive",
+          "named": true
+        },
+        {
+          "type": "ifdef_open",
+          "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ifeval_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_entry",
+          "named": true
+        },
+        {
+          "type": "callout_list",
+          "named": true
+        },
+        {
+          "type": "conditional_block",
+          "named": true
+        },
+        {
+          "type": "description_list",
+          "named": true
+        },
+        {
+          "type": "endif_directive",
+          "named": true
+        },
+        {
+          "type": "ifeval_open",
+          "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ifndef_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_entry",
+          "named": true
+        },
+        {
+          "type": "callout_list",
+          "named": true
+        },
+        {
+          "type": "conditional_block",
+          "named": true
+        },
+        {
+          "type": "description_list",
+          "named": true
+        },
+        {
+          "type": "endif_directive",
+          "named": true
+        },
+        {
+          "type": "ifndef_open",
+          "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
           "named": true
         }
       ]
@@ -100,6 +276,10 @@
         },
         {
           "type": "callout_list",
+          "named": true
+        },
+        {
+          "type": "conditional_block",
           "named": true
         },
         {
@@ -163,6 +343,10 @@
           "named": true
         },
         {
+          "type": "conditional_block",
+          "named": true
+        },
+        {
           "type": "description_list",
           "named": true
         },
@@ -220,6 +404,22 @@
   },
   {
     "type": "description_item",
+    "named": true
+  },
+  {
+    "type": "endif_directive",
+    "named": true
+  },
+  {
+    "type": "ifdef_open",
+    "named": true
+  },
+  {
+    "type": "ifeval_open",
+    "named": true
+  },
+  {
+    "type": "ifndef_open",
     "named": true
   },
   {
