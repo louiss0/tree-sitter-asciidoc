@@ -516,11 +516,20 @@
       ]
     },
     "list_item_content": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[^\\r\\n]+"
-      }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "text"
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^\\r\\n]+"
+          }
+        }
+      ]
     }
   },
   "extras": [

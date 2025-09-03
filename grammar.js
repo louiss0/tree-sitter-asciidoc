@@ -147,7 +147,10 @@ module.exports = grammar({
       field('content', $.list_item_content)
     ),
     
-    // List item content - similar to paragraph but single line for now
-    list_item_content: $ => token(/[^\r\n]+/),
+    // List item content - can be multiline, reuse text pattern
+    list_item_content: $ => choice(
+      $.text,  // Reuse existing paragraph text pattern
+      token(/[^\r\n]+/)  // Fallback for single line
+    ),
   },
 });

@@ -98,6 +98,21 @@
     }
   },
   {
+    "type": "list_item_content",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ordered_list",
     "named": true,
     "fields": {},
@@ -282,10 +297,6 @@
   },
   {
     "type": "description_term",
-    "named": true
-  },
-  {
-    "type": "list_item_content",
     "named": true
   },
   {
