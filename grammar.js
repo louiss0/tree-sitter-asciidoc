@@ -20,6 +20,8 @@ module.exports = grammar({
 
   extras: $ => [/\s/],
   
+  conflicts: $ => [],
+  
   rules: {
     source_file: $ => repeat($._block),
 
@@ -27,7 +29,7 @@ module.exports = grammar({
       $.attribute_entry,
       $.section,
       $.unordered_list,
-      $.ordered_list,
+      $.ordered_list, 
       $.description_list,
       $.callout_list,
       // Higher precedence paragraph for invalid patterns  
@@ -105,52 +107,34 @@ module.exports = grammar({
     value: $ => token.immediate(/[^\r\n]+/),
 
     // ========================================================================
-    // LIST PARSING - Basic implementation without external scanner
+    // LIST PARSING - Markdown-inspired marker-specific lists
     // ========================================================================
     
-    // Unordered lists - start with * or - followed by space
-    unordered_list: $ => prec.left(repeat1($.unordered_list_item)),
-    
-    unordered_list_item: $ => seq(
-      field('marker', choice(
-        token(prec(10, /\*[ \t]+/)),
-        token(prec(10, /-[ \t]+/))
-      )),
-      field('content', $.list_item_content)
+    // Unordered lists - separate types for each marker for better grouping
+    unordered_list: $ => choice(
+      $._list_asterisk,
+      $._list_dash
     ),
     
-    // Ordered lists - start with digits followed by . and space
-    ordered_list: $ => prec.left(repeat1($.ordered_list_item)),
+    _list_asterisk: $ => prec.right(10, repeat1(alias($._asterisk_list_item, $.unordered_list_item))),
+    _list_dash: $ => prec.right(10, repeat1(alias($._dash_list_item, $.unordered_list_item))),
     
-    ordered_list_item: $ => seq(
-      field('marker', token(prec(10, /[0-9]+\.[ \t]+/))),
-      field('content', $.list_item_content)
-    ),
+    _asterisk_list_item: $ => token(prec(20, /\*[ \t]+[^\r\n]+/)),
+    _dash_list_item: $ => token(prec(20, /-[ \t]+[^\r\n]+/)),
     
-    // Description lists - term:: description
-    description_list: $ => prec.left(repeat1($.description_item)),
+    // Ordered lists
+    ordered_list: $ => prec.right(10, repeat1($.ordered_list_item)),
     
-    description_item: $ => seq(
-      field('term', $.description_term),
-      '::',
-      ' ',
-      field('content', $.list_item_content)
-    ),
+    ordered_list_item: $ => token(prec(20, /[0-9]+\.[ \t]+[^\r\n]+/)),
     
-    description_term: $ => token(/[^\r\n:]+/),
+    // Description lists  
+    description_list: $ => prec.right(10, repeat1($.description_item)),
     
-    // Callout lists - <digit> content
-    callout_list: $ => prec.left(repeat1($.callout_item)),
+    description_item: $ => token(prec(20, /[^\r\n:]+::[ \t]+[^\r\n]+/)),
     
-    callout_item: $ => seq(
-      field('marker', token(prec(10, /<[0-9]+>[ \t]+/))),
-      field('content', $.list_item_content)
-    ),
+    // Callout lists
+    callout_list: $ => prec.right(10, repeat1($.callout_item)),
     
-    // List item content - can be multiline, reuse text pattern
-    list_item_content: $ => choice(
-      $.text,  // Reuse existing paragraph text pattern
-      token(/[^\r\n]+/)  // Fallback for single line
-    ),
+    callout_item: $ => token(prec(20, /<[0-9]+>[ \t]+[^\r\n]+/)),
   },
 });

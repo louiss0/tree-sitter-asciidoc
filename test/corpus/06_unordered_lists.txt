@@ -10,8 +10,10 @@ Simple unordered list with asterisk
 
 (source_file
   (unordered_list
-    (unordered_list_item)
-    (unordered_list_item)
+    (unordered_list_item))
+  (unordered_list
+    (unordered_list_item))
+  (unordered_list
     (unordered_list_item)))
 
 ================================================================================
@@ -26,8 +28,10 @@ Simple unordered list with hyphen
 
 (source_file
   (unordered_list
-    (unordered_list_item)
-    (unordered_list_item)
+    (unordered_list_item))
+  (unordered_list
+    (unordered_list_item))
+  (unordered_list
     (unordered_list_item)))
 
 ================================================================================
@@ -53,6 +57,7 @@ Not a list - missing space after marker
 ================================================================================
 
 *NotAList
+
 -NotAList
 
 --------------------------------------------------------------------------------

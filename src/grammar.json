@@ -336,63 +336,75 @@
       }
     },
     "unordered_list": {
-      "type": "PREC_LEFT",
-      "value": 0,
-      "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "SYMBOL",
-          "name": "unordered_list_item"
-        }
-      }
-    },
-    "unordered_list_item": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "FIELD",
-          "name": "marker",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "TOKEN",
-                "content": {
-                  "type": "PREC",
-                  "value": 10,
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "\\*[ \\t]+"
-                  }
-                }
-              },
-              {
-                "type": "TOKEN",
-                "content": {
-                  "type": "PREC",
-                  "value": 10,
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "-[ \\t]+"
-                  }
-                }
-              }
-            ]
-          }
+          "type": "SYMBOL",
+          "name": "_list_asterisk"
         },
         {
-          "type": "FIELD",
-          "name": "content",
-          "content": {
-            "type": "SYMBOL",
-            "name": "list_item_content"
-          }
+          "type": "SYMBOL",
+          "name": "_list_dash"
         }
       ]
     },
+    "_list_asterisk": {
+      "type": "PREC_RIGHT",
+      "value": 10,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_asterisk_list_item"
+          },
+          "named": true,
+          "value": "unordered_list_item"
+        }
+      }
+    },
+    "_list_dash": {
+      "type": "PREC_RIGHT",
+      "value": 10,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_dash_list_item"
+          },
+          "named": true,
+          "value": "unordered_list_item"
+        }
+      }
+    },
+    "_asterisk_list_item": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 20,
+        "content": {
+          "type": "PATTERN",
+          "value": "\\*[ \\t]+[^\\r\\n]+"
+        }
+      }
+    },
+    "_dash_list_item": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 20,
+        "content": {
+          "type": "PATTERN",
+          "value": "-[ \\t]+[^\\r\\n]+"
+        }
+      }
+    },
     "ordered_list": {
-      "type": "PREC_LEFT",
-      "value": 0,
+      "type": "PREC_RIGHT",
+      "value": 10,
       "content": {
         "type": "REPEAT1",
         "content": {
@@ -402,36 +414,19 @@
       }
     },
     "ordered_list_item": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "marker",
-          "content": {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "PATTERN",
-                "value": "[0-9]+\\.[ \\t]+"
-              }
-            }
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "content",
-          "content": {
-            "type": "SYMBOL",
-            "name": "list_item_content"
-          }
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 20,
+        "content": {
+          "type": "PATTERN",
+          "value": "[0-9]+\\.[ \\t]+[^\\r\\n]+"
         }
-      ]
+      }
     },
     "description_list": {
-      "type": "PREC_LEFT",
-      "value": 0,
+      "type": "PREC_RIGHT",
+      "value": 10,
       "content": {
         "type": "REPEAT1",
         "content": {
@@ -441,44 +436,19 @@
       }
     },
     "description_item": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "term",
-          "content": {
-            "type": "SYMBOL",
-            "name": "description_term"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "::"
-        },
-        {
-          "type": "STRING",
-          "value": " "
-        },
-        {
-          "type": "FIELD",
-          "name": "content",
-          "content": {
-            "type": "SYMBOL",
-            "name": "list_item_content"
-          }
-        }
-      ]
-    },
-    "description_term": {
       "type": "TOKEN",
       "content": {
-        "type": "PATTERN",
-        "value": "[^\\r\\n:]+"
+        "type": "PREC",
+        "value": 20,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\\r\\n:]+::[ \\t]+[^\\r\\n]+"
+        }
       }
     },
     "callout_list": {
-      "type": "PREC_LEFT",
-      "value": 0,
+      "type": "PREC_RIGHT",
+      "value": 10,
       "content": {
         "type": "REPEAT1",
         "content": {
@@ -488,48 +458,15 @@
       }
     },
     "callout_item": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "marker",
-          "content": {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "PATTERN",
-                "value": "<[0-9]+>[ \\t]+"
-              }
-            }
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "content",
-          "content": {
-            "type": "SYMBOL",
-            "name": "list_item_content"
-          }
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 20,
+        "content": {
+          "type": "PATTERN",
+          "value": "<[0-9]+>[ \\t]+[^\\r\\n]+"
         }
-      ]
-    },
-    "list_item_content": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "text"
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PATTERN",
-            "value": "[^\\r\\n]+"
-          }
-        }
-      ]
+      }
     }
   },
   "extras": [

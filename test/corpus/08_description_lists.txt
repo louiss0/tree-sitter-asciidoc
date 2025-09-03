@@ -10,8 +10,10 @@ Another Term:: Another description
 
 (source_file
   (description_list
-    (description_item)
-    (description_item)
+    (description_item))
+  (description_list
+    (description_item))
+  (description_list
     (description_item)))
 
 ================================================================================
@@ -19,6 +21,7 @@ Not a description list - missing space after double colon
 ================================================================================
 
 Term::Description
+
 Another::Description
 
 --------------------------------------------------------------------------------

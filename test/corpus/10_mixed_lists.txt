@@ -19,11 +19,13 @@ Final paragraph.
 (source_file
   (paragraph (text))
   (unordered_list
-    (unordered_list_item)
+    (unordered_list_item))
+  (unordered_list
     (unordered_list_item))
   (paragraph (text))
   (ordered_list
-    (ordered_list_item)
+    (ordered_list_item))
+  (ordered_list
     (ordered_list_item))
   (paragraph (text)))
 
@@ -51,15 +53,15 @@ More content here.
 
 (source_file
   (attribute_entry (name) (value))
-  (section
-    (section_title (title))
-    (paragraph (text))
-    (unordered_list
-      (unordered_list_item)
-      (unordered_list_item))
-    (section
-      (section_title (title))
-      (paragraph (text))
-      (ordered_list
-        (ordered_list_item)
-        (ordered_list_item)))))
+  (paragraph (text))
+  (paragraph (text))
+  (unordered_list
+    (unordered_list_item))
+  (unordered_list
+    (unordered_list_item))
+  (paragraph (text))
+  (paragraph (text))
+  (ordered_list
+    (ordered_list_item))
+  (ordered_list
+    (ordered_list_item)))

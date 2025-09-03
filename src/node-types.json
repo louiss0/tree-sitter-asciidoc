@@ -26,22 +26,6 @@
     }
   },
   {
-    "type": "callout_item",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "list_item_content",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "callout_list",
     "named": true,
     "fields": {},
@@ -54,32 +38,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "description_item",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "list_item_content",
-            "named": true
-          }
-        ]
-      },
-      "term": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "description_term",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -98,21 +56,6 @@
     }
   },
   {
-    "type": "list_item_content",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "ordered_list",
     "named": true,
     "fields": {},
@@ -125,22 +68,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "ordered_list_item",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "list_item_content",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -253,7 +180,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "unordered_list_item",
@@ -263,40 +190,20 @@
     }
   },
   {
-    "type": "unordered_list_item",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "list_item_content",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "value",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": " ",
-    "named": false
   },
   {
     "type": ":",
     "named": false
   },
   {
-    "type": "::",
-    "named": false
+    "type": "callout_item",
+    "named": true
   },
   {
-    "type": "description_term",
+    "type": "description_item",
     "named": true
   },
   {
@@ -304,7 +211,15 @@
     "named": true
   },
   {
+    "type": "ordered_list_item",
+    "named": true
+  },
+  {
     "type": "text",
+    "named": true
+  },
+  {
+    "type": "unordered_list_item",
     "named": true
   }
 ]

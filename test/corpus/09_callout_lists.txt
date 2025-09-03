@@ -10,8 +10,10 @@ Simple callout list
 
 (source_file
   (callout_list
-    (callout_item)
-    (callout_item)
+    (callout_item))
+  (callout_list
+    (callout_item))
+  (callout_list
     (callout_item)))
 
 ================================================================================
@@ -19,6 +21,7 @@ Not a callout list - missing space after marker
 ================================================================================
 
 <1>NotACallout
+
 <2>NotACallout
 
 --------------------------------------------------------------------------------
