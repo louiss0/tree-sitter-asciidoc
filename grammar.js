@@ -26,6 +26,10 @@ module.exports = grammar({
     _block: $ => choice(
       $.attribute_entry,
       $.section,
+      $.unordered_list,
+      $.ordered_list,
+      $.description_list,
+      $.callout_list,
       // Higher precedence paragraph for invalid patterns  
       prec(15, alias($.fake_heading_paragraph, $.paragraph)),
       prec(2, alias($.invalid_attribute_paragraph, $.paragraph)),
@@ -99,5 +103,51 @@ module.exports = grammar({
     
     // Attribute value - immediate pattern (only non-empty)
     value: $ => token.immediate(/[^\r\n]+/),
+
+    // ========================================================================
+    // LIST PARSING - Basic implementation without external scanner
+    // ========================================================================
+    
+    // Unordered lists - start with * or - followed by space
+    unordered_list: $ => prec.left(repeat1($.unordered_list_item)),
+    
+    unordered_list_item: $ => seq(
+      field('marker', choice(
+        token(prec(10, /\*[ \t]+/)),
+        token(prec(10, /-[ \t]+/))
+      )),
+      field('content', $.list_item_content)
+    ),
+    
+    // Ordered lists - start with digits followed by . and space
+    ordered_list: $ => prec.left(repeat1($.ordered_list_item)),
+    
+    ordered_list_item: $ => seq(
+      field('marker', token(prec(10, /[0-9]+\.[ \t]+/))),
+      field('content', $.list_item_content)
+    ),
+    
+    // Description lists - term:: description
+    description_list: $ => prec.left(repeat1($.description_item)),
+    
+    description_item: $ => seq(
+      field('term', $.description_term),
+      '::',
+      ' ',
+      field('content', $.list_item_content)
+    ),
+    
+    description_term: $ => token(/[^\r\n:]+/),
+    
+    // Callout lists - <digit> content
+    callout_list: $ => prec.left(repeat1($.callout_item)),
+    
+    callout_item: $ => seq(
+      field('marker', token(prec(10, /<[0-9]+>[ \t]+/))),
+      field('content', $.list_item_content)
+    ),
+    
+    // List item content - similar to paragraph but single line for now
+    list_item_content: $ => token(/[^\r\n]+/),
   },
 });

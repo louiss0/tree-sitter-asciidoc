@@ -1,0 +1,80 @@
+================================================================================
+Simple unordered list with asterisk
+================================================================================
+
+* First item
+* Second item
+* Third item
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      (marker)
+      (content))
+    (unordered_list_item
+      (marker)
+      (content))
+    (unordered_list_item
+      (marker)
+      (content))))
+
+================================================================================
+Simple unordered list with hyphen
+================================================================================
+
+- First item
+- Second item
+- Third item
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      (marker)
+      (content))
+    (unordered_list_item
+      (marker)
+      (content))
+    (unordered_list_item
+      (marker)
+      (content))))
+
+================================================================================
+Mixed unordered list markers
+================================================================================
+
+* First item
+- Second item
+* Third item
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      (marker)
+      (content)))
+  (unordered_list
+    (unordered_list_item
+      (marker)
+      (content)))
+  (unordered_list
+    (unordered_list_item
+      (marker)
+      (content))))
+
+================================================================================
+Not a list - missing space after marker
+================================================================================
+
+*NotAList
+-NotAList
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph (text))
+  (paragraph (text)))

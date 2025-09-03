@@ -1,0 +1,45 @@
+================================================================================
+Simple description list
+================================================================================
+
+Term 1:: Description for term 1
+Term 2:: Description for term 2
+Another Term:: Another description
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_item
+      (term)
+      (content))
+    (description_item
+      (term)
+      (content))
+    (description_item
+      (term)
+      (content))))
+
+================================================================================
+Not a description list - missing space after double colon
+================================================================================
+
+Term::Description
+Another::Description
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph (text))
+  (paragraph (text)))
+
+================================================================================
+Not a description list - triple colon
+================================================================================
+
+Term::: Description
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph (text)))
