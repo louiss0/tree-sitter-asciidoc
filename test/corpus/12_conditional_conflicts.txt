@@ -82,27 +82,21 @@ endif::[]
   (attribute_entry
     (name)
     (value))
-  (ifdef_block
-    (ifdef_open
-      (conditional_name)
-      (conditional_targets
-        (conditional_attr_name)))
-    (paragraph
-      (text))
-    (endif_directive
-      (conditional_name)))
+  (conditional_block
+    (ifdef_block
+      (ifdef_open)
+      (paragraph
+        (text))
+      (endif_directive)))
   (attribute_entry
     (name)
     (value))
-  (ifndef_block
-    (ifndef_open
-      (conditional_name)
-      (conditional_targets
-        (conditional_attr_name)))
-    (paragraph
-      (text))
-    (endif_directive
-      (conditional_name))))
+  (conditional_block
+    (ifndef_block
+      (ifndef_open)
+      (paragraph
+        (text))
+      (endif_directive))))
 
 ================================================================================
 Triple colons are not conditionals
@@ -134,20 +128,18 @@ endif::[]
 --------------------------------------------------------------------------------
 
 (source_file
-  (ifdef_block
-    (ifdef_open
-      (conditional_name))
-    (paragraph
-      (text))
-    (endif_directive
-      (conditional_name)))
-  (ifndef_block
-    (ifndef_open
-      (conditional_name))
-    (paragraph
-      (text))
-    (endif_directive
-      (conditional_name))))
+  (conditional_block
+    (ifdef_block
+      (ifdef_open)
+      (paragraph
+        (text))
+      (endif_directive)))
+  (conditional_block
+    (ifndef_block
+      (ifndef_open)
+      (paragraph
+        (text))
+      (endif_directive))))
 
 ================================================================================
 Conditionals with attributes inside sections
@@ -176,24 +168,18 @@ endif::[]
     (attribute_entry
       (name)
       (value))
-    (ifdef_block
-      (ifdef_open
-        (conditional_name)
-        (conditional_targets
-          (conditional_attr_name)))
-      (paragraph
-        (text))
-      (endif_directive
-        (conditional_name)))
+    (conditional_block
+      (ifdef_block
+        (ifdef_open)
+        (paragraph
+          (text))
+        (endif_directive)))
     (section
       (section_title
         (title))
-      (ifndef_block
-        (ifndef_open
-          (conditional_name)
-          (conditional_targets
-            (conditional_attr_name)))
-        (paragraph
-          (text))
-        (endif_directive
-          (conditional_name))))))
+      (conditional_block
+        (ifndef_block
+          (ifndef_open)
+          (paragraph
+            (text))
+          (endif_directive))))))

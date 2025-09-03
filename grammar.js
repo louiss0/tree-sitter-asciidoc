@@ -275,8 +275,52 @@ module.exports = grammar({
       field("text", $.text)
     ),
 
-    // Text spans multiple lines - simplified to single line for now
+    // Text spans single lines to avoid consuming conditional endings
     text: $ => token(prec(-2, /[^:\r\n][^\r\n]*/)),
+    
+    // ========================================================================
+    // INLINE CONDITIONAL DIRECTIVES
+    // ========================================================================
+    
+    // Inline conditionals within text (single bracket form)
+    inline_conditional: $ => choice(
+      $.inline_ifdef,
+      $.inline_ifndef, 
+      $.inline_ifeval
+    ),
+    
+    // Inline ifdef - ifdef::attr[content] (no endif needed)
+    inline_ifdef: $ => seq(
+      'ifdef',
+      token.immediate('::'),
+      optional(token.immediate(/[A-Za-z0-9_,-]+/)),
+      token.immediate('['),
+      optional($.inline_content),
+      token.immediate(']')
+    ),
+    
+    // Inline ifndef - ifndef::attr[content] (no endif needed)
+    inline_ifndef: $ => seq(
+      'ifndef',
+      token.immediate('::'),
+      optional(token.immediate(/[A-Za-z0-9_,-]+/)),
+      token.immediate('['),
+      optional($.inline_content),
+      token.immediate(']')
+    ),
+    
+    // Inline ifeval - ifeval::[expr,content] (single bracket with comma)
+    inline_ifeval: $ => seq(
+      'ifeval',
+      token.immediate('::'),
+      token.immediate('['),
+      token.immediate(/[^\],]+/), // expression part
+      optional(seq(',', $.inline_content)), // optional content after comma
+      token.immediate(']')
+    ),
+    
+    // Content inside inline conditionals
+    inline_content: $ => token.immediate(/[^\]]+/),
 
     // Attribute entry - atomic pattern with proper name extraction
     attribute_entry: $ => seq(

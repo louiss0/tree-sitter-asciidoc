@@ -15,18 +15,15 @@ endif::[]
   (attribute_entry
     (name)
     (value))
-  (ifdef_block
-    (ifdef_open
-      (conditional_name)
-      (conditional_targets
-        (conditional_attr_name)))
-    (section
-      (section_title
-        (title)))
-    (paragraph
-      (text))
-    (endif_directive
-      (conditional_name))))
+  (conditional_block
+    (ifdef_block
+      (ifdef_open)
+      (section
+        (section_title
+          (title)))
+      (paragraph
+        (text))
+      (endif_directive))))
 
 ================================================================================
 Basic ifndef block
@@ -39,15 +36,12 @@ endif::[]
 --------------------------------------------------------------------------------
 
 (source_file
-  (ifndef_block
-    (ifndef_open
-      (conditional_name)
-      (conditional_targets
-        (conditional_attr_name)))
-    (paragraph
-      (text))
-    (endif_directive
-      (conditional_name))))
+  (conditional_block
+    (ifndef_block
+      (ifndef_open)
+      (paragraph
+        (text))
+      (endif_directive))))
 
 ================================================================================
 Basic ifeval block
@@ -66,17 +60,15 @@ endif::[]
   (attribute_entry
     (name)
     (value))
-  (ifeval_block
-    (ifeval_open
-      (conditional_name)
-      (ifeval_expression))
-    (section
-      (section_title
-        (title)))
-    (paragraph
-      (text))
-    (endif_directive
-      (conditional_name))))
+  (conditional_block
+    (ifeval_block
+      (ifeval_open)
+      (section
+        (section_title
+          (title)))
+      (paragraph
+        (text))
+      (endif_directive))))
 
 ================================================================================
 Nested conditionals
@@ -91,22 +83,16 @@ endif::[]
 --------------------------------------------------------------------------------
 
 (source_file
-  (ifdef_block
-    (ifdef_open
-      (conditional_name)
-      (conditional_targets
-        (conditional_attr_name)))
+  (conditional_block
     (ifdef_block
-      (ifdef_open
-        (conditional_name)
-        (conditional_targets
-          (conditional_attr_name)))
-      (paragraph
-        (text))
-      (endif_directive
-        (conditional_name)))
-    (endif_directive
-      (conditional_name))))
+      (ifdef_open)
+      (conditional_block
+        (ifdef_block
+          (ifdef_open)
+          (paragraph
+            (text))
+          (endif_directive)))
+      (endif_directive))))
 
 ================================================================================
 Mixed conditional and description list
@@ -125,15 +111,12 @@ Another:: item
 (source_file
   (description_list
     (description_item))
-  (ifdef_block
-    (ifdef_open
-      (conditional_name)
-      (conditional_targets
-        (conditional_attr_name)))
-    (paragraph
-      (text))
-    (endif_directive
-      (conditional_name)))
+  (conditional_block
+    (ifdef_block
+      (ifdef_open)
+      (paragraph
+        (text))
+      (endif_directive)))
   (description_list
     (description_item)))
 
@@ -148,17 +131,12 @@ endif::[]
 --------------------------------------------------------------------------------
 
 (source_file
-  (ifdef_block
-    (ifdef_open
-      (conditional_name)
-      (conditional_targets
-        (conditional_attr_name)
-        (conditional_attr_name)
-        (conditional_attr_name)))
-    (paragraph
-      (text))
-    (endif_directive
-      (conditional_name))))
+  (conditional_block
+    (ifdef_block
+      (ifdef_open)
+      (paragraph
+        (text))
+      (endif_directive))))
 
 ================================================================================
 Conditional with lists and sections
@@ -179,24 +157,21 @@ endif::[]
 --------------------------------------------------------------------------------
 
 (source_file
-  (ifdef_block
-    (ifdef_open
-      (conditional_name)
-      (conditional_targets
-        (conditional_attr_name)))
-    (section
-      (section_title
-        (title)))
-    (unordered_list
-      (unordered_list_item)
-      (unordered_list_item))
-    (ordered_list
-      (ordered_list_item)
-      (ordered_list_item))
-    (paragraph
-      (text))
-    (endif_directive
-      (conditional_name))))
+  (conditional_block
+    (ifdef_block
+      (ifdef_open)
+      (section
+        (section_title
+          (title)))
+      (unordered_list
+        (unordered_list_item)
+        (unordered_list_item))
+      (ordered_list
+        (ordered_list_item)
+        (ordered_list_item))
+      (paragraph
+        (text))
+      (endif_directive))))
 
 ================================================================================
 Empty conditional block
@@ -210,13 +185,10 @@ Normal content
 --------------------------------------------------------------------------------
 
 (source_file
-  (ifdef_block
-    (ifdef_open
-      (conditional_name)
-      (conditional_targets
-        (conditional_attr_name)))
-    (endif_directive
-      (conditional_name)))
+  (conditional_block
+    (ifdef_block
+      (ifdef_open)
+      (endif_directive)))
   (paragraph
     (text)))
 
@@ -231,11 +203,9 @@ endif::[]
 --------------------------------------------------------------------------------
 
 (source_file
-  (ifeval_block
-    (ifeval_open
-      (conditional_name)
-      (ifeval_expression))
-    (paragraph
-      (text))
-    (endif_directive
-      (conditional_name))))
+  (conditional_block
+    (ifeval_block
+      (ifeval_open)
+      (paragraph
+        (text))
+      (endif_directive))))

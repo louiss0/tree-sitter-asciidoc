@@ -1,0 +1,63 @@
+================================================================================
+Simple inline ifdef
+================================================================================
+
+This text has ifdef::attr[inline content] in the middle.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_ifdef
+        (inline_content))
+      (text_segment))))
+
+================================================================================
+Block conditional with single line content
+================================================================================
+
+ifdef::test[]
+Single line content
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (conditional_block
+    (ifdef_block
+      (ifdef_open)
+      (paragraph
+        (text))
+      (endif_directive))))
+
+================================================================================  
+Mixed inline and block conditionals
+================================================================================
+
+This has ifdef::inline[content] in text.
+
+ifdef::block[]
+Block content here
+endif::[]
+
+More text after.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_ifdef
+        (inline_content))
+      (text_segment)))
+  (conditional_block
+    (ifdef_block
+      (ifdef_open)
+      (paragraph
+        (text))
+      (endif_directive)))
+  (paragraph
+    (text)))
