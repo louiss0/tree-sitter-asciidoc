@@ -10,3 +10,15 @@
 
 ; Paragraph text
 (paragraph (text) @markup.text)
+
+; List highlighting
+(unordered_list_item @markup.list)
+(ordered_list_item @markup.list)
+(description_item @markup.list)
+(callout_item @markup.list)
+
+; List content
+(list_item_content @markup.text)
+
+; Description terms
+(description_term @markup.strong)
