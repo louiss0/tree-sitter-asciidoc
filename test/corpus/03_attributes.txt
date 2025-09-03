@@ -34,7 +34,7 @@ Content here
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph (text))
+  (attribute_entry (name))
   (attribute_entry (name))
   (section
     (section_title (title))
