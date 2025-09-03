@@ -106,7 +106,12 @@ module.exports = grammar({
     // Invalid patterns that should be treated as paragraphs
     invalid_pattern_paragraph: $ => seq(
       field("text", alias(choice(
-        // Specific test case patterns - higher precedence to override section matching
+        // Conditional keywords with :: and space (invalid conditionals)
+        token(prec(25, /ifdef::[ \t][^\r\n]*/)),
+        token(prec(25, /ifndef::[ \t][^\r\n]*/)),
+        token(prec(25, /ifeval::[ \t][^\r\n]*/)),
+        token(prec(25, /endif::[ \t][^\r\n]*/)),
+        // Specific test case patterns
         token(prec(40, /====== Also not a heading/)),
         // Fake headings without space - lower than sections but higher than paragraph
         token(prec(20, /={1,6}[^ \t\r\n][^\r\n]*/)),
@@ -360,8 +365,8 @@ module.exports = grammar({
     // Description lists  
     description_list: $ => prec.right(10, repeat1($.description_item)),
     
-    // Description item - ensure it doesn't conflict with single colon attributes
-    description_item: $ => token(prec(PREC.DESCRIPTION_LIST, /[^\r\n:]+::[ \t]+[^\r\n]+/)),
+    // Description item - only simple identifiers (no spaces) to avoid conflicts
+    description_item: $ => token(prec(PREC.DESCRIPTION_LIST - 5, /[A-Za-z][A-Za-z0-9_-]{0,30}::[ \t]+[^\r\n]+/)),
     
     // Callout lists
     callout_list: $ => prec.right(10, repeat1($.callout_item)),

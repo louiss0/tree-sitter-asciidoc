@@ -293,6 +293,50 @@
                   "type": "TOKEN",
                   "content": {
                     "type": "PREC",
+                    "value": 25,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "ifdef::[ \\t][^\\r\\n]*"
+                    }
+                  }
+                },
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 25,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "ifndef::[ \\t][^\\r\\n]*"
+                    }
+                  }
+                },
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 25,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "ifeval::[ \\t][^\\r\\n]*"
+                    }
+                  }
+                },
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 25,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "endif::[ \\t][^\\r\\n]*"
+                    }
+                  }
+                },
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
                     "value": 40,
                     "content": {
                       "type": "PATTERN",
@@ -1498,10 +1542,10 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 15,
+        "value": 10,
         "content": {
           "type": "PATTERN",
-          "value": "[^\\r\\n:]+::[ \\t]+[^\\r\\n]+"
+          "value": "[A-Za-z][A-Za-z0-9_-]{0,30}::[ \\t]+[^\\r\\n]+"
         }
       }
     },

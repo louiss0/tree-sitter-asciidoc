@@ -16,8 +16,8 @@ Another:: regular description item
     (text))
   (description_list
     (description_item))
-  (paragraph
-    (text))
+  (description_list
+    (description_item))
   (description_list
     (description_item)))
 
@@ -33,6 +33,8 @@ The word endif:: can also appear here.
 --------------------------------------------------------------------------------
 
 (source_file
+  (paragraph
+    (text))
   (paragraph
     (text))
   (paragraph

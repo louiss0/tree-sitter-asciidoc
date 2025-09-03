@@ -2,9 +2,9 @@
 Simple description list
 ================================================================================
 
-Term 1:: Description for term 1
-Term 2:: Description for term 2
-Another Term:: Another description
+Term1:: Description for term 1
+Term2:: Description for term 2
+AnotherTerm:: Another description
 
 --------------------------------------------------------------------------------
 

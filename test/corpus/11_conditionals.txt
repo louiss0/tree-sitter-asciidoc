@@ -20,9 +20,9 @@ endif::[]
       (ifdef_open)
       (section
         (section_title
-          (title)))
-      (paragraph
-        (text))
+          (title))
+        (paragraph
+          (text)))
       (endif_directive))))
 
 ================================================================================
@@ -65,9 +65,9 @@ endif::[]
       (ifeval_open)
       (section
         (section_title
-          (title)))
-      (paragraph
-        (text))
+          (title))
+        (paragraph
+          (text)))
       (endif_directive))))
 
 ================================================================================
@@ -162,15 +162,17 @@ endif::[]
       (ifdef_open)
       (section
         (section_title
-          (title)))
-      (unordered_list
-        (unordered_list_item)
-        (unordered_list_item))
-      (ordered_list
-        (ordered_list_item)
-        (ordered_list_item))
-      (paragraph
-        (text))
+          (title))
+        (unordered_list
+          (unordered_list_item))
+        (unordered_list
+          (unordered_list_item))
+        (ordered_list
+          (ordered_list_item))
+        (ordered_list
+          (ordered_list_item))
+        (paragraph
+          (text)))
       (endif_directive))))
 
 ================================================================================
