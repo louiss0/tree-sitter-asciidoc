@@ -1,0 +1,81 @@
+================================================================================
+Triple plus passthrough
+================================================================================
+
+This +++*should not be bold*+++ text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (passthrough_triple_plus)))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
+
+================================================================================
+Pass macro without substitutions
+================================================================================
+
+This pass:[*should not be bold*] text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (pass_macro
+        (content))))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
+
+================================================================================
+Pass macro with substitutions
+================================================================================
+
+This pass:quotes[*should not be bold*] text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (pass_macro
+        (subs)
+        (content))
+      (text_segment))))
+
+================================================================================
+Multiple passthrough in same line
+================================================================================
+
+Both +++raw+++ and pass:[protected] here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (passthrough_triple_plus))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (pass_macro
+        (content))))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))

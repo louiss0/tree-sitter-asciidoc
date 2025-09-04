@@ -24,19 +24,35 @@ const PREC = {
   CONDITIONAL: 50,
   ATTRIBUTE_ENTRY: 30,
   SECTION: 25,
+  // Admonition precedences
+  ADMONITION_PARAGRAPH: 24,  // Single-line admonitions
+  ADMONITION_BLOCK: 23,      // Block admonitions with metadata
   DELIMITED_BLOCK: 22,
   BLOCK_META: 21,
-  // Admonition precedences
-  ADMONITION_BLOCK: 20,     // block admonitions with [TYPE]
-  ADMONITION_PARAGRAPH: 18, // paragraph admonitions TYPE: (higher than inline)
-  // Inline element precedences
-  INLINE_MACRO: 17,     // footnote, footnoteref, xref macro
-  INLINE_XREF: 16,      // internal cross-reference <<>>
-  INLINE_ANCHOR: 15,    // inline anchors [[]]
+  // Inline element precedences (highest to lowest)
+  PASSTHROUGH: 100,          // +++literal text+++
+  ROLE_SPAN: 95,             // [role]#text#
+  MACRO: 90,                 // math/ui macros baseline
+  INLINE_MACRO: 85,          // footnote, footnoteref, xref macro
+  LINK: 80,                  // auto URLs and url[text]
+  IMAGE: 78,                 // image: and image:: macros
+  MATH: 75,                  // stem:, latexmath:, asciimath:
+  UI_MACRO: 72,              // kbd:, btn:, menu:
+  MONOSPACE: 70,             // `code`
+  STRONG: 60,                // *text*
+  EMPHASIS: 50,              // _text_
+  SUPERSCRIPT: 40,           // ^text^
+  SUBSCRIPT: 39,             // ~text~
+  INLINE_XREF: 35,           // internal cross-reference <<>>
+  INLINE_ANCHOR: 32,         // inline anchors [[]]
+  ATTRIBUTE_REF: 30,         // {name}
+  LINE_BREAK: 25,            // " +" at EOL
+  // Block-level precedences
   DESCRIPTION_LIST: 14,
   LIST: 10,
   INVALID_PATTERN: 5,
   PARAGRAPH: 1,
+  TEXT: -1,                  // plain text (lowest)
 };
 
 module.exports = grammar({
@@ -48,6 +64,10 @@ module.exports = grammar({
     [$.title, $.name],
     [$.block_metadata],
     [$.paragraph_admonition, $.paragraph],
+    [$.strong, $.emphasis],
+    [$.text_with_inlines],
+    [$.text_with_inlines, $.inline_element, $.link],
+    [$.link, $.auto_link],
   ],
   
   rules: {
@@ -378,12 +398,32 @@ module.exports = grammar({
     
     // Text with inline elements - comprehensive structure supporting all inline constructs
     text_with_inlines: $ => prec.left(repeat1(choice(
+      // Direct inline formatting elements (highest precedence)
+      prec(PREC.PASSTHROUGH, $.passthrough_triple_plus),
+      prec(PREC.PASSTHROUGH, $.pass_macro),
+      prec(PREC.ROLE_SPAN, $.role_span),
+      prec(PREC.MATH, $.math),
+      prec(PREC.UI_MACRO, $.ui_kbd),
+      prec(PREC.UI_MACRO, $.ui_btn), 
+      prec(PREC.UI_MACRO, $.ui_menu),
+      prec(PREC.IMAGE, $.image),
+      prec(PREC.LINK + 1, $.link),
+      prec(PREC.LINK, $.auto_link),  // standalone URLs
+      prec(PREC.MONOSPACE, $.monospace),
+      prec(PREC.STRONG, $.strong),
+      prec(PREC.EMPHASIS, $.emphasis),
+      prec(PREC.SUPERSCRIPT, $.superscript),
+      prec(PREC.SUBSCRIPT, $.subscript),
+      prec(PREC.ATTRIBUTE_REF, $.attribute_reference),
+      prec(PREC.LINE_BREAK, $.line_break),
+      // Legacy inline elements (cross-refs, footnotes, etc.)
       prec(1000, $.inline_element),
-      prec(-100, $.text_segment)
+      // Plain text (lowest precedence)
+      prec(PREC.TEXT, $.text_segment)
     ))),
     
-    // Text segment - basic text that doesn't conflict with inline conditionals
-    text_segment: $ => token(prec(-10, /[^\r\n]+/)),
+    // Text segment - text that avoids inline formatting starts and ends
+    text_segment: $ => token(prec(PREC.TEXT, /(?:\\.|[^*_`^~\[{+#\r\n])+/)),
     
     // ========================================================================
     // INLINE CONDITIONAL DIRECTIVES
@@ -585,8 +625,182 @@ module.exports = grammar({
       $.footnote_inline,
       $.footnote_ref,
       $.footnoteref,
-      $.inline_conditional
+      $.inline_conditional,
+      // New inline formatting elements
+      $.strong,
+      $.emphasis,
+      $.monospace,
+      $.superscript,
+      $.subscript,
+      $.attribute_reference,
+      $.auto_link,
+      $.link,
+      $.image,
+      $.passthrough_triple_plus,
+      $.pass_macro,
+      $.role_span,
+      $.math,
+      $.ui_kbd,
+      $.ui_btn,
+      $.ui_menu,
+      $.line_break
     ),
+    
+    // ========================================================================
+    // INLINE FORMATTING - Strong, Emphasis, Monospace, Superscript, Subscript
+    // ========================================================================
+    
+    // Strong formatting (bold) - *text*
+    strong: $ => prec(PREC.STRONG, seq(
+      token('*'),
+      field('content', repeat1(choice(
+        $.emphasis,
+        $.monospace,
+        $.superscript,
+        $.subscript,
+        $.attribute_reference,
+        $.line_break,
+        $.passthrough_triple_plus,
+        $.pass_macro,
+        alias(token(prec(10, /\\\*|[^*\r\n]+/)), $.text_segment)
+      ))),
+      token('*')
+    )),
+    
+    // Emphasis formatting (italic) - _text_
+    emphasis: $ => prec(PREC.EMPHASIS, seq(
+      token('_'),
+      field('content', repeat1(choice(
+        $.strong,
+        $.monospace,
+        $.superscript,
+        $.subscript,
+        $.attribute_reference,
+        $.line_break,
+        $.passthrough_triple_plus,
+        $.pass_macro,
+        alias(token(prec(10, /\\_|[^_\r\n]+/)), $.text_segment)
+      ))),
+      token('_')
+    )),
+    
+    // Monospace formatting (code) - `text`
+    monospace: $ => prec(PREC.MONOSPACE, seq(
+      token('`'),
+      field('content', repeat1(choice(
+        $.attribute_reference,
+        alias(token(prec(10, /\\`|[^`\r\n]+/)), $.text_segment)
+      ))),
+      token('`')
+    )),
+    
+    // Superscript - ^text^
+    superscript: $ => prec(PREC.SUPERSCRIPT, seq(
+      token('^'),
+      field('content', repeat1(choice(
+        $.attribute_reference,
+        alias(token(prec(10, /\\\^|[^\^\r\n]+/)), $.text_segment)
+      ))),
+      token('^')
+    )),
+    
+    // Subscript - ~text~
+    subscript: $ => prec(PREC.SUBSCRIPT, seq(
+      token('~'),
+      field('content', repeat1(choice(
+        $.attribute_reference,
+        alias(token(prec(10, /\\~|[^~\r\n]+/)), $.text_segment)
+      ))),
+      token('~')
+    )),
+    
+    // ========================================================================
+    // PASSTHROUGH AND MACROS
+    // ========================================================================
+    
+    // Inline passthrough: +++literal text+++
+    passthrough_triple_plus: $ => prec(PREC.PASSTHROUGH, seq(
+      token('+++'),
+      field('content', token(prec(PREC.PASSTHROUGH, /(?:[^+]|\+[^+]|\+\+[^+])*/))),
+      token('+++')
+    )),
+    
+    // Pass macro: pass:subs[content]
+    pass_macro: $ => prec(PREC.PASSTHROUGH, seq(
+      token('pass:'),
+      optional(field('subs', token(/[A-Za-z0-9_,+|-]+/))),
+      token('['),
+      field('content', token(prec(PREC.PASSTHROUGH, /(?:\\.|[^\]]+)*/))),
+      token(']')
+    )),
+    
+    // Attribute references: {attribute-name}
+    attribute_reference: $ => token(prec(PREC.ATTRIBUTE_REF, /\{[A-Za-z0-9_][A-Za-z0-9_-]*\}/)),
+    
+    // Line breaks: trailing " +" at end of line
+    line_break: $ => prec(PREC.LINE_BREAK, token(/[ \t]\+/)),
+    
+    // Role spans: [role]#styled text#
+    role_span: $ => prec(PREC.ROLE_SPAN, seq(
+      token('['),
+      field('role', token(/[A-Za-z0-9_.-]+/)),
+      token(']'),
+      token('#'),
+      field('content', repeat1(choice(
+        $.strong,
+        $.emphasis,
+        $.monospace,
+        $.superscript,
+        $.subscript,
+        $.attribute_reference,
+        $.line_break,
+        alias(token(prec(10, /\\#|[^#\r\n]+/)), $.text_segment)
+      ))),
+      token('#')
+    )),
+    
+    // Math macros: stem, latexmath, asciimath
+    math: $ => prec(PREC.MATH, choice(
+      seq(token('stem:['), field('content', token(/(?:\\.|[^\]]+)*/)), token(']')),
+      seq(token('latexmath:['), field('content', token(/(?:\\.|[^\]]+)*/)), token(']')),
+      seq(token('asciimath:['), field('content', token(/(?:\\.|[^\]]+)*/)), token(']'))
+    )),
+    
+    // UI macros: kbd, btn, menu
+    ui_kbd: $ => prec(PREC.UI_MACRO, seq(token('kbd:['), field('keys', token(/(?:\\.|[^\]]+)+/)), token(']'))),
+    ui_btn: $ => prec(PREC.UI_MACRO, seq(token('btn:['), field('label', token(/(?:\\.|[^\]]+)+/)), token(']'))),
+    ui_menu: $ => prec(PREC.UI_MACRO, seq(
+      token('menu:'),
+      field('path', token(/[^\[\]\r\n]+/)),
+      token('['),
+      field('text', token(/(?:\\.|[^\]]*)*/)),
+      token(']')
+    )),
+    
+    // Automatic URLs and links
+    auto_link: $ => prec(PREC.LINK, token(/(?:https?|ftp|file|mailto|irc|ssh):\/\/[^\s\[\]<>]+/)),
+    
+    link: $ => prec(PREC.LINK + 1, seq(
+      field('url', $.auto_link),
+      token('['),
+      field('text', repeat(choice(
+        $.strong,
+        $.emphasis,
+        $.monospace,
+        $.superscript,
+        $.subscript,
+        $.attribute_reference,
+        $.line_break,
+        alias(token(/\\.|[^\]]/), $.text_segment)
+      ))),
+      token(']')
+    )),
+    
+    // Image macros: image: and image::
+    image: $ => prec(PREC.IMAGE, choice(
+      seq(token('image:'), field('target', token(/[^\[\]\r\n]+/)), token('['), field('attributes', token(/(?:\\.|[^\]]+)*/)), token(']')),
+      seq(token('image::'), field('target', token(/[^\[\]\r\n]+/)), token('['), field('attributes', token(/(?:\\.|[^\]]+)*/)), token(']'))
+    )),
     
     // ========================================================================
     // BLOCK METADATA - For delimited blocks only
