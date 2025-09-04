@@ -1,0 +1,367 @@
+================================================================================
+Inline anchor without text
+================================================================================
+
+This paragraph has [[simple-anchor]] in the middle.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (inline_anchor
+          (id)))
+      (text_segment))))
+
+================================================================================
+Inline anchor with text
+================================================================================
+
+This paragraph has [[anchor-id,anchor text]] with text.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (inline_anchor
+          (id)
+          (anchor_text)))
+      (text_segment))))
+
+================================================================================
+Block anchor without text
+================================================================================
+
+[[block-anchor]]
+== Section Title
+
+Content after block anchor.
+
+---
+
+(source_file
+  (section
+    (anchor
+      (id))
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)))))
+
+================================================================================
+Block anchor with text
+================================================================================
+
+[[block-anchor,Block anchor text]]
+== Section Title
+
+Content after block anchor with text.
+
+---
+
+(source_file
+  (section
+    (anchor
+      (id)
+      (anchor_text))
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)))))
+
+================================================================================
+Internal cross-reference without text
+================================================================================
+
+See the <<target-section>> for more information.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (internal_xref
+          (id)))
+      (text_segment))))
+
+================================================================================
+Internal cross-reference with text
+================================================================================
+
+See the <<target-section,target section>> for details.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (internal_xref
+          (id)
+          (bracketed_text)))
+      (text_segment))))
+
+================================================================================
+External cross-reference without text
+================================================================================
+
+Check out xref:other-file.adoc[].
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (external_xref
+          (xref_target)))
+      (text_segment))))
+
+================================================================================
+External cross-reference with text
+================================================================================
+
+Check out xref:other-file.adoc[Other Document].
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (external_xref
+          (xref_target)
+          (bracketed_text)))
+      (text_segment))))
+
+================================================================================
+Inline footnote
+================================================================================
+
+This has a footnote footnote:[This is a footnote] in it.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (footnote_inline
+          (bracketed_text)))
+      (text_segment))))
+
+================================================================================
+Referenced footnote without text
+================================================================================
+
+This has a footnote footnote:ref1[] reference.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (footnote_ref
+          (id)))
+      (text_segment))))
+
+================================================================================
+Referenced footnote with text
+================================================================================
+
+This has footnote:ref1[Referenced footnote text] in it.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (footnote_ref
+          (id)
+          (bracketed_text)))
+      (text_segment))))
+
+================================================================================
+Footnote reference without text
+================================================================================
+
+This uses footnoteref:ref1[] to reference a footnote.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (footnoteref
+          (id)))
+      (text_segment))))
+
+================================================================================
+Footnote reference with text
+================================================================================
+
+This uses footnoteref:ref1[Footnote reference text] with text.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (footnoteref
+          (id)
+          (bracketed_text)))
+      (text_segment))))
+
+================================================================================
+Mixed inline elements in paragraph
+================================================================================
+
+Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[link].
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (inline_anchor
+          (id)))
+      (text_segment)
+      (inline_element
+        (internal_xref
+          (id)))
+      (text_segment)
+      (inline_element
+        (footnote_inline
+          (bracketed_text)))
+      (text_segment)
+      (inline_element
+        (external_xref
+          (xref_target)
+          (bracketed_text)))
+      (text_segment))))
+
+================================================================================
+Adjacent inline elements
+================================================================================
+
+Adjacent[[anchor]]<<xref>>footnote:[note]elements.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (inline_anchor
+          (id)))
+      (inline_element
+        (internal_xref
+          (id)))
+      (inline_element
+        (footnote_inline
+          (bracketed_text)))
+      (text_segment))))
+
+================================================================================
+Block with anchor metadata
+================================================================================
+
+[[example-anchor,Example anchor]]
+.Example Title
+====
+Example block content with anchor
+====
+
+---
+
+(source_file
+  (example_block
+    (metadata
+      (anchor
+        (id)
+        (anchor_text))
+      (block_title))
+    (example_open)
+    (block_content)
+    (example_close)))
+
+================================================================================
+Malformed anchors should be plain text
+================================================================================
+
+This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
+
+================================================================================
+Malformed cross-references should be plain text
+================================================================================
+
+This has < <spaced xref> > and <<unclosed xref and regular text.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
+
+================================================================================
+Malformed footnotes should be plain text
+================================================================================
+
+This has foot note:[spaced] and footnote:[unclosed and regular text.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
+
+================================================================================
+Complex cross-reference targets
+================================================================================
+
+See xref:../other/doc.adoc#section1[Complex target] for details.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (external_xref
+          (xref_target)
+          (bracketed_text)))
+      (text_segment))))

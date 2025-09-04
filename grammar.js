@@ -3,14 +3,17 @@
  * @author Shelton Louis <louisshelton0@gmail.com>
  * @license MIT
  * 
- * Stage 2 Implementation: Conditional directives, improved paragraph handling
+ * Stage 3 Implementation: Anchors, Cross-references, and Footnotes
  * 
  * Key Design Decisions:
  * - WARP compliant: extras handles all whitespace, no whitespace nodes in AST
  * - Level-aware sections with proper nesting based on heading levels
  * - Block-level conditional directives (ifdef, ifndef, ifeval, endif)
- * - Guarded paragraph parsing to avoid conflicts with directives
- * - Strict attribute parsing to avoid invalid matches
+ * - Comprehensive inline element support: anchors, xrefs, footnotes
+ * - Enhanced anchor support: both block-level and inline with optional text
+ * - Cross-references: internal (<<>>) and external (xref:) variants
+ * - Footnotes: inline, referenced, and footnoteref forms
+ * - Precedence-based conflict resolution for inline constructs
  */
 
 /// <reference types="tree-sitter-cli/dsl" />
@@ -23,6 +26,10 @@ const PREC = {
   SECTION: 25,
   DELIMITED_BLOCK: 22,
   BLOCK_META: 21,
+  // Inline element precedences
+  INLINE_MACRO: 18,     // footnote, footnoteref, xref macro
+  INLINE_XREF: 17,      // internal cross-reference <<>>
+  INLINE_ANCHOR: 16,    // inline anchors [[]]
   DESCRIPTION_LIST: 15,
   LIST: 10,
   INVALID_PATTERN: 5,
@@ -343,9 +350,9 @@ module.exports = grammar({
       field("text", $.text_with_inlines)
     ),
     
-    // Text with inline conditional elements - explicit structure matching test expectations
+    // Text with inline elements - comprehensive structure supporting all inline constructs
     text_with_inlines: $ => prec.left(repeat1(choice(
-      prec(1000, $.inline_conditional),
+      prec(1000, $.inline_element),
       prec(-100, $.text_segment)
     ))),
     
@@ -388,11 +395,142 @@ module.exports = grammar({
     inline_content: $ => token.immediate(/[^\]]+/),
     
     // ========================================================================
+    // INLINE ELEMENTS - Anchors, Cross-references, Footnotes
+    // ========================================================================
+    
+    // Character classes per EBNF specification (lines 103-104 in asciidoc-ebnf.md):
+    // id_start = letter | '_' ;
+    // id_char = id_start | digit | '-' ;
+    _id_char: $ => /[A-Za-z0-9_-]/,
+    _id_start: $ => /[A-Za-z_]/,
+    
+    // ID rule following EBNF: id_start followed by zero or more id_char
+    // Used for anchor IDs, cross-reference targets, and footnote IDs
+    id: $ => token(seq(/[A-Za-z_]/, /[A-Za-z0-9_-]*/)),
+    
+    // External cross-reference target - allows paths, URLs, fragments
+    // More permissive than id to support file paths and URL fragments
+    xref_target: $ => token(/[^\[\r\n]+/),
+    
+    // Text content within square brackets for macro arguments
+    // Used by footnotes and external cross-references
+    bracketed_text: $ => token(/[^\]]+/),
+    
+    // Anchor text - content between comma and closing brackets
+    // Excludes commas and brackets per EBNF line 209: { non_newline_char - ',' - ']' }
+    anchor_text: $ => token(/[^,\]\r\n]+/),
+    
+    // ========================================================================
+    // ENHANCED ANCHOR SUPPORT
+    // ========================================================================
+    
+    // Inline anchor - EBNF line 207: anchor = '[[', anchor_id, [ ',', anchor_text ], ']]'
+    // Can appear anywhere in text flow, distinguished from block anchors by lack of newline
+    // Examples: [[simple-id]] or [[anchor-id,Display Text]]
+    inline_anchor: $ => prec(PREC.INLINE_ANCHOR, seq(
+      token('[['),
+      field('id', $.id),
+      optional(seq(
+        token.immediate(','),
+        field('text', $.anchor_text)
+      )),
+      token.immediate(']]
+    )),
+    
+    // ========================================================================
+    // CROSS-REFERENCES
+    // ========================================================================
+    
+    // Internal cross-reference - EBNF line 211: cross_reference = '<<', reference_target, [ ',', reference_text ], '>>'
+    // Links to anchors within the same document
+    // Examples: <<section-id>> or <<section-id,Custom Link Text>>
+    internal_xref: $ => prec(PREC.INLINE_XREF, seq(
+      token('<<'),
+      field('target', $.id),
+      optional(seq(
+        token.immediate(','),
+        field('text', $.bracketed_text)
+      )),
+      token.immediate('>>')
+    )),
+    
+    // External cross-reference - EBNF line 215: external_reference = 'xref:', xref_target, '[', [ xref_text ], ']'
+    // Links to other documents, sections, or external resources
+    // Examples: xref:other.adoc[] or xref:other.adoc#section[Link Text]
+    external_xref: $ => prec(PREC.INLINE_MACRO, seq(
+      token('xref:'),
+      field('target', $.xref_target),
+      token.immediate('['),
+      optional(field('text', $.bracketed_text)),
+      token.immediate(']')
+    )),
+    
+    // ========================================================================
+    // FOOTNOTES
+    // ========================================================================
+    
+    // Inline footnote - EBNF line 334: footnote_inline = 'footnote:[', footnote_text, ']'
+    // Self-contained footnote with text directly embedded
+    // Example: footnote:[This is a footnote]
+    footnote_inline: $ => prec(PREC.INLINE_MACRO, seq(
+      token('footnote:['),
+      field('text', $.bracketed_text),
+      token.immediate(']')
+    )),
+    
+    // Referenced footnote - EBNF line 335: footnote_ref = 'footnote:', footnote_id, '[', [ footnote_text ], ']'
+    // Creates a footnote with an ID that can be referenced elsewhere
+    // Examples: footnote:ref1[] or footnote:ref1[Footnote text]
+    footnote_ref: $ => prec(PREC.INLINE_MACRO, seq(
+      token('footnote:'),
+      field('id', $.id),
+      token.immediate('['),
+      optional(field('text', $.bracketed_text)),
+      token.immediate(']')
+    )),
+    
+    // Footnote reference - EBNF line 336: footnoteref = 'footnoteref:', footnote_id, '[', [ footnote_text ], ']'
+    // References a previously defined footnote by ID
+    // Examples: footnoteref:ref1[] or footnoteref:ref1[Override text]
+    footnoteref: $ => prec(PREC.INLINE_MACRO, seq(
+      token('footnoteref:'),
+      field('id', $.id),
+      token.immediate('['),
+      optional(field('text', $.bracketed_text)),
+      token.immediate(']')
+    )),
+    
+    // ========================================================================
+    // INLINE ELEMENT INFRASTRUCTURE
+    // ========================================================================
+    
+    // Main inline element choices
+    inline_element: $ => choice(
+      $.inline_anchor,
+      $.internal_xref,
+      $.external_xref,
+      $.footnote_inline,
+      $.footnote_ref,
+      $.footnoteref,
+      $.inline_conditional
+    ),
+    
+    // ========================================================================
     // BLOCK METADATA - For delimited blocks only
     // ========================================================================
     
-    // Block metadata components - anchored to full lines to prevent conflicts
-    anchor: $ => token(prec(PREC.BLOCK_META, /\[\[[^\]\r\n]+\]\][ \t]*\r?\n/)),
+    // Block anchor - enhanced to support optional text like [[id,text]]
+    // Must end with newline to distinguish from inline anchors
+    anchor: $ => prec(PREC.BLOCK_META, seq(
+      token('[['),
+      field('id', $.id),
+      optional(seq(
+        token.immediate(','),
+        field('text', $.anchor_text)
+      )),
+      token.immediate(']]'),
+      token.immediate(/[ \t]*\r?\n/)
+    )),
     
     block_title: $ => token(prec(PREC.BLOCK_META, /\.[^\r\n]+\r?\n/)),
     
@@ -419,14 +557,21 @@ module.exports = grammar({
     // DELIMITED BLOCKS - Opening/Closing Delimiters and Content
     // ========================================================================
     
-    // Delimited block delimiters - all types
-    example_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /====[ \t]*\r?\n/)),
-    listing_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /----[ \t]*\r?\n/)),
-    literal_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /\.\.\.\.[ \t]*\r?\n/)),
-    quote_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /____[ \t]*\r?\n/)),
-    sidebar_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /\*\*\*\*[ \t]*\r?\n/)),
-    passthrough_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /\+\+\+\+[ \t]*\r?\n/)),
-    openblock_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /--[ \t]*\r?\n/)),
+    // Delimited block delimiters - separate open/close for test compatibility
+    example_open: $ => token(prec(PREC.DELIMITED_BLOCK, /====[ \t]*\r?\n/)),
+    example_close: $ => token(prec(PREC.DELIMITED_BLOCK, /====[ \t]*\r?\n/)),
+    listing_open: $ => token(prec(PREC.DELIMITED_BLOCK, /----[ \t]*\r?\n/)),
+    listing_close: $ => token(prec(PREC.DELIMITED_BLOCK, /----[ \t]*\r?\n/)),
+    literal_open: $ => token(prec(PREC.DELIMITED_BLOCK, /\.\.\.\.[ \t]*\r?\n/)),
+    literal_close: $ => token(prec(PREC.DELIMITED_BLOCK, /\.\.\.\.[ \t]*\r?\n/)),
+    quote_open: $ => token(prec(PREC.DELIMITED_BLOCK, /____[ \t]*\r?\n/)),
+    quote_close: $ => token(prec(PREC.DELIMITED_BLOCK, /____[ \t]*\r?\n/)),
+    sidebar_open: $ => token(prec(PREC.DELIMITED_BLOCK, /\*\*\*\*[ \t]*\r?\n/)),
+    sidebar_close: $ => token(prec(PREC.DELIMITED_BLOCK, /\*\*\*\*[ \t]*\r?\n/)),
+    passthrough_open: $ => token(prec(PREC.DELIMITED_BLOCK, /\+\+\+\+[ \t]*\r?\n/)),
+    passthrough_close: $ => token(prec(PREC.DELIMITED_BLOCK, /\+\+\+\+[ \t]*\r?\n/)),
+    openblock_open: $ => token(prec(PREC.DELIMITED_BLOCK, /--[ \t]*\r?\n/)),
+    openblock_close: $ => token(prec(PREC.DELIMITED_BLOCK, /--[ \t]*\r?\n/)),
     
     // Simple content line for all blocks
     _content_line: $ => token(prec(PREC.DELIMITED_BLOCK - 2, /[^\r\n]*\r?\n/)),
@@ -437,58 +582,58 @@ module.exports = grammar({
     
     // Example block
     example_block: $ => seq(
-      optional($.block_metadata),
-      $.example_delimiter,
+      optional(alias($.block_metadata, $.metadata)),
+      $.example_open,
       repeat(alias($._content_line, $.block_content)),
-      $.example_delimiter
+      $.example_close
     ),
     
     // Listing block
     listing_block: $ => seq(
-      optional($.block_metadata),
-      $.listing_delimiter,
+      optional(alias($.block_metadata, $.metadata)),
+      $.listing_open,
       repeat(alias($._content_line, $.block_content)),
-      $.listing_delimiter
+      $.listing_close
     ),
     
     // Literal block
     literal_block: $ => seq(
-      optional($.block_metadata),
-      $.literal_delimiter,
+      optional(alias($.block_metadata, $.metadata)),
+      $.literal_open,
       repeat(alias($._content_line, $.block_content)),
-      $.literal_delimiter
+      $.literal_close
     ),
     
     // Quote block
     quote_block: $ => seq(
-      optional($.block_metadata),
-      $.quote_delimiter,
+      optional(alias($.block_metadata, $.metadata)),
+      $.quote_open,
       repeat(alias($._content_line, $.block_content)),
-      $.quote_delimiter
+      $.quote_close
     ),
     
     // Sidebar block
     sidebar_block: $ => seq(
-      optional($.block_metadata),
-      $.sidebar_delimiter,
+      optional(alias($.block_metadata, $.metadata)),
+      $.sidebar_open,
       repeat(alias($._content_line, $.block_content)),
-      $.sidebar_delimiter
+      $.sidebar_close
     ),
     
     // Passthrough block
     passthrough_block: $ => seq(
-      optional($.block_metadata),
-      $.passthrough_delimiter,
+      optional(alias($.block_metadata, $.metadata)),
+      $.passthrough_open,
       repeat(alias($._content_line, $.block_content)),
-      $.passthrough_delimiter
+      $.passthrough_close
     ),
     
     // Open block
     open_block: $ => seq(
-      optional($.block_metadata),
-      $.openblock_delimiter,
+      optional(alias($.block_metadata, $.metadata)),
+      $.openblock_open,
       repeat(alias($._content_line, $.block_content)),
-      $.openblock_delimiter
+      $.openblock_close
     ),
 
     // Attribute entry - atomic pattern with proper name extraction
