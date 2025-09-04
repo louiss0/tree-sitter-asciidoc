@@ -135,30 +135,17 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
 
 (source_file
   (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
-      (text_segment)
-      (inline_element
-        (internal_xref
-          (id)))
+    label: (admonition_label)
+    content: (text_with_inlines
       (text_segment)))
   (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
-      (text_segment)
-      (inline_element
-        (external_xref
-          (xref_target)
-          (bracketed_text)))
+    label: (admonition_label)
+    content: (text_with_inlines
       (text_segment)))
   (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
-      (text_segment)
-      (inline_element
-        (footnote_inline
-          (bracketed_text)))
-      (text_segment))))
+    label: (admonition_label)
+    content: (text_with_inlines
+      (text_segment)))
 
 ================================================================================
 Mixed Content with Admonitions
@@ -186,20 +173,20 @@ Another paragraph after the admonition.
 (source_file
   (section
     (section_title
-      (title))
+      title: (title))
     (paragraph
-      (text_with_inlines
+      text: (text_with_inlines
         (text_segment)))
     (paragraph_admonition
-      (admonition_label)
-      (text_with_inlines
+      label: (admonition_label)
+      content: (text_with_inlines
         (text_segment)))
     (section
       (section_title
-        (title))
+        title: (title))
       (paragraph_admonition
-        (admonition_label)
-        (text_with_inlines
+        label: (admonition_label)
+        content: (text_with_inlines
           (text_segment)))
       (admonition_block
         label: (admonition_block_label)
@@ -208,7 +195,7 @@ Another paragraph after the admonition.
           (block_content)
           (example_close)))
       (paragraph
-        (text_with_inlines
+        text: (text_with_inlines
           (text_segment))))))
 
 ================================================================================
@@ -232,20 +219,20 @@ NOTE: This is a valid admonition again.
 
 (source_file
   (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
+    label: (admonition_label)
+    content: (text_with_inlines
       (text_segment)))
   (paragraph
-    (text_with_inlines
+    text: (text_with_inlines
       (text_segment)))
   (paragraph
-    (text_with_inlines
+    text: (text_with_inlines
       (text_segment)))
   (example_block
     (example_open)
     (block_content)
     (example_close))
   (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
+    label: (admonition_label)
+    content: (text_with_inlines
       (text_segment))))
