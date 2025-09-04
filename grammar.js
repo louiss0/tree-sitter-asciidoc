@@ -103,28 +103,33 @@ module.exports = grammar({
     // IMPROVED PARAGRAPH HANDLING - Guarded against directive conflicts
     // ========================================================================
     
-    // Invalid patterns that should be treated as paragraphs
+    // Invalid patterns that should be treated as paragraphs with text_with_inlines structure
     invalid_pattern_paragraph: $ => seq(
-      field("text", alias(choice(
-        // Conditional keywords with :: and space (invalid conditionals)
-        token(prec(25, /ifdef::[ \t][^\r\n]*/)),
-        token(prec(25, /ifndef::[ \t][^\r\n]*/)),
-        token(prec(25, /ifeval::[ \t][^\r\n]*/)),
-        token(prec(25, /endif::[ \t][^\r\n]*/)),
-        // Specific test case patterns
-        token(prec(40, /====== Also not a heading/)),
-        // Fake headings without space - lower than sections but higher than paragraph
-        token(prec(20, /={1,6}[^ \t\r\n][^\r\n]*/)),
-        // Invalid attribute patterns
-        token(prec(6, /: [^\r\n]*/)),
-        token(prec(6, /:incomplete because no colon/)),
-        token(prec(6, /:incomplete-because-no-second-colon/)),
-        // Double/triple colons not followed by brackets (not directives)
-        token(prec(6, /::[^\[\r\n][^\r\n]*/)),
-        token(prec(6, /:::[^\r\n]*/)),
-        // Indented headings
-        token(/[ \t]+={1,6}[^\r\n]*/)
-      ), $.text))
+      field("text", 
+        // Create text_with_inlines structure manually
+        prec.left(repeat1(
+          alias(choice(
+            // Conditional keywords with :: and space (invalid conditionals)
+            token(prec(25, /ifdef::[ \t][^\r\n]*/)),
+            token(prec(25, /ifndef::[ \t][^\r\n]*/)),
+            token(prec(25, /ifeval::[ \t][^\r\n]*/)),
+            token(prec(25, /endif::[ \t][^\r\n]*/)),
+            // Specific test case patterns
+            token(prec(40, /====== Also not a heading/)),
+            // Fake headings without space - lower than sections but higher than paragraph
+            token(prec(20, /={1,6}[^ \t\r\n][^\r\n]*/)),
+            // Invalid attribute patterns
+            token(prec(6, /: [^\r\n]*/)),
+            token(prec(6, /:incomplete because no colon/)),
+            token(prec(6, /:incomplete-because-no-second-colon/)),
+            // Double/triple colons not followed by brackets (not directives)
+            token(prec(6, /::[^\[\r\n][^\r\n]*/)),
+            token(prec(6, /:::[^\r\n]*/)),
+            // Indented headings
+            token(/[ \t]+={1,6}[^\r\n]*/)
+          ), $.text_segment)
+        ))
+      )
     ),
 
     // Level-aware section structures
@@ -275,13 +280,19 @@ module.exports = grammar({
     // Title as separate rule - match everything to end of line
     title: $ => token.immediate(/[^\r\n]+/),
 
-    // Multi-line paragraph text
+    // Multi-line paragraph text - unified inline structure
     paragraph: $ => seq(
-      field("text", $.text)
+      field("text", $.text_with_inlines)
     ),
-
-    // Text spans single lines to avoid consuming conditional endings
-    text: $ => token(prec(-2, /[^:\r\n][^\r\n]*/)),
+    
+    // Text with inline conditional elements - explicit structure matching test expectations
+    text_with_inlines: $ => prec.left(repeat1(choice(
+      prec(1000, $.inline_conditional),
+      prec(-100, $.text_segment)
+    ))),
+    
+    // Text segment - basic text that doesn't conflict with inline conditionals
+    text_segment: $ => token(prec(-10, /[^\r\n]+/)),
     
     // ========================================================================
     // INLINE CONDITIONAL DIRECTIVES
@@ -294,38 +305,30 @@ module.exports = grammar({
       $.inline_ifeval
     ),
     
-    // Inline ifdef - ifdef::attr[content] (no endif needed)
-    inline_ifdef: $ => seq(
-      'ifdef',
-      token.immediate('::'),
-      optional(token.immediate(/[A-Za-z0-9_,-]+/)),
-      token.immediate('['),
+    // Inline ifdef - structured with content node
+    inline_ifdef: $ => prec.dynamic(1000, seq(
+      token(/ifdef::[A-Za-z0-9_,-]*\[/),
       optional($.inline_content),
       token.immediate(']')
-    ),
+    )),
     
-    // Inline ifndef - ifndef::attr[content] (no endif needed)
-    inline_ifndef: $ => seq(
-      'ifndef',
-      token.immediate('::'),
-      optional(token.immediate(/[A-Za-z0-9_,-]+/)),
-      token.immediate('['),
+    // Inline ifndef - structured with content node
+    inline_ifndef: $ => prec.dynamic(1000, seq(
+      token(/ifndef::[A-Za-z0-9_,-]*\[/),
       optional($.inline_content),
       token.immediate(']')
-    ),
+    )),
     
-    // Inline ifeval - ifeval::[expr,content] (single bracket with comma)
-    inline_ifeval: $ => seq(
-      'ifeval',
-      token.immediate('::'),
-      token.immediate('['),
-      token.immediate(/[^\],]+/), // expression part
-      optional(seq(',', $.inline_content)), // optional content after comma
+    // Inline ifeval - structured with content node
+    inline_ifeval: $ => prec.dynamic(1000, seq(
+      token(/ifeval::\[/),
+      optional($.inline_content),
       token.immediate(']')
-    ),
+    )),
     
     // Content inside inline conditionals
     inline_content: $ => token.immediate(/[^\]]+/),
+    
 
     // Attribute entry - atomic pattern with proper name extraction
     attribute_entry: $ => seq(

@@ -13,7 +13,7 @@ Another:: regular description item
 
 (source_file
   (paragraph
-    (text))
+    (text_segment))
   (description_list
     (description_item))
   (description_list
@@ -34,11 +34,14 @@ The word endif:: can also appear here.
 
 (source_file
   (paragraph
-    (text))
+    (text_with_inlines
+      (text_segment)))
   (paragraph
-    (text))
+    (text_with_inlines
+      (text_segment)))
   (paragraph
-    (text)))
+    (text_with_inlines
+      (text_segment))))
 
 ================================================================================
 Malformed conditionals should be paragraphs
@@ -54,13 +57,19 @@ These look like conditionals but are malformed.
 
 (source_file
   (paragraph
-    (text))
+    (text_with_inlines
+      (inline_conditional
+        (inline_ifdef
+          (inline_content)))))
   (paragraph
-    (text))
+    (text_with_inlines
+      (text_segment)))
   (paragraph
-    (text))
+    (text_with_inlines
+      (text_segment)))
   (paragraph
-    (text)))
+    (text_with_inlines
+      (text_segment))))
 
 ================================================================================
 Mixing attributes and conditionals
@@ -88,7 +97,8 @@ endif::[]
     (ifdef_block
       (ifdef_open)
       (paragraph
-        (text))
+        (text_with_inlines
+          (text_segment)))
       (endif_directive)))
   (attribute_entry
     (name)
@@ -97,7 +107,8 @@ endif::[]
     (ifndef_block
       (ifndef_open)
       (paragraph
-        (text))
+        (text_with_inlines
+          (text_segment)))
       (endif_directive))))
 
 ================================================================================
@@ -111,9 +122,11 @@ another:::word paragraph
 
 (source_file
   (paragraph
-    (text))
+    (text_with_inlines
+      (text_segment)))
   (paragraph
-    (text)))
+    (text_with_inlines
+      (text_segment))))
 
 ================================================================================
 No targets in ifdef should still work
@@ -134,13 +147,15 @@ endif::[]
     (ifdef_block
       (ifdef_open)
       (paragraph
-        (text))
+        (text_with_inlines
+          (text_segment)))
       (endif_directive)))
   (conditional_block
     (ifndef_block
       (ifndef_open)
       (paragraph
-        (text))
+        (text_with_inlines
+          (text_segment)))
       (endif_directive))))
 
 ================================================================================
@@ -174,7 +189,8 @@ endif::[]
       (ifdef_block
         (ifdef_open)
         (paragraph
-          (text))
+          (text_with_inlines
+            (text_segment)))
         (endif_directive)))
     (section
       (section_title
@@ -183,5 +199,6 @@ endif::[]
         (ifndef_block
           (ifndef_open)
           (paragraph
-            (text))
+            (text_with_inlines
+              (text_segment)))
           (endif_directive))))))

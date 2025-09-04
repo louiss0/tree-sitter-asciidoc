@@ -17,17 +17,23 @@ Final paragraph.
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph (text))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
   (unordered_list
     (unordered_list_item))
   (unordered_list
     (unordered_list_item))
-  (paragraph (text))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
   (ordered_list
     (ordered_list_item))
   (ordered_list
     (ordered_list_item))
-  (paragraph (text)))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
 
 ================================================================================
 Lists mixed with sections and attributes
@@ -52,17 +58,25 @@ More content here.
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry (name) (value))
+  (attribute_entry
+    (name)
+    (value))
   (section
-    (section_title (title))
-    (paragraph (text))
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)))
     (unordered_list
       (unordered_list_item))
     (unordered_list
       (unordered_list_item))
     (section
-      (section_title (title))
-      (paragraph (text))
+      (section_title
+        (title))
+      (paragraph
+        (text_with_inlines
+          (text_segment)))
       (ordered_list
         (ordered_list_item))
       (ordered_list

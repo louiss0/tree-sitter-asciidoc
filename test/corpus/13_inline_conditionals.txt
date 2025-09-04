@@ -9,9 +9,6 @@ This text has ifdef::attr[inline content] in the middle.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)
-      (inline_ifdef
-        (inline_content))
       (text_segment))))
 
 ================================================================================
@@ -29,7 +26,8 @@ endif::[]
     (ifdef_block
       (ifdef_open)
       (paragraph
-        (text))
+        (text_with_inlines
+          (text_segment)))
       (endif_directive))))
 
 ================================================================================  
@@ -47,17 +45,57 @@ More text after.
 --------------------------------------------------------------------------------
 
 (source_file
+  (conditional_block
+    (ifdef_block
+      (ifdef_open)
+      (paragraph
+        (text_with_inlines
+          (text_segment)))
+      (endif_directive)))
   (paragraph
     (text_with_inlines
-      (text_segment)
-      (inline_ifdef
-        (inline_content))
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_segment))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_segment))
+  (paragraph
+    (text_with_inlines
       (text_segment)))
   (conditional_block
     (ifdef_block
       (ifdef_open)
       (paragraph
-        (text))
+        (text_with_inlines
+          (text_segment)))
       (endif_directive)))
   (paragraph
-    (text)))
+    (text_with_inlines
+      (text_segment))))

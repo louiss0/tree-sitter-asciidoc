@@ -9,7 +9,14 @@
   (value) @string)
 
 ; Paragraph text
-(paragraph (text) @markup.text)
+(paragraph (text_with_inlines) @markup.text)
+(text_segment) @markup.text
+
+; Inline conditionals
+(inline_ifdef) @keyword
+(inline_ifndef) @keyword
+(inline_ifeval) @keyword
+(inline_content) @string
 
 ; Conditional directives
 (ifdef_open) @keyword

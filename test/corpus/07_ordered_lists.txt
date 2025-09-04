@@ -45,8 +45,12 @@ Not a list - missing space after period
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph (text))
-  (paragraph (text)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
 
 ================================================================================
 Not a list - decimal number in paragraph
@@ -57,4 +61,6 @@ The price is 1.25 dollars and 2.50 euros.
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph (text)))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
