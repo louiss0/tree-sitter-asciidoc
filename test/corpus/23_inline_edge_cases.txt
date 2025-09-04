@@ -1,0 +1,353 @@
+================================================================================
+URL followed by monospace (precedence test)
+================================================================================
+
+Visit http://example.com`code`[link text] for details.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (auto_link)))
+  (paragraph
+    (text_with_inlines
+      (monospace
+        content: (text_segment))))
+  (paragraph
+    (text_with_inlines
+      (link
+        (url (auto_link))
+        (text (text_segment)))))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
+
+================================================================================
+Inline inside role span content
+================================================================================
+
+This is [important]#*bold* and _italic_ text# here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (role_span
+        (role)
+        (content
+          (strong
+            (text_segment))
+          (text_segment)
+          (emphasis
+            (text_segment))
+          (text_segment)))
+      (text_segment))))
+
+================================================================================
+Crossing styles (should fallback gracefully)
+================================================================================
+
+This is *bold _italic* text_ here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (strong
+        (text_segment))
+      (text_segment)
+      (emphasis
+        (text_segment))
+      (text_segment))))
+
+================================================================================
+Trailing plus without EOL (should not create line_break)
+================================================================================
+
+This has a plus+ in the middle.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
+
+================================================================================
+Escaped delimiters in strong
+================================================================================
+
+This is *bold with \* asterisk* text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (strong
+        (text_segment))
+      (text_segment))))
+
+================================================================================
+Escaped delimiters in emphasis
+================================================================================
+
+This is _italic with \_ underscore_ text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (emphasis
+        (text_segment))
+      (text_segment))))
+
+================================================================================
+Escaped delimiters in monospace
+================================================================================
+
+This is `code with \` backtick` text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (monospace
+        (text_segment))
+      (text_segment))))
+
+================================================================================
+Escaped delimiters in superscript
+================================================================================
+
+This is ^super with \^ caret^ text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (superscript
+        (text_segment))
+      (text_segment))))
+
+================================================================================
+Escaped delimiters in subscript
+================================================================================
+
+This is ~sub with \~ tilde~ text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (subscript
+        (text_segment))
+      (text_segment))))
+
+================================================================================
+Escaped delimiters in role span
+================================================================================
+
+This is [role]#text with \# hash# here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (role_span
+        (role)
+        (content
+          (text_segment)))
+      (text_segment))))
+
+================================================================================
+Complex nesting with multiple styles
+================================================================================
+
+This is *bold with `mono and ^super^`* text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (strong
+        (text_segment)
+        (monospace
+          (text_segment)
+          (superscript
+            (text_segment))))
+      (text_segment))))
+
+================================================================================
+Attribute reference inside various constructs
+================================================================================
+
+This is *bold {name}* and `code {version}` and ^super{level}^.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (strong
+        (text_segment)
+        (attribute_reference))
+      (text_segment)
+      (monospace
+        (text_segment)
+        (attribute_reference))
+      (text_segment)
+      (superscript
+        (text_segment)
+        (attribute_reference))
+      (text_segment))))
+
+================================================================================
+Line break with proper EOL
+================================================================================
+
+First line +
+Second line here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (line_break)))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
+
+================================================================================
+Macro precedence over formatting
+================================================================================
+
+Use stem:[a^2 + b^2] and kbd:[Ctrl+*Bold*] commands.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (math
+        (content))
+      (text_segment)
+      (ui_kbd
+        (keys))
+      (text_segment))))
+
+================================================================================
+Passthrough precedence over everything
+================================================================================
+
+This +++*bold* `code` _italic_+++ is literal.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (passthrough_triple_plus
+        (content))
+      (text_segment))))
+
+================================================================================
+Image and link precedence
+================================================================================
+
+Use image:logo.png[Logo] and https://example.com[Site] here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (image
+        (target)
+        (attributes))
+      (text_segment)
+      (link
+        (url (auto_link))
+        (text (text_segment)))
+      (text_segment))))
+
+================================================================================
+Multiple consecutive inline elements
+================================================================================
+
+*Bold*_italic_`code`^super^~sub~{attr}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (strong
+        (text_segment))
+      (emphasis
+        (text_segment))
+      (monospace
+        (text_segment))
+      (superscript
+        (text_segment))
+      (subscript
+        (text_segment))
+      (attribute_reference))))
+
+================================================================================
+Empty inline constructs (edge case)
+================================================================================
+
+This has ** and __ and `` empty markers.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
+
+================================================================================
+Role span with dots in name
+================================================================================
+
+This is [role.with.dots]#styled text# here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (role_span
+        (role)
+        (content
+          (text_segment)))
+      (text_segment))))

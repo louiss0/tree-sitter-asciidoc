@@ -1,0 +1,106 @@
+================================================================================
+Role spans
+================================================================================
+
+This is [big]#large text# here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (role_span
+        (role)
+        (text_segment))
+      (text_segment))))
+
+================================================================================
+Role spans with nested formatting
+================================================================================
+
+This is [highlight]#*bold* and _italic_# text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (role_span
+        (role)
+        (strong
+          (text_segment))
+        (text_segment)
+        (emphasis
+          (text_segment)))
+      (text_segment))))
+
+================================================================================
+Math macros
+================================================================================
+
+Formula stem:[a^2 + b^2 = c^2] is famous.
+Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (math
+        (content))
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (math
+        (content))
+      (text_segment)
+      (math
+        (content)))))
+
+================================================================================
+UI macros
+================================================================================
+
+Press kbd:[Ctrl+Alt+T] or click btn:[Submit] button.
+Go to menu:File[Open] option.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (ui_kbd
+        (keys))
+      (text_segment)
+      (ui_btn
+        (label))
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (ui_menu
+        (path)
+        (text))
+      (text_segment))))
+
+================================================================================
+Attribute references
+================================================================================
+
+Hello {name} from {location}!
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (attribute_reference)
+      (text_segment)
+      (attribute_reference)
+      (text_segment))))

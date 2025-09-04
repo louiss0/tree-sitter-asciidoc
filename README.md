@@ -12,7 +12,7 @@ This parser currently supports the following AsciiDoc elements:
 - **Attributes** (document and local scope)
 
 ### Block Elements
-- **Paragraphs** with multi-line support
+- **Paragraphs** with multi-line support and inline formatting
 - **Conditional directives** (block-level only):
   - **ifdef** blocks: `ifdef::attribute[]` ... `endif::[]`
   - **ifndef** blocks: `ifndef::attribute[]` ... `endif::[]`
@@ -56,6 +56,44 @@ Complex Term:: This can be a longer description
 <1> First callout explanation
 <2> Second callout explanation
 <10> Multi-digit callouts supported
+```
+
+### Inline Elements
+
+Comprehensive inline formatting support following EBNF specification (lines 372-483):
+
+#### Text Formatting
+- **Strong/Bold**: `*bold text*`
+- **Emphasis/Italic**: `_italic text_`
+- **Monospace/Code**: `` `code text` ``
+- **Superscript**: `^superscript^`
+- **Subscript**: `~subscript~`
+
+#### Links and References
+- **Automatic URLs**: `https://example.com`
+- **Links with text**: `https://example.com[Link Text]`
+- **Attribute references**: `{attribute-name}`
+- **Line breaks**: `Line 1 +` (space + plus at end of line)
+
+#### Advanced Elements
+- **Role spans**: `[role]#styled text#`
+- **Math macros**: `stem:[formula]`, `latexmath:[latex]`, `asciimath:[ascii]`
+- **UI macros**: `kbd:[Ctrl+C]`, `btn:[OK]`, `menu:File[Open]`
+- **Images**: `image:path.png[Alt text]`, `image::path.png[Alt text]`
+- **Passthrough**: `+++literal text+++`
+- **Pass macro**: `pass:subs[content]`
+
+#### Inline Examples
+```asciidoc
+This is *bold* and _italic_ text with `code` formatting.
+
+Visit https://asciidoc.org[AsciiDoc] for more info.
+
+Use kbd:[Ctrl+C] to copy and {version} shows the version.
+
+Formula: stem:[a^2 + b^2 = c^2] and H~2~O molecule.
+
+Role example: [highlight]#important text#
 ```
 
 ### Conditional Directives
@@ -103,7 +141,9 @@ endif::[]
 ### Grammar Compliance
 
 - **WARP Compliant**: All whitespace is handled through `extras`, no whitespace nodes in the AST
-- **EBNF Specification**: Follows the formal AsciiDoc EBNF grammar (lines 274-302) for list parsing
+- **EBNF Specification**: Follows the formal AsciiDoc EBNF grammar
+  - Lines 274-302: List parsing
+  - Lines 372-483: Inline formatting elements
 - **Precedence Rules**: List markers are properly distinguished from paragraph text
 - **Space Requirements**: Enforces space after list markers to avoid false positives
 
@@ -116,6 +156,10 @@ endif::[]
   - List continuations (multi-paragraph items) not yet implemented
   - Nested lists not yet supported
   - Advanced list features (complex nesting, blocks within lists) pending
+- **Inline elements:**
+  - Inline formatting creates separate paragraph boundaries in some contexts
+  - Complex nesting edge cases may have limitations
+  - Some escape sequences may need refinement
 
 ## Installation
 
@@ -193,9 +237,11 @@ Contributions are welcome! This parser is actively being developed to support mo
 - **Other blocks:**
   - Delimited blocks (listings, examples, quotes)
   - Tables
-  - Inline formatting (bold, italic, monospace)
-  - Cross-references and links
   - Admonitions
+- **Enhanced inline elements:**
+  - Improved paragraph composition for mixed inline content
+  - Better escape sequence handling
+  - Cross-references and footnotes
 
 ## License
 

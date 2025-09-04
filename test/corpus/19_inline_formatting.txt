@@ -1,0 +1,134 @@
+================================================================================
+Basic inline formatting
+================================================================================
+
+This is *bold* text and _italic_ text and `monospace` text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (strong
+        (text_segment))
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (emphasis
+        (text_segment))
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (monospace
+        (text_segment))
+      (text_segment))))
+
+================================================================================
+Superscript and subscript
+================================================================================
+
+This is E=mc^2^ and H~2~O.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (superscript
+        (content (text_segment)))
+      (text_segment)
+      (subscript
+        (content (text_segment)))
+      (text_segment))))
+
+================================================================================
+Nested formatting
+================================================================================
+
+This is *bold _italic_ text* mixed.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (strong
+        (content
+          (text_segment)
+          (emphasis
+            (content (text_segment)))
+          (text_segment)))
+      (text_segment))))
+
+================================================================================
+Attribute references
+================================================================================
+
+Hello {name} from {location}!
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (attribute_reference)
+      (text_segment)
+      (attribute_reference)
+      (text_segment))))
+
+================================================================================
+Auto links
+================================================================================
+
+Visit https://example.com for more info.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (auto_link)
+      (text_segment))))
+
+================================================================================
+Links with text
+================================================================================
+
+Visit https://example.com[Example Site] for more info.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (link
+        (url (auto_link))
+        (text (text_segment)))
+      (text_segment))))
+
+================================================================================
+Passthrough
+================================================================================
+
+This +++*should not be bold*+++ text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (passthrough_triple_plus
+        (content))
+      (text_segment))))
