@@ -1,1 +1,0 @@
-This text has ifdef::attr[inline content] in the middle.
