@@ -24,6 +24,9 @@ const PREC = {
   CONDITIONAL: 50,
   ATTRIBUTE_ENTRY: 30,
   SECTION: 25,
+  // Admonition precedences
+  ADMONITION_PARAGRAPH: 24,  // Single-line admonitions
+  ADMONITION_BLOCK: 23,      // Block admonitions with metadata
   DELIMITED_BLOCK: 22,
   BLOCK_META: 21,
   // Inline element precedences
@@ -59,7 +62,10 @@ module.exports = grammar({
       prec(PREC.SECTION - 3, alias($.section_level4, $.section)),
       prec(PREC.SECTION - 4, alias($.section_level5, $.section)),
       prec(PREC.SECTION + 1, alias($.section_level6, $.section)),
-      // Delimited blocks - below sections, above lists
+      // Admonitions - between sections and delimited blocks
+      prec(PREC.ADMONITION_PARAGRAPH, $.paragraph_admonition),
+      prec(PREC.ADMONITION_BLOCK, $.admonition_block),
+      // Delimited blocks - below admonitions, above lists
       prec(PREC.DELIMITED_BLOCK, $.example_block),
       prec(PREC.DELIMITED_BLOCK, $.listing_block),
       prec(PREC.DELIMITED_BLOCK, $.literal_block),
@@ -160,6 +166,9 @@ module.exports = grammar({
         alias($.section_level4, $.section),
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
+        // Admonitions
+        $.paragraph_admonition,
+        $.admonition_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -185,6 +194,9 @@ module.exports = grammar({
         alias($.section_level4, $.section),
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
+        // Admonitions
+        $.paragraph_admonition,
+        $.admonition_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -209,6 +221,9 @@ module.exports = grammar({
         alias($.section_level4, $.section),
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
+        // Admonitions
+        $.paragraph_admonition,
+        $.admonition_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -232,6 +247,9 @@ module.exports = grammar({
         $.conditional_block,
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
+        // Admonitions
+        $.paragraph_admonition,
+        $.admonition_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -254,6 +272,9 @@ module.exports = grammar({
         $.attribute_entry,
         $.conditional_block,
         alias($.section_level6, $.section),
+        // Admonitions
+        $.paragraph_admonition,
+        $.admonition_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -275,6 +296,9 @@ module.exports = grammar({
       repeat(choice(
         $.attribute_entry,
         $.conditional_block,
+        // Admonitions
+        $.paragraph_admonition,
+        $.admonition_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -434,7 +458,7 @@ module.exports = grammar({
         token.immediate(','),
         field('text', $.anchor_text)
       )),
-      token.immediate(']]
+      token.immediate(']]')
     )),
     
     // ========================================================================
@@ -514,6 +538,56 @@ module.exports = grammar({
       $.footnoteref,
       $.inline_conditional
     ),
+    
+    // ========================================================================
+    // ADMONITIONS - Both paragraph and block forms
+    // ========================================================================
+    
+    // Admonition labels per EBNF line 223: 'NOTE' | 'TIP' | 'IMPORTANT' | 'WARNING' | 'CAUTION'
+    admonition_label: $ => choice(
+      token('NOTE:'),
+      token('TIP:'), 
+      token('IMPORTANT:'),
+      token('WARNING:'),
+      token('CAUTION:')
+    ),
+    
+    // Paragraph admonition per EBNF line 225: admonition_label, ':', ' ', inline_content, newline
+    // Example: NOTE: This is an important note to remember.
+    // Using complete token patterns to avoid conflicts with regular text
+    paragraph_admonition: $ => prec(PREC.ADMONITION_PARAGRAPH, seq(
+      field('label', $.admonition_label),
+      token.immediate(/[ \t]+/),
+      field('content', $.text_with_inlines)
+    )),
+    
+    // Admonition block per EBNF lines 227-229: '[', admonition_label, ']', newline, block_metadata, delimited_block_body
+    // Example: [NOTE]
+    //          ====
+    //          This is a note block.
+    //          ====
+    // Block admonition labels - brackets included
+    admonition_block_label: $ => choice(
+      token('[NOTE]'),
+      token('[TIP]'),
+      token('[IMPORTANT]'),
+      token('[WARNING]'),
+      token('[CAUTION]')
+    ),
+    
+    admonition_block: $ => prec(PREC.ADMONITION_BLOCK, seq(
+      field('label', $.admonition_block_label),
+      token.immediate(/[ \t]*\r?\n/),
+      field('content', choice(
+        $.example_block,
+        $.listing_block,
+        $.literal_block,
+        $.quote_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block
+      ))
+    )),
     
     // ========================================================================
     // BLOCK METADATA - For delimited blocks only
