@@ -24,11 +24,11 @@ const PREC = {
   CONDITIONAL: 50,
   ATTRIBUTE_ENTRY: 30,
   SECTION: 25,
+  // Admonition precedences
+  ADMONITION_PARAGRAPH: 24,  // Single-line admonitions
+  ADMONITION_BLOCK: 23,      // Block admonitions with metadata
   DELIMITED_BLOCK: 22,
   BLOCK_META: 21,
-  // Admonition precedences
-  ADMONITION_BLOCK: 20,     // block admonitions with [TYPE]
-  ADMONITION_PARAGRAPH: 18, // paragraph admonitions TYPE: (higher than inline)
   // Inline element precedences
   INLINE_MACRO: 17,     // footnote, footnoteref, xref macro
   INLINE_XREF: 16,      // internal cross-reference <<>>
@@ -48,6 +48,12 @@ module.exports = grammar({
     [$.title, $.name],
     [$.block_metadata],
     [$.paragraph_admonition, $.paragraph],
+    [$.text_segment, $.strong_constrained],
+    [$.text_segment, $.emphasis_constrained],
+    [$.text_segment, $.monospace_constrained],
+    [$.text_segment, $.superscript],
+    [$.text_segment, $.subscript],
+    [$.text_with_inlines],
   ],
   
   rules: {
@@ -64,10 +70,10 @@ module.exports = grammar({
       prec(PREC.SECTION - 3, alias($.section_level4, $.section)),
       prec(PREC.SECTION - 4, alias($.section_level5, $.section)),
       prec(PREC.SECTION + 1, alias($.section_level6, $.section)),
-      // Admonitions - below sections, above delimited blocks
-      prec(PREC.ADMONITION_BLOCK, $.admonition_block),
+      // Admonitions - between sections and delimited blocks
       prec(PREC.ADMONITION_PARAGRAPH, $.paragraph_admonition),
-      // Delimited blocks - below sections, above lists
+      prec(PREC.ADMONITION_BLOCK, $.admonition_block),
+      // Delimited blocks - below admonitions, above lists
       prec(PREC.DELIMITED_BLOCK, $.example_block),
       prec(PREC.DELIMITED_BLOCK, $.listing_block),
       prec(PREC.DELIMITED_BLOCK, $.literal_block),
@@ -169,8 +175,8 @@ module.exports = grammar({
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
         // Admonitions
-        $.admonition_block,
         $.paragraph_admonition,
+        $.admonition_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -197,8 +203,8 @@ module.exports = grammar({
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
         // Admonitions
-        $.admonition_block,
         $.paragraph_admonition,
+        $.admonition_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -224,8 +230,8 @@ module.exports = grammar({
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
         // Admonitions
-        $.admonition_block,
         $.paragraph_admonition,
+        $.admonition_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -250,8 +256,8 @@ module.exports = grammar({
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
         // Admonitions
-        $.admonition_block,
         $.paragraph_admonition,
+        $.admonition_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -275,8 +281,8 @@ module.exports = grammar({
         $.conditional_block,
         alias($.section_level6, $.section),
         // Admonitions
-        $.admonition_block,
         $.paragraph_admonition,
+        $.admonition_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -299,8 +305,8 @@ module.exports = grammar({
         $.attribute_entry,
         $.conditional_block,
         // Admonitions
-        $.admonition_block,
         $.paragraph_admonition,
+        $.admonition_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -378,12 +384,12 @@ module.exports = grammar({
     
     // Text with inline elements - comprehensive structure supporting all inline constructs
     text_with_inlines: $ => prec.left(repeat1(choice(
-      prec(1000, $.inline_element),
-      prec(-100, $.text_segment)
+      prec.dynamic(10, $.inline_element),
+      prec.dynamic(-10, $.text_segment)
     ))),
     
-    // Text segment - basic text that doesn't conflict with inline conditionals
-    text_segment: $ => token(prec(-10, /[^\r\n]+/)),
+    // Text segment - matches words and safe characters, avoiding formatting chars
+    text_segment: $ => token(prec.dynamic(-10, /[a-zA-Z0-9\s.,!?;:()\-]+/)),
     
     // ========================================================================
     // INLINE CONDITIONAL DIRECTIVES
@@ -585,8 +591,75 @@ module.exports = grammar({
       $.footnote_inline,
       $.footnote_ref,
       $.footnoteref,
-      $.inline_conditional
+      $.inline_conditional,
+      // Inline formatting
+      $.strong,
+      $.emphasis,
+      $.monospace,
+      $.superscript,
+      $.subscript
     ),
+    
+    // ========================================================================
+    // INLINE FORMATTING - Strong, Emphasis, Monospace, Superscript, Subscript
+    // ========================================================================
+    
+    // Strong formatting (bold) - *text*
+    strong: $ => choice(
+      $.strong_constrained
+    ),
+    
+    strong_constrained: $ => prec(20, seq(
+      token('*'),
+      field('content', $.strong_text),
+      token.immediate('*')
+    )),
+    
+    strong_text: $ => token.immediate(prec(10, /[^*\r\n]+/)),
+    
+    // Emphasis formatting (italic) - _text_
+    emphasis: $ => choice(
+      $.emphasis_constrained
+    ),
+    
+    emphasis_constrained: $ => prec(20, seq(
+      token('_'),
+      field('content', $.emphasis_text),
+      token.immediate('_')
+    )),
+    
+    emphasis_text: $ => token.immediate(prec(10, /[^_\r\n]+/)),
+    
+    // Monospace formatting (code) - `text`
+    monospace: $ => choice(
+      $.monospace_constrained
+    ),
+    
+    monospace_constrained: $ => prec(20, seq(
+      token('`'),
+      field('content', $.monospace_text),
+      token.immediate('`')
+    )),
+    
+    monospace_text: $ => token.immediate(prec(10, /[^`\r\n]+/)),
+    
+    // Superscript - ^text^
+    superscript: $ => prec(20, seq(
+      token('^'),
+      field('content', $.superscript_text),
+      token.immediate('^')
+    )),
+    
+    superscript_text: $ => token.immediate(prec(10, /[^\^\r\n]+/)),
+    
+    // Subscript - ~text~
+    subscript: $ => prec(20, seq(
+      token('~'),
+      field('content', $.subscript_text),
+      token.immediate('~')
+    )),
+    
+    subscript_text: $ => token.immediate(prec(10, /[^~\r\n]+/)),
     
     // ========================================================================
     // BLOCK METADATA - For delimited blocks only

@@ -1,0 +1,115 @@
+================================================================================
+Simple strong formatting
+================================================================================
+
+This has *bold* text in it.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (strong
+          (strong_constrained
+            (strong_text))))
+      (text_segment))))
+
+================================================================================
+Simple emphasis formatting
+================================================================================
+
+This has _italic_ text in it.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (emphasis
+          (emphasis_constrained
+            (emphasis_text))))
+      (text_segment))))
+
+================================================================================
+Simple monospace formatting
+================================================================================
+
+This has `code` text in it.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (monospace
+          (monospace_constrained
+            (monospace_text))))
+      (text_segment))))
+
+================================================================================
+Unclosed formatting should be plain text
+================================================================================
+
+This has *unclosed bold and _unclosed italic and `unclosed code.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
+
+================================================================================
+Mixed formatting elements
+================================================================================
+
+This has *bold* and _italic_ and `code` together.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (strong
+          (strong_constrained
+            (strong_text))))
+      (text_segment)
+      (inline_element
+        (emphasis
+          (emphasis_constrained
+            (emphasis_text))))
+      (text_segment)
+      (inline_element
+        (monospace
+          (monospace_constrained
+            (monospace_text))))
+      (text_segment))))
+
+================================================================================
+Simple superscript and subscript
+================================================================================
+
+This has ^superscript^ and ~subscript~ text.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (superscript
+          (superscript_text)))
+      (text_segment)
+      (inline_element
+        (subscript
+          (subscript_text)))
+      (text_segment))))

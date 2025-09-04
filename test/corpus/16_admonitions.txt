@@ -1,0 +1,238 @@
+================================================================================
+Basic Paragraph Admonitions
+================================================================================
+
+NOTE: This is a simple note.
+
+TIP: Here's a helpful tip for you.
+
+IMPORTANT: This information is very important.
+
+WARNING: Be careful with this!
+
+CAUTION: Proceed with extreme caution.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph_admonition
+    label: (admonition_label)
+    content: (text_with_inlines
+      (text_segment)))
+  (paragraph_admonition
+    label: (admonition_label)
+    content: (text_with_inlines
+      (text_segment)))
+  (paragraph_admonition
+    label: (admonition_label)
+    content: (text_with_inlines
+      (text_segment)))
+  (paragraph_admonition
+    label: (admonition_label)
+    content: (text_with_inlines
+      (text_segment)))
+  (paragraph_admonition
+    label: (admonition_label)
+    content: (text_with_inlines
+      (text_segment))))
+
+================================================================================
+Admonition Blocks with Example
+================================================================================
+
+[NOTE]
+====
+This is a note block with multiple lines.
+
+It can contain paragraphs and other content.
+====
+
+[TIP]
+====
+Pro tip: Always read the documentation first!
+
+- This can include
+- Lists and other content
+====
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (admonition_block
+    label: (admonition_block_label)
+    content: (example_block
+      (example_open)
+      (block_content)
+      (block_content)
+      (block_content)
+      (example_close)))
+  (admonition_block
+    label: (admonition_block_label)
+    content: (example_block
+      (example_open)
+      (block_content)
+      (block_content)
+      (block_content)
+      (block_content)
+      (example_close))))
+
+================================================================================
+Admonition Blocks with Different Delimited Block Types
+================================================================================
+
+[WARNING]
+----
+# This is dangerous code
+rm -rf /
+----
+
+[IMPORTANT]
+....
+This is literal content.
+  With preserved formatting.
+....
+
+[CAUTION]
+****
+This is a sidebar admonition.
+****
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (admonition_block
+    label: (admonition_block_label)
+    content: (listing_block
+      (listing_open)
+      (block_content)
+      (block_content)
+      (listing_close)))
+  (admonition_block
+    label: (admonition_block_label)
+    content: (literal_block
+      (literal_open)
+      (block_content)
+      (block_content)
+      (literal_close)))
+  (admonition_block
+    label: (admonition_block_label)
+    content: (sidebar_block
+      (sidebar_open)
+      (block_content)
+      (sidebar_close)))
+
+================================================================================
+Complex Paragraph Admonitions with Inline Elements
+================================================================================
+
+NOTE: This note contains a cross-reference <<section-id>> in the text.
+
+TIP: Check out this external link xref:other.adoc[Other Document] for more info.
+
+IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph_admonition
+    label: (admonition_label)
+    content: (text_with_inlines
+      (text_segment)))
+  (paragraph_admonition
+    label: (admonition_label)
+    content: (text_with_inlines
+      (text_segment)))
+  (paragraph_admonition
+    label: (admonition_label)
+    content: (text_with_inlines
+      (text_segment)))
+
+================================================================================
+Mixed Content with Admonitions
+================================================================================
+
+= Document Title
+
+This is a regular paragraph.
+
+NOTE: This is an admonition in the document.
+
+== Section Two
+
+TIP: Tips can appear in sections too.
+
+[WARNING]
+====
+Block admonitions work in sections as well.
+====
+
+Another paragraph after the admonition.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_title
+      title: (title))
+    (paragraph
+      text: (text_with_inlines
+        (text_segment)))
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)))
+    (section
+      (section_title
+        title: (title))
+      (paragraph_admonition
+        label: (admonition_label)
+        content: (text_with_inlines
+          (text_segment)))
+      (admonition_block
+        label: (admonition_block_label)
+        content: (example_block
+          (example_open)
+          (block_content)
+          (example_close)))
+      (paragraph
+        text: (text_with_inlines
+          (text_segment))))))
+
+================================================================================
+Edge Cases and Error Handling
+================================================================================
+
+NOTE: Simple note without complications.
+
+UNKNOWNADMONITION: This should not be parsed as an admonition.
+
+NOTE:No space after colon - should not be parsed as admonition.
+
+[INVALID]
+====
+This should not be an admonition block.
+====
+
+NOTE: This is a valid admonition again.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph_admonition
+    label: (admonition_label)
+    content: (text_with_inlines
+      (text_segment)))
+  (paragraph
+    text: (text_with_inlines
+      (text_segment)))
+  (paragraph
+    text: (text_with_inlines
+      (text_segment)))
+  (example_block
+    (example_open)
+    (block_content)
+    (example_close))
+  (paragraph_admonition
+    label: (admonition_label)
+    content: (text_with_inlines
+      (text_segment))))
