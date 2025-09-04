@@ -1,0 +1,269 @@
+================================================================================
+NOTE block with example delimiters
+================================================================================
+
+[NOTE]
+====
+This is a note block with example content.
+====
+
+---
+
+(source_file
+  (admonition_block
+    (admonition_label)
+    (example_block
+      (example_open)
+      (block_content)
+      (example_close))))
+
+================================================================================
+TIP block with sidebar delimiters
+================================================================================
+
+[TIP]
+****
+This is a tip block with sidebar content.
+Useful information here.
+****
+
+---
+
+(source_file
+  (admonition_block
+    (admonition_label)
+    (sidebar_block
+      (sidebar_open)
+      (block_content)
+      (sidebar_close))))
+
+================================================================================
+IMPORTANT block with quote delimiters
+================================================================================
+
+[IMPORTANT]
+____
+"This is important quoted content."
+-- Author
+____
+
+---
+
+(source_file
+  (admonition_block
+    (admonition_label)
+    (quote_block
+      (quote_open)
+      (block_content)
+      (quote_close))))
+
+================================================================================
+WARNING block with listing delimiters
+================================================================================
+
+[WARNING]
+----
+echo "This command can be dangerous"
+rm -rf /path/to/files
+----
+
+---
+
+(source_file
+  (admonition_block
+    (admonition_label)
+    (listing_block
+      (listing_open)
+      (block_content)
+      (listing_close))))
+
+================================================================================
+CAUTION block with literal delimiters
+================================================================================
+
+[CAUTION]
+....
+  Be very careful
+    with this
+    literal content
+....
+
+---
+
+(source_file
+  (admonition_block
+    (admonition_label)
+    (literal_block
+      (literal_open)
+      (block_content)
+      (literal_close))))
+
+================================================================================
+NOTE block with block title
+================================================================================
+
+[NOTE]
+.Important Information
+====
+This note has a title.
+====
+
+---
+
+(source_file
+  (admonition_block
+    (admonition_label)
+    (example_block
+      (metadata
+        (block_title))
+      (example_open)
+      (block_content)
+      (example_close))))
+
+================================================================================
+TIP block with metadata
+================================================================================
+
+[TIP]
+.Helpful Tip
+[#tip-id.highlight]
+[source,bash]
+----
+echo "This tip has multiple metadata lines"
+----
+
+---
+
+(source_file
+  (admonition_block
+    (admonition_label)
+    (listing_block
+      (metadata
+        (block_title)
+        (id_and_roles)
+        (block_attributes))
+      (listing_open)
+      (block_content)
+      (listing_close))))
+
+================================================================================
+WARNING block with anchor
+================================================================================
+
+[WARNING]
+[[warning-anchor]]
+====
+This warning block has an anchor.
+====
+
+---
+
+(source_file
+  (admonition_block
+    (admonition_label)
+    (example_block
+      (metadata
+        (anchor
+          (id)))
+      (example_open)
+      (block_content)
+      (example_close))))
+
+================================================================================
+IMPORTANT block with anchor and text
+================================================================================
+
+[IMPORTANT]
+[[important-id,Important Section]]
+.Section Title
+====
+This has both anchor with text and title.
+====
+
+---
+
+(source_file
+  (admonition_block
+    (admonition_label)
+    (example_block
+      (metadata
+        (anchor
+          (id)
+          (anchor_text))
+        (block_title))
+      (example_open)
+      (block_content)
+      (example_close))))
+
+================================================================================
+Multiple admonition blocks
+================================================================================
+
+[NOTE]
+====
+First note block.
+====
+
+[WARNING]
+----
+Second warning block.
+----
+
+---
+
+(source_file
+  (admonition_block
+    (admonition_label)
+    (example_block
+      (example_open)
+      (block_content)
+      (example_close)))
+  (admonition_block
+    (admonition_label)
+    (listing_block
+      (listing_open)
+      (block_content)
+      (listing_close))))
+
+================================================================================
+Admonition block in section
+================================================================================
+
+== Section Title
+
+[CAUTION]
+====
+This admonition block is inside a section.
+====
+
+Regular paragraph.
+
+---
+
+(source_file
+  (section
+    (section_title
+      (title))
+    (admonition_block
+      (admonition_label)
+      (example_block
+        (example_open)
+        (block_content)
+        (example_close)))
+    (paragraph
+      (text_with_inlines
+        (text_segment)))))
+
+================================================================================
+Not an admonition block - no delimited block following
+================================================================================
+
+[NOTE]
+This should be parsed as a generic attribute list followed by paragraph.
+
+---
+
+(source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment))))

@@ -1,5 +1,60 @@
 [
   {
+    "type": "admonition_block",
+    "named": true,
+    "fields": {
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "admonition_label",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "example_block",
+          "named": true
+        },
+        {
+          "type": "listing_block",
+          "named": true
+        },
+        {
+          "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "open_block",
+          "named": true
+        },
+        {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
+          "type": "quote_block",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "admonition_label",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "anchor",
     "named": true,
     "fields": {
@@ -244,6 +299,10 @@
       "required": true,
       "types": [
         {
+          "type": "admonition_block",
+          "named": true
+        },
+        {
           "type": "attribute_entry",
           "named": true
         },
@@ -292,6 +351,10 @@
           "named": true
         },
         {
+          "type": "paragraph_admonition",
+          "named": true
+        },
+        {
           "type": "passthrough_block",
           "named": true
         },
@@ -322,6 +385,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "admonition_block",
+          "named": true
+        },
         {
           "type": "attribute_entry",
           "named": true
@@ -371,6 +438,10 @@
           "named": true
         },
         {
+          "type": "paragraph_admonition",
+          "named": true
+        },
+        {
           "type": "passthrough_block",
           "named": true
         },
@@ -401,6 +472,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "admonition_block",
+          "named": true
+        },
         {
           "type": "attribute_entry",
           "named": true
@@ -447,6 +522,10 @@
         },
         {
           "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "paragraph_admonition",
           "named": true
         },
         {
@@ -805,6 +884,32 @@
     }
   },
   {
+    "type": "paragraph_admonition",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "text_with_inlines",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "admonition_label",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "passthrough_block",
     "named": true,
     "fields": {},
@@ -887,6 +992,10 @@
       "required": true,
       "types": [
         {
+          "type": "admonition_block",
+          "named": true
+        },
+        {
           "type": "attribute_entry",
           "named": true
         },
@@ -924,6 +1033,10 @@
         },
         {
           "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "paragraph_admonition",
           "named": true
         },
         {
@@ -1016,6 +1129,10 @@
       "required": false,
       "types": [
         {
+          "type": "admonition_block",
+          "named": true
+        },
+        {
           "type": "attribute_entry",
           "named": true
         },
@@ -1053,6 +1170,10 @@
         },
         {
           "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "paragraph_admonition",
           "named": true
         },
         {
@@ -1136,6 +1257,26 @@
   },
   {
     "type": ">>",
+    "named": false
+  },
+  {
+    "type": "CAUTION",
+    "named": false
+  },
+  {
+    "type": "IMPORTANT",
+    "named": false
+  },
+  {
+    "type": "NOTE",
+    "named": false
+  },
+  {
+    "type": "TIP",
+    "named": false
+  },
+  {
+    "type": "WARNING",
     "named": false
   },
   {

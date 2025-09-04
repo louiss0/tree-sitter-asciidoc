@@ -26,11 +26,14 @@ const PREC = {
   SECTION: 25,
   DELIMITED_BLOCK: 22,
   BLOCK_META: 21,
+  // Admonition precedences
+  ADMONITION_BLOCK: 20,     // block admonitions with [TYPE]
+  ADMONITION_PARAGRAPH: 18, // paragraph admonitions TYPE: (higher than inline)
   // Inline element precedences
-  INLINE_MACRO: 18,     // footnote, footnoteref, xref macro
-  INLINE_XREF: 17,      // internal cross-reference <<>>
-  INLINE_ANCHOR: 16,    // inline anchors [[]]
-  DESCRIPTION_LIST: 15,
+  INLINE_MACRO: 17,     // footnote, footnoteref, xref macro
+  INLINE_XREF: 16,      // internal cross-reference <<>>
+  INLINE_ANCHOR: 15,    // inline anchors [[]]
+  DESCRIPTION_LIST: 14,
   LIST: 10,
   INVALID_PATTERN: 5,
   PARAGRAPH: 1,
@@ -43,6 +46,8 @@ module.exports = grammar({
   
   conflicts: $ => [
     [$.title, $.name],
+    [$.block_metadata],
+    [$.paragraph_admonition, $.paragraph],
   ],
   
   rules: {
@@ -59,6 +64,9 @@ module.exports = grammar({
       prec(PREC.SECTION - 3, alias($.section_level4, $.section)),
       prec(PREC.SECTION - 4, alias($.section_level5, $.section)),
       prec(PREC.SECTION + 1, alias($.section_level6, $.section)),
+      // Admonitions - below sections, above delimited blocks
+      prec(PREC.ADMONITION_BLOCK, $.admonition_block),
+      prec(PREC.ADMONITION_PARAGRAPH, $.paragraph_admonition),
       // Delimited blocks - below sections, above lists
       prec(PREC.DELIMITED_BLOCK, $.example_block),
       prec(PREC.DELIMITED_BLOCK, $.listing_block),
@@ -160,6 +168,9 @@ module.exports = grammar({
         alias($.section_level4, $.section),
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
+        // Admonitions
+        $.admonition_block,
+        $.paragraph_admonition,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -185,6 +196,9 @@ module.exports = grammar({
         alias($.section_level4, $.section),
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
+        // Admonitions
+        $.admonition_block,
+        $.paragraph_admonition,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -209,6 +223,9 @@ module.exports = grammar({
         alias($.section_level4, $.section),
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
+        // Admonitions
+        $.admonition_block,
+        $.paragraph_admonition,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -232,6 +249,9 @@ module.exports = grammar({
         $.conditional_block,
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
+        // Admonitions
+        $.admonition_block,
+        $.paragraph_admonition,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -254,6 +274,9 @@ module.exports = grammar({
         $.attribute_entry,
         $.conditional_block,
         alias($.section_level6, $.section),
+        // Admonitions
+        $.admonition_block,
+        $.paragraph_admonition,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -275,6 +298,9 @@ module.exports = grammar({
       repeat(choice(
         $.attribute_entry,
         $.conditional_block,
+        // Admonitions
+        $.admonition_block,
+        $.paragraph_admonition,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -434,7 +460,7 @@ module.exports = grammar({
         token.immediate(','),
         field('text', $.anchor_text)
       )),
-      token.immediate(']]
+      token.immediate(']]')
     )),
     
     // ========================================================================
@@ -501,6 +527,53 @@ module.exports = grammar({
     )),
     
     // ========================================================================
+    // ADMONITIONS - Paragraph and Block Forms
+    // ========================================================================
+    
+    // Admonition label - EBNF line 223: 'NOTE' | 'TIP' | 'IMPORTANT' | 'WARNING' | 'CAUTION'
+    admonition_label: $ => choice(
+      'NOTE',
+      'TIP', 
+      'IMPORTANT',
+      'WARNING',
+      'CAUTION'
+    ),
+    
+    // Paragraph admonition - EBNF line 225: admonition_label, ':', ' ', inline_content, newline
+    // Example: NOTE: This is a note paragraph with *emphasis* and links.
+    paragraph_admonition: $ => prec(PREC.ADMONITION_PARAGRAPH, seq(
+      field('type', $.admonition_label),
+      ':',
+      /[ \t]+/, // At least one space after colon
+      field('text', $.text_with_inlines)
+    )),
+    
+    // Block admonition - EBNF lines 227-229: '[', admonition_label, ']', newline, block_metadata, delimited_block_body
+    // Example:
+    // [NOTE]
+    // .Optional title
+    // ====
+    // Block content
+    // ====
+    admonition_block: $ => prec(PREC.ADMONITION_BLOCK, seq(
+      // Style line: [TYPE]
+      token('['),
+      field('type', $.admonition_label),
+      token.immediate(']'),
+      token.immediate(/[ \t]*\r?\n/), // Require newline after style line
+      // Required delimited block with its own metadata
+      choice(
+        $.example_block,
+        $.listing_block,
+        $.literal_block,
+        $.quote_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block
+      )
+    )),
+    
+    // ========================================================================
     // INLINE ELEMENT INFRASTRUCTURE
     // ========================================================================
     
@@ -546,12 +619,12 @@ module.exports = grammar({
     )),
     
     // Metadata container allowing any order and any subset
-    block_metadata: $ => repeat1(choice(
+    block_metadata: $ => prec.left(repeat1(choice(
       $.anchor, 
       $.block_title, 
       $.id_and_roles, 
       $.block_attributes
-    )),
+    ))),
 
     // ========================================================================
     // DELIMITED BLOCKS - Opening/Closing Delimiters and Content
@@ -631,6 +704,53 @@ module.exports = grammar({
     // Open block
     open_block: $ => seq(
       optional(alias($.block_metadata, $.metadata)),
+      $.openblock_open,
+      repeat(alias($._content_line, $.block_content)),
+      $.openblock_close
+    ),
+    
+    // ========================================================================
+    // BLOCK BODIES WITHOUT METADATA - For use in admonition blocks
+    // ========================================================================
+    
+    // Block bodies without metadata (for admonition blocks where metadata is handled separately)
+    _example_block_body: $ => seq(
+      $.example_open,
+      repeat(alias($._content_line, $.block_content)),
+      $.example_close
+    ),
+    
+    _listing_block_body: $ => seq(
+      $.listing_open,
+      repeat(alias($._content_line, $.block_content)),
+      $.listing_close
+    ),
+    
+    _literal_block_body: $ => seq(
+      $.literal_open,
+      repeat(alias($._content_line, $.block_content)),
+      $.literal_close
+    ),
+    
+    _quote_block_body: $ => seq(
+      $.quote_open,
+      repeat(alias($._content_line, $.block_content)),
+      $.quote_close
+    ),
+    
+    _sidebar_block_body: $ => seq(
+      $.sidebar_open,
+      repeat(alias($._content_line, $.block_content)),
+      $.sidebar_close
+    ),
+    
+    _passthrough_block_body: $ => seq(
+      $.passthrough_open,
+      repeat(alias($._content_line, $.block_content)),
+      $.passthrough_close
+    ),
+    
+    _open_block_body: $ => seq(
       $.openblock_open,
       repeat(alias($._content_line, $.block_content)),
       $.openblock_close
