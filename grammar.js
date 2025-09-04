@@ -21,6 +21,8 @@ const PREC = {
   CONDITIONAL: 50,
   ATTRIBUTE_ENTRY: 30,
   SECTION: 25,
+  DELIMITED_BLOCK: 22,
+  BLOCK_META: 21,
   DESCRIPTION_LIST: 15,
   LIST: 10,
   INVALID_PATTERN: 5,
@@ -50,6 +52,14 @@ module.exports = grammar({
       prec(PREC.SECTION - 3, alias($.section_level4, $.section)),
       prec(PREC.SECTION - 4, alias($.section_level5, $.section)),
       prec(PREC.SECTION + 1, alias($.section_level6, $.section)),
+      // Delimited blocks - below sections, above lists
+      prec(PREC.DELIMITED_BLOCK, $.example_block),
+      prec(PREC.DELIMITED_BLOCK, $.listing_block),
+      prec(PREC.DELIMITED_BLOCK, $.literal_block),
+      prec(PREC.DELIMITED_BLOCK, $.quote_block),
+      prec(PREC.DELIMITED_BLOCK, $.sidebar_block),
+      prec(PREC.DELIMITED_BLOCK, $.passthrough_block),
+      prec(PREC.DELIMITED_BLOCK, $.open_block),
       prec(PREC.DESCRIPTION_LIST, $.description_list),
       prec(PREC.LIST, $.unordered_list),
       prec(PREC.LIST, $.ordered_list), 
@@ -143,6 +153,14 @@ module.exports = grammar({
         alias($.section_level4, $.section),
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
+        // Delimited blocks
+        $.example_block,
+        $.listing_block,
+        $.literal_block,
+        $.quote_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
         $.unordered_list,
         $.ordered_list,
         $.description_list,
@@ -160,6 +178,14 @@ module.exports = grammar({
         alias($.section_level4, $.section),
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
+        // Delimited blocks
+        $.example_block,
+        $.listing_block,
+        $.literal_block,
+        $.quote_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
         $.unordered_list,
         $.ordered_list,
         $.description_list,
@@ -176,6 +202,14 @@ module.exports = grammar({
         alias($.section_level4, $.section),
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
+        // Delimited blocks
+        $.example_block,
+        $.listing_block,
+        $.literal_block,
+        $.quote_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
         $.unordered_list,
         $.ordered_list,
         $.description_list,
@@ -191,6 +225,14 @@ module.exports = grammar({
         $.conditional_block,
         alias($.section_level5, $.section),
         alias($.section_level6, $.section),
+        // Delimited blocks
+        $.example_block,
+        $.listing_block,
+        $.literal_block,
+        $.quote_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
         $.unordered_list,
         $.ordered_list,
         $.description_list,
@@ -205,6 +247,14 @@ module.exports = grammar({
         $.attribute_entry,
         $.conditional_block,
         alias($.section_level6, $.section),
+        // Delimited blocks
+        $.example_block,
+        $.listing_block,
+        $.literal_block,
+        $.quote_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
         $.unordered_list,
         $.ordered_list,
         $.description_list,
@@ -218,6 +268,14 @@ module.exports = grammar({
       repeat(choice(
         $.attribute_entry,
         $.conditional_block,
+        // Delimited blocks
+        $.example_block,
+        $.listing_block,
+        $.literal_block,
+        $.quote_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
         $.unordered_list,
         $.ordered_list,
         $.description_list,
@@ -329,6 +387,109 @@ module.exports = grammar({
     // Content inside inline conditionals
     inline_content: $ => token.immediate(/[^\]]+/),
     
+    // ========================================================================
+    // BLOCK METADATA - For delimited blocks only
+    // ========================================================================
+    
+    // Block metadata components - anchored to full lines to prevent conflicts
+    anchor: $ => token(prec(PREC.BLOCK_META, /\[\[[^\]\r\n]+\]\][ \t]*\r?\n/)),
+    
+    block_title: $ => token(prec(PREC.BLOCK_META, /\.[^\r\n]+\r?\n/)),
+    
+    // ID and roles: [#id], [.role], or [#id.role1.role2]
+    // Requires either #id and/or one or more .role to avoid generic attribute conflicts
+    id_and_roles: $ => token(prec(PREC.BLOCK_META + 1, 
+      /\[\s*(?:#[A-Za-z][\w:-]*)?(?:\s*\.[A-Za-z0-9_-]+)*\s*\]\s*\r?\n/
+    )),
+    
+    // Block attributes with key=value pairs
+    block_attributes: $ => token(prec(PREC.BLOCK_META, 
+      /\[[^\]\r\n]*=[^\]\r\n]*\]\s*\r?\n/
+    )),
+    
+    // Metadata container allowing any order and any subset
+    block_metadata: $ => repeat1(choice(
+      $.anchor, 
+      $.block_title, 
+      $.id_and_roles, 
+      $.block_attributes
+    )),
+
+    // ========================================================================
+    // DELIMITED BLOCKS - Opening/Closing Delimiters and Content
+    // ========================================================================
+    
+    // Delimited block delimiters - all types
+    example_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /====[ \t]*\r?\n/)),
+    listing_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /----[ \t]*\r?\n/)),
+    literal_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /\.\.\.\.[ \t]*\r?\n/)),
+    quote_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /____[ \t]*\r?\n/)),
+    sidebar_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /\*\*\*\*[ \t]*\r?\n/)),
+    passthrough_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /\+\+\+\+[ \t]*\r?\n/)),
+    openblock_delimiter: $ => token(prec(PREC.DELIMITED_BLOCK, /--[ \t]*\r?\n/)),
+    
+    // Simple content line for all blocks
+    _content_line: $ => token(prec(PREC.DELIMITED_BLOCK - 2, /[^\r\n]*\r?\n/)),
+
+    // ========================================================================
+    // DELIMITED BLOCK RULES - Main block structures
+    // ========================================================================
+    
+    // Example block
+    example_block: $ => seq(
+      optional($.block_metadata),
+      $.example_delimiter,
+      repeat(alias($._content_line, $.block_content)),
+      $.example_delimiter
+    ),
+    
+    // Listing block
+    listing_block: $ => seq(
+      optional($.block_metadata),
+      $.listing_delimiter,
+      repeat(alias($._content_line, $.block_content)),
+      $.listing_delimiter
+    ),
+    
+    // Literal block
+    literal_block: $ => seq(
+      optional($.block_metadata),
+      $.literal_delimiter,
+      repeat(alias($._content_line, $.block_content)),
+      $.literal_delimiter
+    ),
+    
+    // Quote block
+    quote_block: $ => seq(
+      optional($.block_metadata),
+      $.quote_delimiter,
+      repeat(alias($._content_line, $.block_content)),
+      $.quote_delimiter
+    ),
+    
+    // Sidebar block
+    sidebar_block: $ => seq(
+      optional($.block_metadata),
+      $.sidebar_delimiter,
+      repeat(alias($._content_line, $.block_content)),
+      $.sidebar_delimiter
+    ),
+    
+    // Passthrough block
+    passthrough_block: $ => seq(
+      optional($.block_metadata),
+      $.passthrough_delimiter,
+      repeat(alias($._content_line, $.block_content)),
+      $.passthrough_delimiter
+    ),
+    
+    // Open block
+    open_block: $ => seq(
+      optional($.block_metadata),
+      $.openblock_delimiter,
+      repeat(alias($._content_line, $.block_content)),
+      $.openblock_delimiter
+    ),
 
     // Attribute entry - atomic pattern with proper name extraction
     attribute_entry: $ => seq(

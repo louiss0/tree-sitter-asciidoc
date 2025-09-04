@@ -26,6 +26,33 @@
     }
   },
   {
+    "type": "block_metadata",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "anchor",
+          "named": true
+        },
+        {
+          "type": "block_attributes",
+          "named": true
+        },
+        {
+          "type": "block_title",
+          "named": true
+        },
+        {
+          "type": "id_and_roles",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "callout_list",
     "named": true,
     "fields": {},
@@ -79,6 +106,29 @@
     }
   },
   {
+    "type": "example_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_content",
+          "named": true
+        },
+        {
+          "type": "block_metadata",
+          "named": true
+        },
+        {
+          "type": "example_delimiter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ifdef_block",
     "named": true,
     "fields": {},
@@ -107,7 +157,23 @@
           "named": true
         },
         {
+          "type": "example_block",
+          "named": true
+        },
+        {
           "type": "ifdef_open",
+          "named": true
+        },
+        {
+          "type": "listing_block",
+          "named": true
+        },
+        {
+          "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "open_block",
           "named": true
         },
         {
@@ -119,7 +185,19 @@
           "named": true
         },
         {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
+          "type": "quote_block",
+          "named": true
+        },
+        {
           "type": "section",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
           "named": true
         },
         {
@@ -158,7 +236,23 @@
           "named": true
         },
         {
+          "type": "example_block",
+          "named": true
+        },
+        {
           "type": "ifeval_open",
+          "named": true
+        },
+        {
+          "type": "listing_block",
+          "named": true
+        },
+        {
+          "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "open_block",
           "named": true
         },
         {
@@ -170,7 +264,19 @@
           "named": true
         },
         {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
+          "type": "quote_block",
+          "named": true
+        },
+        {
           "type": "section",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
           "named": true
         },
         {
@@ -209,7 +315,23 @@
           "named": true
         },
         {
+          "type": "example_block",
+          "named": true
+        },
+        {
           "type": "ifndef_open",
+          "named": true
+        },
+        {
+          "type": "listing_block",
+          "named": true
+        },
+        {
+          "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "open_block",
           "named": true
         },
         {
@@ -221,7 +343,19 @@
           "named": true
         },
         {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
+          "type": "quote_block",
+          "named": true
+        },
+        {
           "type": "section",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
           "named": true
         },
         {
@@ -300,6 +434,75 @@
     }
   },
   {
+    "type": "listing_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_content",
+          "named": true
+        },
+        {
+          "type": "block_metadata",
+          "named": true
+        },
+        {
+          "type": "listing_delimiter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "literal_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_content",
+          "named": true
+        },
+        {
+          "type": "block_metadata",
+          "named": true
+        },
+        {
+          "type": "literal_delimiter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "open_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_content",
+          "named": true
+        },
+        {
+          "type": "block_metadata",
+          "named": true
+        },
+        {
+          "type": "openblock_delimiter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ordered_list",
     "named": true,
     "fields": {},
@@ -335,6 +538,52 @@
     }
   },
   {
+    "type": "passthrough_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_content",
+          "named": true
+        },
+        {
+          "type": "block_metadata",
+          "named": true
+        },
+        {
+          "type": "passthrough_delimiter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "quote_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_content",
+          "named": true
+        },
+        {
+          "type": "block_metadata",
+          "named": true
+        },
+        {
+          "type": "quote_delimiter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "section",
     "named": true,
     "fields": {},
@@ -359,6 +608,22 @@
           "named": true
         },
         {
+          "type": "example_block",
+          "named": true
+        },
+        {
+          "type": "listing_block",
+          "named": true
+        },
+        {
+          "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "open_block",
+          "named": true
+        },
+        {
           "type": "ordered_list",
           "named": true
         },
@@ -367,11 +632,23 @@
           "named": true
         },
         {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
+          "type": "quote_block",
+          "named": true
+        },
+        {
           "type": "section",
           "named": true
         },
         {
           "type": "section_title",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
           "named": true
         },
         {
@@ -395,6 +672,29 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "sidebar_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_content",
+          "named": true
+        },
+        {
+          "type": "block_metadata",
+          "named": true
+        },
+        {
+          "type": "sidebar_delimiter",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -423,6 +723,22 @@
           "named": true
         },
         {
+          "type": "example_block",
+          "named": true
+        },
+        {
+          "type": "listing_block",
+          "named": true
+        },
+        {
+          "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "open_block",
+          "named": true
+        },
+        {
           "type": "ordered_list",
           "named": true
         },
@@ -431,7 +747,19 @@
           "named": true
         },
         {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
+          "type": "quote_block",
+          "named": true
+        },
+        {
           "type": "section",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
           "named": true
         },
         {
@@ -494,6 +822,22 @@
     "named": false
   },
   {
+    "type": "anchor",
+    "named": true
+  },
+  {
+    "type": "block_attributes",
+    "named": true
+  },
+  {
+    "type": "block_content",
+    "named": true
+  },
+  {
+    "type": "block_title",
+    "named": true
+  },
+  {
     "type": "callout_item",
     "named": true
   },
@@ -503,6 +847,14 @@
   },
   {
     "type": "endif_directive",
+    "named": true
+  },
+  {
+    "type": "example_delimiter",
+    "named": true
+  },
+  {
+    "type": "id_and_roles",
     "named": true
   },
   {
@@ -522,11 +874,35 @@
     "named": true
   },
   {
+    "type": "listing_delimiter",
+    "named": true
+  },
+  {
+    "type": "literal_delimiter",
+    "named": true
+  },
+  {
     "type": "name",
     "named": true
   },
   {
+    "type": "openblock_delimiter",
+    "named": true
+  },
+  {
     "type": "ordered_list_item",
+    "named": true
+  },
+  {
+    "type": "passthrough_delimiter",
+    "named": true
+  },
+  {
+    "type": "quote_delimiter",
+    "named": true
+  },
+  {
+    "type": "sidebar_delimiter",
     "named": true
   },
   {

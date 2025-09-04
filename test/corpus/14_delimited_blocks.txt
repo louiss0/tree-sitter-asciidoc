@@ -1,0 +1,321 @@
+================================================================================
+Empty example block
+================================================================================
+
+====
+====
+
+---
+
+(source_file
+  (example_block
+    (example_open)
+    (example_close)))
+
+================================================================================
+Example block with content
+================================================================================
+
+====
+This is example content
+line 2
+====
+
+---
+
+(source_file
+  (example_block
+    (example_open)
+    (block_content)
+    (example_close)))
+
+================================================================================
+Listing block with content
+================================================================================
+
+----
+def hello():
+    print("Hello world")
+line with ---- not at beginning
+----
+
+---
+
+(source_file
+  (listing_block
+    (listing_open)
+    (block_content)
+    (listing_close)))
+
+================================================================================
+Literal block with content
+================================================================================
+
+....
+  Preserves
+    whitespace
+    exactly
+....
+
+---
+
+(source_file
+  (literal_block
+    (literal_open)
+    (block_content)
+    (literal_close)))
+
+================================================================================
+Quote block with content
+================================================================================
+
+____
+"The best way to find out if you can trust somebody is to trust them."
+-- Ernest Hemingway
+____
+
+---
+
+(source_file
+  (quote_block
+    (quote_open)
+    (block_content)
+    (quote_close)))
+
+================================================================================
+Sidebar block with content
+================================================================================
+
+****
+This is sidebar content.
+It's displayed separately from main text.
+****
+
+---
+
+(source_file
+  (sidebar_block
+    (sidebar_open)
+    (block_content)
+    (sidebar_close)))
+
+================================================================================
+Passthrough block with content
+================================================================================
+
+++++
+<div class="custom">
+Raw HTML content
+</div>
+++++
+
+---
+
+(source_file
+  (passthrough_block
+    (passthrough_open)
+    (block_content)
+    (passthrough_close)))
+
+================================================================================
+Open block with content
+================================================================================
+
+--
+This is an open block.
+Can contain any content.
+--
+
+---
+
+(source_file
+  (open_block
+    (openblock_open)
+    (block_content)
+    (openblock_close)))
+
+================================================================================
+Example block with metadata
+================================================================================
+
+[[anchor-id]]
+.My Example Title
+[#example.role1.role2]
+[source,java]
+====
+System.out.println("Hello");
+====
+
+---
+
+(source_file
+  (example_block
+    (metadata
+      (anchor)
+      (block_title)
+      (id_and_roles)
+      (block_attributes))
+    (example_open)
+    (block_content)
+    (example_close)))
+
+================================================================================
+Block within section
+================================================================================
+
+== My Section
+
+====
+Example content in section
+====
+
+---
+
+(source_file
+  (section
+    (section_title
+      (title))
+    (example_block
+      (example_open)
+      (block_content)
+      (example_close))))
+
+================================================================================
+Heading vs block delimiter disambiguation
+================================================================================
+
+==== This is a level 4 heading
+
+====
+This is an example block
+====
+
+---
+
+(source_file
+  (section
+    (section_title
+      (title))
+    (example_block
+      (example_open)
+      (block_content)
+      (example_close))))
+
+================================================================================
+Block with trailing spaces on delimiters
+================================================================================
+
+____    
+Quote content
+____    
+
+---
+
+(source_file
+  (quote_block
+    (quote_open)
+    (block_content)
+    (quote_close)))
+
+================================================================================
+Content with near-delimiters not at beginning of line
+================================================================================
+
+....
+Line with .... not at beginning
+Also a line with....suffix
+....
+
+---
+
+(source_file
+  (literal_block
+    (literal_open)
+    (block_content)
+    (literal_close)))
+
+================================================================================
+Open block with nested-looking delimiters
+================================================================================
+
+--
+Content with -- not on its own line
+Another -- delimiter
+--
+
+---
+
+(source_file
+  (open_block
+    (openblock_open)
+    (block_content)
+    (openblock_close)))
+
+================================================================================
+All block types in one document
+================================================================================
+
+== Block Examples
+
+====
+Example block
+====
+
+----
+Listing block
+----
+
+....
+Literal block
+....
+
+____
+Quote block
+____
+
+****
+Sidebar block
+****
+
+++++
+Passthrough block
+++++
+
+--
+Open block
+--
+
+---
+
+(source_file
+  (section
+    (section_title
+      (title))
+    (example_block
+      (example_open)
+      (block_content)
+      (example_close))
+    (listing_block
+      (listing_open)
+      (block_content)
+      (listing_close))
+    (literal_block
+      (literal_open)
+      (block_content)
+      (literal_close))
+    (quote_block
+      (quote_open)
+      (block_content)
+      (quote_close))
+    (sidebar_block
+      (sidebar_open)
+      (block_content)
+      (sidebar_close))
+    (passthrough_block
+      (passthrough_open)
+      (block_content)
+      (passthrough_close))
+    (open_block
+      (openblock_open)
+      (block_content)
+      (openblock_close))))
