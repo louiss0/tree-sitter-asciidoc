@@ -15,14 +15,23 @@ Paragraph under C
 
 (source_file
   (section
-    (section_title (title))
-    (paragraph (text))
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)))
     (section
-      (section_title (title))
-      (paragraph (text))
+      (section_title
+        (title))
+      (paragraph
+        (text_with_inlines
+          (text_segment)))
       (section
-        (section_title (title))
-        (paragraph (text))))))
+        (section_title
+          (title))
+        (paragraph
+          (text_with_inlines
+            (text_segment)))))))
 
 ================================================================================
 Multiple sections at same level
@@ -44,17 +53,29 @@ Content for section 3
 
 (source_file
   (section
-    (section_title (title))
-    (paragraph (text)))
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment))))
   (section
-    (section_title (title))
-    (paragraph (text))
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)))
     (section
-      (section_title (title))
-      (paragraph (text))))
+      (section_title
+        (title))
+      (paragraph
+        (text_with_inlines
+          (text_segment)))))
   (section
-    (section_title (title))
-    (paragraph (text))))
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)))))
 
 ================================================================================
 Deep nesting with all levels
@@ -82,23 +103,41 @@ Content at level 6
 
 (source_file
   (section
-    (section_title (title))
-    (paragraph (text))
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)))
     (section
-      (section_title (title))
-      (paragraph (text))
+      (section_title
+        (title))
+      (paragraph
+        (text_with_inlines
+          (text_segment)))
       (section
-        (section_title (title))
-        (paragraph (text))
+        (section_title
+          (title))
+        (paragraph
+          (text_with_inlines
+            (text_segment)))
         (section
-          (section_title (title))
-          (paragraph (text))
+          (section_title
+            (title))
+          (paragraph
+            (text_with_inlines
+              (text_segment)))
           (section
-            (section_title (title))
-            (paragraph (text))
+            (section_title
+              (title))
+            (paragraph
+              (text_with_inlines
+                (text_segment)))
             (section
-              (section_title (title))
-              (paragraph (text)))))))))
+              (section_title
+                (title))
+              (paragraph
+                (text_with_inlines
+                  (text_segment))))))))))
 
 ================================================================================
 Sections with attributes
@@ -119,12 +158,24 @@ Subsection content
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry (name) (value))
+  (attribute_entry
+    (name)
+    (value))
   (section
-    (section_title (title))
-    (attribute_entry (name) (value))
-    (paragraph (text))
+    (section_title
+      (title))
+    (attribute_entry
+      (name)
+      (value))
+    (paragraph
+      (text_with_inlines
+        (text_segment)))
     (section
-      (section_title (title))
-      (attribute_entry (name) (value))
-      (paragraph (text)))))
+      (section_title
+        (title))
+      (attribute_entry
+        (name)
+        (value))
+      (paragraph
+        (text_with_inlines
+          (text_segment))))))

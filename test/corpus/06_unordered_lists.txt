@@ -63,5 +63,9 @@ Not a list - missing space after marker
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph (text))
-  (paragraph (text)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))

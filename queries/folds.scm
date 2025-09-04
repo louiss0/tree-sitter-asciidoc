@@ -6,6 +6,9 @@
 ; Fold multi-line paragraphs
 (paragraph) @fold
 
+; Fold conditional blocks
+(conditional_block) @fold
+
 ; Fold lists
 (unordered_list) @fold
 (ordered_list) @fold

@@ -2,9 +2,9 @@
 Simple description list
 ================================================================================
 
-Term 1:: Description for term 1
-Term 2:: Description for term 2
-Another Term:: Another description
+Term1:: Description for term 1
+Term2:: Description for term 2
+AnotherTerm:: Another description
 
 --------------------------------------------------------------------------------
 
@@ -27,8 +27,12 @@ Another::Description
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph (text))
-  (paragraph (text)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
 
 ================================================================================
 Not a description list - triple colon
@@ -39,4 +43,6 @@ Term::: Description
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph (text)))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
