@@ -165,6 +165,37 @@
     }
   },
   {
+    "type": "emphasis",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "emphasis_constrained",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "emphasis_constrained",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "emphasis_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "example_block",
     "named": true,
     "fields": {},
@@ -614,6 +645,10 @@
       "required": true,
       "types": [
         {
+          "type": "emphasis",
+          "named": true
+        },
+        {
           "type": "external_xref",
           "named": true
         },
@@ -639,6 +674,22 @@
         },
         {
           "type": "internal_xref",
+          "named": true
+        },
+        {
+          "type": "monospace",
+          "named": true
+        },
+        {
+          "type": "strong",
+          "named": true
+        },
+        {
+          "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "superscript",
           "named": true
         }
       ]
@@ -814,6 +865,37 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "monospace",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "monospace_constrained",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monospace_constrained",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "monospace_text",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1205,6 +1287,69 @@
     }
   },
   {
+    "type": "strong",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "strong_constrained",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "strong_constrained",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "strong_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "subscript",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "subscript_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "superscript",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "superscript_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "text_with_inlines",
     "named": true,
     "fields": {},
@@ -1247,6 +1392,10 @@
     "type": "value",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "*",
+    "named": false
   },
   {
     "type": ",",
@@ -1321,6 +1470,18 @@
     "named": false
   },
   {
+    "type": "^",
+    "named": false
+  },
+  {
+    "type": "_",
+    "named": false
+  },
+  {
+    "type": "`",
+    "named": false
+  },
+  {
     "type": "anchor_text",
     "named": true
   },
@@ -1346,6 +1507,10 @@
   },
   {
     "type": "description_item",
+    "named": true
+  },
+  {
+    "type": "emphasis_text",
     "named": true
   },
   {
@@ -1389,11 +1554,27 @@
     "named": true
   },
   {
+    "type": "monospace_text",
+    "named": true
+  },
+  {
     "type": "name",
     "named": true
   },
   {
     "type": "ordered_list_item",
+    "named": true
+  },
+  {
+    "type": "strong_text",
+    "named": true
+  },
+  {
+    "type": "subscript_text",
+    "named": true
+  },
+  {
+    "type": "superscript_text",
     "named": true
   },
   {
@@ -1411,5 +1592,9 @@
   {
     "type": "xref_target",
     "named": true
+  },
+  {
+    "type": "~",
+    "named": false
   }
 ]

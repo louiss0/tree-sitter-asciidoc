@@ -46,6 +46,12 @@ module.exports = grammar({
   
   conflicts: $ => [
     [$.title, $.name],
+    [$.text_segment, $.strong_constrained],
+    [$.text_segment, $.emphasis_constrained],
+    [$.text_segment, $.monospace_constrained],
+    [$.text_segment, $.superscript],
+    [$.text_segment, $.subscript],
+    [$.text_with_inlines],
   ],
   
   rules: {
@@ -376,12 +382,12 @@ module.exports = grammar({
     
     // Text with inline elements - comprehensive structure supporting all inline constructs
     text_with_inlines: $ => prec.left(repeat1(choice(
-      prec(1000, $.inline_element),
-      prec(-100, $.text_segment)
+      prec.dynamic(10, $.inline_element),
+      prec.dynamic(-10, $.text_segment)
     ))),
     
-    // Text segment - basic text that doesn't conflict with inline conditionals
-    text_segment: $ => token(prec(-10, /[^\r\n]+/)),
+    // Text segment - matches words and safe characters, avoiding formatting chars
+    text_segment: $ => token(prec.dynamic(-10, /[a-zA-Z0-9\s.,!?;:()\-]+/)),
     
     // ========================================================================
     // INLINE CONDITIONAL DIRECTIVES
@@ -536,7 +542,13 @@ module.exports = grammar({
       $.footnote_inline,
       $.footnote_ref,
       $.footnoteref,
-      $.inline_conditional
+      $.inline_conditional,
+      // Inline formatting
+      $.strong,
+      $.emphasis,
+      $.monospace,
+      $.superscript,
+      $.subscript
     ),
     
     // ========================================================================
@@ -588,6 +600,67 @@ module.exports = grammar({
         $.open_block
       ))
     )),
+    
+    // ========================================================================
+    // INLINE FORMATTING - Strong, Emphasis, Monospace, Superscript, Subscript
+    // ========================================================================
+    
+    // Strong formatting (bold) - *text*
+    strong: $ => choice(
+      $.strong_constrained
+    ),
+    
+    strong_constrained: $ => prec(20, seq(
+      token('*'),
+      field('content', $.strong_text),
+      token.immediate('*')
+    )),
+    
+    strong_text: $ => token.immediate(prec(10, /[^*\r\n]+/)),
+    
+    // Emphasis formatting (italic) - _text_
+    emphasis: $ => choice(
+      $.emphasis_constrained
+    ),
+    
+    emphasis_constrained: $ => prec(20, seq(
+      token('_'),
+      field('content', $.emphasis_text),
+      token.immediate('_')
+    )),
+    
+    emphasis_text: $ => token.immediate(prec(10, /[^_\r\n]+/)),
+    
+    // Monospace formatting (code) - `text`
+    monospace: $ => choice(
+      $.monospace_constrained
+    ),
+    
+    monospace_constrained: $ => prec(20, seq(
+      token('`'),
+      field('content', $.monospace_text),
+      token.immediate('`')
+    )),
+    
+    monospace_text: $ => token.immediate(prec(10, /[^`\r\n]+/)),
+    
+    // Superscript - ^text^
+    superscript: $ => prec(20, seq(
+      token('^'),
+      field('content', $.superscript_text),
+      token.immediate('^')
+    )),
+    
+    superscript_text: $ => token.immediate(prec(10, /[^\^\r\n]+/)),
+    
+    // Subscript - ~text~
+    subscript: $ => prec(20, seq(
+      token('~'),
+      field('content', $.subscript_text),
+      token.immediate('~')
+    )),
+    
+    subscript_text: $ => token.immediate(prec(10, /[^~\r\n]+/)),
     
     // ========================================================================
     // BLOCK METADATA - For delimited blocks only
