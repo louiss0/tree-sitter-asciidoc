@@ -27,6 +27,7 @@ const PREC = {
   // Admonition precedences
   ADMONITION_PARAGRAPH: 24,  // Single-line admonitions
   ADMONITION_BLOCK: 23,      // Block admonitions with metadata
+  TABLE: 22,                 // Tables
   DELIMITED_BLOCK: 22,
   BLOCK_META: 21,
   // Inline element precedences (highest to lowest)
@@ -68,6 +69,9 @@ module.exports = grammar({
     [$.text_with_inlines],
     [$.text_with_inlines, $.inline_element, $.link],
     [$.link, $.auto_link],
+    [$.table_row],
+    [$.table_block, $.table_row],
+    [$.cell_content, $.text_with_inlines],
   ],
   
   rules: {
@@ -87,6 +91,8 @@ module.exports = grammar({
       // Admonitions - between sections and delimited blocks
       prec(PREC.ADMONITION_PARAGRAPH, $.paragraph_admonition),
       prec(PREC.ADMONITION_BLOCK, $.admonition_block),
+      // Tables - same level as delimited blocks
+      prec(PREC.TABLE, $.table_block),
       // Delimited blocks - below admonitions, above lists
       prec(PREC.DELIMITED_BLOCK, $.example_block),
       prec(PREC.DELIMITED_BLOCK, $.listing_block),
@@ -191,6 +197,8 @@ module.exports = grammar({
         // Admonitions
         $.paragraph_admonition,
         $.admonition_block,
+        // Tables
+        $.table_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -219,6 +227,8 @@ module.exports = grammar({
         // Admonitions
         $.paragraph_admonition,
         $.admonition_block,
+        // Tables
+        $.table_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -246,6 +256,8 @@ module.exports = grammar({
         // Admonitions
         $.paragraph_admonition,
         $.admonition_block,
+        // Tables
+        $.table_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -272,6 +284,8 @@ module.exports = grammar({
         // Admonitions
         $.paragraph_admonition,
         $.admonition_block,
+        // Tables
+        $.table_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -297,6 +311,8 @@ module.exports = grammar({
         // Admonitions
         $.paragraph_admonition,
         $.admonition_block,
+        // Tables
+        $.table_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -321,6 +337,8 @@ module.exports = grammar({
         // Admonitions
         $.paragraph_admonition,
         $.admonition_block,
+        // Tables
+        $.table_block,
         // Delimited blocks
         $.example_block,
         $.listing_block,
@@ -1015,5 +1033,55 @@ module.exports = grammar({
     callout_list: $ => prec.right(10, repeat1($.callout_item)),
     
     callout_item: $ => token(prec(20, /<[0-9]+>[ \t]+[^\r\n]+/)),
+    
+    // ========================================================================
+    // TABLES - Advanced Features per EBNF specification
+    // ========================================================================
+    
+    // table_block = block_metadata, '|===', newline, table_content, '|===', newline
+    table_block: $ => seq(
+      optional(alias($.block_metadata, $.metadata)),
+      $.table_open,
+      repeat(choice(
+        $.table_row,
+        /\r?\n/  // Allow blank lines in tables
+      )),
+      $.table_close
+    ),
+    
+    // Table delimiters
+    table_open: $ => token(prec(PREC.TABLE, /\|===[ \t]*\r?\n/)),
+    table_close: $ => token(prec(PREC.TABLE, /\|===[ \t]*\r?\n/)),
+    
+    // table_row = line containing one or more cells
+    table_row: $ => seq(
+      repeat1($.table_cell),
+      token(/\r?\n/)
+    ),
+    
+    // table_cell = [ cell_spec ], '|', cell_content
+    table_cell: $ => seq(
+      optional($.cell_spec),
+      token('|'),
+      optional(field('content', $.cell_content))
+    ),
+    
+    // cell_spec = [ span_spec ], [ format_spec ] - at least one must be present
+    cell_spec: $ => choice(
+      seq($.span_spec, optional($.format_spec)),
+      $.format_spec
+    ),
+    
+    // span_spec = digit, { digit }, [ '.', digit, { digit } ], '+'
+    // Examples: 2+, 3.2+, 1.4+
+    span_spec: $ => token(prec(PREC.TABLE + 1, /[0-9]+(?:\.[0-9]+)?\+/)),
+    
+    // format_spec = 'a' | 'l' | 'm' | 's' | 'h' | 'd'
+    // a: AsciiDoc content, l: left align, m: middle/center, s: strong/right, h: header, d: default
+    format_spec: $ => token(prec(PREC.TABLE + 1, /[almshd]/)),
+    
+    // cell_content = { non_newline_char - '|' }
+    // Content until next unescaped | or end of row
+    cell_content: $ => token.immediate(/[^|\r\n]*/),
   },
 });
