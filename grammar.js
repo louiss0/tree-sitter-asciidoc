@@ -64,7 +64,22 @@ module.exports = grammar({
     $._line_comment,
     $._block_comment,
   ],
-  conflicts: $ => [],
+  
+  // Conflicts for overlapping inline constructs that cannot be resolved by precedence alone
+  conflicts: $ => [
+    // Only declare conflicts that Tree-sitter cannot resolve automatically
+    // Most formatting vs text conflicts are handled by precedence rules
+  ],
+  
+  // Inline rules that can appear in multiple contexts
+  inline: $ => [
+    $.inline_element,
+    $.strong,
+    $.emphasis,
+    $.monospace,
+    $.superscript,
+    $.subscript,
+  ],
   
   rules: {
     source_file: $ => repeat($._block),

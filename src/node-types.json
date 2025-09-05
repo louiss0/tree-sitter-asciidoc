@@ -185,21 +185,6 @@
     }
   },
   {
-    "type": "emphasis",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "emphasis_constrained",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "emphasis_constrained",
     "named": true,
     "fields": {},
@@ -663,109 +648,6 @@
     }
   },
   {
-    "type": "inline_element",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "attribute_reference",
-          "named": true
-        },
-        {
-          "type": "emphasis",
-          "named": true
-        },
-        {
-          "type": "external_xref",
-          "named": true
-        },
-        {
-          "type": "footnote_inline",
-          "named": true
-        },
-        {
-          "type": "footnote_ref",
-          "named": true
-        },
-        {
-          "type": "footnoteref",
-          "named": true
-        },
-        {
-          "type": "image",
-          "named": true
-        },
-        {
-          "type": "inline_anchor",
-          "named": true
-        },
-        {
-          "type": "inline_conditional",
-          "named": true
-        },
-        {
-          "type": "internal_xref",
-          "named": true
-        },
-        {
-          "type": "line_break",
-          "named": true
-        },
-        {
-          "type": "link",
-          "named": true
-        },
-        {
-          "type": "math",
-          "named": true
-        },
-        {
-          "type": "monospace",
-          "named": true
-        },
-        {
-          "type": "pass_macro",
-          "named": true
-        },
-        {
-          "type": "passthrough_triple_plus",
-          "named": true
-        },
-        {
-          "type": "role_span",
-          "named": true
-        },
-        {
-          "type": "strong",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "superscript",
-          "named": true
-        },
-        {
-          "type": "ui_btn",
-          "named": true
-        },
-        {
-          "type": "ui_kbd",
-          "named": true
-        },
-        {
-          "type": "ui_menu",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "inline_ifdef",
     "named": true,
     "fields": {},
@@ -850,11 +732,15 @@
         "required": false,
         "types": [
           {
+            "type": "^",
+            "named": false
+          },
+          {
             "type": "attribute_reference",
             "named": true
           },
           {
-            "type": "emphasis",
+            "type": "emphasis_constrained",
             "named": true
           },
           {
@@ -862,24 +748,28 @@
             "named": true
           },
           {
-            "type": "monospace",
+            "type": "monospace_constrained",
             "named": true
           },
           {
-            "type": "strong",
+            "type": "strong_constrained",
             "named": true
           },
           {
-            "type": "subscript",
+            "type": "subscript_text",
             "named": true
           },
           {
-            "type": "superscript",
+            "type": "superscript_text",
             "named": true
           },
           {
             "type": "text_segment",
             "named": true
+          },
+          {
+            "type": "~",
+            "named": false
           }
         ]
       },
@@ -976,21 +866,6 @@
         },
         {
           "type": "id_and_roles",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "monospace",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "monospace_constrained",
           "named": true
         }
       ]
@@ -1151,11 +1026,15 @@
         "required": true,
         "types": [
           {
+            "type": "^",
+            "named": false
+          },
+          {
             "type": "attribute_reference",
             "named": true
           },
           {
-            "type": "emphasis",
+            "type": "emphasis_constrained",
             "named": true
           },
           {
@@ -1163,24 +1042,28 @@
             "named": true
           },
           {
-            "type": "monospace",
+            "type": "monospace_constrained",
             "named": true
           },
           {
-            "type": "strong",
+            "type": "strong_constrained",
             "named": true
           },
           {
-            "type": "subscript",
+            "type": "subscript_text",
             "named": true
           },
           {
-            "type": "superscript",
+            "type": "superscript_text",
             "named": true
           },
           {
             "type": "text_segment",
             "named": true
+          },
+          {
+            "type": "~",
+            "named": false
           }
         ]
       }
@@ -1405,21 +1288,6 @@
     }
   },
   {
-    "type": "strong",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "strong_constrained",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "strong_constrained",
     "named": true,
     "fields": {},
@@ -1429,36 +1297,6 @@
       "types": [
         {
           "type": "strong_text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "subscript",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "subscript_text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "superscript",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "superscript_text",
           "named": true
         }
       ]
@@ -1551,15 +1389,103 @@
       "required": true,
       "types": [
         {
+          "type": "attribute_reference",
+          "named": true
+        },
+        {
           "type": "auto_link",
           "named": true
         },
         {
-          "type": "inline_element",
+          "type": "emphasis_constrained",
+          "named": true
+        },
+        {
+          "type": "external_xref",
+          "named": true
+        },
+        {
+          "type": "footnote_inline",
+          "named": true
+        },
+        {
+          "type": "footnote_ref",
+          "named": true
+        },
+        {
+          "type": "footnoteref",
+          "named": true
+        },
+        {
+          "type": "image",
+          "named": true
+        },
+        {
+          "type": "inline_anchor",
+          "named": true
+        },
+        {
+          "type": "inline_conditional",
+          "named": true
+        },
+        {
+          "type": "internal_xref",
+          "named": true
+        },
+        {
+          "type": "line_break",
+          "named": true
+        },
+        {
+          "type": "link",
+          "named": true
+        },
+        {
+          "type": "math",
+          "named": true
+        },
+        {
+          "type": "monospace_constrained",
+          "named": true
+        },
+        {
+          "type": "pass_macro",
+          "named": true
+        },
+        {
+          "type": "passthrough_triple_plus",
+          "named": true
+        },
+        {
+          "type": "role_span",
+          "named": true
+        },
+        {
+          "type": "strong_constrained",
+          "named": true
+        },
+        {
+          "type": "subscript_text",
+          "named": true
+        },
+        {
+          "type": "superscript_text",
           "named": true
         },
         {
           "type": "text_segment",
+          "named": true
+        },
+        {
+          "type": "ui_btn",
+          "named": true
+        },
+        {
+          "type": "ui_kbd",
+          "named": true
+        },
+        {
+          "type": "ui_menu",
           "named": true
         }
       ]

@@ -4392,7 +4392,14 @@
   "conflicts": [],
   "precedences": [],
   "externals": [],
-  "inline": [],
+  "inline": [
+    "inline_element",
+    "strong",
+    "emphasis",
+    "monospace",
+    "superscript",
+    "subscript"
+  ],
   "supertypes": [],
   "reserved": {}
 }
