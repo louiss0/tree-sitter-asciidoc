@@ -245,6 +245,8 @@ Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[lin
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
+      (text_segment)
       (inline_element
         (inline_anchor
           (id)))
@@ -286,12 +288,6 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
           (bracketed_text)))
       (text_segment))))
 
-================================================================================
-Block with anchor metadata
-================================================================================
-
-[[example-anchor,Example anchor]]
-.Example Title
 ====
 Example block content with anchor
 ====

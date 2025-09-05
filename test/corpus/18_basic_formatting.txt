@@ -88,6 +88,7 @@ This has *bold* and _italic_ and `code` together.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
       (inline_element
         (strong
           (strong_constrained

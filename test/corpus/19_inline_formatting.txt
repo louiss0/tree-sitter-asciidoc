@@ -10,15 +10,18 @@ This is *bold* text and _italic_ text and `monospace` text.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
       (inline_element
         (strong
           (strong_constrained
             (strong_text))))
       (text_segment)
+      (text_segment)
       (inline_element
         (emphasis
           (emphasis_constrained
             (emphasis_text))))
+      (text_segment)
       (text_segment)
       (inline_element
         (monospace
@@ -38,9 +41,12 @@ This is E=mc^2^ and H~2~O.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
+      (text_segment)
       (inline_element
         (superscript
           (superscript_text)))
+      (text_segment)
       (text_segment)
       (inline_element
         (subscript
@@ -113,11 +119,22 @@ Visit https://example.com[Example Site] for more info.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (link
-        (url
-          (auto_link))
-        (text
+      (inline_element
+        (link
+          (auto_link)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
           (text_segment)))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -132,6 +149,6 @@ This +++*should not be bold*+++ text.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (passthrough_triple_plus
-        (content))
+      (inline_element
+        (passthrough_triple_plus))
       (text_segment))))

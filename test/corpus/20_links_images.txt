@@ -33,15 +33,23 @@ Visit https://example.com[Example Site] for more info.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
       (text_segment)
-      (link
-        (auto_link)
-        (text_segment))))
-  (paragraph
-    (text_with_inlines
+      (inline_element
+        (link
+          (auto_link)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -55,20 +63,20 @@ Visit https://example.com[*Bold* _Link_ Text] here.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
       (text_segment)
-      (link
-        (auto_link)
-        (strong
-          (text_segment))
-        (text_segment)
-        (emphasis
-          (text_segment))
-        (text_segment))))
-  (paragraph
-    (text_with_inlines
+      (inline_element
+        (link
+          (auto_link)
+          (strong
+            (strong_constrained
+              (strong_text)))
+          (emphasis
+            (emphasis_constrained
+              (emphasis_text)))
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)))
       (text_segment))))
 
 ================================================================================
