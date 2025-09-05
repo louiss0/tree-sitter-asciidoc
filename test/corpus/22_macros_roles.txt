@@ -10,9 +10,10 @@ This is [big]#large text# here.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (role_span
-        (role)
-        (text_segment))
+      (text_segment)
+      (inline_element
+        (role_span
+          (text_segment)))
       (text_segment))))
 
 ================================================================================
@@ -27,12 +28,9 @@ This is [highlight]#*bold* and _italic_# text.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (role_span
-        (role)
-        (strong
-          (text_segment))
-        (text_segment)
-        (emphasis
+      (text_segment)
+      (inline_element
+        (role_span
           (text_segment)))
       (text_segment))))
 
@@ -49,17 +47,17 @@ Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].
   (paragraph
     (text_with_inlines
       (text_segment)
-      (math
-        (content))
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+      (inline_element
+        (math))
       (text_segment)
-      (math
-        (content))
       (text_segment)
-      (math
-        (content)))))
+      (text_segment)
+      (inline_element
+        (math))
+      (text_segment)
+      (inline_element
+        (math))
+      (text_segment))))
 
 ================================================================================
 UI macros
@@ -74,18 +72,17 @@ Go to menu:File[Open] option.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (ui_kbd
-        (keys))
+      (inline_element
+        (ui_kbd))
       (text_segment)
-      (ui_btn
-        (label))
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
       (text_segment)
-      (ui_menu
-        (path)
-        (text))
+      (inline_element
+        (ui_btn))
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (inline_element
+        (ui_menu))
       (text_segment))))
 
 ================================================================================
@@ -100,7 +97,9 @@ Hello {name} from {location}!
   (paragraph
     (text_with_inlines
       (text_segment)
-      (attribute_reference)
+      (inline_element
+        (attribute_reference))
       (text_segment)
-      (attribute_reference)
+      (inline_element
+        (attribute_reference))
       (text_segment))))

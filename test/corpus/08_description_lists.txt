@@ -29,9 +29,7 @@ Another::Description
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -45,4 +43,5 @@ Term::: Description
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment))))

@@ -64,14 +64,15 @@ continues here
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment)))
   (paragraph
     (text_segment))
   (paragraph
     (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -85,4 +86,6 @@ Just one line
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
       (text_segment))))

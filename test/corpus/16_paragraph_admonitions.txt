@@ -7,10 +7,7 @@ NOTE: This is a note paragraph with important information.
 ---
 
 (source_file
-  (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
-      (text_segment))))
+  (paragraph_admonition))
 
 ================================================================================
 TIP paragraph admonition
@@ -21,10 +18,7 @@ TIP: Here's a helpful tip for users.
 ---
 
 (source_file
-  (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
-      (text_segment))))
+  (paragraph_admonition))
 
 ================================================================================
 IMPORTANT paragraph admonition
@@ -35,10 +29,7 @@ IMPORTANT: This is crucial information to remember.
 ---
 
 (source_file
-  (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
-      (text_segment))))
+  (paragraph_admonition))
 
 ================================================================================
 WARNING paragraph admonition
@@ -49,10 +40,7 @@ WARNING: Be careful with this operation.
 ---
 
 (source_file
-  (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
-      (text_segment))))
+  (paragraph_admonition))
 
 ================================================================================
 CAUTION paragraph admonition
@@ -63,10 +51,7 @@ CAUTION: Proceed with caution when making changes.
 ---
 
 (source_file
-  (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
-      (text_segment))))
+  (paragraph_admonition))
 
 ================================================================================
 NOTE paragraph with inline elements
@@ -106,6 +91,15 @@ note: This should be a regular paragraph, not an admonition.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -119,6 +113,11 @@ NOTE:This should be a regular paragraph.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -132,6 +131,13 @@ INFO: This is not a valid admonition type.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -147,18 +153,9 @@ TIP: Third admonition paragraph.
 ---
 
 (source_file
-  (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
-      (text_segment)))
-  (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
-      (text_segment)))
-  (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
-      (text_segment))))
+  (paragraph_admonition)
+  (paragraph_admonition)
+  (paragraph_admonition))
 
 ================================================================================
 Admonition paragraph in section

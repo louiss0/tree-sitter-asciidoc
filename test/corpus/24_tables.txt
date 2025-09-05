@@ -124,16 +124,24 @@ Table with Cell Specifications - Spans and Formats
     (table_row
       (table_cell)
       (table_cell
-        (cell_spec (format_spec))
+        (cell_spec
+          (format_spec))
         content: (cell_content))
       (table_cell)
       (table_cell
-        (cell_spec (format_spec))
+        (cell_spec
+          (format_spec))
+        content: (cell_content))
+      (table_cell)
+      (table_cell
+        (cell_spec
+          (format_spec))
         content: (cell_content)))
     (table_row
       (table_cell)
       (table_cell
-        (cell_spec (span_spec))
+        (cell_spec
+          (span_spec))
         content: (cell_content)))
     (table_row
       (table_cell
@@ -141,15 +149,26 @@ Table with Cell Specifications - Spans and Formats
     (table_row
       (table_cell)
       (table_cell
-        (cell_spec (format_spec))
-        content: (cell_content))
+        (cell_spec
+          (format_spec))
+        content: (cell_content)))
+    (table_row
       (table_cell)
       (table_cell
-        (cell_spec (format_spec))
-        content: (cell_content))
+        (cell_spec
+          (format_spec))
+        content: (cell_content)))
+    (table_row
       (table_cell)
       (table_cell
-        (cell_spec (format_spec))
+        (cell_spec
+          (format_spec))
+        content: (cell_content)))
+    (table_row
+      (table_cell)
+      (table_cell
+        (cell_spec
+          (span_spec))
         content: (cell_content)))
     (table_close)))
 
@@ -177,7 +196,8 @@ Table with AsciiDoc Content in Cells
     (table_row
       (table_cell)
       (table_cell
-        (cell_spec (format_spec))
+        (cell_spec
+          (format_spec))
         content: (cell_content)))
     (table_row
       (table_cell

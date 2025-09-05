@@ -1,0 +1,5 @@
+====
+This should not be an admonition block.
+====
+
+NOTE: This is a valid admonition again.

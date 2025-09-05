@@ -94,6 +94,7 @@ endif::[]
           (ifdef_open)
           (paragraph
             (text_with_inlines
+              (text_segment)
               (text_segment)))
           (endif_directive)))
       (endif_directive))))
@@ -120,6 +121,8 @@ Another:: item
       (ifdef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive)))
   (description_list
@@ -200,6 +203,7 @@ Normal content
       (endif_directive)))
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment))))
 
 ================================================================================
