@@ -100,7 +100,9 @@ Hello {name} from {location}!
   (paragraph
     (text_with_inlines
       (text_segment)
-      (attribute_reference)
+      (inline_element
+        (attribute_reference))
       (text_segment)
-      (attribute_reference)
+      (inline_element
+        (attribute_reference))
       (text_segment))))

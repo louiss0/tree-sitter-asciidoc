@@ -38,13 +38,13 @@ This is E=mc^2^ and H~2~O.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (superscript
-        (content
-          (text_segment)))
+      (inline_element
+        (superscript
+          (superscript_text)))
       (text_segment)
-      (subscript
-        (content
-          (text_segment)))
+      (inline_element
+        (subscript
+          (subscript_text)))
       (text_segment))))
 
 ================================================================================
@@ -77,9 +77,11 @@ Hello {name} from {location}!
   (paragraph
     (text_with_inlines
       (text_segment)
-      (attribute_reference)
+      (inline_element
+        (attribute_reference))
       (text_segment)
-      (attribute_reference)
+      (inline_element
+        (attribute_reference))
       (text_segment))))
 
 ================================================================================

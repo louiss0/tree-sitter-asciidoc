@@ -1507,6 +1507,10 @@
           "members": [
             {
               "type": "SYMBOL",
+              "name": "auto_link"
+            },
+            {
+              "type": "SYMBOL",
               "name": "inline_element"
             },
             {
@@ -1524,7 +1528,7 @@
         "value": -1,
         "content": {
           "type": "PATTERN",
-          "value": "[^*_`^~\\[{+#\\r\\n\\|]+"
+          "value": "[^*_`^~\\[{+#\\r\\n\\|\\s]+"
         }
       }
     },
@@ -2198,10 +2202,6 @@
         {
           "type": "SYMBOL",
           "name": "attribute_reference"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "auto_link"
         },
         {
           "type": "SYMBOL",
@@ -2903,13 +2903,17 @@
       }
     },
     "auto_link": {
-      "type": "PREC",
-      "value": 80,
+      "type": "PREC_DYNAMIC",
+      "value": 1000,
       "content": {
         "type": "TOKEN",
         "content": {
-          "type": "PATTERN",
-          "value": "(?:https?|ftp|file|mailto|irc|ssh):\\/\\/[^\\s\\[\\]<>]+"
+          "type": "PREC",
+          "value": 80,
+          "content": {
+            "type": "PATTERN",
+            "value": "(?:https?|ftp|file|mailto|irc|ssh):\\/\\/[^\\s\\[\\]<>]+"
+          }
         }
       }
     },
@@ -3870,62 +3874,31 @@
       ]
     },
     "attribute_entry": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
           "type": "TOKEN",
           "content": {
-            "type": "STRING",
-            "value": ":"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "ALIAS",
+            "type": "PREC",
+            "value": 30,
             "content": {
-              "type": "IMMEDIATE_TOKEN",
-              "content": {
-                "type": "PATTERN",
-                "value": "[A-Za-z0-9][A-Za-z0-9_-]*"
-              }
-            },
-            "named": true,
-            "value": "name"
+              "type": "PATTERN",
+              "value": ":[A-Za-z0-9][A-Za-z0-9_-]*:[^\\r\\n]+"
+            }
           }
         },
         {
-          "type": "IMMEDIATE_TOKEN",
+          "type": "TOKEN",
           "content": {
-            "type": "STRING",
-            "value": ":"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "value",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "value"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
+            "type": "PREC",
+            "value": 30,
+            "content": {
+              "type": "PATTERN",
+              "value": ":[A-Za-z0-9][A-Za-z0-9_-]*:"
+            }
           }
         }
       ]
-    },
-    "value": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[^\\r\\n]+"
-      }
     },
     "unordered_list": {
       "type": "CHOICE",

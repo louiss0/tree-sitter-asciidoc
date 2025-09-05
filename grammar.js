@@ -415,14 +415,17 @@ module.exports = grammar({
     
     // Text with inline elements - comprehensive structure supporting all inline constructs
     text_with_inlines: $ => prec.right(repeat1(choice(
+      // Auto-links first for highest priority
+      $.auto_link,
       // Primary inline elements via inline_element wrapper for consistency with tests
       $.inline_element,
       // Plain text (lowest precedence)
       $.text_segment
     ))),
     
-    // Text segment - text that continues until inline formatting or line end
-    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+#\r\n\|]+/)),
+    // Text segment - text that continues until inline formatting, space, or line end
+    // Stop at spaces to allow URL recognition at word boundaries
+    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+#\r\n\|\s]+/)),
     
     // ========================================================================
     // INLINE CONDITIONAL DIRECTIVES
@@ -634,7 +637,6 @@ module.exports = grammar({
       $.subscript,
       // Other inline elements
       $.attribute_reference,
-      $.auto_link,
       $.link,
       $.image,
       $.passthrough_triple_plus,
@@ -761,8 +763,8 @@ module.exports = grammar({
       token(']')
     )),
     
-    // Automatic URLs and links
-    auto_link: $ => prec(PREC.LINK, token(/(?:https?|ftp|file|mailto|irc|ssh):\/\/[^\s\[\]<>]+/)),
+    // Automatic URLs and links - high dynamic precedence to override text_segment
+    auto_link: $ => prec.dynamic(1000, token(prec(PREC.LINK, /(?:https?|ftp|file|mailto|irc|ssh):\/\/[^\s\[\]<>]+/))),
     
     link: $ => prec(PREC.LINK + 1, seq(
       field('url', $.auto_link),
@@ -958,16 +960,13 @@ module.exports = grammar({
       $.openblock_close
     ),
 
-    // Attribute entry - atomic pattern with proper name extraction
-    attribute_entry: $ => seq(
-      token(':'),
-      field('name', alias(token.immediate(/[A-Za-z0-9][A-Za-z0-9_-]*/), $.name)),
-      token.immediate(':'),
-      field('value', optional($.value))
+    // Attribute entry - fully atomic pattern to avoid global token conflicts
+    attribute_entry: $ => choice(
+      // With value
+      token(prec(PREC.ATTRIBUTE_ENTRY, /:[A-Za-z0-9][A-Za-z0-9_-]*:[^\r\n]+/)),
+      // Without value (just name with colons)
+      token(prec(PREC.ATTRIBUTE_ENTRY, /:[A-Za-z0-9][A-Za-z0-9_-]*:/)),
     ),
-
-    // Attribute value - immediate pattern (only non-empty)
-    value: $ => token.immediate(/[^\r\n]+/),
 
     // ========================================================================
     // LIST PARSING - Markdown-inspired marker-specific lists

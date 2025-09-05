@@ -83,28 +83,7 @@
   {
     "type": "attribute_entry",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "name",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "value",
-            "named": true
-          }
-        ]
-      }
-    }
+    "fields": {}
   },
   {
     "type": "auto_link",
@@ -676,10 +655,6 @@
       "types": [
         {
           "type": "attribute_reference",
-          "named": true
-        },
-        {
-          "type": "auto_link",
           "named": true
         },
         {
@@ -1578,6 +1553,10 @@
       "required": true,
       "types": [
         {
+          "type": "auto_link",
+          "named": true
+        },
+        {
           "type": "inline_element",
           "named": true
         },
@@ -1587,11 +1566,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "title",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "ui_btn",
@@ -1622,11 +1596,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "value",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "#",
@@ -1841,10 +1810,6 @@
     "named": true
   },
   {
-    "type": "name",
-    "named": true
-  },
-  {
     "type": "openblock_close",
     "named": true
   },
@@ -1906,6 +1871,10 @@
   },
   {
     "type": "text_segment",
+    "named": true
+  },
+  {
+    "type": "title",
     "named": true
   },
   {
