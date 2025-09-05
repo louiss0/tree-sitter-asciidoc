@@ -27,8 +27,8 @@ const PREC = {
   // Admonition precedences
   ADMONITION_PARAGRAPH: 24,  // Single-line admonitions
   ADMONITION_BLOCK: 23,      // Block admonitions with metadata
+  DELIMITED_BLOCK: 25,       // Delimited blocks (higher than tables)
   TABLE: 22,                 // Tables
-  DELIMITED_BLOCK: 22,
   BLOCK_META: 21,
   // Inline element precedences (highest to lowest)
   PASSTHROUGH: 100,          // +++literal text+++
@@ -59,23 +59,18 @@ const PREC = {
 module.exports = grammar({
   name: "asciidoc",
 
-  extras: $ => [/\s/],
-  
-  conflicts: $ => [
-    [$.block_metadata],
-    [$.paragraph_admonition, $.paragraph],
-    [$.strong, $.emphasis],
-    [$.text_with_inlines],
-    [$.text_with_inlines, $.inline_element, $.link],
-    [$.link, $.auto_link],
-    [$.table_row],
-    [$.table_block, $.table_row],
-    [$.cell_content, $.text_with_inlines],
+  extras: $ => [
+    $._whitespace,
+    $._line_comment,
+    $._block_comment,
   ],
+  conflicts: $ => [],
   
   rules: {
     source_file: $ => repeat($._block),
-
+    _whitespace: $ => /\s+/,
+    _line_comment: $ => /\/\/.+/,
+    _block_comment: $ => /\/\/\/\/.+\/\/\/\//,
     _block: $ => choice(
       // Highest precedence for structured content
       prec(PREC.ATTRIBUTE_ENTRY, $.attribute_entry),
@@ -184,6 +179,7 @@ module.exports = grammar({
 
     // Level-aware section structures
     section_level1: $ => prec.right(seq(
+      optional($.anchor),
       alias($.section_title_level1, $.section_title),
       repeat(choice(
         $.attribute_entry,
@@ -215,6 +211,7 @@ module.exports = grammar({
     )),
     
     section_level2: $ => prec.right(seq(
+      optional($.anchor),
       alias($.section_title_level2, $.section_title),
       repeat(choice(
         $.attribute_entry,
@@ -245,6 +242,7 @@ module.exports = grammar({
     )),
     
     section_level3: $ => prec.right(seq(
+      optional($.anchor),
       alias($.section_title_level3, $.section_title),
       repeat(choice(
         $.attribute_entry,
@@ -274,6 +272,7 @@ module.exports = grammar({
     )),
     
     section_level4: $ => prec.right(seq(
+      optional($.anchor),
       alias($.section_title_level4, $.section_title),
       repeat(choice(
         $.attribute_entry,
@@ -302,6 +301,7 @@ module.exports = grammar({
     )),
     
     section_level5: $ => prec.right(seq(
+      optional($.anchor),
       alias($.section_title_level5, $.section_title),
       repeat(choice(
         $.attribute_entry,
@@ -329,6 +329,7 @@ module.exports = grammar({
     )),
     
     section_level6: $ => prec.right(seq(
+      optional($.anchor),
       alias($.section_title_level6, $.section_title),
       repeat(choice(
         $.attribute_entry,
@@ -408,25 +409,23 @@ module.exports = grammar({
     // Title as separate rule - match everything to end of line
     title: $ => token.immediate(/[^\r\n]+/),
 
-    // Multi-line paragraph text - unified inline structure
+    // Paragraph - one or more non-blank lines separated from other paragraphs by blank lines
     paragraph: $ => prec(PREC.PARAGRAPH, seq(
       field("text", $.text_with_inlines)
     )),
     
     // Text with inline elements - comprehensive structure supporting all inline constructs
     text_with_inlines: $ => prec.right(repeat1(choice(
-      // Auto-links first for highest priority
+      // Auto-links for high priority (both standalone and for links)
       $.auto_link,
       // Primary inline elements via inline_element wrapper for consistency with tests
-      $.inline_element,
+      prec(50, $.inline_element),
       // Plain text (lowest precedence)
       $.text_segment
     ))),
     
-    // Text segment - text that continues until inline formatting, space, or line end
-    // Stop at spaces to allow URL recognition at word boundaries
-    // Include asterisk to prevent unclosed strong formatting conflicts
-    text_segment: $ => token(prec(PREC.TEXT, /[^_`^~\[{+#\r\n\|\s]+/)),
+    // Text segment - simple pattern, let high-precedence inline elements override
+    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+#<>\r\n\|]+/)),
     
     // ========================================================================
     // INLINE CONDITIONAL DIRECTIVES
@@ -489,6 +488,10 @@ module.exports = grammar({
     // Excludes commas and brackets per EBNF line 209: { non_newline_char - ',' - ']' }
     anchor_text: $ => token(/[^,\]\r\n]+/),
     
+    // Cross-reference text - content between comma and closing angle brackets
+    // Used specifically for internal cross-references <<id,xref_text>>
+    xref_text: $ => token(/[^>\r\n]+/),
+    
     // ========================================================================
     // ENHANCED ANCHOR SUPPORT
     // ========================================================================
@@ -518,7 +521,7 @@ module.exports = grammar({
       field('target', $.id),
       optional(seq(
         token.immediate(','),
-        field('text', $.bracketed_text)
+        field('text', alias($.xref_text, $.bracketed_text))
       )),
       token.immediate('>>')
     )),
@@ -541,33 +544,33 @@ module.exports = grammar({
     // Inline footnote - EBNF line 334: footnote_inline = 'footnote:[', footnote_text, ']'
     // Self-contained footnote with text directly embedded
     // Example: footnote:[This is a footnote]
-    footnote_inline: $ => prec(PREC.INLINE_MACRO, seq(
-      token('footnote:['),
+    footnote_inline: $ => prec.dynamic(15000, prec(PREC.INLINE_MACRO + 100, seq(
+      token(prec(100, 'footnote:[')),
       field('text', $.bracketed_text),
       token.immediate(']')
-    )),
+    ))),
     
     // Referenced footnote - EBNF line 335: footnote_ref = 'footnote:', footnote_id, '[', [ footnote_text ], ']'
     // Creates a footnote with an ID that can be referenced elsewhere
     // Examples: footnote:ref1[] or footnote:ref1[Footnote text]
-    footnote_ref: $ => prec(PREC.INLINE_MACRO, seq(
-      token('footnote:'),
+    footnote_ref: $ => prec.dynamic(15000, prec(PREC.INLINE_MACRO + 100, seq(
+      token(prec(100, 'footnote:')),
       field('id', $.id),
       token.immediate('['),
       optional(field('text', $.bracketed_text)),
       token.immediate(']')
-    )),
+    ))),
     
     // Footnote reference - EBNF line 336: footnoteref = 'footnoteref:', footnote_id, '[', [ footnote_text ], ']'
     // References a previously defined footnote by ID
     // Examples: footnoteref:ref1[] or footnoteref:ref1[Override text]
-    footnoteref: $ => prec(PREC.INLINE_MACRO, seq(
-      token('footnoteref:'),
+    footnoteref: $ => prec.dynamic(15000, prec(PREC.INLINE_MACRO + 100, seq(
+      token(prec(100, 'footnoteref:')),
       field('id', $.id),
       token.immediate('['),
       optional(field('text', $.bracketed_text)),
       token.immediate(']')
-    )),
+    ))),
     
     // ========================================================================
     // ADMONITIONS - Paragraph and Block Forms
@@ -625,15 +628,15 @@ module.exports = grammar({
     // INLINE ELEMENT INFRASTRUCTURE
     // ========================================================================
     
-    // Main inline element choices
+    // Main inline element choices - footnotes first for precedence
     inline_element: $ => choice(
-      // Inline macro elements
-      $.inline_anchor,
-      $.internal_xref,
-      $.external_xref,
+      // Inline macro elements - footnotes included here for proper wrapping
       $.footnote_inline,
       $.footnote_ref,
       $.footnoteref,
+      $.external_xref,
+      $.inline_anchor,
+      $.internal_xref,
       $.inline_conditional,
       // Inline formatting elements
       $.strong,
@@ -660,10 +663,12 @@ module.exports = grammar({
     // ========================================================================
     
     // Strong formatting (bold) - *text*
+    // Must contain proper word boundaries and closing asterisk
     strong: $ => seq(
       $.strong_constrained
     ),
     
+    // Strong text requires both opening and closing asterisk with content in between
     strong_constrained: $ => prec(PREC.STRONG, seq(
       token('*'),
       alias(token.immediate(/[^*\r\n]+/), $.strong_text),
@@ -713,24 +718,33 @@ module.exports = grammar({
     // Inline passthrough: +++literal text+++
     passthrough_triple_plus: $ => prec(PREC.PASSTHROUGH, seq(
       token('+++'),
-      field('content', token(prec(PREC.PASSTHROUGH, /(?:[^+]|\+[^+]|\+\+[^+])*/))),
-      token('+++')
+      field('content', token.immediate(/(?:[^+]|\+[^+]|\+\+[^+])*/)),
+      token.immediate('+++')
     )),
     
-    // Pass macro: pass:subs[content]
-    pass_macro: $ => prec(PREC.PASSTHROUGH, seq(
-      token('pass:'),
-      optional(field('subs', token(/[A-Za-z0-9_,+|-]+/))),
-      token('['),
-      field('content', token(prec(PREC.PASSTHROUGH, /(?:\\.|[^\]]+)*/))),
-      token(']')
-    )),
+    // Pass macro: pass:subs[content] - very high precedence to beat text_segment
+    pass_macro: $ => prec.dynamic(10000, prec(PREC.PASSTHROUGH + 50, choice(
+      // Pass macro with substitutions: pass:subs[content]
+      seq(
+        token('pass:'),
+        field('subs', token.immediate(/[A-Za-z0-9_,+|-]+/)),
+        token.immediate('['),
+        field('content', token.immediate(/(?:\\.|[^\]]+)*/)),
+        token.immediate(']')
+      ),
+      // Pass macro without substitutions: pass:[content]
+      seq(
+        token('pass:['),
+        field('content', token.immediate(/(?:\\.|[^\]]+)*/)),
+        token.immediate(']')
+      )
+    ))),
     
     // Attribute references: {attribute-name}
     attribute_reference: $ => token(prec(PREC.ATTRIBUTE_REF, /\{[A-Za-z0-9_][A-Za-z0-9_-]*\}/)),
     
-    // Line breaks: trailing " +" at end of line
-    line_break: $ => prec(PREC.LINE_BREAK, token(/[ \t]\+/)),
+    // Line breaks: trailing " +" at end of line 
+    line_break: $ => prec(PREC.LINE_BREAK, token(/[ \t]\+[ \t]*\r?\n/)),
     
     // Role spans: [role]#styled text#
     role_span: $ => prec(PREC.ROLE_SPAN, seq(
@@ -769,10 +783,10 @@ module.exports = grammar({
       token(']')
     )),
     
-    // Automatic URLs and links - high dynamic precedence to override text_segment
-    auto_link: $ => prec.dynamic(1000, token(prec(PREC.LINK, /(?:https?|ftp|file|mailto|irc|ssh):\/\/[^\s\[\]<>]+/))),
+    // Automatic URLs and links - very high dynamic precedence to override text_segment
+    auto_link: $ => prec.dynamic(5000, token(prec(PREC.LINK + 100, /(?:https?|ftp|file|mailto|irc|ssh):\/\/[^\s\[\]<>]+/))),
     
-    link: $ => prec(PREC.LINK + 1, seq(
+    link: $ => prec.dynamic(2000, prec(PREC.LINK + 100, seq(
       field('url', $.auto_link),
       token('['),
       field('text', repeat(choice(
@@ -786,7 +800,7 @@ module.exports = grammar({
         alias(token(/\\.|[^\]]/), $.text_segment)
       ))),
       token(']')
-    )),
+    ))),
     
     // Image macros: image: and image::
     image: $ => prec(PREC.IMAGE, choice(
@@ -839,19 +853,19 @@ module.exports = grammar({
     // Delimited block delimiters - separate open/close for test compatibility
     // Closing delimiters need higher precedence than content lines to be properly recognized
     example_open: $ => token(prec(PREC.DELIMITED_BLOCK, /====[ \t]*\r?\n/)),
-    example_close: $ => token(prec(300, /====[ \t]*\r?\n/)),
+    example_close: $ => token(prec(1000, /====[ \t]*\r?\n/)),
     listing_open: $ => token(prec(PREC.DELIMITED_BLOCK, /----[ \t]*\r?\n/)),
-    listing_close: $ => token(prec(300, /----[ \t]*\r?\n/)),
+    listing_close: $ => token(prec(1000, /----[ \t]*\r?\n/)),
     literal_open: $ => token(prec(PREC.DELIMITED_BLOCK, /\.\.\.\.[ \t]*\r?\n/)),
-    literal_close: $ => token(prec(300, /\.\.\.\.[ \t]*\r?\n/)),
+    literal_close: $ => token(prec(1000, /\.\.\.\.[ \t]*\r?\n/)),
     quote_open: $ => token(prec(PREC.DELIMITED_BLOCK, /____[ \t]*\r?\n/)),
-    quote_close: $ => token(prec(300, /____[ \t]*\r?\n/)),
+    quote_close: $ => token(prec(1000, /____[ \t]*\r?\n/)),
     sidebar_open: $ => token(prec(PREC.DELIMITED_BLOCK, /\*\*\*\*[ \t]*\r?\n/)),
-    sidebar_close: $ => token(prec(300, /\*\*\*\*[ \t]*\r?\n/)),
+    sidebar_close: $ => token(prec(1000, /\*\*\*\*[ \t]*\r?\n/)),
     passthrough_open: $ => token(prec(PREC.DELIMITED_BLOCK, /\+\+\+\+[ \t]*\r?\n/)),
-    passthrough_close: $ => token(prec(300, /\+\+\+\+[ \t]*\r?\n/)),
+    passthrough_close: $ => token(prec(1000, /\+\+\+\+[ \t]*\r?\n/)),
     openblock_open: $ => token(prec(PREC.DELIMITED_BLOCK, /--[ \t]*\r?\n/)),
-    openblock_close: $ => token(prec(300, /--[ \t]*\r?\n/)),
+    openblock_close: $ => token(prec(1000, /--[ \t]*\r?\n/)),
     
     // Content line for delimited blocks - highest precedence to override all other tokens
     _content_line: $ => token(prec(200, /[^\r\n]*\r?\n/)),
@@ -966,13 +980,26 @@ module.exports = grammar({
       $.openblock_close
     ),
 
-    // Attribute entry - fully atomic pattern to avoid global token conflicts
-    attribute_entry: $ => choice(
-      // With value
-      token(prec(PREC.ATTRIBUTE_ENTRY, /:[A-Za-z0-9][A-Za-z0-9_-]*:[^\r\n]+/)),
-      // Without value (just name with colons)
-      token(prec(PREC.ATTRIBUTE_ENTRY, /:[A-Za-z0-9][A-Za-z0-9_-]*:/)),
-    ),
+    // Attribute entry - structured to extract name and value fields
+    attribute_entry: $ => prec(PREC.ATTRIBUTE_ENTRY, choice(
+      // With value: :name: value  
+      seq(
+        ':',
+        field('name', $.name),
+        ':',
+        field('value', $.value)
+      ),
+      // Without value: :name:
+      seq(
+        ':',
+        field('name', $.name),
+        ':'
+      )
+    )),
+    
+    // Name and value tokens for attributes
+    name: $ => token(/[A-Za-z0-9][A-Za-z0-9_-]*/),
+    value: $ => token(/[^\r\n]+/),
 
     // ========================================================================
     // LIST PARSING - Markdown-inspired marker-specific lists
@@ -1025,11 +1052,11 @@ module.exports = grammar({
     table_open: $ => token(prec(PREC.TABLE, /\|===[ \t]*\r?\n/)),
     table_close: $ => token(prec(PREC.TABLE, /\|===[ \t]*\r?\n/)),
     
-    // table_row = line containing one or more cells
-    table_row: $ => seq(
-      repeat1($.table_cell),
-      token(/\r?\n/)
-    ),
+    // table_row = single cell (simple approach for now)
+    table_row: $ => prec.right(seq(
+      $.table_cell,
+      optional(/\r?\n/)
+    )),
     
     // table_cell = [ cell_spec ], '|', optional cell_content
     table_cell: $ => seq(
@@ -1038,15 +1065,17 @@ module.exports = grammar({
       optional(field('content', $.cell_content))
     ),
     
-    // cell_spec = [ span_spec ], [ format_spec ] - at least one must be present
-    cell_spec: $ => choice(
-      seq($.span_spec, optional(alias(token(prec(PREC.TABLE + 1, /[almshd]/)), $.format_spec))),
-      alias(token(prec(PREC.TABLE + 1, /[almshd]/)), $.format_spec)
-    ),
+    // cell_spec = [ span_spec ] - format_spec temporarily disabled for testing
+    cell_spec: $ => $.span_spec,
     
     // span_spec = digit, { digit }, [ '.', digit, { digit } ], '+'
     // Examples: 2+, 3.2+, 1.4+
-    span_spec: $ => token(prec(PREC.TABLE + 1, /[0-9]+(?:\.[0-9]+)?\+/)),
+    span_spec: $ => token(prec(PREC.TABLE - 10, /[0-9]+(?:\.[0-9]+)?\+/)),
+    
+    // format_spec = single character format specifier (only in table cell context)
+    // Examples: h (header), l (left), c (center), r (right), d (default), s (strong), e (emphasis), m (monospace), a (AsciiDoc)
+    // Very low precedence to avoid conflicts with regular text
+    format_spec: $ => token(prec(PREC.TABLE - 50, /[hlcrsedma]/)),
     
     // cell_content = { non_newline_char - '|' }
     // Content until next unescaped | or end of row - only non-empty content
