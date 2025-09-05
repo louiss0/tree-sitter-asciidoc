@@ -1,5 +1,0 @@
-﻿|===
-|l|Left Aligned
-|m|Center Aligned
-|s|Right Aligned
-|===

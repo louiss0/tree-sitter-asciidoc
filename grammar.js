@@ -410,12 +410,12 @@ module.exports = grammar({
     title: $ => token.immediate(/[^\r\n]+/),
 
     // Multi-line paragraph text - unified inline structure
-    paragraph: $ => seq(
+    paragraph: $ => prec(PREC.PARAGRAPH, seq(
       field("text", $.text_with_inlines)
-    ),
+    )),
     
     // Text with inline elements - comprehensive structure supporting all inline constructs
-    text_with_inlines: $ => prec.left(repeat1(choice(
+    text_with_inlines: $ => prec.right(repeat1(choice(
       // Primary inline elements via inline_element wrapper for consistency with tests
       $.inline_element,
       // Plain text (lowest precedence)
@@ -657,39 +657,36 @@ module.exports = grammar({
     
     // Strong formatting (bold) - *text*
     strong: $ => seq(
-      alias(
-        seq(
-          token('*'),
-          alias(token(/[^*\r\n]+/), $.strong_text),
-          token('*')
-        ), 
-        $.strong_constrained
-      )
+      $.strong_constrained
     ),
+    
+    strong_constrained: $ => prec(PREC.STRONG, seq(
+      token('*'),
+      alias(token.immediate(/[^*\r\n]+/), $.strong_text),
+      token.immediate('*')
+    )),
     
     // Emphasis formatting (italic) - _text_
     emphasis: $ => seq(
-      alias(
-        seq(
-          token('_'),
-          alias(token(/[^_\r\n]+/), $.emphasis_text),
-          token('_')
-        ),
-        $.emphasis_constrained
-      )
+      $.emphasis_constrained
     ),
+    
+    emphasis_constrained: $ => prec(PREC.EMPHASIS, seq(
+      token('_'),
+      alias(token.immediate(/[^_\r\n]+/), $.emphasis_text),
+      token.immediate('_')
+    )),
     
     // Monospace formatting (code) - `text`
     monospace: $ => seq(
-      alias(
-        seq(
-          token('`'),
-          alias(token(/[^`\r\n]+/), $.monospace_text),
-          token('`')
-        ),
-        $.monospace_constrained
-      )
+      $.monospace_constrained
     ),
+    
+    monospace_constrained: $ => prec(PREC.MONOSPACE, seq(
+      token('`'),
+      alias(token.immediate(/[^`\r\n]+/), $.monospace_text),
+      token.immediate('`')
+    )),
     
     // Superscript - ^text^
     superscript: $ => prec(PREC.SUPERSCRIPT, seq(

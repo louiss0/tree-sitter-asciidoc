@@ -20,8 +20,10 @@ Visit http://example.com`code`[link text] for details.
   (paragraph
     (text_with_inlines
       (link
-        (url (auto_link))
-        (text (text_segment)))))
+        (url
+          (auto_link))
+        (text
+          (text_segment)))))
   (paragraph
     (text_with_inlines
       (text_segment))))
@@ -294,8 +296,10 @@ Use image:logo.png[Logo] and https://example.com[Site] here.
         (attributes))
       (text_segment)
       (link
-        (url (auto_link))
-        (text (text_segment)))
+        (url
+          (auto_link))
+        (text
+          (text_segment)))
       (text_segment))))
 
 ================================================================================

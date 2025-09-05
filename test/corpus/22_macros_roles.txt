@@ -26,14 +26,14 @@ This is [highlight]#*bold* and _italic_# text.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)
-      (role_span
-        (role)
-        (strong
-          (text_segment))
-        (text_segment)
-        (emphasis
-          (text_segment)))
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (inline_element
+        (role_span
+          (text_segment)))))
+  (paragraph
+    (text_with_inlines
       (text_segment))))
 
 ================================================================================
