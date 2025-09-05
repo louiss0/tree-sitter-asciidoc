@@ -1481,20 +1481,24 @@
       }
     },
     "paragraph": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "text",
-          "content": {
-            "type": "SYMBOL",
-            "name": "text_with_inlines"
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "text",
+            "content": {
+              "type": "SYMBOL",
+              "name": "text_with_inlines"
+            }
           }
-        }
-      ]
+        ]
+      }
     },
     "text_with_inlines": {
-      "type": "PREC_LEFT",
+      "type": "PREC_RIGHT",
       "value": 0,
       "content": {
         "type": "REPEAT1",
@@ -2035,69 +2039,39 @@
       ]
     },
     "paragraph_admonition": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "TOKEN",
-              "content": {
-                "type": "PREC",
-                "value": 24,
-                "content": {
-                  "type": "PATTERN",
-                  "value": "NOTE:[ \\t]+[^\\r\\n]+"
-                }
-              }
-            },
-            {
-              "type": "TOKEN",
-              "content": {
-                "type": "PREC",
-                "value": 24,
-                "content": {
-                  "type": "PATTERN",
-                  "value": "TIP:[ \\t]+[^\\r\\n]+"
-                }
-              }
-            },
-            {
-              "type": "TOKEN",
-              "content": {
-                "type": "PREC",
-                "value": 24,
-                "content": {
-                  "type": "PATTERN",
-                  "value": "IMPORTANT:[ \\t]+[^\\r\\n]+"
-                }
-              }
-            },
-            {
-              "type": "TOKEN",
-              "content": {
-                "type": "PREC",
-                "value": 24,
-                "content": {
-                  "type": "PATTERN",
-                  "value": "WARNING:[ \\t]+[^\\r\\n]+"
-                }
-              }
-            },
-            {
-              "type": "TOKEN",
-              "content": {
-                "type": "PREC",
-                "value": 24,
-                "content": {
-                  "type": "PATTERN",
-                  "value": "CAUTION:[ \\t]+[^\\r\\n]+"
-                }
-              }
+      "type": "PREC",
+      "value": 24,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "admonition_label"
+          },
+          {
+            "type": "TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": ":"
             }
-          ]
-        }
-      ]
+          },
+          {
+            "type": "TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "[ \\t]+"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "content",
+            "content": {
+              "type": "SYMBOL",
+              "name": "text_with_inlines"
+            }
+          }
+        ]
+      }
     },
     "admonition_block": {
       "type": "PREC",

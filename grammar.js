@@ -581,15 +581,12 @@ module.exports = grammar({
     
     // Paragraph admonition - EBNF line 225: admonition_label, ':', ' ', inline_content, newline
     // Example: NOTE: This is a note paragraph with *emphasis* and links.
-    paragraph_admonition: $ => seq(
-      choice(
-        token(prec(PREC.ADMONITION_PARAGRAPH, /NOTE:[ \t]+[^\r\n]+/)),
-        token(prec(PREC.ADMONITION_PARAGRAPH, /TIP:[ \t]+[^\r\n]+/)),
-        token(prec(PREC.ADMONITION_PARAGRAPH, /IMPORTANT:[ \t]+[^\r\n]+/)),
-        token(prec(PREC.ADMONITION_PARAGRAPH, /WARNING:[ \t]+[^\r\n]+/)),
-        token(prec(PREC.ADMONITION_PARAGRAPH, /CAUTION:[ \t]+[^\r\n]+/))
-      )
-    ),
+    paragraph_admonition: $ => prec(PREC.ADMONITION_PARAGRAPH, seq(
+      $.admonition_label,
+      token(':'),
+      token(/[ \t]+/),  // Required space after colon
+      field('content', $.text_with_inlines)
+    )),
     
     // Block admonition - EBNF lines 227-229: '[', admonition_label, ']', newline, block_metadata, delimited_block_body
     // Example:

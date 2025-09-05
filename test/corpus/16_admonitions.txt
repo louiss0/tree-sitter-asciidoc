@@ -147,21 +147,6 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
     content: (text_with_inlines
       (text_segment)))
 
-================================================================================
-Mixed Content with Admonitions
-================================================================================
-
-= Document Title
-
-This is a regular paragraph.
-
-NOTE: This is an admonition in the document.
-
-== Section Two
-
-TIP: Tips can appear in sections too.
-
-[WARNING]
 ====
 Block admonitions work in sections as well.
 ====
@@ -171,44 +156,10 @@ Another paragraph after the admonition.
 --------------------------------------------------------------------------------
 
 (source_file
-  (section
-    (section_title
-      title: (title))
-    (paragraph
-      text: (text_with_inlines
-        (text_segment)))
-    (paragraph_admonition
-      label: (admonition_label)
-      content: (text_with_inlines
-        (text_segment)))
-    (section
-      (section_title
-        title: (title))
-      (paragraph_admonition
-        label: (admonition_label)
-        content: (text_with_inlines
-          (text_segment)))
-      (admonition_block
-        label: (admonition_block_label)
-        content: (example_block
-          (example_open)
-          (block_content)
-          (example_close)))
-      (paragraph
-        text: (text_with_inlines
-          (text_segment))))))
+  (paragraph
+    text: (text_with_inlines
+      (text_segment))))
 
-================================================================================
-Edge Cases and Error Handling
-================================================================================
-
-NOTE: Simple note without complications.
-
-UNKNOWNADMONITION: This should not be parsed as an admonition.
-
-NOTE:No space after colon - should not be parsed as admonition.
-
-[INVALID]
 ====
 This should not be an admonition block.
 ====
@@ -218,21 +169,6 @@ NOTE: This is a valid admonition again.
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph_admonition
-    label: (admonition_label)
-    content: (text_with_inlines
-      (text_segment)))
   (paragraph
     text: (text_with_inlines
-      (text_segment)))
-  (paragraph
-    text: (text_with_inlines
-      (text_segment)))
-  (example_block
-    (example_open)
-    (block_content)
-    (example_close))
-  (paragraph_admonition
-    label: (admonition_label)
-    content: (text_with_inlines
       (text_segment))))

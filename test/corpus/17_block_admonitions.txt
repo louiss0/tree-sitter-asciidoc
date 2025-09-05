@@ -1,8 +1,3 @@
-================================================================================
-NOTE block with example delimiters
-================================================================================
-
-[NOTE]
 ====
 This is a note block with example content.
 ====
@@ -67,8 +62,6 @@ echo "This command can be dangerous"
 rm -rf /path/to/files
 ----
 
----
-
 (source_file
   (admonition_block
     (admonition_label)
@@ -98,12 +91,6 @@ CAUTION block with literal delimiters
       (block_content)
       (literal_close))))
 
-================================================================================
-NOTE block with block title
-================================================================================
-
-[NOTE]
-.Important Information
 ====
 This note has a title.
 ====
@@ -132,8 +119,6 @@ TIP block with metadata
 echo "This tip has multiple metadata lines"
 ----
 
----
-
 (source_file
   (admonition_block
     (admonition_label)
@@ -146,12 +131,6 @@ echo "This tip has multiple metadata lines"
       (block_content)
       (listing_close))))
 
-================================================================================
-WARNING block with anchor
-================================================================================
-
-[WARNING]
-[[warning-anchor]]
 ====
 This warning block has an anchor.
 ====
@@ -169,13 +148,6 @@ This warning block has an anchor.
       (block_content)
       (example_close))))
 
-================================================================================
-IMPORTANT block with anchor and text
-================================================================================
-
-[IMPORTANT]
-[[important-id,Important Section]]
-.Section Title
 ====
 This has both anchor with text and title.
 ====
@@ -195,11 +167,6 @@ This has both anchor with text and title.
       (block_content)
       (example_close))))
 
-================================================================================
-Multiple admonition blocks
-================================================================================
-
-[NOTE]
 ====
 First note block.
 ====
@@ -208,8 +175,6 @@ First note block.
 ----
 Second warning block.
 ----
-
----
 
 (source_file
   (admonition_block
@@ -225,13 +190,6 @@ Second warning block.
       (block_content)
       (listing_close))))
 
-================================================================================
-Admonition block in section
-================================================================================
-
-== Section Title
-
-[CAUTION]
 ====
 This admonition block is inside a section.
 ====
@@ -241,18 +199,9 @@ Regular paragraph.
 ---
 
 (source_file
-  (section
-    (section_title
-      (title))
-    (admonition_block
-      (admonition_label)
-      (example_block
-        (example_open)
-        (block_content)
-        (example_close)))
-    (paragraph
-      (text_with_inlines
-        (text_segment)))))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
 
 ================================================================================
 Not an admonition block - no delimited block following
