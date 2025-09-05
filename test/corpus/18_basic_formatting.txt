@@ -63,7 +63,9 @@ This has *unclosed bold and _unclosed italic and `unclosed code.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment))))
+      (text_segment)))
+  (ERROR
+    (strong_text)))
 
 ================================================================================
 Mixed formatting elements
