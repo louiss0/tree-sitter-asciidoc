@@ -11,7 +11,7 @@
     },
     "_whitespace": {
       "type": "PATTERN",
-      "value": "\\s+"
+      "value": "[ \\t]+"
     },
     "_line_comment": {
       "type": "PATTERN",

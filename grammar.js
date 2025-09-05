@@ -68,7 +68,7 @@ module.exports = grammar({
   
   rules: {
     source_file: $ => repeat($._block),
-    _whitespace: $ => /\s+/,
+    _whitespace: $ => /[ \t]+/,
     _line_comment: $ => /\/\/.+/,
     _block_comment: $ => /\/\/\/\/.+\/\/\/\//,
     _block: $ => choice(
@@ -420,11 +420,11 @@ module.exports = grammar({
       $.auto_link,
       // Primary inline elements via inline_element wrapper for consistency with tests
       prec(50, $.inline_element),
-      // Plain text (lowest precedence)
+      // Plain text (lowest precedence) - consolidate adjacent text into single segments
       $.text_segment
     ))),
     
-    // Text segment - simple pattern, let high-precedence inline elements override
+    // Text segment - consolidate all non-inline-delimiter text into single segments
     text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+#<>\r\n\|]+/)),
     
     // ========================================================================
