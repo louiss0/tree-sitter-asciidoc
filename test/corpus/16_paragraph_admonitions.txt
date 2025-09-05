@@ -91,6 +91,15 @@ note: This should be a regular paragraph, not an admonition.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -104,6 +113,11 @@ NOTE:This should be a regular paragraph.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -117,6 +131,13 @@ INFO: This is not a valid admonition type.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================

@@ -1,0 +1,8 @@
+== Section Title
+
+[NOTE]
+====
+This is a proper admonition block inside a section.
+====
+
+Regular paragraph.

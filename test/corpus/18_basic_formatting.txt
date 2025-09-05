@@ -117,6 +117,7 @@ This has ^superscript^ and ~subscript~ text.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
       (inline_element
         (superscript
           (superscript_text)))

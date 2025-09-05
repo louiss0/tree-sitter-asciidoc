@@ -9,12 +9,9 @@ This +++*should not be bold*+++ text.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (passthrough_triple_plus)))
-  (paragraph
-    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (passthrough_triple_plus))
       (text_segment))))
 
 ================================================================================
@@ -28,13 +25,9 @@ This pass:[*should not be bold*] text.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (pass_macro
-        (content))))
-  (paragraph
-    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (pass_macro))
       (text_segment))))
 
 ================================================================================
@@ -49,9 +42,8 @@ This pass:quotes[*should not be bold*] text.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (pass_macro
-        (subs)
-        (content))
+      (inline_element
+        (pass_macro))
       (text_segment))))
 
 ================================================================================
@@ -65,17 +57,10 @@ Both +++raw+++ and pass:[protected] here.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (passthrough_triple_plus))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (pass_macro
-        (content))))
-  (paragraph
-    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (passthrough_triple_plus))
+      (text_segment)
+      (inline_element
+        (pass_macro))
       (text_segment))))
