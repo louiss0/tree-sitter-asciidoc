@@ -59,6 +59,16 @@ const PREC = {
 module.exports = grammar({
   name: "asciidoc",
 
+  externals: $ => [
+    $.block_fence_start,
+    $.block_fence_end,
+    $.table_fence_start,
+    $.table_fence_end,
+    $.list_continuation,
+    $.autolink_boundary,
+    $.attribute_list_start
+  ],
+
   extras: $ => [
     $._whitespace,
     $._line_comment,
