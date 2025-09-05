@@ -2540,23 +2540,19 @@
             }
           },
           {
-            "type": "FIELD",
-            "name": "content",
+            "type": "ALIAS",
             "content": {
-              "type": "ALIAS",
+              "type": "IMMEDIATE_TOKEN",
               "content": {
-                "type": "TOKEN",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[^\\^\\r\\n]+"
-                }
-              },
-              "named": true,
-              "value": "superscript_text"
-            }
+                "type": "PATTERN",
+                "value": "[^\\^\\r\\n]+"
+              }
+            },
+            "named": true,
+            "value": "superscript_text"
           },
           {
-            "type": "TOKEN",
+            "type": "IMMEDIATE_TOKEN",
             "content": {
               "type": "STRING",
               "value": "^"
@@ -2579,23 +2575,19 @@
             }
           },
           {
-            "type": "FIELD",
-            "name": "content",
+            "type": "ALIAS",
             "content": {
-              "type": "ALIAS",
+              "type": "IMMEDIATE_TOKEN",
               "content": {
-                "type": "TOKEN",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[^~\\r\\n]+"
-                }
-              },
-              "named": true,
-              "value": "subscript_text"
-            }
+                "type": "PATTERN",
+                "value": "[^~\\r\\n]+"
+              }
+            },
+            "named": true,
+            "value": "subscript_text"
           },
           {
-            "type": "TOKEN",
+            "type": "IMMEDIATE_TOKEN",
             "content": {
               "type": "STRING",
               "value": "~"

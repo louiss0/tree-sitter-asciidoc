@@ -695,15 +695,15 @@ module.exports = grammar({
     // Superscript - ^text^
     superscript: $ => prec(PREC.SUPERSCRIPT, seq(
       token('^'),
-      field('content', alias(token(/[^\^\r\n]+/), $.superscript_text)),
-      token('^')
+      alias(token.immediate(/[^\^\r\n]+/), $.superscript_text),
+      token.immediate('^')
     )),
     
     // Subscript - ~text~
     subscript: $ => prec(PREC.SUBSCRIPT, seq(
       token('~'),
-      field('content', alias(token(/[^~\r\n]+/), $.subscript_text)),
-      token('~')
+      alias(token.immediate(/[^~\r\n]+/), $.subscript_text),
+      token.immediate('~')
     )),
     
     // ========================================================================
