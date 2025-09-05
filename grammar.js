@@ -997,31 +997,30 @@ module.exports = grammar({
     value: $ => token(/[^\r\n]+/),
 
     // ========================================================================
-    // LIST PARSING - Markdown-inspired marker-specific lists
+    // LIST PARSING - Single-item lists (per test expectations)
     // ========================================================================
     
-    // Unordered lists - separate types for each marker for better grouping
-    unordered_list: $ => choice(
-      $._list_asterisk,
-      $._list_dash
-    ),
+    // Unordered lists - each item creates a separate list node
+    unordered_list: $ => prec(PREC.LIST, seq(
+      $.unordered_list_item
+    )),
     
-    _list_asterisk: $ => prec.right(10, repeat1(alias($._asterisk_list_item, $.unordered_list_item))),
-    _list_dash: $ => prec.right(10, repeat1(alias($._dash_list_item, $.unordered_list_item))),
+    unordered_list_item: $ => token(prec(PREC.LIST + 5, /[*-][ \t]+[^\r\n]+/)),
     
-    _asterisk_list_item: $ => token(prec(20, /\*[ \t]+[^\r\n]+/)),
-    _dash_list_item: $ => token(prec(20, /-[ \t]+[^\r\n]+/)),
+    // Ordered lists - each item creates a separate list node
+    ordered_list: $ => prec(PREC.LIST, seq(
+      $.ordered_list_item
+    )),
     
-    // Ordered lists
-    ordered_list: $ => prec.right(10, repeat1($.ordered_list_item)),
+    ordered_list_item: $ => token(prec(PREC.LIST + 5, /[0-9]+\.[ \t]+[^\r\n]+/)),
     
-    ordered_list_item: $ => token(prec(20, /[0-9]+\.[ \t]+[^\r\n]+/)),
-    
-    // Description lists  
-    description_list: $ => prec.right(10, repeat1($.description_item)),
+    // Description lists - each item creates a separate list node
+    description_list: $ => prec(PREC.DESCRIPTION_LIST, seq(
+      $.description_item
+    )),
     
     // Description item - only simple identifiers (no spaces) to avoid conflicts
-    description_item: $ => token(prec(PREC.DESCRIPTION_LIST - 5, /[A-Za-z][A-Za-z0-9_-]{0,30}::[ \t]+[^\r\n]+/)),
+    description_item: $ => token(prec(PREC.DESCRIPTION_LIST + 5, /[A-Za-z][A-Za-z0-9_-]{0,30}::[ \t]+[^\r\n]+/)),
     
     // Callout lists
     callout_list: $ => prec.right(10, repeat1($.callout_item)),
