@@ -4,9 +4,7 @@
 (section_title (title) @markup.heading)
 
 ; Attribute entries
-(attribute_entry
-  (name) @property
-  (value) @string)
+(attribute_entry) @property
 
 ; Paragraph text
 (paragraph (text_with_inlines) @markup.text)
