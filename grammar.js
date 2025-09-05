@@ -829,20 +829,21 @@ module.exports = grammar({
     // ========================================================================
     
     // Delimited block delimiters - separate open/close for test compatibility
+    // Closing delimiters need higher precedence than content lines to be properly recognized
     example_open: $ => token(prec(PREC.DELIMITED_BLOCK, /====[ \t]*\r?\n/)),
-    example_close: $ => token(prec(PREC.DELIMITED_BLOCK, /====[ \t]*\r?\n/)),
+    example_close: $ => token(prec(300, /====[ \t]*\r?\n/)),
     listing_open: $ => token(prec(PREC.DELIMITED_BLOCK, /----[ \t]*\r?\n/)),
-    listing_close: $ => token(prec(PREC.DELIMITED_BLOCK, /----[ \t]*\r?\n/)),
+    listing_close: $ => token(prec(300, /----[ \t]*\r?\n/)),
     literal_open: $ => token(prec(PREC.DELIMITED_BLOCK, /\.\.\.\.[ \t]*\r?\n/)),
-    literal_close: $ => token(prec(PREC.DELIMITED_BLOCK, /\.\.\.\.[ \t]*\r?\n/)),
+    literal_close: $ => token(prec(300, /\.\.\.\.[ \t]*\r?\n/)),
     quote_open: $ => token(prec(PREC.DELIMITED_BLOCK, /____[ \t]*\r?\n/)),
-    quote_close: $ => token(prec(PREC.DELIMITED_BLOCK, /____[ \t]*\r?\n/)),
+    quote_close: $ => token(prec(300, /____[ \t]*\r?\n/)),
     sidebar_open: $ => token(prec(PREC.DELIMITED_BLOCK, /\*\*\*\*[ \t]*\r?\n/)),
-    sidebar_close: $ => token(prec(PREC.DELIMITED_BLOCK, /\*\*\*\*[ \t]*\r?\n/)),
+    sidebar_close: $ => token(prec(300, /\*\*\*\*[ \t]*\r?\n/)),
     passthrough_open: $ => token(prec(PREC.DELIMITED_BLOCK, /\+\+\+\+[ \t]*\r?\n/)),
-    passthrough_close: $ => token(prec(PREC.DELIMITED_BLOCK, /\+\+\+\+[ \t]*\r?\n/)),
+    passthrough_close: $ => token(prec(300, /\+\+\+\+[ \t]*\r?\n/)),
     openblock_open: $ => token(prec(PREC.DELIMITED_BLOCK, /--[ \t]*\r?\n/)),
-    openblock_close: $ => token(prec(PREC.DELIMITED_BLOCK, /--[ \t]*\r?\n/)),
+    openblock_close: $ => token(prec(300, /--[ \t]*\r?\n/)),
     
     // Content line for delimited blocks - highest precedence to override all other tokens
     _content_line: $ => token(prec(200, /[^\r\n]*\r?\n/)),
