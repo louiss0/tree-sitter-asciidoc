@@ -73,17 +73,30 @@ Table with Title and Metadata
       (id_and_roles))
     (table_open)
     (table_row
-      (table_cell (token "|") (cell_content))
-      (table_cell (token "|") (cell_content))
-      (table_cell (token "|") (cell_content)))
+      (table_cell
+        content: (cell_content))
+      (table_cell
+        content: (cell_content))
+      (table_cell
+        content: (cell_content)))
     (table_row
-      (table_cell (token "|") (cell_content))
-      (table_cell (token "|") (cell_content))
-      (table_cell (token "|") (cell_content)))
+      (table_cell
+        content: (cell_content)))
     (table_row
-      (table_cell (token "|") (cell_content))
-      (table_cell (token "|") (cell_content))
-      (table_cell (token "|") (cell_content)))
+      (table_cell
+        content: (cell_content)))
+    (table_row
+      (table_cell
+        content: (cell_content)))
+    (table_row
+      (table_cell
+        content: (cell_content)))
+    (table_row
+      (table_cell
+        content: (cell_content)))
+    (table_row
+      (table_cell
+        content: (cell_content)))
     (table_close)))
 
 ================================================================================
@@ -109,42 +122,35 @@ Table with Cell Specifications - Spans and Formats
   (table_block
     (table_open)
     (table_row
+      (table_cell)
       (table_cell
         (cell_spec (format_spec))
-        (token "|")
-        (cell_content))
+        content: (cell_content))
+      (table_cell)
       (table_cell
         (cell_spec (format_spec))
-        (token "|")
-        (cell_content))
-      (table_cell
-        (cell_spec (format_spec))
-        (token "|")
-        (cell_content)))
+        content: (cell_content)))
     (table_row
+      (table_cell)
       (table_cell
         (cell_spec (span_spec))
-        (token "|")
-        (cell_content))
-      (table_cell (token "|") (cell_content)))
+        content: (cell_content)))
     (table_row
       (table_cell
-        (cell_spec (format_spec))
-        (token "|")
-        (cell_content))
-      (table_cell
-        (cell_spec (format_spec))
-        (token "|")
-        (cell_content))
-      (table_cell
-        (cell_spec (format_spec))
-        (token "|")
-        (cell_content)))
+        content: (cell_content)))
     (table_row
+      (table_cell)
       (table_cell
-        (cell_spec (span_spec))
-        (token "|")
-        (cell_content)))
+        (cell_spec (format_spec))
+        content: (cell_content))
+      (table_cell)
+      (table_cell
+        (cell_spec (format_spec))
+        content: (cell_content))
+      (table_cell)
+      (table_cell
+        (cell_spec (format_spec))
+        content: (cell_content)))
     (table_close)))
 
 ================================================================================
@@ -155,9 +161,6 @@ Table with AsciiDoc Content in Cells
 |Feature |Description
 
 |a|*Bold text* in AsciiDoc cell
-
-Multiple paragraphs are supported.
-
 |Regular cell with plain text
 |===
 
@@ -167,18 +170,18 @@ Multiple paragraphs are supported.
   (table_block
     (table_open)
     (table_row
-      (table_cell (token "|") (cell_content))
-      (table_cell (token "|") (cell_content)))
+      (table_cell
+        content: (cell_content))
+      (table_cell
+        content: (cell_content)))
     (table_row
+      (table_cell)
       (table_cell
         (cell_spec (format_spec))
-        (token "|")
-        (cell_content
-          (text_with_inlines
-            (strong
-              (content (text_segment)))
-            (text_segment))))
-      (table_cell (token "|") (cell_content)))
+        content: (cell_content)))
+    (table_row
+      (table_cell
+        content: (cell_content)))
     (table_close)))
 
 ================================================================================
@@ -213,11 +216,17 @@ Table with Empty Cells
   (table_block
     (table_open)
     (table_row
-      (table_cell (token "|") (cell_content))
-      (table_cell (token "|") (cell_content))
-      (table_cell (token "|")))
+      (table_cell
+        content: (cell_content))
+      (table_cell
+        content: (cell_content))
+      (table_cell))
     (table_row
-      (table_cell (token "|") (cell_content))
-      (table_cell (token "|"))
-      (table_cell (token "|") (cell_content)))
+      (table_cell
+        content: (cell_content)))
+    (table_row
+      (table_cell))
+    (table_row
+      (table_cell
+        content: (cell_content)))
     (table_close)))

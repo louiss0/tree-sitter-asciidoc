@@ -416,32 +416,14 @@ module.exports = grammar({
     
     // Text with inline elements - comprehensive structure supporting all inline constructs
     text_with_inlines: $ => prec.left(repeat1(choice(
-      // Direct inline formatting elements (highest precedence)
-      prec(PREC.PASSTHROUGH, $.passthrough_triple_plus),
-      prec(PREC.PASSTHROUGH, $.pass_macro),
-      prec(PREC.ROLE_SPAN, $.role_span),
-      prec(PREC.MATH, $.math),
-      prec(PREC.UI_MACRO, $.ui_kbd),
-      prec(PREC.UI_MACRO, $.ui_btn), 
-      prec(PREC.UI_MACRO, $.ui_menu),
-      prec(PREC.IMAGE, $.image),
-      prec(PREC.LINK + 1, $.link),
-      prec(PREC.LINK, $.auto_link),  // standalone URLs
-      prec(PREC.MONOSPACE, $.monospace),
-      prec(PREC.STRONG, $.strong),
-      prec(PREC.EMPHASIS, $.emphasis),
-      prec(PREC.SUPERSCRIPT, $.superscript),
-      prec(PREC.SUBSCRIPT, $.subscript),
-      prec(PREC.ATTRIBUTE_REF, $.attribute_reference),
-      prec(PREC.LINE_BREAK, $.line_break),
-      // Legacy inline elements (cross-refs, footnotes, etc.)
-      prec(1000, $.inline_element),
+      // Primary inline elements via inline_element wrapper for consistency with tests
+      $.inline_element,
       // Plain text (lowest precedence)
-      prec(PREC.TEXT, $.text_segment)
+      $.text_segment
     ))),
     
-    // Text segment - text that avoids inline formatting starts and ends
-    text_segment: $ => token(prec(PREC.TEXT, /(?:\\.|[^*_`^~\[{+#\r\n])+/)),
+    // Text segment - text that continues until inline formatting or line end
+    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+#\r\n\|]+/)),
     
     // ========================================================================
     // INLINE CONDITIONAL DIRECTIVES
@@ -599,12 +581,15 @@ module.exports = grammar({
     
     // Paragraph admonition - EBNF line 225: admonition_label, ':', ' ', inline_content, newline
     // Example: NOTE: This is a note paragraph with *emphasis* and links.
-    paragraph_admonition: $ => prec(PREC.ADMONITION_PARAGRAPH, seq(
-      field('type', $.admonition_label),
-      ':',
-      /[ \t]+/, // At least one space after colon
-      field('text', $.text_with_inlines)
-    )),
+    paragraph_admonition: $ => seq(
+      choice(
+        token(prec(PREC.ADMONITION_PARAGRAPH, /NOTE:[ \t]+[^\r\n]+/)),
+        token(prec(PREC.ADMONITION_PARAGRAPH, /TIP:[ \t]+[^\r\n]+/)),
+        token(prec(PREC.ADMONITION_PARAGRAPH, /IMPORTANT:[ \t]+[^\r\n]+/)),
+        token(prec(PREC.ADMONITION_PARAGRAPH, /WARNING:[ \t]+[^\r\n]+/)),
+        token(prec(PREC.ADMONITION_PARAGRAPH, /CAUTION:[ \t]+[^\r\n]+/))
+      )
+    ),
     
     // Block admonition - EBNF lines 227-229: '[', admonition_label, ']', newline, block_metadata, delimited_block_body
     // Example:
@@ -637,6 +622,7 @@ module.exports = grammar({
     
     // Main inline element choices
     inline_element: $ => choice(
+      // Inline macro elements
       $.inline_anchor,
       $.internal_xref,
       $.external_xref,
@@ -644,12 +630,13 @@ module.exports = grammar({
       $.footnote_ref,
       $.footnoteref,
       $.inline_conditional,
-      // New inline formatting elements
+      // Inline formatting elements
       $.strong,
       $.emphasis,
       $.monospace,
       $.superscript,
       $.subscript,
+      // Other inline elements
       $.attribute_reference,
       $.auto_link,
       $.link,
@@ -669,66 +656,52 @@ module.exports = grammar({
     // ========================================================================
     
     // Strong formatting (bold) - *text*
-    strong: $ => prec(PREC.STRONG, seq(
-      token('*'),
-      field('content', repeat1(choice(
-        $.emphasis,
-        $.monospace,
-        $.superscript,
-        $.subscript,
-        $.attribute_reference,
-        $.line_break,
-        $.passthrough_triple_plus,
-        $.pass_macro,
-        alias(token(prec(10, /\\\*|[^*\r\n]+/)), $.text_segment)
-      ))),
-      token('*')
-    )),
+    strong: $ => seq(
+      alias(
+        seq(
+          token('*'),
+          alias(token(/[^*\r\n]+/), $.strong_text),
+          token('*')
+        ), 
+        $.strong_constrained
+      )
+    ),
     
     // Emphasis formatting (italic) - _text_
-    emphasis: $ => prec(PREC.EMPHASIS, seq(
-      token('_'),
-      field('content', repeat1(choice(
-        $.strong,
-        $.monospace,
-        $.superscript,
-        $.subscript,
-        $.attribute_reference,
-        $.line_break,
-        $.passthrough_triple_plus,
-        $.pass_macro,
-        alias(token(prec(10, /\\_|[^_\r\n]+/)), $.text_segment)
-      ))),
-      token('_')
-    )),
+    emphasis: $ => seq(
+      alias(
+        seq(
+          token('_'),
+          alias(token(/[^_\r\n]+/), $.emphasis_text),
+          token('_')
+        ),
+        $.emphasis_constrained
+      )
+    ),
     
     // Monospace formatting (code) - `text`
-    monospace: $ => prec(PREC.MONOSPACE, seq(
-      token('`'),
-      field('content', repeat1(choice(
-        $.attribute_reference,
-        alias(token(prec(10, /\\`|[^`\r\n]+/)), $.text_segment)
-      ))),
-      token('`')
-    )),
+    monospace: $ => seq(
+      alias(
+        seq(
+          token('`'),
+          alias(token(/[^`\r\n]+/), $.monospace_text),
+          token('`')
+        ),
+        $.monospace_constrained
+      )
+    ),
     
     // Superscript - ^text^
     superscript: $ => prec(PREC.SUPERSCRIPT, seq(
       token('^'),
-      field('content', repeat1(choice(
-        $.attribute_reference,
-        alias(token(prec(10, /\\\^|[^\^\r\n]+/)), $.text_segment)
-      ))),
+      field('content', alias(token(/[^\^\r\n]+/), $.superscript_text)),
       token('^')
     )),
     
     // Subscript - ~text~
     subscript: $ => prec(PREC.SUBSCRIPT, seq(
       token('~'),
-      field('content', repeat1(choice(
-        $.attribute_reference,
-        alias(token(prec(10, /\\~|[^~\r\n]+/)), $.text_segment)
-      ))),
+      field('content', alias(token(/[^~\r\n]+/), $.subscript_text)),
       token('~')
     )),
     
@@ -1059,7 +1032,7 @@ module.exports = grammar({
       token(/\r?\n/)
     ),
     
-    // table_cell = [ cell_spec ], '|', cell_content
+    // table_cell = [ cell_spec ], '|', optional cell_content
     table_cell: $ => seq(
       optional($.cell_spec),
       token('|'),
@@ -1081,7 +1054,7 @@ module.exports = grammar({
     format_spec: $ => token(prec(PREC.TABLE + 1, /[almshd]/)),
     
     // cell_content = { non_newline_char - '|' }
-    // Content until next unescaped | or end of row
-    cell_content: $ => token.immediate(/[^|\r\n]*/),
+    // Content until next unescaped | or end of row - only non-empty content
+    cell_content: $ => token.immediate(/[^|\r\n]+/),
   },
 });

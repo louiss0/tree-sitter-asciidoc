@@ -1,0 +1,9 @@
+|===
+|Feature |Description
+
+|a|*Bold text* in AsciiDoc cell
+
+Multiple paragraphs are supported.
+
+|Regular cell with plain text
+|===
