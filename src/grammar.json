@@ -4297,17 +4297,6 @@
     [
       "link",
       "auto_link"
-    ],
-    [
-      "table_row"
-    ],
-    [
-      "table_block",
-      "table_row"
-    ],
-    [
-      "cell_content",
-      "text_with_inlines"
     ]
   ],
   "precedences": [],
