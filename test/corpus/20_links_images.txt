@@ -12,9 +12,11 @@ Also check out http://test.org and ftp://files.com/download.
     (text_with_inlines
       (text_segment)
       (auto_link)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)
       (auto_link)
       (text_segment)

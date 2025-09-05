@@ -97,6 +97,8 @@ Visit https://example.com for more info.
     (text_with_inlines
       (text_segment)
       (auto_link)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
