@@ -112,6 +112,11 @@
     "fields": {}
   },
   {
+    "type": "block_content",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "callout_list",
     "named": true,
     "fields": {},
@@ -1783,10 +1788,6 @@
   },
   {
     "type": "block_attributes",
-    "named": true
-  },
-  {
-    "type": "block_content",
     "named": true
   },
   {

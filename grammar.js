@@ -62,7 +62,6 @@ module.exports = grammar({
   extras: $ => [/\s/],
   
   conflicts: $ => [
-    [$.title, $.name],
     [$.block_metadata],
     [$.paragraph_admonition, $.paragraph],
     [$.strong, $.emphasis],
@@ -845,18 +844,21 @@ module.exports = grammar({
     openblock_open: $ => token(prec(PREC.DELIMITED_BLOCK, /--[ \t]*\r?\n/)),
     openblock_close: $ => token(prec(PREC.DELIMITED_BLOCK, /--[ \t]*\r?\n/)),
     
-    // Simple content line for all blocks
-    _content_line: $ => token(prec(PREC.DELIMITED_BLOCK - 2, /[^\r\n]*\r?\n/)),
+    // Content line for delimited blocks - highest precedence to override all other tokens
+    _content_line: $ => token(prec(200, /[^\r\n]*\r?\n/)),
 
     // ========================================================================
     // DELIMITED BLOCK RULES - Main block structures
     // ========================================================================
     
+    // Block content - wraps content lines into single semantic node
+    block_content: $ => repeat1($._content_line),
+    
     // Example block
     example_block: $ => seq(
       optional(alias($.block_metadata, $.metadata)),
       $.example_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.example_close
     ),
     
@@ -864,7 +866,7 @@ module.exports = grammar({
     listing_block: $ => seq(
       optional(alias($.block_metadata, $.metadata)),
       $.listing_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.listing_close
     ),
     
@@ -872,7 +874,7 @@ module.exports = grammar({
     literal_block: $ => seq(
       optional(alias($.block_metadata, $.metadata)),
       $.literal_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.literal_close
     ),
     
@@ -880,7 +882,7 @@ module.exports = grammar({
     quote_block: $ => seq(
       optional(alias($.block_metadata, $.metadata)),
       $.quote_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.quote_close
     ),
     
@@ -888,7 +890,7 @@ module.exports = grammar({
     sidebar_block: $ => seq(
       optional(alias($.block_metadata, $.metadata)),
       $.sidebar_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.sidebar_close
     ),
     
@@ -896,7 +898,7 @@ module.exports = grammar({
     passthrough_block: $ => seq(
       optional(alias($.block_metadata, $.metadata)),
       $.passthrough_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.passthrough_close
     ),
     
@@ -904,7 +906,7 @@ module.exports = grammar({
     open_block: $ => seq(
       optional(alias($.block_metadata, $.metadata)),
       $.openblock_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.openblock_close
     ),
     
@@ -915,43 +917,43 @@ module.exports = grammar({
     // Block bodies without metadata (for admonition blocks where metadata is handled separately)
     _example_block_body: $ => seq(
       $.example_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.example_close
     ),
     
     _listing_block_body: $ => seq(
       $.listing_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.listing_close
     ),
     
     _literal_block_body: $ => seq(
       $.literal_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.literal_close
     ),
     
     _quote_block_body: $ => seq(
       $.quote_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.quote_close
     ),
     
     _sidebar_block_body: $ => seq(
       $.sidebar_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.sidebar_close
     ),
     
     _passthrough_block_body: $ => seq(
       $.passthrough_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.passthrough_close
     ),
     
     _open_block_body: $ => seq(
       $.openblock_open,
-      repeat(alias($._content_line, $.block_content)),
+      optional($.block_content),
       $.openblock_close
     ),
 
@@ -963,9 +965,6 @@ module.exports = grammar({
       field('value', optional($.value))
     ),
 
-    // Attribute name - strict immediate pattern
-    name: $ => token.immediate(/[A-Za-z0-9][A-Za-z0-9_-]*/),
-    
     // Attribute value - immediate pattern (only non-empty)
     value: $ => token.immediate(/[^\r\n]+/),
 
@@ -1035,17 +1034,13 @@ module.exports = grammar({
     
     // cell_spec = [ span_spec ], [ format_spec ] - at least one must be present
     cell_spec: $ => choice(
-      seq($.span_spec, optional($.format_spec)),
-      $.format_spec
+      seq($.span_spec, optional(alias(token(prec(PREC.TABLE + 1, /[almshd]/)), $.format_spec))),
+      alias(token(prec(PREC.TABLE + 1, /[almshd]/)), $.format_spec)
     ),
     
     // span_spec = digit, { digit }, [ '.', digit, { digit } ], '+'
     // Examples: 2+, 3.2+, 1.4+
     span_spec: $ => token(prec(PREC.TABLE + 1, /[0-9]+(?:\.[0-9]+)?\+/)),
-    
-    // format_spec = 'a' | 'l' | 'm' | 's' | 'h' | 'd'
-    // a: AsciiDoc content, l: left align, m: middle/center, s: strong/right, h: header, d: default
-    format_spec: $ => token(prec(PREC.TABLE + 1, /[almshd]/)),
     
     // cell_content = { non_newline_char - '|' }
     // Content until next unescaped | or end of row - only non-empty content
