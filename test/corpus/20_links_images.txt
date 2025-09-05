@@ -91,9 +91,10 @@ Here is image:logo.png[Company Logo] in text.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (image
-        (target)
-        (attributes))
+      (text_segment)
+      (inline_element
+        (image))
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -108,7 +109,6 @@ See image::diagram.svg[System Architecture,width=500] below.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (image
-        (target)
-        (attributes))
+      (inline_element
+        (image))
       (text_segment))))

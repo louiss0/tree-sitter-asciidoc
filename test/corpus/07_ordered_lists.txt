@@ -63,4 +63,11 @@ The price is 1.25 dollars and 2.50 euros.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
