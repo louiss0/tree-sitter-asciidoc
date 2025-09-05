@@ -663,12 +663,9 @@ module.exports = grammar({
     // ========================================================================
     
     // Strong formatting (bold) - *text*
-    // Must contain proper word boundaries and closing asterisk
-    strong: $ => seq(
-      $.strong_constrained
-    ),
+    strong: $ => $.strong_constrained,
     
-    // Strong text requires both opening and closing asterisk with content in between
+    // Strong constrained: *word* (basic pattern)
     strong_constrained: $ => prec(PREC.STRONG, seq(
       token('*'),
       alias(token.immediate(/[^*\r\n]+/), $.strong_text),
@@ -676,10 +673,9 @@ module.exports = grammar({
     )),
     
     // Emphasis formatting (italic) - _text_
-    emphasis: $ => seq(
-      $.emphasis_constrained
-    ),
+    emphasis: $ => $.emphasis_constrained,
     
+    // Emphasis constrained: _word_ (basic pattern)
     emphasis_constrained: $ => prec(PREC.EMPHASIS, seq(
       token('_'),
       alias(token.immediate(/[^_\r\n]+/), $.emphasis_text),
@@ -687,10 +683,9 @@ module.exports = grammar({
     )),
     
     // Monospace formatting (code) - `text`
-    monospace: $ => seq(
-      $.monospace_constrained
-    ),
+    monospace: $ => $.monospace_constrained,
     
+    // Monospace constrained: `code` (basic pattern)
     monospace_constrained: $ => prec(PREC.MONOSPACE, seq(
       token('`'),
       alias(token.immediate(/[^`\r\n]+/), $.monospace_text),

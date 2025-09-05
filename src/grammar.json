@@ -2410,13 +2410,8 @@
       ]
     },
     "strong": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "strong_constrained"
-        }
-      ]
+      "type": "SYMBOL",
+      "name": "strong_constrained"
     },
     "strong_constrained": {
       "type": "PREC",
@@ -2454,13 +2449,8 @@
       }
     },
     "emphasis": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "emphasis_constrained"
-        }
-      ]
+      "type": "SYMBOL",
+      "name": "emphasis_constrained"
     },
     "emphasis_constrained": {
       "type": "PREC",
@@ -2498,13 +2488,8 @@
       }
     },
     "monospace": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "monospace_constrained"
-        }
-      ]
+      "type": "SYMBOL",
+      "name": "monospace_constrained"
     },
     "monospace_constrained": {
       "type": "PREC",
