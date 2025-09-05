@@ -127,6 +127,25 @@
     }
   },
   {
+    "type": "cell_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "format_spec",
+          "named": true
+        },
+        {
+          "type": "span_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "conditional_block",
     "named": true,
     "fields": {},
@@ -167,49 +186,20 @@
   {
     "type": "emphasis",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "attribute_reference",
-            "named": true
-          },
-          {
-            "type": "line_break",
-            "named": true
-          },
-          {
-            "type": "monospace",
-            "named": true
-          },
-          {
-            "type": "pass_macro",
-            "named": true
-          },
-          {
-            "type": "passthrough_triple_plus",
-            "named": true
-          },
-          {
-            "type": "strong",
-            "named": true
-          },
-          {
-            "type": "subscript",
-            "named": true
-          },
-          {
-            "type": "superscript",
-            "named": true
-          },
-          {
-            "type": "text_segment",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "emphasis_constrained",
+          "named": true
+        },
+        {
+          "type": "emphasis_text",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -424,6 +414,10 @@
           "named": true
         },
         {
+          "type": "table_block",
+          "named": true
+        },
+        {
           "type": "unordered_list",
           "named": true
         }
@@ -511,6 +505,10 @@
           "named": true
         },
         {
+          "type": "table_block",
+          "named": true
+        },
+        {
           "type": "unordered_list",
           "named": true
         }
@@ -595,6 +593,10 @@
         },
         {
           "type": "sidebar_block",
+          "named": true
+        },
+        {
+          "type": "table_block",
           "named": true
         },
         {
@@ -1004,21 +1006,20 @@
   {
     "type": "monospace",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "attribute_reference",
-            "named": true
-          },
-          {
-            "type": "text_segment",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "monospace_constrained",
+          "named": true
+        },
+        {
+          "type": "monospace_text",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1096,28 +1097,7 @@
   {
     "type": "paragraph_admonition",
     "named": true,
-    "fields": {
-      "text": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "text_with_inlines",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "admonition_label",
-            "named": true
-          }
-        ]
-      }
-    }
+    "fields": {}
   },
   {
     "type": "pass_macro",
@@ -1324,6 +1304,10 @@
           "named": true
         },
         {
+          "type": "table_block",
+          "named": true
+        },
+        {
           "type": "unordered_list",
           "named": true
         }
@@ -1457,6 +1441,10 @@
           "named": true
         },
         {
+          "type": "table_block",
+          "named": true
+        },
+        {
           "type": "unordered_list",
           "named": true
         }
@@ -1466,49 +1454,20 @@
   {
     "type": "strong",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "attribute_reference",
-            "named": true
-          },
-          {
-            "type": "emphasis",
-            "named": true
-          },
-          {
-            "type": "line_break",
-            "named": true
-          },
-          {
-            "type": "monospace",
-            "named": true
-          },
-          {
-            "type": "pass_macro",
-            "named": true
-          },
-          {
-            "type": "passthrough_triple_plus",
-            "named": true
-          },
-          {
-            "type": "subscript",
-            "named": true
-          },
-          {
-            "type": "superscript",
-            "named": true
-          },
-          {
-            "type": "text_segment",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "strong_constrained",
+          "named": true
+        },
+        {
+          "type": "strong_text",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1516,15 +1475,11 @@
     "named": true,
     "fields": {
       "content": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "attribute_reference",
-            "named": true
-          },
-          {
-            "type": "text_segment",
+            "type": "subscript_text",
             "named": true
           }
         ]
@@ -1536,19 +1491,93 @@
     "named": true,
     "fields": {
       "content": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "attribute_reference",
-            "named": true
-          },
-          {
-            "type": "text_segment",
+            "type": "superscript_text",
             "named": true
           }
         ]
       }
+    }
+  },
+  {
+    "type": "table_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "metadata",
+          "named": true
+        },
+        {
+          "type": "table_close",
+          "named": true
+        },
+        {
+          "type": "table_open",
+          "named": true
+        },
+        {
+          "type": "table_row",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_cell",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "cell_content",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "cell_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_close",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "table_open",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "table_row",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "table_cell",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1560,79 +1589,11 @@
       "required": true,
       "types": [
         {
-          "type": "attribute_reference",
-          "named": true
-        },
-        {
-          "type": "auto_link",
-          "named": true
-        },
-        {
-          "type": "emphasis",
-          "named": true
-        },
-        {
-          "type": "image",
-          "named": true
-        },
-        {
           "type": "inline_element",
           "named": true
         },
         {
-          "type": "line_break",
-          "named": true
-        },
-        {
-          "type": "link",
-          "named": true
-        },
-        {
-          "type": "math",
-          "named": true
-        },
-        {
-          "type": "monospace",
-          "named": true
-        },
-        {
-          "type": "pass_macro",
-          "named": true
-        },
-        {
-          "type": "passthrough_triple_plus",
-          "named": true
-        },
-        {
-          "type": "role_span",
-          "named": true
-        },
-        {
-          "type": "strong",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "superscript",
-          "named": true
-        },
-        {
           "type": "text_segment",
-          "named": true
-        },
-        {
-          "type": "ui_btn",
-          "named": true
-        },
-        {
-          "type": "ui_kbd",
-          "named": true
-        },
-        {
-          "type": "ui_menu",
           "named": true
         }
       ]
@@ -1680,10 +1641,6 @@
   },
   {
     "type": "#",
-    "named": false
-  },
-  {
-    "type": "*",
     "named": false
   },
   {
@@ -1747,14 +1704,6 @@
     "named": false
   },
   {
-    "type": "_",
-    "named": false
-  },
-  {
-    "type": "`",
-    "named": false
-  },
-  {
     "type": "anchor_text",
     "named": true
   },
@@ -1791,7 +1740,19 @@
     "named": true
   },
   {
+    "type": "cell_content",
+    "named": true
+  },
+  {
     "type": "description_item",
+    "named": true
+  },
+  {
+    "type": "emphasis_constrained",
+    "named": true
+  },
+  {
+    "type": "emphasis_text",
     "named": true
   },
   {
@@ -1809,6 +1770,10 @@
   {
     "type": "footnoteref:",
     "named": false
+  },
+  {
+    "type": "format_spec",
+    "named": true
   },
   {
     "type": "id",
@@ -1855,6 +1820,14 @@
     "named": false
   },
   {
+    "type": "monospace_constrained",
+    "named": true
+  },
+  {
+    "type": "monospace_text",
+    "named": true
+  },
+  {
     "type": "name",
     "named": true
   },
@@ -1867,8 +1840,28 @@
     "named": false
   },
   {
+    "type": "span_spec",
+    "named": true
+  },
+  {
     "type": "stem:[",
     "named": false
+  },
+  {
+    "type": "strong_constrained",
+    "named": true
+  },
+  {
+    "type": "strong_text",
+    "named": true
+  },
+  {
+    "type": "subscript_text",
+    "named": true
+  },
+  {
+    "type": "superscript_text",
+    "named": true
   },
   {
     "type": "text_segment",
@@ -1885,6 +1878,10 @@
   {
     "type": "xref_target",
     "named": true
+  },
+  {
+    "type": "|",
+    "named": false
   },
   {
     "type": "~",
