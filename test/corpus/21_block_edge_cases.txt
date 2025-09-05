@@ -1,0 +1,388 @@
+================================================================================
+Nested delimited blocks
+================================================================================
+
+====
+Example block with content.
+
+----
+Nested listing block inside example.
+Code content here.
+----
+
+More example content.
+====
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (example_block
+    (example_open)
+    (paragraph
+      (text_with_inlines
+        (text_segment)))
+    (listing_block
+      (listing_open)
+      (listing_content)
+      (listing_close))
+    (paragraph
+      (text_with_inlines
+        (text_segment)))
+    (example_close)))
+
+================================================================================
+Complex table structures
+================================================================================
+
+[options="header"]
+|===
+| Name | Age | City
+
+| Alice
+| 30
+| New York
+
+2+| Merged cell content
+| Single cell
+
+| Bob | 25 | London
+|===
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (table_block
+    (metadata
+      (attribute_list))
+    (table_open)
+    (table_row
+      (table_cell
+        (cell_content))
+      (table_cell
+        (cell_content))
+      (table_cell
+        (cell_content)))
+    (table_row
+      (table_cell
+        (cell_content))
+      (table_cell
+        (cell_content))
+      (table_cell
+        (cell_content)))
+    (table_row
+      (table_cell
+        (span_spec)
+        (cell_content))
+      (table_cell
+        (cell_content)))
+    (table_row
+      (table_cell
+        (cell_content))
+      (table_cell
+        (cell_content))
+      (table_cell
+        (cell_content)))
+    (table_close)))
+
+================================================================================
+Mixed list continuations
+================================================================================
+
+1. First item
++
+Continued paragraph for first item.
++
+====
+Example block as continuation.
+====
+
+2. Second item with inline content.
+
+3. Third item
++
+--
+Open block continuation.
+--
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ordered_list
+    (ordered_list_item
+      (list_marker)
+      (text_with_inlines
+        (text_segment))
+      (list_continuation)
+      (paragraph
+        (text_with_inlines
+          (text_segment)))
+      (list_continuation)
+      (example_block
+        (example_open)
+        (paragraph
+          (text_with_inlines
+            (text_segment)))
+        (example_close))))
+  (ordered_list
+    (ordered_list_item
+      (list_marker)
+      (text_with_inlines
+        (text_segment))))
+  (ordered_list
+    (ordered_list_item
+      (list_marker)
+      (text_with_inlines
+        (text_segment))
+      (list_continuation)
+      (open_block
+        (open_block_open)
+        (paragraph
+          (text_with_inlines
+            (text_segment)))
+        (open_block_close)))))
+
+================================================================================
+Conditional blocks with nesting
+================================================================================
+
+ifdef::draft[]
+Draft content here.
+
+ifndef::production[]
+Development notes.
+
+ifeval::["{version}" >= "2.0"]
+Version 2.0+ features.
+endif::[]
+
+Back to development notes.
+endif::[]
+
+Final draft content.
+endif::[]
+
+Production content.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (conditional_block
+    (ifdef_block
+      (ifdef_open)
+      (paragraph
+        (text_with_inlines
+          (text_segment)))
+      (conditional_block
+        (ifndef_block
+          (ifndef_open)
+          (paragraph
+            (text_with_inlines
+              (text_segment)))
+          (conditional_block
+            (ifeval_block
+              (ifeval_open)
+              (paragraph
+                (text_with_inlines
+                  (text_segment)))
+              (endif_directive)))
+          (paragraph
+            (text_with_inlines
+              (text_segment)))
+          (endif_directive)))
+      (paragraph
+        (text_with_inlines
+          (text_segment)))
+      (endif_directive)))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
+
+================================================================================
+Complex admonition combinations
+================================================================================
+
+NOTE: Simple paragraph admonition.
+
+[IMPORTANT]
+====
+Block admonition with example content.
+
+WARNING: Nested paragraph admonition inside block.
+====
+
+[TIP]
+--
+Open block admonition.
+
+. Numbered list inside
+. With multiple items
+
+Final tip content.
+--
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph_admonition
+    (admonition_type)
+    (text_with_inlines
+      (text_segment)))
+  (admonition_block
+    (block_metadata
+      (admonition_type))
+    (example_block
+      (example_open)
+      (paragraph
+        (text_with_inlines
+          (text_segment)))
+      (paragraph_admonition
+        (admonition_type)
+        (text_with_inlines
+          (text_segment)))
+      (example_close)))
+  (admonition_block
+    (block_metadata
+      (admonition_type))
+    (open_block
+      (open_block_open)
+      (paragraph
+        (text_with_inlines
+          (text_segment)))
+      (ordered_list
+        (ordered_list_item
+          (list_marker)
+          (text_with_inlines
+            (text_segment))))
+      (ordered_list
+        (ordered_list_item
+          (list_marker)
+          (text_with_inlines
+            (text_segment))))
+      (paragraph
+        (text_with_inlines
+          (text_segment)))
+      (open_block_close))))
+
+================================================================================
+Section nesting with anchors
+================================================================================
+
+= Document Title
+
+[[section1]]
+== First Section
+
+Content for first section.
+
+[[section2]]
+=== Subsection
+
+More detailed content.
+
+[[section3,Custom Section Title]]
+==== Deep Section  
+
+Final content with custom anchor.
+
+== Second Top Section
+
+Back to level 2.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_title)
+    (section
+      (anchor
+        (anchor_id))
+      (section_title)
+      (paragraph
+        (text_with_inlines
+          (text_segment)))
+      (section
+        (anchor
+          (anchor_id))
+        (section_title)
+        (paragraph
+          (text_with_inlines
+            (text_segment)))
+        (section
+          (anchor
+            (anchor_id)
+            (anchor_text))
+          (section_title)
+          (paragraph
+            (text_with_inlines
+              (text_segment))))))
+    (section
+      (section_title)
+      (paragraph
+        (text_with_inlines
+          (text_segment))))))
+
+================================================================================
+Attribute edge cases with references
+================================================================================
+
+:author: John Doe
+:version: 2.1.0
+:custom-attr: Special value
+
+Author: {author}
+Version: {version}
+Custom: {custom-attr}
+
+:!disabled-attr:
+:enabled-attr!:
+
+Undefined: {undefined-attr}
+Disabled: {disabled-attr}  
+Enabled: {enabled-attr}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (attribute_entry
+    (attribute_name)
+    (attribute_value))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (attribute_reference
+        (attribute_name))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (attribute_reference
+        (attribute_name))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (attribute_reference
+        (attribute_name))))
+  (attribute_entry
+    (attribute_unset))
+  (attribute_entry
+    (attribute_unset))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (attribute_reference
+        (attribute_name))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (attribute_reference
+        (attribute_name))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (attribute_reference
+        (attribute_name)))))
