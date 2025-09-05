@@ -1616,7 +1616,7 @@
         "value": -1,
         "content": {
           "type": "PATTERN",
-          "value": "[^*_`^~\\[{+#<>\\r\\n\\|]+"
+          "value": "[^*_`^~\\[{+#<>\\r\\n\\|\\s]+"
         }
       }
     },
@@ -3068,15 +3068,15 @@
     },
     "auto_link": {
       "type": "PREC_DYNAMIC",
-      "value": 5000,
+      "value": 10000,
       "content": {
         "type": "TOKEN",
         "content": {
           "type": "PREC",
-          "value": 180,
+          "value": 280,
           "content": {
             "type": "PATTERN",
-            "value": "(?:https?|ftp|file|mailto|irc|ssh):\\/\\/[^\\s\\[\\]<>]+"
+            "value": "https?:\\/\\/[^\\s\\[\\]<>]+"
           }
         }
       }

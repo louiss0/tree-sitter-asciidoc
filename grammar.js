@@ -416,7 +416,7 @@ module.exports = grammar({
     
     // Text with inline elements - comprehensive structure supporting all inline constructs
     text_with_inlines: $ => prec.right(repeat1(choice(
-      // Auto-links for high priority (both standalone and for links)
+      // Auto-links with dynamic precedence to override text_segment
       $.auto_link,
       // Primary inline elements via inline_element wrapper for consistency with tests
       prec(50, $.inline_element),
@@ -424,8 +424,8 @@ module.exports = grammar({
       $.text_segment
     ))),
     
-    // Text segment - consolidate all non-inline-delimiter text into single segments
-    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+#<>\r\n\|]+/)),
+    // Text segment - non-URL text patterns
+    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+#<>\r\n\|\s]+/)),
     
     // ========================================================================
     // INLINE CONDITIONAL DIRECTIVES
@@ -778,8 +778,8 @@ module.exports = grammar({
       token(']')
     )),
     
-    // Automatic URLs and links - very high dynamic precedence to override text_segment
-    auto_link: $ => prec.dynamic(5000, token(prec(PREC.LINK + 100, /(?:https?|ftp|file|mailto|irc|ssh):\/\/[^\s\[\]<>]+/))),
+    // Automatic URLs and links - maximum dynamic precedence to override text_segment
+    auto_link: $ => prec.dynamic(10000, token(prec(PREC.LINK + 200, /https?:\/\/[^\s\[\]<>]+/))),
     
     link: $ => prec.dynamic(2000, prec(PREC.LINK + 100, seq(
       field('url', $.auto_link),
