@@ -10,10 +10,13 @@ This has *bold* text in it.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
       (inline_element
         (strong
           (strong_constrained
             (strong_text))))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -28,10 +31,13 @@ This has _italic_ text in it.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
       (inline_element
         (emphasis
           (emphasis_constrained
             (emphasis_text))))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -46,10 +52,13 @@ This has `code` text in it.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
       (inline_element
         (monospace
           (monospace_constrained
             (monospace_text))))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================

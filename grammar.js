@@ -425,7 +425,8 @@ module.exports = grammar({
     
     // Text segment - text that continues until inline formatting, space, or line end
     // Stop at spaces to allow URL recognition at word boundaries
-    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+#\r\n\|\s]+/)),
+    // Include asterisk to prevent unclosed strong formatting conflicts
+    text_segment: $ => token(prec(PREC.TEXT, /[^_`^~\[{+#\r\n\|\s]+/)),
     
     // ========================================================================
     // INLINE CONDITIONAL DIRECTIVES
