@@ -9,15 +9,11 @@ This has *bold* text in it.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+      (text_segment)
       (inline_element
         (strong
           (strong_constrained
-            (strong_text))))))
-  (paragraph
-    (text_with_inlines
+            (strong_text))))
       (text_segment))))
 
 ================================================================================
@@ -31,15 +27,11 @@ This has _italic_ text in it.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+      (text_segment)
       (inline_element
         (emphasis
           (emphasis_constrained
-            (emphasis_text))))))
-  (paragraph
-    (text_with_inlines
+            (emphasis_text))))
       (text_segment))))
 
 ================================================================================
@@ -53,15 +45,11 @@ This has `code` text in it.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+      (text_segment)
       (inline_element
         (monospace
           (monospace_constrained
-            (monospace_text))))))
-  (paragraph
-    (text_with_inlines
+            (monospace_text))))
       (text_segment))))
 
 ================================================================================
@@ -88,33 +76,21 @@ This has *bold* and _italic_ and `code` together.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+      (text_segment)
       (inline_element
         (strong
           (strong_constrained
-            (strong_text))))))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+            (strong_text))))
+      (text_segment)
       (inline_element
         (emphasis
           (emphasis_constrained
-            (emphasis_text))))))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+            (emphasis_text))))
+      (text_segment)
       (inline_element
         (monospace
           (monospace_constrained
-            (monospace_text))))))
-  (paragraph
-    (text_with_inlines
+            (monospace_text))))
       (text_segment))))
 
 ================================================================================
