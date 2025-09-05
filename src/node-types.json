@@ -1059,28 +1059,7 @@
   {
     "type": "paragraph_admonition",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "text_with_inlines",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "admonition_label",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "pass_macro",
@@ -1611,10 +1590,6 @@
   },
   {
     "type": ",",
-    "named": false
-  },
-  {
-    "type": ":",
     "named": false
   },
   {

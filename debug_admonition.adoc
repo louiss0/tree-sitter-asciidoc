@@ -1,0 +1,5 @@
+====
+Block admonitions work in sections as well.
+====
+
+Another paragraph after the admonition.

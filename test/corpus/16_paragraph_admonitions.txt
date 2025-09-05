@@ -7,9 +7,7 @@ NOTE: This is a note paragraph with important information.
 ---
 
 (source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment))))
+  (paragraph_admonition))
 
 ================================================================================
 TIP paragraph admonition
@@ -20,9 +18,7 @@ TIP: Here's a helpful tip for users.
 ---
 
 (source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment))))
+  (paragraph_admonition))
 
 ================================================================================
 IMPORTANT paragraph admonition
@@ -33,9 +29,7 @@ IMPORTANT: This is crucial information to remember.
 ---
 
 (source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment))))
+  (paragraph_admonition))
 
 ================================================================================
 WARNING paragraph admonition
@@ -46,9 +40,7 @@ WARNING: Be careful with this operation.
 ---
 
 (source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment))))
+  (paragraph_admonition))
 
 ================================================================================
 CAUTION paragraph admonition
@@ -59,9 +51,7 @@ CAUTION: Proceed with caution when making changes.
 ---
 
 (source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment))))
+  (paragraph_admonition))
 
 ================================================================================
 NOTE paragraph with inline elements
@@ -142,11 +132,9 @@ TIP: Third admonition paragraph.
 ---
 
 (source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+  (paragraph_admonition)
+  (paragraph_admonition)
+  (paragraph_admonition))
 
 ================================================================================
 Admonition paragraph in section

@@ -2046,32 +2046,72 @@
       "type": "PREC",
       "value": 24,
       "content": {
-        "type": "SEQ",
+        "type": "CHOICE",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "admonition_label"
-          },
-          {
             "type": "TOKEN",
             "content": {
-              "type": "STRING",
-              "value": ":"
+              "type": "PREC",
+              "value": 24,
+              "content": {
+                "type": "PATTERN",
+                "value": "NOTE:[ \\t]+[^\\r\\n]+"
+              }
             }
           },
           {
             "type": "TOKEN",
             "content": {
-              "type": "PATTERN",
-              "value": "[ \\t]+"
+              "type": "PREC",
+              "value": 24,
+              "content": {
+                "type": "PATTERN",
+                "value": "TIP:[ \\t]+[^\\r\\n]+"
+              }
             }
           },
           {
-            "type": "FIELD",
-            "name": "content",
+            "type": "TOKEN",
             "content": {
-              "type": "SYMBOL",
-              "name": "text_with_inlines"
+              "type": "PREC",
+              "value": 24,
+              "content": {
+                "type": "PATTERN",
+                "value": "IMPORTANT:[ \\t]+[^\\r\\n]+"
+              }
+            }
+          },
+          {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 24,
+              "content": {
+                "type": "PATTERN",
+                "value": "WARNING:[ \\t]+[^\\r\\n]+"
+              }
+            }
+          },
+          {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 24,
+              "content": {
+                "type": "PATTERN",
+                "value": "CAUTION:[ \\t]+[^\\r\\n]+"
+              }
+            }
+          },
+          {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 24,
+              "content": {
+                "type": "PATTERN",
+                "value": "(?:NOTE|TIP|IMPORTANT|WARNING|CAUTION):[ \\t]*\\r?\\n"
+              }
             }
           }
         ]
