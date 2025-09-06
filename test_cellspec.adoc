@@ -1,8 +1,0 @@
-|===
-|h|Header 1 |h|Header 2 
-
-|2+|Spanning Cell
-|Regular Cell
-
-|l|Left |m|Center |s|Right
-|===

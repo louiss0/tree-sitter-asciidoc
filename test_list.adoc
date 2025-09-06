@@ -1,5 +1,0 @@
-* First item
-* Second item
-
-1. First ordered
-2. Second ordered

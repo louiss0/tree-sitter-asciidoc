@@ -1,7 +1,0 @@
-Some text before
-
-ifdef::foo[]
-
-Some text before  
-
-ifndef::foo[]

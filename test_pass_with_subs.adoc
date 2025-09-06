@@ -1,1 +1,0 @@
-Test pass:quotes,macros[*should be bold* and {var}] here.

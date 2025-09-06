@@ -1,7 +1,0 @@
-== Section Title
-
-====
-This admonition block is inside a section.
-====
-
-Regular paragraph.
