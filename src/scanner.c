@@ -366,12 +366,15 @@ static bool scan_ifdef_open(TSLexer *lexer) {
     return false;
 }
 
-// Temporarily disable ifndef to avoid crashes
+// DISABLED: ifndef directive causes scanner conflicts with ifdef
+// TODO: Implement proper disambiguation between ifdef/ifndef/ifeval
+// The issue is that all three start with 'if' which causes lexer state corruption
 static bool scan_ifndef_open(TSLexer *lexer) {
     return false;
 }
 
-// Temporarily disable ifeval to avoid conflicts - will fix this properly later
+// DISABLED: ifeval directive causes scanner conflicts with ifdef/ifndef
+// TODO: Implement proper disambiguation between ifdef/ifndef/ifeval
 static bool scan_ifeval_open(TSLexer *lexer) {
     return false;
 }
@@ -422,14 +425,14 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         return true;
     }
     
-    // Conditional directives (high priority)
-    if (valid_symbols[_ifdef_open_token] && scan_ifdef_open(lexer)) {
-        lexer->result_symbol = _ifdef_open_token;
+    // Conditional directives (high priority) - check longer patterns first
+    if (valid_symbols[_ifndef_open_token] && scan_ifndef_open(lexer)) {
+        lexer->result_symbol = _ifndef_open_token;
         return true;
     }
     
-    if (valid_symbols[_ifndef_open_token] && scan_ifndef_open(lexer)) {
-        lexer->result_symbol = _ifndef_open_token;
+    if (valid_symbols[_ifdef_open_token] && scan_ifdef_open(lexer)) {
+        lexer->result_symbol = _ifdef_open_token;
         return true;
     }
     
