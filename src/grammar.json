@@ -129,6 +129,87 @@
         }
       ]
     },
+    "heading": {
+      "type": "PREC",
+      "value": 90,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "anchor"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "FIELD",
+            "name": "level",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "HEADING_LEVEL_1"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "HEADING_LEVEL_2"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "HEADING_LEVEL_3"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "HEADING_LEVEL_4"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "HEADING_LEVEL_5"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "HEADING_LEVEL_6"
+                }
+              ]
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "title",
+            "content": {
+              "type": "SYMBOL",
+              "name": "line_content"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "line_content": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^\\r\\n]+"
+      }
+    },
     "section": {
       "type": "PREC_RIGHT",
       "value": 90,
@@ -965,7 +1046,7 @@
         "value": 1,
         "content": {
           "type": "PATTERN",
-          "value": "[^*_`^~\\[{+<>\\r\\n\\|\\\\]+"
+          "value": "[^*_`^~\\[{+<>\\r\\n\\|\\\\=]+"
         }
       }
     },
@@ -2551,6 +2632,30 @@
     {
       "type": "SYMBOL",
       "name": "_SECTION_MARKER"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "HEADING_LEVEL_1"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "HEADING_LEVEL_2"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "HEADING_LEVEL_3"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "HEADING_LEVEL_4"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "HEADING_LEVEL_5"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "HEADING_LEVEL_6"
     },
     {
       "type": "SYMBOL",

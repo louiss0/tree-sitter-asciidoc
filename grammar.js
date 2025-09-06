@@ -54,6 +54,12 @@ module.exports = grammar({
     $._DESCRIPTION_LIST_ITEM, // "term:: description" pattern (hidden from AST)
     $.CALLOUT_MARKER,        // "<N> " at start of line
     $._SECTION_MARKER,       // "={1,6} " at start of line (hidden from AST)
+    $.HEADING_LEVEL_1,       // "= " at start of line
+    $.HEADING_LEVEL_2,       // "== " at start of line  
+    $.HEADING_LEVEL_3,       // "=== " at start of line
+    $.HEADING_LEVEL_4,       // "==== " at start of line
+    $.HEADING_LEVEL_5,       // "===== " at start of line
+    $.HEADING_LEVEL_6,       // "====== " at start of line
     $._ifdef_open_token,     // "ifdef::" at start of line
     $._ifndef_open_token,    // "ifndef::" at start of line
     $._ifeval_open_token,    // "ifeval::" at start of line
@@ -86,9 +92,9 @@ module.exports = grammar({
     // Line comment
     line_comment: $ => token(seq('//', /[^\n]*/)),
 
-    // Block types - comprehensive set
+    // Block types - comprehensive set (following EBNF specification)
     _block: $ => choice(
-      $.section,
+      $.section,              // Keep original for now
       $.paragraph,
       $.attribute_entry,
       $.paragraph_admonition,
@@ -110,9 +116,28 @@ module.exports = grammar({
     ),
 
     // ========================================================================
-    // SECTIONS
+    // HEADINGS (Following EBNF: heading = [ anchor ], heading_level, ' ', line_content, newline)
     // ========================================================================
     
+    // Following EBNF: heading = [ anchor ], heading_level, ' ', line_content, newline
+    // Using level-specific external tokens
+    heading: $ => prec(PREC.SECTION, seq(
+      optional($.anchor),
+      field('level', choice(
+        $.HEADING_LEVEL_1,
+        $.HEADING_LEVEL_2,
+        $.HEADING_LEVEL_3,
+        $.HEADING_LEVEL_4,
+        $.HEADING_LEVEL_5,
+        $.HEADING_LEVEL_6
+      )),
+      field('title', $.line_content),
+      optional($._newline)  // EBNF requires newline
+    )),
+    
+    line_content: $ => token.immediate(/[^\r\n]+/),
+    
+    // Original section rule for testing
     section: $ => prec.right(PREC.SECTION, seq(
       optional($.anchor),
       $.section_title,
@@ -120,7 +145,7 @@ module.exports = grammar({
     )),
     
     section_title: $ => prec(PREC.SECTION + 5, seq(
-      $._SECTION_MARKER,  // Use hidden version of marker
+      $._SECTION_MARKER,  // Use original section marker
       $.title
     )),
     
@@ -305,9 +330,9 @@ module.exports = grammar({
     // ========================================================================
     
     // Plain text - match everything that's not a special inline marker  
-    // Include '=' since section titles require whitespace after markers
+    // Exclude '=' to allow heading recognition by external scanner
     _text: $ => alias($.text_segment, $.text_segment),
-    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n\|\\]+/)),
+    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n\|\\=]+/)),
 
     // ========================================================================
     // DELIMITED BLOCKS
