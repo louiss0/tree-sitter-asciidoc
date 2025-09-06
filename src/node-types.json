@@ -899,6 +899,472 @@
     }
   },
   {
+    "type": "level_1_section",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "section",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "level_2_section",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "admonition_block",
+          "named": true
+        },
+        {
+          "type": "anchor",
+          "named": true
+        },
+        {
+          "type": "attribute_entry",
+          "named": true
+        },
+        {
+          "type": "callout_list",
+          "named": true
+        },
+        {
+          "type": "conditional_block",
+          "named": true
+        },
+        {
+          "type": "description_list",
+          "named": true
+        },
+        {
+          "type": "example_block",
+          "named": true
+        },
+        {
+          "type": "listing_block",
+          "named": true
+        },
+        {
+          "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "open_block",
+          "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "paragraph_admonition",
+          "named": true
+        },
+        {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
+          "type": "quote_block",
+          "named": true
+        },
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "section_title",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
+          "named": true
+        },
+        {
+          "type": "table_block",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "level_3_section",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "admonition_block",
+          "named": true
+        },
+        {
+          "type": "anchor",
+          "named": true
+        },
+        {
+          "type": "attribute_entry",
+          "named": true
+        },
+        {
+          "type": "callout_list",
+          "named": true
+        },
+        {
+          "type": "conditional_block",
+          "named": true
+        },
+        {
+          "type": "description_list",
+          "named": true
+        },
+        {
+          "type": "example_block",
+          "named": true
+        },
+        {
+          "type": "listing_block",
+          "named": true
+        },
+        {
+          "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "open_block",
+          "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "paragraph_admonition",
+          "named": true
+        },
+        {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
+          "type": "quote_block",
+          "named": true
+        },
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "section_title",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
+          "named": true
+        },
+        {
+          "type": "table_block",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "level_4_section",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "admonition_block",
+          "named": true
+        },
+        {
+          "type": "anchor",
+          "named": true
+        },
+        {
+          "type": "attribute_entry",
+          "named": true
+        },
+        {
+          "type": "callout_list",
+          "named": true
+        },
+        {
+          "type": "conditional_block",
+          "named": true
+        },
+        {
+          "type": "description_list",
+          "named": true
+        },
+        {
+          "type": "example_block",
+          "named": true
+        },
+        {
+          "type": "listing_block",
+          "named": true
+        },
+        {
+          "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "open_block",
+          "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "paragraph_admonition",
+          "named": true
+        },
+        {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
+          "type": "quote_block",
+          "named": true
+        },
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "section_title",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
+          "named": true
+        },
+        {
+          "type": "table_block",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "level_5_section",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "admonition_block",
+          "named": true
+        },
+        {
+          "type": "anchor",
+          "named": true
+        },
+        {
+          "type": "attribute_entry",
+          "named": true
+        },
+        {
+          "type": "callout_list",
+          "named": true
+        },
+        {
+          "type": "conditional_block",
+          "named": true
+        },
+        {
+          "type": "description_list",
+          "named": true
+        },
+        {
+          "type": "example_block",
+          "named": true
+        },
+        {
+          "type": "listing_block",
+          "named": true
+        },
+        {
+          "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "open_block",
+          "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "paragraph_admonition",
+          "named": true
+        },
+        {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
+          "type": "quote_block",
+          "named": true
+        },
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "section_title",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
+          "named": true
+        },
+        {
+          "type": "table_block",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "level_6_section",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "admonition_block",
+          "named": true
+        },
+        {
+          "type": "anchor",
+          "named": true
+        },
+        {
+          "type": "attribute_entry",
+          "named": true
+        },
+        {
+          "type": "callout_list",
+          "named": true
+        },
+        {
+          "type": "conditional_block",
+          "named": true
+        },
+        {
+          "type": "description_list",
+          "named": true
+        },
+        {
+          "type": "example_block",
+          "named": true
+        },
+        {
+          "type": "listing_block",
+          "named": true
+        },
+        {
+          "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "open_block",
+          "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "paragraph_admonition",
+          "named": true
+        },
+        {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
+          "type": "quote_block",
+          "named": true
+        },
+        {
+          "type": "section_title",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
+          "named": true
+        },
+        {
+          "type": "table_block",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "link",
     "named": true,
     "fields": {
@@ -1422,10 +1888,41 @@
   {
     "type": "section",
     "named": true,
-    "fields": {},
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "id",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "anchor_text",
+            "named": true
+          }
+        ]
+      },
+      "title": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "title",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "admonition_block",
@@ -1453,6 +1950,30 @@
         },
         {
           "type": "example_block",
+          "named": true
+        },
+        {
+          "type": "level_1_section",
+          "named": true
+        },
+        {
+          "type": "level_2_section",
+          "named": true
+        },
+        {
+          "type": "level_3_section",
+          "named": true
+        },
+        {
+          "type": "level_4_section",
+          "named": true
+        },
+        {
+          "type": "level_5_section",
+          "named": true
+        },
+        {
+          "type": "level_6_section",
           "named": true
         },
         {
@@ -1592,75 +2113,11 @@
       "required": false,
       "types": [
         {
-          "type": "admonition_block",
-          "named": true
-        },
-        {
           "type": "attribute_entry",
           "named": true
         },
         {
-          "type": "callout_list",
-          "named": true
-        },
-        {
-          "type": "conditional_block",
-          "named": true
-        },
-        {
-          "type": "description_list",
-          "named": true
-        },
-        {
-          "type": "example_block",
-          "named": true
-        },
-        {
-          "type": "listing_block",
-          "named": true
-        },
-        {
-          "type": "literal_block",
-          "named": true
-        },
-        {
-          "type": "open_block",
-          "named": true
-        },
-        {
-          "type": "ordered_list",
-          "named": true
-        },
-        {
-          "type": "paragraph",
-          "named": true
-        },
-        {
-          "type": "paragraph_admonition",
-          "named": true
-        },
-        {
-          "type": "passthrough_block",
-          "named": true
-        },
-        {
-          "type": "quote_block",
-          "named": true
-        },
-        {
           "type": "section",
-          "named": true
-        },
-        {
-          "type": "sidebar_block",
-          "named": true
-        },
-        {
-          "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
           "named": true
         }
       ]
