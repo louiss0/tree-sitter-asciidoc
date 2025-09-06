@@ -49,8 +49,9 @@ module.exports = grammar({
     $.ATTRIBUTE_LIST_START,
     // New line-anchored block markers
     $._LIST_UNORDERED_MARKER, // "* " or "- " at start of line (hidden from AST)
-    $.LIST_ORDERED_MARKER,    // "N. " at start of line
+    $._LIST_ORDERED_MARKER,   // "N. " at start of line (hidden from AST)
     $.DESCRIPTION_LIST_SEP,   // "::"
+    $._DESCRIPTION_LIST_ITEM, // "term:: description" pattern (hidden from AST)
     $.CALLOUT_MARKER,        // "<N> " at start of line
     $._SECTION_MARKER,       // "={1,6} " at start of line (hidden from AST)
     $._ifdef_open_token,     // "ifdef::" at start of line
@@ -473,18 +474,16 @@ module.exports = grammar({
     ordered_list: $ => prec(PREC.LIST, repeat1($.ordered_list_item)),
     
     ordered_list_item: $ => seq(
-      field('marker', $.LIST_ORDERED_MARKER),
-      field('content', $.text_with_inlines)
+      $._LIST_ORDERED_MARKER,    // Hidden from AST  
+      $._list_item_content       // Use shared content rule
     ),
     
     // Description list
     description_list: $ => prec(PREC.LIST, repeat1($.description_item)),
     
-    description_item: $ => seq(
-      field('term', $.text_with_inlines),
-      field('separator', $.DESCRIPTION_LIST_SEP),
-      field('description', $.text_with_inlines)
-    ),
+    description_item: $ => prec(PREC.LIST, seq(
+      $._DESCRIPTION_LIST_ITEM   // Hidden scanner token that captures entire line
+    )),
     
     // Callout list
     callout_list: $ => prec(PREC.LIST, repeat1($.callout_item)),

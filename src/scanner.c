@@ -11,8 +11,9 @@ enum {
     AUTOLINK_BOUNDARY,
     ATTRIBUTE_LIST_START,
     _LIST_UNORDERED_MARKER, // "* " or "- " at start of line (hidden from AST)
-    LIST_ORDERED_MARKER,    // "N. " at start of line
+    _LIST_ORDERED_MARKER,   // "N. " at start of line (hidden from AST)
     DESCRIPTION_LIST_SEP,   // "::"
+    _DESCRIPTION_LIST_ITEM, // "term:: description" pattern (hidden from AST)
     CALLOUT_MARKER,        // "<N> " at start of line
     _SECTION_MARKER,       // "={1,6} " at start of line (hidden from AST)
     _ifdef_open_token,     // "ifdef::" at start of line
@@ -238,6 +239,44 @@ static bool scan_description_list_sep(TSLexer *lexer) {
     return false;
 }
 
+// Scan for description list item: "term:: description" at start of line
+static bool scan_description_list_item(TSLexer *lexer) {
+    if (!at_line_start(lexer)) return false;
+    
+    // Skip leading whitespace
+    skip_spaces(lexer);
+    
+    // Must have some text for the term (non-colon characters)
+    bool has_term = false;
+    while (lexer->lookahead && lexer->lookahead != ':' && 
+           lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+        has_term = true;
+        advance(lexer);
+    }
+    
+    if (!has_term) return false;
+    
+    // Must be followed by "::"
+    if (lexer->lookahead == ':') {
+        advance(lexer);
+        if (lexer->lookahead == ':') {
+            advance(lexer);
+            
+            // Must be followed by whitespace
+            if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+                advance(lexer);
+                // Consume the rest of the line as description
+                while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+                    advance(lexer);
+                }
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
 // Scan for callout marker: "<N> " at start of line
 static bool scan_callout_marker(TSLexer *lexer) {
     if (!at_line_start(lexer)) return false;
@@ -410,8 +449,8 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         return true;
     }
     
-    if (valid_symbols[LIST_ORDERED_MARKER] && scan_ordered_list_marker(lexer)) {
-        lexer->result_symbol = LIST_ORDERED_MARKER;
+    if (valid_symbols[_LIST_ORDERED_MARKER] && scan_ordered_list_marker(lexer)) {
+        lexer->result_symbol = _LIST_ORDERED_MARKER;
         return true;
     }
     
@@ -422,6 +461,11 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
     
     if (valid_symbols[DESCRIPTION_LIST_SEP] && scan_description_list_sep(lexer)) {
         lexer->result_symbol = DESCRIPTION_LIST_SEP;
+        return true;
+    }
+    
+    if (valid_symbols[_DESCRIPTION_LIST_ITEM] && scan_description_list_item(lexer)) {
+        lexer->result_symbol = _DESCRIPTION_LIST_ITEM;
         return true;
     }
     

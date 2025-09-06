@@ -1741,20 +1741,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "marker",
-          "content": {
-            "type": "SYMBOL",
-            "name": "LIST_ORDERED_MARKER"
-          }
+          "type": "SYMBOL",
+          "name": "_LIST_ORDERED_MARKER"
         },
         {
-          "type": "FIELD",
-          "name": "content",
-          "content": {
-            "type": "SYMBOL",
-            "name": "text_with_inlines"
-          }
+          "type": "SYMBOL",
+          "name": "_list_item_content"
         }
       ]
     },
@@ -1770,33 +1762,17 @@
       }
     },
     "description_item": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "term",
-          "content": {
+      "type": "PREC",
+      "value": 95,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
             "type": "SYMBOL",
-            "name": "text_with_inlines"
+            "name": "_DESCRIPTION_LIST_ITEM"
           }
-        },
-        {
-          "type": "FIELD",
-          "name": "separator",
-          "content": {
-            "type": "SYMBOL",
-            "name": "DESCRIPTION_LIST_SEP"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "description",
-          "content": {
-            "type": "SYMBOL",
-            "name": "text_with_inlines"
-          }
-        }
-      ]
+        ]
+      }
     },
     "callout_list": {
       "type": "PREC",
@@ -2558,11 +2534,15 @@
     },
     {
       "type": "SYMBOL",
-      "name": "LIST_ORDERED_MARKER"
+      "name": "_LIST_ORDERED_MARKER"
     },
     {
       "type": "SYMBOL",
       "name": "DESCRIPTION_LIST_SEP"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_DESCRIPTION_LIST_ITEM"
     },
     {
       "type": "SYMBOL",
