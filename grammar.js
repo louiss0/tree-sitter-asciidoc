@@ -84,7 +84,7 @@ module.exports = grammar({
   rules: {
     // Document root - consumes entire input cleanly
     source_file: $ => repeat(choice(
-      $.section,              // Sections at root level
+      alias($.level_1_section, $.section), // Only level 1 sections at root
       $.attribute_entry,      // Top-level attributes allowed
       $._blank_line          // Blank lines at root
     )),
@@ -106,29 +106,85 @@ module.exports = grammar({
     // HEADINGS (Following EBNF: heading = [ anchor ], heading_level, ' ', line_content, newline)
     // ========================================================================
     
-  // Simplified section rule for clean AST  
-  section: $ => prec.right(seq(
+  // Level-aware section hierarchy with clean AST
+  section: $ => choice(
+    $.level_1_section,
+    $.level_2_section,
+    $.level_3_section,
+    $.level_4_section,
+    $.level_5_section,
+    $.level_6_section
+  ),
+  
+  // Level 1 sections (=) can contain levels 2-6 but not other level 1
+  level_1_section: $ => alias(prec.right(seq(
     optional($.anchor),
-    $.section_title,
+    seq($._HEADING_LEVEL_1, $.section_title),
     repeat(choice(
-      $.section,
+      alias($.level_2_section, $.section),
+      alias($.level_3_section, $.section), 
+      alias($.level_4_section, $.section),
+      alias($.level_5_section, $.section),
+      alias($.level_6_section, $.section),
+      $._content_block
+    ))
+  )), $.section),
+  
+  // Level 2 sections (==) can contain levels 3-6 but not level 1-2
+  level_2_section: $ => prec.right(seq(
+    optional($.anchor),
+    seq($._HEADING_LEVEL_2, $.section_title),
+    repeat(choice(
+      alias($.level_3_section, $.section),
+      alias($.level_4_section, $.section),
+      alias($.level_5_section, $.section),
+      alias($.level_6_section, $.section),
       $._content_block
     ))
   )),
+  
+  // Level 3 sections (===) can contain levels 4-6 but not level 1-3
+  level_3_section: $ => prec.right(seq(
+    optional($.anchor),
+    seq($._HEADING_LEVEL_3, $.section_title),
+    repeat(choice(
+      alias($.level_4_section, $.section),
+      alias($.level_5_section, $.section),
+      alias($.level_6_section, $.section),
+      $._content_block
+    ))
+  )),
+  
+  // Level 4 sections (====) can contain levels 5-6 but not level 1-4  
+  level_4_section: $ => prec.right(seq(
+    optional($.anchor),
+    seq($._HEADING_LEVEL_4, $.section_title),
+    repeat(choice(
+      alias($.level_5_section, $.section),
+      alias($.level_6_section, $.section),
+      $._content_block
+    ))
+  )),
+  
+  // Level 5 sections (=====) can contain level 6 but not level 1-5
+  level_5_section: $ => prec.right(seq(
+    optional($.anchor),
+    seq($._HEADING_LEVEL_5, $.section_title),
+    repeat(choice(
+      alias($.level_6_section, $.section),
+      $._content_block
+    ))
+  )),
+  
+  // Level 6 sections (======) can only contain content (deepest level)
+  level_6_section: $ => prec.right(seq(
+    optional($.anchor),
+    seq($._HEADING_LEVEL_6, $.section_title),
+    repeat($._content_block)
+  )),
     
-  // Section title handles all heading levels
-  section_title: $ => seq(
-    choice(
-      $._HEADING_LEVEL_1,
-      $._HEADING_LEVEL_2,
-      $._HEADING_LEVEL_3,
-      $._HEADING_LEVEL_4,
-      $._HEADING_LEVEL_5,
-      $._HEADING_LEVEL_6,
-      $._SECTION_MARKER  // Fallback
-    ),
-    field('title', $.title)
-  ),
+  // Section title contains title with proper field structure
+  section_title: $ => field('title', $.title),
     
     title: $ => token.immediate(/[^\r\n]+/),
     
