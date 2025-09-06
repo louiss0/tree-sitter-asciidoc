@@ -94,7 +94,7 @@ module.exports = grammar({
 
     // Block types - comprehensive set (following EBNF specification)
     _block: $ => choice(
-      $.section,              // Keep original for now
+      $.section,              // All section levels
       $.paragraph,
       $.attribute_entry,
       $.paragraph_admonition,
@@ -150,6 +150,71 @@ module.exports = grammar({
     )),
     
     title: $ => token.immediate(/[^\r\n]+/),
+    
+    // Test section rule with only HEADING_LEVEL_1
+    section: $ => prec(PREC.SECTION, seq(
+      $.HEADING_LEVEL_1,
+      field('title', $.title)
+    )),
+    
+    // Level 3 sections can contain levels 4-6 and content
+    section_3: $ => prec.right(PREC.SECTION + 4, seq(
+      $.HEADING_LEVEL_3,
+      field('title', $.title),
+      repeat(choice(
+        $.section_4, $.section_5, $.section_6,
+        $._content_block
+      ))
+    )),
+    
+    // Level 4 sections can contain levels 5-6 and content
+    section_4: $ => prec.right(PREC.SECTION + 3, seq(
+      $.HEADING_LEVEL_4,
+      field('title', $.title),
+      repeat(choice(
+        $.section_5, $.section_6,
+        $._content_block
+      ))
+    )),
+    
+    // Level 5 sections can contain level 6 and content
+    section_5: $ => prec.right(PREC.SECTION + 2, seq(
+      $.HEADING_LEVEL_5,
+      field('title', $.title),
+      repeat(choice(
+        $.section_6,
+        $._content_block
+      ))
+    )),
+    
+    // Level 6 sections contain only content (leaf level)
+    section_6: $ => prec.right(PREC.SECTION + 1, seq(
+      $.HEADING_LEVEL_6,
+      field('title', $.title),
+      repeat($._content_block)
+    )),
+    
+    // Content blocks - everything except sections
+    _content_block: $ => choice(
+      $.paragraph,
+      $.attribute_entry,
+      $.paragraph_admonition,
+      $.admonition_block,
+      $.unordered_list,
+      $.ordered_list,
+      $.description_list,
+      $.callout_list,
+      $.conditional_block,
+      $.example_block,
+      $.listing_block,
+      $.literal_block,
+      $.quote_block,
+      $.sidebar_block,
+      $.passthrough_block,
+      $.open_block,
+      $.table_block,
+      $._blank_line
+    ),
     
     // Block anchor
     anchor: $ => seq(

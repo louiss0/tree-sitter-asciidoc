@@ -1406,104 +1406,24 @@
   {
     "type": "section",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "admonition_block",
-          "named": true
-        },
-        {
-          "type": "anchor",
-          "named": true
-        },
-        {
-          "type": "attribute_entry",
-          "named": true
-        },
-        {
-          "type": "callout_list",
-          "named": true
-        },
-        {
-          "type": "conditional_block",
-          "named": true
-        },
-        {
-          "type": "description_list",
-          "named": true
-        },
-        {
-          "type": "example_block",
-          "named": true
-        },
-        {
-          "type": "listing_block",
-          "named": true
-        },
-        {
-          "type": "literal_block",
-          "named": true
-        },
-        {
-          "type": "open_block",
-          "named": true
-        },
-        {
-          "type": "ordered_list",
-          "named": true
-        },
-        {
-          "type": "paragraph",
-          "named": true
-        },
-        {
-          "type": "paragraph_admonition",
-          "named": true
-        },
-        {
-          "type": "passthrough_block",
-          "named": true
-        },
-        {
-          "type": "quote_block",
-          "named": true
-        },
-        {
-          "type": "section",
-          "named": true
-        },
-        {
-          "type": "section_title",
-          "named": true
-        },
-        {
-          "type": "sidebar_block",
-          "named": true
-        },
-        {
-          "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "section_title",
-    "named": true,
-    "fields": {},
+    "fields": {
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "title",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "title",
+          "type": "HEADING_LEVEL_1",
           "named": true
         }
       ]
@@ -1928,6 +1848,10 @@
   },
   {
     "type": "CALLOUT_MARKER",
+    "named": true
+  },
+  {
+    "type": "HEADING_LEVEL_1",
     "named": true
   },
   {
