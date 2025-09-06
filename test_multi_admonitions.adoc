@@ -1,5 +1,0 @@
-NOTE: First admonition paragraph.
-
-WARNING: Second admonition paragraph.
-
-TIP: Third admonition paragraph.

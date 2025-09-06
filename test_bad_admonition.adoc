@@ -1,2 +1,0 @@
-[NOTE]
-This should be parsed as a generic attribute list followed by paragraph.
