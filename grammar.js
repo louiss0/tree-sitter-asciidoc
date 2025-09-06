@@ -83,7 +83,11 @@ module.exports = grammar({
   
   rules: {
     // Document root - consumes entire input cleanly
-    source_file: $ => repeat($._block),
+    source_file: $ => repeat(choice(
+      $.section,              // Only sections at root level
+      $.attribute_entry,      // Top-level attributes allowed
+      $._blank_line          // Blank lines at root
+    )),
 
     // Newline handling - explicit to avoid ERROR nodes
     _newline: $ => token(choice('\r\n', '\n')),
@@ -92,38 +96,39 @@ module.exports = grammar({
     // Line comment
     line_comment: $ => token(seq('//', /[^\n]*/)),
 
-    // Block types - comprehensive set (following EBNF specification)
-    _block: $ => choice(
-      $.section,              // All section levels
-      $._content_block
-    ),
+  // Block types - comprehensive set (following EBNF specification)
+  _block: $ => choice(
+    $.section,              // All section levels
+    $._content_block
+  ),
 
     // ========================================================================
     // HEADINGS (Following EBNF: heading = [ anchor ], heading_level, ' ', line_content, newline)
     // ========================================================================
     
-    // Hierarchical section structure matching test expectations
-    section: $ => prec.right(PREC.SECTION, seq(
-      optional($.anchor),
-      $.section_title,
-      repeat(choice(
-        $.section,  // Allow nested sections
-        $._content_block
-      ))
-    )),
+  // Hierarchical sections that consume content greedily
+  section: $ => prec.right(PREC.SECTION, seq(
+    optional($.anchor),
+    $.section_title,
+    repeat(choice(
+      $.section,
+      $._content_block
+    ))
+  )),
     
-    section_title: $ => prec(PREC.SECTION, seq(
-      choice(
-        $._HEADING_LEVEL_1,
-        $._HEADING_LEVEL_2,
-        $._HEADING_LEVEL_3,
-        $._HEADING_LEVEL_4,
-        $._HEADING_LEVEL_5,
-        $._HEADING_LEVEL_6,
-        $._SECTION_MARKER  // Fallback to original marker
-      ),
-      field('title', $.title)
-    )),
+  // Legacy section_title for backward compatibility
+  section_title: $ => prec(PREC.SECTION, seq(
+    choice(
+      $._HEADING_LEVEL_1,
+      $._HEADING_LEVEL_2,
+      $._HEADING_LEVEL_3,
+      $._HEADING_LEVEL_4,
+      $._HEADING_LEVEL_5,
+      $._HEADING_LEVEL_6,
+      $._SECTION_MARKER  // Fallback to original marker
+    ),
+    $.title
+  )),
     
     title: $ => token.immediate(/[^\r\n]+/),
     
