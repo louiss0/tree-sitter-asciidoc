@@ -1,0 +1,3 @@
+Some text before
+
+ifdef::foo[]

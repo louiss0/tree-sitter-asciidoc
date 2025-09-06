@@ -9,7 +9,16 @@ enum {
     TABLE_FENCE_END,
     LIST_CONTINUATION,
     AUTOLINK_BOUNDARY,
-    ATTRIBUTE_LIST_START
+    ATTRIBUTE_LIST_START,
+    _LIST_UNORDERED_MARKER, // "* " or "- " at start of line (hidden from AST)
+    LIST_ORDERED_MARKER,    // "N. " at start of line
+    DESCRIPTION_LIST_SEP,   // "::"
+    CALLOUT_MARKER,        // "<N> " at start of line
+    _SECTION_MARKER,       // "={1,6} " at start of line (hidden from AST)
+    _ifdef_open_token,     // "ifdef::" at start of line
+    _ifndef_open_token,    // "ifndef::" at start of line
+    _ifeval_open_token,    // "ifeval::" at start of line
+    _endif_directive_token // "endif::" at start of line
 };
 
 typedef struct {
@@ -165,31 +174,291 @@ static bool scan_attribute_list_start(TSLexer *lexer) {
     return false;
 }
 
+// Check if character is a digit
+static bool is_digit(int32_t c) {
+    return c >= '0' && c <= '9';
+}
+
+// Scan for unordered list marker: "* " or "- " at start of line
+static bool scan_unordered_list_marker(TSLexer *lexer) {
+    if (!at_line_start(lexer)) return false;
+    
+    if (lexer->lookahead == '*' || lexer->lookahead == '-') {
+        advance(lexer);
+        
+        // Must be followed by whitespace
+        if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+            advance(lexer);
+            return true;
+        }
+    }
+    return false;
+}
+
+// Scan for ordered list marker: "N. " at start of line
+static bool scan_ordered_list_marker(TSLexer *lexer) {
+    if (!at_line_start(lexer)) return false;
+    
+    // Must start with a digit
+    if (!is_digit(lexer->lookahead)) {
+        return false;
+    }
+    
+    // Consume all digits
+    while (is_digit(lexer->lookahead)) {
+        advance(lexer);
+    }
+    
+    // Must be followed by ". "
+    if (lexer->lookahead == '.') {
+        advance(lexer);
+        if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+            advance(lexer);
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+// Scan for description list separator: "::"
+static bool scan_description_list_sep(TSLexer *lexer) {
+    if (lexer->lookahead == ':') {
+        advance(lexer);
+        if (lexer->lookahead == ':') {
+            advance(lexer);
+            
+            // Must be followed by whitespace or end of line
+            if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+                advance(lexer);
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
+// Scan for callout marker: "<N> " at start of line
+static bool scan_callout_marker(TSLexer *lexer) {
+    if (!at_line_start(lexer)) return false;
+    
+    if (lexer->lookahead == '<') {
+        advance(lexer);
+        
+        // Must have at least one digit
+        if (!is_digit(lexer->lookahead)) {
+            return false;
+        }
+        
+        // Consume all digits
+        while (is_digit(lexer->lookahead)) {
+            advance(lexer);
+        }
+        
+        // Must be followed by "> "
+        if (lexer->lookahead == '>') {
+            advance(lexer);
+            if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+                advance(lexer);
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
+// Scan for section marker: "={1,6} " at start of line
+static bool scan_section_marker(TSLexer *lexer) {
+    if (!at_line_start(lexer)) return false;
+    
+    if (lexer->lookahead == '=') {
+        int count = 0;
+        
+        // Count consecutive = characters (1-6)
+        while (lexer->lookahead == '=' && count < 6) {
+            advance(lexer);
+            count++;
+        }
+        
+        // Must be followed by whitespace
+        if (count >= 1 && count <= 6 && 
+            (lexer->lookahead == ' ' || lexer->lookahead == '\t')) {
+            advance(lexer);
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+// Simplified conditional scanners - use basic pattern matching
+// Scan for ifdef directive: "ifdef::" at start of line
+static bool scan_ifdef_open(TSLexer *lexer) {
+    if (!at_line_start(lexer)) return false;
+    
+    // Match "ifdef::" literally - only advance if we're sure to succeed
+    if (lexer->lookahead == 'i') {
+        advance(lexer);
+        if (lexer->lookahead == 'f') {
+            advance(lexer);
+            if (lexer->lookahead == 'd') {
+                advance(lexer);
+                if (lexer->lookahead == 'e') {
+                    advance(lexer);
+                    if (lexer->lookahead == 'f') {
+                        advance(lexer);
+                        if (lexer->lookahead == ':') {
+                            advance(lexer);
+                            if (lexer->lookahead == ':') {
+                                advance(lexer);
+                                // Found "ifdef::", consume rest of line
+                                while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+                                    advance(lexer);
+                                }
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+// Temporarily disable ifndef to avoid crashes
+static bool scan_ifndef_open(TSLexer *lexer) {
+    return false;
+}
+
+// Temporarily disable ifeval to avoid conflicts - will fix this properly later
+static bool scan_ifeval_open(TSLexer *lexer) {
+    return false;
+}
+
+// Scan for endif directive: "endif::[]" at start of line
+static bool scan_endif_directive(TSLexer *lexer) {
+    if (!at_line_start(lexer)) return false;
+    
+    // Match "endif::[]" literally
+    if (lexer->lookahead == 'e') {
+        advance(lexer);
+        if (lexer->lookahead == 'n') {
+            advance(lexer);
+            if (lexer->lookahead == 'd') {
+                advance(lexer);
+                if (lexer->lookahead == 'i') {
+                    advance(lexer);
+                    if (lexer->lookahead == 'f') {
+                        advance(lexer);
+                        if (lexer->lookahead == ':') {
+                            advance(lexer);
+                            if (lexer->lookahead == ':') {
+                                advance(lexer);
+                                if (lexer->lookahead == '[') {
+                                    advance(lexer);
+                                    if (lexer->lookahead == ']') {
+                                        advance(lexer);
+                                        // Found "endif::[]"
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
     
-    if (valid_symbols[BLOCK_FENCE_START]) {
-        return scan_block_fence_start(scanner, lexer);
+    // Try high-priority line-anchored markers first
+    if (valid_symbols[_SECTION_MARKER] && scan_section_marker(lexer)) {
+        lexer->result_symbol = _SECTION_MARKER;
+        return true;
     }
     
-    if (valid_symbols[BLOCK_FENCE_END]) {
-        return scan_block_fence_end(scanner, lexer);
+    // Conditional directives (high priority)
+    if (valid_symbols[_ifdef_open_token] && scan_ifdef_open(lexer)) {
+        lexer->result_symbol = _ifdef_open_token;
+        return true;
     }
     
-    if (valid_symbols[TABLE_FENCE_START] || valid_symbols[TABLE_FENCE_END]) {
-        return scan_table_fence(lexer, valid_symbols[TABLE_FENCE_START]);
+    if (valid_symbols[_ifndef_open_token] && scan_ifndef_open(lexer)) {
+        lexer->result_symbol = _ifndef_open_token;
+        return true;
     }
     
-    if (valid_symbols[LIST_CONTINUATION]) {
-        return scan_list_continuation(lexer);
+    if (valid_symbols[_ifeval_open_token] && scan_ifeval_open(lexer)) {
+        lexer->result_symbol = _ifeval_open_token;
+        return true;
     }
     
-    if (valid_symbols[AUTOLINK_BOUNDARY]) {
-        return scan_autolink_boundary(lexer);
+    if (valid_symbols[_endif_directive_token] && scan_endif_directive(lexer)) {
+        lexer->result_symbol = _endif_directive_token;
+        return true;
     }
     
-    if (valid_symbols[ATTRIBUTE_LIST_START]) {
-        return scan_attribute_list_start(lexer);
+    // List markers
+    if (valid_symbols[_LIST_UNORDERED_MARKER] && scan_unordered_list_marker(lexer)) {
+        lexer->result_symbol = _LIST_UNORDERED_MARKER;
+        return true;
+    }
+    
+    if (valid_symbols[LIST_ORDERED_MARKER] && scan_ordered_list_marker(lexer)) {
+        lexer->result_symbol = LIST_ORDERED_MARKER;
+        return true;
+    }
+    
+    if (valid_symbols[CALLOUT_MARKER] && scan_callout_marker(lexer)) {
+        lexer->result_symbol = CALLOUT_MARKER;
+        return true;
+    }
+    
+    if (valid_symbols[DESCRIPTION_LIST_SEP] && scan_description_list_sep(lexer)) {
+        lexer->result_symbol = DESCRIPTION_LIST_SEP;
+        return true;
+    }
+    
+    // Original block fence handling
+    if (valid_symbols[BLOCK_FENCE_START] && scan_block_fence_start(scanner, lexer)) {
+        lexer->result_symbol = BLOCK_FENCE_START;
+        return true;
+    }
+    
+    if (valid_symbols[BLOCK_FENCE_END] && scan_block_fence_end(scanner, lexer)) {
+        lexer->result_symbol = BLOCK_FENCE_END;
+        return true;
+    }
+    
+    if (valid_symbols[TABLE_FENCE_START] && scan_table_fence(lexer, true)) {
+        lexer->result_symbol = TABLE_FENCE_START;
+        return true;
+    }
+    
+    if (valid_symbols[TABLE_FENCE_END] && scan_table_fence(lexer, false)) {
+        lexer->result_symbol = TABLE_FENCE_END;
+        return true;
+    }
+    
+    if (valid_symbols[LIST_CONTINUATION] && scan_list_continuation(lexer)) {
+        lexer->result_symbol = LIST_CONTINUATION;
+        return true;
+    }
+    
+    if (valid_symbols[AUTOLINK_BOUNDARY] && scan_autolink_boundary(lexer)) {
+        lexer->result_symbol = AUTOLINK_BOUNDARY;
+        return true;
+    }
+    
+    if (valid_symbols[ATTRIBUTE_LIST_START] && scan_attribute_list_start(lexer)) {
+        lexer->result_symbol = ATTRIBUTE_LIST_START;
+        return true;
     }
     
     return false;

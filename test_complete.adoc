@@ -1,0 +1,13 @@
+Before ifdef
+
+ifdef::foo[]
+Content inside ifdef
+endif::[]
+
+Between blocks
+
+ifndef::draft[]
+Content inside ifndef  
+endif::[]
+
+After blocks

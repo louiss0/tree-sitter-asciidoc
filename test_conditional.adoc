@@ -1,0 +1,7 @@
+Before conditional
+
+ifdef::foo[]
+Content inside ifdef
+endif::[]
+
+After conditional
