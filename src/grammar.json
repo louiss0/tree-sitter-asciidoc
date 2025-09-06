@@ -1499,7 +1499,7 @@
     },
     "attribute_entry": {
       "type": "PREC",
-      "value": 65,
+      "value": 72,
       "content": {
         "type": "SEQ",
         "members": [

@@ -23,8 +23,8 @@ const PREC = {
   DELIMITED_BLOCK: 80,       // Delimited blocks
   LIST: 95,                  // Lists (higher than section to prioritize)
   CONDITIONAL: 75,           // Conditional blocks (higher than paragraphs)
+  ATTRIBUTE_ENTRY: 72,       // Attribute entries (higher than paragraphs)
   PARAGRAPH: 70,             // Paragraphs
-  ATTRIBUTE_ENTRY: 65,       // Attribute entries
   // Inline element precedences (highest to lowest)
   PASSTHROUGH: 60,           // +++literal text+++
   STRONG: 50,                // *text*
