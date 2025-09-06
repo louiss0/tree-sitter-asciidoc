@@ -487,10 +487,6 @@
           "named": true
         },
         {
-          "type": "section",
-          "named": true
-        },
-        {
           "type": "sidebar_block",
           "named": true
         },
@@ -596,10 +592,6 @@
           "named": true
         },
         {
-          "type": "section",
-          "named": true
-        },
-        {
           "type": "sidebar_block",
           "named": true
         },
@@ -702,10 +694,6 @@
         },
         {
           "type": "quote_block",
-          "named": true
-        },
-        {
-          "type": "section",
           "named": true
         },
         {
@@ -1422,17 +1410,34 @@
   {
     "type": "section",
     "named": true,
-    "fields": {},
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "id",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "anchor_text",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "admonition_block",
-          "named": true
-        },
-        {
-          "type": "anchor",
           "named": true
         },
         {
@@ -1488,11 +1493,23 @@
           "named": true
         },
         {
-          "type": "section",
+          "type": "section_2",
           "named": true
         },
         {
-          "type": "section_title",
+          "type": "section_3",
+          "named": true
+        },
+        {
+          "type": "section_4",
+          "named": true
+        },
+        {
+          "type": "section_5",
+          "named": true
+        },
+        {
+          "type": "section_6",
           "named": true
         },
         {
@@ -1511,7 +1528,7 @@
     }
   },
   {
-    "type": "section_title",
+    "type": "section_1",
     "named": true,
     "fields": {
       "title": {
@@ -1519,12 +1536,181 @@
         "required": true,
         "types": [
           {
-            "type": "title",
+            "type": "section_title",
             "named": true
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "section_title",
+          "named": true
+        }
+      ]
     }
+  },
+  {
+    "type": "section_2",
+    "named": true,
+    "fields": {
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_title",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "section_title",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "section_3",
+    "named": true,
+    "fields": {
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_title",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "section_title",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "section_4",
+    "named": true,
+    "fields": {
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_title",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "section_title",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "section_5",
+    "named": true,
+    "fields": {
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_title",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "section_title",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "section_6",
+    "named": true,
+    "fields": {
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_title",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "section_title",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "section_title",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "sidebar_block",
@@ -1596,7 +1782,7 @@
           "named": true
         },
         {
-          "type": "section",
+          "type": "section_1",
           "named": true
         }
       ]
@@ -1754,11 +1940,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "title",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "ui_macro",

@@ -76,15 +76,15 @@ module.exports = grammar({
   //   $._inline,
   // ],
   
-  // Conflicts for overlapping constructs
+  // Conflicts for overlapping constructs  
   conflicts: $ => [
     // No conflicts needed - precedence handles them
   ],
   
   rules: {
-    // Document root - consumes entire input cleanly
+    // Document root - only allow level 1 sections at root
     source_file: $ => repeat(choice(
-      $.section,              // Sections at root level
+      $.section_1,            // Only level 1 sections at root level
       $.attribute_entry,      // Top-level attributes allowed
       $._blank_line          // Blank lines at root
     )),
@@ -98,7 +98,12 @@ module.exports = grammar({
 
   // Block types - comprehensive set (following EBNF specification)
   _block: $ => choice(
-    $.section,              // All section levels
+    $.section_1,            // Level 1 sections
+    $.section_2,            // Level 2 sections  
+    $.section_3,            // Level 3 sections
+    $.section_4,            // Level 4 sections
+    $.section_5,            // Level 5 sections
+    $.section_6,            // Level 6 sections
     $._content_block
   ),
 
@@ -106,29 +111,67 @@ module.exports = grammar({
     // HEADINGS (Following EBNF: heading = [ anchor ], heading_level, ' ', line_content, newline)
     // ========================================================================
     
-  // Clean section rule with level-aware nesting
-  section: $ => prec.right(seq(
+  // Level-specific sections for proper nesting - aliased to unified 'section'
+  section_1: $ => alias(prec.right(PREC.SECTION, seq(
     optional($.anchor),
-    $.section_title,
+    alias(seq($._HEADING_LEVEL_1, field('title', $.title)), $.section_title),
     repeat(choice(
-      $.section,
+      $.section_2,
+      $.section_3,
+      $.section_4,
+      $.section_5,
+      $.section_6,
       $._content_block
     ))
-  )),
-    
-  // Section title handles all heading levels
-  section_title: $ => seq(
-    choice(
-      $._HEADING_LEVEL_1,
-      $._HEADING_LEVEL_2,
-      $._HEADING_LEVEL_3,
-      $._HEADING_LEVEL_4,
-      $._HEADING_LEVEL_5,
-      $._HEADING_LEVEL_6,
-      $._SECTION_MARKER  // Fallback
-    ),
-    field('title', $.title)
-  ),
+  )), $.section),
+  
+  section_2: $ => alias(prec.right(PREC.SECTION, seq(
+    optional($.anchor),
+    alias(seq($._HEADING_LEVEL_2, field('title', $.title)), $.section_title),
+    repeat(choice(
+      $.section_3,
+      $.section_4,
+      $.section_5,
+      $.section_6,
+      $._content_block
+    ))
+  )), $.section),
+  
+  section_3: $ => alias(prec.right(PREC.SECTION, seq(
+    optional($.anchor),
+    alias(seq($._HEADING_LEVEL_3, field('title', $.title)), $.section_title),
+    repeat(choice(
+      $.section_4,
+      $.section_5,
+      $.section_6,
+      $._content_block
+    ))
+  )), $.section),
+  
+  section_4: $ => alias(prec.right(PREC.SECTION, seq(
+    optional($.anchor),
+    alias(seq($._HEADING_LEVEL_4, field('title', $.title)), $.section_title),
+    repeat(choice(
+      $.section_5,
+      $.section_6,
+      $._content_block
+    ))
+  )), $.section),
+  
+  section_5: $ => alias(prec.right(PREC.SECTION, seq(
+    optional($.anchor),
+    alias(seq($._HEADING_LEVEL_5, field('title', $.title)), $.section_title),
+    repeat(choice(
+      $.section_6,
+      $._content_block
+    ))
+  )), $.section),
+  
+  section_6: $ => alias(prec.right(PREC.SECTION, seq(
+    optional($.anchor),
+    alias(seq($._HEADING_LEVEL_6, field('title', $.title)), $.section_title),
+    repeat($._content_block)
+  )), $.section),
     
     title: $ => token.immediate(/[^\r\n]+/),
     
@@ -522,19 +565,19 @@ module.exports = grammar({
     
     ifdef_block: $ => seq(
       field('open', $.ifdef_open),
-      repeat($._block),
+      repeat($._content_block),
       field('close', $.endif_directive)
     ),
     
     ifndef_block: $ => seq(
       field('open', $.ifndef_open),
-      repeat($._block),
+      repeat($._content_block),
       field('close', $.endif_directive)
     ),
     
     ifeval_block: $ => seq(
       field('open', $.ifeval_open),
-      repeat($._block),
+      repeat($._content_block),
       field('close', $.endif_directive)
     ),
     
