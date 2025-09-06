@@ -16,12 +16,12 @@ enum {
     _DESCRIPTION_LIST_ITEM, // "term:: description" pattern (hidden from AST)
     CALLOUT_MARKER,        // "<N> " at start of line
     _SECTION_MARKER,       // "={1,6} " at start of line (hidden from AST)
-    HEADING_LEVEL_1,       // "= " at start of line
-    HEADING_LEVEL_2,       // "== " at start of line
-    HEADING_LEVEL_3,       // "=== " at start of line
-    HEADING_LEVEL_4,       // "==== " at start of line
-    HEADING_LEVEL_5,       // "===== " at start of line
-    HEADING_LEVEL_6,       // "====== " at start of line
+    _HEADING_LEVEL_1,      // "= " at start of line (hidden from AST)
+    _HEADING_LEVEL_2,      // "== " at start of line (hidden from AST)
+    _HEADING_LEVEL_3,      // "=== " at start of line (hidden from AST)
+    _HEADING_LEVEL_4,      // "==== " at start of line (hidden from AST)
+    _HEADING_LEVEL_5,      // "===== " at start of line (hidden from AST)
+    _HEADING_LEVEL_6,      // "====== " at start of line (hidden from AST)
     _ifdef_open_token,     // "ifdef::" at start of line
     _ifndef_open_token,    // "ifndef::" at start of line
     _ifeval_open_token,    // "ifeval::" at start of line
@@ -337,166 +337,28 @@ static bool scan_section_marker(TSLexer *lexer) {
     return false;
 }
 
-// Level-specific heading scanners following EBNF specification
-// Fixed to avoid lexer state corruption by checking pattern fully before advancing
-static bool scan_heading_level_1(TSLexer *lexer) {
-    if (!at_line_start(lexer)) return false;
-    
-    // Check pattern: exactly "= " (one equals + space)
-    if (lexer->lookahead == '=') {
-        advance(lexer);
-        // Must NOT be another = (to ensure exactly 1 level)
-        if (lexer->lookahead == '=') {
-            return false;
-        }
-        // Must be followed by space
-        if (lexer->lookahead == ' ') {
-            advance(lexer);
-            return true;
-        }
+// Unified heading scanner that determines level without consuming on failure
+static int scan_heading_level(TSLexer *lexer) {
+    if (!at_line_start(lexer) || lexer->lookahead != '=') {
+        return 0; // Not a heading
     }
-    return false;
+    
+    // Count consecutive '=' characters
+    int level = 0;
+    while (lexer->lookahead == '=' && level < 6) {
+        advance(lexer);
+        level++;
+    }
+    
+    // Must be followed by space or tab
+    if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+        advance(lexer); // consume space/tab
+        return level; // Return the heading level (1-6)
+    }
+    
+    return 0; // Not a valid heading
 }
 
-static bool scan_heading_level_2(TSLexer *lexer) {
-    if (!at_line_start(lexer)) return false;
-    
-    // Check pattern: exactly "== " (two equals + space)
-    if (lexer->lookahead == '=') {
-        advance(lexer);
-        if (lexer->lookahead == '=') {
-            advance(lexer);
-            // Must NOT be another = (to ensure exactly 2 levels)
-            if (lexer->lookahead == '=') {
-                return false;
-            }
-            // Must be followed by space
-            if (lexer->lookahead == ' ') {
-                advance(lexer);
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-static bool scan_heading_level_3(TSLexer *lexer) {
-    if (!at_line_start(lexer)) return false;
-    
-    // Check pattern: exactly "=== " (three equals + space)
-    if (lexer->lookahead == '=') {
-        advance(lexer);
-        if (lexer->lookahead == '=') {
-            advance(lexer);
-            if (lexer->lookahead == '=') {
-                advance(lexer);
-                // Must NOT be another = (to ensure exactly 3 levels)
-                if (lexer->lookahead == '=') {
-                    return false;
-                }
-                // Must be followed by space
-                if (lexer->lookahead == ' ') {
-                    advance(lexer);
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
-}
-
-static bool scan_heading_level_4(TSLexer *lexer) {
-    if (!at_line_start(lexer)) return false;
-    
-    // Check pattern: exactly "==== " (four equals + space)
-    if (lexer->lookahead == '=') {
-        advance(lexer);
-        if (lexer->lookahead == '=') {
-            advance(lexer);
-            if (lexer->lookahead == '=') {
-                advance(lexer);
-                if (lexer->lookahead == '=') {
-                    advance(lexer);
-                    // Must NOT be another = (to ensure exactly 4 levels)
-                    if (lexer->lookahead == '=') {
-                        return false;
-                    }
-                    // Must be followed by space
-                    if (lexer->lookahead == ' ') {
-                        advance(lexer);
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-    return false;
-}
-
-static bool scan_heading_level_5(TSLexer *lexer) {
-    if (!at_line_start(lexer)) return false;
-    
-    // Check pattern: exactly "===== " (five equals + space)
-    if (lexer->lookahead == '=') {
-        advance(lexer);
-        if (lexer->lookahead == '=') {
-            advance(lexer);
-            if (lexer->lookahead == '=') {
-                advance(lexer);
-                if (lexer->lookahead == '=') {
-                    advance(lexer);
-                    if (lexer->lookahead == '=') {
-                        advance(lexer);
-                        // Must NOT be another = (to ensure exactly 5 levels)
-                        if (lexer->lookahead == '=') {
-                            return false;
-                        }
-                        // Must be followed by space
-                        if (lexer->lookahead == ' ') {
-                            advance(lexer);
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return false;
-}
-
-static bool scan_heading_level_6(TSLexer *lexer) {
-    if (!at_line_start(lexer)) return false;
-    
-    // Check pattern: exactly "====== " (six equals + space)
-    if (lexer->lookahead == '=') {
-        advance(lexer);
-        if (lexer->lookahead == '=') {
-            advance(lexer);
-            if (lexer->lookahead == '=') {
-                advance(lexer);
-                if (lexer->lookahead == '=') {
-                    advance(lexer);
-                    if (lexer->lookahead == '=') {
-                        advance(lexer);
-                        if (lexer->lookahead == '=') {
-                            advance(lexer);
-                            // Must NOT be another = (to ensure exactly 6 levels)
-                            if (lexer->lookahead == '=') {
-                                return false;
-                            }
-                            // Must be followed by space
-                            if (lexer->lookahead == ' ') {
-                                advance(lexer);
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return false;
-}
 
 // Simplified conditional scanners - use basic pattern matching
 // Scan for ifdef directive: "ifdef::" at start of line
@@ -586,36 +448,48 @@ static bool scan_endif_directive(TSLexer *lexer) {
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
     
-    // Try high-priority line-anchored markers first
-    // Check level-specific headings (longest patterns first to avoid conflicts)
-    if (valid_symbols[HEADING_LEVEL_6] && scan_heading_level_6(lexer)) {
-        lexer->result_symbol = HEADING_LEVEL_6;
-        return true;
-    }
-    
-    if (valid_symbols[HEADING_LEVEL_5] && scan_heading_level_5(lexer)) {
-        lexer->result_symbol = HEADING_LEVEL_5;
-        return true;
-    }
-    
-    if (valid_symbols[HEADING_LEVEL_4] && scan_heading_level_4(lexer)) {
-        lexer->result_symbol = HEADING_LEVEL_4;
-        return true;
-    }
-    
-    if (valid_symbols[HEADING_LEVEL_3] && scan_heading_level_3(lexer)) {
-        lexer->result_symbol = HEADING_LEVEL_3;
-        return true;
-    }
-    
-    if (valid_symbols[HEADING_LEVEL_2] && scan_heading_level_2(lexer)) {
-        lexer->result_symbol = HEADING_LEVEL_2;
-        return true;
-    }
-    
-    if (valid_symbols[HEADING_LEVEL_1] && scan_heading_level_1(lexer)) {
-        lexer->result_symbol = HEADING_LEVEL_1;
-        return true;
+    // Try heading scanning first
+    int heading_level = scan_heading_level(lexer);
+    if (heading_level > 0) {
+        // Map heading level to appropriate token
+        switch (heading_level) {
+            case 1:
+                if (valid_symbols[_HEADING_LEVEL_1]) {
+                    lexer->result_symbol = _HEADING_LEVEL_1;
+                    return true;
+                }
+                break;
+            case 2:
+                if (valid_symbols[_HEADING_LEVEL_2]) {
+                    lexer->result_symbol = _HEADING_LEVEL_2;
+                    return true;
+                }
+                break;
+            case 3:
+                if (valid_symbols[_HEADING_LEVEL_3]) {
+                    lexer->result_symbol = _HEADING_LEVEL_3;
+                    return true;
+                }
+                break;
+            case 4:
+                if (valid_symbols[_HEADING_LEVEL_4]) {
+                    lexer->result_symbol = _HEADING_LEVEL_4;
+                    return true;
+                }
+                break;
+            case 5:
+                if (valid_symbols[_HEADING_LEVEL_5]) {
+                    lexer->result_symbol = _HEADING_LEVEL_5;
+                    return true;
+                }
+                break;
+            case 6:
+                if (valid_symbols[_HEADING_LEVEL_6]) {
+                    lexer->result_symbol = _HEADING_LEVEL_6;
+                    return true;
+                }
+                break;
+        }
     }
     
     if (valid_symbols[_SECTION_MARKER] && scan_section_marker(lexer)) {

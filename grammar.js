@@ -23,7 +23,7 @@ const PREC = {
   DELIMITED_BLOCK: 80,       // Delimited blocks
   LIST: 95,                  // Lists (higher than section to prioritize)
   CONDITIONAL: 75,           // Conditional blocks (higher than paragraphs)
-  ATTRIBUTE_ENTRY: 72,       // Attribute entries (higher than paragraphs)
+  ATTRIBUTE_ENTRY: 82,       // Attribute entries (higher than lists and paragraphs)
   PARAGRAPH: 70,             // Paragraphs
   // Inline element precedences (highest to lowest)
   PASSTHROUGH: 60,           // +++literal text+++
@@ -54,12 +54,12 @@ module.exports = grammar({
     $._DESCRIPTION_LIST_ITEM, // "term:: description" pattern (hidden from AST)
     $.CALLOUT_MARKER,        // "<N> " at start of line
     $._SECTION_MARKER,       // "={1,6} " at start of line (hidden from AST)
-    $.HEADING_LEVEL_1,       // "= " at start of line
-    $.HEADING_LEVEL_2,       // "== " at start of line  
-    $.HEADING_LEVEL_3,       // "=== " at start of line
-    $.HEADING_LEVEL_4,       // "==== " at start of line
-    $.HEADING_LEVEL_5,       // "===== " at start of line
-    $.HEADING_LEVEL_6,       // "====== " at start of line
+    $._HEADING_LEVEL_1,      // "= " at start of line (hidden from AST)
+    $._HEADING_LEVEL_2,      // "== " at start of line (hidden from AST) 
+    $._HEADING_LEVEL_3,      // "=== " at start of line (hidden from AST)
+    $._HEADING_LEVEL_4,      // "==== " at start of line (hidden from AST)
+    $._HEADING_LEVEL_5,      // "===== " at start of line (hidden from AST)
+    $._HEADING_LEVEL_6,      // "====== " at start of line (hidden from AST)
     $._ifdef_open_token,     // "ifdef::" at start of line
     $._ifndef_open_token,    // "ifndef::" at start of line
     $._ifeval_open_token,    // "ifeval::" at start of line
@@ -95,104 +95,37 @@ module.exports = grammar({
     // Block types - comprehensive set (following EBNF specification)
     _block: $ => choice(
       $.section,              // All section levels
-      $.paragraph,
-      $.attribute_entry,
-      $.paragraph_admonition,
-      $.admonition_block,
-      $.unordered_list,
-      $.ordered_list,
-      $.description_list,
-      $.callout_list,
-      $.conditional_block,
-      $.example_block,
-      $.listing_block,
-      $.literal_block,
-      $.quote_block,
-      $.sidebar_block,
-      $.passthrough_block,
-      $.open_block,
-      $.table_block,
-      $._blank_line
+      $._content_block
     ),
 
     // ========================================================================
     // HEADINGS (Following EBNF: heading = [ anchor ], heading_level, ' ', line_content, newline)
     // ========================================================================
     
-    // Following EBNF: heading = [ anchor ], heading_level, ' ', line_content, newline
-    // Using level-specific external tokens
-    heading: $ => prec(PREC.SECTION, seq(
-      optional($.anchor),
-      field('level', choice(
-        $.HEADING_LEVEL_1,
-        $.HEADING_LEVEL_2,
-        $.HEADING_LEVEL_3,
-        $.HEADING_LEVEL_4,
-        $.HEADING_LEVEL_5,
-        $.HEADING_LEVEL_6
-      )),
-      field('title', $.line_content),
-      optional($._newline)  // EBNF requires newline
-    )),
-    
-    line_content: $ => token.immediate(/[^\r\n]+/),
-    
-    // Original section rule for testing
+    // Hierarchical section structure matching test expectations
     section: $ => prec.right(PREC.SECTION, seq(
       optional($.anchor),
       $.section_title,
-      repeat($._block)
+      repeat(choice(
+        $.section,  // Allow nested sections
+        $._content_block
+      ))
     )),
     
-    section_title: $ => prec(PREC.SECTION + 5, seq(
-      $._SECTION_MARKER,  // Use original section marker
-      $.title
-    )),
-    
-    title: $ => token.immediate(/[^\r\n]+/),
-    
-    // Test section rule with only HEADING_LEVEL_1
-    section: $ => prec(PREC.SECTION, seq(
-      $.HEADING_LEVEL_1,
+    section_title: $ => prec(PREC.SECTION, seq(
+      choice(
+        $._HEADING_LEVEL_1,
+        $._HEADING_LEVEL_2,
+        $._HEADING_LEVEL_3,
+        $._HEADING_LEVEL_4,
+        $._HEADING_LEVEL_5,
+        $._HEADING_LEVEL_6,
+        $._SECTION_MARKER  // Fallback to original marker
+      ),
       field('title', $.title)
     )),
     
-    // Level 3 sections can contain levels 4-6 and content
-    section_3: $ => prec.right(PREC.SECTION + 4, seq(
-      $.HEADING_LEVEL_3,
-      field('title', $.title),
-      repeat(choice(
-        $.section_4, $.section_5, $.section_6,
-        $._content_block
-      ))
-    )),
-    
-    // Level 4 sections can contain levels 5-6 and content
-    section_4: $ => prec.right(PREC.SECTION + 3, seq(
-      $.HEADING_LEVEL_4,
-      field('title', $.title),
-      repeat(choice(
-        $.section_5, $.section_6,
-        $._content_block
-      ))
-    )),
-    
-    // Level 5 sections can contain level 6 and content
-    section_5: $ => prec.right(PREC.SECTION + 2, seq(
-      $.HEADING_LEVEL_5,
-      field('title', $.title),
-      repeat(choice(
-        $.section_6,
-        $._content_block
-      ))
-    )),
-    
-    // Level 6 sections contain only content (leaf level)
-    section_6: $ => prec.right(PREC.SECTION + 1, seq(
-      $.HEADING_LEVEL_6,
-      field('title', $.title),
-      repeat($._content_block)
-    )),
+    title: $ => token.immediate(/[^\r\n]+/),
     
     // Content blocks - everything except sections
     _content_block: $ => choice(
@@ -239,24 +172,22 @@ module.exports = grammar({
       field('content', $.text_with_inlines)
     )),
     
-    // Text with inline elements
-    text_with_inlines: $ => prec.right(repeat1(choice(
-      $._inline
-    ))),
+    // Text with inline elements - single line only
+    text_with_inlines: $ => prec.right(repeat1($._inline)),
     
     // Inline types
     _inline: $ => choice(
+      prec(10, $.inline_element),
+      $._text
+    ),
+    
+    // Inline element wrapper for complex inline constructs  
+    inline_element: $ => choice(
       $.strong,
       $.emphasis,
       $.monospace,
       $.superscript,
       $.subscript,
-      $.inline_element,
-      $._text
-    ),
-    
-    // Inline element wrapper for complex inline constructs
-    inline_element: $ => choice(
       $.inline_anchor,
       $.internal_xref,
       $.external_xref,
@@ -270,36 +201,27 @@ module.exports = grammar({
       $.image,
       $.role_span,
       $.ui_macro,
-      $.math_macro,
-      $.strong_constrained,
-      $.emphasis_constrained,
-      $.monospace_constrained
+      $.math_macro
     ),
 
     // ========================================================================
     // INLINE FORMATTING
     // ========================================================================
     
-    // Strong formatting (bold) - *text*
-    strong: $ => prec(PREC.STRONG, seq(
-      token('*'),
-      field('content', alias(token.immediate(/[^*\r\n]+/), $.strong_text)),
-      token.immediate('*')
-    )),
+    // Strong formatting (bold) - wrapper for constrained/unconstrained
+    strong: $ => choice(
+      $.strong_constrained
+    ),
     
-    // Emphasis formatting (italic) - _text_
-    emphasis: $ => prec(PREC.EMPHASIS, seq(
-      token('_'),
-      field('content', alias(token.immediate(/[^_\r\n]+/), $.emphasis_text)),
-      token.immediate('_')
-    )),
+    // Emphasis formatting (italic) - wrapper for constrained/unconstrained
+    emphasis: $ => choice(
+      $.emphasis_constrained
+    ),
     
-    // Monospace formatting (code) - `text`
-    monospace: $ => prec(PREC.MONOSPACE, seq(
-      token('`'),
-      field('content', alias(token.immediate(/[^`\r\n]+/), $.monospace_text)),
-      token.immediate('`')
-    )),
+    // Monospace formatting (code) - wrapper for constrained/unconstrained
+    monospace: $ => choice(
+      $.monospace_constrained
+    ),
     
     // Superscript - ^text^
     superscript: $ => prec(PREC.SUPERSCRIPT, seq(
@@ -397,7 +319,7 @@ module.exports = grammar({
     // Plain text - match everything that's not a special inline marker  
     // Exclude '=' to allow heading recognition by external scanner
     _text: $ => alias($.text_segment, $.text_segment),
-    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n\|\\=]+/)),
+    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n\|\\=:-]+/)),
 
     // ========================================================================
     // DELIMITED BLOCKS
@@ -481,8 +403,8 @@ module.exports = grammar({
     openblock_close: $ => token(/--[ \t]*\r?\n/),
     
     // Block content - raw lines
-    block_content: $ => repeat1($._content_line),
-    _content_line: $ => token(/[^\r\n]*\r?\n/),
+    block_content: $ => repeat1($.content_line),
+    content_line: $ => token(prec(-1, /[^\r\n]*\r?\n/)),
     
     // Block metadata
     metadata: $ => repeat1(choice(
@@ -494,25 +416,25 @@ module.exports = grammar({
     
     block_title: $ => token(/\.[^\r\n]+\r?\n/),
     id_and_roles: $ => token(/\[\s*(?:#[A-Za-z][\w:-]*)?(?:\s*\.[A-Za-z0-9_-]+)*\s*\]\s*\r?\n/),
-    block_attributes: $ => token(/\[[^\]\r\n]*=[^\]\r\n]*\]\s*\r?\n/),
+    block_attributes: $ => token(/\[[^\]\r\n]+\]\s*\r?\n/),
     
     // ========================================================================
     // ATTRIBUTE ENTRIES
     // ========================================================================
     
-    attribute_entry: $ => prec(PREC.ATTRIBUTE_ENTRY, seq(
-      token(':'),
-      field('name', $.name),
-      token(':'),
-      optional(seq(
-        token.immediate(/[ \t]+/),
-        field('value', $.value)
-      )),
-      token.immediate(/[ \t]*\r?\n/)
+    attribute_entry: $ => prec(PREC.ATTRIBUTE_ENTRY, choice(
+      // Attribute with value: :name: value
+      seq(
+        field('name', alias(token(/:[A-Za-z][A-Za-z0-9_-]*:/), $.name)),
+        optional(token.immediate(/[ \t]+/)),
+        field('value', alias(token.immediate(/[^\r\n]+/), $.value))
+      ),
+      // Attribute without value: :name:
+      seq(
+        field('name', alias(token(/:[A-Za-z][A-Za-z0-9_-]*:/), $.name)),
+        token.immediate(/[ \t]*\r?\n/)
+      )
     )),
-    
-    name: $ => token(/[A-Za-z][A-Za-z0-9_-]*/),
-    value: $ => token(/[^\r\n]+/),
     
     // ========================================================================
     // PARAGRAPH ADMONITIONS
@@ -625,7 +547,7 @@ module.exports = grammar({
     table_open: $ => token(/\|===[ \t]*\r?\n/),
     table_close: $ => token(/\|===[ \t]*\r?\n/),
     
-    table_content: $ => repeat1($._content_line),
+    table_content: $ => repeat1($.content_line),
     
     // ========================================================================
     // MISSING INLINE CONSTRUCTS
@@ -691,23 +613,23 @@ module.exports = grammar({
     ),
     
     // Constrained formatting variants
-    strong_constrained: $ => seq(
-      token('**'),
+    strong_constrained: $ => prec(PREC.STRONG, seq(
+      token('*'),
       field('content', alias(token.immediate(/[^*\r\n]+/), $.strong_text)),
-      token.immediate('**')
-    ),
+      token.immediate('*')
+    )),
     
-    emphasis_constrained: $ => seq(
-      token('__'),
+    emphasis_constrained: $ => prec(PREC.EMPHASIS, seq(
+      token('_'),
       field('content', alias(token.immediate(/[^_\r\n]+/), $.emphasis_text)),
-      token.immediate('__')
-    ),
+      token.immediate('_')
+    )),
     
-    monospace_constrained: $ => seq(
-      token('``'),
+    monospace_constrained: $ => prec(PREC.MONOSPACE, seq(
+      token('`'),
       field('content', alias(token.immediate(/[^`\r\n]+/), $.monospace_text)),
-      token.immediate('``')
-    ),
+      token.immediate('`')
+    )),
     
     // ========================================================================
     // EXTERNAL TOKEN RULES
