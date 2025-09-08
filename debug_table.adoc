@@ -1,7 +1,0 @@
-|===
-|Name |Age |City
-
-|John Doe
-|30
-|New York
-|===

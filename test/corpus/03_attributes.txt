@@ -24,10 +24,11 @@ Some text.
       (title))
     (attribute_entry
       (name)
-      (value))
-    (paragraph
-      (text_with_inlines
-        (text_segment)))))
+      (value)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Attribute entries without values
@@ -43,17 +44,17 @@ Content here
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
+  (attribute_entry
+    (name))
   (attribute_entry
     (name))
   (section
     (section_title
-      (title))
-    (paragraph
-      (text_with_inlines
-        (text_segment)))))
+      (title)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Attribute entries with spaces in values
@@ -84,11 +85,23 @@ Invalid attribute patterns should be paragraphs
 
 (source_file
   (paragraph
-    (text_segment))
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
   (paragraph
-    (text_segment))
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
   (paragraph
-    (text_segment)))
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Mixed attributes and other content
@@ -112,13 +125,15 @@ More content
     (value))
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment)))
   (attribute_entry
     (name)
     (value))
   (section
     (section_title
-      (title))
-    (paragraph
-      (text_with_inlines
-        (text_segment)))))
+      (title)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment))))

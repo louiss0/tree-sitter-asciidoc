@@ -28,9 +28,9 @@ Another::Description
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment))))
+    (text_segment))
+  (paragraph
+    (text_segment)))
 
 ================================================================================
 Not a description list - triple colon

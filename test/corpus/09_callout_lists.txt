@@ -10,11 +10,23 @@ Simple callout list
 
 (source_file
   (callout_list
-    (callout_item))
+    (callout_item
+      (CALLOUT_MARKER)
+      (text_with_inlines
+        (text_segment)
+        (text_segment))))
   (callout_list
-    (callout_item))
+    (callout_item
+      (CALLOUT_MARKER)
+      (text_with_inlines
+        (text_segment)
+        (text_segment))))
   (callout_list
-    (callout_item)))
+    (callout_item
+      (CALLOUT_MARKER)
+      (text_with_inlines
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Not a callout list - missing space after marker

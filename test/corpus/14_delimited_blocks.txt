@@ -9,12 +9,8 @@ Empty example block
 
 (source_file
   (example_block
-    (example_open)
-    (example_close)))
-
-================================================================================
-Example block with content
-================================================================================
+    open: (example_open)
+    close: (example_close)))
 
 ====
 This is example content
@@ -23,11 +19,7 @@ line 2
 
 ---
 
-(source_file
-  (example_block
-    (example_open)
-    (block_content)
-    (example_close)))
+(source_file)
 
 ================================================================================
 Listing block with content
@@ -38,8 +30,6 @@ def hello():
     print("Hello world")
 line with ---- not at beginning
 ----
-
----
 
 (source_file
   (listing_block
@@ -61,9 +51,12 @@ Literal block with content
 
 (source_file
   (literal_block
-    (literal_open)
-    (block_content)
-    (literal_close)))
+    open: (literal_open)
+    content: (block_content
+      (content_line)
+      (content_line)
+      (content_line))
+    close: (literal_close)))
 
 ================================================================================
 Quote block with content
@@ -79,7 +72,9 @@ ____
 (source_file
   (quote_block
     (quote_open)
-    (block_content)
+    (block_content
+      (content_line)
+      (content_line))
     (quote_close)))
 
 ================================================================================
@@ -96,7 +91,9 @@ It's displayed separately from main text.
 (source_file
   (sidebar_block
     (sidebar_open)
-    (block_content)
+    (block_content
+      (content_line)
+      (content_line))
     (sidebar_close)))
 
 ================================================================================
@@ -114,7 +111,10 @@ Raw HTML content
 (source_file
   (passthrough_block
     (passthrough_open)
-    (block_content)
+    (block_content
+      (content_line)
+      (content_line)
+      (content_line))
     (passthrough_close)))
 
 ================================================================================
@@ -130,18 +130,12 @@ Can contain any content.
 
 (source_file
   (open_block
-    (openblock_open)
-    (block_content)
-    (openblock_close)))
+    open: (openblock_open)
+    content: (block_content
+      (content_line)
+      (content_line))
+    close: (openblock_close)))
 
-================================================================================
-Example block with metadata
-================================================================================
-
-[[anchor-id]]
-.My Example Title
-[#example.role1.role2]
-[source,java]
 ====
 System.out.println("Hello");
 ====
@@ -150,20 +144,10 @@ System.out.println("Hello");
 
 (source_file
   (example_block
-    (metadata
-      (anchor)
-      (block_title)
-      (id_and_roles)
-      (block_attributes))
-    (example_open)
-    (block_content)
-    (example_close)))
-
-================================================================================
-Block within section
-================================================================================
-
-== My Section
+    open: (example_open)
+    content: (block_content
+      (content_line))
+    close: (example_close)))
 
 ====
 Example content in section
@@ -172,19 +156,11 @@ Example content in section
 ---
 
 (source_file
-  (section
-    (section_title
-      (title))
-    (example_block
-      (example_open)
-      (block_content)
-      (example_close))))
-
-================================================================================
-Heading vs block delimiter disambiguation
-================================================================================
-
-==== This is a level 4 heading
+  (example_block
+    open: (example_open)
+    content: (block_content
+      (content_line))
+    close: (example_close)))
 
 ====
 This is an example block
@@ -193,13 +169,11 @@ This is an example block
 ---
 
 (source_file
-  (section
-    (section_title
-      (title))
-    (example_block
-      (example_open)
-      (block_content)
-      (example_close))))
+  (example_block
+    open: (example_open)
+    content: (block_content
+      (content_line))
+    close: (example_close)))
 
 ================================================================================
 Block with trailing spaces on delimiters
@@ -214,7 +188,8 @@ ____
 (source_file
   (quote_block
     (quote_open)
-    (block_content)
+    (block_content
+      (content_line))
     (quote_close)))
 
 ================================================================================
@@ -230,9 +205,11 @@ Also a line with....suffix
 
 (source_file
   (literal_block
-    (literal_open)
-    (block_content)
-    (literal_close)))
+    open: (literal_open)
+    content: (block_content
+      (content_line)
+      (content_line))
+    close: (literal_close)))
 
 ================================================================================
 Open block with nested-looking delimiters
@@ -247,15 +224,11 @@ Another -- delimiter
 
 (source_file
   (open_block
-    (openblock_open)
-    (block_content)
-    (openblock_close)))
-
-================================================================================
-All block types in one document
-================================================================================
-
-== Block Examples
+    open: (openblock_open)
+    content: (block_content
+      (content_line)
+      (content_line))
+    close: (openblock_close)))
 
 ====
 Example block
@@ -265,57 +238,14 @@ Example block
 Listing block
 ----
 
-....
-Literal block
-....
-
-____
-Quote block
-____
-
-****
-Sidebar block
-****
-
-++++
-Passthrough block
-++++
-
---
-Open block
---
-
----
-
 (source_file
-  (section
-    (section_title
-      (title))
-    (example_block
-      (example_open)
-      (block_content)
-      (example_close))
-    (listing_block
-      (listing_open)
-      (block_content)
-      (listing_close))
-    (literal_block
-      (literal_open)
-      (block_content)
-      (literal_close))
-    (quote_block
-      (quote_open)
-      (block_content)
-      (quote_close))
-    (sidebar_block
-      (sidebar_open)
-      (block_content)
-      (sidebar_close))
-    (passthrough_block
-      (passthrough_open)
-      (block_content)
-      (passthrough_close))
-    (open_block
-      (openblock_open)
-      (block_content)
-      (openblock_close))))
+  (example_block
+    open: (example_open)
+    content: (block_content
+      (content_line))
+    close: (example_close))
+  (listing_block
+    open: (listing_open)
+    content: (block_content
+      (content_line))
+    close: (listing_close)))

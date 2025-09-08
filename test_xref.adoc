@@ -1,0 +1,3 @@
+Check out xref:other-file.adoc[].
+
+Check out xref:other-file.adoc[Other Document].

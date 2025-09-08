@@ -19,19 +19,29 @@ Paragraph under C
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)))
-    (section
-      (section_title
-        (title))
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (section
-        (section_title
-          (title))
-        (paragraph
-          (text_with_inlines
-            (text_segment)))))))
+        (text_segment)
+        (text_segment)
+        (text_segment))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Multiple sections at same level
@@ -57,24 +67,37 @@ Content for section 3
       (title))
     (paragraph
       (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
         (text_segment))))
   (section
     (section_title
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)))
-    (section
-      (section_title
-        (title))
-      (paragraph
-        (text_with_inlines
-          (text_segment)))))
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
   (section
     (section_title
       (title))
     (paragraph
       (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -107,37 +130,65 @@ Content at level 6
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)))
-    (section
-      (section_title
-        (title))
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (section
-        (section_title
-          (title))
-        (paragraph
-          (text_with_inlines
-            (text_segment)))
-        (section
-          (section_title
-            (title))
-          (paragraph
-            (text_with_inlines
-              (text_segment)))
-          (section
-            (section_title
-              (title))
-            (paragraph
-              (text_with_inlines
-                (text_segment)))
-            (section
-              (section_title
-                (title))
-              (paragraph
-                (text_with_inlines
-                  (text_segment))))))))))
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Sections with attributes
@@ -166,16 +217,19 @@ Subsection content
       (title))
     (attribute_entry
       (name)
-      (value))
-    (paragraph
-      (text_with_inlines
-        (text_segment)))
-    (section
-      (section_title
-        (title))
-      (attribute_entry
-        (name)
-        (value))
-      (paragraph
-        (text_with_inlines
-          (text_segment))))))
+      (value)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)))
+  (attribute_entry
+    (name)
+    (value))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment))))

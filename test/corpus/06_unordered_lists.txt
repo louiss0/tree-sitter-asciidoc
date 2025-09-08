@@ -12,14 +12,15 @@ Simple unordered list with asterisk
   (unordered_list
     (unordered_list_item
       (text_with_inlines
-        (text_segment))))
-  (unordered_list
+        (text_segment)
+        (text_segment)))
     (unordered_list_item
       (text_with_inlines
-        (text_segment))))
-  (unordered_list
+        (text_segment)
+        (text_segment)))
     (unordered_list_item
       (text_with_inlines
+        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -36,14 +37,15 @@ Simple unordered list with hyphen
   (unordered_list
     (unordered_list_item
       (text_with_inlines
-        (text_segment))))
-  (unordered_list
+        (text_segment)
+        (text_segment)))
     (unordered_list_item
       (text_with_inlines
-        (text_segment))))
-  (unordered_list
+        (text_segment)
+        (text_segment)))
     (unordered_list_item
       (text_with_inlines
+        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -60,14 +62,15 @@ Mixed unordered list markers
   (unordered_list
     (unordered_list_item
       (text_with_inlines
-        (text_segment))))
-  (unordered_list
+        (text_segment)
+        (text_segment)))
     (unordered_list_item
       (text_with_inlines
-        (text_segment))))
-  (unordered_list
+        (text_segment)
+        (text_segment)))
     (unordered_list_item
       (text_with_inlines
+        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -81,8 +84,12 @@ Not a list - missing space after marker
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
-    (strong_text)
-    (UNEXPECTED 'N')
-    (ERROR)
-    (name)))
+  (paragraph
+    (text_with_inlines
+      (inline_element
+        (strong
+          (strong_constrained
+            (strong_text))))))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))

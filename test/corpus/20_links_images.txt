@@ -11,16 +11,21 @@ Also check out http://test.org and ftp://files.com/download.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (auto_link)
+      (inline_element
+        (auto_link))
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)
+      (inline_element
+        (auto_link))
       (text_segment)
-      (text_segment)
-      (text_segment)
-      (auto_link)
-      (text_segment)
-      (auto_link))))
+      (inline_element
+        (auto_link)))))
 
 ================================================================================
 Links with text
@@ -36,18 +41,8 @@ Visit https://example.com[Example Site] for more info.
       (text_segment)
       (inline_element
         (link
-          (auto_link)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+          url: (auto_link)
+          text: (bracketed_text)))
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -66,17 +61,8 @@ Visit https://example.com[*Bold* _Link_ Text] here.
       (text_segment)
       (inline_element
         (link
-          (auto_link)
-          (strong
-            (strong_constrained
-              (strong_text)))
-          (emphasis
-            (emphasis_constrained
-              (emphasis_text)))
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+          url: (auto_link)
+          text: (bracketed_text)))
       (text_segment))))
 
 ================================================================================

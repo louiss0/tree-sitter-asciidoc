@@ -63,12 +63,14 @@ This is *bold _italic* text_ here.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (strong
-        (text_segment))
       (text_segment)
-      (emphasis
-        (text_segment))
-      (text_segment))))
+      (inline_element
+        (strong))
+      (text_segment)
+      (inline_element
+        (emphasis
+          (emphasis_constrained
+            (emphasis_text)))))))
 
 ================================================================================
 Trailing plus without EOL (should not create line_break)
@@ -95,8 +97,8 @@ This is *bold with \* asterisk* text.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (strong
-        (text_segment))
+      (text_segment)
+      (unconstrained_strong)
       (text_segment))))
 
 ================================================================================
@@ -111,8 +113,8 @@ This is _italic with \_ underscore_ text.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (emphasis
-        (text_segment))
+      (text_segment)
+      (unconstrained_emphasis)
       (text_segment))))
 
 ================================================================================
@@ -127,8 +129,8 @@ This is `code with \` backtick` text.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (monospace
-        (text_segment))
+      (text_segment)
+      (unconstrained_monospace)
       (text_segment))))
 
 ================================================================================
@@ -193,12 +195,9 @@ This is *bold with `mono and ^super^`* text.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (strong
-        (text_segment)
-        (monospace
-          (text_segment)
-          (superscript
-            (text_segment))))
+      (text_segment)
+      (inline_element
+        (strong))
       (text_segment))))
 
 ================================================================================
@@ -213,17 +212,15 @@ This is *bold {name}* and `code {version}` and ^super{level}^.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (strong
-        (text_segment)
-        (attribute_reference))
       (text_segment)
-      (monospace
-        (text_segment)
-        (attribute_reference))
+      (inline_element
+        (strong))
       (text_segment)
-      (superscript
-        (text_segment)
-        (attribute_reference))
+      (inline_element
+        (monospace))
+      (text_segment)
+      (inline_element
+        (superscript))
       (text_segment))))
 
 ================================================================================
@@ -239,9 +236,11 @@ Second line here.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (line_break)))
-  (paragraph
-    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (line_break))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -314,17 +313,18 @@ Multiple consecutive inline elements
 (source_file
   (paragraph
     (text_with_inlines
-      (strong
-        (text_segment))
-      (emphasis
-        (text_segment))
-      (monospace
-        (text_segment))
-      (superscript
-        (text_segment))
-      (subscript
-        (text_segment))
-      (attribute_reference))))
+      (inline_element
+        (strong))
+      (inline_element
+        (emphasis))
+      (inline_element
+        (monospace))
+      (inline_element
+        (superscript))
+      (inline_element
+        (subscript))
+      (inline_element
+        (attribute_reference)))))
 
 ================================================================================
 Empty inline constructs (edge case)
@@ -337,6 +337,17 @@ This has ** and __ and `` empty markers.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (inline_element
+        (strong))
+      (text_segment)
+      (inline_element
+        (emphasis))
+      (text_segment)
+      (inline_element
+        (monospace))
+      (text_segment)
       (text_segment))))
 
 ================================================================================

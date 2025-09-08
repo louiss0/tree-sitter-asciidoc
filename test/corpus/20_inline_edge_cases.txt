@@ -14,29 +14,34 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (strong
-        (text_segment))
       (text_segment)
-      (emphasis
-        (text_segment))
+      (inline_element
+        (strong))
+      (text_segment)
+      (inline_element
+        (emphasis))
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (strong
-        (text_segment))
       (text_segment)
-      (emphasis
-        (text_segment))
+      (text_segment)
+      (inline_element
+        (strong))
+      (text_segment)
+      (inline_element
+        (emphasis))
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (superscript
-        (text_segment))
       (text_segment)
-      (subscript
-        (text_segment))
+      (inline_element
+        (superscript))
+      (text_segment)
+      (inline_element
+        (subscript))
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -57,31 +62,35 @@ Monospace with `code *not strong* here` content.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (strong
-        (text_segment))
+      (inline_element
+        (strong))
       (text_segment)
-      (emphasis
-        (text_segment))
+      (inline_element
+        (emphasis))
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
       (text_segment)
+      (inline_element
+        (strong))
       (text_segment)
+      (text_segment)
+      (inline_element
+        (emphasis))
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (strong
-        (text_segment)
-        (emphasis
-          (text_segment))
-        (text_segment))))
+      (inline_element
+        (strong))
+      (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (monospace
-        (text_segment))
+      (text_segment)
+      (inline_element
+        (monospace))
       (text_segment))))
 
 ================================================================================
@@ -102,24 +111,25 @@ Email addresses: contact@example.com.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (autolink)
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (autolink)
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (autolink)
       (text_segment)
-      (autolink)
+      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (autolink)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -160,7 +170,7 @@ Role spans with complex attributes
       (text_segment))))
 
 ================================================================================
-Nested formatting edge cases  
+Nested formatting edge cases
 ================================================================================
 
 *Strong with `code` inside* normal text.
@@ -307,7 +317,7 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
       (text_segment))))
 
 ================================================================================
-Passthrough and raw content edge cases  
+Passthrough and raw content edge cases
 ================================================================================
 
 Inline passthrough: pass:[<script>alert('test')</script>] content.

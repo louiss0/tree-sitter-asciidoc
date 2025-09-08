@@ -19,20 +19,40 @@ Final paragraph.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (unordered_list
-    (unordered_list_item))
+    (unordered_list_item
+      (text_with_inlines
+        (text_segment)
+        (text_segment))))
   (unordered_list
-    (unordered_list_item))
+    (unordered_list_item
+      (text_with_inlines
+        (text_segment)
+        (text_segment))))
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (ordered_list
-    (ordered_list_item))
+    (ordered_list_item
+      (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment))))
   (ordered_list
-    (ordered_list_item))
+    (ordered_list_item
+      (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment))))
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -63,21 +83,43 @@ More content here.
     (value))
   (section
     (section_title
-      (title))
-    (paragraph
+      (title)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (unordered_list
+    (unordered_list_item
       (text_with_inlines
-        (text_segment)))
-    (unordered_list
-      (unordered_list_item))
-    (unordered_list
-      (unordered_list_item))
-    (section
-      (section_title
-        (title))
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (ordered_list
-        (ordered_list_item))
-      (ordered_list
-        (ordered_list_item)))))
+        (text_segment)
+        (text_segment))))
+  (unordered_list
+    (unordered_list_item
+      (text_with_inlines
+        (text_segment)
+        (text_segment))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (ordered_list
+    (ordered_list_item
+      (text_with_inlines
+        (text_segment)
+        (text_segment))))
+  (ordered_list
+    (ordered_list_item
+      (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)))))

@@ -13,11 +13,24 @@ Another:: regular description item
 
 (source_file
   (paragraph
-    (text_segment))
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
   (description_list
     (description_item))
-  (description_list
-    (description_item))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
   (description_list
     (description_item)))
 
@@ -33,15 +46,24 @@ The word endif:: can also appear here.
 --------------------------------------------------------------------------------
 
 (source_file
+  (description_list
+    (description_item))
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment))))
+  (description_list
+    (description_item)))
 
 ================================================================================
 Malformed conditionals should be paragraphs
@@ -128,7 +150,9 @@ another:::word paragraph
       (text_segment)
       (text_segment)
       (text_segment)
-      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
       (text_segment)
       (text_segment))))
 

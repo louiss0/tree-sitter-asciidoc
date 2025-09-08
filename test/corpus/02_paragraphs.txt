@@ -16,18 +16,41 @@ Another paragraph after multiple blank lines
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -42,11 +65,21 @@ Fake headings without space should be paragraphs
 
 (source_file
   (paragraph
-    (text_segment))
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
   (paragraph
-    (text_segment))
+    (text_with_inlines
+      (text_segment)))
   (paragraph
-    (text_segment)))
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Mixed paragraphs and blank lines
@@ -67,11 +100,16 @@ continues here
       (text_segment)
       (text_segment)))
   (paragraph
-    (text_segment))
-  (paragraph
     (text_with_inlines
       (text_segment)
       (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
       (text_segment)
       (text_segment))))
 

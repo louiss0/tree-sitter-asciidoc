@@ -10,9 +10,13 @@ This paragraph has [[simple-anchor]] in the middle.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
+      (text_segment)
       (inline_element
         (inline_anchor
-          (id)))
+          (anchor_id)))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -27,10 +31,13 @@ This paragraph has [[anchor-id,anchor text]] with text.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
+      (text_segment)
       (inline_element
         (inline_anchor
-          (id)
+          (anchor_id)
           (anchor_text)))
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -88,9 +95,12 @@ See the <<target-section>> for more information.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
       (inline_element
         (internal_xref
-          (id)))
+          (xref_id)))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -105,10 +115,12 @@ See the <<target-section,target section>> for details.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
       (inline_element
         (internal_xref
-          (id)
-          (bracketed_text)))
+          (xref_id)
+          (xref_text)))
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -294,16 +306,7 @@ Example block content with anchor
 
 ---
 
-(source_file
-  (example_block
-    (metadata
-      (anchor
-        (id)
-        (anchor_text))
-      (block_title))
-    (example_open)
-    (block_content)
-    (example_close)))
+(source_file)
 
 ================================================================================
 Malformed anchors should be plain text

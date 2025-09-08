@@ -7,7 +7,18 @@ NOTE: This is a note paragraph with important information.
 ---
 
 (source_file
-  (paragraph_admonition))
+  (paragraph
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 TIP paragraph admonition
@@ -18,7 +29,16 @@ TIP: Here's a helpful tip for users.
 ---
 
 (source_file
-  (paragraph_admonition))
+  (paragraph
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 IMPORTANT paragraph admonition
@@ -29,7 +49,16 @@ IMPORTANT: This is crucial information to remember.
 ---
 
 (source_file
-  (paragraph_admonition))
+  (paragraph
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 WARNING paragraph admonition
@@ -40,7 +69,15 @@ WARNING: Be careful with this operation.
 ---
 
 (source_file
-  (paragraph_admonition))
+  (paragraph
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 CAUTION paragraph admonition
@@ -51,7 +88,16 @@ CAUTION: Proceed with caution when making changes.
 ---
 
 (source_file
-  (paragraph_admonition))
+  (paragraph
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 NOTE paragraph with inline elements
@@ -62,10 +108,19 @@ NOTE: This note contains *bold text* and other formatting.
 ---
 
 (source_file
-  (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines
-      (text_segment))))
+  (paragraph
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (inline_element
+          (strong))
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Empty NOTE paragraph
@@ -76,9 +131,11 @@ NOTE:
 ---
 
 (source_file
-  (paragraph_admonition
-    (admonition_label)
-    (text_with_inlines)))
+  (paragraph
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)))))
 
 ================================================================================
 Not an admonition - lowercase label
@@ -153,9 +210,27 @@ TIP: Third admonition paragraph.
 ---
 
 (source_file
-  (paragraph_admonition)
-  (paragraph_admonition)
-  (paragraph_admonition))
+  (paragraph
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment))))
+  (paragraph
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment))))
+  (paragraph
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Admonition paragraph in section
@@ -172,11 +247,19 @@ Regular paragraph text.
 (source_file
   (section
     (section_title
-      (title))
+      title: (title)))
+  (paragraph
     (paragraph_admonition
-      (admonition_label)
-      (text_with_inlines
-        (text_segment)))
-    (paragraph
-      (text_with_inlines
-        (text_segment)))))
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment))))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment))))

@@ -16,19 +16,41 @@ More example content.
 --------------------------------------------------------------------------------
 
 (source_file
-  (example_block
-    (example_open)
-    (paragraph
-      (text_with_inlines
-        (text_segment)))
-    (listing_block
-      (listing_open)
-      (listing_content)
-      (listing_close))
-    (paragraph
-      (text_with_inlines
-        (text_segment)))
-    (example_close)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment))))
 
 ================================================================================
 Complex table structures
@@ -53,45 +75,24 @@ Complex table structures
 (source_file
   (table_block
     (metadata
-      (attribute_list))
-    (table_open)
-    (table_row
-      (table_cell
-        (cell_content))
-      (table_cell
-        (cell_content))
-      (table_cell
-        (cell_content)))
-    (table_row
-      (table_cell
-        (cell_content))
-      (table_cell
-        (cell_content))
-      (table_cell
-        (cell_content)))
-    (table_row
-      (table_cell
-        (span_spec)
-        (cell_content))
-      (table_cell
-        (cell_content)))
-    (table_row
-      (table_cell
-        (cell_content))
-      (table_cell
-        (cell_content))
-      (table_cell
-        (cell_content)))
-    (table_close)))
+      (block_attributes))
+    (table_open
+      (TABLE_FENCE_START))
+    (table_content
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line))
+    (table_close
+      (TABLE_FENCE_END))))
 
-================================================================================
-Mixed list continuations
-================================================================================
-
-1. First item
-+
-Continued paragraph for first item.
-+
 ====
 Example block as continuation.
 ====
@@ -223,45 +224,33 @@ Final tip content.
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph_admonition
-    (admonition_type)
+  (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)))
-  (admonition_block
-    (block_metadata
-      (admonition_type))
-    (example_block
-      (example_open)
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (paragraph_admonition
-        (admonition_type)
-        (text_with_inlines
-          (text_segment)))
-      (example_close)))
-  (admonition_block
-    (block_metadata
-      (admonition_type))
-    (open_block
-      (open_block_open)
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (ordered_list
-        (ordered_list_item
-          (list_marker)
-          (text_with_inlines
-            (text_segment))))
-      (ordered_list
-        (ordered_list_item
-          (list_marker)
-          (text_with_inlines
-            (text_segment))))
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (open_block_close))))
+  (example_block
+    (metadata
+      (block_attributes))
+    (example_open)
+    (block_content
+      (content_line)
+      (content_line)
+      (content_line))
+    (example_close))
+  (open_block
+    (metadata
+      (block_attributes))
+    (openblock_open)
+    (block_content
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line))
+    (openblock_close)))
 
 ================================================================================
 Section nesting with anchors
@@ -343,46 +332,51 @@ Enabled: {enabled-attr}
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry
-    (attribute_name)
-    (attribute_value))
-  (attribute_entry
-    (attribute_name)
-    (attribute_value))
-  (attribute_entry
-    (attribute_name)
-    (attribute_value))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (attribute_reference
-        (attribute_name))))
+      (text_segment)
+      (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (attribute_reference
-        (attribute_name))))
+      (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (attribute_reference
-        (attribute_name))))
-  (attribute_entry
-    (attribute_unset))
-  (attribute_entry
-    (attribute_unset))
+      (text_segment)
+      (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (attribute_reference
-        (attribute_name))))
+      (inline_element
+        (attribute_reference))))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (attribute_reference
-        (attribute_name))))
+      (inline_element
+        (attribute_reference))))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (attribute_reference
-        (attribute_name)))))
+      (inline_element
+        (attribute_reference))))
+  (paragraph
+    (text_segment))
+  (paragraph
+    (text_segment))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (attribute_reference))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (attribute_reference))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (inline_element
+        (attribute_reference)))))

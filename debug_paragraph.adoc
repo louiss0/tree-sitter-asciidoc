@@ -1,8 +1,0 @@
-This is a paragraph line 1
-This is still the same paragraph line 2
-
-This is a different paragraph
-on multiple lines
-
-
-Another paragraph after multiple blank lines

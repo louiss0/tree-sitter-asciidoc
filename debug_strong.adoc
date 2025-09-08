@@ -1,1 +1,0 @@
-This is *strong text* in a paragraph.

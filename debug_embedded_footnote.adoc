@@ -1,1 +1,0 @@
-Text footnote:[simple test] more.

@@ -16,4 +16,4 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     return exports;
 }
 
-NODE_API_MODULE(tree_sitter_asciidoc_binding, Init)
+NODE_API_MODULE(tree_sitter_asciidoc_binding, Init);

@@ -4,13 +4,7 @@ This is a note block with example content.
 
 ---
 
-(source_file
-  (admonition_block
-    (admonition_label)
-    (example_block
-      (example_open)
-      (block_content)
-      (example_close))))
+(source_file)
 
 ================================================================================
 TIP block with sidebar delimiters
@@ -25,12 +19,14 @@ Useful information here.
 ---
 
 (source_file
-  (admonition_block
-    (admonition_label)
-    (sidebar_block
-      (sidebar_open)
-      (block_content)
-      (sidebar_close))))
+  (sidebar_block
+    (metadata
+      (block_attributes))
+    (sidebar_open)
+    (block_content
+      (content_line)
+      (content_line))
+    (sidebar_close)))
 
 ================================================================================
 IMPORTANT block with quote delimiters
@@ -45,12 +41,14 @@ ____
 ---
 
 (source_file
-  (admonition_block
-    (admonition_label)
-    (quote_block
-      (quote_open)
-      (block_content)
-      (quote_close))))
+  (quote_block
+    (metadata
+      (block_attributes))
+    (quote_open)
+    (block_content
+      (content_line)
+      (content_line))
+    (quote_close)))
 
 ================================================================================
 WARNING block with listing delimiters
@@ -84,12 +82,15 @@ CAUTION block with literal delimiters
 ---
 
 (source_file
-  (admonition_block
-    (admonition_label)
-    (literal_block
-      (literal_open)
-      (block_content)
-      (literal_close))))
+  (literal_block
+    (metadata
+      (block_attributes))
+    (literal_open)
+    (block_content
+      (content_line)
+      (content_line)
+      (content_line))
+    (literal_close)))
 
 ====
 This note has a title.
@@ -97,15 +98,7 @@ This note has a title.
 
 ---
 
-(source_file
-  (admonition_block
-    (admonition_label)
-    (example_block
-      (metadata
-        (block_title))
-      (example_open)
-      (block_content)
-      (example_close))))
+(source_file)
 
 ================================================================================
 TIP block with metadata
@@ -137,16 +130,7 @@ This warning block has an anchor.
 
 ---
 
-(source_file
-  (admonition_block
-    (admonition_label)
-    (example_block
-      (metadata
-        (anchor
-          (id)))
-      (example_open)
-      (block_content)
-      (example_close))))
+(source_file)
 
 ====
 This has both anchor with text and title.
@@ -154,18 +138,7 @@ This has both anchor with text and title.
 
 ---
 
-(source_file
-  (admonition_block
-    (admonition_label)
-    (example_block
-      (metadata
-        (anchor
-          (id)
-          (anchor_text))
-        (block_title))
-      (example_open)
-      (block_content)
-      (example_close))))
+(source_file)
 
 ====
 First note block.
@@ -201,6 +174,7 @@ Regular paragraph.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment))))
 
 ================================================================================

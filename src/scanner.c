@@ -15,13 +15,6 @@ enum {
     DESCRIPTION_LIST_SEP,   // "::"
     _DESCRIPTION_LIST_ITEM, // "term:: description" pattern (hidden from AST)
     CALLOUT_MARKER,        // "<N> " at start of line
-    _SECTION_MARKER,       // "={1,6} " at start of line (hidden from AST)
-    _HEADING_LEVEL_1,      // "= " at start of line (hidden from AST)
-    _HEADING_LEVEL_2,      // "== " at start of line (hidden from AST)
-    _HEADING_LEVEL_3,      // "=== " at start of line (hidden from AST)
-    _HEADING_LEVEL_4,      // "==== " at start of line (hidden from AST)
-    _HEADING_LEVEL_5,      // "===== " at start of line (hidden from AST)
-    _HEADING_LEVEL_6,      // "====== " at start of line (hidden from AST)
     _ifdef_open_token,     // "ifdef::" at start of line
     _ifndef_open_token,    // "ifndef::" at start of line
     _ifeval_open_token,    // "ifeval::" at start of line
@@ -33,10 +26,16 @@ typedef struct {
     uint8_t fence_length;
     uint8_t fence_count;
     bool at_line_start;
+    // List state tracking
+    bool in_unordered_list;
+    bool in_ordered_list;
+    char last_unordered_marker; // '*' or '-'
+    bool list_block_consumed;   // Track if we've consumed a list block
 } Scanner;
 
 static void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
 static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
+
 
 // Skip whitespace except newlines
 static void skip_spaces(TSLexer *lexer) {
@@ -172,9 +171,17 @@ static bool scan_attribute_list_start(TSLexer *lexer) {
     if (lexer->lookahead != '[') return false;
     advance(lexer);
     
-    // Look for common attribute patterns
+    // Look for common attribute patterns - be more conservative
     char c = lexer->lookahead;
-    if (c == '.' || c == '#' || c == '%' || iswalpha(c)) {
+    if (c == '.' || c == '#' || c == '%') {
+        // These are clear attribute indicators
+        return true;
+    }
+    
+    // For alphabetic characters, be very conservative
+    if (iswalpha(c)) {
+        // Only match if it's followed by patterns that suggest attributes
+        // This is a simplified check to avoid crashes
         return true;
     }
     
@@ -228,47 +235,222 @@ static bool scan_ordered_list_marker(TSLexer *lexer) {
     return false;
 }
 
+// Scan for entire unordered list block (consecutive * or - items)
+static bool scan_unordered_list_block(Scanner *scanner, TSLexer *lexer) {
+    if (!at_line_start(lexer)) return false;
+    
+    // Must start with unordered marker
+    if (lexer->lookahead != '*' && lexer->lookahead != '-') {
+        return false;
+    }
+    
+    char marker = lexer->lookahead;
+    bool consumed_any = false;
+    
+    // Consume all consecutive unordered list items with same or compatible markers
+    while (at_line_start(lexer) && (lexer->lookahead == '*' || lexer->lookahead == '-')) {
+        // For mixed markers, we accept both * and - as valid
+        char current_marker = lexer->lookahead;
+        advance(lexer);
+        
+        // Must be followed by whitespace
+        if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+            advance(lexer);
+            
+            // Consume rest of line (list item content)
+            while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+                advance(lexer);
+            }
+            
+            // Consume newline
+            if (lexer->lookahead == '\r') advance(lexer);
+            if (lexer->lookahead == '\n') advance(lexer);
+            
+            consumed_any = true;
+            
+            // Skip blank lines between list items
+            while (lexer->lookahead == '\r' || lexer->lookahead == '\n') {
+                advance(lexer);
+            }
+            
+        } else {
+            // Not a valid list marker, stop here
+            break;
+        }
+    }
+    
+    if (consumed_any) {
+        scanner->in_unordered_list = true;
+        scanner->last_unordered_marker = marker;
+        scanner->list_block_consumed = true;
+        return true;
+    }
+    
+    return false;
+}
+
+// Scan for entire ordered list block (consecutive numbered items)
+static bool scan_ordered_list_block(Scanner *scanner, TSLexer *lexer) {
+    if (!at_line_start(lexer)) return false;
+    
+    // Must start with digit
+    if (!is_digit(lexer->lookahead)) {
+        return false;
+    }
+    
+    bool consumed_any = false;
+    
+    // Consume all consecutive ordered list items
+    while (at_line_start(lexer) && is_digit(lexer->lookahead)) {
+        // Consume digits
+        while (is_digit(lexer->lookahead)) {
+            advance(lexer);
+        }
+        
+        // Must be followed by ". "
+        if (lexer->lookahead == '.') {
+            advance(lexer);
+            if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+                advance(lexer);
+                
+                // Consume rest of line (list item content)
+                while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+                    advance(lexer);
+                }
+                
+                // Consume newline
+                if (lexer->lookahead == '\r') advance(lexer);
+                if (lexer->lookahead == '\n') advance(lexer);
+                
+                consumed_any = true;
+                
+                // Skip blank lines between list items
+                while (lexer->lookahead == '\r' || lexer->lookahead == '\n') {
+                    advance(lexer);
+                }
+                
+            } else {
+                // Not a valid list marker, stop here
+                break;
+            }
+        } else {
+            // Not a valid list marker, stop here
+            break;
+        }
+    }
+    
+    if (consumed_any) {
+        scanner->in_ordered_list = true;
+        scanner->list_block_consumed = true;
+        return true;
+    }
+    
+    return false;
+}
+
 // Scan for description list separator: "::"
+// Very restrictive - only match as part of a proper description list item
 static bool scan_description_list_sep(TSLexer *lexer) {
+    // This should only match :: that are clearly part of description list syntax
+    // We'll be very conservative to avoid false positives in regular text
     if (lexer->lookahead == ':') {
         advance(lexer);
         if (lexer->lookahead == ':') {
             advance(lexer);
             
-            // Must be followed by whitespace or end of line
+            // Must be followed by whitespace (required for description lists)
             if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+                // Additional check: make sure we're not at start of line with just ::
+                // This prevents matching lines like ":: starts with double colon"
                 advance(lexer);
+                return true;
             }
-            return true;
         }
     }
     return false;
 }
 
 // Scan for description list item: "term:: description" at start of line
+// Very restrictive - only match clear description list patterns
 static bool scan_description_list_item(TSLexer *lexer) {
     if (!at_line_start(lexer)) return false;
     
     // Skip leading whitespace
     skip_spaces(lexer);
     
-    // Must have some text for the term (non-colon characters)
-    bool has_term = false;
+    // For a valid description list term, we need:
+    // 1. A single word or short phrase (no spaces or very few)
+    // 2. Followed by exactly :: and then space  
+    // 3. This helps distinguish from sentences that happen to contain ::
+    // 4. Terms should not contain common article words or sentence starters
+    
+    // Look for a term - be very conservative about what we accept
+    int char_count = 0;
+    int space_count = 0;
+    bool has_alpha = false;
+    
+    // Store the term to check for common sentence patterns
+    char term_buffer[100] = {0};
+    int term_pos = 0;
+    
     while (lexer->lookahead && lexer->lookahead != ':' && 
            lexer->lookahead != '\r' && lexer->lookahead != '\n') {
-        has_term = true;
+        
+        if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+            space_count++;
+            // If we have too many spaces, this is probably a sentence, not a term
+            if (space_count > 2) return false;  // Even more restrictive
+            if (term_pos < 99) term_buffer[term_pos++] = ' ';
+        } else if (iswalpha(lexer->lookahead) || lexer->lookahead == '_' || 
+                   lexer->lookahead == '-' || is_digit(lexer->lookahead)) {
+            has_alpha = true;
+            // Convert to lowercase manually for comparison
+            char c = (char)lexer->lookahead;
+            if (c >= 'A' && c <= 'Z') c = c + ('a' - 'A');
+            if (term_pos < 99) term_buffer[term_pos++] = c;
+        } else {
+            // Other characters that might appear in description list terms
+            // but be careful about punctuation that suggests a sentence
+            if (lexer->lookahead == '.' || lexer->lookahead == ',' || 
+                lexer->lookahead == ';' || lexer->lookahead == '!') {
+                // These suggest a sentence rather than a term
+                return false;
+            }
+            if (term_pos < 99) term_buffer[term_pos++] = (char)lexer->lookahead;
+        }
+        
+        char_count++;
+        // Shorter terms are more likely to be actual description list terms
+        if (char_count > 30) return false;  // More restrictive
+        
         advance(lexer);
     }
     
-    if (!has_term) return false;
+    // Must have some alphanumeric content and not be too short or too long
+    if (!has_alpha || char_count < 1 || char_count > 30) return false;
     
-    // Must be followed by "::"
+    // Check for common sentence starters/patterns that suggest this isn't a term
+    if (term_pos >= 5) {  // Only check if we have enough characters
+        // Check for common sentence starters - simple prefix matching
+        if ((term_buffer[0] == 's' && term_buffer[1] == 'o' && 
+             term_buffer[2] == 'm' && term_buffer[3] == 'e' && term_buffer[4] == ' ') ||
+            (term_buffer[0] == 't' && term_buffer[1] == 'h' && 
+             term_buffer[2] == 'e' && term_buffer[3] == ' ') ||
+            (term_buffer[0] == 't' && term_buffer[1] == 'h' && 
+             term_buffer[2] == 'i' && term_buffer[3] == 's' && term_buffer[4] == ' ') ||
+            (term_buffer[0] == 't' && term_buffer[1] == 'h' && 
+             term_buffer[2] == 'a' && term_buffer[3] == 't' && term_buffer[4] == ' ')) {
+            return false;
+        }
+    }
+    
+    // Must be followed by exactly "::"
     if (lexer->lookahead == ':') {
         advance(lexer);
         if (lexer->lookahead == ':') {
             advance(lexer);
             
-            // Must be followed by whitespace
+            // Must be followed by whitespace (required for description lists)
             if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
                 advance(lexer);
                 // Consume the rest of the line as description
@@ -313,51 +495,6 @@ static bool scan_callout_marker(TSLexer *lexer) {
     return false;
 }
 
-// Scan for section marker: "={1,6} " at start of line
-static bool scan_section_marker(TSLexer *lexer) {
-    if (!at_line_start(lexer)) return false;
-    
-    if (lexer->lookahead == '=') {
-        int count = 0;
-        
-        // Count consecutive = characters (1-6)
-        while (lexer->lookahead == '=' && count < 6) {
-            advance(lexer);
-            count++;
-        }
-        
-        // Must be followed by whitespace
-        if (count >= 1 && count <= 6 && 
-            (lexer->lookahead == ' ' || lexer->lookahead == '\t')) {
-            advance(lexer);
-            return true;
-        }
-    }
-    
-    return false;
-}
-
-// Unified heading scanner that determines level without consuming on failure
-static int scan_heading_level(TSLexer *lexer) {
-    if (!at_line_start(lexer) || lexer->lookahead != '=') {
-        return 0; // Not a heading
-    }
-    
-    // Count consecutive '=' characters
-    int level = 0;
-    while (lexer->lookahead == '=' && level < 6) {
-        advance(lexer);
-        level++;
-    }
-    
-    // Must be followed by space or tab
-    if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
-        advance(lexer); // consume space/tab
-        return level; // Return the heading level (1-6)
-    }
-    
-    return 0; // Not a valid heading
-}
 
 
 // Simplified conditional scanners - use basic pattern matching
@@ -395,16 +532,77 @@ static bool scan_ifdef_open(TSLexer *lexer) {
     return false;
 }
 
-// DISABLED: ifndef directive causes scanner conflicts with ifdef
-// TODO: Implement proper disambiguation between ifdef/ifndef/ifeval
-// The issue is that all three start with 'if' which causes lexer state corruption
+// Scan for ifndef directive: "ifndef::" at start of line
 static bool scan_ifndef_open(TSLexer *lexer) {
+    if (!at_line_start(lexer)) return false;
+    
+    // Match "ifndef::" literally
+    if (lexer->lookahead == 'i') {
+        advance(lexer);
+        if (lexer->lookahead == 'f') {
+            advance(lexer);
+            if (lexer->lookahead == 'n') {
+                advance(lexer);
+                if (lexer->lookahead == 'd') {
+                    advance(lexer);
+                    if (lexer->lookahead == 'e') {
+                        advance(lexer);
+                        if (lexer->lookahead == 'f') {
+                            advance(lexer);
+                            if (lexer->lookahead == ':') {
+                                advance(lexer);
+                                if (lexer->lookahead == ':') {
+                                    advance(lexer);
+                                    // Found "ifndef::", consume rest of line
+                                    while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+                                        advance(lexer);
+                                    }
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     return false;
 }
 
-// DISABLED: ifeval directive causes scanner conflicts with ifdef/ifndef
-// TODO: Implement proper disambiguation between ifdef/ifndef/ifeval
+// Scan for ifeval directive: "ifeval::" at start of line
 static bool scan_ifeval_open(TSLexer *lexer) {
+    if (!at_line_start(lexer)) return false;
+    
+    // Match "ifeval::" literally
+    if (lexer->lookahead == 'i') {
+        advance(lexer);
+        if (lexer->lookahead == 'f') {
+            advance(lexer);
+            if (lexer->lookahead == 'e') {
+                advance(lexer);
+                if (lexer->lookahead == 'v') {
+                    advance(lexer);
+                    if (lexer->lookahead == 'a') {
+                        advance(lexer);
+                        if (lexer->lookahead == 'l') {
+                            advance(lexer);
+                            if (lexer->lookahead == ':') {
+                                advance(lexer);
+                                if (lexer->lookahead == ':') {
+                                    advance(lexer);
+                                    // Found "ifeval::", consume rest of line
+                                    while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+                                        advance(lexer);
+                                    }
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     return false;
 }
 
@@ -447,55 +645,6 @@ static bool scan_endif_directive(TSLexer *lexer) {
 
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
-    
-    // Try heading scanning first
-    int heading_level = scan_heading_level(lexer);
-    if (heading_level > 0) {
-        // Map heading level to appropriate token
-        switch (heading_level) {
-            case 1:
-                if (valid_symbols[_HEADING_LEVEL_1]) {
-                    lexer->result_symbol = _HEADING_LEVEL_1;
-                    return true;
-                }
-                break;
-            case 2:
-                if (valid_symbols[_HEADING_LEVEL_2]) {
-                    lexer->result_symbol = _HEADING_LEVEL_2;
-                    return true;
-                }
-                break;
-            case 3:
-                if (valid_symbols[_HEADING_LEVEL_3]) {
-                    lexer->result_symbol = _HEADING_LEVEL_3;
-                    return true;
-                }
-                break;
-            case 4:
-                if (valid_symbols[_HEADING_LEVEL_4]) {
-                    lexer->result_symbol = _HEADING_LEVEL_4;
-                    return true;
-                }
-                break;
-            case 5:
-                if (valid_symbols[_HEADING_LEVEL_5]) {
-                    lexer->result_symbol = _HEADING_LEVEL_5;
-                    return true;
-                }
-                break;
-            case 6:
-                if (valid_symbols[_HEADING_LEVEL_6]) {
-                    lexer->result_symbol = _HEADING_LEVEL_6;
-                    return true;
-                }
-                break;
-        }
-    }
-    
-    if (valid_symbols[_SECTION_MARKER] && scan_section_marker(lexer)) {
-        lexer->result_symbol = _SECTION_MARKER;
-        return true;
-    }
     
     // Conditional directives (high priority) - check longer patterns first
     if (valid_symbols[_ifndef_open_token] && scan_ifndef_open(lexer)) {
@@ -570,10 +719,11 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         return true;
     }
     
-    if (valid_symbols[AUTOLINK_BOUNDARY] && scan_autolink_boundary(lexer)) {
-        lexer->result_symbol = AUTOLINK_BOUNDARY;
-        return true;
-    }
+    // Temporarily disable AUTOLINK_BOUNDARY to reduce ERROR nodes
+    // if (valid_symbols[AUTOLINK_BOUNDARY] && scan_autolink_boundary(lexer)) {
+    //     lexer->result_symbol = AUTOLINK_BOUNDARY;
+    //     return true;
+    // }
     
     if (valid_symbols[ATTRIBUTE_LIST_START] && scan_attribute_list_start(lexer)) {
         lexer->result_symbol = ATTRIBUTE_LIST_START;
