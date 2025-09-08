@@ -31,10 +31,15 @@ def hello():
 line with ---- not at beginning
 ----
 
+---
+
 (source_file
   (listing_block
     (listing_open)
-    (block_content)
+    (block_content
+      (content_line)
+      (content_line)
+      (content_line))
     (listing_close)))
 
 ================================================================================
