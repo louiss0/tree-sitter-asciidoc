@@ -289,7 +289,7 @@
         "required": true,
         "types": [
           {
-            "type": "example_close",
+            "type": "BLOCK_FENCE_END",
             "named": true
           }
         ]
@@ -309,7 +309,7 @@
         "required": true,
         "types": [
           {
-            "type": "example_open",
+            "type": "BLOCK_FENCE_START",
             "named": true
           }
         ]
@@ -325,16 +325,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "example_close",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "example_open",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "id_and_roles",
@@ -832,7 +822,7 @@
         "required": true,
         "types": [
           {
-            "type": "listing_close",
+            "type": "BLOCK_FENCE_END",
             "named": true
           }
         ]
@@ -852,7 +842,7 @@
         "required": true,
         "types": [
           {
-            "type": "listing_open",
+            "type": "BLOCK_FENCE_START",
             "named": true
           }
         ]
@@ -868,16 +858,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "listing_close",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "listing_open",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "literal_block",
@@ -888,7 +868,7 @@
         "required": true,
         "types": [
           {
-            "type": "literal_close",
+            "type": "BLOCK_FENCE_END",
             "named": true
           }
         ]
@@ -908,7 +888,7 @@
         "required": true,
         "types": [
           {
-            "type": "literal_open",
+            "type": "BLOCK_FENCE_START",
             "named": true
           }
         ]
@@ -924,16 +904,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "literal_close",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "literal_open",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "math_macro",
@@ -1007,7 +977,7 @@
         "required": true,
         "types": [
           {
-            "type": "openblock_close",
+            "type": "BLOCK_FENCE_END",
             "named": true
           }
         ]
@@ -1027,7 +997,7 @@
         "required": true,
         "types": [
           {
-            "type": "openblock_open",
+            "type": "BLOCK_FENCE_START",
             "named": true
           }
         ]
@@ -1043,16 +1013,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "openblock_close",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "openblock_open",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "ordered_list",
@@ -1165,7 +1125,7 @@
         "required": true,
         "types": [
           {
-            "type": "passthrough_close",
+            "type": "BLOCK_FENCE_END",
             "named": true
           }
         ]
@@ -1185,7 +1145,7 @@
         "required": true,
         "types": [
           {
-            "type": "passthrough_open",
+            "type": "BLOCK_FENCE_START",
             "named": true
           }
         ]
@@ -1201,16 +1161,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "passthrough_close",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "passthrough_open",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "passthrough_triple_plus",
@@ -1226,7 +1176,7 @@
         "required": true,
         "types": [
           {
-            "type": "quote_close",
+            "type": "BLOCK_FENCE_END",
             "named": true
           }
         ]
@@ -1246,7 +1196,7 @@
         "required": true,
         "types": [
           {
-            "type": "quote_open",
+            "type": "BLOCK_FENCE_START",
             "named": true
           }
         ]
@@ -1262,16 +1212,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "quote_close",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "quote_open",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "role_list",
@@ -1434,7 +1374,7 @@
         "required": true,
         "types": [
           {
-            "type": "sidebar_close",
+            "type": "BLOCK_FENCE_END",
             "named": true
           }
         ]
@@ -1454,7 +1394,7 @@
         "required": true,
         "types": [
           {
-            "type": "sidebar_open",
+            "type": "BLOCK_FENCE_START",
             "named": true
           }
         ]
@@ -1470,16 +1410,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "sidebar_close",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "sidebar_open",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "source_file",
@@ -1910,6 +1840,14 @@
   {
     "type": ">>",
     "named": false
+  },
+  {
+    "type": "BLOCK_FENCE_END",
+    "named": true
+  },
+  {
+    "type": "BLOCK_FENCE_START",
+    "named": true
   },
   {
     "type": "CALLOUT_MARKER",

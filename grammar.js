@@ -20,7 +20,7 @@ const PREC = {
   BLOCK_MARKER: 100,         // Block delimiters at start of line
   SECTION: 90,               // Section headings
   ADMONITION: 85,            // Admonition blocks and paragraphs
-  DELIMITED_BLOCK: 80,       // Delimited blocks
+  DELIMITED_BLOCK: 120,      // Delimited blocks (high precedence to beat paragraphs)
   LIST: 110,                 // Lists (highest precedence to allow grouping)
   CONDITIONAL: 75,           // Conditional blocks (higher than paragraphs)
   ATTRIBUTE_ENTRY: 95,       // Attribute entries (higher than lists and paragraphs)
@@ -72,7 +72,9 @@ module.exports = grammar({
   
   // Conflicts for overlapping constructs  
   conflicts: $ => [
-    // No conflicts needed currently
+    // Delimited blocks using generic fence tokens - allow GLR to resolve based on fence content
+    [$.example_block, $.listing_block, $.literal_block, $.quote_block, 
+     $.sidebar_block, $.passthrough_block, $.open_block]
   ],
   
   rules: {
@@ -392,79 +394,58 @@ module.exports = grammar({
     // Example block - ====
     example_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
       optional($.metadata),
-      field('open', $.example_open),
+      field('open', $.BLOCK_FENCE_START),
       optional(field('content', $.block_content)),
-      field('close', $.example_close)
+      field('close', $.BLOCK_FENCE_END)
     )),
-    
-    example_open: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /====[ \t]*\r?\n/)),
-    example_close: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /====[ \t]*\r?\n/)),
     
     // Listing block - ----
     listing_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
       optional($.metadata),
-      field('open', $.listing_open),
+      field('open', $.BLOCK_FENCE_START),
       optional(field('content', $.block_content)),
-      field('close', $.listing_close)
+      field('close', $.BLOCK_FENCE_END)
     )),
-    
-    listing_open: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /----[ \t]*\r?\n/)),
-    listing_close: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /----[ \t]*\r?\n/)),
     
     // Literal block - ....
     literal_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
       optional($.metadata),
-      field('open', $.literal_open),
+      field('open', $.BLOCK_FENCE_START),
       optional(field('content', $.block_content)),
-      field('close', $.literal_close)
+      field('close', $.BLOCK_FENCE_END)
     )),
-    
-    literal_open: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /\.\.\.\.[ \t]*\r?\n/)),
-    literal_close: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /\.\.\.\.[ \t]*\r?\n/)),
     
     // Quote block - ____
     quote_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
       optional($.metadata),
-      field('open', $.quote_open),
+      field('open', $.BLOCK_FENCE_START),
       optional(field('content', $.block_content)),
-      field('close', $.quote_close)
+      field('close', $.BLOCK_FENCE_END)
     )),
-    
-    quote_open: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /____[ \t]*\r?\n/)),
-    quote_close: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /____[ \t]*\r?\n/)),
     
     // Sidebar block - ****
     sidebar_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
       optional($.metadata),
-      field('open', $.sidebar_open),
+      field('open', $.BLOCK_FENCE_START),
       optional(field('content', $.block_content)),
-      field('close', $.sidebar_close)
+      field('close', $.BLOCK_FENCE_END)
     )),
-    
-    sidebar_open: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /\*\*\*\*[ \t]*\r?\n/)),
-    sidebar_close: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /\*\*\*\*[ \t]*\r?\n/)),
     
     // Passthrough block - ++++
     passthrough_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
       optional($.metadata),
-      field('open', $.passthrough_open),
+      field('open', $.BLOCK_FENCE_START),
       optional(field('content', $.block_content)),
-      field('close', $.passthrough_close)
+      field('close', $.BLOCK_FENCE_END)
     )),
-    
-    passthrough_open: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /\+\+\+\+[ \t]*\r?\n/)),
-    passthrough_close: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /\+\+\+\+[ \t]*\r?\n/)),
     
     // Open block - --
     open_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
       optional($.metadata),
-      field('open', $.openblock_open),
+      field('open', $.BLOCK_FENCE_START),
       optional(field('content', $.block_content)),
-      field('close', $.openblock_close)
+      field('close', $.BLOCK_FENCE_END)
     )),
-    
-    openblock_open: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /--[ \t]*\r?\n/)),
-    openblock_close: $ => token(prec(PREC.DELIMITED_BLOCK + 10, /--[ \t]*\r?\n/)),
     
     // Block content - raw lines
     block_content: $ => repeat1($.content_line),

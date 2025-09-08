@@ -1401,7 +1401,7 @@
     },
     "example_block": {
       "type": "PREC",
-      "value": 80,
+      "value": 120,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1422,7 +1422,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "example_open"
+              "name": "BLOCK_FENCE_START"
             }
           },
           {
@@ -1446,37 +1446,15 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "example_close"
+              "name": "BLOCK_FENCE_END"
             }
           }
         ]
-      }
-    },
-    "example_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "====[ \\t]*\\r?\\n"
-        }
-      }
-    },
-    "example_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "====[ \\t]*\\r?\\n"
-        }
       }
     },
     "listing_block": {
       "type": "PREC",
-      "value": 80,
+      "value": 120,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1497,7 +1475,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "listing_open"
+              "name": "BLOCK_FENCE_START"
             }
           },
           {
@@ -1521,37 +1499,15 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "listing_close"
+              "name": "BLOCK_FENCE_END"
             }
           }
         ]
-      }
-    },
-    "listing_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "----[ \\t]*\\r?\\n"
-        }
-      }
-    },
-    "listing_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "----[ \\t]*\\r?\\n"
-        }
       }
     },
     "literal_block": {
       "type": "PREC",
-      "value": 80,
+      "value": 120,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1572,7 +1528,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "literal_open"
+              "name": "BLOCK_FENCE_START"
             }
           },
           {
@@ -1596,37 +1552,15 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "literal_close"
+              "name": "BLOCK_FENCE_END"
             }
           }
         ]
-      }
-    },
-    "literal_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\.\\.\\.\\.[ \\t]*\\r?\\n"
-        }
-      }
-    },
-    "literal_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\.\\.\\.\\.[ \\t]*\\r?\\n"
-        }
       }
     },
     "quote_block": {
       "type": "PREC",
-      "value": 80,
+      "value": 120,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1647,7 +1581,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "quote_open"
+              "name": "BLOCK_FENCE_START"
             }
           },
           {
@@ -1671,37 +1605,15 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "quote_close"
+              "name": "BLOCK_FENCE_END"
             }
           }
         ]
-      }
-    },
-    "quote_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "____[ \\t]*\\r?\\n"
-        }
-      }
-    },
-    "quote_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "____[ \\t]*\\r?\\n"
-        }
       }
     },
     "sidebar_block": {
       "type": "PREC",
-      "value": 80,
+      "value": 120,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1722,7 +1634,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "sidebar_open"
+              "name": "BLOCK_FENCE_START"
             }
           },
           {
@@ -1746,37 +1658,15 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "sidebar_close"
+              "name": "BLOCK_FENCE_END"
             }
           }
         ]
-      }
-    },
-    "sidebar_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\*\\*\\*\\*[ \\t]*\\r?\\n"
-        }
-      }
-    },
-    "sidebar_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\*\\*\\*\\*[ \\t]*\\r?\\n"
-        }
       }
     },
     "passthrough_block": {
       "type": "PREC",
-      "value": 80,
+      "value": 120,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1797,7 +1687,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "passthrough_open"
+              "name": "BLOCK_FENCE_START"
             }
           },
           {
@@ -1821,37 +1711,15 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "passthrough_close"
+              "name": "BLOCK_FENCE_END"
             }
           }
         ]
-      }
-    },
-    "passthrough_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\+\\+\\+\\+[ \\t]*\\r?\\n"
-        }
-      }
-    },
-    "passthrough_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\+\\+\\+\\+[ \\t]*\\r?\\n"
-        }
       }
     },
     "open_block": {
       "type": "PREC",
-      "value": 80,
+      "value": 120,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1872,7 +1740,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "openblock_open"
+              "name": "BLOCK_FENCE_START"
             }
           },
           {
@@ -1896,32 +1764,10 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "openblock_close"
+              "name": "BLOCK_FENCE_END"
             }
           }
         ]
-      }
-    },
-    "openblock_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "--[ \\t]*\\r?\\n"
-        }
-      }
-    },
-    "openblock_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 90,
-        "content": {
-          "type": "PATTERN",
-          "value": "--[ \\t]*\\r?\\n"
-        }
       }
     },
     "block_content": {
@@ -3304,7 +3150,17 @@
       "name": "line_comment"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "example_block",
+      "listing_block",
+      "literal_block",
+      "quote_block",
+      "sidebar_block",
+      "passthrough_block",
+      "open_block"
+    ]
+  ],
   "precedences": [],
   "externals": [
     {
