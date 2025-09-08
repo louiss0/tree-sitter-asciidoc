@@ -41,5 +41,7 @@ Not a callout list - missing space after marker
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
       (text_segment))))

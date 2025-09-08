@@ -221,7 +221,7 @@ module.exports = grammar({
     // PARAGRAPHS
     // ========================================================================
     
-    paragraph: $ => prec(PREC.PARAGRAPH, choice(
+    paragraph: $ => prec(PREC.PARAGRAPH + 10, choice(
       $.paragraph_admonition,
       seq(
         optional($.metadata),
@@ -372,7 +372,7 @@ module.exports = grammar({
     ),
     
     // Match individual words/tokens for inline parsing - exclude colons to preserve attribute entries
-    text_segment: $ => token(prec(PREC.TEXT, /[^\s*_`^~\[{+<>\r\n:]+/)),
+    text_segment: $ => token(prec(PREC.TEXT, /[^\s*_`^~\[{+\r\n:]+/)),
     
     // Allow standalone colons in text (but not double colons which are handled by external scanner)
     text_colon: $ => prec(PREC.TEXT - 1, token(/:/)),
@@ -602,7 +602,7 @@ module.exports = grammar({
     // TABLE BLOCKS
     // ========================================================================
     
-    table_block: $ => seq(
+    table_block: $ => prec(PREC.PARAGRAPH - 20, seq(
       optional($.metadata),
       field('open', $.table_open),
       optional(field('content', choice(
@@ -610,7 +610,7 @@ module.exports = grammar({
         repeat($.table_row)
       ))),
       field('close', $.table_close)
-    ),
+    )),
     
     table_open: $ => $.TABLE_FENCE_START,
     table_close: $ => $.TABLE_FENCE_END,
