@@ -200,9 +200,8 @@ static bool scan_unordered_list_marker(TSLexer *lexer) {
     if (lexer->lookahead == '*' || lexer->lookahead == '-') {
         advance(lexer);
         
-        // Must be followed by whitespace
+        // Must be followed by whitespace, but don't consume it - leave for grammar
         if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
-            advance(lexer);
             return true;
         }
     }
@@ -223,11 +222,10 @@ static bool scan_ordered_list_marker(TSLexer *lexer) {
         advance(lexer);
     }
     
-    // Must be followed by ". "
+    // Must be followed by ". " but only consume the dot, leave space for grammar
     if (lexer->lookahead == '.') {
         advance(lexer);
         if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
-            advance(lexer);
             return true;
         }
     }
@@ -482,11 +480,10 @@ static bool scan_callout_marker(TSLexer *lexer) {
             advance(lexer);
         }
         
-        // Must be followed by "> "
+        // Must be followed by "> " but only consume ">", leave space for grammar
         if (lexer->lookahead == '>') {
             advance(lexer);
             if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
-                advance(lexer);
                 return true;
             }
         }

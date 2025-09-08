@@ -72,7 +72,7 @@ module.exports = grammar({
   
   // Conflicts for overlapping constructs  
   conflicts: $ => [
-    // Note: Removed conflicts with deleted rules
+    // No conflicts needed currently
   ],
   
   rules: {
@@ -97,8 +97,8 @@ module.exports = grammar({
   
   _block_not_section: $ => choice(
     $.attribute_entry,
-    prec.dynamic(10, $.unordered_list),  // Higher precedence for list grouping
-    prec.dynamic(10, $.ordered_list),    // Higher precedence for list grouping
+    $.unordered_list,
+    $.ordered_list,
     $.paragraph,
     $.admonition_block,
     $.description_list,
@@ -524,23 +524,28 @@ module.exports = grammar({
     // LISTS
     // ========================================================================
     
-    // Unordered list - use dynamic precedence and left associativity
-    unordered_list: $ => prec.dynamic(1, prec.left(repeat1($.unordered_list_item))),
+    // Unordered list - group consecutive list items using right associativity
+    unordered_list: $ => prec.right(repeat1($.unordered_list_item)),
     
-    unordered_list_item: $ => prec.dynamic(0, seq(
-      $._LIST_UNORDERED_MARKER,  // Hidden from AST
-      field('content', $._list_item_content) // Use specialized content rule
+    // Each list item consumes its own line ending
+    unordered_list_item: $ => prec(PREC.LIST, seq(
+      $._LIST_UNORDERED_MARKER,  // Hidden from AST (e.g., "*" or "-")
+      token.immediate(prec(1, /[ \t]+/)), // Consume required whitespace after marker
+      field('content', $._list_item_content),
+      $._newline
     )),
     
     // List item content - just the inline text without newlines
     _list_item_content: $ => $.text_with_inlines,
     
-    // Ordered list - use dynamic precedence and left associativity
-    ordered_list: $ => prec.dynamic(1, prec.left(repeat1($.ordered_list_item))),
+    // Ordered list - group consecutive list items using right associativity
+    ordered_list: $ => prec.right(repeat1($.ordered_list_item)),
     
-    ordered_list_item: $ => prec.dynamic(0, seq(
-      $._LIST_ORDERED_MARKER,    // Hidden from AST  
-      field('content', $._list_item_content) // Use specialized content rule
+    ordered_list_item: $ => prec(PREC.LIST, seq(
+      $._LIST_ORDERED_MARKER,    // Hidden from AST (e.g., "1.")
+      token.immediate(prec(1, /[ \t]+/)), // Consume required whitespace after marker
+      field('content', $._list_item_content),
+      $._newline
     )),
     
     // Description list
@@ -554,8 +559,10 @@ module.exports = grammar({
     callout_list: $ => prec(PREC.LIST, repeat1($.callout_item)),
     
     callout_item: $ => seq(
-      field('marker', $.CALLOUT_MARKER),
-      field('content', $.text_with_inlines)
+      field('marker', $.CALLOUT_MARKER), // e.g., "<1>"
+      token.immediate(prec(1, /[ \t]+/)), // Consume required whitespace after marker
+      field('content', $.text_with_inlines),
+      $._newline
     ),
     
     // ========================================================================

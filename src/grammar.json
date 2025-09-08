@@ -86,20 +86,12 @@
           "name": "attribute_entry"
         },
         {
-          "type": "PREC_DYNAMIC",
-          "value": 10,
-          "content": {
-            "type": "SYMBOL",
-            "name": "unordered_list"
-          }
+          "type": "SYMBOL",
+          "name": "unordered_list"
         },
         {
-          "type": "PREC_DYNAMIC",
-          "value": 10,
-          "content": {
-            "type": "SYMBOL",
-            "name": "ordered_list"
-          }
+          "type": "SYMBOL",
+          "name": "ordered_list"
         },
         {
           "type": "SYMBOL",
@@ -2181,23 +2173,19 @@
       "value": "admonition_label"
     },
     "unordered_list": {
-      "type": "PREC_DYNAMIC",
-      "value": 1,
+      "type": "PREC_RIGHT",
+      "value": 0,
       "content": {
-        "type": "PREC_LEFT",
-        "value": 0,
+        "type": "REPEAT1",
         "content": {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SYMBOL",
-            "name": "unordered_list_item"
-          }
+          "type": "SYMBOL",
+          "name": "unordered_list_item"
         }
       }
     },
     "unordered_list_item": {
-      "type": "PREC_DYNAMIC",
-      "value": 0,
+      "type": "PREC",
+      "value": 110,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2206,12 +2194,27 @@
             "name": "_LIST_UNORDERED_MARKER"
           },
           {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[ \\t]+"
+              }
+            }
+          },
+          {
             "type": "FIELD",
             "name": "content",
             "content": {
               "type": "SYMBOL",
               "name": "_list_item_content"
             }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_newline"
           }
         ]
       }
@@ -2221,23 +2224,19 @@
       "name": "text_with_inlines"
     },
     "ordered_list": {
-      "type": "PREC_DYNAMIC",
-      "value": 1,
+      "type": "PREC_RIGHT",
+      "value": 0,
       "content": {
-        "type": "PREC_LEFT",
-        "value": 0,
+        "type": "REPEAT1",
         "content": {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SYMBOL",
-            "name": "ordered_list_item"
-          }
+          "type": "SYMBOL",
+          "name": "ordered_list_item"
         }
       }
     },
     "ordered_list_item": {
-      "type": "PREC_DYNAMIC",
-      "value": 0,
+      "type": "PREC",
+      "value": 110,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2246,12 +2245,27 @@
             "name": "_LIST_ORDERED_MARKER"
           },
           {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[ \\t]+"
+              }
+            }
+          },
+          {
             "type": "FIELD",
             "name": "content",
             "content": {
               "type": "SYMBOL",
               "name": "_list_item_content"
             }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_newline"
           }
         ]
       }
@@ -2303,12 +2317,27 @@
           }
         },
         {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "PATTERN",
+              "value": "[ \\t]+"
+            }
+          }
+        },
+        {
           "type": "FIELD",
           "name": "content",
           "content": {
             "type": "SYMBOL",
             "name": "text_with_inlines"
           }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
         }
       ]
     },
