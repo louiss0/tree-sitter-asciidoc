@@ -1422,7 +1422,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_START"
+              "name": "example_open"
             }
           },
           {
@@ -1446,7 +1446,7 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_END"
+              "name": "example_close"
             }
           }
         ]
@@ -1475,7 +1475,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_START"
+              "name": "listing_open"
             }
           },
           {
@@ -1499,7 +1499,7 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_END"
+              "name": "listing_close"
             }
           }
         ]
@@ -1528,7 +1528,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_START"
+              "name": "literal_open"
             }
           },
           {
@@ -1552,7 +1552,7 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_END"
+              "name": "literal_close"
             }
           }
         ]
@@ -1581,7 +1581,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_START"
+              "name": "quote_open"
             }
           },
           {
@@ -1605,7 +1605,7 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_END"
+              "name": "quote_close"
             }
           }
         ]
@@ -1634,7 +1634,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_START"
+              "name": "sidebar_open"
             }
           },
           {
@@ -1658,7 +1658,7 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_END"
+              "name": "sidebar_close"
             }
           }
         ]
@@ -1687,7 +1687,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_START"
+              "name": "passthrough_open"
             }
           },
           {
@@ -1711,7 +1711,7 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_END"
+              "name": "passthrough_close"
             }
           }
         ]
@@ -1740,7 +1740,7 @@
             "name": "open",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_START"
+              "name": "openblock_open"
             }
           },
           {
@@ -1764,7 +1764,7 @@
             "name": "close",
             "content": {
               "type": "SYMBOL",
-              "name": "BLOCK_FENCE_END"
+              "name": "openblock_close"
             }
           }
         ]
@@ -1785,6 +1785,160 @@
         "content": {
           "type": "PATTERN",
           "value": "[^\\r\\n]*\\r?\\n"
+        }
+      }
+    },
+    "example_open": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "={4,}[ \\t]*\\r?\\n"
+        }
+      }
+    },
+    "example_close": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "={4,}[ \\t]*\\r?\\n?"
+        }
+      }
+    },
+    "listing_open": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "-{4,}[ \\t]*\\r?\\n"
+        }
+      }
+    },
+    "listing_close": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "-{4,}[ \\t]*\\r?\\n?"
+        }
+      }
+    },
+    "literal_open": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "\\.{4,}[ \\t]*\\r?\\n"
+        }
+      }
+    },
+    "literal_close": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "\\.{4,}[ \\t]*\\r?\\n?"
+        }
+      }
+    },
+    "quote_open": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "_{4,}[ \\t]*\\r?\\n"
+        }
+      }
+    },
+    "quote_close": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "_{4,}[ \\t]*\\r?\\n?"
+        }
+      }
+    },
+    "sidebar_open": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "\\*{4,}[ \\t]*\\r?\\n"
+        }
+      }
+    },
+    "sidebar_close": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "\\*{4,}[ \\t]*\\r?\\n?"
+        }
+      }
+    },
+    "passthrough_open": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "\\+{4,}[ \\t]*\\r?\\n"
+        }
+      }
+    },
+    "passthrough_close": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "\\+{4,}[ \\t]*\\r?\\n?"
+        }
+      }
+    },
+    "openblock_open": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "-{2,}[ \\t]*\\r?\\n"
+        }
+      }
+    },
+    "openblock_close": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 100,
+        "content": {
+          "type": "PATTERN",
+          "value": "-{2,}[ \\t]*\\r?\\n?"
         }
       }
     },
@@ -3150,27 +3304,9 @@
       "name": "line_comment"
     }
   ],
-  "conflicts": [
-    [
-      "example_block",
-      "listing_block",
-      "literal_block",
-      "quote_block",
-      "sidebar_block",
-      "passthrough_block",
-      "open_block"
-    ]
-  ],
+  "conflicts": [],
   "precedences": [],
   "externals": [
-    {
-      "type": "SYMBOL",
-      "name": "BLOCK_FENCE_START"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "BLOCK_FENCE_END"
-    },
     {
       "type": "SYMBOL",
       "name": "TABLE_FENCE_START"

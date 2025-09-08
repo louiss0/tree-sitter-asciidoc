@@ -3,8 +3,6 @@
 
 // External token types (must match grammar.js externals)
 enum {
-    BLOCK_FENCE_START,
-    BLOCK_FENCE_END, 
     TABLE_FENCE_START,
     TABLE_FENCE_END,
     LIST_CONTINUATION,
@@ -690,16 +688,7 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         return true;
     }
     
-    // Original block fence handling
-    if (valid_symbols[BLOCK_FENCE_START] && scan_block_fence_start(scanner, lexer)) {
-        lexer->result_symbol = BLOCK_FENCE_START;
-        return true;
-    }
-    
-    if (valid_symbols[BLOCK_FENCE_END] && scan_block_fence_end(scanner, lexer)) {
-        lexer->result_symbol = BLOCK_FENCE_END;
-        return true;
-    }
+    // Block fence handling now done via regular tokens in grammar
     
     if (valid_symbols[TABLE_FENCE_START] && scan_table_fence(lexer, true)) {
         lexer->result_symbol = TABLE_FENCE_START;
