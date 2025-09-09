@@ -11,12 +11,10 @@ This is [big]#large text# here.
     content: (text_with_inlines
       (text_segment)
       (text_segment)
-      (inline_element
-        (role_span
-          roles: (role_list
-            (id))
-          content: (bracketed_text)
-          (MISSING "#"))))))
+      (ERROR)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Role spans with nested formatting
@@ -31,12 +29,15 @@ This is [highlight]#*bold* and _italic_# text.
     content: (text_with_inlines
       (text_segment)
       (text_segment)
+      (ERROR)
+      (text_segment)
       (inline_element
-        (role_span
-          roles: (role_list
-            (id))
-          content: (bracketed_text)
-          (MISSING "#"))))))
+        (strong))
+      (text_segment)
+      (inline_element
+        (emphasis))
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Math macros
