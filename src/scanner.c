@@ -226,21 +226,33 @@ static bool scan_autolink_boundary(TSLexer *lexer) {
 }
 
 // Scan for attribute list start [.role, [#id, etc.]
+// IMPORTANT: Be conservative to avoid conflicting with inline role spans
 static bool scan_attribute_list_start(TSLexer *lexer) {
     if (lexer->lookahead != '[') return false;
+    
+    // Only match attribute lists that are clearly block attributes
+    // This avoids conflicts with inline role spans like [.role]#text#
+    
+    // For now, we'll be very conservative and only match at line start
+    // or after whitespace (indicating block attributes)
+    if (!at_line_start(lexer)) {
+        // Not at line start, so this might be an inline role span
+        // Let the grammar handle it instead
+        return false;
+    }
+    
     advance(lexer);
     
     // Look for common attribute patterns - be more conservative
     char c = lexer->lookahead;
     if (c == '.' || c == '#' || c == '%') {
-        // These are clear attribute indicators
+        // These are clear attribute indicators at line start
         return true;
     }
     
     // For alphabetic characters, be very conservative
     if (iswalpha(c)) {
-        // Only match if it's followed by patterns that suggest attributes
-        // This is a simplified check to avoid crashes
+        // Only match if it's at line start and looks like block attributes
         return true;
     }
     

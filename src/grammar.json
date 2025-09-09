@@ -2676,8 +2676,16 @@
           "type": "FIELD",
           "name": "content",
           "content": {
-            "type": "SYMBOL",
-            "name": "bracketed_text"
+            "type": "ALIAS",
+            "content": {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "PATTERN",
+                "value": "[^#\\r\\n]+"
+              }
+            },
+            "named": true,
+            "value": "role_content"
           }
         },
         {
@@ -2687,83 +2695,37 @@
       ]
     },
     "role_list": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "role"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "id"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "option"
-                }
-              ]
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": ","
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "role"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "id"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "option"
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "role"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "id"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "option"
-            }
-          ]
-        }
-      ]
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "role"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "role_id"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "option"
+          }
+        ]
+      }
     },
     "role": {
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
         "value": "\\.[A-Za-z][A-Za-z0-9_-]*"
+      }
+    },
+    "role_id": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "#[A-Za-z][A-Za-z0-9_-]*"
       }
     },
     "option": {

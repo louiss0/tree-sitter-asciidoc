@@ -681,19 +681,13 @@ module.exports = grammar({
       field('roles', $.role_list),
       ']',
       '#',
-      field('content', $.bracketed_text),
+      field('content', alias(token.immediate(/[^#\r\n]+/), $.role_content)),
       '#'
     ),
     
-    role_list: $ => choice(
-      seq(
-        choice($.role, $.id, $.option),
-        repeat(seq(',', choice($.role, $.id, $.option)))
-      ),
-      // Allow single role/id/option without comma
-      choice($.role, $.id, $.option)
-    ),
+    role_list: $ => repeat1(choice($.role, $.role_id, $.option)),
     role: $ => token(/\.[A-Za-z][A-Za-z0-9_-]*/),
+    role_id: $ => token(/#[A-Za-z][A-Za-z0-9_-]*/),
     option: $ => token(/%[A-Za-z][A-Za-z0-9_-]*/),
     
     // Internal cross-reference shortcuts
