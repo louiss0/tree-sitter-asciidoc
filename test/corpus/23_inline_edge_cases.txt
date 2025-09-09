@@ -143,11 +143,16 @@ This is ^super with \^ caret^ text.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
-      (superscript
-        (text_segment))
-      (text_segment))))
+      (text_segment)
+      (inline_element
+        (superscript))
+      (text_segment)
+      (inline_element
+        (superscript
+          content: (superscript_text)
+          (MISSING "^"))))))
 
 ================================================================================
 Escaped delimiters in subscript
@@ -159,11 +164,16 @@ This is ~sub with \~ tilde~ text.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
-      (subscript
-        (text_segment))
-      (text_segment))))
+      (text_segment)
+      (inline_element
+        (subscript))
+      (text_segment)
+      (inline_element
+        (subscript
+          content: (subscript_text)
+          (MISSING "~"))))))
 
 ================================================================================
 Escaped delimiters in role span
