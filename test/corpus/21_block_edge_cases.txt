@@ -67,7 +67,6 @@ Complex table structures
       (content_line)
       (content_line)
       (content_line)
-      (content_line)
       (content_line))
     (table_close
       (TABLE_FENCE_END))))
