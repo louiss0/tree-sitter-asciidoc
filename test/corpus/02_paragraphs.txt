@@ -73,13 +73,9 @@ Fake headings without space should be paragraphs
   (paragraph
     (text_with_inlines
       (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+  (section
+    (section_title
+      (title))))
 
 ================================================================================
 Mixed paragraphs and blank lines

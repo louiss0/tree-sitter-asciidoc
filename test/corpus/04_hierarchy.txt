@@ -22,26 +22,22 @@ Paragraph under C
         (text_segment)
         (text_segment)
         (text_segment))))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+  (section
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment))))
+  (section
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Multiple sections at same level
@@ -80,16 +76,14 @@ Content for section 3
         (text_segment)
         (text_segment)
         (text_segment))))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+  (section
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment))))
   (section
     (section_title
       (title))
@@ -134,61 +128,51 @@ Content at level 6
         (text_segment)
         (text_segment)
         (text_segment))))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+  (section
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment))))
+  (section
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment))))
+  (section
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment))))
+  (section
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment))))
+  (section
+    (section_title
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Sections with attributes
@@ -222,13 +206,12 @@ Subsection content
     (text_with_inlines
       (text_segment)
       (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)))
-  (attribute_entry
-    (name)
-    (value))
+  (section
+    (section_title
+      (title))
+    (attribute_entry
+      (name)
+      (value)))
   (paragraph
     (text_with_inlines
       (text_segment)

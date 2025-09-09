@@ -23,15 +23,18 @@ Final paragraph.
       (text_segment)
       (text_segment)
       (text_segment)))
-  (unordered_list
-    (unordered_list_item
-      (text_with_inlines
-        (text_segment)
-        (text_segment)))
-    (unordered_list_item
-      (text_with_inlines
-        (text_segment)
-        (text_segment))))
+  (paragraph
+    (text_with_inlines
+      (inline_element
+        (strong
+          (strong_constrained
+            (strong_text))))))
+  (paragraph
+    (text_with_inlines
+      (inline_element
+        (strong
+          (strong_constrained
+            (strong_text))))))
   (paragraph
     (text_with_inlines
       (text_segment)
@@ -91,19 +94,21 @@ More content here.
       (text_segment)
       (text_segment)
       (text_segment)))
-  (unordered_list
-    (unordered_list_item
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)))
-    (unordered_list_item
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment))))
   (paragraph
     content: (text_with_inlines
-      (text_segment)
-      (text_segment)))
+      (inline_element
+        (strong
+          (strong_constrained
+            content: (strong_text))))))
+  (paragraph
+    content: (text_with_inlines
+      (inline_element
+        (strong
+          (strong_constrained
+            content: (strong_text))))))
+  (section
+    (section_title
+      title: (title)))
   (paragraph
     content: (text_with_inlines
       (text_segment)
