@@ -2465,7 +2465,7 @@
         "value": 95,
         "content": {
           "type": "PATTERN",
-          "value": "ifdef::[^\\[\\r\\n]*\\[[^\\]]*\\]\\s*\\r?\\n"
+          "value": "ifdef::[A-Za-z0-9_,\\-]*\\[\\][ \\t]*\\r?\\n"
         }
       }
     },
@@ -2476,7 +2476,7 @@
         "value": 95,
         "content": {
           "type": "PATTERN",
-          "value": "ifndef::[^\\[\\r\\n]*\\[[^\\]]*\\]\\s*\\r?\\n"
+          "value": "ifndef::[A-Za-z0-9_,\\-]*\\[\\][ \\t]*\\r?\\n"
         }
       }
     },
@@ -2487,7 +2487,7 @@
         "value": 95,
         "content": {
           "type": "PATTERN",
-          "value": "ifeval::[^\\[\\r\\n]*\\[[^\\]]*\\]\\s*\\r?\\n"
+          "value": "ifeval::\\[[^\\]\\r\\n]*\\][ \\t]*\\r?\\n"
         }
       }
     },
@@ -2498,7 +2498,7 @@
         "value": 95,
         "content": {
           "type": "PATTERN",
-          "value": "endif::\\[[^\\]]*\\]\\s*\\r?\\n"
+          "value": "endif::\\[\\][ \\t]*\\r?\\n"
         }
       }
     },

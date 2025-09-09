@@ -492,27 +492,89 @@ static bool scan_callout_marker(TSLexer *lexer) {
 
 
 
-// Simplified conditional scanners - use basic pattern matching
-// Scan for ifdef directive: "ifdef::" at start of line
+// Strict conditional scanners - require proper bracket syntax
+// Scan for ifdef directive: "ifdef::" at start of line with proper brackets
 static bool scan_ifdef_open(TSLexer *lexer) {
     if (!at_line_start(lexer)) return false;
     
-    // Match "ifdef::" literally - only advance if we're sure to succeed
-    if (lexer->lookahead == 'i') {
-        advance(lexer);
-        if (lexer->lookahead == 'f') {
-            advance(lexer);
-            if (lexer->lookahead == 'd') {
-                advance(lexer);
-                if (lexer->lookahead == 'e') {
-                    advance(lexer);
-                    if (lexer->lookahead == 'f') {
-                        advance(lexer);
-                        if (lexer->lookahead == ':') {
-                            advance(lexer);
-                            if (lexer->lookahead == ':') {
-                                advance(lexer);
-                                // Found "ifdef::", consume rest of line
+    // Save lexer state so we can backtrack if validation fails
+    TSLexer temp = *lexer;
+    
+    // Match "ifdef::" literally
+    if (temp.lookahead == 'i') {
+        temp.advance(&temp, false);
+        if (temp.lookahead == 'f') {
+            temp.advance(&temp, false);
+            if (temp.lookahead == 'd') {
+                temp.advance(&temp, false);
+                if (temp.lookahead == 'e') {
+                    temp.advance(&temp, false);
+                    if (temp.lookahead == 'f') {
+                        temp.advance(&temp, false);
+                        if (temp.lookahead == ':') {
+                            temp.advance(&temp, false);
+                            if (temp.lookahead == ':') {
+                                temp.advance(&temp, false);
+                                
+                                // Now validate the rest of the line has proper bracket syntax
+                                // Pattern: optional_attributes '[' optional_content ']' optional_whitespace end_of_line
+                                
+                                // Skip optional attributes before the bracket (should be valid identifiers)
+                                while (temp.lookahead && temp.lookahead != '[' && temp.lookahead != '\n' && temp.lookahead != '\r') {
+                                    // Validate that pre-bracket content contains only valid attribute name characters
+                                    if (temp.lookahead != ' ' && temp.lookahead != '\t' && 
+                                        !((temp.lookahead >= 'a' && temp.lookahead <= 'z') ||
+                                          (temp.lookahead >= 'A' && temp.lookahead <= 'Z') ||
+                                          (temp.lookahead >= '0' && temp.lookahead <= '9') ||
+                                          temp.lookahead == '_' || temp.lookahead == '-' || temp.lookahead == ',')) {
+                                        return false;  // Invalid character in attribute section
+                                    }
+                                    temp.advance(&temp, false);
+                                }
+                                
+                                // Must have opening bracket
+                                if (temp.lookahead != '[') return false;
+                                temp.advance(&temp, false);
+                                
+                                // Validate content inside brackets - should be empty or contain only comma-separated attribute names
+                                // Track if we're currently in an attribute name or between attributes
+                                bool in_attribute_name = false;
+                                while (temp.lookahead && temp.lookahead != ']' && temp.lookahead != '\n' && temp.lookahead != '\r') {
+                                    if ((temp.lookahead >= 'a' && temp.lookahead <= 'z') ||
+                                        (temp.lookahead >= 'A' && temp.lookahead <= 'Z') ||
+                                        (temp.lookahead >= '0' && temp.lookahead <= '9') ||
+                                        temp.lookahead == '_' || temp.lookahead == '-') {
+                                        // Valid attribute name character
+                                        in_attribute_name = true;
+                                    } else if (temp.lookahead == ',') {
+                                        // Comma separator between attributes
+                                        in_attribute_name = false;
+                                    } else if (temp.lookahead == ' ' || temp.lookahead == '\t') {
+                                        // Spaces are only allowed between attribute names (after comma)
+                                        if (in_attribute_name) {
+                                            return false;  // Space in the middle of an attribute name
+                                        }
+                                    } else {
+                                        return false;  // Invalid character inside brackets
+                                    }
+                                    temp.advance(&temp, false);
+                                }
+                                
+                                // Must have closing bracket
+                                if (temp.lookahead != ']') return false;
+                                temp.advance(&temp, false);
+                                
+                                // Skip trailing whitespace
+                                while (temp.lookahead == ' ' || temp.lookahead == '\t') {
+                                    temp.advance(&temp, false);
+                                }
+                                
+                                // Must be at end of line
+                                if (temp.lookahead != '\n' && temp.lookahead != '\r' && !temp.eof(&temp)) {
+                                    return false;
+                                }
+                                
+                                // Validation passed - commit the changes by consuming the entire line
                                 while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
                                     advance(lexer);
                                 }
@@ -527,28 +589,88 @@ static bool scan_ifdef_open(TSLexer *lexer) {
     return false;
 }
 
-// Scan for ifndef directive: "ifndef::" at start of line
+// Scan for ifndef directive: "ifndef::" at start of line with proper brackets
 static bool scan_ifndef_open(TSLexer *lexer) {
     if (!at_line_start(lexer)) return false;
     
+    // Save lexer state so we can backtrack if validation fails
+    TSLexer temp = *lexer;
+    
     // Match "ifndef::" literally
-    if (lexer->lookahead == 'i') {
-        advance(lexer);
-        if (lexer->lookahead == 'f') {
-            advance(lexer);
-            if (lexer->lookahead == 'n') {
-                advance(lexer);
-                if (lexer->lookahead == 'd') {
-                    advance(lexer);
-                    if (lexer->lookahead == 'e') {
-                        advance(lexer);
-                        if (lexer->lookahead == 'f') {
-                            advance(lexer);
-                            if (lexer->lookahead == ':') {
-                                advance(lexer);
-                                if (lexer->lookahead == ':') {
-                                    advance(lexer);
-                                    // Found "ifndef::", consume rest of line
+    if (temp.lookahead == 'i') {
+        temp.advance(&temp, false);
+        if (temp.lookahead == 'f') {
+            temp.advance(&temp, false);
+            if (temp.lookahead == 'n') {
+                temp.advance(&temp, false);
+                if (temp.lookahead == 'd') {
+                    temp.advance(&temp, false);
+                    if (temp.lookahead == 'e') {
+                        temp.advance(&temp, false);
+                        if (temp.lookahead == 'f') {
+                            temp.advance(&temp, false);
+                            if (temp.lookahead == ':') {
+                                temp.advance(&temp, false);
+                                if (temp.lookahead == ':') {
+                                    temp.advance(&temp, false);
+                                    
+                                    // Now validate the rest of the line has proper bracket syntax
+                                    // Skip optional attributes before the bracket (should be valid identifiers)
+                                    while (temp.lookahead && temp.lookahead != '[' && temp.lookahead != '\n' && temp.lookahead != '\r') {
+                                        // Validate that pre-bracket content contains only valid attribute name characters
+                                        if (temp.lookahead != ' ' && temp.lookahead != '\t' && 
+                                            !((temp.lookahead >= 'a' && temp.lookahead <= 'z') ||
+                                              (temp.lookahead >= 'A' && temp.lookahead <= 'Z') ||
+                                              (temp.lookahead >= '0' && temp.lookahead <= '9') ||
+                                              temp.lookahead == '_' || temp.lookahead == '-' || temp.lookahead == ',')) {
+                                            return false;  // Invalid character in attribute section
+                                        }
+                                        temp.advance(&temp, false);
+                                    }
+                                    
+                                    // Must have opening bracket
+                                    if (temp.lookahead != '[') return false;
+                                    temp.advance(&temp, false);
+                                    
+                                    // Validate content inside brackets - should be empty or contain only comma-separated attribute names
+                                    // Track if we're currently in an attribute name or between attributes
+                                    bool in_attribute_name = false;
+                                    while (temp.lookahead && temp.lookahead != ']' && temp.lookahead != '\n' && temp.lookahead != '\r') {
+                                        if ((temp.lookahead >= 'a' && temp.lookahead <= 'z') ||
+                                            (temp.lookahead >= 'A' && temp.lookahead <= 'Z') ||
+                                            (temp.lookahead >= '0' && temp.lookahead <= '9') ||
+                                            temp.lookahead == '_' || temp.lookahead == '-') {
+                                            // Valid attribute name character
+                                            in_attribute_name = true;
+                                        } else if (temp.lookahead == ',') {
+                                            // Comma separator between attributes
+                                            in_attribute_name = false;
+                                        } else if (temp.lookahead == ' ' || temp.lookahead == '\t') {
+                                            // Spaces are only allowed between attribute names (after comma)
+                                            if (in_attribute_name) {
+                                                return false;  // Space in the middle of an attribute name
+                                            }
+                                        } else {
+                                            return false;  // Invalid character inside brackets
+                                        }
+                                        temp.advance(&temp, false);
+                                    }
+                                    
+                                    // Must have closing bracket
+                                    if (temp.lookahead != ']') return false;
+                                    temp.advance(&temp, false);
+                                    
+                                    // Skip trailing whitespace
+                                    while (temp.lookahead == ' ' || temp.lookahead == '\t') {
+                                        temp.advance(&temp, false);
+                                    }
+                                    
+                                    // Must be at end of line
+                                    if (temp.lookahead != '\n' && temp.lookahead != '\r' && !temp.eof(&temp)) {
+                                        return false;
+                                    }
+                                    
+                                    // Validation passed - commit the changes by consuming the entire line
                                     while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
                                         advance(lexer);
                                     }
@@ -564,28 +686,62 @@ static bool scan_ifndef_open(TSLexer *lexer) {
     return false;
 }
 
-// Scan for ifeval directive: "ifeval::" at start of line
+// Scan for ifeval directive: "ifeval::" at start of line with proper brackets
 static bool scan_ifeval_open(TSLexer *lexer) {
     if (!at_line_start(lexer)) return false;
     
+    // Save lexer state so we can backtrack if validation fails
+    TSLexer temp = *lexer;
+    
     // Match "ifeval::" literally
-    if (lexer->lookahead == 'i') {
-        advance(lexer);
-        if (lexer->lookahead == 'f') {
-            advance(lexer);
-            if (lexer->lookahead == 'e') {
-                advance(lexer);
-                if (lexer->lookahead == 'v') {
-                    advance(lexer);
-                    if (lexer->lookahead == 'a') {
-                        advance(lexer);
-                        if (lexer->lookahead == 'l') {
-                            advance(lexer);
-                            if (lexer->lookahead == ':') {
-                                advance(lexer);
-                                if (lexer->lookahead == ':') {
-                                    advance(lexer);
-                                    // Found "ifeval::", consume rest of line
+    if (temp.lookahead == 'i') {
+        temp.advance(&temp, false);
+        if (temp.lookahead == 'f') {
+            temp.advance(&temp, false);
+            if (temp.lookahead == 'e') {
+                temp.advance(&temp, false);
+                if (temp.lookahead == 'v') {
+                    temp.advance(&temp, false);
+                    if (temp.lookahead == 'a') {
+                        temp.advance(&temp, false);
+                        if (temp.lookahead == 'l') {
+                            temp.advance(&temp, false);
+                            if (temp.lookahead == ':') {
+                                temp.advance(&temp, false);
+                                if (temp.lookahead == ':') {
+                                    temp.advance(&temp, false);
+                                    
+                                    // Now validate the rest of the line has proper bracket syntax
+                                    // Skip any whitespace before the bracket
+                                    while (temp.lookahead == ' ' || temp.lookahead == '\t') {
+                                        temp.advance(&temp, false);
+                                    }
+                                    
+                                    // Must have opening bracket
+                                    if (temp.lookahead != '[') return false;
+                                    temp.advance(&temp, false);
+                                    
+                                    // Validate content inside brackets - ifeval can contain expressions
+                                    // Allow most characters for expressions, but still require proper closing
+                                    while (temp.lookahead && temp.lookahead != ']' && temp.lookahead != '\n' && temp.lookahead != '\r') {
+                                        temp.advance(&temp, false);
+                                    }
+                                    
+                                    // Must have closing bracket
+                                    if (temp.lookahead != ']') return false;
+                                    temp.advance(&temp, false);
+                                    
+                                    // Skip trailing whitespace
+                                    while (temp.lookahead == ' ' || temp.lookahead == '\t') {
+                                        temp.advance(&temp, false);
+                                    }
+                                    
+                                    // Must be at end of line
+                                    if (temp.lookahead != '\n' && temp.lookahead != '\r' && !temp.eof(&temp)) {
+                                        return false;
+                                    }
+                                    
+                                    // Validation passed - commit the changes by consuming the entire line
                                     while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
                                         advance(lexer);
                                     }

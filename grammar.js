@@ -592,11 +592,14 @@ module.exports = grammar({
       field('close', $.endif_directive)
     )),
     
-    // Override external scanner tokens with high-precedence tokens
-    ifdef_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifdef::[^\[\r\n]*\[[^\]]*\]\s*\r?\n/)),
-    ifndef_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifndef::[^\[\r\n]*\[[^\]]*\]\s*\r?\n/)),
-    ifeval_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifeval::[^\[\r\n]*\[[^\]]*\]\s*\r?\n/)),
-    endif_directive: $ => token(prec(PREC.CONDITIONAL + 20, /endif::\[[^\]]*\]\s*\r?\n/)),
+    // Strict regex-based conditional directives (avoid permissive matches)
+    // ifdef/ifndef require empty brackets [] and attribute list before '['
+    ifdef_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifdef::[A-Za-z0-9_,\-]*\[\][ \t]*\r?\n/)),
+    ifndef_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifndef::[A-Za-z0-9_,\-]*\[\][ \t]*\r?\n/)),
+    // ifeval allows an expression inside brackets
+    ifeval_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifeval::\[[^\]\r\n]*\][ \t]*\r?\n/)),
+    // endif requires empty brackets []
+    endif_directive: $ => token(prec(PREC.CONDITIONAL + 20, /endif::\[\][ \t]*\r?\n/)),
     
     // ========================================================================
     // TABLE BLOCKS
