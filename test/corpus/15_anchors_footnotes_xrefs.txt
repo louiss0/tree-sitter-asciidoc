@@ -52,14 +52,11 @@ Content after block anchor.
 ---
 
 (source_file
-  (paragraph
-    (metadata
-      (anchor
-        id: (id)))
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+  (section
+    (anchor
+      id: (id))
+    (section_title
+      title: (title)))
   (paragraph
     content: (text_with_inlines
       (text_segment)
@@ -79,15 +76,12 @@ Content after block anchor with text.
 ---
 
 (source_file
-  (paragraph
-    (metadata
-      (anchor
-        id: (id)
-        text: (anchor_text)))
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+  (section
+    (anchor
+      id: (id)
+      text: (anchor_text))
+    (section_title
+      title: (title)))
   (paragraph
     content: (text_with_inlines
       (text_segment)
