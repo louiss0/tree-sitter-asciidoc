@@ -1,4 +1,0 @@
-----
-code example
-another line
-----

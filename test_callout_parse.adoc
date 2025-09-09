@@ -1,4 +1,0 @@
-<1>NotACallout
-<2> ValidCallout
-[attributes]
-NotACallout but regular text

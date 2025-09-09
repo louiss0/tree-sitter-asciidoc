@@ -83,7 +83,7 @@ More content here.
     (section_title
       (title)))
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)
@@ -100,21 +100,38 @@ More content here.
       (text_with_inlines
         (text_segment)
         (text_segment))))
-  (section
-    (section_title
-      (title))
-    (paragraph
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (ordered_list
+    (ordered_list_item
+      (text_with_inlines
+        (text_segment)
+        (text_segment)))
+    (ordered_list_item
+      (section
+        (section_title
+          (title))
+        (paragraph
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment)))
+        (text_with_inlines
+          (text_segment)))))
+  (ordered_list
+    (ordered_list_item
+      (text_with_inlines
+        (text_segment)
+        (text_segment)))
+    (ordered_list_item
       (text_with_inlines
         (text_segment)
         (text_segment)
-        (text_segment)))
-    (ordered_list
-      (ordered_list_item
-        (text_with_inlines
-          (text_segment)
-          (text_segment)))
-      (ordered_list_item
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)))))
+        (text_segment)))))

@@ -1,8 +1,0 @@
-= Section A
-Paragraph under A
-
-== Section B
-Paragraph under B
-
-=== Section C
-Paragraph under C

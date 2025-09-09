@@ -32,7 +32,7 @@ Invalid attribute patterns should be paragraphs
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_colon)
       (text_segment)
       (text_segment)
@@ -40,11 +40,11 @@ Invalid attribute patterns should be paragraphs
       (text_segment)
       (text_segment)))
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_colon)
       (text_segment)))
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_colon)
       (text_colon)
       (text_segment)
@@ -52,7 +52,7 @@ Invalid attribute patterns should be paragraphs
       (text_segment)
       (text_segment)))
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_colon)
       (text_colon)
       (text_colon)
