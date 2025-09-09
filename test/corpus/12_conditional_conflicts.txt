@@ -78,6 +78,31 @@ These look like conditionals but are malformed.
 --------------------------------------------------------------------------------
 
 (source_file
+  (conditional_block
+    (ifdef_block
+      (ifdef_open)
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_colon)
+          (text_colon)))
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_colon)
+          (text_colon))
+        (ERROR
+          (id)))
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)))
+      (MISSING endif_directive)))
   (paragraph
     (text_with_inlines
       (inline_conditional

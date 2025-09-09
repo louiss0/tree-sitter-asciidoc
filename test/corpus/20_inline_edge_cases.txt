@@ -145,8 +145,16 @@ Role spans with complex attributes
 --------------------------------------------------------------------------------
 
 (source_file
+  (ERROR
+    (role_list
+      (role))
+    (bracketed_text))
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (role_span
         (role_list
           (role))
@@ -163,6 +171,12 @@ Role spans with complex attributes
       (text_segment)))
   (paragraph
     (text_with_inlines
+      (inline_element
+        (role_span
+          (role_list
+            (option))
+          (bracketed_text)
+          (MISSING "#")))
       (role_span
         (role_list
           (option))

@@ -40,6 +40,13 @@ This is [important]#*bold* and _italic_ text# here.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
+      (inline_element
+        (role_span
+          (role_list
+            (id))
+          (bracketed_text)
+          (MISSING "#")))
       (role_span
         (role)
         (content
@@ -275,9 +282,21 @@ Use stem:[a^2 + b^2] and kbd:[Ctrl+*Bold*] commands.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
+      (text_colon)
+      (ERROR
+        (id))
+      (text_segment)
+      (inline_element
+        (line_break
+          (MISSING _newline)))
       (math
         (content))
       (text_segment)
+      (inline_element
+        (superscript
+          (superscript_text)
+          (MISSING "^")))
       (ui_kbd
         (keys))
       (text_segment))))
