@@ -12,6 +12,10 @@ Empty example block
     open: (example_open)
     close: (example_close)))
 
+================================================================================
+Example block with multi-line content
+================================================================================
+
 ====
 This is example content
 line 2
@@ -155,6 +159,10 @@ Can contain any content.
       (content_line))
     close: (openblock_close)))
 
+================================================================================
+Example block with Java code
+================================================================================
+
 ====
 System.out.println("Hello");
 ====
@@ -168,6 +176,10 @@ System.out.println("Hello");
       (content_line))
     close: (example_close)))
 
+================================================================================
+Example block in section context
+================================================================================
+
 ====
 Example content in section
 ====
@@ -180,6 +192,10 @@ Example content in section
     content: (block_content
       (content_line))
     close: (example_close)))
+
+================================================================================
+Simple example block content
+================================================================================
 
 ====
 This is an example block
