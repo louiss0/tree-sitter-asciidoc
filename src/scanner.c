@@ -1031,9 +1031,10 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
     if (scanner->fence_length > 0) {
         int end_token = get_fence_end_token(scanner->fence_chars[0], scanner->fence_count);
         if (scanner->fence_chars[0] == '-' && scanner->fence_count >= 4) {
-            DEBUG_LOG("LISTING_MAIN: fence_chars[0]='%c', fence_count=%d, looking for end_token=%d, valid=%s", 
+            DEBUG_LOG("LISTING_MAIN: fence_chars[0]='%c', fence_count=%d, looking for end_token=%d, valid=%s, at col=%d", 
                      scanner->fence_chars[0], scanner->fence_count, end_token, 
-                     (end_token != -1 && valid_symbols[end_token]) ? "YES" : "NO");
+                     (end_token != -1 && valid_symbols[end_token]) ? "YES" : "NO",
+                     lexer->get_column(lexer));
         }
         if (end_token != -1 && valid_symbols[end_token]) {
             if (scan_block_fence_end(scanner, lexer)) {
