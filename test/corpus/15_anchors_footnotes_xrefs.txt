@@ -297,13 +297,10 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
       (text_segment)
       (inline_element
         (inline_anchor
-          (id)))
-      (inline_element
-        (internal_xref
-          (id)))
-      (inline_element
-        (footnote_inline
-          (bracketed_text)))
+          id: (anchor_id)))
+      (text_segment)
+      (text_colon)
+      (ERROR)
       (text_segment))))
 
 ====
@@ -325,7 +322,10 @@ This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment))))
+      (text_segment)
+      (text_segment)))
+  (ERROR
+    (content_line)))
 
 ================================================================================
 Malformed cross-references should be plain text
@@ -362,6 +362,20 @@ This has foot note:[spaced] and footnote:[unclosed and regular text.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_colon)
+      (ERROR)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_colon)
+      (ERROR)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
