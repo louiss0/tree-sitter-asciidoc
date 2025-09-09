@@ -108,22 +108,24 @@ module.exports = grammar({
   ),
   
   _block_not_section: $ => choice(
-    $.attribute_entry,
-    $.unordered_list,
-    $.ordered_list,
-    $.paragraph,
-    $.admonition_block,
-    $.description_list,
-    $.callout_list,
-    $.conditional_block,
-    $.example_block,
-    $.listing_block,
-    $.literal_block,
-    $.quote_block,
-    $.sidebar_block,
-    $.passthrough_block,
-    $.open_block,
-    $.table_block
+    // High precedence blocks that should be matched before paragraphs
+    prec(PREC.ATTRIBUTE_ENTRY, $.attribute_entry),
+    prec(PREC.LIST, $.unordered_list),
+    prec(PREC.LIST, $.ordered_list), 
+    prec(PREC.LIST, $.description_list),
+    prec(PREC.LIST, $.callout_list),
+    prec.right(PREC.CONDITIONAL, $.conditional_block),
+    prec(PREC.DELIMITED_BLOCK, $.example_block),
+    prec(PREC.DELIMITED_BLOCK, $.listing_block),
+    prec(PREC.DELIMITED_BLOCK, $.literal_block),
+    prec(PREC.DELIMITED_BLOCK, $.quote_block),
+    prec(PREC.DELIMITED_BLOCK, $.sidebar_block),
+    prec(PREC.DELIMITED_BLOCK, $.passthrough_block),
+    prec(PREC.DELIMITED_BLOCK, $.open_block),
+    prec(PREC.DELIMITED_BLOCK, $.table_block),
+    prec(PREC.ADMONITION, $.admonition_block),
+    // Paragraphs have lowest precedence - fallback when nothing else matches
+    prec(PREC.PARAGRAPH, $.paragraph)
   ),
 
     // ========================================================================
@@ -550,24 +552,32 @@ module.exports = grammar({
     unordered_list: $ => prec.right(repeat1($.unordered_list_item)),
     
     // Each list item consumes its own line ending
-    unordered_list_item: $ => prec(PREC.LIST, seq(
+    unordered_list_item: $ => prec.left(PREC.LIST, seq(
       $._LIST_UNORDERED_MARKER,  // Hidden from AST (e.g., "*" or "-")
       token.immediate(prec(1, /[ \t]+/)), // Consume required whitespace after marker
       field('content', $._list_item_content),
-      $._newline
+      $._newline,
+      repeat($.list_item_continuation)
     )),
     
     // List item content - just the inline text without newlines
     _list_item_content: $ => $.text_with_inlines,
     
+    // List item continuation - supports attaching blocks to list items
+    list_item_continuation: $ => prec(PREC.LIST + 5, seq(
+      $.LIST_CONTINUATION,  // The '+' line
+      repeat1($._block_not_section)  // Any blocks that follow the continuation
+    )),
+    
     // Ordered list - group consecutive list items using right associativity
     ordered_list: $ => prec.right(repeat1($.ordered_list_item)),
     
-    ordered_list_item: $ => prec(PREC.LIST, seq(
+    ordered_list_item: $ => prec.left(PREC.LIST, seq(
       $._LIST_ORDERED_MARKER,    // Hidden from AST (e.g., "1.")
       token.immediate(prec(1, /[ \t]+/)), // Consume required whitespace after marker
       field('content', $._list_item_content),
-      $._newline
+      $._newline,
+      repeat($.list_item_continuation)
     )),
     
     // Description list

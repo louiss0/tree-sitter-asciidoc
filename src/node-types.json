@@ -825,6 +825,85 @@
     }
   },
   {
+    "type": "list_item_continuation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "LIST_CONTINUATION",
+          "named": true
+        },
+        {
+          "type": "admonition_block",
+          "named": true
+        },
+        {
+          "type": "attribute_entry",
+          "named": true
+        },
+        {
+          "type": "callout_list",
+          "named": true
+        },
+        {
+          "type": "conditional_block",
+          "named": true
+        },
+        {
+          "type": "description_list",
+          "named": true
+        },
+        {
+          "type": "example_block",
+          "named": true
+        },
+        {
+          "type": "listing_block",
+          "named": true
+        },
+        {
+          "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "open_block",
+          "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
+          "type": "quote_block",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
+          "named": true
+        },
+        {
+          "type": "table_block",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "listing_block",
     "named": true,
     "fields": {
@@ -1144,6 +1223,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "list_item_continuation",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1957,6 +2046,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "list_item_continuation",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2005,6 +2104,10 @@
   },
   {
     "type": "LISTING_FENCE_START",
+    "named": true
+  },
+  {
+    "type": "LIST_CONTINUATION",
     "named": true
   },
   {
