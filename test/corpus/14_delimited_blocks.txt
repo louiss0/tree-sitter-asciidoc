@@ -35,12 +35,20 @@ line with ---- not at beginning
 
 (source_file
   (listing_block
-    (listing_open)
-    (block_content
+    open: (listing_open)
+    content: (block_content
       (content_line)
       (content_line)
       (content_line))
-    (listing_close)))
+    close: (MISSING listing_close))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Literal block with content
