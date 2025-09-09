@@ -50,42 +50,20 @@ Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_colon)
-      (ERROR
-        (id))
+    content: (text_with_inlines
       (text_segment)
       (inline_element
-        (line_break
-          (MISSING _newline)))
-      (text_segment)
-      (inline_element
-        (superscript))
-      (text_segment)
+        (math_macro))
       (text_segment)
       (text_segment)))
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_colon)
-      (ERROR)
+    content: (text_with_inlines
       (text_segment)
       (inline_element
-        (attribute_reference))
-      (inline_element
-        (attribute_reference))
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_colon)
-      (ERROR
-        (id))
+        (math_macro))
       (text_segment)
       (inline_element
-        (superscript))
+        (math_macro))
       (text_segment))))
 
 ================================================================================
@@ -99,30 +77,19 @@ Go to menu:File[Open] option.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
-      (text_segment)
-      (text_colon)
-      (ERROR
-        (id)
-        (span_spec)
-        (text_segment)
-        (span_spec))
       (inline_element
-        (ui_kbd))
+        (ui_macro
+          (ui_kbd)))
       (text_segment)
       (text_segment)
       (inline_element
-        (ui_btn))
-      (text_segment)
-      (text_segment)
-      (text_colon)
-      (ERROR
-        (role_list
-          (id)))
+        (ui_macro
+          (ui_btn)))
       (text_segment)))
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (inline_element
