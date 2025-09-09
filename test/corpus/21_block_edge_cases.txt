@@ -86,13 +86,6 @@ Open block continuation.
 --------------------------------------------------------------------------------
 
 (source_file
-  (example_block
-    open: (example_open
-      (EXAMPLE_FENCE_START))
-    content: (block_content
-      (content_line))
-    close: (example_close
-      (EXAMPLE_FENCE_END)))
   (ordered_list
     (ordered_list_item
       content: (text_with_inlines
@@ -105,16 +98,16 @@ Open block continuation.
     (ordered_list_item
       content: (text_with_inlines
         (text_segment)
-        (text_segment))))
-  (ERROR
-    (content_line))
-  (open_block
-    open: (openblock_open
-      (OPENBLOCK_FENCE_START))
-    content: (block_content
-      (content_line))
-    close: (openblock_close
-      (OPENBLOCK_FENCE_END))))
+        (text_segment))
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (open_block
+          open: (openblock_open
+            (OPENBLOCK_FENCE_START))
+          content: (block_content
+            (content_line))
+          close: (openblock_close
+            (OPENBLOCK_FENCE_END)))))))
 
 ================================================================================
 Conditional blocks with nesting

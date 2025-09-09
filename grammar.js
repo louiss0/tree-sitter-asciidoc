@@ -566,7 +566,7 @@ module.exports = grammar({
     _list_item_content: $ => $.text_with_inlines,
     
     // List item continuation - supports attaching blocks to list items
-    list_item_continuation: $ => prec(PREC.LIST + 5, seq(
+    list_item_continuation: $ => prec.right(PREC.LIST + 5, seq(
       $.LIST_CONTINUATION,  // The '+' line
       repeat1($._block_not_section)  // Any blocks that follow the continuation
     )),

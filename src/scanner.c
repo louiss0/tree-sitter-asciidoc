@@ -2,7 +2,7 @@
 #include <wctype.h>
 #include <stdio.h>
 
-// Debug logging - temporarily disabled due to memory issues in test suite
+// Debug logging - disabled for normal operation
 #ifdef DEBUG_DISABLED_FOR_NOW
 #define DEBUG_LOG(fmt, ...) fprintf(stderr, "[SCANNER] " fmt "\n", ##__VA_ARGS__)
 #else
@@ -270,7 +270,17 @@ static bool scan_list_continuation(TSLexer *lexer) {
     
     // Must be only '+' on the line
     skip_spaces(lexer);
-    return (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer));
+    if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
+        // Consume the newline as part of the list continuation token
+        if (lexer->lookahead == '\r') {
+            advance(lexer);
+            if (lexer->lookahead == '\n') advance(lexer);
+        } else if (lexer->lookahead == '\n') {
+            advance(lexer);
+        }
+        return true;
+    }
+    return false;
 }
 
 // Scan for content line within delimited blocks - only when fence is open
@@ -1026,6 +1036,13 @@ static bool scan_endif_directive(TSLexer *lexer) {
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
     
+    
+    // LIST_CONTINUATION has highest priority - check first before other tokens consume input
+    if (valid_symbols[LIST_CONTINUATION] && scan_list_continuation(lexer)) {
+        lexer->result_symbol = LIST_CONTINUATION;
+        return true;
+    }
+    
     // Stateful delimited block fence handling (high priority)
     // Check for fence end first when we have an open fence
     if (scanner->fence_length > 0) {
@@ -1130,10 +1147,6 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         return true;
     }
     
-    if (valid_symbols[LIST_CONTINUATION] && scan_list_continuation(lexer)) {
-        lexer->result_symbol = LIST_CONTINUATION;
-        return true;
-    }
     
     // Temporarily disable AUTOLINK_BOUNDARY to reduce ERROR nodes
     // if (valid_symbols[AUTOLINK_BOUNDARY] && scan_autolink_boundary(lexer)) {
