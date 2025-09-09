@@ -176,12 +176,7 @@ Role spans with complex attributes
           (role_list
             (option))
           (bracketed_text)
-          (MISSING "#")))
-      (role_span
-        (role_list
-          (option))
-        (text_segment))
-      (text_segment))))
+          (MISSING "#"))))))
 
 ================================================================================
 Nested formatting edge cases

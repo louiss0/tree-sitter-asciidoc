@@ -102,21 +102,7 @@ These look like conditionals but are malformed.
           (text_segment)
           (text_segment)
           (text_segment)))
-      (MISSING endif_directive)))
-  (paragraph
-    (text_with_inlines
-      (inline_conditional
-        (inline_ifdef
-          (inline_content)))))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment))))
+          (MISSING endif_directive)))
 
 ================================================================================
 Mixing attributes and conditionals
