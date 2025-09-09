@@ -38,15 +38,7 @@ line with ---- not at beginning
       (content_line)
       (content_line)
       (content_line))
-    close: (MISSING listing_close))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    close: (listing_close))
 
 ================================================================================
 Literal block with content

@@ -42,6 +42,20 @@ module.exports = grammar({
     // Order must match scanner.c enum exactly!
     $.TABLE_FENCE_START,
     $.TABLE_FENCE_END,
+    $.EXAMPLE_FENCE_START,
+    $.EXAMPLE_FENCE_END,
+    $.LISTING_FENCE_START,
+    $.LISTING_FENCE_END,
+    $.LITERAL_FENCE_START,
+    $.LITERAL_FENCE_END,
+    $.QUOTE_FENCE_START,
+    $.QUOTE_FENCE_END,
+    $.SIDEBAR_FENCE_START,
+    $.SIDEBAR_FENCE_END,
+    $.PASSTHROUGH_FENCE_START,
+    $.PASSTHROUGH_FENCE_END,
+    $.OPENBLOCK_FENCE_START,
+    $.OPENBLOCK_FENCE_END,
     $.LIST_CONTINUATION,
     $.AUTOLINK_BOUNDARY,
     $.ATTRIBUTE_LIST_START,
@@ -447,29 +461,28 @@ module.exports = grammar({
     block_content: $ => repeat1($.content_line),
     content_line: $ => token(prec(-1, /[^\r\n]*\r?\n/)),
     
-    // Fixed delimited block fence tokens - use exact length matching
-    // Opening fences are more restrictive (exactly 4), closing fences are flexible (4+)
-    example_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /={4}[ \t]*\r?\n/)),
-    example_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /={4,}[ \t]*\r?\n?/)),
+    // Specific stateful delimited block fence tokens using external scanner
+    // Each block type uses its own specific fence tokens for proper disambiguation
+    example_open: $ => $.EXAMPLE_FENCE_START,
+    example_close: $ => $.EXAMPLE_FENCE_END,
     
-    listing_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /-{4}[ \t]*\r?\n/)),
-    listing_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /-{4,}[ \t]*\r?\n?/)),
+    listing_open: $ => $.LISTING_FENCE_START,
+    listing_close: $ => $.LISTING_FENCE_END,
     
-    literal_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /\.{4}[ \t]*\r?\n/)),
-    literal_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /\.{4,}[ \t]*\r?\n?/)),
+    literal_open: $ => $.LITERAL_FENCE_START,
+    literal_close: $ => $.LITERAL_FENCE_END,
     
-    quote_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /_{4}[ \t]*\r?\n/)),
-    quote_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /_{4,}[ \t]*\r?\n?/)),
+    quote_open: $ => $.QUOTE_FENCE_START,
+    quote_close: $ => $.QUOTE_FENCE_END,
     
-    sidebar_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /\*{4}[ \t]*\r?\n/)),
-    sidebar_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /\*{4,}[ \t]*\r?\n?/)),
+    sidebar_open: $ => $.SIDEBAR_FENCE_START,
+    sidebar_close: $ => $.SIDEBAR_FENCE_END,
     
-    passthrough_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /\+{4}[ \t]*\r?\n/)),
-    passthrough_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /\+{4,}[ \t]*\r?\n?/)),
+    passthrough_open: $ => $.PASSTHROUGH_FENCE_START,
+    passthrough_close: $ => $.PASSTHROUGH_FENCE_END,
     
-    // Open block uses exactly 2 dashes to avoid conflict with 4-dash listing blocks
-    openblock_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /-{2}[ \t]*\r?\n/)),
-    openblock_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /-{2}[ \t]*\r?\n?/)),
+    openblock_open: $ => $.OPENBLOCK_FENCE_START,
+    openblock_close: $ => $.OPENBLOCK_FENCE_END,
     
     // Block metadata
     metadata: $ => prec.right(repeat1(choice(

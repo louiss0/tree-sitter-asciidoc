@@ -1789,158 +1789,60 @@
       }
     },
     "example_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 101,
-        "content": {
-          "type": "PATTERN",
-          "value": "={4}[ \\t]*\\r?\\n"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "EXAMPLE_FENCE_START"
     },
     "example_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 102,
-        "content": {
-          "type": "PATTERN",
-          "value": "={4,}[ \\t]*\\r?\\n?"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "EXAMPLE_FENCE_END"
     },
     "listing_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 101,
-        "content": {
-          "type": "PATTERN",
-          "value": "-{4}[ \\t]*\\r?\\n"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "LISTING_FENCE_START"
     },
     "listing_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 102,
-        "content": {
-          "type": "PATTERN",
-          "value": "-{4,}[ \\t]*\\r?\\n?"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "LISTING_FENCE_END"
     },
     "literal_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 101,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\.{4}[ \\t]*\\r?\\n"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "LITERAL_FENCE_START"
     },
     "literal_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 102,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\.{4,}[ \\t]*\\r?\\n?"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "LITERAL_FENCE_END"
     },
     "quote_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 101,
-        "content": {
-          "type": "PATTERN",
-          "value": "_{4}[ \\t]*\\r?\\n"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "QUOTE_FENCE_START"
     },
     "quote_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 102,
-        "content": {
-          "type": "PATTERN",
-          "value": "_{4,}[ \\t]*\\r?\\n?"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "QUOTE_FENCE_END"
     },
     "sidebar_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 101,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\*{4}[ \\t]*\\r?\\n"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "SIDEBAR_FENCE_START"
     },
     "sidebar_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 102,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\*{4,}[ \\t]*\\r?\\n?"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "SIDEBAR_FENCE_END"
     },
     "passthrough_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 101,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\+{4}[ \\t]*\\r?\\n"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "PASSTHROUGH_FENCE_START"
     },
     "passthrough_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 102,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\+{4,}[ \\t]*\\r?\\n?"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "PASSTHROUGH_FENCE_END"
     },
     "openblock_open": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 101,
-        "content": {
-          "type": "PATTERN",
-          "value": "-{2}[ \\t]*\\r?\\n"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "OPENBLOCK_FENCE_START"
     },
     "openblock_close": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 102,
-        "content": {
-          "type": "PATTERN",
-          "value": "-{2}[ \\t]*\\r?\\n?"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "OPENBLOCK_FENCE_END"
     },
     "metadata": {
       "type": "PREC_RIGHT",
@@ -3318,6 +3220,62 @@
     {
       "type": "SYMBOL",
       "name": "TABLE_FENCE_END"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "EXAMPLE_FENCE_START"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "EXAMPLE_FENCE_END"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "LISTING_FENCE_START"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "LISTING_FENCE_END"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "LITERAL_FENCE_START"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "LITERAL_FENCE_END"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "QUOTE_FENCE_START"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "QUOTE_FENCE_END"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "SIDEBAR_FENCE_START"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "SIDEBAR_FENCE_END"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "PASSTHROUGH_FENCE_START"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "PASSTHROUGH_FENCE_END"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "OPENBLOCK_FENCE_START"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "OPENBLOCK_FENCE_END"
     },
     {
       "type": "SYMBOL",

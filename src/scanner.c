@@ -5,6 +5,20 @@
 enum {
     TABLE_FENCE_START,
     TABLE_FENCE_END,
+    EXAMPLE_FENCE_START,    // ====
+    EXAMPLE_FENCE_END,
+    LISTING_FENCE_START,    // ----
+    LISTING_FENCE_END,
+    LITERAL_FENCE_START,    // ....
+    LITERAL_FENCE_END,
+    QUOTE_FENCE_START,      // ____
+    QUOTE_FENCE_END,
+    SIDEBAR_FENCE_START,    // ****
+    SIDEBAR_FENCE_END,
+    PASSTHROUGH_FENCE_START, // ++++
+    PASSTHROUGH_FENCE_END,
+    OPENBLOCK_FENCE_START,  // --
+    OPENBLOCK_FENCE_END,
     LIST_CONTINUATION,
     AUTOLINK_BOUNDARY,
     ATTRIBUTE_LIST_START,
@@ -23,6 +37,7 @@ typedef struct {
     char fence_chars[5];
     uint8_t fence_length;
     uint8_t fence_count;
+    uint8_t fence_type;    // Store which type of fence we're in
     bool at_line_start;
     // List state tracking
     bool in_unordered_list;
@@ -47,7 +62,36 @@ static bool at_line_start(TSLexer *lexer) {
     return lexer->get_column(lexer) == 0;
 }
 
-// Scan for delimited block fences (====, ----, ...., ____, ****, ---, ++++)
+// Map fence characters to token types
+static int get_fence_start_token(char fence_char, uint8_t count) {
+    switch (fence_char) {
+        case '=': return EXAMPLE_FENCE_START;
+        case '-': 
+            if (count == 2) return OPENBLOCK_FENCE_START;  // -- for open blocks
+            else return LISTING_FENCE_START;               // ---- for listing blocks
+        case '.': return LITERAL_FENCE_START;
+        case '_': return QUOTE_FENCE_START;
+        case '*': return SIDEBAR_FENCE_START;
+        case '+': return PASSTHROUGH_FENCE_START;
+        default: return -1;
+    }
+}
+
+static int get_fence_end_token(char fence_char, uint8_t count) {
+    switch (fence_char) {
+        case '=': return EXAMPLE_FENCE_END;
+        case '-': 
+            if (count == 2) return OPENBLOCK_FENCE_END;
+            else return LISTING_FENCE_END;
+        case '.': return LITERAL_FENCE_END;
+        case '_': return QUOTE_FENCE_END;
+        case '*': return SIDEBAR_FENCE_END;
+        case '+': return PASSTHROUGH_FENCE_END;
+        default: return -1;
+    }
+}
+
+// Scan for delimited block fences (====, ----, ...., ____, ****, --, ++++)
 static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
     if (!at_line_start(lexer)) return false;
     
@@ -63,18 +107,27 @@ static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
         count++;
     }
     
-    // Must have at least 4 characters for valid fence
-    if (count < 4) return false;
+    // Different minimum counts for different fence types
+    uint8_t min_count = (fence_char == '-') ? 2 : 4; // open blocks use --, others use 4+ chars
+    if (count < min_count) return false;
     
     // Store fence info for matching close
     scanner->fence_chars[0] = fence_char;
     scanner->fence_length = 1;
     scanner->fence_count = count;
+    scanner->fence_type = get_fence_start_token(fence_char, count);
     scanner->at_line_start = true;
     
     // Must be followed by end of line or attributes
     skip_spaces(lexer);
     if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
+        // Include the newline as part of the fence token
+        if (lexer->lookahead == '\r') {
+            advance(lexer);
+            if (lexer->lookahead == '\n') advance(lexer);
+        } else if (lexer->lookahead == '\n') {
+            advance(lexer);
+        }
         return true;
     }
     
@@ -97,9 +150,17 @@ static bool scan_block_fence_end(Scanner *scanner, TSLexer *lexer) {
     if (count >= scanner->fence_count) {
         skip_spaces(lexer);
         if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
+            // Include the newline as part of the fence token
+            if (lexer->lookahead == '\r') {
+                advance(lexer);
+                if (lexer->lookahead == '\n') advance(lexer);
+            } else if (lexer->lookahead == '\n') {
+                advance(lexer);
+            }
             // Clear fence state
             scanner->fence_length = 0;
             scanner->fence_count = 0;
+            scanner->fence_type = 0;
             return true;
         }
     }
@@ -797,7 +858,30 @@ static bool scan_endif_directive(TSLexer *lexer) {
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
     
-    // Block fence handling reverted to grammar tokens for simplicity
+    // Stateful delimited block fence handling (high priority)
+    // Check for fence end first when we have an open fence
+    if (scanner->fence_length > 0) {
+        int end_token = get_fence_end_token(scanner->fence_chars[0], scanner->fence_count);
+        if (end_token != -1 && valid_symbols[end_token] && scan_block_fence_end(scanner, lexer)) {
+            lexer->result_symbol = end_token;
+            return true;
+        }
+    }
+    
+    // Check for fence start when no fence is open
+    if (scanner->fence_length == 0) {
+        // Try each fence type if valid
+        if ((valid_symbols[EXAMPLE_FENCE_START] || valid_symbols[LISTING_FENCE_START] || 
+             valid_symbols[LITERAL_FENCE_START] || valid_symbols[QUOTE_FENCE_START] ||
+             valid_symbols[SIDEBAR_FENCE_START] || valid_symbols[PASSTHROUGH_FENCE_START] ||
+             valid_symbols[OPENBLOCK_FENCE_START]) && scan_block_fence_start(scanner, lexer)) {
+            int start_token = scanner->fence_type;
+            if (start_token != -1 && valid_symbols[start_token]) {
+                lexer->result_symbol = start_token;
+                return true;
+            }
+        }
+    }
     
     // Conditional directives (high priority) - check longer patterns first
     if (valid_symbols[_ifndef_open_token] && scan_ifndef_open(lexer)) {
@@ -886,9 +970,10 @@ unsigned tree_sitter_asciidoc_external_scanner_serialize(void *payload, char *bu
         buffer[i + 1] = scanner->fence_chars[i];
     }
     buffer[5] = scanner->fence_count;
-    buffer[6] = scanner->at_line_start ? 1 : 0;
+    buffer[6] = scanner->fence_type;
+    buffer[7] = scanner->at_line_start ? 1 : 0;
     
-    return 7;
+    return 8;
 }
 
 void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char *buffer, unsigned length) {
@@ -896,16 +981,18 @@ void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char
     
     scanner->fence_length = 0;
     scanner->fence_count = 0;
+    scanner->fence_type = 0;
     scanner->at_line_start = false;
     
-    if (length >= 7) {
+    if (length >= 8) {
         scanner->fence_length = buffer[0];
         if (scanner->fence_length <= 4) {
             for (uint8_t i = 0; i < scanner->fence_length; i++) {
                 scanner->fence_chars[i] = buffer[i + 1];
             }
             scanner->fence_count = buffer[5];
-            scanner->at_line_start = buffer[6] != 0;
+            scanner->fence_type = buffer[6];
+            scanner->at_line_start = buffer[7] != 0;
         } else {
             scanner->fence_length = 0;
         }
