@@ -42,7 +42,7 @@ line with ---- not at beginning
       (content_line)
       (content_line))
     close: (listing_close
-      (LISTING_FENCE_END))))
+      (MISSING LISTING_FENCE_END))))
 
 ================================================================================
 Literal block with content
@@ -260,4 +260,4 @@ Listing block
     content: (block_content
       (content_line))
     close: (listing_close
-      (LISTING_FENCE_END))))
+      (MISSING LISTING_FENCE_END))))
