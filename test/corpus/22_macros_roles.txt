@@ -100,6 +100,13 @@ Go to menu:File[Open] option.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
+      (text_colon)
+      (ERROR
+        (id)
+        (span_spec)
+        (text_segment)
+        (span_spec))
       (inline_element
         (ui_kbd))
       (text_segment)
@@ -108,9 +115,18 @@ Go to menu:File[Open] option.
         (ui_btn))
       (text_segment)
       (text_segment)
+      (text_colon)
+      (ERROR
+        (role_list
+          (id)))
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
       (text_segment)
       (inline_element
-        (ui_menu))
+        (ui_macro
+          (ui_menu)))
       (text_segment))))
 
 ================================================================================
