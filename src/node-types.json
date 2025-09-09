@@ -188,25 +188,6 @@
     }
   },
   {
-    "type": "cell_spec",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "format_spec",
-          "named": true
-        },
-        {
-          "type": "span_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "conditional_block",
     "named": true,
     "fields": {},
@@ -1779,15 +1760,11 @@
         ]
       },
       "content": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
             "type": "table_content",
-            "named": true
-          },
-          {
-            "type": "table_row",
             "named": true
           }
         ]
@@ -1809,32 +1786,6 @@
       "types": [
         {
           "type": "metadata",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "table_cell",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "cell_content",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "cell_spec",
           "named": true
         }
       ]
@@ -1880,21 +1831,6 @@
       "types": [
         {
           "type": "TABLE_FENCE_START",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "table_row",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "table_cell",
           "named": true
         }
       ]
@@ -2172,10 +2108,6 @@
     "named": true
   },
   {
-    "type": "cell_content",
-    "named": true
-  },
-  {
     "type": "content_line",
     "named": true
   },
@@ -2201,10 +2133,6 @@
   },
   {
     "type": "footnoteref",
-    "named": true
-  },
-  {
-    "type": "format_spec",
     "named": true
   },
   {
@@ -2257,10 +2185,6 @@
     "named": true
   },
   {
-    "type": "span_spec",
-    "named": true
-  },
-  {
     "type": "strong_text",
     "named": true
   },
@@ -2299,10 +2223,6 @@
   {
     "type": "xref_text",
     "named": true
-  },
-  {
-    "type": "|",
-    "named": false
   },
   {
     "type": "~",

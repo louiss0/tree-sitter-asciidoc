@@ -2489,28 +2489,8 @@
                 "type": "FIELD",
                 "name": "content",
                 "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "PREC",
-                      "value": 1,
-                      "content": {
-                        "type": "REPEAT1",
-                        "content": {
-                          "type": "SYMBOL",
-                          "name": "table_row"
-                        }
-                      }
-                    },
-                    {
-                      "type": "PREC",
-                      "value": 0,
-                      "content": {
-                        "type": "SYMBOL",
-                        "name": "table_content"
-                      }
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "table_content"
                 }
               },
               {

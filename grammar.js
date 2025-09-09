@@ -631,10 +631,7 @@ module.exports = grammar({
     table_block: $ => prec(PREC.PARAGRAPH + 10, seq(
       optional($.metadata),
       field('open', $.table_open),
-      optional(field('content', choice(
-        prec(1, repeat1($.table_row)),  // Prefer structured rows when possible
-        prec(0, $.table_content)        // Fall back to generic content
-      ))),
+      optional(field('content', $.table_content)),
       field('close', $.table_close)
     )),
     
