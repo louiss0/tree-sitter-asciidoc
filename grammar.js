@@ -59,6 +59,7 @@ module.exports = grammar({
     $.LIST_CONTINUATION,
     $.AUTOLINK_BOUNDARY,
     $.ATTRIBUTE_LIST_START,
+    $.DELIMITED_BLOCK_CONTENT_LINE, // Content line within delimited blocks (not fence end)
     // Line-anchored block markers (non-section)
     $._LIST_UNORDERED_MARKER, // "* " or "- " at start of line (hidden from AST)
     $._LIST_ORDERED_MARKER,   // "N. " at start of line (hidden from AST)
@@ -467,8 +468,9 @@ module.exports = grammar({
       field('close', $.openblock_close)
     )),
     
-    // Block content - raw lines
-    block_content: $ => repeat1($.content_line),
+    // Block content - raw lines using external scanner to avoid fence conflicts
+    block_content: $ => repeat1(alias($.DELIMITED_BLOCK_CONTENT_LINE, $.content_line)),
+    // Keep content_line for non-delimited block contexts (like paragraphs)
     content_line: $ => token(prec(-1, /[^\r\n]*\r?\n/)),
     
     // Specific stateful delimited block fence tokens using external scanner
@@ -648,6 +650,7 @@ module.exports = grammar({
     table_open: $ => $.TABLE_FENCE_START,
     table_close: $ => $.TABLE_FENCE_END,
     
+    // Table content uses regular content_line since tables have different fence handling
     table_content: $ => repeat1($.content_line),
     
     table_row: $ => seq(

@@ -30,6 +30,7 @@ enum {
     LIST_CONTINUATION,
     AUTOLINK_BOUNDARY,
     ATTRIBUTE_LIST_START,
+    DELIMITED_BLOCK_CONTENT_LINE, // Content line within delimited blocks (not fence end)
     _LIST_UNORDERED_MARKER, // "* " or "- " at start of line (hidden from AST)
     _LIST_ORDERED_MARKER,   // "N. " at start of line (hidden from AST)
     DESCRIPTION_LIST_SEP,   // "::"
@@ -270,6 +271,61 @@ static bool scan_list_continuation(TSLexer *lexer) {
     // Must be only '+' on the line
     skip_spaces(lexer);
     return (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer));
+}
+
+// Scan for content line within delimited blocks - only when fence is open
+static bool scan_delimited_block_content_line(Scanner *scanner, TSLexer *lexer) {
+    // Only valid when we have an open fence
+    if (scanner->fence_length == 0) {
+        return false;
+    }
+    
+    // Must be at start of line
+    if (!at_line_start(lexer)) {
+        return false;
+    }
+    
+    // Check if this line would be a fence end - if so, don't consume it
+    // We need to peek ahead without consuming to see if this is a fence end
+    TSLexer temp = *lexer;
+    char expected_char = scanner->fence_chars[0];
+    uint8_t count = 0;
+    
+    // Count repeated characters at start of line
+    uint32_t loop_count = 0;
+    while (temp.lookahead == expected_char && count < 255) {
+        if (++loop_count > 500) break; // Prevent infinite loops
+        temp.advance(&temp, false);
+        count++;
+    }
+    
+    // If this looks like a fence end (enough chars + line end), don't consume it
+    if (count >= scanner->fence_count) {
+        // Skip trailing spaces
+        while (temp.lookahead == ' ' || temp.lookahead == '\t') {
+            temp.advance(&temp, false);
+        }
+        // If at line end, this is a fence end line - don't consume
+        if (temp.lookahead == '\n' || temp.lookahead == '\r' || temp.eof(&temp)) {
+            return false;
+        }
+    }
+    // This is not a fence end line, consume the entire line as content
+    uint32_t char_count = 0;
+    while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+        if (++char_count > 10000) break; // Prevent infinite loops
+        advance(lexer);
+    }
+    
+    // Include the newline
+    if (lexer->lookahead == '\r') {
+        advance(lexer);
+        if (lexer->lookahead == '\n') advance(lexer);
+    } else if (lexer->lookahead == '\n') {
+        advance(lexer);
+    }
+    
+    return true;
 }
 
 // Scan for autolink boundary (detect trailing punctuation)
@@ -987,6 +1043,13 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
                 lexer->result_symbol = end_token;
                 return true;
             }
+        }
+        
+        // When fence is open, check for delimited block content lines
+        // This must come after fence end check to ensure fence ends take priority
+        if (valid_symbols[DELIMITED_BLOCK_CONTENT_LINE] && scan_delimited_block_content_line(scanner, lexer)) {
+            lexer->result_symbol = DELIMITED_BLOCK_CONTENT_LINE;
+            return true;
         }
     }
     

@@ -1862,8 +1862,13 @@
     "block_content": {
       "type": "REPEAT1",
       "content": {
-        "type": "SYMBOL",
-        "name": "content_line"
+        "type": "ALIAS",
+        "content": {
+          "type": "SYMBOL",
+          "name": "DELIMITED_BLOCK_CONTENT_LINE"
+        },
+        "named": true,
+        "value": "content_line"
       }
     },
     "content_line": {
@@ -3388,6 +3393,10 @@
     {
       "type": "SYMBOL",
       "name": "ATTRIBUTE_LIST_START"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "DELIMITED_BLOCK_CONTENT_LINE"
     },
     {
       "type": "SYMBOL",
