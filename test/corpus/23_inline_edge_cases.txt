@@ -82,7 +82,15 @@ This has a plus+ in the middle.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (ERROR
+        (span_spec))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
