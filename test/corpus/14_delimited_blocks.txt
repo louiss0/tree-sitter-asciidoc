@@ -19,7 +19,13 @@ line 2
 
 ---
 
-(source_file)
+(source_file
+  (example_block
+    open: (example_open)
+    content: (block_content
+      (content_line)
+      (content_line))
+    close: (example_close)))
 
 ================================================================================
 Listing block with content
@@ -259,6 +265,8 @@ Listing block
     close: (example_close))
   (listing_block
     open: (listing_open)
-    content: (block_content
-      (content_line))
-    close: (listing_close)))
+    close: (MISSING listing_close))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment))))
