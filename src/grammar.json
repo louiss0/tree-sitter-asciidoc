@@ -2227,7 +2227,7 @@
       "name": "text_with_inlines"
     },
     "list_item_continuation": {
-      "type": "PREC",
+      "type": "PREC_RIGHT",
       "value": 115,
       "content": {
         "type": "SEQ",
