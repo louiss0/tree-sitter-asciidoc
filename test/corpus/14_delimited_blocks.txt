@@ -59,6 +59,22 @@ line with ---- not at beginning
       (text_segment)
       (text_segment)
       (text_segment))))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Literal block with content
