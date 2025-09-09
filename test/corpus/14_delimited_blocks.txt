@@ -268,4 +268,8 @@ Listing block
     content: (block_content
       (content_line))
     close: (listing_close
-      (MISSING LISTING_FENCE_END))))
+      (MISSING LISTING_FENCE_END)))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment))))

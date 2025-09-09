@@ -8,14 +8,17 @@ This text has ifdef::attr[inline content] in the middle.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)
-      (inline_element
-        (inline_conditional
-          (inline_ifdef
-            (inline_content))))
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment)
+      (ERROR)
+      (text_segment)
+      (text_segment)
       (text_segment)
       (text_segment)
       (text_segment))))

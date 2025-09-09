@@ -86,39 +86,35 @@ Open block continuation.
 --------------------------------------------------------------------------------
 
 (source_file
+  (example_block
+    open: (example_open
+      (EXAMPLE_FENCE_START))
+    content: (block_content
+      (content_line))
+    close: (example_close
+      (EXAMPLE_FENCE_END)))
   (ordered_list
     (ordered_list_item
-      (list_marker)
-      (text_with_inlines
-        (text_segment))
-      (list_continuation)
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (list_continuation)
-      (example_block
-        (example_open)
-        (paragraph
-          (text_with_inlines
-            (text_segment)))
-        (example_close))))
-  (ordered_list
-    (ordered_list_item
-      (list_marker)
-      (text_with_inlines
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
         (text_segment))))
   (ordered_list
     (ordered_list_item
-      (list_marker)
-      (text_with_inlines
-        (text_segment))
-      (list_continuation)
-      (open_block
-        (open_block_open)
-        (paragraph
-          (text_with_inlines
-            (text_segment)))
-        (open_block_close)))))
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment))))
+  (ERROR
+    (content_line))
+  (open_block
+    open: (openblock_open
+      (OPENBLOCK_FENCE_START))
+    content: (block_content
+      (content_line))
+    close: (openblock_close
+      (OPENBLOCK_FENCE_END))))
 
 ================================================================================
 Conditional blocks with nesting
@@ -144,37 +140,36 @@ Production content.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (conditional_block
-    (ifdef_block
-      (ifdef_open)
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (conditional_block
-        (ifndef_block
-          (ifndef_open)
-          (paragraph
-            (text_with_inlines
-              (text_segment)))
-          (conditional_block
-            (ifeval_block
-              (ifeval_open)
-              (paragraph
-                (text_with_inlines
-                  (text_segment)))
-              (endif_directive)))
-          (paragraph
-            (text_with_inlines
-              (text_segment)))
-          (endif_directive)))
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (endif_directive)))
+(ERROR
+  (ifdef_open)
   (paragraph
-    (text_with_inlines
-      (text_segment))))
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (ifndef_open)
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)))
+  (ifeval_open)
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)))
+  (table_open
+    (MISSING TABLE_FENCE_START))
+  (table_content
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)))
 
 ================================================================================
 Complex admonition combinations
