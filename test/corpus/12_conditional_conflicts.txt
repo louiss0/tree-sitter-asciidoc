@@ -46,6 +46,20 @@ The word endif:: can also appear here.
 --------------------------------------------------------------------------------
 
 (source_file
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment)
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment)
+      (text_segment)))
   (description_list
     (description_item))
   (paragraph
@@ -62,8 +76,17 @@ The word endif:: can also appear here.
       (text_segment)
       (text_segment)
       (text_segment)))
-  (description_list
-    (description_item)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Malformed conditionals should be paragraphs
@@ -131,6 +154,10 @@ endif::[]
       (ifdef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive)))
   (attribute_entry
@@ -141,6 +168,11 @@ endif::[]
       (ifndef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive))))
 
@@ -187,6 +219,9 @@ endif::[]
       (ifdef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive)))
   (conditional_block
@@ -194,6 +229,10 @@ endif::[]
       (ifndef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive))))
 
@@ -218,26 +257,32 @@ endif::[]
 --------------------------------------------------------------------------------
 
 (source_file
-  (section
-    (section_title
-      (title))
-    (attribute_entry
-      (name)
-      (value))
-    (conditional_block
-      (ifdef_block
-        (ifdef_open)
-        (paragraph
-          (text_with_inlines
-            (text_segment)))
-        (endif_directive)))
-    (section
-      (section_title
-        (title))
-      (conditional_block
-        (ifndef_block
-          (ifndef_open)
-          (paragraph
-            (text_with_inlines
-              (text_segment)))
-          (endif_directive))))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (attribute_entry
+    (name)
+    (value))
+  (conditional_block
+    (ifdef_block
+      (ifdef_open)
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)))
+      (endif_directive)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)))
+  (conditional_block
+    (ifndef_block
+      (ifndef_open)
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment)))
+      (endif_directive))))
