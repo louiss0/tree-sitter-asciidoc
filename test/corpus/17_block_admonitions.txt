@@ -22,11 +22,13 @@ Useful information here.
   (sidebar_block
     (metadata
       (block_attributes))
-    (sidebar_open)
+    (sidebar_open
+      (SIDEBAR_FENCE_START))
     (block_content
       (content_line)
       (content_line))
-    (sidebar_close)))
+    (sidebar_close
+      (SIDEBAR_FENCE_END))))
 
 ================================================================================
 IMPORTANT block with quote delimiters
@@ -44,11 +46,13 @@ ____
   (quote_block
     (metadata
       (block_attributes))
-    (quote_open)
+    (quote_open
+      (QUOTE_FENCE_START))
     (block_content
       (content_line)
       (content_line))
-    (quote_close)))
+    (quote_close
+      (QUOTE_FENCE_END))))
 
 ================================================================================
 WARNING block with listing delimiters
@@ -61,12 +65,20 @@ rm -rf /path/to/files
 ----
 
 (source_file
-  (admonition_block
-    (admonition_label)
-    (listing_block
-      (listing_open)
-      (block_content)
-      (listing_close))))
+  (listing_block
+    (metadata
+      (block_attributes))
+    (listing_open
+      (LISTING_FENCE_START))
+    (block_content
+      (content_line))
+    (listing_close
+      (MISSING LISTING_FENCE_END)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 CAUTION block with literal delimiters
@@ -85,12 +97,14 @@ CAUTION block with literal delimiters
   (literal_block
     (metadata
       (block_attributes))
-    (literal_open)
+    (literal_open
+      (LITERAL_FENCE_START))
     (block_content
       (content_line)
       (content_line)
       (content_line))
-    (literal_close)))
+    (literal_close
+      (LITERAL_FENCE_END))))
 
 ====
 This note has a title.
@@ -113,16 +127,29 @@ echo "This tip has multiple metadata lines"
 ----
 
 (source_file
-  (admonition_block
-    (admonition_label)
-    (listing_block
-      (metadata
-        (block_title)
-        (id_and_roles)
-        (block_attributes))
-      (listing_open)
-      (block_content)
-      (listing_close))))
+  (paragraph
+    (metadata
+      (block_attributes))
+    (text_with_inlines
+      (text_segment)
+      (text_segment)))
+  (listing_block
+    (metadata
+      (id_and_roles)
+      (block_attributes))
+    (listing_open
+      (LISTING_FENCE_START))
+    (listing_close
+      (MISSING LISTING_FENCE_END)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ====
 This warning block has an anchor.
@@ -150,18 +177,18 @@ Second warning block.
 ----
 
 (source_file
-  (admonition_block
-    (admonition_label)
-    (example_block
-      (example_open)
-      (block_content)
-      (example_close)))
-  (admonition_block
-    (admonition_label)
-    (listing_block
-      (listing_open)
-      (block_content)
-      (listing_close))))
+  (listing_block
+    (metadata
+      (block_attributes))
+    (listing_open
+      (LISTING_FENCE_START))
+    (listing_close
+      (MISSING LISTING_FENCE_END)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ====
 This admonition block is inside a section.

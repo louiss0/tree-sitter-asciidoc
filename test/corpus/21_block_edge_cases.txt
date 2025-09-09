@@ -17,7 +17,8 @@ More example content.
 
 (source_file
   (example_block
-    (example_open)
+    (example_open
+      (EXAMPLE_FENCE_START))
     (block_content
       (content_line)
       (content_line)
@@ -27,7 +28,8 @@ More example content.
       (content_line)
       (content_line)
       (content_line))
-    (example_close)))
+    (example_close
+      (EXAMPLE_FENCE_END))))
 
 ================================================================================
 Complex table structures
@@ -211,16 +213,19 @@ Final tip content.
   (example_block
     (metadata
       (block_attributes))
-    (example_open)
+    (example_open
+      (EXAMPLE_FENCE_START))
     (block_content
       (content_line)
       (content_line)
       (content_line))
-    (example_close))
+    (example_close
+      (EXAMPLE_FENCE_END)))
   (open_block
     (metadata
       (block_attributes))
-    (openblock_open)
+    (openblock_open
+      (OPENBLOCK_FENCE_START))
     (block_content
       (content_line)
       (content_line)
@@ -228,7 +233,8 @@ Final tip content.
       (content_line)
       (content_line)
       (content_line))
-    (openblock_close)))
+    (openblock_close
+      (OPENBLOCK_FENCE_END))))
 
 ================================================================================
 Section nesting with anchors
