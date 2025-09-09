@@ -720,15 +720,15 @@ module.exports = grammar({
     ),
     
     // Individual UI elements for better AST
-    ui_kbd: $ => token(prec(20, /kbd:[^\[\r\n]+\[[^\]]*\]/)),
-    ui_btn: $ => token(prec(20, /btn:[^\[\r\n]+\[[^\]]*\]/)),
-    ui_menu: $ => token(prec(20, /menu:[^\[\r\n]+\[[^\]]*\]/)),
+    ui_kbd: $ => token(prec(PREC.PASSTHROUGH + 10, /kbd:\[[^\]]*\]/)),
+    ui_btn: $ => token(prec(PREC.PASSTHROUGH + 10, /btn:\[[^\]]*\]/)),
+    ui_menu: $ => token(prec(PREC.PASSTHROUGH + 10, /menu:[^\[\r\n]+\[[^\]]*\]/)),
     
     // Math macros
     math_macro: $ => choice(
-      token(prec(20, /latexmath:[^\[\r\n]+\[[^\]]*\]/)),
-      token(prec(20, /asciimath:[^\[\r\n]+\[[^\]]*\]/)),
-      token(prec(20, /stem:[^\[\r\n]+\[[^\]]*\]/))
+      token(prec(PREC.PASSTHROUGH + 10, /latexmath:\[[^\]]*\]/)),
+      token(prec(PREC.PASSTHROUGH + 10, /asciimath:\[[^\]]*\]/)),
+      token(prec(PREC.PASSTHROUGH + 10, /stem:\[[^\]]*\]/))
     ),
     
     // Pass macro

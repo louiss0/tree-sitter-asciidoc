@@ -269,23 +269,15 @@ Use stem:[a^2 + b^2] and kbd:[Ctrl+*Bold*] commands.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_colon)
-      (ERROR
-        (id))
+    content: (text_with_inlines
       (text_segment)
       (inline_element
-        (line_break
-          (MISSING _newline)))
-      (math
-        (content))
+        (math_macro))
       (text_segment)
       (inline_element
-        (superscript
-          (superscript_text)
-          (MISSING "^"))))))
+        (ui_macro
+          (ui_kbd)))
+      (text_segment))))
 
 ================================================================================
 Passthrough precedence over everything

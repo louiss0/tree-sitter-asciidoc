@@ -1,0 +1,1 @@
+Use stem:[a^2 + b^2] and kbd:[Ctrl+*Bold*] commands.

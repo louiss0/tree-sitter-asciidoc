@@ -2887,10 +2887,10 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 20,
+        "value": 70,
         "content": {
           "type": "PATTERN",
-          "value": "kbd:[^\\[\\r\\n]+\\[[^\\]]*\\]"
+          "value": "kbd:\\[[^\\]]*\\]"
         }
       }
     },
@@ -2898,10 +2898,10 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 20,
+        "value": 70,
         "content": {
           "type": "PATTERN",
-          "value": "btn:[^\\[\\r\\n]+\\[[^\\]]*\\]"
+          "value": "btn:\\[[^\\]]*\\]"
         }
       }
     },
@@ -2909,7 +2909,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 20,
+        "value": 70,
         "content": {
           "type": "PATTERN",
           "value": "menu:[^\\[\\r\\n]+\\[[^\\]]*\\]"
@@ -2923,10 +2923,10 @@
           "type": "TOKEN",
           "content": {
             "type": "PREC",
-            "value": 20,
+            "value": 70,
             "content": {
               "type": "PATTERN",
-              "value": "latexmath:[^\\[\\r\\n]+\\[[^\\]]*\\]"
+              "value": "latexmath:\\[[^\\]]*\\]"
             }
           }
         },
@@ -2934,10 +2934,10 @@
           "type": "TOKEN",
           "content": {
             "type": "PREC",
-            "value": 20,
+            "value": 70,
             "content": {
               "type": "PATTERN",
-              "value": "asciimath:[^\\[\\r\\n]+\\[[^\\]]*\\]"
+              "value": "asciimath:\\[[^\\]]*\\]"
             }
           }
         },
@@ -2945,10 +2945,10 @@
           "type": "TOKEN",
           "content": {
             "type": "PREC",
-            "value": 20,
+            "value": 70,
             "content": {
               "type": "PATTERN",
-              "value": "stem:[^\\[\\r\\n]+\\[[^\\]]*\\]"
+              "value": "stem:\\[[^\\]]*\\]"
             }
           }
         }
