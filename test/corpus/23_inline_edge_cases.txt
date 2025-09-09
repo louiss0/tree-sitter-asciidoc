@@ -27,24 +27,17 @@ This is [important]#*bold* and _italic_ text# here.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
+      (text_segment)
+      (ERROR)
       (text_segment)
       (inline_element
-        (role_span
-          (role_list
-            (id))
-          (bracketed_text)
-          (MISSING "#")))
-      (role_span
-        (role)
-        (content
-          (strong
-            (text_segment))
-          (text_segment)
-          (emphasis
-            (text_segment))
-          (text_segment)))
+        (strong))
+      (text_segment)
+      (inline_element
+        (emphasis))
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -189,12 +182,12 @@ This is [role]#text with \# hash# here.
     content: (text_with_inlines
       (text_segment)
       (text_segment)
-      (inline_element
-        (role_span
-          roles: (role_list
-            (id))
-          content: (bracketed_text)
-          (MISSING "#"))))))
+      (ERROR)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Complex nesting with multiple styles
@@ -375,12 +368,7 @@ This is [role.with.dots]#styled text# here.
     content: (text_with_inlines
       (text_segment)
       (text_segment)
-      (ERROR
-        (id))
+      (ERROR)
       (text_segment)
       (text_segment)
-      (role_span
-        (role)
-        (content
-          (text_segment)))
       (text_segment))))
