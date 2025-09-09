@@ -1,2 +1,0 @@
-Try btn:[OK] and menu:File[Save As] options.
-Also latexmath:[E=mc^2] and asciimath:[sqrt(x+1)] work.

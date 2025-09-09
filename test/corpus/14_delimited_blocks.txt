@@ -9,8 +9,10 @@ Empty example block
 
 (source_file
   (example_block
-    open: (example_open)
-    close: (example_close)))
+    open: (example_open
+      (EXAMPLE_FENCE_START))
+    close: (example_close
+      (EXAMPLE_FENCE_END))))
 
 ====
 This is example content
@@ -33,12 +35,14 @@ line with ---- not at beginning
 
 (source_file
   (listing_block
-    open: (listing_open)
+    open: (listing_open
+      (LISTING_FENCE_START))
     content: (block_content
       (content_line)
       (content_line)
       (content_line))
-    close: (listing_close))
+    close: (listing_close
+      (LISTING_FENCE_END))))
 
 ================================================================================
 Literal block with content
@@ -54,12 +58,14 @@ Literal block with content
 
 (source_file
   (literal_block
-    open: (literal_open)
+    open: (literal_open
+      (LITERAL_FENCE_START))
     content: (block_content
       (content_line)
       (content_line)
       (content_line))
-    close: (literal_close)))
+    close: (literal_close
+      (LITERAL_FENCE_END))))
 
 ================================================================================
 Quote block with content
@@ -74,11 +80,13 @@ ____
 
 (source_file
   (quote_block
-    (quote_open)
+    (quote_open
+      (QUOTE_FENCE_START))
     (block_content
       (content_line)
       (content_line))
-    (quote_close)))
+    (quote_close
+      (QUOTE_FENCE_END))))
 
 ================================================================================
 Sidebar block with content
@@ -93,11 +101,13 @@ It's displayed separately from main text.
 
 (source_file
   (sidebar_block
-    (sidebar_open)
+    (sidebar_open
+      (SIDEBAR_FENCE_START))
     (block_content
       (content_line)
       (content_line))
-    (sidebar_close)))
+    (sidebar_close
+      (SIDEBAR_FENCE_END))))
 
 ================================================================================
 Passthrough block with content
@@ -113,12 +123,14 @@ Raw HTML content
 
 (source_file
   (passthrough_block
-    (passthrough_open)
+    (passthrough_open
+      (PASSTHROUGH_FENCE_START))
     (block_content
       (content_line)
       (content_line)
       (content_line))
-    (passthrough_close)))
+    (passthrough_close
+      (PASSTHROUGH_FENCE_END))))
 
 ================================================================================
 Open block with content
@@ -133,11 +145,13 @@ Can contain any content.
 
 (source_file
   (open_block
-    open: (openblock_open)
+    open: (openblock_open
+      (OPENBLOCK_FENCE_START))
     content: (block_content
       (content_line)
       (content_line))
-    close: (openblock_close)))
+    close: (openblock_close
+      (OPENBLOCK_FENCE_END))))
 
 ====
 System.out.println("Hello");
@@ -175,10 +189,12 @@ ____
 
 (source_file
   (quote_block
-    (quote_open)
+    (quote_open
+      (QUOTE_FENCE_START))
     (block_content
       (content_line))
-    (quote_close)))
+    (quote_close
+      (QUOTE_FENCE_END))))
 
 ================================================================================
 Content with near-delimiters not at beginning of line
@@ -193,11 +209,13 @@ Also a line with....suffix
 
 (source_file
   (literal_block
-    open: (literal_open)
+    open: (literal_open
+      (LITERAL_FENCE_START))
     content: (block_content
       (content_line)
       (content_line))
-    close: (literal_close)))
+    close: (literal_close
+      (LITERAL_FENCE_END))))
 
 ================================================================================
 Open block with nested-looking delimiters
@@ -212,11 +230,13 @@ Another -- delimiter
 
 (source_file
   (open_block
-    open: (openblock_open)
+    open: (openblock_open
+      (OPENBLOCK_FENCE_START))
     content: (block_content
       (content_line)
       (content_line))
-    close: (openblock_close)))
+    close: (openblock_close
+      (OPENBLOCK_FENCE_END))))
 
 ====
 Example block
@@ -228,14 +248,16 @@ Listing block
 
 (source_file
   (example_block
-    open: (example_open)
+    open: (example_open
+      (EXAMPLE_FENCE_START))
     content: (block_content
       (content_line))
-    close: (example_close))
+    close: (example_close
+      (EXAMPLE_FENCE_END)))
   (listing_block
-    open: (listing_open)
-    close: (MISSING listing_close))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment))))
+    open: (listing_open
+      (LISTING_FENCE_START))
+    content: (block_content
+      (content_line))
+    close: (listing_close
+      (LISTING_FENCE_END))))

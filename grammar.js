@@ -130,8 +130,15 @@ module.exports = grammar({
     // HEADINGS (Following EBNF: heading = [ anchor ], heading_level, ' ', line_content, newline)
     // ========================================================================
     
-  // Only allow level 1 sections at root - subsections must be nested
-  section: $ => $._section1,
+  // Allow any section level at root - AsciiDoc supports starting with any level
+  section: $ => choice(
+    $._section1,
+    $._section2,
+    $._section3,
+    $._section4,
+    $._section5,
+    $._section6
+  ),
   
   _section1: $ => prec.right(seq(
     optional($.anchor),
@@ -592,19 +599,19 @@ module.exports = grammar({
     
     ifdef_block: $ => prec.right(seq(
       field('open', $.ifdef_open),
-      repeat($._block),
+      repeat(choice($._block, $._blank_line)),
       field('close', $.endif_directive)
     )),
     
     ifndef_block: $ => prec.right(seq(
       field('open', $.ifndef_open),
-      repeat($._block),
+      repeat(choice($._block, $._blank_line)),
       field('close', $.endif_directive)
     )),
     
     ifeval_block: $ => prec.right(seq(
       field('open', $.ifeval_open),
-      repeat($._block),
+      repeat(choice($._block, $._blank_line)),
       field('close', $.endif_directive)
     )),
     
@@ -621,12 +628,12 @@ module.exports = grammar({
     // TABLE BLOCKS
     // ========================================================================
     
-    table_block: $ => prec(PREC.PARAGRAPH - 20, seq(
+    table_block: $ => prec(PREC.PARAGRAPH + 10, seq(
       optional($.metadata),
       field('open', $.table_open),
       optional(field('content', choice(
-        $.table_content,
-        repeat($.table_row)
+        prec(1, repeat1($.table_row)),  // Prefer structured rows when possible
+        prec(0, $.table_content)        // Fall back to generic content
       ))),
       field('close', $.table_close)
     )),

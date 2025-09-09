@@ -1,5 +1,13 @@
 #include <tree_sitter/parser.h>
 #include <wctype.h>
+#include <stdio.h>
+
+// Debug logging - temporarily disabled due to memory issues in test suite
+#ifdef DEBUG_DISABLED_FOR_NOW
+#define DEBUG_LOG(fmt, ...) fprintf(stderr, "[SCANNER] " fmt "\n", ##__VA_ARGS__)
+#else
+#define DEBUG_LOG(fmt, ...) do { } while (0)
+#endif
 
 // External token types (must match grammar.js externals)
 enum {
@@ -93,7 +101,11 @@ static int get_fence_end_token(char fence_char, uint8_t count) {
 
 // Scan for delimited block fences (====, ----, ...., ____, ****, --, ++++)
 static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
-    if (!at_line_start(lexer)) return false;
+    DEBUG_LOG("scan_block_fence_start: checking at column %d, char='%c'", lexer->get_column(lexer), lexer->lookahead);
+    if (!at_line_start(lexer)) {
+        DEBUG_LOG("scan_block_fence_start: not at line start, skipping");
+        return false;
+    }
     
     char fence_char = lexer->lookahead;
     if (fence_char != '=' && fence_char != '-' && fence_char != '.' && 
@@ -117,6 +129,7 @@ static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
     scanner->fence_count = count;
     scanner->fence_type = get_fence_start_token(fence_char, count);
     scanner->at_line_start = true;
+    DEBUG_LOG("scan_block_fence_start: matched fence '%c' x%d, type=%d", fence_char, count, scanner->fence_type);
     
     // Must be followed by end of line or attributes
     skip_spaces(lexer);
@@ -170,9 +183,14 @@ static bool scan_block_fence_end(Scanner *scanner, TSLexer *lexer) {
 
 // Scan for table fences |===
 static bool scan_table_fence(TSLexer *lexer, bool is_start) {
-    if (!at_line_start(lexer)) return false;
+    DEBUG_LOG("scan_table_fence: checking %s fence at column %d, char='%c'", is_start ? "start" : "end", lexer->get_column(lexer), lexer->lookahead);
+    if (!at_line_start(lexer)) {
+        DEBUG_LOG("scan_table_fence: not at line start, skipping");
+        return false;
+    }
     
-    skip_spaces(lexer);
+    // Don't skip spaces - table fences must start with | at BOL
+    // skip_spaces(lexer);
     
     if (lexer->lookahead != '|') return false;
     advance(lexer);
@@ -579,7 +597,11 @@ static bool scan_callout_marker(TSLexer *lexer) {
 // Strict conditional scanners - require proper bracket syntax
 // Scan for ifdef directive: "ifdef::" at start of line with proper brackets
 static bool scan_ifdef_open(TSLexer *lexer) {
-    if (!at_line_start(lexer)) return false;
+    DEBUG_LOG("scan_ifdef_open: checking at column %d, char='%c'", lexer->get_column(lexer), lexer->lookahead);
+    if (!at_line_start(lexer)) {
+        DEBUG_LOG("scan_ifdef_open: not at line start, skipping");
+        return false;
+    }
     
     // Save lexer state so we can backtrack if validation fails
     TSLexer temp = *lexer;
@@ -662,6 +684,7 @@ static bool scan_ifdef_open(TSLexer *lexer) {
                                 while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
                                     advance(lexer);
                                 }
+                                DEBUG_LOG("scan_ifdef_open: successfully matched ifdef directive");
                                 return true;
                             }
                         }
@@ -906,6 +929,17 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         }
     }
     
+    // Table fence handling - needs high priority to prevent conflicts
+    if (valid_symbols[TABLE_FENCE_START] && scan_table_fence(lexer, true)) {
+        lexer->result_symbol = TABLE_FENCE_START;
+        return true;
+    }
+    
+    if (valid_symbols[TABLE_FENCE_END] && scan_table_fence(lexer, false)) {
+        lexer->result_symbol = TABLE_FENCE_END;
+        return true;
+    }
+    
     // Conditional directives (high priority) - check longer patterns first
     if (valid_symbols[_ifndef_open_token] && scan_ifndef_open(lexer)) {
         lexer->result_symbol = _ifndef_open_token;
@@ -950,17 +984,6 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
     
     if (valid_symbols[_DESCRIPTION_LIST_ITEM] && scan_description_list_item(lexer)) {
         lexer->result_symbol = _DESCRIPTION_LIST_ITEM;
-        return true;
-    }
-    
-    // Table fence handling using same scanner tokens but for table-specific fences
-    if (valid_symbols[TABLE_FENCE_START] && scan_table_fence(lexer, true)) {
-        lexer->result_symbol = TABLE_FENCE_START;
-        return true;
-    }
-    
-    if (valid_symbols[TABLE_FENCE_END] && scan_table_fence(lexer, false)) {
-        lexer->result_symbol = TABLE_FENCE_END;
         return true;
     }
     

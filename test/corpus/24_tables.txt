@@ -17,39 +17,21 @@ Basic Table
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment))))
+  (table_block
+    open: (table_open
+      (TABLE_FENCE_START))
+    content: (table_content
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line))
+    close: (table_close
+      (TABLE_FENCE_END))))
 
 ================================================================================
 Table with Title and Metadata
