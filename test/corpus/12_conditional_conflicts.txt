@@ -12,25 +12,12 @@ Another:: regular description item
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
   (description_list
     (description_item))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+  (description_list
+    (description_item))
+  (description_list
+    (description_item))
   (description_list
     (description_item)))
 
@@ -60,8 +47,6 @@ The word endif:: can also appear here.
       (text_colon)
       (text_segment)
       (text_segment)))
-  (description_list
-    (description_item))
   (paragraph
     (text_with_inlines
       (text_segment)
@@ -125,7 +110,7 @@ These look like conditionals but are malformed.
           (text_segment)
           (text_segment)
           (text_segment)))
-          (MISSING endif_directive)))
+      (MISSING endif_directive)))
 
 ================================================================================
 Mixing attributes and conditionals
@@ -189,6 +174,9 @@ another:::word paragraph
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_colon)
       (text_segment)
       (text_segment)
       (text_segment)
@@ -196,6 +184,10 @@ another:::word paragraph
       (text_segment)))
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_colon)
       (text_segment)
       (text_segment))))
 

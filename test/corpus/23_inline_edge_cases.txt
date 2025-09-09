@@ -8,24 +8,13 @@ Visit http://example.com`code`[link text] for details.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (auto_link)))
-  (paragraph
-    (text_with_inlines
-      (monospace
-        content: (text_segment))))
-  (paragraph
-    (text_with_inlines
-      (link
-        (url
-          (auto_link))
-        (text
-          (text_segment)))))
-  (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
+      (inline_element
+        (link
+          url: (auto_link)
+          text: (bracketed_text)))
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -327,15 +316,13 @@ Use image:logo.png[Logo] and https://example.com[Site] here.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (image
-        (target)
-        (attributes))
+      (inline_element
+        (image))
       (text_segment)
-      (link
-        (url
-          (auto_link))
-        (text
-          (text_segment)))
+      (inline_element
+        (link
+          (auto_link)
+          (bracketed_text)))
       (text_segment))))
 
 ================================================================================

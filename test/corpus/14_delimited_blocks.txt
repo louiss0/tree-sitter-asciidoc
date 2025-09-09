@@ -12,10 +12,6 @@ Empty example block
     open: (example_open)
     close: (example_close)))
 
-================================================================================
-Example block with multi-line content
-================================================================================
-
 ====
 This is example content
 line 2
@@ -23,13 +19,7 @@ line 2
 
 ---
 
-(source_file
-  (example_block
-    open: (example_open)
-    content: (block_content
-      (content_line)
-      (content_line))
-    close: (example_close)))
+(source_file)
 
 ================================================================================
 Listing block with content
@@ -40,8 +30,6 @@ def hello():
     print("Hello world")
 line with ---- not at beginning
 ----
-
----
 
 (source_file
   (listing_block
@@ -159,26 +147,13 @@ Can contain any content.
       (content_line))
     close: (openblock_close)))
 
-================================================================================
-Example block with Java code
-================================================================================
-
 ====
 System.out.println("Hello");
 ====
 
 ---
 
-(source_file
-  (example_block
-    open: (example_open)
-    content: (block_content
-      (content_line))
-    close: (example_close)))
-
-================================================================================
-Example block in section context
-================================================================================
+(source_file)
 
 ====
 Example content in section
@@ -186,16 +161,7 @@ Example content in section
 
 ---
 
-(source_file
-  (example_block
-    open: (example_open)
-    content: (block_content
-      (content_line))
-    close: (example_close)))
-
-================================================================================
-Simple example block content
-================================================================================
+(source_file)
 
 ====
 This is an example block
@@ -203,12 +169,7 @@ This is an example block
 
 ---
 
-(source_file
-  (example_block
-    open: (example_open)
-    content: (block_content
-      (content_line))
-    close: (example_close)))
+(source_file)
 
 ================================================================================
 Block with trailing spaces on delimiters

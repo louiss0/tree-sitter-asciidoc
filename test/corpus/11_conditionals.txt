@@ -28,12 +28,6 @@ endif::[]
           (text_segment)
           (text_segment)
           (text_segment)))
-      (section
-        (section_title
-          (title))
-        (paragraph
-          (text_with_inlines
-            (text_segment))))
       (endif_directive))))
 
 ================================================================================
@@ -89,12 +83,6 @@ endif::[]
           (text_segment)
           (text_segment)
           (text_segment)))
-      (section
-        (section_title
-          (title))
-        (paragraph
-          (text_with_inlines
-            (text_segment))))
       (endif_directive))))
 
 ================================================================================

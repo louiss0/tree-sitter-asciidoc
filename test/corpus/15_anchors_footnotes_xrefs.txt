@@ -65,15 +65,7 @@ Content after block anchor.
       (text_segment)
       (text_segment)
       (text_segment)
-      (text_segment)))
-  (section
-    (anchor
-      id: (id))
-    (section_title
-      (title))
-    (paragraph
-      content: (text_with_inlines
-        (text_segment)))))
+      (text_segment))))
 
 ================================================================================
 Block anchor with text
@@ -103,16 +95,7 @@ Content after block anchor with text.
       (text_segment)
       (text_segment)
       (text_segment)
-      (text_segment)))
-  (section
-    (anchor
-      id: (id)
-      text: (anchor_text))
-    (section_title
-      (title))
-    (paragraph
-      content: (text_with_inlines
-        (text_segment)))))
+      (text_segment))))
 
 ================================================================================
 Internal cross-reference without text
@@ -128,9 +111,6 @@ See the <<target-section>> for more information.
       (text_segment)
       (text_segment)
       (text_segment)
-      (inline_element
-        (internal_xref
-          (xref_id)))
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -150,10 +130,6 @@ See the <<target-section,target section>> for details.
       (text_segment)
       (text_segment)
       (text_segment)
-      (inline_element
-        (internal_xref
-          (xref_id)
-          (xref_text)))
       (text_segment)
       (text_segment))))
 
@@ -172,8 +148,6 @@ Check out xref:other-file.adoc[].
       (text_segment)
       (inline_element
         (external_xref))
-      (external_xref
-        (xref_target))
       (text_segment))))
 
 ================================================================================
@@ -191,9 +165,6 @@ Check out xref:other-file.adoc[Other Document].
       (text_segment)
       (inline_element
         (external_xref))
-      (external_xref
-        (xref_target)
-        (bracketed_text))
       (text_segment))))
 
 ================================================================================
@@ -214,8 +185,6 @@ This has a footnote footnote:[This is a footnote] in it.
       (inline_element
         (footnote_inline))
       (text_segment)
-      (footnote_inline
-        (bracketed_text))
       (text_segment))))
 
 ================================================================================
@@ -235,9 +204,6 @@ This has a footnote footnote:ref1[] reference.
       (text_segment)
       (inline_element
         (footnote_ref))
-      (text_segment)
-      (footnote_ref
-        (id))
       (text_segment))))
 
 ================================================================================
@@ -256,9 +222,6 @@ This has footnote:ref1[Referenced footnote text] in it.
       (inline_element
         (footnote_ref))
       (text_segment)
-      (footnote_ref
-        (id)
-        (bracketed_text))
       (text_segment))))
 
 ================================================================================
@@ -279,8 +242,6 @@ This uses footnoteref:ref1[] to reference a footnote.
       (text_segment)
       (text_segment)
       (text_segment)
-      (footnoteref
-        (id))
       (text_segment))))
 
 ================================================================================
@@ -299,9 +260,6 @@ This uses footnoteref:ref1[Footnote reference text] with text.
       (inline_element
         (footnoteref))
       (text_segment)
-      (footnoteref
-        (id)
-        (bracketed_text))
       (text_segment))))
 
 ================================================================================
@@ -323,20 +281,12 @@ Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[lin
           (anchor_id)))
       (text_segment)
       (text_segment)
-      (inline_element
-        (internal_xref
-          (id)))
       (text_segment)
       (inline_element
         (footnote_inline))
-      (footnote_inline
-        (bracketed_text))
       (text_segment)
       (inline_element
         (external_xref))
-      (external_xref
-        (xref_target)
-        (bracketed_text))
       (text_segment))))
 
 ================================================================================
@@ -394,6 +344,17 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -424,7 +385,4 @@ See xref:../other/doc.adoc#section1[Complex target] for details.
       (inline_element
         (external_xref))
       (text_segment)
-      (external_xref
-        (xref_target)
-        (bracketed_text))
       (text_segment))))

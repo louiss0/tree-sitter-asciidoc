@@ -36,6 +36,7 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
     (text_with_inlines
       (text_segment)
       (text_segment)
+      (text_colon)
       (inline_element
         (superscript))
       (text_segment)
@@ -82,6 +83,7 @@ Monospace with `code *not strong* here` content.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_colon)
       (inline_element
         (strong))
       (text_segment)))
@@ -111,6 +113,8 @@ Email addresses: contact@example.com.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (inline_element
+        (auto_link))
       (text_segment)
       (text_segment)
       (text_segment)))
@@ -119,17 +123,25 @@ Email addresses: contact@example.com.
       (text_segment)
       (text_segment)
       (text_segment)
+      (text_colon)
+      (inline_element
+        (auto_link))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_colon)
+      (inline_element
+        (auto_link))
+      (text_segment)
+      (inline_element
+        (auto_link))
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
       (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
+      (text_colon)
       (text_segment))))
 
 ================================================================================
@@ -296,33 +308,36 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (inline_xref
-        (xref_id))
       (text_segment)
-      (inline_xref
-        (xref_id)
-        (xref_text))
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (xref_macro
-        (macro_target)
-        (attribute_list))
       (text_segment)
-      (xref_macro
-        (macro_target)
-        (attribute_list))
+      (text_colon)
+      (inline_element
+        (external_xref))
+      (text_segment)
+      (inline_element
+        (external_xref))
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (inline_anchor
-        (anchor_id))
       (text_segment)
-      (inline_anchor
-        (anchor_id)
-        (anchor_text))
+      (text_colon)
+      (inline_element
+        (inline_anchor
+          (anchor_id)))
+      (text_segment)
+      (inline_element
+        (inline_anchor
+          (anchor_id)
+          (anchor_text)))
       (text_segment))))
 
 ================================================================================
@@ -341,23 +356,26 @@ Nested pass: pass:c[{code-block}] with substitution.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (pass_macro
-        (macro_name)
-        (macro_target)
-        (attribute_list))
+      (text_segment)
+      (text_colon)
+      (inline_element
+        (pass_macro))
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (unconstrained_passthrough
-        (text_segment))
+      (text_segment)
+      (text_segment)
+      (text_colon)
+      (inline_element
+        (passthrough_triple_plus))
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (pass_macro
-        (macro_name)
-        (pass_substitution)
-        (macro_target)
-        (attribute_list))
+      (text_segment)
+      (text_colon)
+      (inline_element
+        (pass_macro))
+      (text_segment)
       (text_segment))))
