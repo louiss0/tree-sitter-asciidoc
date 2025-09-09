@@ -82,12 +82,9 @@ This has a plus+ in the middle.
       (text_segment)
       (text_segment)
       (text_segment)
-      (text_segment)
-      (ERROR
-        (span_spec))
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+      (text_segment)))
+  (ERROR
+    (content_line)))
 
 ================================================================================
 Escaped delimiters in strong
