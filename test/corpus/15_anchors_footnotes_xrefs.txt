@@ -52,13 +52,27 @@ Content after block anchor.
 ---
 
 (source_file
+  (paragraph
+    (metadata
+      (anchor
+        id: (id)))
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
   (section
     (anchor
-      (id))
+      id: (id))
     (section_title
       (title))
     (paragraph
-      (text_with_inlines
+      content: (text_with_inlines
         (text_segment)))))
 
 ================================================================================
@@ -73,14 +87,31 @@ Content after block anchor with text.
 ---
 
 (source_file
+  (paragraph
+    (metadata
+      (anchor
+        id: (id)
+        text: (anchor_text)))
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
   (section
     (anchor
-      (id)
-      (anchor_text))
+      id: (id)
+      text: (anchor_text))
     (section_title
       (title))
     (paragraph
-      (text_with_inlines
+      content: (text_with_inlines
         (text_segment)))))
 
 ================================================================================
@@ -93,7 +124,8 @@ See the <<target-section>> for more information.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (text_segment)
       (inline_element
@@ -113,7 +145,9 @@ See the <<target-section,target section>> for details.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
       (text_segment)
       (text_segment)
       (inline_element
@@ -133,11 +167,13 @@ Check out xref:other-file.adoc[].
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (inline_element
-        (external_xref
-          (xref_target)))
+        (external_xref))
+      (external_xref
+        (xref_target))
       (text_segment))))
 
 ================================================================================
@@ -150,12 +186,14 @@ Check out xref:other-file.adoc[Other Document].
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (inline_element
-        (external_xref
-          (xref_target)
-          (bracketed_text)))
+        (external_xref))
+      (external_xref
+        (xref_target)
+        (bracketed_text))
       (text_segment))))
 
 ================================================================================
