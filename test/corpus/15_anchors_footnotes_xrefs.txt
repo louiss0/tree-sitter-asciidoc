@@ -320,20 +320,23 @@ Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[lin
       (text_segment)
       (inline_element
         (inline_anchor
-          (id)))
+          (anchor_id)))
+      (text_segment)
       (text_segment)
       (inline_element
         (internal_xref
           (id)))
       (text_segment)
       (inline_element
-        (footnote_inline
-          (bracketed_text)))
+        (footnote_inline))
+      (footnote_inline
+        (bracketed_text))
       (text_segment)
       (inline_element
-        (external_xref
-          (xref_target)
-          (bracketed_text)))
+        (external_xref))
+      (external_xref
+        (xref_target)
+        (bracketed_text))
       (text_segment))))
 
 ================================================================================
@@ -419,7 +422,9 @@ See xref:../other/doc.adoc#section1[Complex target] for details.
     (text_with_inlines
       (text_segment)
       (inline_element
-        (external_xref
-          (xref_target)
-          (bracketed_text)))
+        (external_xref))
+      (text_segment)
+      (external_xref
+        (xref_target)
+        (bracketed_text))
       (text_segment))))

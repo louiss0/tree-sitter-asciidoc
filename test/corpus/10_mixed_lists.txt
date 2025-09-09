@@ -77,11 +77,11 @@ More content here.
 
 (source_file
   (attribute_entry
-    (name)
-    (value))
+    name: (name)
+    value: (value))
   (section
     (section_title
-      (title)))
+      title: (title)))
   (paragraph
     content: (text_with_inlines
       (text_segment)
@@ -93,11 +93,11 @@ More content here.
       (text_segment)))
   (unordered_list
     (unordered_list_item
-      (text_with_inlines
+      content: (text_with_inlines
         (text_segment)
         (text_segment)))
     (unordered_list_item
-      (text_with_inlines
+      content: (text_with_inlines
         (text_segment)
         (text_segment))))
   (paragraph
@@ -111,7 +111,7 @@ More content here.
       (text_segment)))
   (ordered_list
     (ordered_list_item
-      (text_with_inlines
+      content: (text_with_inlines
         (text_segment)
         (text_segment)))
     (ordered_list_item
@@ -131,7 +131,7 @@ More content here.
         (text_segment)
         (text_segment)))
     (ordered_list_item
-      (text_with_inlines
+      content: (text_with_inlines
         (text_segment)
         (text_segment)
         (text_segment)))))
