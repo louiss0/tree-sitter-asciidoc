@@ -60,7 +60,9 @@ static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 
 // Skip whitespace except newlines
 static void skip_spaces(TSLexer *lexer) {
+    uint32_t count = 0;
     while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+        if (++count > 1000) break; // Prevent infinite loops
         skip(lexer);
     }
 }
@@ -114,7 +116,9 @@ static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
     }
     
     uint8_t count = 0;
+    uint32_t loop_count = 0;
     while (lexer->lookahead == fence_char && count < 255) {
+        if (++loop_count > 500) break; // Prevent infinite loops
         advance(lexer);
         count++;
     }
@@ -154,7 +158,9 @@ static bool scan_block_fence_end(Scanner *scanner, TSLexer *lexer) {
     char expected_char = scanner->fence_chars[0];
     uint8_t count = 0;
     
+    uint32_t loop_count = 0;
     while (lexer->lookahead == expected_char) {
+        if (++loop_count > 500) break; // Prevent infinite loops
         advance(lexer);
         count++;
     }
@@ -197,7 +203,9 @@ static bool scan_table_fence(TSLexer *lexer, bool is_start) {
     
     // Look for at least 3 equals signs
     uint8_t equals_count = 0;
+    uint32_t loop_count = 0;
     while (lexer->lookahead == '=') {
+        if (++loop_count > 100) break; // Prevent infinite loops
         advance(lexer);
         equals_count++;
     }
@@ -491,8 +499,12 @@ static bool scan_description_list_item(TSLexer *lexer) {
     char term_buffer[100] = {0};
     int term_pos = 0;
     
+    uint32_t loop_count = 0;
     while (lexer->lookahead && lexer->lookahead != ':' && 
            lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+        
+        // Prevent infinite loops
+        if (++loop_count > 1000) return false;
         
         if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
             space_count++;
@@ -551,8 +563,10 @@ static bool scan_description_list_item(TSLexer *lexer) {
             // Must be followed by whitespace (required for description lists)
             if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
                 advance(lexer);
-                // Consume the rest of the line as description
+                // Consume the rest of the line as description with loop guard
+                uint32_t desc_count = 0;
                 while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+                    if (++desc_count > 10000) break; // Prevent infinite loops
                     advance(lexer);
                 }
                 return true;
@@ -575,8 +589,10 @@ static bool scan_callout_marker(TSLexer *lexer) {
             return false;
         }
         
-        // Consume all digits
+        // Consume all digits with loop guard
+        uint32_t digit_count = 0;
         while (is_digit(lexer->lookahead)) {
+            if (++digit_count > 20) return false; // Prevent infinite loops
             advance(lexer);
         }
         
@@ -671,7 +687,9 @@ static bool scan_ifdef_open(TSLexer *lexer) {
                                 temp.advance(&temp, false);
                                 
                                 // Skip trailing whitespace
+                                uint32_t space_count = 0;
                                 while (temp.lookahead == ' ' || temp.lookahead == '\t') {
+                                    if (++space_count > 1000) break; // Prevent infinite loops
                                     temp.advance(&temp, false);
                                 }
                                 
@@ -681,7 +699,9 @@ static bool scan_ifdef_open(TSLexer *lexer) {
                                 }
                                 
                                 // Validation passed - commit the changes by consuming the entire line
+                                uint32_t line_count = 0;
                                 while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+                                    if (++line_count > 10000) break; // Prevent infinite loops
                                     advance(lexer);
                                 }
                                 DEBUG_LOG("scan_ifdef_open: successfully matched ifdef directive");
@@ -723,7 +743,9 @@ static bool scan_ifndef_open(TSLexer *lexer) {
                                     
                                     // Now validate the rest of the line has proper bracket syntax
                                     // Skip optional attributes before the bracket (should be valid identifiers)
+                                    uint32_t pre_bracket_count = 0;
                                     while (temp.lookahead && temp.lookahead != '[' && temp.lookahead != '\n' && temp.lookahead != '\r') {
+                                        if (++pre_bracket_count > 1000) break; // Prevent infinite loops
                                         // Validate that pre-bracket content contains only valid attribute name characters
                                         if (temp.lookahead != ' ' && temp.lookahead != '\t' && 
                                             !((temp.lookahead >= 'a' && temp.lookahead <= 'z') ||
@@ -742,7 +764,9 @@ static bool scan_ifndef_open(TSLexer *lexer) {
                                     // Validate content inside brackets - should be empty or contain only comma-separated attribute names
                                     // Track if we're currently in an attribute name or between attributes
                                     bool in_attribute_name = false;
+                                    uint32_t bracket_count = 0;
                                     while (temp.lookahead && temp.lookahead != ']' && temp.lookahead != '\n' && temp.lookahead != '\r') {
+                                        if (++bracket_count > 1000) break; // Prevent infinite loops
                                         if ((temp.lookahead >= 'a' && temp.lookahead <= 'z') ||
                                             (temp.lookahead >= 'A' && temp.lookahead <= 'Z') ||
                                             (temp.lookahead >= '0' && temp.lookahead <= '9') ||
@@ -768,7 +792,9 @@ static bool scan_ifndef_open(TSLexer *lexer) {
                                     temp.advance(&temp, false);
                                     
                                     // Skip trailing whitespace
+                                    uint32_t space_count = 0;
                                     while (temp.lookahead == ' ' || temp.lookahead == '\t') {
+                                        if (++space_count > 1000) break; // Prevent infinite loops
                                         temp.advance(&temp, false);
                                     }
                                     
@@ -778,7 +804,9 @@ static bool scan_ifndef_open(TSLexer *lexer) {
                                     }
                                     
                                     // Validation passed - commit the changes by consuming the entire line
+                                    uint32_t line_count = 0;
                                     while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+                                        if (++line_count > 10000) break; // Prevent infinite loops
                                         advance(lexer);
                                     }
                                     return true;
@@ -820,7 +848,9 @@ static bool scan_ifeval_open(TSLexer *lexer) {
                                     
                                     // Now validate the rest of the line has proper bracket syntax
                                     // Skip any whitespace before the bracket
+                                    uint32_t ws_count = 0;
                                     while (temp.lookahead == ' ' || temp.lookahead == '\t') {
+                                        if (++ws_count > 1000) break; // Prevent infinite loops
                                         temp.advance(&temp, false);
                                     }
                                     
@@ -830,7 +860,9 @@ static bool scan_ifeval_open(TSLexer *lexer) {
                                     
                                     // Validate content inside brackets - ifeval can contain expressions
                                     // Allow most characters for expressions, but still require proper closing
+                                    uint32_t expr_count = 0;
                                     while (temp.lookahead && temp.lookahead != ']' && temp.lookahead != '\n' && temp.lookahead != '\r') {
+                                        if (++expr_count > 1000) break; // Prevent infinite loops
                                         temp.advance(&temp, false);
                                     }
                                     
@@ -839,7 +871,9 @@ static bool scan_ifeval_open(TSLexer *lexer) {
                                     temp.advance(&temp, false);
                                     
                                     // Skip trailing whitespace
+                                    uint32_t space_count = 0;
                                     while (temp.lookahead == ' ' || temp.lookahead == '\t') {
+                                        if (++space_count > 1000) break; // Prevent infinite loops
                                         temp.advance(&temp, false);
                                     }
                                     
@@ -849,7 +883,9 @@ static bool scan_ifeval_open(TSLexer *lexer) {
                                     }
                                     
                                     // Validation passed - commit the changes by consuming the entire line
+                                    uint32_t line_count = 0;
                                     while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+                                        if (++line_count > 10000) break; // Prevent infinite loops
                                         advance(lexer);
                                     }
                                     return true;
