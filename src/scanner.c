@@ -188,7 +188,18 @@ static bool scan_table_fence(TSLexer *lexer, bool is_start) {
     
     // Must be followed by line end
     skip_spaces(lexer);
-    return (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer));
+    if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
+        // Include the newline as part of the fence token like other fence scanners
+        if (lexer->lookahead == '\r') {
+            advance(lexer);
+            if (lexer->lookahead == '\n') advance(lexer);
+        } else if (lexer->lookahead == '\n') {
+            advance(lexer);
+        }
+        return true;
+    }
+    
+    return false;
 }
 
 // Scan for list continuation (line with only '+')

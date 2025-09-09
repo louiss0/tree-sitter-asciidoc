@@ -386,7 +386,8 @@ module.exports = grammar({
     ),
     
     // Match individual words/tokens for inline parsing - exclude colons to preserve attribute entries
-    text_segment: $ => token(prec(PREC.TEXT, /[^\s*_`^~\[{+\r\n:]+/)),
+    // Also exclude pipe character to allow table fence recognition
+    text_segment: $ => token(prec(PREC.TEXT, /[^\s*_`^~\[{+\r\n:|]+/)),
     
     // Allow standalone colons in text (but not double colons which are handled by external scanner)
     text_colon: $ => prec(PREC.TEXT - 1, token(/:/)),
