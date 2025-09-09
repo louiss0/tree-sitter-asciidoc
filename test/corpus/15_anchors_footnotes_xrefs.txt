@@ -206,11 +206,16 @@ This has a footnote footnote:[This is a footnote] in it.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)
       (inline_element
-        (footnote_inline
-          (bracketed_text)))
+        (footnote_inline))
+      (text_segment)
+      (footnote_inline
+        (bracketed_text))
       (text_segment))))
 
 ================================================================================
@@ -223,11 +228,16 @@ This has a footnote footnote:ref1[] reference.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)
       (inline_element
-        (footnote_ref
-          (id)))
+        (footnote_ref))
+      (text_segment)
+      (footnote_ref
+        (id))
       (text_segment))))
 
 ================================================================================
@@ -240,12 +250,15 @@ This has footnote:ref1[Referenced footnote text] in it.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (inline_element
-        (footnote_ref
-          (id)
-          (bracketed_text)))
+        (footnote_ref))
+      (text_segment)
+      (footnote_ref
+        (id)
+        (bracketed_text))
       (text_segment))))
 
 ================================================================================
@@ -258,11 +271,16 @@ This uses footnoteref:ref1[] to reference a footnote.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (inline_element
-        (footnoteref
-          (id)))
+        (footnoteref))
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (footnoteref
+        (id))
       (text_segment))))
 
 ================================================================================
@@ -275,12 +293,15 @@ This uses footnoteref:ref1[Footnote reference text] with text.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (inline_element
-        (footnoteref
-          (id)
-          (bracketed_text)))
+        (footnoteref))
+      (text_segment)
+      (footnoteref
+        (id)
+        (bracketed_text))
       (text_segment))))
 
 ================================================================================
@@ -325,7 +346,7 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (inline_element
         (inline_anchor
