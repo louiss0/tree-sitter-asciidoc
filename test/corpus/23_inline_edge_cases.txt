@@ -185,13 +185,15 @@ This is [role]#text with \# hash# here.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
-      (role_span
-        (role)
-        (content
-          (text_segment)))
-      (text_segment))))
+      (text_segment)
+      (inline_element
+        (role_span
+          roles: (role_list
+            (id))
+          content: (bracketed_text)
+          (MISSING "#"))))))
 
 ================================================================================
 Complex nesting with multiple styles
@@ -370,7 +372,12 @@ This is [role.with.dots]#styled text# here.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (ERROR
+        (id))
+      (text_segment)
       (text_segment)
       (role_span
         (role)

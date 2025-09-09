@@ -251,6 +251,11 @@ Regular paragraph text.
 ---
 
 (source_file
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
   (section
     (section_title
       title: (title)))

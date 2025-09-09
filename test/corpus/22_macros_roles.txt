@@ -8,13 +8,15 @@ This is [big]#large text# here.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (inline_element
         (role_span
-          (text_segment)))
-      (text_segment))))
+          roles: (role_list
+            (id))
+          content: (bracketed_text)
+          (MISSING "#"))))))
 
 ================================================================================
 Role spans with nested formatting
@@ -26,13 +28,15 @@ This is [highlight]#*bold* and _italic_# text.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (inline_element
         (role_span
-          (text_segment)))
-      (text_segment))))
+          roles: (role_list
+            (id))
+          content: (bracketed_text)
+          (MISSING "#"))))))
 
 ================================================================================
 Math macros
