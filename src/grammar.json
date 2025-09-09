@@ -1792,10 +1792,10 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 101,
         "content": {
           "type": "PATTERN",
-          "value": "={4,}[ \\t]*\\r?\\n"
+          "value": "={4}[ \\t]*\\r?\\n"
         }
       }
     },
@@ -1803,7 +1803,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 102,
         "content": {
           "type": "PATTERN",
           "value": "={4,}[ \\t]*\\r?\\n?"
@@ -1814,10 +1814,10 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 101,
         "content": {
           "type": "PATTERN",
-          "value": "-{4,}[ \\t]*\\r?\\n"
+          "value": "-{4}[ \\t]*\\r?\\n"
         }
       }
     },
@@ -1825,7 +1825,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 102,
         "content": {
           "type": "PATTERN",
           "value": "-{4,}[ \\t]*\\r?\\n?"
@@ -1836,10 +1836,10 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 101,
         "content": {
           "type": "PATTERN",
-          "value": "\\.{4,}[ \\t]*\\r?\\n"
+          "value": "\\.{4}[ \\t]*\\r?\\n"
         }
       }
     },
@@ -1847,7 +1847,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 102,
         "content": {
           "type": "PATTERN",
           "value": "\\.{4,}[ \\t]*\\r?\\n?"
@@ -1858,10 +1858,10 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 101,
         "content": {
           "type": "PATTERN",
-          "value": "_{4,}[ \\t]*\\r?\\n"
+          "value": "_{4}[ \\t]*\\r?\\n"
         }
       }
     },
@@ -1869,7 +1869,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 102,
         "content": {
           "type": "PATTERN",
           "value": "_{4,}[ \\t]*\\r?\\n?"
@@ -1880,10 +1880,10 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 101,
         "content": {
           "type": "PATTERN",
-          "value": "\\*{4,}[ \\t]*\\r?\\n"
+          "value": "\\*{4}[ \\t]*\\r?\\n"
         }
       }
     },
@@ -1891,7 +1891,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 102,
         "content": {
           "type": "PATTERN",
           "value": "\\*{4,}[ \\t]*\\r?\\n?"
@@ -1902,10 +1902,10 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 101,
         "content": {
           "type": "PATTERN",
-          "value": "\\+{4,}[ \\t]*\\r?\\n"
+          "value": "\\+{4}[ \\t]*\\r?\\n"
         }
       }
     },
@@ -1913,7 +1913,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 102,
         "content": {
           "type": "PATTERN",
           "value": "\\+{4,}[ \\t]*\\r?\\n?"
@@ -1924,10 +1924,10 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 101,
         "content": {
           "type": "PATTERN",
-          "value": "-{2,}[ \\t]*\\r?\\n"
+          "value": "-{2}[ \\t]*\\r?\\n"
         }
       }
     },
@@ -1935,10 +1935,10 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 100,
+        "value": 102,
         "content": {
           "type": "PATTERN",
-          "value": "-{2,}[ \\t]*\\r?\\n?"
+          "value": "-{2}[ \\t]*\\r?\\n?"
         }
       }
     },

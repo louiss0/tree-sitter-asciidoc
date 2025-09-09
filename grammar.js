@@ -447,27 +447,29 @@ module.exports = grammar({
     block_content: $ => repeat1($.content_line),
     content_line: $ => token(prec(-1, /[^\r\n]*\r?\n/)),
     
-    // Specific delimited block fence tokens
-    example_open: $ => token(prec(PREC.BLOCK_MARKER, /={4,}[ \t]*\r?\n/)),
-    example_close: $ => token(prec(PREC.BLOCK_MARKER, /={4,}[ \t]*\r?\n?/)),
+    // Fixed delimited block fence tokens - use exact length matching
+    // Opening fences are more restrictive (exactly 4), closing fences are flexible (4+)
+    example_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /={4}[ \t]*\r?\n/)),
+    example_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /={4,}[ \t]*\r?\n?/)),
     
-    listing_open: $ => token(prec(PREC.BLOCK_MARKER, /-{4,}[ \t]*\r?\n/)),
-    listing_close: $ => token(prec(PREC.BLOCK_MARKER, /-{4,}[ \t]*\r?\n?/)),
+    listing_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /-{4}[ \t]*\r?\n/)),
+    listing_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /-{4,}[ \t]*\r?\n?/)),
     
-    literal_open: $ => token(prec(PREC.BLOCK_MARKER, /\.{4,}[ \t]*\r?\n/)),
-    literal_close: $ => token(prec(PREC.BLOCK_MARKER, /\.{4,}[ \t]*\r?\n?/)),
+    literal_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /\.{4}[ \t]*\r?\n/)),
+    literal_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /\.{4,}[ \t]*\r?\n?/)),
     
-    quote_open: $ => token(prec(PREC.BLOCK_MARKER, /_{4,}[ \t]*\r?\n/)),
-    quote_close: $ => token(prec(PREC.BLOCK_MARKER, /_{4,}[ \t]*\r?\n?/)),
+    quote_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /_{4}[ \t]*\r?\n/)),
+    quote_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /_{4,}[ \t]*\r?\n?/)),
     
-    sidebar_open: $ => token(prec(PREC.BLOCK_MARKER, /\*{4,}[ \t]*\r?\n/)),
-    sidebar_close: $ => token(prec(PREC.BLOCK_MARKER, /\*{4,}[ \t]*\r?\n?/)),
+    sidebar_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /\*{4}[ \t]*\r?\n/)),
+    sidebar_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /\*{4,}[ \t]*\r?\n?/)),
     
-    passthrough_open: $ => token(prec(PREC.BLOCK_MARKER, /\+{4,}[ \t]*\r?\n/)),
-    passthrough_close: $ => token(prec(PREC.BLOCK_MARKER, /\+{4,}[ \t]*\r?\n?/)),
+    passthrough_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /\+{4}[ \t]*\r?\n/)),
+    passthrough_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /\+{4,}[ \t]*\r?\n?/)),
     
-    openblock_open: $ => token(prec(PREC.BLOCK_MARKER, /-{2,}[ \t]*\r?\n/)),
-    openblock_close: $ => token(prec(PREC.BLOCK_MARKER, /-{2,}[ \t]*\r?\n?/)),
+    // Open block uses exactly 2 dashes to avoid conflict with 4-dash listing blocks
+    openblock_open: $ => token(prec(PREC.BLOCK_MARKER + 1, /-{2}[ \t]*\r?\n/)),
+    openblock_close: $ => token(prec(PREC.BLOCK_MARKER + 2, /-{2}[ \t]*\r?\n?/)),
     
     // Block metadata
     metadata: $ => prec.right(repeat1(choice(

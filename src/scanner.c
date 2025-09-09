@@ -797,6 +797,8 @@ static bool scan_endif_directive(TSLexer *lexer) {
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
     
+    // Block fence handling reverted to grammar tokens for simplicity
+    
     // Conditional directives (high priority) - check longer patterns first
     if (valid_symbols[_ifndef_open_token] && scan_ifndef_open(lexer)) {
         lexer->result_symbol = _ifndef_open_token;
@@ -844,8 +846,7 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         return true;
     }
     
-    // Block fence handling now done via regular tokens in grammar
-    
+    // Table fence handling using same scanner tokens but for table-specific fences
     if (valid_symbols[TABLE_FENCE_START] && scan_table_fence(lexer, true)) {
         lexer->result_symbol = TABLE_FENCE_START;
         return true;
