@@ -67,7 +67,6 @@ Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].
       (text_segment)))
   (paragraph
     (text_with_inlines
-      (math))
       (text_segment)
       (text_segment)
       (text_colon)
@@ -83,11 +82,9 @@ Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].
       (text_colon)
       (ERROR
         (id))
-      (math)
       (text_segment)
       (inline_element
         (superscript))
-      (math)
       (text_segment))))
 
 ================================================================================

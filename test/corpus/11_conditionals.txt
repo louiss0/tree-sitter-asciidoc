@@ -169,20 +169,39 @@ endif::[]
   (conditional_block
     (ifdef_block
       (ifdef_open)
-      (section
-        (section_title
-          (title))
-        (unordered_list
-          (unordered_list_item))
-        (unordered_list
-          (unordered_list_item))
-        (ordered_list
-          (ordered_list_item))
-        (ordered_list
-          (ordered_list_item))
-        (paragraph
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)))
+      (ERROR)
+      (unordered_list
+        (unordered_list_item
           (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment)))
+        (unordered_list_item
+          (text_with_inlines
+            (text_segment)
+            (text_segment)
             (text_segment))))
+      (ERROR)
+      (ordered_list
+        (ordered_list_item
+          (text_with_inlines
+            (text_segment)
+            (text_segment)))
+        (ordered_list_item
+          (text_with_inlines
+            (text_segment)
+            (text_segment))))
+      (ERROR)
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment)))
       (endif_directive))))
 
 ================================================================================

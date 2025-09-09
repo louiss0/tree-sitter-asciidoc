@@ -296,10 +296,7 @@ Use stem:[a^2 + b^2] and kbd:[Ctrl+*Bold*] commands.
       (inline_element
         (superscript
           (superscript_text)
-          (MISSING "^")))
-      (ui_kbd
-        (keys))
-      (text_segment))))
+          (MISSING "^"))))))
 
 ================================================================================
 Passthrough precedence over everything
