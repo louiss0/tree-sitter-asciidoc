@@ -36,11 +36,13 @@ endif::[]
 (source_file
   (conditional_block
     (ifdef_block
-      (ifdef_open)
+      open: (ifdef_open)
       (paragraph
-        (text_with_inlines
+        content: (text_with_inlines
+          (text_segment)
+          (text_segment)
           (text_segment)))
-      (endif_directive))))
+      close: (endif_directive))))
 
 ================================================================================  
 Mixed inline and block conditionals
