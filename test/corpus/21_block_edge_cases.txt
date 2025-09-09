@@ -265,57 +265,46 @@ Back to level 2.
 (source_file
   (section
     (section_title
-      (title)))
+      title: (title)))
+  (section
+    (anchor
+      id: (id))
+    (section_title
+      title: (title)))
   (paragraph
-    (metadata
-      (anchor
-        (id)))
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)
       (text_segment)))
+  (section
+    (anchor
+      id: (id))
+    (section_title
+      title: (title)))
   (paragraph
-    (metadata
-      (anchor
-        (id)))
-    (text_with_inlines
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)))
+  (section
+    (anchor
+      id: (id)
+      text: (anchor_text))
+    (section_title
+      title: (title)))
   (paragraph
-    (metadata
-      (anchor
-        (id)
-        (anchor_text)))
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)
       (text_segment)
       (text_segment)))
+  (section
+    (section_title
+      title: (title)))
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)

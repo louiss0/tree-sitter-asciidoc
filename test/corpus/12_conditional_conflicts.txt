@@ -253,32 +253,29 @@ endif::[]
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+  (section
+    (section_title
+      title: (title)))
   (attribute_entry
-    (name)
-    (value))
+    name: (name)
+    value: (value))
   (conditional_block
     (ifdef_block
-      (ifdef_open)
+      open: (ifdef_open)
       (paragraph
-        (text_with_inlines
+        content: (text_with_inlines
           (text_segment)
           (text_segment)
           (text_segment)))
-      (endif_directive)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)))
+      close: (endif_directive)))
+  (section
+    (section_title
+      title: (title)))
   (conditional_block
     (ifndef_block
-      (ifndef_open)
+      open: (ifndef_open)
       (paragraph
-        (text_with_inlines
+        content: (text_with_inlines
           (text_segment)
           (text_segment)))
-      (endif_directive))))
+      close: (endif_directive))))
