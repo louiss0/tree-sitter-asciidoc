@@ -18,16 +18,14 @@ endif::[]
   (conditional_block
     (ifdef_block
       (ifdef_open)
-      (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)))
-      (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+      (section
+        (section_title
+          (title))
+        (paragraph
+          (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment))))
       (endif_directive))))
 
 ================================================================================
@@ -71,18 +69,17 @@ endif::[]
   (conditional_block
     (ifeval_block
       (ifeval_open)
-      (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)))
-      (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+      (section
+        (section_title
+          (title))
+        (paragraph
+          (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment))))
       (endif_directive))))
 
 ================================================================================
@@ -183,25 +180,21 @@ endif::[]
   (conditional_block
     (ifdef_block
       (ifdef_open)
+      (section
+        (section_title
+          (title)))
       (paragraph
         (text_with_inlines
           (text_segment)
           (text_segment)
           (text_segment)
           (text_segment)))
-      (ERROR)
-      (unordered_list
-        (unordered_list_item
-          (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)))
-        (unordered_list_item
-          (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment))))
-      (ERROR)
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)))
       (ordered_list
         (ordered_list_item
           (text_with_inlines
@@ -211,7 +204,6 @@ endif::[]
           (text_with_inlines
             (text_segment)
             (text_segment))))
-      (ERROR)
       (paragraph
         (text_with_inlines
           (text_segment)
