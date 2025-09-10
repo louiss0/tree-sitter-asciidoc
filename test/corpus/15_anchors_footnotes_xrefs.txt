@@ -13,8 +13,7 @@ This paragraph has [[simple-anchor]] in the middle.
       (text_segment)
       (text_segment)
       (inline_element
-        (inline_anchor
-          (anchor_id)))
+        (inline_anchor))
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -34,9 +33,7 @@ This paragraph has [[anchor-id,anchor text]] with text.
       (text_segment)
       (text_segment)
       (inline_element
-        (inline_anchor
-          (anchor_id)
-          (anchor_text)))
+        (inline_anchor))
       (text_segment)
       (text_segment))))
 
@@ -104,7 +101,8 @@ See the <<target-section>> for more information.
     content: (text_with_inlines
       (text_segment)
       (text_segment)
-      (text_segment)
+      (inline_element
+        (internal_xref))
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -122,8 +120,8 @@ See the <<target-section,target section>> for details.
     content: (text_with_inlines
       (text_segment)
       (text_segment)
-      (text_segment)
-      (text_segment)
+      (inline_element
+        (internal_xref))
       (text_segment)
       (text_segment))))
 
@@ -266,15 +264,15 @@ Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[lin
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)
       (inline_element
-        (inline_anchor
-          (anchor_id)))
+        (inline_anchor))
       (text_segment)
-      (text_segment)
+      (inline_element
+        (internal_xref))
       (text_segment)
       (inline_element
         (footnote_inline))
@@ -296,11 +294,11 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
     content: (text_with_inlines
       (text_segment)
       (inline_element
-        (inline_anchor
-          id: (anchor_id)))
-      (text_segment)
-      (text_colon)
-      (ERROR)
+        (inline_anchor))
+      (inline_element
+        (internal_xref))
+      (inline_element
+        (footnote_inline))
       (text_segment))))
 
 ====
@@ -323,9 +321,20 @@ This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (text_segment)))
-  (ERROR
-    (content_line)))
+      (text_segment)
+      (text_bracket)
+      (text_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_bracket)
+      (text_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Malformed cross-references should be plain text
@@ -340,11 +349,14 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
     (text_with_inlines
       (text_segment)
       (text_segment)
+      (text_angle_bracket)
+      (text_angle_bracket)
       (text_segment)
       (text_segment)
+      (text_angle_bracket)
+      (text_angle_bracket)
       (text_segment)
-      (text_segment)
-      (text_segment)
+      (text_angle_bracket)
       (text_segment)
       (text_segment)
       (text_segment)
@@ -367,12 +379,12 @@ This has foot note:[spaced] and footnote:[unclosed and regular text.
       (text_segment)
       (text_segment)
       (text_colon)
-      (ERROR)
+      (text_bracket)
       (text_segment)
       (text_segment)
       (text_segment)
       (text_colon)
-      (ERROR)
+      (text_bracket)
       (text_segment)
       (text_segment)
       (text_segment)

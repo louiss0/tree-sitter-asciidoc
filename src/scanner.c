@@ -31,6 +31,7 @@ enum {
     AUTOLINK_BOUNDARY,
     ATTRIBUTE_LIST_START,
     DELIMITED_BLOCK_CONTENT_LINE, // Content line within delimited blocks (not fence end)
+    _BLOCK_ANCHOR,         // Block anchor at start of line (hidden from AST)
     _LIST_UNORDERED_MARKER, // "* " or "- " at start of line (hidden from AST)
     _LIST_ORDERED_MARKER,   // "N. " at start of line (hidden from AST)
     DESCRIPTION_LIST_SEP,   // "::"
@@ -93,7 +94,8 @@ static int get_fence_end_token(char fence_char, uint8_t count) {
         case '=': return EXAMPLE_FENCE_END;
         case '-': 
             if (count == 2) return OPENBLOCK_FENCE_END;
-            else return LISTING_FENCE_END;
+            else if (count >= 4) return LISTING_FENCE_END;
+            else return -1; // Invalid fence count
         case '.': return LITERAL_FENCE_END;
         case '_': return QUOTE_FENCE_END;
         case '*': return SIDEBAR_FENCE_END;
@@ -1033,6 +1035,20 @@ static bool scan_endif_directive(TSLexer *lexer) {
     return false;
 }
 
+// Scan for block anchor at start of line: [[anchor-id]] or [[anchor-id,text]]
+static bool scan_block_anchor(TSLexer *lexer) {
+    if (!at_line_start(lexer)) return false;
+    
+    // Must start with [[
+    if (lexer->lookahead != '[') return false;
+    advance(lexer);
+    if (lexer->lookahead != '[') return false;
+    advance(lexer);
+    
+    return true;
+}
+
+
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
     
@@ -1120,6 +1136,13 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         lexer->result_symbol = _endif_directive_token;
         return true;
     }
+    
+    // Block anchor at start of line
+    if (valid_symbols[_BLOCK_ANCHOR] && scan_block_anchor(lexer)) {
+        lexer->result_symbol = _BLOCK_ANCHOR;
+        return true;
+    }
+    
     
     // List markers
     if (valid_symbols[_LIST_UNORDERED_MARKER] && scan_unordered_list_marker(lexer)) {

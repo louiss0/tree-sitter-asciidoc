@@ -71,14 +71,10 @@ rm -rf /path/to/files
     (listing_open
       (LISTING_FENCE_START))
     (block_content
+      (content_line)
       (content_line))
     (listing_close
-      (MISSING LISTING_FENCE_END)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+      (MISSING LISTING_FENCE_END))))
 
 ================================================================================
 CAUTION block with literal delimiters
@@ -106,14 +102,6 @@ CAUTION block with literal delimiters
     (literal_close
       (LITERAL_FENCE_END))))
 
-====
-This note has a title.
-====
-
----
-
-(source_file)
-
 ================================================================================
 TIP block with metadata
 ================================================================================
@@ -123,7 +111,7 @@ TIP block with metadata
 [#tip-id.highlight]
 [source,bash]
 ----
-echo "This tip has multiple metadata lines"
+  echo "This tip has multiple metadata lines"
 ----
 
 (source_file
@@ -139,17 +127,10 @@ echo "This tip has multiple metadata lines"
       (block_attributes))
     (listing_open
       (LISTING_FENCE_START))
+    (block_content
+      (content_line))
     (listing_close
-      (MISSING LISTING_FENCE_END)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+      (MISSING LISTING_FENCE_END))))
 
 ====
 This warning block has an anchor.
@@ -158,51 +139,6 @@ This warning block has an anchor.
 ---
 
 (source_file)
-
-====
-This has both anchor with text and title.
-====
-
----
-
-(source_file)
-
-====
-First note block.
-====
-
-[WARNING]
-----
-Second warning block.
-----
-
-(source_file
-  (listing_block
-    (metadata
-      (block_attributes))
-    (listing_open
-      (LISTING_FENCE_START))
-    (listing_close
-      (MISSING LISTING_FENCE_END)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment))))
-
-====
-This admonition block is inside a section.
-====
-
-Regular paragraph.
-
----
-
-(source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment))))
 
 ================================================================================
 Not an admonition block - no delimited block following

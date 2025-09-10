@@ -60,6 +60,7 @@ module.exports = grammar({
     $.AUTOLINK_BOUNDARY,
     $.ATTRIBUTE_LIST_START,
     $.DELIMITED_BLOCK_CONTENT_LINE, // Content line within delimited blocks (not fence end)
+    $._BLOCK_ANCHOR,         // Block anchor at start of line (hidden from AST)
     // Line-anchored block markers (non-section)
     $._LIST_UNORDERED_MARKER, // "* " or "- " at start of line (hidden from AST)
     $._LIST_ORDERED_MARKER,   // "N. " at start of line (hidden from AST)
@@ -85,7 +86,7 @@ module.exports = grammar({
   
   // Conflicts for overlapping constructs  
   conflicts: $ => [
-    // No conflicts needed now that each delimited block has specific fence tokens
+    // No conflicts needed
   ],
   
   rules: {
@@ -144,7 +145,7 @@ module.exports = grammar({
   ),
   
   _section1: $ => prec.right(seq(
-    optional($.anchor),
+    optional(alias($.block_anchor, $.anchor)),
     alias($._heading1, $.section_title),
     repeat(choice(
       alias(choice($._section6, $._section5, $._section4, $._section3, $._section2), $.section),
@@ -153,7 +154,7 @@ module.exports = grammar({
   )),
   
   _section2: $ => prec.right(seq(
-    optional($.anchor),
+    optional(alias($.block_anchor, $.anchor)),
     alias($._heading2, $.section_title),
     repeat(choice(
       alias(choice($._section6, $._section5, $._section4, $._section3), $.section),
@@ -162,7 +163,7 @@ module.exports = grammar({
   )),
   
   _section3: $ => prec.right(seq(
-    optional($.anchor),
+    optional(alias($.block_anchor, $.anchor)),
     alias($._heading3, $.section_title),
     repeat(choice(
       alias(choice($._section6, $._section5, $._section4), $.section),
@@ -171,7 +172,7 @@ module.exports = grammar({
   )),
   
   _section4: $ => prec.right(seq(
-    optional($.anchor),
+    optional(alias($.block_anchor, $.anchor)),
     alias($._heading4, $.section_title),
     repeat(choice(
       alias(choice($._section6, $._section5), $.section),
@@ -180,7 +181,7 @@ module.exports = grammar({
   )),
   
   _section5: $ => prec.right(seq(
-    optional($.anchor),
+    optional(alias($.block_anchor, $.anchor)),
     alias($._heading5, $.section_title),
     repeat(choice(
       alias($._section6, $.section),
@@ -189,7 +190,7 @@ module.exports = grammar({
   )),
   
   _section6: $ => prec.right(seq(
-    optional($.anchor),
+    optional(alias($.block_anchor, $.anchor)),
     alias($._heading6, $.section_title),
     repeat($._block_not_section)
   )),
@@ -229,14 +230,22 @@ module.exports = grammar({
     title: $ => token.immediate(/[^\r\n]+/),
     
     
-    // Block anchor - unified parsing to avoid conflicts
-    anchor: $ => prec.right(seq(
-      '[[',
+    // Block anchor using external token to ensure block context
+    block_anchor: $ => seq(
+      $._BLOCK_ANCHOR,
       field('id', $.id),
       optional(seq(',', field('text', $.anchor_text))),
       ']]',
-      optional($._newline)
-    )),
+      $._newline
+    ),
+    
+    // Inline anchor - for inline contexts
+    anchor: $ => seq(
+      '[[',
+      field('id', $.id),
+      optional(seq(',', field('text', $.anchor_text))),
+      ']]'
+    ),
     
     id: $ => token(/[A-Za-z_][A-Za-z0-9_-]*/),
     anchor_text: $ => token(/[^,\]\r\n]+/),
@@ -389,6 +398,8 @@ module.exports = grammar({
     _text: $ => choice(
       $.text_segment,
       $.text_colon,
+      $.text_angle_bracket,
+      $.text_bracket,
       $.unconstrained_strong,
       $.unconstrained_emphasis,
       $.unconstrained_monospace,
@@ -396,11 +407,18 @@ module.exports = grammar({
     ),
     
     // Match individual words/tokens for inline parsing - exclude colons to preserve attribute entries
-    // Also exclude pipe character to allow table fence recognition
-    text_segment: $ => token(prec(PREC.TEXT, /[^\s*_`^~\[{+\r\n:|]+/)),
+    // Also exclude pipe character to allow table fence recognition  
+    // Exclude angle brackets to allow cross-references and other constructs
+    text_segment: $ => token(prec(PREC.TEXT, /[^\s*_`^~\[{+<>\r\n:|]+/)),
     
     // Allow standalone colons in text (but not double colons which are handled by external scanner)
     text_colon: $ => prec(PREC.TEXT - 1, token(/:/)),
+    
+    // Fallback for single angle brackets when not part of cross-references
+    text_angle_bracket: $ => prec(PREC.TEXT - 2, token(choice('<', '>', '<<'))),
+    
+    // Fallback for single brackets when not part of role spans or attributes
+    text_bracket: $ => prec(PREC.TEXT - 3, token(choice('[', ']'))),
     
     // Unconstrained formatting (fallback when constrained fails)
     unconstrained_strong: $ => prec.left(token(/\*[^\s*].*?\*/)),
@@ -498,7 +516,7 @@ module.exports = grammar({
     
     // Block metadata
     metadata: $ => prec.right(repeat1(choice(
-      $.anchor,
+      alias($.block_anchor, $.anchor),
       $.block_title,
       $.id_and_roles,
       $.block_attributes
@@ -693,41 +711,23 @@ module.exports = grammar({
     // Images
     image: $ => token(prec(20, /image:[^\[\r\n]+\[[^\]]*\]/)),
     
-    // Role spans
-    role_span: $ => seq(
-      '[',
-      field('roles', $.role_list),
-      ']',
-      '#',
-      field('content', alias(token.immediate(/[^#\r\n]+/), $.role_content)),
-      '#'
-    ),
+    // Role spans - simplified token to avoid ERROR nodes
+    role_span: $ => token(prec(15, /\[[A-Za-z][A-Za-z0-9_.-]*\]#[^#\r\n]+#/)),
     
-    role_list: $ => repeat1(choice($.role, $.role_id, $.option)),
-    role: $ => token(/\.[A-Za-z][A-Za-z0-9_-]*/),
-    role_id: $ => token(/#[A-Za-z][A-Za-z0-9_-]*/),
-    option: $ => token(/%[A-Za-z][A-Za-z0-9_-]*/),
     
-    // Internal cross-reference shortcuts
-    internal_xref: $ => seq(
-      token('<<'),
-      field('target', $.xref_id),
-      optional(seq(token.immediate(','), field('text', $.xref_text))),
-      token.immediate('>>')
-    ),
+    // Internal cross-reference - simple token for well-formed cross-references
+    internal_xref: $ => token(prec(10, choice(
+      /<<[A-Za-z_][A-Za-z0-9_-]*,[^>\r\n]+>>/,  // Cross-reference with text
+      /<<[A-Za-z_][A-Za-z0-9_-]*>>/              // Cross-reference without text
+    ))),
     
-    xref_id: $ => token(/[^,>\r\n]+/),
-    xref_text: $ => token(/[^>\r\n]+/),
     
-    // Inline anchor shortcuts
-    inline_anchor: $ => seq(
-      token('[['),
-      field('id', $.anchor_id),
-      optional(seq(token.immediate(','), field('text', $.anchor_text))),
-      token.immediate(']]')
-    ),
+    // Inline anchor shortcuts - simplified token to avoid ERROR nodes
+    inline_anchor: $ => token(prec(10, choice(
+      /\[\[[A-Za-z_][A-Za-z0-9_-]*,[^\]\r\n]+\]\]/,  // Anchor with text
+      /\[\[[A-Za-z_][A-Za-z0-9_-]*\]\]/              // Anchor without text
+    ))),
     
-    anchor_id: $ => token(/[^,\]\r\n]+/),
     
     // UI Macros
     ui_macro: $ => choice(

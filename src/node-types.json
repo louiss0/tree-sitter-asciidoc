@@ -91,16 +91,6 @@
     }
   },
   {
-    "type": "anchor_id",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "anchor_text",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "attribute_entry",
     "named": true,
     "fields": {
@@ -643,32 +633,6 @@
     }
   },
   {
-    "type": "inline_anchor",
-    "named": true,
-    "fields": {
-      "id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "anchor_id",
-            "named": true
-          }
-        ]
-      },
-      "text": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "anchor_text",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "inline_element",
     "named": true,
     "fields": {},
@@ -765,32 +729,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "internal_xref",
-    "named": true,
-    "fields": {
-      "target": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "xref_id",
-            "named": true
-          }
-        ]
-      },
-      "text": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "xref_text",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -1464,55 +1402,6 @@
     }
   },
   {
-    "type": "role_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "option",
-          "named": true
-        },
-        {
-          "type": "role",
-          "named": true
-        },
-        {
-          "type": "role_id",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "role_span",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "role_content",
-            "named": true
-          }
-        ]
-      },
-      "roles": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "role_list",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "section",
     "named": true,
     "fields": {},
@@ -1926,6 +1815,16 @@
     }
   },
   {
+    "type": "text_angle_bracket",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "text_bracket",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "text_colon",
     "named": true,
     "fields": {}
@@ -1940,6 +1839,14 @@
       "types": [
         {
           "type": "inline_element",
+          "named": true
+        },
+        {
+          "type": "text_angle_bracket",
+          "named": true
+        },
+        {
+          "type": "text_bracket",
           "named": true
         },
         {
@@ -2063,10 +1970,6 @@
     "named": false
   },
   {
-    "type": "#",
-    "named": false
-  },
-  {
     "type": "*",
     "named": false
   },
@@ -2076,14 +1979,6 @@
   },
   {
     "type": ",",
-    "named": false
-  },
-  {
-    "type": "<<",
-    "named": false
-  },
-  {
-    "type": ">>",
     "named": false
   },
   {
@@ -2163,10 +2058,6 @@
     "named": false
   },
   {
-    "type": "[[",
-    "named": false
-  },
-  {
     "type": "]",
     "named": false
   },
@@ -2188,6 +2079,10 @@
   },
   {
     "type": "admonition_label",
+    "named": true
+  },
+  {
+    "type": "anchor_text",
     "named": true
   },
   {
@@ -2259,6 +2154,14 @@
     "named": true
   },
   {
+    "type": "inline_anchor",
+    "named": true
+  },
+  {
+    "type": "internal_xref",
+    "named": true
+  },
+  {
     "type": "line_comment",
     "named": true,
     "extra": true
@@ -2272,19 +2175,7 @@
     "named": true
   },
   {
-    "type": "option",
-    "named": true
-  },
-  {
-    "type": "role",
-    "named": true
-  },
-  {
-    "type": "role_content",
-    "named": true
-  },
-  {
-    "type": "role_id",
+    "type": "role_span",
     "named": true
   },
   {
@@ -2317,14 +2208,6 @@
   },
   {
     "type": "value",
-    "named": true
-  },
-  {
-    "type": "xref_id",
-    "named": true
-  },
-  {
-    "type": "xref_text",
     "named": true
   },
   {

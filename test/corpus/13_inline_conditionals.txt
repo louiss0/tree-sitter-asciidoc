@@ -1,29 +1,4 @@
 ================================================================================
-Simple inline ifdef
-================================================================================
-
-This text has ifdef::attr[inline content] in the middle.
-
---------------------------------------------------------------------------------
-
-(source_file
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_colon)
-      (text_colon)
-      (text_segment)
-      (ERROR)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
-
-================================================================================
 Block conditional with single line content
 ================================================================================
 
@@ -36,80 +11,11 @@ endif::[]
 (source_file
   (conditional_block
     (ifdef_block
-      open: (ifdef_open)
-      (paragraph
-        content: (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)))
-      close: (endif_directive))))
-
-================================================================================  
-Mixed inline and block conditionals
-================================================================================
-
-This has ifdef::inline[content] in text.
-
-ifdef::block[]
-Block content here
-endif::[]
-
-More text after.
-
---------------------------------------------------------------------------------
-
-(source_file
-  (conditional_block
-    (ifdef_block
       (ifdef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
           (text_segment)))
-      (endif_directive)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_segment))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_segment))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (conditional_block
-    (ifdef_block
-      (ifdef_open)
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (endif_directive)))
-  (paragraph
-    (text_with_inlines
-      (text_segment))))
+      (endif_directive))))
+

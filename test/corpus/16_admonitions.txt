@@ -182,7 +182,8 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
         (text_segment)
         (text_segment)
         (text_segment)
-        (text_segment)
+        (inline_element
+          (internal_xref))
         (text_segment)
         (text_segment)
         (text_segment))))

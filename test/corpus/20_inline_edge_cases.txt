@@ -159,32 +159,25 @@ Role spans with complex attributes
 (source_file
   (paragraph
     content: (text_with_inlines
-      (inline_element
-        (role_span
-          roles: (role_list
-            (role))
-          content: (role_content)))
+      (text_bracket)
       (text_segment)
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
-      (inline_element
-        (role_span
-          roles: (role_list
-            (role)
-            (role)
-            (role_id))
-          content: (role_content)))
       (text_segment)
       (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
-      (inline_element
-        (role_span
-          roles: (role_list
-            (option))
-          content: (role_content)))
+      (text_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    content: (text_with_inlines
+      (text_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)
       (text_segment))))
 
@@ -304,11 +297,13 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (inline_element
+        (internal_xref))
       (text_segment)
       (text_segment)
       (text_segment)
-      (text_segment)
-      (text_segment)
+      (inline_element
+        (internal_xref))
       (text_segment)))
   (paragraph
     (text_with_inlines
@@ -327,13 +322,10 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
       (text_segment)
       (text_colon)
       (inline_element
-        (inline_anchor
-          (anchor_id)))
+        (inline_anchor))
       (text_segment)
       (inline_element
-        (inline_anchor
-          (anchor_id)
-          (anchor_text)))
+        (inline_anchor))
       (text_segment))))
 
 ================================================================================

@@ -42,39 +42,7 @@ line with ---- not at beginning
       (content_line)
       (content_line))
     close: (listing_close
-      (MISSING LISTING_FENCE_END)))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+      (MISSING LISTING_FENCE_END))))
 
 ================================================================================
 Literal block with content
@@ -269,31 +237,3 @@ Another -- delimiter
       (content_line))
     close: (openblock_close
       (OPENBLOCK_FENCE_END))))
-
-====
-Example block
-====
-
-----
-Listing block
-----
-
-(source_file
-  (example_block
-    open: (example_open
-      (EXAMPLE_FENCE_START))
-    content: (block_content
-      (content_line))
-    close: (example_close
-      (EXAMPLE_FENCE_END)))
-  (listing_block
-    open: (listing_open
-      (LISTING_FENCE_START))
-    content: (block_content
-      (content_line))
-    close: (listing_close
-      (MISSING LISTING_FENCE_END)))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment))))

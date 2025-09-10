@@ -87,7 +87,7 @@ These look like conditionals but are malformed.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
+    (text_with_inlines
       (text_segment)
       (text_colon)
       (text_colon)
@@ -95,19 +95,19 @@ These look like conditionals but are malformed.
   (paragraph
     (metadata
       (block_attributes))
-    content: (text_with_inlines
+    (text_with_inlines
       (text_segment)
       (text_colon)
       (text_colon)))
   (paragraph
-    content: (text_with_inlines
+    (text_with_inlines
       (text_segment)
       (text_colon)
       (text_colon)
-      (ERROR)
+      (text_bracket)
       (text_segment)))
   (paragraph
-    content: (text_with_inlines
+    (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)

@@ -30,14 +30,8 @@ This is [important]#*bold* and _italic_ text# here.
     content: (text_with_inlines
       (text_segment)
       (text_segment)
-      (ERROR)
-      (text_segment)
       (inline_element
-        (strong))
-      (text_segment)
-      (inline_element
-        (emphasis))
-      (text_segment)
+        (role_span))
       (text_segment))))
 
 ================================================================================
@@ -182,10 +176,8 @@ This is [role]#text with \# hash# here.
     content: (text_with_inlines
       (text_segment)
       (text_segment)
-      (ERROR)
-      (text_segment)
-      (text_segment)
-      (text_segment)
+      (inline_element
+        (role_span))
       (text_segment)
       (text_segment))))
 
@@ -368,7 +360,6 @@ This is [role.with.dots]#styled text# here.
     content: (text_with_inlines
       (text_segment)
       (text_segment)
-      (ERROR)
-      (text_segment)
-      (text_segment)
+      (inline_element
+        (role_span))
       (text_segment))))
