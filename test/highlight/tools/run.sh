@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Check for --update flag
+UPDATE_MODE=false
+if [[ "${1:-}" == "--update" ]]; then
+    UPDATE_MODE=true
+    echo "Running in update mode - will overwrite expected files"
+fi
+
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
 CASES_DIR="$ROOT/test/highlight/cases"
 EXP_DIR="$ROOT/test/highlight/expected"
@@ -35,7 +42,11 @@ for f in "$CASES_DIR"/*.adoc; do
         continue
     fi
 
-    if ! diff -u "$expected" "$out"; then
+    if [[ "$UPDATE_MODE" == "true" ]]; then
+        echo "Updating expected for $base..."
+        cp "$out" "$expected"
+        echo "✓ $base (updated)"
+    elif ! diff -u "$expected" "$out"; then
         echo "Mismatch: $base"
         FAIL=1
     else

@@ -52,7 +52,9 @@
     "ts:test:v": "tree-sitter test",
     "ts:parse": "tree-sitter parse --stat",
     "build:ts": "tree-sitter generate && tree-sitter build",
-    "test:highlights": "jpd run build:ts && powershell -ExecutionPolicy Bypass -File test/highlight/tools/run.ps1",
-    "test:highlights:update": "jpd run build:ts && Remove-Item test/highlight/expected/*.captures -Force; jpd run test:highlights"
+    "test:highlights": "pnpm run build:ts && bash test/highlight/tools/run.sh",
+    "test:highlights:update": "pnpm run build:ts && bash test/highlight/tools/run.sh --update",
+    "test:highlights:win": "pnpm run build:ts && powershell -ExecutionPolicy Bypass -File test/highlight/tools/run.ps1",
+    "test:highlights:update:win": "pnpm run build:ts && Remove-Item test/highlight/expected/*.captures -Force; pnpm run test:highlights:win"
   }
 }
