@@ -191,6 +191,9 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
 
+      - name: Install Tree Sitter CLI
+        run: npm install -g tree-sitter-cli
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
