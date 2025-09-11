@@ -12,7 +12,9 @@
         "asciidoc"
       ],
       "injection-regex": "^asciidoc$",
-      "class-name": "TreeSitterAsciidoc"
+      "class-name": "TreeSitterAsciidoc",
+      "highlights": "queries/highlights.scm",
+      "folds": "queries/folds.scm"
     }
   ],
   "metadata": {
