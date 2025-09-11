@@ -65,6 +65,63 @@
         ]
       }
     },
+    "block_comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 130,
+            "content": {
+              "type": "STRING",
+              "value": "////"
+            }
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "comment_line"
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 130,
+            "content": {
+              "type": "STRING",
+              "value": "////"
+            }
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_newline"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "comment_line": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^\\r\\n]*\\r?\\n"
+      }
+    },
     "include_directive": {
       "type": "PREC",
       "value": 100,
@@ -746,6 +803,14 @@
           "content": {
             "type": "SYMBOL",
             "name": "conditional_block"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 125,
+          "content": {
+            "type": "SYMBOL",
+            "name": "block_comment"
           }
         },
         {

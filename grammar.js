@@ -102,6 +102,18 @@ module.exports = grammar({
     
     // Line comment
     line_comment: $ => token(seq('//', /[^\n]*/)),
+    
+    // Block comment - opaque content prevents internal syntax highlighting
+    block_comment: $ => seq(
+      token(prec(PREC.DELIMITED_BLOCK + 10, '////')),
+      $._newline,
+      repeat($.comment_line),
+      token(prec(PREC.DELIMITED_BLOCK + 10, '////')),
+      optional($._newline)
+    ),
+    
+    // Comment line - raw text content, no internal parsing
+    comment_line: $ => token(/[^\r\n]*\r?\n/),
 
     // ========================================================================
     // INCLUDE DIRECTIVES
@@ -256,6 +268,7 @@ module.exports = grammar({
     prec(PREC.LIST, $.description_list),
     prec(PREC.LIST, $.callout_list),
     prec.right(PREC.CONDITIONAL, $.conditional_block),
+    prec(PREC.DELIMITED_BLOCK + 5, $.block_comment),
     prec(PREC.DELIMITED_BLOCK, $.example_block),
     prec(PREC.DELIMITED_BLOCK, $.listing_block),
     prec(PREC.DELIMITED_BLOCK, $.literal_block),

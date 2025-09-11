@@ -234,6 +234,21 @@
     "fields": {}
   },
   {
+    "type": "block_comment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "block_content",
     "named": true,
     "fields": {},
@@ -536,6 +551,10 @@
           "named": true
         },
         {
+          "type": "block_comment",
+          "named": true
+        },
+        {
           "type": "callout_list",
           "named": true
         },
@@ -648,6 +667,10 @@
           "named": true
         },
         {
+          "type": "block_comment",
+          "named": true
+        },
+        {
           "type": "callout_list",
           "named": true
         },
@@ -757,6 +780,10 @@
         },
         {
           "type": "bibliography_entry",
+          "named": true
+        },
+        {
+          "type": "block_comment",
           "named": true
         },
         {
@@ -1157,6 +1184,10 @@
         },
         {
           "type": "bibliography_entry",
+          "named": true
+        },
+        {
+          "type": "block_comment",
           "named": true
         },
         {
@@ -1849,6 +1880,10 @@
           "named": true
         },
         {
+          "type": "block_comment",
+          "named": true
+        },
+        {
           "type": "callout_list",
           "named": true
         },
@@ -2034,6 +2069,10 @@
         },
         {
           "type": "bibliography_entry",
+          "named": true
+        },
+        {
+          "type": "block_comment",
           "named": true
         },
         {
@@ -2536,6 +2575,10 @@
     "named": false
   },
   {
+    "type": "////",
+    "named": false
+  },
+  {
     "type": "<<",
     "named": false
   },
@@ -2689,6 +2732,10 @@
   },
   {
     "type": "cell_literal_text",
+    "named": true
+  },
+  {
+    "type": "comment_line",
     "named": true
   },
   {
