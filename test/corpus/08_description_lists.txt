@@ -28,9 +28,17 @@ Another::Description
 
 (source_file
   (paragraph
-    (text_segment))
+    (text_with_inlines
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment)))
   (paragraph
-    (text_segment)))
+    (text_with_inlines
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment))))
 
 ================================================================================
 Not a description list - triple colon
@@ -44,4 +52,7 @@ Term::: Description
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_colon)
       (text_segment))))

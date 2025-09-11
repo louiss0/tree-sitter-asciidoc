@@ -1,0 +1,4 @@
+[[block-anchor,Block anchor text]]
+== Section Title
+
+Content after block anchor with text.

@@ -8,24 +8,13 @@ Visit http://example.com`code`[link text] for details.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (auto_link)))
-  (paragraph
-    (text_with_inlines
-      (monospace
-        content: (text_segment))))
-  (paragraph
-    (text_with_inlines
-      (link
-        (url
-          (auto_link))
-        (text
-          (text_segment)))))
-  (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
+      (inline_element
+        (link
+          url: (auto_link)
+          text: (bracketed_text)))
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -38,17 +27,11 @@ This is [important]#*bold* and _italic_ text# here.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
-      (role_span
-        (role)
-        (content
-          (strong
-            (text_segment))
-          (text_segment)
-          (emphasis
-            (text_segment))
-          (text_segment)))
+      (text_segment)
+      (inline_element
+        (role_span))
       (text_segment))))
 
 ================================================================================
@@ -82,8 +65,13 @@ This has a plus+ in the middle.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment))))
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (ERROR
+    (content_line)))
 
 ================================================================================
 Escaped delimiters in strong
@@ -143,11 +131,16 @@ This is ^super with \^ caret^ text.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
-      (superscript
-        (text_segment))
-      (text_segment))))
+      (text_segment)
+      (inline_element
+        (superscript))
+      (text_segment)
+      (inline_element
+        (superscript
+          content: (superscript_text)
+          (MISSING "^"))))))
 
 ================================================================================
 Escaped delimiters in subscript
@@ -159,11 +152,16 @@ This is ~sub with \~ tilde~ text.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
-      (subscript
-        (text_segment))
-      (text_segment))))
+      (text_segment)
+      (inline_element
+        (subscript))
+      (text_segment)
+      (inline_element
+        (subscript
+          content: (subscript_text)
+          (MISSING "~"))))))
 
 ================================================================================
 Escaped delimiters in role span
@@ -175,12 +173,12 @@ This is [role]#text with \# hash# here.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
-      (role_span
-        (role)
-        (content
-          (text_segment)))
+      (text_segment)
+      (inline_element
+        (role_span))
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -253,13 +251,14 @@ Use stem:[a^2 + b^2] and kbd:[Ctrl+*Bold*] commands.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
-      (math
-        (content))
+      (inline_element
+        (math_macro))
       (text_segment)
-      (ui_kbd
-        (keys))
+      (inline_element
+        (ui_macro
+          (ui_kbd)))
       (text_segment))))
 
 ================================================================================
@@ -291,15 +290,13 @@ Use image:logo.png[Logo] and https://example.com[Site] here.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (image
-        (target)
-        (attributes))
+      (inline_element
+        (image))
       (text_segment)
-      (link
-        (url
-          (auto_link))
-        (text
-          (text_segment)))
+      (inline_element
+        (link
+          (auto_link)
+          (bracketed_text)))
       (text_segment))))
 
 ================================================================================
@@ -360,10 +357,9 @@ This is [role.with.dots]#styled text# here.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
-      (role_span
-        (role)
-        (content
-          (text_segment)))
+      (text_segment)
+      (inline_element
+        (role_span))
       (text_segment))))

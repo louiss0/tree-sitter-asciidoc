@@ -93,7 +93,8 @@ Visit https://example.com for more info.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (text_segment)
+      (inline_element
+        (auto_link))
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -108,22 +109,12 @@ Visit https://example.com[Example Site] for more info.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (inline_element
         (link
-          (auto_link)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+          url: (auto_link)
+          text: (bracketed_text)))
       (text_segment)
       (text_segment)
       (text_segment))))

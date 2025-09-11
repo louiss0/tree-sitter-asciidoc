@@ -12,25 +12,12 @@ Another:: regular description item
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
   (description_list
     (description_item))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+  (description_list
+    (description_item))
+  (description_list
+    (description_item))
   (description_list
     (description_item)))
 
@@ -46,8 +33,20 @@ The word endif:: can also appear here.
 --------------------------------------------------------------------------------
 
 (source_file
-  (description_list
-    (description_item))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment)
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment)
+      (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
@@ -62,8 +61,17 @@ The word endif:: can also appear here.
       (text_segment)
       (text_segment)
       (text_segment)))
-  (description_list
-    (description_item)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Malformed conditionals should be paragraphs
@@ -80,17 +88,32 @@ These look like conditionals but are malformed.
 (source_file
   (paragraph
     (text_with_inlines
-      (inline_conditional
-        (inline_ifdef
-          (inline_content)))))
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment)))
+  (paragraph
+    (metadata
+      (block_attributes))
+    (text_with_inlines
+      (text_segment)
+      (text_colon)
+      (text_colon)))
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_bracket)
       (text_segment)))
   (paragraph
     (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -120,6 +143,10 @@ endif::[]
       (ifdef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive)))
   (attribute_entry
@@ -130,6 +157,11 @@ endif::[]
       (ifndef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive))))
 
@@ -146,6 +178,9 @@ another:::word paragraph
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_colon)
       (text_segment)
       (text_segment)
       (text_segment)
@@ -153,6 +188,10 @@ another:::word paragraph
       (text_segment)))
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_colon)
       (text_segment)
       (text_segment))))
 
@@ -176,6 +215,9 @@ endif::[]
       (ifdef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive)))
   (conditional_block
@@ -183,6 +225,10 @@ endif::[]
       (ifndef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive))))
 
@@ -209,24 +255,27 @@ endif::[]
 (source_file
   (section
     (section_title
-      (title))
-    (attribute_entry
-      (name)
-      (value))
-    (conditional_block
-      (ifdef_block
-        (ifdef_open)
-        (paragraph
-          (text_with_inlines
-            (text_segment)))
-        (endif_directive)))
-    (section
-      (section_title
-        (title))
-      (conditional_block
-        (ifndef_block
-          (ifndef_open)
-          (paragraph
-            (text_with_inlines
-              (text_segment)))
-          (endif_directive))))))
+      title: (title)))
+  (attribute_entry
+    name: (name)
+    value: (value))
+  (conditional_block
+    (ifdef_block
+      open: (ifdef_open)
+      (paragraph
+        content: (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)))
+      close: (endif_directive)))
+  (section
+    (section_title
+      title: (title)))
+  (conditional_block
+    (ifndef_block
+      open: (ifndef_open)
+      (paragraph
+        content: (text_with_inlines
+          (text_segment)
+          (text_segment)))
+      close: (endif_directive))))

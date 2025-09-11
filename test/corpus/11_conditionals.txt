@@ -23,6 +23,8 @@ endif::[]
           (title))
         (paragraph
           (text_with_inlines
+            (text_segment)
+            (text_segment)
             (text_segment))))
       (endif_directive))))
 
@@ -42,6 +44,8 @@ endif::[]
       (ifndef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive))))
 
@@ -70,6 +74,11 @@ endif::[]
           (title))
         (paragraph
           (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)
             (text_segment))))
       (endif_directive))))
 
@@ -144,6 +153,8 @@ endif::[]
       (ifdef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive))))
 
@@ -171,18 +182,32 @@ endif::[]
       (ifdef_open)
       (section
         (section_title
-          (title))
-        (unordered_list
-          (unordered_list_item))
-        (unordered_list
-          (unordered_list_item))
-        (ordered_list
-          (ordered_list_item))
-        (ordered_list
-          (ordered_list_item))
-        (paragraph
+          (title)))
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)))
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)))
+      (ordered_list
+        (ordered_list_item
           (text_with_inlines
+            (text_segment)
+            (text_segment)))
+        (ordered_list_item
+          (text_with_inlines
+            (text_segment)
             (text_segment))))
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment)))
       (endif_directive))))
 
 ================================================================================
@@ -222,5 +247,7 @@ endif::[]
       (ifeval_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive))))

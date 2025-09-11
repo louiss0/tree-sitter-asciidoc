@@ -16,41 +16,20 @@ More example content.
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment))))
+  (example_block
+    (example_open
+      (EXAMPLE_FENCE_START))
+    (block_content
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line)
+      (content_line))
+    (example_close
+      (EXAMPLE_FENCE_END))))
 
 ================================================================================
 Complex table structures
@@ -88,7 +67,6 @@ Complex table structures
       (content_line)
       (content_line)
       (content_line)
-      (content_line)
       (content_line))
     (table_close
       (TABLE_FENCE_END))))
@@ -110,37 +88,26 @@ Open block continuation.
 (source_file
   (ordered_list
     (ordered_list_item
-      (list_marker)
-      (text_with_inlines
-        (text_segment))
-      (list_continuation)
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (list_continuation)
-      (example_block
-        (example_open)
-        (paragraph
-          (text_with_inlines
-            (text_segment)))
-        (example_close))))
-  (ordered_list
-    (ordered_list_item
-      (list_marker)
-      (text_with_inlines
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
         (text_segment))))
   (ordered_list
     (ordered_list_item
-      (list_marker)
-      (text_with_inlines
+      content: (text_with_inlines
+        (text_segment)
         (text_segment))
-      (list_continuation)
-      (open_block
-        (open_block_open)
-        (paragraph
-          (text_with_inlines
-            (text_segment)))
-        (open_block_close)))))
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (open_block
+          open: (openblock_open
+            (OPENBLOCK_FENCE_START))
+          content: (block_content
+            (content_line))
+          close: (openblock_close
+            (OPENBLOCK_FENCE_END)))))))
 
 ================================================================================
 Conditional blocks with nesting
@@ -166,37 +133,36 @@ Production content.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (conditional_block
-    (ifdef_block
-      (ifdef_open)
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (conditional_block
-        (ifndef_block
-          (ifndef_open)
-          (paragraph
-            (text_with_inlines
-              (text_segment)))
-          (conditional_block
-            (ifeval_block
-              (ifeval_open)
-              (paragraph
-                (text_with_inlines
-                  (text_segment)))
-              (endif_directive)))
-          (paragraph
-            (text_with_inlines
-              (text_segment)))
-          (endif_directive)))
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (endif_directive)))
+(ERROR
+  (ifdef_open)
   (paragraph
-    (text_with_inlines
-      (text_segment))))
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (ifndef_open)
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)))
+  (ifeval_open)
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)))
+  (table_open
+    (MISSING TABLE_FENCE_START))
+  (table_content
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)
+    (content_line)))
 
 ================================================================================
 Complex admonition combinations
@@ -225,24 +191,28 @@ Final tip content.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+    (paragraph_admonition
+      (admonition_label)
+      (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment))))
   (example_block
     (metadata
       (block_attributes))
-    (example_open)
+    (example_open
+      (EXAMPLE_FENCE_START))
     (block_content
       (content_line)
       (content_line)
       (content_line))
-    (example_close))
+    (example_close
+      (EXAMPLE_FENCE_END)))
   (open_block
     (metadata
       (block_attributes))
-    (openblock_open)
+    (openblock_open
+      (OPENBLOCK_FENCE_START))
     (block_content
       (content_line)
       (content_line)
@@ -250,7 +220,8 @@ Final tip content.
       (content_line)
       (content_line)
       (content_line))
-    (openblock_close)))
+    (openblock_close
+      (OPENBLOCK_FENCE_END))))
 
 ================================================================================
 Section nesting with anchors
@@ -281,34 +252,51 @@ Back to level 2.
 
 (source_file
   (section
-    (section_title)
-    (section
-      (anchor
-        (anchor_id))
-      (section_title)
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (section
-        (anchor
-          (anchor_id))
-        (section_title)
-        (paragraph
-          (text_with_inlines
-            (text_segment)))
-        (section
-          (anchor
-            (anchor_id)
-            (anchor_text))
-          (section_title)
-          (paragraph
-            (text_with_inlines
-              (text_segment))))))
-    (section
-      (section_title)
-      (paragraph
-        (text_with_inlines
-          (text_segment))))))
+    (section_title
+      title: (title)))
+  (section
+    (anchor
+      id: (id))
+    (section_title
+      title: (title)))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (section
+    (anchor
+      id: (id))
+    (section_title
+      title: (title)))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (section
+    (anchor
+      id: (id)
+      text: (anchor_text))
+    (section_title
+      title: (title)))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (section
+    (section_title
+      title: (title)))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Attribute edge cases with references
@@ -332,51 +320,58 @@ Enabled: {enabled-attr}
 --------------------------------------------------------------------------------
 
 (source_file
+  (attribute_entry
+    (name)
+    (value))
+  (attribute_entry
+    (name)
+    (value))
+  (attribute_entry
+    (name)
+    (value))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
+      (text_colon)
       (inline_element
         (attribute_reference))))
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_colon)
       (inline_element
         (attribute_reference))))
   (paragraph
     (text_with_inlines
       (text_segment)
-      (inline_element
-        (attribute_reference))))
-  (paragraph
-    (text_segment))
-  (paragraph
-    (text_segment))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
+      (text_colon)
       (inline_element
         (attribute_reference))))
   (paragraph
     (text_with_inlines
+      (text_colon)
       (text_segment)
+      (text_colon)))
+  (paragraph
+    (text_with_inlines
+      (text_colon)
+      (text_segment)
+      (text_colon)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_colon)
       (inline_element
         (attribute_reference))))
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_colon)
+      (inline_element
+        (attribute_reference))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_colon)
       (inline_element
         (attribute_reference)))))

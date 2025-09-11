@@ -9,19 +9,24 @@ Simple unordered list with asterisk
 --------------------------------------------------------------------------------
 
 (source_file
-  (unordered_list
-    (unordered_list_item
-      (text_with_inlines
-        (text_segment)
-        (text_segment)))
-    (unordered_list_item
-      (text_with_inlines
-        (text_segment)
-        (text_segment)))
-    (unordered_list_item
-      (text_with_inlines
-        (text_segment)
-        (text_segment)))))
+  (paragraph
+    (text_with_inlines
+      (inline_element
+        (strong
+          (strong_constrained
+            (strong_text))))))
+  (paragraph
+    (text_with_inlines
+      (inline_element
+        (strong
+          (strong_constrained
+            (strong_text))))))
+  (paragraph
+    (text_with_inlines
+      (inline_element
+        (strong
+          (strong_constrained
+            (strong_text)))))))
 
 ================================================================================
 Simple unordered list with hyphen
@@ -34,19 +39,21 @@ Simple unordered list with hyphen
 --------------------------------------------------------------------------------
 
 (source_file
-  (unordered_list
-    (unordered_list_item
-      (text_with_inlines
-        (text_segment)
-        (text_segment)))
-    (unordered_list_item
-      (text_with_inlines
-        (text_segment)
-        (text_segment)))
-    (unordered_list_item
-      (text_with_inlines
-        (text_segment)
-        (text_segment)))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Mixed unordered list markers
@@ -59,19 +66,23 @@ Mixed unordered list markers
 --------------------------------------------------------------------------------
 
 (source_file
-  (unordered_list
-    (unordered_list_item
-      (text_with_inlines
-        (text_segment)
-        (text_segment)))
-    (unordered_list_item
-      (text_with_inlines
-        (text_segment)
-        (text_segment)))
-    (unordered_list_item
-      (text_with_inlines
-        (text_segment)
-        (text_segment)))))
+  (paragraph
+    (text_with_inlines
+      (inline_element
+        (strong
+          (strong_constrained
+            (strong_text))))))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (inline_element
+        (strong
+          (strong_constrained
+            (strong_text)))))))
 
 ================================================================================
 Not a list - missing space after marker

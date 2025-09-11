@@ -58,7 +58,6 @@ CAUTION: Proceed with extreme caution.
         (text_segment)
         (text_segment)
         (text_segment)
-        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -86,22 +85,26 @@ Pro tip: Always read the documentation first!
   (example_block
     (metadata
       (block_attributes))
-    open: (example_open)
+    open: (example_open
+      (EXAMPLE_FENCE_START))
     content: (block_content
       (content_line)
       (content_line)
       (content_line))
-    close: (example_close))
+    close: (example_close
+      (EXAMPLE_FENCE_END)))
   (example_block
     (metadata
       (block_attributes))
-    open: (example_open)
+    open: (example_open
+      (EXAMPLE_FENCE_START))
     content: (block_content
       (content_line)
       (content_line)
       (content_line)
       (content_line))
-    close: (example_close)))
+    close: (example_close
+      (EXAMPLE_FENCE_END))))
 
 ================================================================================
 Admonition Blocks with Different Delimited Block Types
@@ -130,26 +133,32 @@ This is a sidebar admonition.
   (listing_block
     (metadata
       (block_attributes))
-    open: (listing_open)
+    open: (listing_open
+      (LISTING_FENCE_START))
     content: (block_content
       (content_line)
       (content_line))
-    close: (listing_close))
+    close: (listing_close
+      (LISTING_FENCE_END)))
   (literal_block
     (metadata
       (block_attributes))
-    open: (literal_open)
+    open: (literal_open
+      (LITERAL_FENCE_START))
     content: (block_content
       (content_line)
       (content_line))
-    close: (literal_close))
+    close: (literal_close
+      (LITERAL_FENCE_END)))
   (sidebar_block
     (metadata
       (block_attributes))
-    open: (sidebar_open)
+    open: (sidebar_open
+      (SIDEBAR_FENCE_START))
     content: (block_content
       (content_line))
-    close: (sidebar_close)))
+    close: (sidebar_close
+      (SIDEBAR_FENCE_END))))
 
 ================================================================================
 Complex Paragraph Admonitions with Inline Elements
@@ -164,18 +173,46 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph_admonition
-    label: (admonition_label)
-    content: (text_with_inlines
-      (text_segment)))
-  (paragraph_admonition
-    label: (admonition_label)
-    content: (text_with_inlines
-      (text_segment)))
-  (paragraph_admonition
-    label: (admonition_label)
-    content: (text_with_inlines
-      (text_segment)))
+  (paragraph
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (inline_element
+          (internal_xref))
+        (text_segment)
+        (text_segment)
+        (text_segment))))
+  (paragraph
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (inline_element
+          (external_xref))
+        (text_segment)
+        (text_segment)
+        (text_segment))))
+  (paragraph
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (inline_element
+          (footnote_inline))
+        (text_segment)
+        (text_segment)))))
 
 ====
 Block admonitions work in sections as well.
@@ -204,11 +241,12 @@ NOTE: This is a valid admonition again.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    (paragraph_admonition
+      (admonition_label)
+      (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))

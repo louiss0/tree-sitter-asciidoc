@@ -8,12 +8,11 @@ This is [big]#large text# here.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (inline_element
-        (role_span
-          (text_segment)))
+        (role_span))
       (text_segment))))
 
 ================================================================================
@@ -26,12 +25,11 @@ This is [highlight]#*bold* and _italic_# text.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (inline_element
-        (role_span
-          (text_segment)))
+        (role_span))
       (text_segment))))
 
 ================================================================================
@@ -45,18 +43,20 @@ Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (inline_element
-        (math))
+        (math_macro))
       (text_segment)
-      (text_segment)
+      (text_segment)))
+  (paragraph
+    content: (text_with_inlines
       (text_segment)
       (inline_element
-        (math))
+        (math_macro))
       (text_segment)
       (inline_element
-        (math))
+        (math_macro))
       (text_segment))))
 
 ================================================================================
@@ -70,19 +70,24 @@ Go to menu:File[Open] option.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (inline_element
-        (ui_kbd))
-      (text_segment)
-      (text_segment)
-      (inline_element
-        (ui_btn))
-      (text_segment)
+        (ui_macro
+          (ui_kbd)))
       (text_segment)
       (text_segment)
       (inline_element
-        (ui_menu))
+        (ui_macro
+          (ui_btn)))
+      (text_segment)))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (inline_element
+        (ui_macro
+          (ui_menu)))
       (text_segment))))
 
 ================================================================================

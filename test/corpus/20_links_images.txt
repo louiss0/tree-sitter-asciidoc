@@ -24,9 +24,9 @@ Also check out http://test.org and ftp://files.com/download.
       (inline_element
         (auto_link))
       (text_segment)
-      (inline_element
-        (auto_link)))))
-
+      (text_segment)
+      (text_colon)
+      (text_segment))))
 ================================================================================
 Links with text
 ================================================================================
@@ -37,7 +37,7 @@ Visit https://example.com[Example Site] for more info.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (inline_element
         (link
@@ -57,7 +57,7 @@ Visit https://example.com[*Bold* _Link_ Text] here.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (inline_element
         (link

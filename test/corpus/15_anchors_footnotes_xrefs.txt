@@ -13,8 +13,7 @@ This paragraph has [[simple-anchor]] in the middle.
       (text_segment)
       (text_segment)
       (inline_element
-        (inline_anchor
-          (anchor_id)))
+        (inline_anchor))
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -34,9 +33,7 @@ This paragraph has [[anchor-id,anchor text]] with text.
       (text_segment)
       (text_segment)
       (inline_element
-        (inline_anchor
-          (anchor_id)
-          (anchor_text)))
+        (inline_anchor))
       (text_segment)
       (text_segment))))
 
@@ -54,12 +51,15 @@ Content after block anchor.
 (source_file
   (section
     (anchor
-      (id))
+      id: (id))
     (section_title
-      (title))
-    (paragraph
-      (text_with_inlines
-        (text_segment)))))
+      title: (title)))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Block anchor with text
@@ -75,13 +75,18 @@ Content after block anchor with text.
 (source_file
   (section
     (anchor
-      (id)
-      (anchor_text))
+      id: (id)
+      text: (anchor_text))
     (section_title
-      (title))
-    (paragraph
-      (text_with_inlines
-        (text_segment)))))
+      title: (title)))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Internal cross-reference without text
@@ -93,12 +98,11 @@ See the <<target-section>> for more information.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (inline_element
-        (internal_xref
-          (xref_id)))
+        (internal_xref))
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -113,13 +117,11 @@ See the <<target-section,target section>> for details.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (inline_element
-        (internal_xref
-          (xref_id)
-          (xref_text)))
+        (internal_xref))
       (text_segment)
       (text_segment))))
 
@@ -133,11 +135,11 @@ Check out xref:other-file.adoc[].
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (inline_element
-        (external_xref
-          (xref_target)))
+        (external_xref))
       (text_segment))))
 
 ================================================================================
@@ -150,12 +152,11 @@ Check out xref:other-file.adoc[Other Document].
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (inline_element
-        (external_xref
-          (xref_target)
-          (bracketed_text)))
+        (external_xref))
       (text_segment))))
 
 ================================================================================
@@ -168,11 +169,14 @@ This has a footnote footnote:[This is a footnote] in it.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)
       (inline_element
-        (footnote_inline
-          (bracketed_text)))
+        (footnote_inline))
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -185,11 +189,13 @@ This has a footnote footnote:ref1[] reference.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)
       (inline_element
-        (footnote_ref
-          (id)))
+        (footnote_ref))
       (text_segment))))
 
 ================================================================================
@@ -202,12 +208,12 @@ This has footnote:ref1[Referenced footnote text] in it.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (inline_element
-        (footnote_ref
-          (id)
-          (bracketed_text)))
+        (footnote_ref))
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -220,11 +226,14 @@ This uses footnoteref:ref1[] to reference a footnote.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (inline_element
-        (footnoteref
-          (id)))
+        (footnoteref))
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -237,12 +246,12 @@ This uses footnoteref:ref1[Footnote reference text] with text.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (inline_element
-        (footnoteref
-          (id)
-          (bracketed_text)))
+        (footnoteref))
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -255,26 +264,21 @@ Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[lin
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)
       (inline_element
-        (inline_anchor
-          (id)))
+        (inline_anchor))
       (text_segment)
       (inline_element
-        (internal_xref
-          (id)))
+        (internal_xref))
       (text_segment)
       (inline_element
-        (footnote_inline
-          (bracketed_text)))
+        (footnote_inline))
       (text_segment)
       (inline_element
-        (external_xref
-          (xref_target)
-          (bracketed_text)))
+        (external_xref))
       (text_segment))))
 
 ================================================================================
@@ -287,17 +291,14 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (inline_element
-        (inline_anchor
-          (id)))
+        (inline_anchor))
       (inline_element
-        (internal_xref
-          (id)))
+        (internal_xref))
       (inline_element
-        (footnote_inline
-          (bracketed_text)))
+        (footnote_inline))
       (text_segment))))
 
 ====
@@ -319,6 +320,20 @@ This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_bracket)
+      (text_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_bracket)
+      (text_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -332,6 +347,20 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_angle_bracket)
+      (text_angle_bracket)
+      (text_segment)
+      (text_segment)
+      (text_angle_bracket)
+      (text_angle_bracket)
+      (text_segment)
+      (text_angle_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -345,6 +374,20 @@ This has foot note:[spaced] and footnote:[unclosed and regular text.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_colon)
+      (text_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_colon)
+      (text_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -360,7 +403,6 @@ See xref:../other/doc.adoc#section1[Complex target] for details.
     (text_with_inlines
       (text_segment)
       (inline_element
-        (external_xref
-          (xref_target)
-          (bracketed_text)))
+        (external_xref))
+      (text_segment)
       (text_segment))))
