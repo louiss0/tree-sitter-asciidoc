@@ -1,7 +1,0 @@
-====
-Example block
-====
-
-----
-Listing block
-----

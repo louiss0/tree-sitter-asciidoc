@@ -1,5 +1,0 @@
-== Section Title
-
-NOTE: This admonition is inside a section.
-
-Regular paragraph text.
