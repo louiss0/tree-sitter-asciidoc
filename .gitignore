@@ -48,3 +48,7 @@ zig-out/
 *.tar.gz
 *.tgz
 *.zip
+
+# Test artifacts
+.tmp/
+test/highlight/.actual/

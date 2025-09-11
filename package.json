@@ -50,6 +50,9 @@
     "ts:gen": "tree-sitter generate",
     "ts:test": "tree-sitter test",
     "ts:test:v": "tree-sitter test",
-    "ts:parse": "tree-sitter parse --stat"
+    "ts:parse": "tree-sitter parse --stat",
+    "build:ts": "tree-sitter generate && tree-sitter build",
+    "test:highlights": "jpd run build:ts && powershell -ExecutionPolicy Bypass -File test/highlight/tools/run.ps1",
+    "test:highlights:update": "jpd run build:ts && Remove-Item test/highlight/expected/*.captures -Force; jpd run test:highlights"
   }
 }

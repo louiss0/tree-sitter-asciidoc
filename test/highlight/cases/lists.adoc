@@ -1,0 +1,19 @@
+* First unordered item
+* Second unordered item
+** Nested unordered item
+** Another nested item
+* Third top-level item
+
+1. First ordered item
+2. Second ordered item
+a. Nested lettered item
+b. Another nested lettered item
+3. Third numbered item
+
+Term 1:: Description of term 1
+Term 2:: Description of term 2
+Longer Term:: A longer description of this term that provides more detail
+
+<1> First callout description
+<2> Second callout description
+<10> Double-digit callout
