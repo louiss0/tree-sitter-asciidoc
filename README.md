@@ -2,9 +2,12 @@
 
 🚀 **Production-Ready** Tree-sitter grammar for [AsciiDoc](https://asciidoc.org/) - A comprehensive parser supporting the full spectrum of AsciiDoc document formatting.
 
+[![CI](https://github.com/louiss0/tree-sitter-asciidoc/actions/workflows/ci.yml/badge.svg)](https://github.com/louiss0/tree-sitter-asciidoc/actions/workflows/ci.yml)
 [![Performance](https://img.shields.io/badge/Performance-1200%2B%20bytes%2Fms-brightgreen)](#performance)
 [![Features](https://img.shields.io/badge/Features-Complete%20Core%20Support-blue)](#features)
-[![Tests](https://img.shields.io/badge/Tests-Passing-success)](#development)
+[![Tests](https://img.shields.io/badge/Tests-Passing-success)](#testing)
+[![Release](https://img.shields.io/github/v/release/louiss0/tree-sitter-asciidoc)](https://github.com/louiss0/tree-sitter-asciidoc/releases)
+[![NPM](https://img.shields.io/npm/v/tree-sitter-asciidoc)](https://www.npmjs.com/package/tree-sitter-asciidoc)
 
 ## 🎯 Complete AsciiDoc Support
 
@@ -273,6 +276,12 @@ npx tree-sitter parse example.adoc
 # Run full test suite
 npx tree-sitter test
 
+# Test syntax highlighting
+jpd run test:highlights
+
+# Update highlighting snapshots 
+jpd run test:highlights:update
+
 # Test specific corpus
 npx tree-sitter test --filter "inline_formatting"
 
@@ -283,16 +292,48 @@ npx tree-sitter parse -d example.adoc
 node scripts/benchmark.js
 ```
 
+#### Syntax Highlighting Tests
+
+This parser includes comprehensive syntax highlighting tests to ensure accurate code coloring:
+
+```bash
+# Quick test of all highlighting
+jpd run test:highlights
+
+# Manual testing of specific constructs
+tree-sitter query -c queries/highlights.scm test/highlight/cases/headings.adoc
+tree-sitter highlight --html examples/sample.adoc > output.html
+```
+
+**Test Coverage:**
+- ✅ **Document Structure**: Section titles and headings
+- ✅ **Attributes**: Document and local attributes
+- ✅ **Text Content**: Paragraphs and text segments  
+- ✅ **Lists**: All list types (unordered, ordered, description, callout)
+- ✅ **Conditional Content**: `ifdef::`, `ifndef::`, `ifeval::` directives
+
+*See [`test/highlight/README.md`](test/highlight/README.md) for detailed testing documentation.*
+
 ### Project Structure
 ```
 tree-sitter-asciidoc/
-├── grammar.js          # Main grammar definition
-├── src/               # Generated parser source
-├── test/corpus/       # Test cases
-├── examples/          # Example documents  
-├── queries/           # Syntax highlighting queries
-├── PERFORMANCE.md     # Benchmarks and optimization notes
-└── README.md         # This file
+├── grammar.js              # Main grammar definition
+├── src/                   # Generated parser source
+├── test/
+│   ├── corpus/           # Parser test cases
+│   └── highlight/        # Syntax highlighting tests
+│       ├── cases/        # Test fixture files
+│       ├── expected/     # Expected capture outputs
+│       ├── tools/        # Test runner scripts
+│       └── README.md     # Testing documentation
+├── examples/              # Example documents  
+├── queries/
+│   ├── highlights.scm    # Syntax highlighting rules
+│   └── folds.scm        # Code folding rules
+├── .github/
+│   └── workflows/        # CI/CD automation
+├── PERFORMANCE.md         # Benchmarks and optimization notes
+└── README.md             # This file
 ```
 
 ## 🤝 Contributing
