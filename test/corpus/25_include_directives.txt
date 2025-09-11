@@ -134,18 +134,18 @@ More text here.
 (source_file
   (section
     (section_title
-      title: (title))
-    (include_directive
-      path: (include_path)
-      options: (include_options)))
+      title: (title)))
+  (include_directive
+    path: (include_path)
+    options: (include_options))
   (section
     (section_title
-      title: (title))
-    (paragraph
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)))))
+      title: (title)))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Multiple includes
@@ -202,10 +202,14 @@ This should be a paragraph.
 (source_file
   (paragraph
     content: (text_with_inlines
+      (text_segment)
       (text_colon)
       (text_segment)))
   (paragraph
+    (metadata
+      (id_and_roles))
     content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (text_segment)
       (text_segment)
@@ -222,13 +226,12 @@ This should be a paragraph.
 --------------------------------------------------------------------------------
 
 (source_file
+  (ERROR
+    (include_path)
+    (include_options))
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (text_bracket)
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)

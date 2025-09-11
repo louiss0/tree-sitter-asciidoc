@@ -21,15 +21,42 @@ Basic Table
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
       (content_line)
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
       (content_line)
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))))
     close: (table_close
       (TABLE_FENCE_END))))
 
@@ -64,15 +91,42 @@ Table with Title and Metadata
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
       (content_line)
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
       (content_line)
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))))
     close: (table_close
       (TABLE_FENCE_END))))
 
@@ -100,16 +154,83 @@ Table with Cell Specifications - Spans and Formats
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
+      (table_row
+        (table_cell
+          (cell_spec
+            (format_spec))
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          (cell_spec
+            (format_spec))
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          (cell_spec
+            (format_spec))
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
       (content_line)
+      (table_row
+        (table_cell
+          (cell_spec
+            (span_spec))
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
       (content_line)
+      (table_row
+        (table_cell
+          (cell_spec
+            (format_spec))
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          (cell_spec
+            (format_spec))
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          (cell_spec
+            (format_spec))
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
       (content_line)
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line))
+      (table_row
+        (table_cell
+          (cell_spec
+            (span_spec))
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))))
     close: (table_close
       (TABLE_FENCE_END))))
 
@@ -128,14 +249,31 @@ Table with AsciiDoc Content in Cells
 
 (source_file
   (table_block
-    (table_open
+    open: (table_open
       (TABLE_FENCE_START))
-    (table_content
+    content: (table_content
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
       (content_line)
-      (content_line)
-      (content_line)
-      (content_line))
-    (table_close
+      (table_row
+        (table_cell
+          (cell_spec
+            (format_spec))
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))))
+    close: (table_close
       (TABLE_FENCE_END))))
 
 ================================================================================
@@ -149,9 +287,9 @@ Empty Table and Edge Cases
 
 (source_file
   (table_block
-    (table_open
+    open: (table_open
       (TABLE_FENCE_START))
-    (table_close
+    close: (table_close
       (TABLE_FENCE_END))))
 
 ================================================================================
@@ -170,13 +308,31 @@ Table with Empty Cells
 
 (source_file
   (table_block
-    (table_open
+    open: (table_open
       (TABLE_FENCE_START))
-    (table_content
+    content: (table_content
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
       (content_line)
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line))
-    (table_close
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))))
+    close: (table_close
       (TABLE_FENCE_END))))

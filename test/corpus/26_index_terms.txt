@@ -104,6 +104,7 @@ The (((PostgreSQL))) database system is powerful.
               primary: (index_term_text)))))
       (text_segment)
       (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -224,6 +225,9 @@ This indexterm[missing-colon] should be text.
     content: (text_with_inlines
       (text_segment)
       (text_segment)
+      (text_bracket)
+      (text_segment)
+      (text_segment)
       (text_segment)
       (text_segment))))
 
@@ -238,6 +242,7 @@ This ((incomplete)) should be text.
 (source_file
   (paragraph
     content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (text_segment)
       (text_segment)

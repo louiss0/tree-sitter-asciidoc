@@ -346,7 +346,7 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_angle_bracket)
@@ -356,12 +356,10 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
       (text_angle_bracket)
       (text_angle_bracket)
       (text_segment)
-      (text_angle_bracket)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+      (inline_element
+        (bibliography_reference
+          id: (bibliography_ref_id)
+          (MISSING ">>"))))))
 
 ================================================================================
 Malformed footnotes should be plain text

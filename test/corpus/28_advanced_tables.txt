@@ -469,9 +469,12 @@ Phone: *555-9012*
 --------------------------------------------------------------------------------
 
 (source_file
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_segment)))
   (table_block
     (metadata
-      (block_title)
       (id_and_roles))
     open: (table_open
       (TABLE_FENCE_START))
@@ -483,21 +486,11 @@ Phone: *555-9012*
           content: (cell_content
             (cell_literal_text)))
         (table_cell
-          (cell_spec
-            (format_spec))
           content: (cell_content
             (cell_literal_text)))
         (table_cell
           (cell_spec
-            (span_spec)
             (format_spec))
-          content: (cell_content
-            (cell_literal_text))))
-      (table_row
-        (table_cell
-          content: (cell_content
-            (cell_literal_text)))
-        (table_cell
           content: (cell_content
             (cell_literal_text)))
         (table_cell
@@ -506,30 +499,45 @@ Phone: *555-9012*
         (table_cell
           content: (cell_content
             (cell_literal_text))))
+      (content_line)
       (table_row
-        (table_cell
-          (cell_spec
-            (span_spec))
-          content: (cell_content
-            (cell_literal_text)))
-        (table_cell
-          content: (cell_content
-            (cell_literal_text)))
         (table_cell
           content: (cell_content
             (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
-            (cell_literal_text)))
+            (cell_literal_text))))
+      (table_row
         (table_cell
           content: (cell_content
-            (cell_literal_text)))
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      (content_line)
+      (table_row
         (table_cell
           (cell_spec
-            (span_spec)
             (format_spec))
           content: (cell_content
-            (cell_text_with_inlines)))))
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      (content_line))
     close: (table_close
       (TABLE_FENCE_END))))
