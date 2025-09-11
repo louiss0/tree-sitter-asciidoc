@@ -91,6 +91,61 @@
     }
   },
   {
+    "type": "anchor_text",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "asciimath_block",
+    "named": true,
+    "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "passthrough_close",
+            "named": true
+          }
+        ]
+      },
+      "content": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "math_content",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "passthrough_open",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "asciimath_block_label",
+          "named": true
+        },
+        {
+          "type": "metadata",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "attribute_entry",
     "named": true,
     "fields": {
@@ -110,6 +165,63 @@
         "types": [
           {
             "type": "value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bibliography_entry",
+    "named": true,
+    "fields": {
+      "citation": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "bibliography_citation",
+            "named": true
+          }
+        ]
+      },
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "bibliography_description",
+            "named": true
+          }
+        ]
+      },
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bibliography_id",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bibliography_id",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "bibliography_reference",
+    "named": true,
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bibliography_ref_id",
             "named": true
           }
         ]
@@ -175,6 +287,56 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "cell_content",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "cell_literal_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cell_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "format_spec",
+          "named": true
+        },
+        {
+          "type": "span_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "concealed_index_term",
+    "named": true,
+    "fields": {
+      "terms": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "index_text",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -370,6 +532,10 @@
           "named": true
         },
         {
+          "type": "bibliography_entry",
+          "named": true
+        },
+        {
           "type": "callout_list",
           "named": true
         },
@@ -386,11 +552,19 @@
           "named": true
         },
         {
+          "type": "include_directive",
+          "named": true
+        },
+        {
           "type": "listing_block",
           "named": true
         },
         {
           "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "math_block",
           "named": true
         },
         {
@@ -470,6 +644,10 @@
           "named": true
         },
         {
+          "type": "bibliography_entry",
+          "named": true
+        },
+        {
           "type": "callout_list",
           "named": true
         },
@@ -486,11 +664,19 @@
           "named": true
         },
         {
+          "type": "include_directive",
+          "named": true
+        },
+        {
           "type": "listing_block",
           "named": true
         },
         {
           "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "math_block",
           "named": true
         },
         {
@@ -570,6 +756,10 @@
           "named": true
         },
         {
+          "type": "bibliography_entry",
+          "named": true
+        },
+        {
           "type": "callout_list",
           "named": true
         },
@@ -586,11 +776,19 @@
           "named": true
         },
         {
+          "type": "include_directive",
+          "named": true
+        },
+        {
           "type": "listing_block",
           "named": true
         },
         {
           "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "math_block",
           "named": true
         },
         {
@@ -633,6 +831,123 @@
     }
   },
   {
+    "type": "include_directive",
+    "named": true,
+    "fields": {
+      "options": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "include_options",
+            "named": true
+          }
+        ]
+      },
+      "path": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "include_path",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "index_term",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concealed_index_term",
+          "named": true
+        },
+        {
+          "type": "index_term2_macro",
+          "named": true
+        },
+        {
+          "type": "index_term_macro",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "index_term2_macro",
+    "named": true,
+    "fields": {
+      "terms": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "index_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "index_term_macro",
+    "named": true,
+    "fields": {
+      "terms": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "index_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "index_text",
+    "named": true,
+    "fields": {
+      "primary": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "index_term_text",
+            "named": true
+          }
+        ]
+      },
+      "secondary": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "index_term_text",
+            "named": true
+          }
+        ]
+      },
+      "tertiary": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "index_term_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "inline_element",
     "named": true,
     "fields": {},
@@ -646,6 +961,10 @@
         },
         {
           "type": "auto_link",
+          "named": true
+        },
+        {
+          "type": "bibliography_reference",
           "named": true
         },
         {
@@ -674,6 +993,10 @@
         },
         {
           "type": "image",
+          "named": true
+        },
+        {
+          "type": "index_term",
           "named": true
         },
         {
@@ -732,6 +1055,56 @@
     }
   },
   {
+    "type": "latexmath_block",
+    "named": true,
+    "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "passthrough_close",
+            "named": true
+          }
+        ]
+      },
+      "content": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "math_content",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "passthrough_open",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "latexmath_block_label",
+          "named": true
+        },
+        {
+          "type": "metadata",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "line_break",
     "named": true,
     "fields": {}
@@ -783,6 +1156,10 @@
           "named": true
         },
         {
+          "type": "bibliography_entry",
+          "named": true
+        },
+        {
           "type": "callout_list",
           "named": true
         },
@@ -799,11 +1176,19 @@
           "named": true
         },
         {
+          "type": "include_directive",
+          "named": true
+        },
+        {
           "type": "listing_block",
           "named": true
         },
         {
           "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "math_block",
           "named": true
         },
         {
@@ -988,6 +1373,44 @@
       "types": [
         {
           "type": "LITERAL_FENCE_START",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "math_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "asciimath_block",
+          "named": true
+        },
+        {
+          "type": "latexmath_block",
+          "named": true
+        },
+        {
+          "type": "stem_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "math_content",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "math_line",
           "named": true
         }
       ]
@@ -1422,6 +1845,10 @@
           "named": true
         },
         {
+          "type": "bibliography_entry",
+          "named": true
+        },
+        {
           "type": "callout_list",
           "named": true
         },
@@ -1438,11 +1865,19 @@
           "named": true
         },
         {
+          "type": "include_directive",
+          "named": true
+        },
+        {
           "type": "listing_block",
           "named": true
         },
         {
           "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "math_block",
           "named": true
         },
         {
@@ -1598,6 +2033,10 @@
           "named": true
         },
         {
+          "type": "bibliography_entry",
+          "named": true
+        },
+        {
           "type": "callout_list",
           "named": true
         },
@@ -1614,11 +2053,19 @@
           "named": true
         },
         {
+          "type": "include_directive",
+          "named": true
+        },
+        {
           "type": "listing_block",
           "named": true
         },
         {
           "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "math_block",
           "named": true
         },
         {
@@ -1655,6 +2102,56 @@
         },
         {
           "type": "unordered_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "stem_block",
+    "named": true,
+    "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "passthrough_close",
+            "named": true
+          }
+        ]
+      },
+      "content": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "math_content",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "passthrough_open",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "metadata",
+          "named": true
+        },
+        {
+          "type": "stem_block_label",
           "named": true
         }
       ]
@@ -1770,6 +2267,32 @@
     }
   },
   {
+    "type": "table_cell",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "cell_content",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "cell_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "table_close",
     "named": true,
     "fields": {},
@@ -1795,6 +2318,10 @@
         {
           "type": "content_line",
           "named": true
+        },
+        {
+          "type": "table_row",
+          "named": true
         }
       ]
     }
@@ -1809,6 +2336,21 @@
       "types": [
         {
           "type": "TABLE_FENCE_START",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_row",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "table_cell",
           "named": true
         }
       ]
@@ -1966,7 +2508,19 @@
     }
   },
   {
+    "type": " ",
+    "named": false
+  },
+  {
     "type": " +",
+    "named": false
+  },
+  {
+    "type": "(((",
+    "named": false
+  },
+  {
+    "type": ")))",
     "named": false
   },
   {
@@ -1979,6 +2533,14 @@
   },
   {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": "<<",
+    "named": false
+  },
+  {
+    "type": ">>",
     "named": false
   },
   {
@@ -2058,11 +2620,19 @@
     "named": false
   },
   {
+    "type": "[[[",
+    "named": false
+  },
+  {
     "type": "]",
     "named": false
   },
   {
     "type": "]]",
+    "named": false
+  },
+  {
+    "type": "]]]",
     "named": false
   },
   {
@@ -2082,7 +2652,7 @@
     "named": true
   },
   {
-    "type": "anchor_text",
+    "type": "asciimath_block_label",
     "named": true
   },
   {
@@ -2091,6 +2661,18 @@
   },
   {
     "type": "auto_link",
+    "named": true
+  },
+  {
+    "type": "bibliography_citation",
+    "named": true
+  },
+  {
+    "type": "bibliography_description",
+    "named": true
+  },
+  {
+    "type": "bibliography_ref_id",
     "named": true
   },
   {
@@ -2103,6 +2685,10 @@
   },
   {
     "type": "bracketed_text",
+    "named": true
+  },
+  {
+    "type": "cell_literal_text",
     "named": true
   },
   {
@@ -2134,6 +2720,10 @@
     "named": true
   },
   {
+    "type": "format_spec",
+    "named": true
+  },
+  {
     "type": "id",
     "named": true
   },
@@ -2154,6 +2744,30 @@
     "named": true
   },
   {
+    "type": "include::",
+    "named": false
+  },
+  {
+    "type": "include_options",
+    "named": true
+  },
+  {
+    "type": "include_path",
+    "named": true
+  },
+  {
+    "type": "index_term_text",
+    "named": true
+  },
+  {
+    "type": "indexterm2:[",
+    "named": false
+  },
+  {
+    "type": "indexterm:[",
+    "named": false
+  },
+  {
     "type": "inline_anchor",
     "named": true
   },
@@ -2162,9 +2776,17 @@
     "named": true
   },
   {
+    "type": "latexmath_block_label",
+    "named": true
+  },
+  {
     "type": "line_comment",
     "named": true,
     "extra": true
+  },
+  {
+    "type": "math_line",
+    "named": true
   },
   {
     "type": "monospace_text",
@@ -2176,6 +2798,14 @@
   },
   {
     "type": "role_span",
+    "named": true
+  },
+  {
+    "type": "span_spec",
+    "named": true
+  },
+  {
+    "type": "stem_block_label",
     "named": true
   },
   {
@@ -2209,6 +2839,10 @@
   {
     "type": "value",
     "named": true
+  },
+  {
+    "type": "|",
+    "named": false
   },
   {
     "type": "~",

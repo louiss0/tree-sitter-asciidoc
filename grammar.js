@@ -103,6 +103,143 @@ module.exports = grammar({
     // Line comment
     line_comment: $ => token(seq('//', /[^\n]*/)),
 
+    // ========================================================================
+    // INCLUDE DIRECTIVES
+    // ========================================================================
+    
+    include_directive: $ => prec(PREC.ATTRIBUTE_ENTRY + 5, seq(
+      token(prec(PREC.ATTRIBUTE_ENTRY + 10, 'include::')),
+      field('path', $.include_path),
+      '[',
+      optional(field('options', $.include_options)),
+      ']',
+      $._newline
+    )),
+    
+    include_path: $ => token(/[^\[\r\n]+/),
+    include_options: $ => token(/[^\]\r\n]*/),
+
+    // ========================================================================
+    // INDEX TERMS
+    // ========================================================================
+    
+    index_term: $ => choice(
+      $.index_term_macro,
+      $.index_term2_macro,
+      $.concealed_index_term
+    ),
+    
+    // indexterm:[primary] and indexterm:[primary,secondary,tertiary]
+    index_term_macro: $ => seq(
+      token(prec(PREC.PASSTHROUGH + 5, 'indexterm:[')),
+      field('terms', $.index_text),
+      ']'
+    ),
+    
+    // indexterm2:[primary] - visible in text
+    index_term2_macro: $ => seq(
+      token(prec(PREC.PASSTHROUGH + 5, 'indexterm2:[')),
+      field('terms', $.index_text),
+      ']'
+    ),
+    
+    // (((primary))) and (((primary,secondary,tertiary)))
+    concealed_index_term: $ => seq(
+      token(prec(PREC.PASSTHROUGH + 5, '(((')),
+      field('terms', $.index_text),
+      token.immediate(')))'
+    ),
+    ),
+    
+    // Primary term with optional secondary and tertiary terms
+    index_text: $ => seq(
+      field('primary', $.index_term_text),
+      optional(seq(
+        ',',
+        field('secondary', $.index_term_text),
+        optional(seq(
+          ',',
+          field('tertiary', $.index_term_text)
+        ))
+      ))
+    ),
+    
+    index_term_text: $ => token(/[^,\)\]\r\n]+/),
+
+    // ========================================================================
+    // BIBLIOGRAPHY ENTRIES
+    // ========================================================================
+    
+    bibliography_entry: $ => prec(PREC.ATTRIBUTE_ENTRY + 10, seq(
+      token('[[['),
+      field('id', $.bibliography_id),
+      optional(seq(',', field('citation', $.bibliography_citation))),
+      ']]]',
+      optional(seq(' ', field('description', $.bibliography_description))),
+      $._newline
+    )),
+    
+    bibliography_id: $ => token(/[^,\]\r\n]+/),
+    bibliography_citation: $ => token(/[^\]\r\n]+/),
+    bibliography_description: $ => token(/[^\r\n]+/),
+    
+    // Bibliography reference in text (using existing cross-reference)
+    bibliography_reference: $ => seq(
+      '<<',
+      field('id', $.bibliography_ref_id),
+      '>>'
+    ),
+    
+    bibliography_ref_id: $ => token(/[^>\r\n]+/),
+
+    // ========================================================================
+    // MATH BLOCK FORMS
+    // ========================================================================
+    
+    math_block: $ => choice(
+      $.stem_block,
+      $.latexmath_block,
+      $.asciimath_block
+    ),
+    
+    // STEM block with [stem] attribute and ++++ delimiters
+    stem_block: $ => seq(
+      optional($.metadata),
+      $.stem_block_label,
+      $._newline,
+      field('open', $.passthrough_open),
+      optional(field('content', $.math_content)),
+      field('close', $.passthrough_close)
+    ),
+    
+    // LaTeX math block with [latexmath] attribute and ++++ delimiters
+    latexmath_block: $ => seq(
+      optional($.metadata),
+      $.latexmath_block_label,
+      $._newline,
+      field('open', $.passthrough_open),
+      optional(field('content', $.math_content)),
+      field('close', $.passthrough_close)
+    ),
+    
+    // AsciiMath block with [asciimath] attribute and ++++ delimiters
+    asciimath_block: $ => seq(
+      optional($.metadata),
+      $.asciimath_block_label,
+      $._newline,
+      field('open', $.passthrough_open),
+      optional(field('content', $.math_content)),
+      field('close', $.passthrough_close)
+    ),
+    
+    stem_block_label: $ => token('[stem]'),
+    latexmath_block_label: $ => token('[latexmath]'),
+    asciimath_block_label: $ => token('[asciimath]'),
+    
+    math_content: $ => repeat1(alias($.DELIMITED_BLOCK_CONTENT_LINE, $.math_line)),
+    math_line: $ => token(/[^\r\n]*\r?\n/),
+
+
   // All blocks - every block contains a trailing newline (like markdown)
   _block: $ => choice(
     $._block_not_section,
@@ -112,6 +249,8 @@ module.exports = grammar({
   _block_not_section: $ => choice(
     // High precedence blocks that should be matched before paragraphs
     prec(PREC.ATTRIBUTE_ENTRY, $.attribute_entry),
+    prec(PREC.ATTRIBUTE_ENTRY + 5, $.include_directive),
+    prec(PREC.ATTRIBUTE_ENTRY + 3, $.bibliography_entry),
     prec(PREC.LIST, $.unordered_list),
     prec(PREC.LIST, $.ordered_list), 
     prec(PREC.LIST, $.description_list),
@@ -125,6 +264,7 @@ module.exports = grammar({
     prec(PREC.DELIMITED_BLOCK, $.passthrough_block),
     prec(PREC.DELIMITED_BLOCK, $.open_block),
     prec(PREC.DELIMITED_BLOCK, $.table_block),
+    prec(PREC.DELIMITED_BLOCK, $.math_block),
     prec(PREC.ADMONITION, $.admonition_block),
     // Paragraphs have lowest precedence - fallback when nothing else matches
     prec(PREC.PARAGRAPH, $.paragraph)
@@ -308,7 +448,9 @@ module.exports = grammar({
       $.math_macro,
       $.pass_macro,
       $.block_image,
-      $.line_break
+      $.line_break,
+      $.index_term,
+      $.bibliography_reference
     ),
 
     // ========================================================================
@@ -655,7 +797,7 @@ module.exports = grammar({
     endif_directive: $ => token(prec(PREC.CONDITIONAL + 20, /endif::\[\][ \t]*\r?\n/)),
     
     // ========================================================================
-    // TABLE BLOCKS
+    // TABLE BLOCKS (ENHANCED)
     // ========================================================================
     
     table_block: $ => prec(PREC.PARAGRAPH + 10, seq(
@@ -668,9 +810,32 @@ module.exports = grammar({
     table_open: $ => $.TABLE_FENCE_START,
     table_close: $ => $.TABLE_FENCE_END,
     
-    // Table content uses regular content_line since tables have different fence handling
-    table_content: $ => repeat1($.content_line),
+    // Table content supports both simple and advanced table parsing
+    table_content: $ => repeat1(choice(
+      $.table_row,
+      $.content_line
+    )),
     
+    // Cell specifications: colspan.rowspan+format
+    cell_spec: $ => choice(
+      $.span_spec,
+      $.format_spec,
+      seq($.span_spec, $.format_spec)
+    ),
+    
+    // Span specifications: 2+ (colspan), .3+ (rowspan), 2.3+ (both)
+    span_spec: $ => token(prec(10, /[0-9]+\+|\.[0-9]+\+|[0-9]+\.[0-9]+\+/)),
+    
+    // Format specifications: a=asciidoc, l=literal, m=monospace, s=strong, e=emphasis, h=header, v=verse
+    format_spec: $ => token(prec(10, /[aelmshv]/)),
+    
+    // Cell content defaults to literal text
+    cell_content: $ => $.cell_literal_text,
+    
+    // Literal cell text for simple content
+    cell_literal_text: $ => token(/[^|\r\n]*/),
+    
+    // Enhanced table parsing that supports advanced cell specifications
     table_row: $ => seq(
       repeat1($.table_cell),
       $._newline
@@ -681,17 +846,6 @@ module.exports = grammar({
       optional($.cell_spec),
       optional(field('content', $.cell_content))
     ),
-    
-    cell_spec: $ => choice(
-      $.span_spec,
-      $.format_spec,
-      seq($.span_spec, $.format_spec)
-    ),
-    
-    span_spec: $ => token(/[0-9]+\*[0-9]*|[0-9]*\+[0-9]*/),
-    format_spec: $ => token(/[aehlsmdv]/),
-    
-    cell_content: $ => token(/[^|\r\n]*/),
     
     // ========================================================================
     // MISSING INLINE CONSTRUCTS
