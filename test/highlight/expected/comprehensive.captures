@@ -25,7 +25,7 @@ pattern: 69, capture: 22 - none, start: (9, 7), end: (9, 12), text: ` also`
 pattern: 69, capture: 22 - none, start: (9, 12), end: (9, 16), text: ` use`
 pattern: 69, capture: 22 - none, start: (9, 16), end: (9, 29), text: ` passthroughs`
 pattern: 69, capture: 22 - none, start: (9, 29), end: (9, 34), text: ` like`
-pattern: 20, capture: 6 - markup.raw, start: (9, 34), end: (9, 52), text: ` +++raw content+++`
+pattern: 21, capture: 6 - markup.raw, start: (9, 34), end: (9, 52), text: ` +++raw content+++`
 pattern: 69, capture: 22 - none, start: (9, 52), end: (9, 55), text: ` to`
 pattern: 69, capture: 22 - none, start: (9, 55), end: (9, 61), text: ` avoid`
 pattern: 69, capture: 22 - none, start: (9, 61), end: (9, 73), text: ` processing.`
@@ -41,9 +41,8 @@ pattern: 69, capture: 22 - none, start: (15, 3), end: (15, 5), text: ` a`
 pattern: 69, capture: 22 - none, start: (15, 5), end: (15, 10), text: ` link`
 pattern: 69, capture: 22 - none, start: (15, 10), end: (15, 16), text: ` macro`
 pattern: 70, capture: 22 - none, start: (15, 16), end: (15, 17), text: `:`
-pattern: 69, capture: 22 - none, start: (15, 17), end: (15, 22), text: ` link`
-pattern: 63, capture: 21 - comment, start: (15, 29), end: (15, 57), text: `//example.com[Example Site]
-`
+pattern: 14, capture: 10 - function.macro, start: (15, 17), end: (15, 56), text: ` link:https://example.com[Example Site]`
+pattern: 15, capture: 10 - function.macro, start: (15, 17), end: (15, 56), text: ` link:https://example.com[Example Site]`
 pattern: 69, capture: 22 - none, start: (17, 0), end: (17, 5), text: `Cross`
 pattern: 69, capture: 22 - none, start: (17, 5), end: (17, 15), text: ` reference`
 pattern: 70, capture: 22 - none, start: (17, 15), end: (17, 16), text: `:`
@@ -56,7 +55,7 @@ pattern: 69, capture: 22 - none, start: (19, 29), end: (19, 35), text: ` wrote`
 pattern: 69, capture: 22 - none, start: (19, 35), end: (19, 43), text: ` version`
 pattern: 2, capture: 3 - variable, start: (19, 43), end: (19, 53), text: ` {version}`
 pattern: 69, capture: 22 - none, start: (19, 53), end: (19, 54), text: `.`
-pattern: 15, capture: 11 - label, start: (21, 2), end: (21, 12), text: `my-section`
+pattern: 16, capture: 11 - label, start: (21, 2), end: (21, 12), text: `my-section`
 pattern: 0, capture: 0 - markup.heading, start: (22, 4), end: (22, 22), text: `Referenced Section`
 pattern: 69, capture: 22 - none, start: (24, 0), end: (24, 4), text: `This`
 pattern: 69, capture: 22 - none, start: (24, 4), end: (24, 12), text: ` section`
@@ -128,12 +127,8 @@ pattern: 39, capture: 2 - string, start: (70, 11), end: (70, 17), text: `Cell 2`
 pattern: 39, capture: 2 - string, start: (71, 1), end: (71, 10), text: `Cell 3 `
 pattern: 39, capture: 2 - string, start: (71, 11), end: (71, 17), text: `Cell 4`
 pattern: 0, capture: 0 - markup.heading, start: (74, 3), end: (74, 11), text: `Comments`
-pattern: 69, capture: 22 - none, start: (76, 0), end: (76, 2), text: `//`
-pattern: 69, capture: 22 - none, start: (76, 2), end: (76, 7), text: ` This`
-pattern: 69, capture: 22 - none, start: (76, 7), end: (76, 10), text: ` is`
-pattern: 69, capture: 22 - none, start: (76, 10), end: (76, 12), text: ` a`
-pattern: 69, capture: 22 - none, start: (76, 12), end: (76, 17), text: ` line`
-pattern: 69, capture: 22 - none, start: (76, 17), end: (76, 25), text: ` comment`
+pattern: 63, capture: 21 - comment, start: (76, 0), end: (77, 0), text: `// This is a line comment
+`
 pattern: 64, capture: 21 - comment, start: (78, 0), end: (83, 0), text: `////
 This is a 
 multi-line

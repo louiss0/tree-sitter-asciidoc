@@ -575,6 +575,10 @@
           "named": true
         },
         {
+          "type": "line_comment_block",
+          "named": true
+        },
+        {
           "type": "listing_block",
           "named": true
         },
@@ -691,6 +695,10 @@
           "named": true
         },
         {
+          "type": "line_comment_block",
+          "named": true
+        },
+        {
           "type": "listing_block",
           "named": true
         },
@@ -804,6 +812,10 @@
         },
         {
           "type": "include_directive",
+          "named": true
+        },
+        {
+          "type": "line_comment_block",
           "named": true
         },
         {
@@ -1137,6 +1149,11 @@
     "fields": {}
   },
   {
+    "type": "line_comment_block",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "link",
     "named": true,
     "fields": {
@@ -1152,7 +1169,7 @@
       },
       "url": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "auto_link",
@@ -1160,6 +1177,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "link_macro",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1208,6 +1235,10 @@
         },
         {
           "type": "include_directive",
+          "named": true
+        },
+        {
+          "type": "line_comment_block",
           "named": true
         },
         {
@@ -1904,6 +1935,10 @@
           "named": true
         },
         {
+          "type": "line_comment_block",
+          "named": true
+        },
+        {
           "type": "listing_block",
           "named": true
         },
@@ -2093,6 +2128,10 @@
         },
         {
           "type": "include_directive",
+          "named": true
+        },
+        {
+          "type": "line_comment_block",
           "named": true
         },
         {
@@ -2827,9 +2866,8 @@
     "named": true
   },
   {
-    "type": "line_comment",
-    "named": true,
-    "extra": true
+    "type": "link_macro",
+    "named": true
   },
   {
     "type": "math_line",

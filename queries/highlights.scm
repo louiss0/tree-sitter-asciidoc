@@ -59,6 +59,7 @@
 
 ; Link macros (link:url[text]) - treated as macros 
 (link) @function.macro
+(link_macro) @function.macro
 
 ; =============================================================================
 ; ANCHORS
@@ -83,7 +84,6 @@
 
 ; Triple plus passthroughs (+++content+++)
 (passthrough_triple_plus) @markup.raw
-(passthrough_triple_plus content: (_) @markup.raw)
 
 ; Pass macro (pass:[content])
 (pass_macro) @function.macro
@@ -194,7 +194,7 @@
 ; =============================================================================
 
 ; Line comments (// comment)
-(line_comment) @comment
+(line_comment_block) @comment
 
 ; Block comments (////)
 (block_comment) @comment
