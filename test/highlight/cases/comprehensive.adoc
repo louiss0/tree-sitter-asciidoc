@@ -1,0 +1,87 @@
+= Comprehensive AsciiDoc Test
+:author: Test User
+:version: 1.0.0
+:description: Testing all highlighting features
+
+== Inline Formatting
+
+This paragraph has *strong text*, _emphasis text_, `monospace text`, ^superscript^, and ~subscript~.
+
+You can also use passthroughs like +++raw content+++ to avoid processing.
+
+=== Links and References
+
+Here's an auto link: https://example.com
+
+And a link macro: link:https://example.com[Example Site]
+
+Cross reference: <<my-section>>
+
+Attribute reference: {author} wrote version {version}.
+
+[[my-section]]
+=== Referenced Section
+
+This section can be referenced above.
+
+== Admonitions
+
+NOTE: This is a note admonition.
+
+WARNING: This is a warning admonition.
+
+== Lists
+
+. First ordered item
+. Second ordered item
+.. Nested ordered item
+
+* First unordered item
+* Second unordered item
+** Nested unordered item
+
+Term:: Definition of term
+Another Term:: Another definition
+
+<1> First callout
+<2> Second callout
+
+== Blocks
+
+----
+This is a listing block
+def example():
+    return "code"
+----
+
+====
+This is an example block
+with multiple lines.
+====
+
+____
+This is a quote block.
+-- Attribution
+____
+
+== Tables
+
+|===
+|Header 1 |Header 2
+|Cell 1   |Cell 2
+|Cell 3   |Cell 4
+|===
+
+== Comments
+
+// This is a line comment
+
+////
+This is a 
+multi-line
+block comment
+////
+
+ifdef::debug[]
+This content is conditional
+endif::debug[]
