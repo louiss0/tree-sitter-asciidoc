@@ -1,0 +1,15 @@
+ifdef::debug[]
+This content appears when debug attribute is set.
+endif::debug[]
+
+ifndef::production[]
+This content appears when production attribute is NOT set.
+endif::production[]
+
+ifeval::["{version}" >= "2.0"]
+This content appears when version is 2.0 or higher.
+endif::[]
+
+ifdef::backend-html5[]
+HTML5 specific content here.
+endif::backend-html5[]
