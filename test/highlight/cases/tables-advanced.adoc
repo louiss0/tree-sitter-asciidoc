@@ -1,0 +1,56 @@
+= Advanced Tables Test
+
+== Basic Table
+
+|===
+|Name |Age |City
+
+|Alice |25 |New York
+|Bob |30 |London  
+|Charlie |35 |Tokyo
+|===
+
+== Table with Options
+
+[cols="1,2,3", options="header"]
+|===
+|Short |Medium |Wide
+
+|A |B |C
+|1 |2 |3
+|===
+
+== Table with Cell Specs
+
+|===
+|Normal |2+|Spans two columns
+|Left aligned |^|Center aligned |>|Right aligned
+
+|Regular cell |s|Strong cell |e|Emphasized cell
+|m|Monospace |a|AsciiDoc content |l|Literal content
+|===
+
+== Table with Format and Span Specs
+
+|===
+|Column 1 |Column 2 |Column 3
+
+|Regular |2*|Duplicated content
+|.2+|Spans 2 rows |Normal |Another normal
+|Still spanning |Last cell
+
+|3+^|Spans 3 columns, centered
+|===
+
+== Complex Table
+
+[cols="1,1,2", options="header,footer"]
+|===
+|ID |Name |Description
+
+|1 |Item A |First item description
+|2 |Item B |Second item description  
+|3 |Item C |Third item description
+
+3+|Total: 3 items
+|===

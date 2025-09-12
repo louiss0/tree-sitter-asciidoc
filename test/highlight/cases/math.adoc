@@ -1,0 +1,64 @@
+= Math Test
+
+== Inline Math
+
+The quadratic formula is stem:[x = (-b +- sqrt(b^2-4ac))/(2a)].
+
+LaTeX inline: latexmath:[\sum_{i=1}^n x_i = x_1 + x_2 + \cdots + x_n]
+
+AsciiMath inline: asciimath:[sum_(i=1)^n x_i = (n(n+1))/2]
+
+== Math Blocks
+
+[stem]
+++++
+sqrt(4) = 2
+
+sum_(i=1)^n i = (n(n+1))/2
+++++
+
+[latexmath]
+++++
+\begin{align}
+f(x) &= ax^2 + bx + c \\
+     &= a(x^2 + \frac{b}{a}x) + c \\
+     &= a(x + \frac{b}{2a})^2 - \frac{b^2}{4a} + c
+\end{align}
+++++
+
+[asciimath]
+++++
+int_0^oo e^(-x^2) dx = sqrt(pi)/2
+
+sum_(k=1)^n k^2 = (n(n+1)(2n+1))/6
+++++
+
+== Mixed Math Content
+
+Einstein's famous equation: stem:[E = mc^2]
+
+The Pythagorean theorem states that latexmath:[a^2 + b^2 = c^2].
+
+For series: asciimath:[sum_(n=1)^oo 1/n^2 = pi^2/6]
+
+[stem]
+++++
+d/dx[x^n] = nx^(n-1)
+
+int x^n dx = x^(n+1)/(n+1) + C
+++++
+
+== Complex Mathematical Expressions
+
+Integration by parts: latexmath:[\int u \, dv = uv - \int v \, du]
+
+Matrix multiplication: asciimath:[[[a,b],[c,d]] * [[x],[y]] = [[ax+by],[cx+dy]]]
+
+[latexmath]
+++++
+\begin{matrix}
+\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e \\
+\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s} \\
+\nabla \times \mathbf{F} = \left(\frac{\partial F_z}{\partial y} - \frac{\partial F_y}{\partial z}\right)\mathbf{i}
+\end{matrix}
+++++

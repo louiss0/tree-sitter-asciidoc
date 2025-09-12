@@ -24,9 +24,8 @@ Also check out http://test.org and ftp://files.com/download.
       (inline_element
         (auto_link))
       (text_segment)
-      (text_segment)
-      (text_colon)
-      (text_segment))))
+      (inline_element
+        (auto_link)))))
 ================================================================================
 Links with text
 ================================================================================

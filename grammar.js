@@ -76,7 +76,7 @@ module.exports = grammar({
 
   extras: $ => [
     /[ \t\f]+/,                // Horizontal whitespace only
-    $.line_comment,            // Line comments
+    // Note: line comments removed from extras to allow block-level parsing
   ],
 
   // supertypes: $ => [
@@ -100,8 +100,14 @@ module.exports = grammar({
     _newline: $ => token(prec(-1, choice('\r\n', '\n'))),
     _blank_line: $ => token(prec(-1, /[ \t\f]*\r?\n/)),
     
-    // Line comment
+    // Line comment token for extras (inline usage)
     line_comment: $ => token(seq('//', /[^\n]*/)),
+    
+    // Block-level line comment (standalone comment lines)
+    line_comment_block: $ => seq(
+      token(prec(10, seq('//', /[^\n]*/))),
+      $._newline
+    ),
     
     // Block comment - opaque content prevents internal syntax highlighting
     block_comment: $ => seq(
@@ -269,6 +275,7 @@ module.exports = grammar({
     prec(PREC.LIST, $.callout_list),
     prec.right(PREC.CONDITIONAL, $.conditional_block),
     prec(PREC.DELIMITED_BLOCK + 5, $.block_comment),
+    prec(PREC.ATTRIBUTE_ENTRY + 1, $.line_comment_block),
     prec(PREC.DELIMITED_BLOCK, $.example_block),
     prec(PREC.DELIMITED_BLOCK, $.listing_block),
     prec(PREC.DELIMITED_BLOCK, $.literal_block),
@@ -865,15 +872,23 @@ module.exports = grammar({
     // ========================================================================
     
     // Auto links - improved pattern to handle boundaries properly
-    auto_link: $ => token(prec(20, /https?:\/\/[^\s\[\]<>\),;!?]+/)),
+    auto_link: $ => token(prec(20, /(?:https?|ftp):\/\/[^\s\[\]<>\),;!?]+/)),
     
-    // Links with text 
-    link: $ => seq(
-      field('url', $.auto_link),
-      token.immediate('['),
-      optional(field('text', $.bracketed_text)),
-      token.immediate(']')
+    // Links with text - supports both auto-links and link macros
+    link: $ => choice(
+      // Auto-link format: https://example.com[text]
+      seq(
+        field('url', $.auto_link),
+        token.immediate('['),
+        optional(field('text', $.bracketed_text)),
+        token.immediate(']')
+      ),
+      // Link macro format: link:https://example.com[text]
+      $.link_macro
     ),
+    
+    // Link macro - link:target[text]
+    link_macro: $ => token(prec(25, /link:[^\[\r\n]+\[[^\]]*\]/)),
     
     // Images
     image: $ => token(prec(20, /image:[^\[\r\n]+\[[^\]]*\]/)),
