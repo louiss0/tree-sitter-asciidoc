@@ -1,0 +1,91 @@
+= Enhanced Attributes Test
+
+:my-attribute: This is a custom attribute
+:author-name: John Doe
+:version: 2.1.0
+:backend: html5
+:icons: font
+
+== Attribute References
+
+The author is {author-name} and the version is {version}.
+
+The custom value is {my-attribute}.
+
+== Attribute Unsets
+
+:!draft:
+:production!:
+
+== Conditional Attributes
+
+ifdef::production[]
+This is production content using {backend} backend.
+endif::[]
+
+ifndef::draft[]
+Final version {version} by {author-name}.
+endif::[]
+
+== Built-in Attributes
+
+Document title: {doctitle}
+
+Last updated: {docdatetime}
+
+Backend: {backend}
+
+== Attribute Assignment with Expressions
+
+:calculated: {version} Release
+:full-title: {doctitle} v{version}
+
+The full title is: {full-title}
+
+== Empty and Default Values
+
+:empty-attr:
+:default-attr: default value
+
+Empty: '{empty-attr}'
+Default: '{default-attr}'
+
+== Multi-line Attributes
+
+:long-description: This is a very long attribute \
+that spans multiple lines \
+for better readability.
+
+Description: {long-description}
+
+== Special Characters in Attributes
+
+:special-chars: Value with "quotes" and 'apostrophes'
+:unicode-attr: Spëcîál chãráctërs
+
+Special: {special-chars}
+Unicode: {unicode-attr}
+
+== Attribute Lists in Elements
+
+[id="custom-id", role="highlight", options="header"]
+.Titled Block
+====
+Block content with attributes.
+====
+
+[cols="1,2,1", options="header,footer"]
+|===
+|Column 1 |Column 2 |Column 3
+|Data 1   |Data 2   |Data 3
+|===
+
+== Counter Attributes
+
+:counter: step-counter
+:counter2: chapter-counter:A
+
+Step {counter}: First step
+Step {counter}: Second step  
+Chapter {counter2}: First chapter
+Chapter {counter2}: Second chapter
