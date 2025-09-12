@@ -21,24 +21,24 @@ $Colors = @{
 }
 
 function Write-ColorText($Text, $Color) {
-    Write-Host $Text -ForegroundColor $Colors[$Color]
+    Write-Host $Text -ForegroundColor $Color
 }
 
 function Write-Header($Text) {
     Write-Host ""
-    Write-ColorText "=" * 60 $Colors.Header
+    Write-ColorText ("=" * 60) $Colors.Header
     Write-ColorText $Text $Colors.Header
-    Write-ColorText "=" * 60 $Colors.Header
+    Write-ColorText ("=" * 60) $Colors.Header
 }
 
 # Get project root
 $ProjectRoot = (Get-Item $PSScriptRoot).Parent.Parent.Parent.FullName
-$TestDir = Join-Path $ProjectRoot "test" "highlight"
+$TestDir = Join-Path (Join-Path $ProjectRoot "test") "highlight"
 $CasesDir = Join-Path $TestDir "cases"
 $ExpectedDir = Join-Path $TestDir "expected"
 $ActualDir = Join-Path $TestDir ".actual"
 
-Write-Header "🔍 AsciiDoc Comprehensive Highlight Tests"
+Write-Header "AsciiDoc Comprehensive Highlight Tests"
 
 # Ensure directories exist
 if (!(Test-Path $ActualDir)) {
@@ -72,19 +72,19 @@ $NewEnhancedFiles = @(
 # Select files to test
 if ($OnlyNew) {
     $TestFiles = $NewEnhancedFiles
-    Write-ColorText "🎯 Testing only new enhanced files" $Colors.Info
+    Write-ColorText "Testing only new enhanced files" $Colors.Info
 } else {
     $TestFiles = $AllTestFiles + $NewEnhancedFiles
-    Write-ColorText "🔄 Testing all files (existing + new)" $Colors.Info
+    Write-ColorText "Testing all files (existing + new)" $Colors.Info
 }
 
 # Apply filter if specified
 if ($Filter) {
     $TestFiles = $TestFiles | Where-Object { $_ -like "*$Filter*" }
-    Write-ColorText "🔍 Filtered to: $($TestFiles -join ', ')" $Colors.Info
+    Write-ColorText "Filtered to: $($TestFiles -join ', ')" $Colors.Info
 }
 
-Write-ColorText "📋 Testing $($TestFiles.Count) file(s)" $Colors.Info
+Write-ColorText "Testing $($TestFiles.Count) file(s)" $Colors.Info
 
 # Check for tree-sitter
 $TreeSitterCmd = $null
@@ -93,11 +93,11 @@ if (Get-Command "tree-sitter" -ErrorAction SilentlyContinue) {
 } elseif (Test-Path "node_modules/.bin/tree-sitter.cmd") {
     $TreeSitterCmd = "node_modules/.bin/tree-sitter.cmd"
 } else {
-    Write-ColorText "⚠️ tree-sitter CLI not found. Install with: npm install -g tree-sitter-cli" $Colors.Warning
+    Write-ColorText "tree-sitter CLI not found. Install with: npm install -g tree-sitter-cli" $Colors.Warning
     exit 1
 }
 
-Write-ColorText "✅ Using tree-sitter: $TreeSitterCmd" $Colors.Success
+Write-ColorText "Using tree-sitter: $TreeSitterCmd" $Colors.Success
 
 # Test results tracking
 $TestResults = @{
@@ -114,10 +114,10 @@ foreach ($TestFile in $TestFiles) {
     $ActualPath = Join-Path $ActualDir ($TestFile.Replace('.adoc', '.captures'))
     
     Write-Host ""
-    Write-ColorText "🧪 Testing: $TestFile" $Colors.Info
+    Write-ColorText "Testing: $TestFile" $Colors.Info
     
     if (!(Test-Path $CasePath)) {
-        Write-ColorText "❌ Test case not found: $CasePath" $Colors.Error
+        Write-ColorText "Test case not found: $CasePath" $Colors.Error
         $TestResults.Failed += $TestFile
         continue
     }
@@ -126,19 +126,13 @@ foreach ($TestFile in $TestFiles) {
     try {
         Push-Location $ProjectRoot
         
-        $QueryFile = Join-Path $ProjectRoot "queries" "highlights.scm"
+        $QueryFile = Join-Path (Join-Path $ProjectRoot "queries") "highlights.scm"
         
-        # Try modern syntax first, fall back to older syntax
-        $CaptureOutput = ""
-        try {
-            $CaptureOutput = & $TreeSitterCmd query -f $CasePath $QueryFile 2>&1 | Out-String
-        } catch {
-            # Try alternative syntax
-            $CaptureOutput = & $TreeSitterCmd query $QueryFile $CasePath 2>&1 | Out-String
-        }
+        # Run tree-sitter query with captures
+        $CaptureOutput = & $TreeSitterCmd query --captures "$QueryFile" "$CasePath" 2>&1 | Out-String
         
         if ($LASTEXITCODE -ne 0) {
-            Write-ColorText "❌ tree-sitter query failed for $TestFile" $Colors.Error
+            Write-ColorText "tree-sitter query failed for $TestFile" $Colors.Error
             if ($Verbose) {
                 Write-ColorText $CaptureOutput $Colors.Error
             }
@@ -159,10 +153,10 @@ foreach ($TestFile in $TestFiles) {
             # Update or create expected file
             Copy-Item $ActualPath $ExpectedPath
             if (Test-Path $ExpectedPath) {
-                Write-ColorText "📝 Updated expected captures for $TestFile" $Colors.Warning
+                Write-ColorText "Updated expected captures for $TestFile" $Colors.Warning
                 $TestResults.Updated += $TestFile
             } else {
-                Write-ColorText "✨ Created expected captures for $TestFile" $Colors.Success
+                Write-ColorText "Created expected captures for $TestFile" $Colors.Success
                 $TestResults.NewFiles += $TestFile
             }
         } else {
@@ -171,10 +165,10 @@ foreach ($TestFile in $TestFiles) {
             $Actual = Get-Content $ActualPath -Raw
             
             if ($Expected -eq $Actual) {
-                Write-ColorText "✅ PASS - Captures match expected" $Colors.Success
+                Write-ColorText "PASS - Captures match expected" $Colors.Success
                 $TestResults.Passed += $TestFile
             } else {
-                Write-ColorText "❌ FAIL - Captures don't match expected" $Colors.Error
+                Write-ColorText "FAIL - Captures don't match expected" $Colors.Error
                 $TestResults.Failed += $TestFile
                 
                 if ($Verbose) {
@@ -186,7 +180,7 @@ foreach ($TestFile in $TestFiles) {
         }
         
     } catch {
-        Write-ColorText "❌ Error processing $TestFile`: $_" $Colors.Error
+        Write-ColorText "Error processing $TestFile : $_" $Colors.Error
         $TestResults.Failed += $TestFile
     } finally {
         Pop-Location
@@ -194,33 +188,33 @@ foreach ($TestFile in $TestFiles) {
 }
 
 # Summary
-Write-Header "📊 Test Results Summary"
+Write-Header "Test Results Summary"
 
 if ($TestResults.Passed.Count -gt 0) {
-    Write-ColorText "✅ PASSED ($($TestResults.Passed.Count)): $($TestResults.Passed -join ', ')" $Colors.Success
+    Write-ColorText "PASSED ($($TestResults.Passed.Count)): $($TestResults.Passed -join ', ')" $Colors.Success
 }
 
 if ($TestResults.Updated.Count -gt 0) {
-    Write-ColorText "📝 UPDATED ($($TestResults.Updated.Count)): $($TestResults.Updated -join ', ')" $Colors.Warning
+    Write-ColorText "UPDATED ($($TestResults.Updated.Count)): $($TestResults.Updated -join ', ')" $Colors.Warning
 }
 
 if ($TestResults.NewFiles.Count -gt 0) {
-    Write-ColorText "✨ NEW FILES ($($TestResults.NewFiles.Count)): $($TestResults.NewFiles -join ', ')" $Colors.Success
+    Write-ColorText "NEW FILES ($($TestResults.NewFiles.Count)): $($TestResults.NewFiles -join ', ')" $Colors.Success
 }
 
 if ($TestResults.Failed.Count -gt 0) {
-    Write-ColorText "❌ FAILED ($($TestResults.Failed.Count)): $($TestResults.Failed -join ', ')" $Colors.Error
+    Write-ColorText "FAILED ($($TestResults.Failed.Count)): $($TestResults.Failed -join ', ')" $Colors.Error
 }
 
 $TotalTests = $TestFiles.Count
 $TotalPassed = $TestResults.Passed.Count + $TestResults.Updated.Count + $TestResults.NewFiles.Count
 
 Write-Host ""
-Write-ColorText "📈 Overall: $TotalPassed/$TotalTests tests successful" $(if ($TestResults.Failed.Count -eq 0) { $Colors.Success } else { $Colors.Warning })
+Write-ColorText "Overall: $TotalPassed/$TotalTests tests successful" $(if ($TestResults.Failed.Count -eq 0) { $Colors.Success } else { $Colors.Warning })
 
 # Coverage info
 Write-Host ""
-Write-ColorText "🎯 Enhanced Coverage Summary:" $Colors.Info
+Write-ColorText "Enhanced Coverage Summary:" $Colors.Info
 Write-ColorText "   • Block fences and delimited blocks" $Colors.Info
 Write-ColorText "   • Conditional directives (ifdef/ifndef/ifeval)" $Colors.Info
 Write-ColorText "   • Advanced table specifications" $Colors.Info
@@ -233,9 +227,9 @@ Write-ColorText "   • Enhanced attribute handling" $Colors.Info
 
 Write-Host ""
 if ($TestResults.Failed.Count -eq 0) {
-    Write-ColorText "🎉 All tests passed! AsciiDoc highlighting is working excellently." $Colors.Success
+    Write-ColorText "All tests passed! AsciiDoc highlighting is working excellently." $Colors.Success
     exit 0
 } else {
-    Write-ColorText "🔧 Some tests failed. Use -Verbose for details, -Update to refresh expected captures." $Colors.Warning
+    Write-ColorText "Some tests failed. Use -Verbose for details, -Update to refresh expected captures." $Colors.Warning
     exit 1
 }

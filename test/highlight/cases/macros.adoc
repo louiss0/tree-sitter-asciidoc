@@ -2,63 +2,12 @@
 
 == UI Macros
 
-Press kbd:[Ctrl+C] to copy the selected text.
+Press kbd:[Ctrl+C] to copy text.
 
-Click the btn:[Save] button to save your changes.
-
-Navigate to menu:File[Save As] to save with a new name.
+Click the btn:[Save] button.
 
 == Link Macros
 
-Visit https://asciidoctor.org for more information.
+Visit https://asciidoctor.org for more.
 
-Check out link:https://docs.asciidoctor.org[AsciiDoc Documentation] for details.
-
-== Image Macros
-
-image::screenshot.png[Screenshot, 600, 400]
-
-.Figure Caption  
-image::diagram.svg[Class Diagram, align="center"]
-
-== Math Macros
-
-The quadratic formula is stem:[x = (-b +- sqrt(b^2-4ac))/(2a)].
-
-LaTeX inline: latexmath:[\sum_{i=1}^n x_i = x_1 + x_2 + \cdots + x_n]
-
-AsciiMath inline: asciimath:[sum_(i=1)^n x_i]
-
-== Footnotes
-
-This text has a footnote.footnote:[This is the footnote text]
-
-You can also reference footnotes.footnote:ref1[Referenced footnote]
-
-Later reference: footnoteref:ref1[]
-
-== Index Terms
-
-This sentence contains an ((index term)) that will be indexed.
-
-There's also (((hidden index term))) that won't appear in text.
-
-You can use indexterm:[primary] and indexterm2:[visible term] macros.
-
-Advanced indexing: indexterm:[Primary, Secondary, Tertiary]
-
-== Passthrough Macros
-
-Raw HTML: ++++<span class="special">HTML content</span>++++
-
-Pass macro: pass:[<u>underlined</u>] text.
-
-Substitution control: pass:q[*bold* _italic_] with quotes only.
-
-== Include Directives
-
-include::shared/header.adoc[]
-
-include::examples/code.rb[lines=1..10]
-
-include::config.json[tag=production]
+Check out link:https://docs.asciidoctor.org[Documentation].

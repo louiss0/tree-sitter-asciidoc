@@ -10,13 +10,14 @@
 (section_title (title) @markup.heading)
 
 ;; Level-specific heading captures based on the section hierarchy
-;; Uses the grammar's section nesting structure
-(_section1 (section_title (title) @markup.heading.1))
-(_section2 (section_title (title) @markup.heading.2)) 
-(_section3 (section_title (title) @markup.heading.3))
-(_section4 (section_title (title) @markup.heading.4))
-(_section5 (section_title (title) @markup.heading.5))
-(_section6 (section_title (title) @markup.heading.6))
+;; Note: The current grammar uses generic 'section' nodes
+;; Level differentiation would require grammar enhancement or depth-based matching
+;; (_section1 (section_title (title) @markup.heading.1))
+;; (_section2 (section_title (title) @markup.heading.2)) 
+;; (_section3 (section_title (title) @markup.heading.3))
+;; (_section4 (section_title (title) @markup.heading.4))
+;; (_section5 (section_title (title) @markup.heading.5))
+;; (_section6 (section_title (title) @markup.heading.6))
 
 ;; Heading marker tokens (when available as separate nodes)
 ;; Note: Currently integrated in heading tokens. Future grammar enhancement could expose:
@@ -196,14 +197,15 @@
 (description_item) @markup.list
 
 ;; List markers (external tokens) - high priority to ensure visibility
-(_LIST_UNORDERED_MARKER) @markup.list.marker
-(_LIST_ORDERED_MARKER) @markup.list.marker
-(DESCRIPTION_LIST_SEP) @markup.list.marker
-(#set! "priority" 105)
+;; Note: Current grammar may not expose these as separate nodes
+;; (_LIST_UNORDERED_MARKER) @markup.list.marker
+;; (_LIST_ORDERED_MARKER) @markup.list.marker
+;; (DESCRIPTION_LIST_SEP) @markup.list.marker
+;; (#set! "priority" 105)
 
 ;; List continuation markers
-(LIST_CONTINUATION) @punctuation.special
-(#set! "priority" 105)
+;; (LIST_CONTINUATION) @punctuation.special
+;; (#set! "priority" 105)
 
 ;; Callout lists
 (callout_item) @markup.list
