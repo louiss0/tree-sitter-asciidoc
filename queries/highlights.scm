@@ -156,16 +156,35 @@
 (block_image) @function.macro
 
 ;; =============================================================================
-;; PASSTHROUGHS
+;; PASSTHROUGHS - Enhanced delimiter and content highlighting
 ;; =============================================================================
 
-;; Triple plus passthroughs with delimiter highlighting
-(passthrough_triple_plus) @markup.raw
-;; Note: Content delimiters are token-based, need structured parsing for +++ markers
+;; Inline passthrough with triple plus (+++content+++)
+(passthrough_triple_plus) @markup.raw.inline
+(#set! "priority" 108)
 
-;; Pass macro (pass:[content])
+;; Pass macro variants (pass:[content] and pass:substitution[content])
 (pass_macro) @function.macro
 (#set! "priority" 108)
+
+;; Passthrough block content - already handled in DELIMITED BLOCKS section
+;; See passthrough_block content highlighting above
+
+;; Note: Current grammar uses token-based passthrough parsing:
+;; - passthrough_triple_plus: content wrapped in +++...+++
+;; - pass_macro: /pass:\[[^\]]*\]/ and /pass:[a-z,]*\[[^\]]*\]/
+;; - passthrough_block: block-level ++++...++++ delimiters
+;;
+;; Future enhancement: Component-level passthrough highlighting would enable:
+;; - Delimiter markers (+++) → @punctuation.special
+;; - Macro name (pass) → @function.macro
+;; - Passthrough content → @markup.raw.inline or @markup.raw.block
+;; - Substitution options → @attribute
+;; - Brackets → @punctuation.bracket
+;;
+;; Example structured queries:
+;; ((passthrough_inline (open) @punctuation.special (content) @markup.raw.inline (close) @punctuation.special))
+;; ((pass_macro (name) @function.macro (options) @attribute (content) @markup.raw.inline))
 
 ;; =============================================================================
 ;; LISTS
@@ -230,10 +249,30 @@
 ;; MACROS AND SPECIAL CONSTRUCTS
 ;; =============================================================================
 
-;; UI macros
+;; =============================================================================
+;; UI MACROS - Enhanced for interactive elements
+;; =============================================================================
+
+;; UI interaction macros - prioritized for visibility
 (ui_kbd) @function.macro
 (ui_btn) @function.macro 
 (ui_menu) @function.macro
+(#set! "priority" 108)
+
+;; Note: Current grammar uses token-based UI macro parsing:
+;; - ui_kbd: /kbd:\[[^\]]*\]/  - keyboard shortcuts (e.g., kbd:[Ctrl+C])
+;; - ui_btn: /btn:\[[^\]]*\]/  - UI buttons (e.g., btn:[Save])
+;; - ui_menu: /menu:[^\[\r\n]+\[[^\]]*\]/  - menu paths (e.g., menu:File[Save As])
+;;
+;; Future enhancement: Component-level UI macro highlighting would enable:
+;; - Macro names (kbd, btn, menu) → @function.macro
+;; - Button/key text → @string.special
+;; - Menu path separators (>, +) → @punctuation.delimiter
+;; - Brackets → @punctuation.bracket
+;;
+;; Example structured queries:
+;; ((ui_macro (name) @function.macro (text) @string.special))
+;; ((ui_menu (path_sep) @punctuation.delimiter))
 
 ;; Math macros and content - enhanced
 (math_macro) @function.macro
@@ -245,10 +284,30 @@
 (asciimath_block_label) @attribute
 (#set! "priority" 108)
 
-;; Footnotes
+;; =============================================================================
+;; FOOTNOTES - Enhanced component-level highlighting
+;; =============================================================================
+
+;; Footnote macros - all variants with consistent highlighting
 (footnote_inline) @function.macro
-(footnote_ref) @function.macro
+(footnote_ref) @function.macro  
 (footnoteref) @function.macro
+(#set! "priority" 108)
+
+;; Note: Current grammar uses token-based footnote parsing:
+;; - footnote_inline: /footnote:\[[^\]]*\]/ 
+;; - footnote_ref: /footnote:[A-Za-z0-9_-]+\[[^\]]*\]/
+;; - footnoteref: /footnoteref:[A-Za-z0-9_-]+\[[^\]]*\]/
+;;
+;; For enhanced component highlighting, the grammar would need structured parsing:
+;; - Macro names (footnote, footnoteref) → @function.macro
+;; - Footnote IDs → @label
+;; - Footnote text → @string
+;; - Brackets and colons → @punctuation.bracket, @punctuation.delimiter
+;; 
+;; Future enhancement example:
+;; ((footnote (name) @function.macro (id) @label (text) @string))
+;; ((footnote_brackets (open) @punctuation.bracket (close) @punctuation.bracket))
 
 ;; Index terms
 (index_term_macro) @function.macro
@@ -305,21 +364,15 @@
 ;; Would benefit from structured parsing to highlight role name vs content
 
 ;; =============================================================================
-;; ENHANCED MACRO CAPTURES
+;; MACROS - Comprehensive macro component highlighting
 ;; =============================================================================
 
-;; All macros get consistent priority for visibility
-(ui_kbd) @function.macro
-(ui_btn) @function.macro 
-(ui_menu) @function.macro
+;; All inline and block macros with consistent priority for visibility
 (image) @function.macro
 (block_image) @function.macro
 (link) @function.macro
 (link_macro) @function.macro
 (external_xref) @function.macro
-(footnote_inline) @function.macro
-(footnote_ref) @function.macro
-(footnoteref) @function.macro
 (index_term_macro) @function.macro
 (index_term2_macro) @function.macro
 (concealed_index_term) @function.macro
@@ -327,12 +380,27 @@
 (math_macro) @function.macro
 (#set! "priority" 108)
 
-;; Future enhancement: Structured macro parsing
+;; Note: Current grammar uses token-based macro parsing for most constructs:
+;; - link_macro: /link:[^\[\r\n]+\[[^\]]*\]/
+;; - image: /image:[^\[\r\n]+\[[^\]]*\]/  
+;; - ui_kbd: /kbd:\[[^\]]*\]/
+;; - ui_btn: /btn:\[[^\]]*\]/
+;; - ui_menu: /menu:[^\[\r\n]+\[[^\]]*\]/
+;; - math_macro: /stem:\[[^\]]*\]/, /latexmath:\[[^\]]*\]/, /asciimath:\[[^\]]*\]/
+;; - pass_macro: /pass:\[[^\]]*\]/
+;;
+;; Future enhancement: Structured macro parsing would enable component-level highlighting:
 ;; - Macro names: @function.macro
 ;; - Targets (URLs): @string.special.url
 ;; - Targets (paths): @string.special.path  
-;; - Attribute lists: keys @attribute, values @string
+;; - IDs/refs: @label
+;; - Attribute lists: keys @attribute, values @string/number, separators @punctuation.delimiter
 ;; - Brackets and colons: @punctuation.bracket, @punctuation.delimiter
+;;
+;; Example structured queries:
+;; ((inline_macro (name) @function.macro (target (url)) @string.special.url))
+;; ((inline_macro (name) @function.macro (target (path)) @string.special.path))
+;; ((macro_attributes (attribute (name) @attribute (value) @string)))
 
 ;; =============================================================================
 ;; TEXT CONTENT
