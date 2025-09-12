@@ -6,8 +6,22 @@
 ;; SECTION HEADINGS
 ;; =============================================================================
 
-;; Section titles - the title text itself
+;; Section titles with level-specific highlighting
+;; The grammar uses _heading1 through _heading6 tokens - these should be captured
 (section_title (title) @markup.heading)
+
+;; Enhanced heading captures for different levels (requires grammar token analysis)
+(section 
+  (section_title (title) @markup.heading.1))
+(#match? @markup.heading.1 "^= ")
+
+(section
+  (section_title (title) @markup.heading.2))
+(#match? @markup.heading.2 "^== ")
+
+(section
+  (section_title (title) @markup.heading.3))
+(#match? @markup.heading.3 "^=== ")
 
 ;; =============================================================================
 ;; DELIMITED BLOCKS
@@ -64,33 +78,33 @@
 ;; ATTRIBUTE ENTRIES AND REFERENCES
 ;; =============================================================================
 
-;; Attribute declarations (:name: value)
+;; Attribute declarations (:name: value) - use modern @attribute
 (attribute_entry
-  name: (name) @property
+  name: (name) @attribute
   value: (value) @string)
 
-;; Attribute references ({name})
-(attribute_reference) @variable
+;; Attribute references ({name}) - highlight braces and name separately  
+(attribute_reference) @attribute
 
 ;; =============================================================================
 ;; INLINE FORMATTING
 ;; =============================================================================
 
-;; Strong/bold text (*text*)
+;; Strong/bold text (*text*) - content only, delimiters handled by tokens
 (strong) @markup.strong
 (strong_constrained content: (strong_text) @markup.strong)
 
-;; Emphasis/italic text (_text_)
+;; Emphasis/italic text (_text_) - content only, delimiters handled by tokens
 (emphasis) @markup.italic  
 (emphasis_constrained content: (emphasis_text) @markup.italic)
 
-;; Monospace/code text (`text`)
-(monospace) @markup.raw
-(monospace_constrained content: (monospace_text) @markup.raw)
+;; Monospace/code text (`text`) - enhance to use raw.inline
+(monospace) @markup.raw.inline
+(monospace_constrained content: (monospace_text) @markup.raw.inline)
 
-;; Superscript (^text^) and subscript (~text~)
-(superscript content: (superscript_text) @markup.underline)
-(subscript content: (subscript_text) @markup.underline)
+;; Superscript (^text^) and subscript (~text~) - better semantic captures
+(superscript content: (superscript_text) @string.special)
+(subscript content: (subscript_text) @string.special)
 
 ;; =============================================================================
 ;; LINKS AND CROSS-REFERENCES
@@ -130,11 +144,13 @@
 ;; PASSTHROUGHS
 ;; =============================================================================
 
-;; Triple plus passthroughs (+++content+++)
+;; Triple plus passthroughs with delimiter highlighting
 (passthrough_triple_plus) @markup.raw
+;; Note: Content delimiters are token-based, need structured parsing for +++ markers
 
 ;; Pass macro (pass:[content])
 (pass_macro) @function.macro
+(#set! "priority" 108)
 
 ;; =============================================================================
 ;; LISTS
@@ -145,9 +161,19 @@
 (ordered_list_item) @markup.list 
 (description_item) @markup.list
 
+;; List markers (external tokens) - high priority to ensure visibility
+(_LIST_UNORDERED_MARKER) @markup.list.marker
+(_LIST_ORDERED_MARKER) @markup.list.marker
+(DESCRIPTION_LIST_SEP) @markup.list.marker
+(#set! "priority" 105)
+
+;; List continuation markers
+(LIST_CONTINUATION) @punctuation.special
+(#set! "priority" 105)
+
 ;; Callout lists
 (callout_item) @markup.list
-(callout_item marker: (CALLOUT_MARKER) @number)
+(callout_item marker: (CALLOUT_MARKER) @markup.list.marker)
 
 ;; =============================================================================
 ;; ADMONITIONS
@@ -164,11 +190,12 @@
 ;; CONDITIONAL DIRECTIVES
 ;; =============================================================================
 
-;; Conditional block directives
+;; Conditional block directives - higher priority to ensure visibility
 (ifdef_open) @keyword.directive
 (ifndef_open) @keyword.directive
 (ifeval_open) @keyword.directive
 (endif_directive) @keyword.directive
+(#set! "priority" 120)
 
 ;; =============================================================================
 ;; TABLES
@@ -177,10 +204,12 @@
 ;; Table cells
 (table_cell content: (cell_content) @string)
 
-;; Cell specifications (colspan, rowspan, format)
-(cell_spec) @property
-(span_spec) @number
-(format_spec) @type
+;; Cell specifications (colspan, rowspan, format) - enhanced
+(cell_spec) @operator
+(span_spec) @number  
+(format_spec) @operator
+
+;; Table fences already handled in DELIMITED BLOCKS section
 
 ;; =============================================================================
 ;; MACROS AND SPECIAL CONSTRUCTS
@@ -191,9 +220,15 @@
 (ui_btn) @function.macro 
 (ui_menu) @function.macro
 
-;; Math macros
+;; Math macros and content - enhanced
 (math_macro) @function.macro
-(math_content) @markup.raw.block
+(math_content) @markup.math
+
+;; Math block labels
+(stem_block_label) @attribute
+(latexmath_block_label) @attribute  
+(asciimath_block_label) @attribute
+(#set! "priority" 108)
 
 ;; Footnotes
 (footnote_inline) @function.macro
@@ -214,9 +249,10 @@
 (bibliography_entry description: (bibliography_description) @string)
 (bibliography_reference id: (bibliography_ref_id) @label)
 
-;; Include directives
+;; Include directives - enhanced priority
 (include_directive path: (include_path) @string.special.path)
-(include_directive options: (include_options) @property)
+(include_directive options: (include_options) @attribute)
+(#set! "priority" 118)
 
 ;; =============================================================================
 ;; COMMENTS
@@ -230,13 +266,13 @@
 (comment_line) @comment
 
 ;; =============================================================================
-;; METADATA AND ATTRIBUTES
+;; METADATA AND ATTRIBUTES  
 ;; =============================================================================
 
-;; Block metadata
-(block_title) @property
-(block_attributes) @property
-(id_and_roles) @property
+;; Block metadata - more granular highlighting
+(block_title) @markup.heading.marker
+(block_attributes) @attribute
+(id_and_roles) @attribute
 
 ;; =============================================================================
 ;; TEXT CONTENT
