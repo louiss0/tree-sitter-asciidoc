@@ -275,6 +275,38 @@
 (id_and_roles) @attribute
 
 ;; =============================================================================
+;; ROLE SPANS AND STYLING  
+;; =============================================================================
+
+;; Role spans - token-based, parse into components when possible
+(role_span) @punctuation.special
+;; Note: This is token-based currently: /\[[A-Za-z][A-Za-z0-9_.-]*\]#[^#\r\n]+#/
+;; Would benefit from structured parsing to highlight role name vs content
+
+;; =============================================================================
+;; ENHANCED MACRO CAPTURES
+;; =============================================================================
+
+;; All macros get consistent priority for visibility
+(ui_kbd) @function.macro
+(ui_btn) @function.macro 
+(ui_menu) @function.macro
+(image) @function.macro
+(block_image) @function.macro
+(link) @function.macro
+(link_macro) @function.macro
+(external_xref) @function.macro
+(footnote_inline) @function.macro
+(footnote_ref) @function.macro
+(footnoteref) @function.macro
+(index_term_macro) @function.macro
+(index_term2_macro) @function.macro
+(concealed_index_term) @function.macro
+(pass_macro) @function.macro
+(math_macro) @function.macro
+(#set! "priority" 108)
+
+;; =============================================================================
 ;; TEXT CONTENT
 ;; =============================================================================
 
@@ -286,3 +318,21 @@
 
 ;; Text with inlines containers - don't highlight the container itself
 ;; Let the inline elements be highlighted individually
+
+;; =============================================================================
+;; OPTIONAL LEGACY COMPATIBILITY
+;; =============================================================================
+
+;; For themes that don't support modern @markup.* captures, add minimal fallbacks
+;; These are duplicates with lower priority to avoid conflicts
+
+;; Legacy text formatting fallbacks
+(strong) @text.strong
+(emphasis) @text.emphasis
+(monospace) @text.literal
+(#set! "priority" 50)
+
+;; Legacy markup fallbacks 
+(section_title (title) @text.title)
+(block_content) @text.literal
+(#set! "priority" 50)
