@@ -1,0 +1,13 @@
+= Macros Test
+
+== UI Macros
+
+Press kbd:[Ctrl+C] to copy text.
+
+Click the btn:[Save] button.
+
+== Link Macros
+
+Visit https://asciidoctor.org for more.
+
+Check out link:https://docs.asciidoctor.org[Documentation].

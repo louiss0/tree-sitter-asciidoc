@@ -1,0 +1,57 @@
+= Delimited Blocks Test
+
+== Example Block
+
+[source,java]
+====
+System.out.println("Example block content");
+====
+
+== Listing Block
+
+----
+console.log("Listing block content");
+----
+
+== Literal Block
+
+....
+This is literal text
+with preserved formatting.
+....
+
+== Quote Block
+
+____
+"This is a quoted text"
+-- Author
+____
+
+== Sidebar Block
+
+****
+This is sidebar content
+with additional information.
+****
+
+== Passthrough Block
+
+++++
+<p>Raw HTML content</p>
+++++
+
+== Open Block
+
+--
+This is an open block
+with flexible content.
+--
+
+== Table Block
+
+|===
+|Header 1 |Header 2 |Header 3
+
+|Cell 1   |Cell 2   |Cell 3
+|Cell 4   |Cell 5   |Cell 6
+|===
