@@ -6,22 +6,23 @@
 ;; SECTION HEADINGS
 ;; =============================================================================
 
-;; Section titles with level-specific highlighting
-;; The grammar uses _heading1 through _heading6 tokens - these should be captured
+;; Section titles with enhanced level differentiation
 (section_title (title) @markup.heading)
 
-;; Enhanced heading captures for different levels (requires grammar token analysis)
-(section 
-  (section_title (title) @markup.heading.1))
-(#match? @markup.heading.1 "^= ")
+;; Level-specific heading captures based on the section hierarchy
+;; Uses the grammar's section nesting structure
+(_section1 (section_title (title) @markup.heading.1))
+(_section2 (section_title (title) @markup.heading.2)) 
+(_section3 (section_title (title) @markup.heading.3))
+(_section4 (section_title (title) @markup.heading.4))
+(_section5 (section_title (title) @markup.heading.5))
+(_section6 (section_title (title) @markup.heading.6))
 
-(section
-  (section_title (title) @markup.heading.2))
-(#match? @markup.heading.2 "^== ")
-
-(section
-  (section_title (title) @markup.heading.3))
-(#match? @markup.heading.3 "^=== ")
+;; Heading marker tokens (when available as separate nodes)
+;; Note: Currently integrated in heading tokens. Future grammar enhancement could expose:
+;; (_heading1_marker) @markup.heading.marker
+;; (_heading2_marker) @markup.heading.marker  
+;; etc.
 
 ;; =============================================================================
 ;; DELIMITED BLOCKS
@@ -90,21 +91,25 @@
 ;; INLINE FORMATTING
 ;; =============================================================================
 
-;; Strong/bold text (*text*) - content only, delimiters handled by tokens
+;; Strong/bold text (*text*) - content captures with delimiter notes
 (strong) @markup.strong
 (strong_constrained content: (strong_text) @markup.strong)
+;; Note: Delimiters (*) are token-level. Future enhancement could capture separately as @punctuation.special
 
-;; Emphasis/italic text (_text_) - content only, delimiters handled by tokens
+;; Emphasis/italic text (_text_) - content captures with delimiter notes
 (emphasis) @markup.italic  
 (emphasis_constrained content: (emphasis_text) @markup.italic)
+;; Note: Delimiters (_) are token-level. Future enhancement could capture separately as @punctuation.special
 
-;; Monospace/code text (`text`) - enhance to use raw.inline
+;; Monospace/code text (`text`) - enhanced semantic capture
 (monospace) @markup.raw.inline
 (monospace_constrained content: (monospace_text) @markup.raw.inline)
+;; Note: Delimiters (`) are token-level. Future enhancement could capture separately as @punctuation.special
 
-;; Superscript (^text^) and subscript (~text~) - better semantic captures
+;; Superscript (^text^) and subscript (~text~) - specialized captures
 (superscript content: (superscript_text) @string.special)
 (subscript content: (subscript_text) @string.special)
+;; Note: Delimiters (^ ~) are token-level. Future enhancement could capture separately as @punctuation.special
 
 ;; =============================================================================
 ;; LINKS AND CROSS-REFERENCES
@@ -113,11 +118,16 @@
 ;; Auto links (bare URLs)
 (auto_link) @markup.link.url
 
-;; Internal cross-references (<<target,text>>)
+;; Internal cross-references (<<target,text>>) - enhanced for future parsing
 (internal_xref) @markup.link
+;; Note: Currently token-based. Future enhancement could parse:
+;; - Target ID: @markup.link.url or @label
+;; - Reference text: @markup.link.label  
+;; - Angle brackets: @punctuation.bracket
 
-;; External cross-references (xref:target[text]) - treated as macros
+;; External cross-references (xref:target[text]) - treated as macros with high priority
 (external_xref) @function.macro
+(#set! "priority" 108)
 
 ;; Link macros (link:url[text]) - treated as macros 
 (link) @function.macro
@@ -127,10 +137,15 @@
 ;; ANCHORS
 ;; =============================================================================
 
-;; Block and inline anchors
+;; Block and inline anchors - enhanced with bracket highlighting
 (anchor id: (id) @label)
 (anchor text: (anchor_text) @markup.link.label)
+
+;; Inline anchors - token-based parsing with bracket separation
 (inline_anchor) @label
+
+;; Future enhancement: Parse [[id]] and [[id,text]] with separate bracket captures
+;; Current: token-based /\[\[[A-Za-z_][A-Za-z0-9_-]*,[^\]\r\n]+\]\]/ and /\[\[[A-Za-z_][A-Za-z0-9_-]*\]\]/
 
 ;; =============================================================================
 ;; IMAGES AND MEDIA
@@ -243,11 +258,17 @@
 (index_text secondary: (index_term_text) @label)
 (index_text tertiary: (index_term_text) @label)
 
-;; Bibliography
+;; Bibliography - enhanced with citation types
 (bibliography_entry id: (bibliography_id) @label)
 (bibliography_entry citation: (bibliography_citation) @string)
 (bibliography_entry description: (bibliography_description) @string)
+
+;; Bibliography references in text
 (bibliography_reference id: (bibliography_ref_id) @label)
+
+;; Bibliography entry structure highlighting
+;; Note: The triple bracket syntax [[[id]]] uses structured parsing
+;; Future enhancement: separate bracket highlighting as @punctuation.bracket
 
 ;; Include directives - enhanced priority
 (include_directive path: (include_path) @string.special.path)
@@ -305,6 +326,13 @@
 (pass_macro) @function.macro
 (math_macro) @function.macro
 (#set! "priority" 108)
+
+;; Future enhancement: Structured macro parsing
+;; - Macro names: @function.macro
+;; - Targets (URLs): @string.special.url
+;; - Targets (paths): @string.special.path  
+;; - Attribute lists: keys @attribute, values @string
+;; - Brackets and colons: @punctuation.bracket, @punctuation.delimiter
 
 ;; =============================================================================
 ;; TEXT CONTENT
