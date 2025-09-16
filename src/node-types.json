@@ -403,7 +403,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "emphasis_constrained",
@@ -416,12 +416,32 @@
     "type": "emphasis_constrained",
     "named": true,
     "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "emphasis_close",
+            "named": true
+          }
+        ]
+      },
       "content": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "emphasis_text",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "emphasis_open",
             "named": true
           }
         ]
@@ -1516,7 +1536,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "monospace_constrained",
@@ -1529,12 +1549,32 @@
     "type": "monospace_constrained",
     "named": true,
     "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "monospace_close",
+            "named": true
+          }
+        ]
+      },
       "content": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "monospace_text",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "monospace_open",
             "named": true
           }
         ]
@@ -2241,7 +2281,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "strong_constrained",
@@ -2254,12 +2294,32 @@
     "type": "strong_constrained",
     "named": true,
     "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "strong_close",
+            "named": true
+          }
+        ]
+      },
       "content": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "strong_text",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "strong_open",
             "named": true
           }
         ]
@@ -2270,12 +2330,32 @@
     "type": "subscript",
     "named": true,
     "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "subscript_close",
+            "named": true
+          }
+        ]
+      },
       "content": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "subscript_text",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "subscript_open",
             "named": true
           }
         ]
@@ -2286,12 +2366,32 @@
     "type": "superscript",
     "named": true,
     "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "superscript_close",
+            "named": true
+          }
+        ]
+      },
       "content": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "superscript_text",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "superscript_open",
             "named": true
           }
         ]
@@ -2476,22 +2576,6 @@
         {
           "type": "text_segment",
           "named": true
-        },
-        {
-          "type": "unconstrained_emphasis",
-          "named": true
-        },
-        {
-          "type": "unconstrained_monospace",
-          "named": true
-        },
-        {
-          "type": "unconstrained_passthrough",
-          "named": true
-        },
-        {
-          "type": "unconstrained_strong",
-          "named": true
         }
       ]
     }
@@ -2523,26 +2607,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "unconstrained_emphasis",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "unconstrained_monospace",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "unconstrained_passthrough",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "unconstrained_strong",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "unordered_list",
@@ -2599,10 +2663,6 @@
   },
   {
     "type": ")))",
-    "named": false
-  },
-  {
-    "type": "*",
     "named": false
   },
   {
@@ -2718,18 +2778,6 @@
     "named": false
   },
   {
-    "type": "^",
-    "named": false
-  },
-  {
-    "type": "_",
-    "named": false
-  },
-  {
-    "type": "`",
-    "named": false
-  },
-  {
     "type": "admonition_label",
     "named": true
   },
@@ -2779,6 +2827,14 @@
   },
   {
     "type": "content_line",
+    "named": true
+  },
+  {
+    "type": "emphasis_close",
+    "named": true
+  },
+  {
+    "type": "emphasis_open",
     "named": true
   },
   {
@@ -2874,6 +2930,14 @@
     "named": true
   },
   {
+    "type": "monospace_close",
+    "named": true
+  },
+  {
+    "type": "monospace_open",
+    "named": true
+  },
+  {
     "type": "monospace_text",
     "named": true
   },
@@ -2894,11 +2958,35 @@
     "named": true
   },
   {
+    "type": "strong_close",
+    "named": true
+  },
+  {
+    "type": "strong_open",
+    "named": true
+  },
+  {
     "type": "strong_text",
     "named": true
   },
   {
+    "type": "subscript_close",
+    "named": true
+  },
+  {
+    "type": "subscript_open",
+    "named": true
+  },
+  {
     "type": "subscript_text",
+    "named": true
+  },
+  {
+    "type": "superscript_close",
+    "named": true
+  },
+  {
+    "type": "superscript_open",
     "named": true
   },
   {
@@ -2927,10 +3015,6 @@
   },
   {
     "type": "|",
-    "named": false
-  },
-  {
-    "type": "~",
     "named": false
   }
 ]

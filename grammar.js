@@ -478,42 +478,27 @@ module.exports = grammar({
     // ========================================================================
     
     // Strong formatting (bold) - wrapper for constrained/unconstrained
-    strong: $ => choice(
-      $.strong_constrained,
-      prec.left(token(/\*[^*\r\n]*\*/))  // Fallback for unclosed
-    ),
+    strong: $ => $.strong_constrained,
     
     // Emphasis formatting (italic) - wrapper for constrained/unconstrained
-    emphasis: $ => choice(
-      $.emphasis_constrained,
-      prec.left(token(/_[^_\r\n]*_/))  // Fallback for unclosed
-    ),
+    emphasis: $ => $.emphasis_constrained,
     
     // Monospace formatting (code) - wrapper for constrained/unconstrained
-    monospace: $ => choice(
-      $.monospace_constrained,
-      prec.left(token(/`[^`\r\n]*`/))  // Fallback for unclosed
-    ),
+    monospace: $ => $.monospace_constrained,
     
     // Superscript - ^text^
-    superscript: $ => choice(
-      prec(PREC.SUPERSCRIPT, seq(
-        token('^'),
-        field('content', alias(token.immediate(/[^\^\r\n]+/), $.superscript_text)),
-        token.immediate('^')
-      )),
-      prec.left(token(/\^[^\^\r\n]*\^/))  // Fallback
-    ),
+    superscript: $ => prec(PREC.SUPERSCRIPT + 1, seq(
+      field('open', $.superscript_open),
+      field('content', alias(token.immediate(/[^\^\r\n]+/), $.superscript_text)),
+      field('close', $.superscript_close)
+    )),
     
     // Subscript - ~text~
-    subscript: $ => choice(
-      prec(PREC.SUBSCRIPT, seq(
-        token('~'),
-        field('content', alias(token.immediate(/[^~\r\n]+/), $.subscript_text)),
-        token.immediate('~')
-      )),
-      prec.left(token(/~[^~\r\n]*~/))  // Fallback
-    ),
+    subscript: $ => prec(PREC.SUBSCRIPT + 1, seq(
+      field('open', $.subscript_open),
+      field('content', alias(token.immediate(/[^~\r\n]+/), $.subscript_text)),
+      field('close', $.subscript_close)
+    )),
 
     // ========================================================================
     // INLINE ELEMENTS - Anchors, Cross-references, Footnotes
@@ -561,11 +546,7 @@ module.exports = grammar({
       $.text_segment,
       $.text_colon,
       $.text_angle_bracket,
-      $.text_bracket,
-      $.unconstrained_strong,
-      $.unconstrained_emphasis,
-      $.unconstrained_monospace,
-      $.unconstrained_passthrough
+      $.text_bracket
     ),
     
     // Match individual words/tokens for inline parsing - exclude colons to preserve attribute entries
@@ -582,11 +563,6 @@ module.exports = grammar({
     // Fallback for single brackets when not part of role spans or attributes
     text_bracket: $ => prec(PREC.TEXT - 3, token(choice('[', ']'))),
     
-    // Unconstrained formatting (fallback when constrained fails)
-    unconstrained_strong: $ => prec.left(token(/\*[^\s*].*?\*/)),
-    unconstrained_emphasis: $ => prec.left(token(/_[^\s_].*?_/)),
-    unconstrained_monospace: $ => prec.left(token(/`[^\s`].*?`/)),
-    unconstrained_passthrough: $ => prec.left(token(/\+[^\s+].*?\+/)),
 
     // ========================================================================
     // DELIMITED BLOCKS
@@ -951,22 +927,42 @@ module.exports = grammar({
     
     // Constrained formatting variants - improved to avoid MISSING tokens
     strong_constrained: $ => prec(PREC.STRONG, seq(
-      token('*'),
+      field('open', $.strong_open),
       field('content', alias(token.immediate(/[^*\r\n]+/), $.strong_text)),
-      optional(token.immediate('*'))
+      field('close', $.strong_close)
     )),
     
     emphasis_constrained: $ => prec(PREC.EMPHASIS, seq(
-      token('_'),
+      field('open', $.emphasis_open),
       field('content', alias(token.immediate(/[^_\r\n]+/), $.emphasis_text)),
-      optional(token.immediate('_'))
+      field('close', $.emphasis_close)
     )),
     
     monospace_constrained: $ => prec(PREC.MONOSPACE, seq(
-      token('`'),
+      field('open', $.monospace_open),
       field('content', alias(token.immediate(/[^`\r\n]+/), $.monospace_text)),
-      token.immediate('`')
+      field('close', $.monospace_close)
     )),
+    
+    // ========================================================================
+    // DELIMITER TOKENS
+    // ========================================================================
+    
+    // Delimiter tokens for inline formatting
+    strong_open: $ => token('*'),
+    strong_close: $ => token.immediate('*'),
+    
+    emphasis_open: $ => token('_'),
+    emphasis_close: $ => token.immediate('_'),
+    
+    monospace_open: $ => token('`'),
+    monospace_close: $ => token.immediate('`'),
+    
+    superscript_open: $ => token('^'),
+    superscript_close: $ => token.immediate('^'),
+    
+    subscript_open: $ => token('~'),
+    subscript_close: $ => token.immediate('~'),
     
     // ========================================================================
     // EXTERNAL TOKEN RULES
