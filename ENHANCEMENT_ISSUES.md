@@ -123,18 +123,21 @@ This document tracks potential enhancements and improvements for the Tree-sitter
 
 ---
 
-### 8. Nested Inline Format Highlighting
-**Priority**: Medium  
-**Description**: Improve highlighting of nested inline formatting constructs.
+### 8. ✅ Inline Formatting Delimiter Separation **[IMPLEMENTED]**
+**Priority**: ~~Medium~~ **COMPLETED**  
+**Description**: ~~Improve highlighting of nested inline formatting constructs.~~ **Separate inline formatting delimiters from content in AST.**
 
-**Current Implementation**: Basic highlighting for individual formatting elements.
+**Implementation Status**: ✅ **COMPLETED** - Inline formatting delimiters are now parsed as separate AST nodes.
 
-**Enhancement**:
-- Better handling of nested formatting (e.g., `*bold _and italic_*`)
-- Proper precedence for overlapping formats
-- Special handling for constrained vs. unconstrained formatting
+**What Changed**:
+- Strong (`*text*`), emphasis (`_text_`), monospace (`` `text` ``), superscript (`^text^`), and subscript (`~text~`) now use structured parsing
+- Delimiters are exposed as separate `*_open` and `*_close` nodes (e.g., `strong_open`, `strong_close`)
+- Content is captured separately (e.g., `strong_text`)
+- Updated syntax highlighting queries to highlight delimiters as `@punctuation.special` and content with appropriate markup captures
 
-**Benefits**: More accurate representation of complex inline formatting.
+**Breaking Change**: AST structure for inline formatting nodes has changed. Tools relying on the old node shapes will need updates.
+
+**Benefits Achieved**: Enhanced syntax highlighting granularity, better theme customization, improved tooling support for delimiter-based operations.
 
 ---
 
