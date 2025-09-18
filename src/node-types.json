@@ -1689,10 +1689,14 @@
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "list_item_continuation",
+          "named": true
+        },
+        {
+          "type": "ordered_list_marker",
           "named": true
         }
       ]
@@ -2640,10 +2644,14 @@
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "list_item_continuation",
+          "named": true
+        },
+        {
+          "type": "unordered_list_marker",
           "named": true
         }
       ]
@@ -2946,6 +2954,10 @@
     "named": true
   },
   {
+    "type": "ordered_list_marker",
+    "named": true
+  },
+  {
     "type": "role_span",
     "named": true
   },
@@ -3007,6 +3019,10 @@
   },
   {
     "type": "ui_menu",
+    "named": true
+  },
+  {
+    "type": "unordered_list_marker",
     "named": true
   },
   {

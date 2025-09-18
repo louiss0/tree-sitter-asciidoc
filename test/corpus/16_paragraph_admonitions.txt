@@ -116,7 +116,11 @@ NOTE: This note contains *bold text* and other formatting.
         (text_segment)
         (text_segment)
         (inline_element
-          (strong))
+          (strong
+            (strong_constrained
+              open: (strong_open)
+              content: (strong_text)
+              close: (strong_close))))
         (text_segment)
         (text_segment)
         (text_segment)))))
@@ -135,8 +139,7 @@ NOTE:
       label: (admonition_label)
       content: (text_with_inlines
         (inline_element
-          (strong
-            (MISSING "strong_token1")))))))
+          (MISSING external_xref))))))
 
 ================================================================================
 Not an admonition - lowercase label

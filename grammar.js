@@ -27,11 +27,11 @@ const PREC = {
   PARAGRAPH: 70,             // Paragraphs
   // Inline element precedences (highest to lowest)
   PASSTHROUGH: 60,           // +++literal text+++
-  STRONG: 50,                // *text*
-  EMPHASIS: 45,              // _text_
-  MONOSPACE: 40,             // `code`
-  SUPERSCRIPT: 35,           // ^text^
-  SUBSCRIPT: 30,             // ~text~
+  STRONG: 20,                // *text* - lowered to give lists priority
+  EMPHASIS: 18,              // _text_ - lowered to give lists priority
+  MONOSPACE: 16,             // `code` - lowered to give lists priority
+  SUPERSCRIPT: 14,           // ^text^ - lowered to give lists priority
+  SUBSCRIPT: 12,             // ~text~ - lowered to give lists priority
   TEXT: 1,                   // plain text (lowest)
 };
 
@@ -267,7 +267,7 @@ module.exports = grammar({
     prec(PREC.ATTRIBUTE_ENTRY, $.attribute_entry),
     prec(PREC.ATTRIBUTE_ENTRY + 5, $.include_directive),
     prec(PREC.ATTRIBUTE_ENTRY + 3, $.bibliography_entry),
-    prec(PREC.LIST + 20, $.unordered_list),
+    prec(200, $.unordered_list),  // Extremely high precedence
     prec(PREC.LIST, $.ordered_list), 
     prec(PREC.LIST, $.description_list),
     prec(PREC.LIST, $.callout_list),
@@ -712,13 +712,23 @@ module.exports = grammar({
     // LISTS
     // ========================================================================
     
+    // List markers - high precedence to beat inline formatting
+    unordered_list_marker: $ => token(prec(500, seq(
+      choice('*', '-'),
+      /[ \t]+/
+    ))),
+    
+    ordered_list_marker: $ => token(prec(500, seq(
+      /[0-9]+\./,
+      /[ \t]+/
+    ))),
+    
     // Unordered list - group consecutive list items using right associativity
-    unordered_list: $ => prec.right(PREC.LIST + 20, repeat1($.unordered_list_item)),
+    unordered_list: $ => prec.right(PREC.LIST + 40, repeat1($.unordered_list_item)),
     
     // Each list item consumes its own line ending
-    unordered_list_item: $ => prec.left(PREC.LIST + 30, seq(
-      $._LIST_UNORDERED_MARKER,  // Hidden from AST (e.g., "*" or "-")
-      token.immediate(prec(1, /[ \t]+/)), // Consume required whitespace after marker
+    unordered_list_item: $ => prec.left(PREC.LIST + 50, seq(
+      $.unordered_list_marker,  // Regular token for list markers
       field('content', $._list_item_content),
       $._newline,
       repeat($.list_item_continuation)
@@ -737,8 +747,7 @@ module.exports = grammar({
     ordered_list: $ => prec.right(repeat1($.ordered_list_item)),
     
     ordered_list_item: $ => prec.left(PREC.LIST, seq(
-      $._LIST_ORDERED_MARKER,    // Hidden from AST (e.g., "1.")
-      token.immediate(prec(1, /[ \t]+/)), // Consume required whitespace after marker
+      $.ordered_list_marker,     // Regular token for ordered markers
       field('content', $._list_item_content),
       $._newline,
       repeat($.list_item_continuation)

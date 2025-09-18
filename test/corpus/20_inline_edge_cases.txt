@@ -16,10 +16,18 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
       (text_segment)
       (text_segment)
       (inline_element
-        (strong))
+        (strong
+          (strong_constrained
+            (strong_open)
+            (strong_text)
+            (strong_close))))
       (text_segment)
       (inline_element
-        (emphasis))
+        (emphasis
+          (emphasis_constrained
+            (emphasis_open)
+            (emphasis_text)
+            (emphasis_close))))
       (text_segment)))
   (paragraph
     (text_with_inlines
@@ -27,10 +35,18 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
       (text_segment)
       (text_segment)
       (inline_element
-        (strong))
+        (strong
+          (strong_constrained
+            (strong_open)
+            (strong_text)
+            (strong_close))))
       (text_segment)
       (inline_element
-        (emphasis))
+        (emphasis
+          (emphasis_constrained
+            (emphasis_open)
+            (emphasis_text)
+            (emphasis_close))))
       (text_segment)))
   (paragraph
     (text_with_inlines
@@ -38,10 +54,16 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
       (text_segment)
       (text_colon)
       (inline_element
-        (superscript))
+        (superscript
+          (superscript_open)
+          (superscript_text)
+          (superscript_close)))
       (text_segment)
       (inline_element
-        (subscript))
+        (subscript
+          (subscript_open)
+          (subscript_text)
+          (subscript_close)))
       (text_segment)
       (text_segment))))
 
@@ -64,35 +86,59 @@ Monospace with `code *not strong* here` content.
     (text_with_inlines
       (text_segment)
       (inline_element
-        (strong))
+        (strong
+          (strong_constrained
+            (strong_open)
+            (strong_text)
+            (strong_close))))
       (text_segment)
       (inline_element
-        (emphasis))
+        (emphasis
+          (emphasis_constrained
+            (emphasis_open)
+            (emphasis_text)
+            (emphasis_close))))
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
       (text_segment)
       (inline_element
-        (strong))
+        (strong
+          (strong_constrained
+            (strong_open)
+            (strong_text)
+            (strong_close))))
       (text_segment)
       (text_segment)
       (inline_element
-        (emphasis))
+        (emphasis
+          (emphasis_constrained
+            (emphasis_open)
+            (emphasis_text)
+            (emphasis_close))))
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
       (text_colon)
       (inline_element
-        (strong))
+        (strong
+          (strong_constrained
+            (strong_open)
+            (strong_text)
+            (strong_close))))
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
       (text_segment)
       (inline_element
-        (monospace))
+        (monospace
+          (monospace_constrained
+            (monospace_open)
+            (monospace_text)
+            (monospace_close))))
       (text_segment))))
 
 ================================================================================
@@ -199,30 +245,46 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
   (paragraph
     content: (text_with_inlines
       (inline_element
-        (strong))
+        (strong
+          (strong_constrained
+            open: (strong_open)
+            content: (strong_text)
+            close: (strong_close))))
       (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
       (inline_element
-        (emphasis))
+        (emphasis
+          (emphasis_constrained
+            open: (emphasis_open)
+            content: (emphasis_text)
+            close: (emphasis_close))))
       (text_segment)))
   (paragraph
     content: (text_with_inlines
       (inline_element
-        (strong))
-      (text_segment)
+        (strong
+          (strong_constrained
+            open: (strong_open)
+            close: (strong_close))))
       (inline_element
-        (strong))
-      (text_segment)
+        (strong
+          (strong_constrained
+            open: (strong_open)
+            content: (strong_text)
+            close: (strong_close))))
       (inline_element
-        (strong))
-      (text_segment)
-      (inline_element
-        (strong))
+        (strong
+          (strong_constrained
+            open: (strong_open)
+            close: (strong_close))))
       (text_segment)))
-  (ERROR
-    (content_line)))
+  (paragraph
+    content: (text_with_inlines
+      (inline_element
+        (passthrough_triple_plus))
+      (text_segment))))
 
 ================================================================================
 Macro and attribute edge cases

@@ -796,7 +796,7 @@
         },
         {
           "type": "PREC",
-          "value": 110,
+          "value": 200,
           "content": {
             "type": "SYMBOL",
             "name": "unordered_list"
@@ -1777,7 +1777,7 @@
       }
     },
     "text_with_inlines": {
-      "type": "PREC_RIGHT",
+      "type": "PREC_LEFT",
       "value": 0,
       "content": {
         "type": "REPEAT1",
@@ -1788,21 +1788,17 @@
       }
     },
     "_inline": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "inline_element"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_text"
-          }
-        ]
-      }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "inline_element"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_text"
+        }
+      ]
     },
     "inline_element": {
       "type": "CHOICE",
@@ -1919,7 +1915,7 @@
     },
     "superscript": {
       "type": "PREC",
-      "value": 36,
+      "value": 15,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1940,7 +1936,7 @@
                 "type": "IMMEDIATE_TOKEN",
                 "content": {
                   "type": "PATTERN",
-                  "value": "[^\\^\\r\\n]+"
+                  "value": "(?:[^\\^\\r\\n\\\\]|\\\\.)+"
                 }
               },
               "named": true,
@@ -1960,7 +1956,7 @@
     },
     "subscript": {
       "type": "PREC",
-      "value": 31,
+      "value": 13,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1981,7 +1977,7 @@
                 "type": "IMMEDIATE_TOKEN",
                 "content": {
                   "type": "PATTERN",
-                  "value": "[^~\\r\\n]+"
+                  "value": "(?:[^~\\r\\n\\\\]|\\\\.)+"
                 }
               },
               "named": true,
@@ -2084,7 +2080,7 @@
               "type": "IMMEDIATE_TOKEN",
               "content": {
                 "type": "PATTERN",
-                "value": "(?:[^+]|\\+[^+]|\\+\\+[^+])*"
+                "value": "(?:[^+]|\\+[^+]|\\+\\+[^+])+"
               }
             }
           },
@@ -2146,7 +2142,7 @@
         "value": 1,
         "content": {
           "type": "PATTERN",
-          "value": "[^\\s*_`^~\\[{+<>\\r\\n:|]+"
+          "value": "[^*_`^~\\[{+<>\\r\\n:|]+"
         }
       }
     },
@@ -2202,6 +2198,61 @@
               "value": "]"
             }
           ]
+        }
+      }
+    },
+    "text_asterisk": {
+      "type": "PREC",
+      "value": -9,
+      "content": {
+        "type": "TOKEN",
+        "content": {
+          "type": "STRING",
+          "value": "*"
+        }
+      }
+    },
+    "text_underscore": {
+      "type": "PREC",
+      "value": -9,
+      "content": {
+        "type": "TOKEN",
+        "content": {
+          "type": "STRING",
+          "value": "_"
+        }
+      }
+    },
+    "text_backtick": {
+      "type": "PREC",
+      "value": -9,
+      "content": {
+        "type": "TOKEN",
+        "content": {
+          "type": "STRING",
+          "value": "`"
+        }
+      }
+    },
+    "text_caret": {
+      "type": "PREC",
+      "value": -9,
+      "content": {
+        "type": "TOKEN",
+        "content": {
+          "type": "STRING",
+          "value": "^"
+        }
+      }
+    },
+    "text_tilde": {
+      "type": "PREC",
+      "value": -9,
+      "content": {
+        "type": "TOKEN",
+        "content": {
+          "type": "STRING",
+          "value": "~"
         }
       }
     },
@@ -2890,9 +2941,58 @@
       "named": true,
       "value": "admonition_label"
     },
+    "unordered_list_marker": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 500,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "*"
+                },
+                {
+                  "type": "STRING",
+                  "value": "-"
+                }
+              ]
+            },
+            {
+              "type": "PATTERN",
+              "value": "[ \\t]+"
+            }
+          ]
+        }
+      }
+    },
+    "ordered_list_marker": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 500,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[0-9]+\\."
+            },
+            {
+              "type": "PATTERN",
+              "value": "[ \\t]+"
+            }
+          ]
+        }
+      }
+    },
     "unordered_list": {
       "type": "PREC_RIGHT",
-      "value": 0,
+      "value": 150,
       "content": {
         "type": "REPEAT1",
         "content": {
@@ -2903,24 +3003,13 @@
     },
     "unordered_list_item": {
       "type": "PREC_LEFT",
-      "value": 110,
+      "value": 160,
       "content": {
         "type": "SEQ",
         "members": [
           {
             "type": "SYMBOL",
-            "name": "_LIST_UNORDERED_MARKER"
-          },
-          {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 1,
-              "content": {
-                "type": "PATTERN",
-                "value": "[ \\t]+"
-              }
-            }
+            "name": "unordered_list_marker"
           },
           {
             "type": "FIELD",
@@ -2987,18 +3076,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "_LIST_ORDERED_MARKER"
-          },
-          {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 1,
-              "content": {
-                "type": "PATTERN",
-                "value": "[ \\t]+"
-              }
-            }
+            "name": "ordered_list_marker"
           },
           {
             "type": "FIELD",
@@ -3770,7 +3848,7 @@
     },
     "strong_constrained": {
       "type": "PREC",
-      "value": 50,
+      "value": 30,
       "content": {
         "type": "SEQ",
         "members": [
@@ -3791,7 +3869,7 @@
                 "type": "IMMEDIATE_TOKEN",
                 "content": {
                   "type": "PATTERN",
-                  "value": "[^*\\r\\n]+"
+                  "value": "(?:[^*\\r\\n\\\\]|\\\\.)+"
                 }
               },
               "named": true,
@@ -3811,7 +3889,7 @@
     },
     "emphasis_constrained": {
       "type": "PREC",
-      "value": 45,
+      "value": 28,
       "content": {
         "type": "SEQ",
         "members": [
@@ -3832,7 +3910,7 @@
                 "type": "IMMEDIATE_TOKEN",
                 "content": {
                   "type": "PATTERN",
-                  "value": "[^_\\r\\n]+"
+                  "value": "(?:[^_\\r\\n\\\\]|\\\\.)+"
                 }
               },
               "named": true,
@@ -3852,7 +3930,7 @@
     },
     "monospace_constrained": {
       "type": "PREC",
-      "value": 40,
+      "value": 26,
       "content": {
         "type": "SEQ",
         "members": [
@@ -3873,7 +3951,7 @@
                 "type": "IMMEDIATE_TOKEN",
                 "content": {
                   "type": "PATTERN",
-                  "value": "[^`\\r\\n]+"
+                  "value": "(?:[^`\\r\\n\\\\]|\\\\.)+"
                 }
               },
               "named": true,
@@ -3894,8 +3972,12 @@
     "strong_open": {
       "type": "TOKEN",
       "content": {
-        "type": "STRING",
-        "value": "*"
+        "type": "PREC",
+        "value": -4,
+        "content": {
+          "type": "STRING",
+          "value": "*"
+        }
       }
     },
     "strong_close": {
@@ -3908,8 +3990,12 @@
     "emphasis_open": {
       "type": "TOKEN",
       "content": {
-        "type": "STRING",
-        "value": "_"
+        "type": "PREC",
+        "value": -4,
+        "content": {
+          "type": "STRING",
+          "value": "_"
+        }
       }
     },
     "emphasis_close": {
@@ -3922,8 +4008,12 @@
     "monospace_open": {
       "type": "TOKEN",
       "content": {
-        "type": "STRING",
-        "value": "`"
+        "type": "PREC",
+        "value": -4,
+        "content": {
+          "type": "STRING",
+          "value": "`"
+        }
       }
     },
     "monospace_close": {
@@ -3936,8 +4026,12 @@
     "superscript_open": {
       "type": "TOKEN",
       "content": {
-        "type": "STRING",
-        "value": "^"
+        "type": "PREC",
+        "value": -4,
+        "content": {
+          "type": "STRING",
+          "value": "^"
+        }
       }
     },
     "superscript_close": {
@@ -3950,8 +4044,12 @@
     "subscript_open": {
       "type": "TOKEN",
       "content": {
-        "type": "STRING",
-        "value": "~"
+        "type": "PREC",
+        "value": -4,
+        "content": {
+          "type": "STRING",
+          "value": "~"
+        }
       }
     },
     "subscript_close": {
