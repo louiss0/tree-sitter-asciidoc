@@ -48,12 +48,12 @@ This is *bold _italic* text_ here.
       (text_segment)
       (text_segment)
       (inline_element
-        (strong))
-      (text_segment)
-      (inline_element
-        (emphasis
-          (emphasis_constrained
-            (emphasis_text)))))))
+        (strong
+          (strong_constrained
+            open: (strong_open)
+            content: (strong_text)
+            close: (strong_close))))
+      (text_segment))))
 
 ================================================================================
 Trailing plus without EOL (should not create line_break)
@@ -86,7 +86,12 @@ This is *bold with \* asterisk* text.
     (text_with_inlines
       (text_segment)
       (text_segment)
-      (unconstrained_strong)
+      (inline_element
+        (strong
+          (strong_constrained
+            open: (strong_open)
+            content: (strong_text)
+            close: (strong_close))))
       (text_segment))))
 
 ================================================================================
@@ -102,7 +107,12 @@ This is _italic with \_ underscore_ text.
     (text_with_inlines
       (text_segment)
       (text_segment)
-      (unconstrained_emphasis)
+      (inline_element
+        (emphasis
+          (emphasis_constrained
+            open: (emphasis_open)
+            content: (emphasis_text)
+            close: (emphasis_close))))
       (text_segment))))
 
 ================================================================================
@@ -118,7 +128,12 @@ This is `code with \` backtick` text.
     (text_with_inlines
       (text_segment)
       (text_segment)
-      (unconstrained_monospace)
+      (inline_element
+        (monospace
+          (monospace_constrained
+            open: (monospace_open)
+            content: (monospace_text)
+            close: (monospace_close))))
       (text_segment))))
 
 ================================================================================
@@ -135,12 +150,11 @@ This is ^super with \^ caret^ text.
       (text_segment)
       (text_segment)
       (inline_element
-        (superscript))
-      (text_segment)
-      (inline_element
         (superscript
+          open: (superscript_open)
           content: (superscript_text)
-          (MISSING "^"))))))
+          close: (superscript_close)))
+      (text_segment))))
 
 ================================================================================
 Escaped delimiters in subscript
@@ -156,12 +170,11 @@ This is ~sub with \~ tilde~ text.
       (text_segment)
       (text_segment)
       (inline_element
-        (subscript))
-      (text_segment)
-      (inline_element
         (subscript
+          open: (subscript_open)
           content: (subscript_text)
-          (MISSING "~"))))))
+          close: (subscript_close)))
+      (text_segment))))
 
 ================================================================================
 Escaped delimiters in role span
@@ -195,7 +208,11 @@ This is *bold with `mono and ^super^`* text.
       (text_segment)
       (text_segment)
       (inline_element
-        (strong))
+        (strong
+          (strong_constrained
+            (strong_open)
+            (strong_text)
+            (strong_close))))
       (text_segment))))
 
 ================================================================================
@@ -212,13 +229,24 @@ This is *bold {name}* and `code {version}` and ^super{level}^.
       (text_segment)
       (text_segment)
       (inline_element
-        (strong))
+        (strong
+          (strong_constrained
+            (strong_open)
+            (strong_text)
+            (strong_close))))
       (text_segment)
       (inline_element
-        (monospace))
+        (monospace
+          (monospace_constrained
+            (monospace_open)
+            (monospace_text)
+            (monospace_close))))
       (text_segment)
       (inline_element
-        (superscript))
+        (superscript
+          (superscript_open)
+          (superscript_text)
+          (superscript_close)))
       (text_segment))))
 
 ================================================================================
@@ -311,15 +339,33 @@ Multiple consecutive inline elements
   (paragraph
     (text_with_inlines
       (inline_element
-        (strong))
+        (strong
+          (strong_constrained
+            (strong_open)
+            (strong_text)
+            (strong_close))))
       (inline_element
-        (emphasis))
+        (emphasis
+          (emphasis_constrained
+            (emphasis_open)
+            (emphasis_text)
+            (emphasis_close))))
       (inline_element
-        (monospace))
+        (monospace
+          (monospace_constrained
+            (monospace_open)
+            (monospace_text)
+            (monospace_close))))
       (inline_element
-        (superscript))
+        (superscript
+          (superscript_open)
+          (superscript_text)
+          (superscript_close)))
       (inline_element
-        (subscript))
+        (subscript
+          (subscript_open)
+          (subscript_text)
+          (subscript_close)))
       (inline_element
         (attribute_reference)))))
 
@@ -337,13 +383,19 @@ This has ** and __ and `` empty markers.
       (text_segment)
       (text_segment)
       (inline_element
-        (strong))
+        (strong
+          (strong_constrained
+            open: (strong_open))))
       (text_segment)
       (inline_element
-        (emphasis))
+        (emphasis
+          (emphasis_constrained
+            open: (emphasis_open))))
       (text_segment)
       (inline_element
-        (monospace))
+        (monospace
+          (monospace_constrained
+            open: (monospace_open))))
       (text_segment)
       (text_segment))))
 

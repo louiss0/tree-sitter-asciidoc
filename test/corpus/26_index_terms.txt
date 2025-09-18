@@ -199,7 +199,11 @@ The *bold* text with indexterm:[formatting] and `code` examples.
     content: (text_with_inlines
       (text_segment)
       (inline_element
-        (strong))
+        (strong
+          (strong_constrained
+            open: (strong_open)
+            content: (strong_text)
+            close: (strong_close))))
       (text_segment)
       (text_segment)
       (inline_element
@@ -209,7 +213,11 @@ The *bold* text with indexterm:[formatting] and `code` examples.
               primary: (index_term_text)))))
       (text_segment)
       (inline_element
-        (monospace))
+        (monospace
+          (monospace_constrained
+            open: (monospace_open)
+            content: (monospace_text)
+            close: (monospace_close))))
       (text_segment))))
 
 ================================================================================

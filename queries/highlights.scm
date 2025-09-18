@@ -92,25 +92,46 @@
 ;; INLINE FORMATTING
 ;; =============================================================================
 
-;; Strong/bold text (*text*) - content captures with delimiter notes
+;; Strong/bold text (*text*) - delimiter-separated captures
+(strong_constrained
+  open: (strong_open) @punctuation.special
+  content: (strong_text) @markup.strong
+  close: (strong_close) @punctuation.special)
+(#set! "priority" 112)
+
+;; Strong fallback for unclosed formatting
 (strong) @markup.strong
-(strong_constrained content: (strong_text) @markup.strong)
-;; Note: Delimiters (*) are token-level. Future enhancement could capture separately as @punctuation.special
 
-;; Emphasis/italic text (_text_) - content captures with delimiter notes
-(emphasis) @markup.italic  
-(emphasis_constrained content: (emphasis_text) @markup.italic)
-;; Note: Delimiters (_) are token-level. Future enhancement could capture separately as @punctuation.special
+;; Emphasis/italic text (_text_) - delimiter-separated captures
+(emphasis_constrained
+  open: (emphasis_open) @punctuation.special
+  content: (emphasis_text) @markup.italic
+  close: (emphasis_close) @punctuation.special)
+(#set! "priority" 112)
 
-;; Monospace/code text (`text`) - enhanced semantic capture
+;; Emphasis fallback for unclosed formatting
+(emphasis) @markup.italic
+
+;; Monospace/code text (`text`) - delimiter-separated captures
+(monospace_constrained
+  open: (monospace_open) @punctuation.special
+  content: (monospace_text) @markup.raw.inline
+  close: (monospace_close) @punctuation.special)
+(#set! "priority" 112)
+
+;; Monospace fallback for unclosed formatting
 (monospace) @markup.raw.inline
-(monospace_constrained content: (monospace_text) @markup.raw.inline)
-;; Note: Delimiters (`) are token-level. Future enhancement could capture separately as @punctuation.special
 
-;; Superscript (^text^) and subscript (~text~) - specialized captures
-(superscript content: (superscript_text) @string.special)
-(subscript content: (subscript_text) @string.special)
-;; Note: Delimiters (^ ~) are token-level. Future enhancement could capture separately as @punctuation.special
+;; Superscript (^text^) and subscript (~text~) - delimiter-separated captures
+(superscript
+  open: (superscript_open) @punctuation.special
+  content: (superscript_text) @string.special
+  close: (superscript_close) @punctuation.special)
+
+(subscript
+  open: (subscript_open) @punctuation.special
+  content: (subscript_text) @string.special
+  close: (subscript_close) @punctuation.special)
 
 ;; =============================================================================
 ;; LINKS AND CROSS-REFERENCES
@@ -171,21 +192,9 @@
 ;; Passthrough block content - already handled in DELIMITED BLOCKS section
 ;; See passthrough_block content highlighting above
 
-;; Note: Current grammar uses token-based passthrough parsing:
-;; - passthrough_triple_plus: content wrapped in +++...+++
-;; - pass_macro: /pass:\[[^\]]*\]/ and /pass:[a-z,]*\[[^\]]*\]/
-;; - passthrough_block: block-level ++++...++++ delimiters
-;;
-;; Future enhancement: Component-level passthrough highlighting would enable:
-;; - Delimiter markers (+++) → @punctuation.special
-;; - Macro name (pass) → @function.macro
-;; - Passthrough content → @markup.raw.inline or @markup.raw.block
-;; - Substitution options → @attribute
-;; - Brackets → @punctuation.bracket
-;;
-;; Example structured queries:
-;; ((passthrough_inline (open) @punctuation.special (content) @markup.raw.inline (close) @punctuation.special))
-;; ((pass_macro (name) @function.macro (options) @attribute (content) @markup.raw.inline))
+;; Note: Current grammar uses token-based passthrough parsing.
+;; Inline formatting delimiters (strong, emphasis, monospace, superscript, subscript)
+;; now use structured parsing with separate delimiter nodes for enhanced highlighting.
 
 ;; =============================================================================
 ;; LISTS
