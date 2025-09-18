@@ -353,34 +353,40 @@ module.exports = grammar({
     repeat($._block_not_section)
   )),
     
-    // Simple heading tokens like markdown - no external scanner needed
+    // Section headings with separate marker tokens for syntax highlighting
     _heading1: $ => seq(
-      token(prec(PREC.SECTION + 20, /=[ \t]+/)),
+      field('marker', $.section_marker_1),
+      token.immediate(/[ \t]+/),
       field('title', $.title),
       $._newline
     ),
     _heading2: $ => seq(
-      token(prec(PREC.SECTION + 20, /==[ \t]+/)),
+      field('marker', $.section_marker_2),
+      token.immediate(/[ \t]+/),
       field('title', $.title),
       $._newline
     ),
     _heading3: $ => seq(
-      token(prec(PREC.SECTION + 20, /===[ \t]+/)),
+      field('marker', $.section_marker_3),
+      token.immediate(/[ \t]+/),
       field('title', $.title),
       $._newline
     ),
     _heading4: $ => seq(
-      token(prec(PREC.SECTION + 20, /====[ \t]+/)),
+      field('marker', $.section_marker_4),
+      token.immediate(/[ \t]+/),
       field('title', $.title),
       $._newline
     ),
     _heading5: $ => seq(
-      token(prec(PREC.SECTION + 20, /=====[ \t]+/)),
+      field('marker', $.section_marker_5),
+      token.immediate(/[ \t]+/),
       field('title', $.title),
       $._newline
     ),
     _heading6: $ => seq(
-      token(prec(PREC.SECTION + 20, /======[ \t]+/)),
+      field('marker', $.section_marker_6),
+      token.immediate(/[ \t]+/),
       field('title', $.title),
       $._newline
     ),
@@ -978,6 +984,14 @@ module.exports = grammar({
     
     subscript_open: $ => token(prec(PREC.TEXT - 5, '~')),
     subscript_close: $ => token.immediate('~'),
+    
+    // Section marker tokens for syntax highlighting
+    section_marker_1: $ => token(prec(PREC.SECTION + 20, '=')),
+    section_marker_2: $ => token(prec(PREC.SECTION + 20, '==')),
+    section_marker_3: $ => token(prec(PREC.SECTION + 20, '===')),
+    section_marker_4: $ => token(prec(PREC.SECTION + 20, '====')),
+    section_marker_5: $ => token(prec(PREC.SECTION + 20, '=====')),
+    section_marker_6: $ => token(prec(PREC.SECTION + 20, '======')),
     
     // ========================================================================
     // EXTERNAL TOKEN RULES

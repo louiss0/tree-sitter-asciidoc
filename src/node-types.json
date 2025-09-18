@@ -2041,6 +2041,36 @@
     "type": "section_title",
     "named": true,
     "fields": {
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_marker_1",
+            "named": true
+          },
+          {
+            "type": "section_marker_2",
+            "named": true
+          },
+          {
+            "type": "section_marker_3",
+            "named": true
+          },
+          {
+            "type": "section_marker_4",
+            "named": true
+          },
+          {
+            "type": "section_marker_5",
+            "named": true
+          },
+          {
+            "type": "section_marker_6",
+            "named": true
+          }
+        ]
+      },
       "title": {
         "multiple": false,
         "required": true,
@@ -2959,6 +2989,30 @@
   },
   {
     "type": "role_span",
+    "named": true
+  },
+  {
+    "type": "section_marker_1",
+    "named": true
+  },
+  {
+    "type": "section_marker_2",
+    "named": true
+  },
+  {
+    "type": "section_marker_3",
+    "named": true
+  },
+  {
+    "type": "section_marker_4",
+    "named": true
+  },
+  {
+    "type": "section_marker_5",
+    "named": true
+  },
+  {
+    "type": "section_marker_6",
     "named": true
   },
   {

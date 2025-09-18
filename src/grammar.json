@@ -1355,14 +1355,18 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "TOKEN",
+          "type": "FIELD",
+          "name": "marker",
           "content": {
-            "type": "PREC",
-            "value": 110,
-            "content": {
-              "type": "PATTERN",
-              "value": "=[ \\t]+"
-            }
+            "type": "SYMBOL",
+            "name": "section_marker_1"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[ \\t]+"
           }
         },
         {
@@ -1383,14 +1387,18 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "TOKEN",
+          "type": "FIELD",
+          "name": "marker",
           "content": {
-            "type": "PREC",
-            "value": 110,
-            "content": {
-              "type": "PATTERN",
-              "value": "==[ \\t]+"
-            }
+            "type": "SYMBOL",
+            "name": "section_marker_2"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[ \\t]+"
           }
         },
         {
@@ -1411,14 +1419,18 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "TOKEN",
+          "type": "FIELD",
+          "name": "marker",
           "content": {
-            "type": "PREC",
-            "value": 110,
-            "content": {
-              "type": "PATTERN",
-              "value": "===[ \\t]+"
-            }
+            "type": "SYMBOL",
+            "name": "section_marker_3"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[ \\t]+"
           }
         },
         {
@@ -1439,14 +1451,18 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "TOKEN",
+          "type": "FIELD",
+          "name": "marker",
           "content": {
-            "type": "PREC",
-            "value": 110,
-            "content": {
-              "type": "PATTERN",
-              "value": "====[ \\t]+"
-            }
+            "type": "SYMBOL",
+            "name": "section_marker_4"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[ \\t]+"
           }
         },
         {
@@ -1467,14 +1483,18 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "TOKEN",
+          "type": "FIELD",
+          "name": "marker",
           "content": {
-            "type": "PREC",
-            "value": 110,
-            "content": {
-              "type": "PATTERN",
-              "value": "=====[ \\t]+"
-            }
+            "type": "SYMBOL",
+            "name": "section_marker_5"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[ \\t]+"
           }
         },
         {
@@ -1495,14 +1515,18 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "TOKEN",
+          "type": "FIELD",
+          "name": "marker",
           "content": {
-            "type": "PREC",
-            "value": 110,
-            "content": {
-              "type": "PATTERN",
-              "value": "======[ \\t]+"
-            }
+            "type": "SYMBOL",
+            "name": "section_marker_6"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[ \\t]+"
           }
         },
         {
@@ -4057,6 +4081,72 @@
       "content": {
         "type": "STRING",
         "value": "~"
+      }
+    },
+    "section_marker_1": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 110,
+        "content": {
+          "type": "STRING",
+          "value": "="
+        }
+      }
+    },
+    "section_marker_2": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 110,
+        "content": {
+          "type": "STRING",
+          "value": "=="
+        }
+      }
+    },
+    "section_marker_3": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 110,
+        "content": {
+          "type": "STRING",
+          "value": "==="
+        }
+      }
+    },
+    "section_marker_4": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 110,
+        "content": {
+          "type": "STRING",
+          "value": "===="
+        }
+      }
+    },
+    "section_marker_5": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 110,
+        "content": {
+          "type": "STRING",
+          "value": "====="
+        }
+      }
+    },
+    "section_marker_6": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 110,
+        "content": {
+          "type": "STRING",
+          "value": "======"
+        }
       }
     }
   },

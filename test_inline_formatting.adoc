@@ -1,0 +1,5 @@
+*bold text*
+_italic text_
+`monospace text`
+^superscript^
+~subscript~
