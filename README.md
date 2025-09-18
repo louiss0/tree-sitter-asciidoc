@@ -15,17 +15,19 @@ This parser implements **comprehensive AsciiDoc parsing** with excellent perform
 
 ## ✨ Features
 
-### 📄 Document Structure
+### 💯 Document Structure
 - ✅ **Document headers** with title, author, and revision info
-- ✅ **Hierarchical sections** (levels 1-6) with automatic nesting
+- ✅ **Hierarchical sections** (levels 1-6) with automatic nesting and **separate marker tokens**:
+  - `= Title` → `section_marker_1` + `title` tokens for syntax highlighting
+  - `== Title` → `section_marker_2` + `title` tokens, etc.
 - ✅ **Attributes** (document and local scope) with `{attribute}` references
 - ✅ **Anchors** both block-level `[[id]]` and inline `[[id,text]]` forms
 
 ### 🧱 Block Elements
 - ✅ **Paragraphs** with comprehensive inline formatting support
-- ✅ **Lists** (complete implementation):
-  - **Unordered lists**: `*` and `-` markers with proper spacing
-  - **Ordered lists**: `1.`, `10.` numeric markers
+- ✅ **Lists** (complete implementation with **separate marker tokens**):
+  - **Unordered lists**: `*` and `-` markers → `unordered_list_marker` tokens
+  - **Ordered lists**: `1.`, `10.` numeric markers → `ordered_list_marker` tokens
   - **Description lists**: `Term:: Definition` format
   - **Callout lists**: `<1>`, `<10>` markers
 - ✅ **Delimited blocks** (all major types):
@@ -52,14 +54,14 @@ This parser implements **comprehensive AsciiDoc parsing** with excellent perform
 
 ### 🎨 Inline Elements
 
-**Complete inline formatting** with robust precedence handling and conflict resolution:
+**Complete inline formatting** with robust precedence handling, conflict resolution, and **separate delimiter tokens for advanced syntax highlighting**:
 
 #### Text Formatting
-- ✅ **Strong/Bold**: `*bold text*` with proper delimiter handling
-- ✅ **Emphasis/Italic**: `_italic text_` with escape support
-- ✅ **Monospace/Code**: `` `code text` `` with backtick escaping
-- ✅ **Superscript**: `^superscript^` for mathematical notation
-- ✅ **Subscript**: `~subscript~` for chemical formulas
+- ✅ **Strong/Bold**: `*bold text*` with separate `strong_open`/`strong_close` tokens
+- ✅ **Emphasis/Italic**: `_italic text_` with separate `emphasis_open`/`emphasis_close` tokens
+- ✅ **Monospace/Code**: `` `code text` `` with separate `monospace_open`/`monospace_close` tokens
+- ✅ **Superscript**: `^superscript^` with separate `superscript_open`/`superscript_close` tokens
+- ✅ **Subscript**: `~subscript~` with separate `subscript_open`/`subscript_close` tokens
 
 #### Links and References
 - ✅ **Automatic URLs**: `https://example.com` with smart boundary detection
@@ -94,6 +96,33 @@ Footnotes: text footnote:[This is a footnote] and refs footnoteref:ref1[]
 Macros: kbd:[Ctrl+C], btn:[Save], stem:[E = mc^2], [.highlight]#important#
 
 Inline anchor: [[bookmark,Bookmarked Section]] for later reference.
+```
+
+## 🎨 Advanced Syntax Highlighting Support
+
+This parser provides **exceptional syntax highlighting capabilities** with all markup delimiters exposed as separate AST nodes:
+
+### 🌟 Separate Delimiter Tokens
+- **Section markers**: `=`, `==`, `===` etc. → `section_marker_1`, `section_marker_2`, etc.
+- **Inline formatting delimiters**: `*`, `_`, `` ` ``, `^`, `~` → `strong_open/close`, `emphasis_open/close`, etc.
+- **List markers**: `*`, `-`, `1.` → `unordered_list_marker`, `ordered_list_marker`
+
+### 🖼️ Benefits for Editor Integration
+- **Independent delimiter coloring**: Style markers differently from content
+- **Precise positioning**: Exact character ranges for each delimiter
+- **Tooling flexibility**: Manipulate delimiters independently in editors
+- **Enhanced UX**: Better visual distinction between markup and content
+
+### 🕰️ Example AST Structure
+```javascript
+// Input: "*bold text*"
+{
+  "strong": {
+    "open": { "type": "strong_open", "text": "*" },
+    "content": { "type": "strong_text", "text": "bold text" },
+    "close": { "type": "strong_close", "text": "*" }
+  }
+}
 ```
 
 ## 🎧 Architecture & Design
