@@ -40,38 +40,36 @@ module.exports = grammar({
 
   externals: $ => [
     // Order must match scanner.c enum exactly!
-    $.TABLE_FENCE_START,
-    $.TABLE_FENCE_END,
-    $.EXAMPLE_FENCE_START,
-    $.EXAMPLE_FENCE_END,
-    $.LISTING_FENCE_START,
-    $.LISTING_FENCE_END,
-    $.LITERAL_FENCE_START,
-    $.LITERAL_FENCE_END,
-    $.QUOTE_FENCE_START,
-    $.QUOTE_FENCE_END,
-    $.SIDEBAR_FENCE_START,
-    $.SIDEBAR_FENCE_END,
-    $.PASSTHROUGH_FENCE_START,
-    $.PASSTHROUGH_FENCE_END,
-    $.OPENBLOCK_FENCE_START,
-    $.OPENBLOCK_FENCE_END,
-    $.LIST_CONTINUATION,
-    $.AUTOLINK_BOUNDARY,
-    $.ATTRIBUTE_LIST_START,
-    $.DELIMITED_BLOCK_CONTENT_LINE, // Content line within delimited blocks (not fence end)
-    $._BLOCK_ANCHOR,         // Block anchor at start of line (hidden from AST)
-    // Line-anchored block markers (non-section)
-    $._LIST_UNORDERED_MARKER, // "* " or "- " at start of line (hidden from AST)
-    $._LIST_ORDERED_MARKER,   // "N. " at start of line (hidden from AST)
-    $.DESCRIPTION_LIST_SEP,   // "::"
-    $._DESCRIPTION_LIST_ITEM, // "term:: description" pattern (hidden from AST)
-    $.CALLOUT_MARKER,        // "<N> " at start of line
-    // Conditional directives
-    $._ifdef_open_token,     // "ifdef::" at start of line
-    $._ifndef_open_token,    // "ifndef::" at start of line
-    $._ifeval_open_token,    // "ifeval::" at start of line
-    $._endif_directive_token // "endif::" at start of line
+    $.TABLE_FENCE_START,                // 0
+    $.TABLE_FENCE_END,                  // 1
+    $.EXAMPLE_FENCE_START,              // 2
+    $.EXAMPLE_FENCE_END,                // 3
+    $.LISTING_FENCE_START,              // 4
+    $.LISTING_FENCE_END,                // 5
+    $.LITERAL_FENCE_START,              // 6
+    $.LITERAL_FENCE_END,                // 7
+    $.QUOTE_FENCE_START,                // 8
+    $.QUOTE_FENCE_END,                  // 9
+    $.SIDEBAR_FENCE_START,              // 10
+    $.SIDEBAR_FENCE_END,                // 11
+    $.PASSTHROUGH_FENCE_START,          // 12
+    $.PASSTHROUGH_FENCE_END,            // 13
+    $.OPENBLOCK_FENCE_START,            // 14
+    $.OPENBLOCK_FENCE_END,              // 15
+    $.LIST_CONTINUATION,                // 16
+    $.AUTOLINK_BOUNDARY,                // 17
+    $.ATTRIBUTE_LIST_START,             // 18
+    $.DELIMITED_BLOCK_CONTENT_LINE,     // 19 - Content line within delimited blocks (not fence end)
+    $._BLOCK_ANCHOR,                    // 20 - Block anchor at start of line (hidden from AST)
+    $._LIST_UNORDERED_MARKER,           // 21 - "* " or "- " at start of line (hidden from AST)
+    $._LIST_ORDERED_MARKER,             // 22 - "N. " at start of line (hidden from AST)
+    $.DESCRIPTION_LIST_SEP,             // 23 - "::"
+    $._DESCRIPTION_LIST_ITEM,           // 24 - "term:: description" pattern (hidden from AST)
+    $.CALLOUT_MARKER,                   // 25 - "<N> " at start of line
+    $._ifdef_open_token,                // 26 - "ifdef::" at start of line
+    $._ifndef_open_token,               // 27 - "ifndef::" at start of line
+    $._ifeval_open_token,               // 28 - "ifeval::" at start of line
+    $._endif_directive_token            // 29 - "endif::" at start of line
   ],
 
   extras: $ => [
@@ -551,6 +549,7 @@ module.exports = grammar({
     ),
     
     // Match text content - stop at formatting delimiters to allow inline parsing
+    // Also exclude potential list markers at start of line
     text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n:|]+/)),
     
     // Allow standalone colons in text (but not double colons which are handled by external scanner)
