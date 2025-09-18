@@ -269,7 +269,7 @@ module.exports = grammar({
     prec(PREC.ATTRIBUTE_ENTRY, $.attribute_entry),
     prec(PREC.ATTRIBUTE_ENTRY + 5, $.include_directive),
     prec(PREC.ATTRIBUTE_ENTRY + 3, $.bibliography_entry),
-    prec(PREC.LIST, $.unordered_list),
+    prec(PREC.LIST + 20, $.unordered_list),
     prec(PREC.LIST, $.ordered_list), 
     prec(PREC.LIST, $.description_list),
     prec(PREC.LIST, $.callout_list),
@@ -437,13 +437,13 @@ module.exports = grammar({
     ))),
     
     // Text with inline elements - single line only
-    text_with_inlines: $ => prec.right(repeat1($._inline)),
+    text_with_inlines: $ => prec.left(repeat1($._inline)),
     
-    // Inline types
-    _inline: $ => prec.right(choice(
+    // Inline types - prioritize formatting over plain text
+    _inline: $ => choice(
       $.inline_element,
       $._text
-    )),
+    ),
     
     // Inline element wrapper for complex inline constructs  
     inline_element: $ => choice(
@@ -489,14 +489,14 @@ module.exports = grammar({
     // Superscript - ^text^
     superscript: $ => prec(PREC.SUPERSCRIPT + 1, seq(
       field('open', $.superscript_open),
-      field('content', alias(token.immediate(/[^\^\r\n]+/), $.superscript_text)),
+      field('content', alias(token.immediate(/(?:[^\^\r\n\\]|\\.)+/), $.superscript_text)),
       field('close', $.superscript_close)
     )),
     
     // Subscript - ~text~
     subscript: $ => prec(PREC.SUBSCRIPT + 1, seq(
       field('open', $.subscript_open),
-      field('content', alias(token.immediate(/[^~\r\n]+/), $.subscript_text)),
+      field('content', alias(token.immediate(/(?:[^~\r\n\\]|\\.)+/), $.subscript_text)),
       field('close', $.subscript_close)
     )),
 
@@ -527,7 +527,7 @@ module.exports = grammar({
     // Passthrough - +++literal text+++
     passthrough_triple_plus: $ => prec(PREC.PASSTHROUGH, seq(
       token('+++'),
-      field('content', token.immediate(/(?:[^+]|\+[^+]|\+\+[^+])*/)),
+      field('content', token.immediate(/(?:[^+]|\+[^+]|\+\+[^+])+/)),
       token.immediate('+++')
     )),
     
@@ -547,12 +547,11 @@ module.exports = grammar({
       $.text_colon,
       $.text_angle_bracket,
       $.text_bracket
+      // Removed fallback formatting tokens to force inline formatting recognition
     ),
     
-    // Match individual words/tokens for inline parsing - exclude colons to preserve attribute entries
-    // Also exclude pipe character to allow table fence recognition  
-    // Exclude angle brackets to allow cross-references and other constructs
-    text_segment: $ => token(prec(PREC.TEXT, /[^\s*_`^~\[{+<>\r\n:|]+/)),
+    // Match text content - stop at formatting delimiters to allow inline parsing
+    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n:|]+/)),
     
     // Allow standalone colons in text (but not double colons which are handled by external scanner)
     text_colon: $ => prec(PREC.TEXT - 1, token(/:/)),
@@ -562,6 +561,14 @@ module.exports = grammar({
     
     // Fallback for single brackets when not part of role spans or attributes
     text_bracket: $ => prec(PREC.TEXT - 3, token(choice('[', ']'))),
+    
+    // Fallback tokens for single formatting delimiters when not used for formatting
+    // These have very low precedence to allow external scanner and formatting to take precedence
+    text_asterisk: $ => prec(PREC.TEXT - 10, token('*')),
+    text_underscore: $ => prec(PREC.TEXT - 10, token('_')),
+    text_backtick: $ => prec(PREC.TEXT - 10, token('`')),
+    text_caret: $ => prec(PREC.TEXT - 10, token('^')),
+    text_tilde: $ => prec(PREC.TEXT - 10, token('~')),
     
 
     // ========================================================================
@@ -707,10 +714,10 @@ module.exports = grammar({
     // ========================================================================
     
     // Unordered list - group consecutive list items using right associativity
-    unordered_list: $ => prec.right(repeat1($.unordered_list_item)),
+    unordered_list: $ => prec.right(PREC.LIST + 20, repeat1($.unordered_list_item)),
     
     // Each list item consumes its own line ending
-    unordered_list_item: $ => prec.left(PREC.LIST, seq(
+    unordered_list_item: $ => prec.left(PREC.LIST + 30, seq(
       $._LIST_UNORDERED_MARKER,  // Hidden from AST (e.g., "*" or "-")
       token.immediate(prec(1, /[ \t]+/)), // Consume required whitespace after marker
       field('content', $._list_item_content),
@@ -925,22 +932,22 @@ module.exports = grammar({
       ']'
     ),
     
-    // Constrained formatting variants - improved to avoid MISSING tokens
-    strong_constrained: $ => prec(PREC.STRONG, seq(
+    // Constrained formatting variants - very high precedence to beat text_segment
+    strong_constrained: $ => prec(PREC.STRONG + 10, seq(
       field('open', $.strong_open),
-      field('content', alias(token.immediate(/[^*\r\n]+/), $.strong_text)),
+      field('content', alias(token.immediate(/(?:[^*\r\n\\]|\\.)+/), $.strong_text)),
       field('close', $.strong_close)
     )),
     
-    emphasis_constrained: $ => prec(PREC.EMPHASIS, seq(
+    emphasis_constrained: $ => prec(PREC.EMPHASIS + 10, seq(
       field('open', $.emphasis_open),
-      field('content', alias(token.immediate(/[^_\r\n]+/), $.emphasis_text)),
+      field('content', alias(token.immediate(/(?:[^_\r\n\\]|\\.)+/), $.emphasis_text)),
       field('close', $.emphasis_close)
     )),
     
-    monospace_constrained: $ => prec(PREC.MONOSPACE, seq(
+    monospace_constrained: $ => prec(PREC.MONOSPACE + 10, seq(
       field('open', $.monospace_open),
-      field('content', alias(token.immediate(/[^`\r\n]+/), $.monospace_text)),
+      field('content', alias(token.immediate(/(?:[^`\r\n\\]|\\.)+/), $.monospace_text)),
       field('close', $.monospace_close)
     )),
     
@@ -948,20 +955,20 @@ module.exports = grammar({
     // DELIMITER TOKENS
     // ========================================================================
     
-    // Delimiter tokens for inline formatting
-    strong_open: $ => token('*'),
+    // Delimiter tokens for inline formatting - higher precedence than fallback text
+    strong_open: $ => token(prec(PREC.TEXT - 5, '*')),
     strong_close: $ => token.immediate('*'),
     
-    emphasis_open: $ => token('_'),
+    emphasis_open: $ => token(prec(PREC.TEXT - 5, '_')),
     emphasis_close: $ => token.immediate('_'),
     
-    monospace_open: $ => token('`'),
+    monospace_open: $ => token(prec(PREC.TEXT - 5, '`')),
     monospace_close: $ => token.immediate('`'),
     
-    superscript_open: $ => token('^'),
+    superscript_open: $ => token(prec(PREC.TEXT - 5, '^')),
     superscript_close: $ => token.immediate('^'),
     
-    subscript_open: $ => token('~'),
+    subscript_open: $ => token(prec(PREC.TEXT - 5, '~')),
     subscript_close: $ => token.immediate('~'),
     
     // ========================================================================
