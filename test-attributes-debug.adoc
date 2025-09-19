@@ -1,0 +1,7 @@
+:revnumber: 1.2.3
+:author: Alice
+
+= Title
+:role: admin
+
+Some text.

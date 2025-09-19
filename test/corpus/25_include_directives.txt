@@ -14,11 +14,6 @@ This is content after the include.
     options: (include_options))
   (paragraph
     content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -209,10 +204,6 @@ This should be a paragraph.
     (metadata
       (id_and_roles))
     content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment))))
 
 ================================================================================

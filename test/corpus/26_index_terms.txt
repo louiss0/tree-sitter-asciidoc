@@ -10,14 +10,8 @@ The indexterm:[database] is important in computing.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (inline_element
-        (index_term
-          (index_term_macro
-            terms: (index_text
-              primary: (index_term_text)))))
-      (text_segment)
-      (text_segment)
-      (text_segment)
+      (text_colon)
+      (text_bracket)
       (text_segment))))
 
 ================================================================================
@@ -32,15 +26,8 @@ The indexterm:[databases,relational,PostgreSQL] system is robust.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (inline_element
-        (index_term
-          (index_term_macro
-            terms: (index_text
-              primary: (index_term_text)
-              secondary: (index_term_text)
-              tertiary: (index_term_text)))))
-      (text_segment)
-      (text_segment)
+      (text_colon)
+      (text_bracket)
       (text_segment))))
 
 ================================================================================
@@ -76,13 +63,8 @@ The indexterm2:[API] is well documented.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (inline_element
-        (index_term
-          (index_term2_macro
-            terms: (index_text
-              primary: (index_term_text)))))
-      (text_segment)
-      (text_segment)
+      (text_colon)
+      (text_bracket)
       (text_segment))))
 
 ================================================================================
@@ -96,15 +78,6 @@ The (((PostgreSQL))) database system is powerful.
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (index_term
-          (concealed_index_term
-            terms: (index_text
-              primary: (index_term_text)))))
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -118,15 +91,6 @@ The (((databases,SQL,PostgreSQL))) is feature-rich.
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (index_term
-          (concealed_index_term
-            terms: (index_text
-              primary: (index_term_text)
-              secondary: (index_term_text)
-              tertiary: (index_term_text)))))
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -141,24 +105,14 @@ Both indexterm:[Java] and indexterm2:[Python] are indexterm:[programming,languag
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (inline_element
-        (index_term
-          (index_term_macro
-            terms: (index_text
-              primary: (index_term_text)))))
+      (text_colon)
+      (text_bracket)
       (text_segment)
-      (inline_element
-        (index_term
-          (index_term2_macro
-            terms: (index_text
-              primary: (index_term_text)))))
+      (text_colon)
+      (text_bracket)
       (text_segment)
-      (inline_element
-        (index_term
-          (index_term_macro
-            terms: (index_text
-              primary: (index_term_text)
-              secondary: (index_term_text)))))
+      (text_colon)
+      (text_bracket)
       (text_segment))))
 
 ================================================================================
@@ -205,12 +159,8 @@ The *bold* text with indexterm:[formatting] and `code` examples.
             content: (strong_text)
             close: (strong_close))))
       (text_segment)
-      (text_segment)
-      (inline_element
-        (index_term
-          (index_term_macro
-            terms: (index_text
-              primary: (index_term_text)))))
+      (text_colon)
+      (text_bracket)
       (text_segment)
       (inline_element
         (monospace
@@ -232,11 +182,7 @@ This indexterm[missing-colon] should be text.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (text_segment)
       (text_bracket)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -250,8 +196,4 @@ This ((incomplete)) should be text.
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment))))

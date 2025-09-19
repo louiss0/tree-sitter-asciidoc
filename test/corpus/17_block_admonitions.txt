@@ -154,15 +154,4 @@ This should be parsed as a generic attribute list followed by paragraph.
     (metadata
       (block_attributes))
     (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment))))

@@ -178,40 +178,25 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
       label: (admonition_label)
       content: (text_with_inlines
         (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (inline_element
           (internal_xref))
-        (text_segment)
-        (text_segment)
         (text_segment))))
   (paragraph
     (paragraph_admonition
       label: (admonition_label)
       content: (text_with_inlines
         (text_segment)
+        (text_colon)
         (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (inline_element
-          (external_xref))
-        (text_segment)
-        (text_segment)
+        (text_bracket)
         (text_segment))))
   (paragraph
     (paragraph_admonition
       label: (admonition_label)
       content: (text_with_inlines
         (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (inline_element
-          (footnote_inline))
-        (text_segment)
+        (text_colon)
+        (text_bracket)
         (text_segment)))))
 
 ====
@@ -225,10 +210,6 @@ Another paragraph after the admonition.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment))))
 
 ====
@@ -244,9 +225,4 @@ NOTE: This is a valid admonition again.
     (paragraph_admonition
       (admonition_label)
       (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment)))))

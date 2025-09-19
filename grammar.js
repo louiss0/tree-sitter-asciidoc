@@ -69,7 +69,11 @@ module.exports = grammar({
     $._ifdef_open_token,                // 26 - "ifdef::" at start of line
     $._ifndef_open_token,               // 27 - "ifndef::" at start of line
     $._ifeval_open_token,               // 28 - "ifeval::" at start of line
-    $._endif_directive_token            // 29 - "endif::" at start of line
+    $._endif_directive_token,           // 29 - "endif::" at start of line
+    $.UNORDERED_LIST_LINE_CONT,         // 30 - unordered list item line when another follows
+    $.UNORDERED_LIST_LINE_LAST,         // 31 - unordered list item line when it is the last
+    $.ORDERED_LIST_LINE_CONT,           // 32 - ordered list item line when another follows
+    $.ORDERED_LIST_LINE_LAST            // 33 - ordered list item line when it is the last
   ],
 
   extras: $ => [
@@ -84,7 +88,18 @@ module.exports = grammar({
   
   // Conflicts for overlapping constructs  
   conflicts: $ => [
-    // No conflicts needed
+    [$._section1, $.metadata],
+    [$._section2, $.metadata],
+    [$._section3, $.metadata],
+    [$._section4, $.metadata],
+    [$._section5, $.metadata],
+    [$._section6, $.metadata],
+    // Resolve SOL ambiguity between list items and paragraphs with inline strong
+    [$.unordered_list, $.paragraph],
+    // Encourage single-list grouping over multiple sibling lists
+    [$.unordered_list, $.ordered_list],
+    [$.unordered_list, $.open_block],
+    [$.ordered_list, $.open_block],
   ],
   
   rules: {
@@ -108,13 +123,13 @@ module.exports = grammar({
     ),
     
     // Block comment - opaque content prevents internal syntax highlighting
-    block_comment: $ => seq(
+    block_comment: $ => prec.right(seq(
       token(prec(PREC.DELIMITED_BLOCK + 10, '////')),
       $._newline,
       repeat($.comment_line),
       token(prec(PREC.DELIMITED_BLOCK + 10, '////')),
       optional($._newline)
-    ),
+    )),
     
     // Comment line - raw text content, no internal parsing
     comment_line: $ => token(/[^\r\n]*\r?\n/),
@@ -164,8 +179,7 @@ module.exports = grammar({
       token(prec(PREC.PASSTHROUGH + 5, '(((')),
       field('terms', $.index_text),
       token.immediate(')))'
-    ),
-    ),
+    )),
     
     // Primary term with optional secondary and tertiary terms
     index_text: $ => seq(
@@ -255,139 +269,160 @@ module.exports = grammar({
     math_content: $ => repeat1(alias($.DELIMITED_BLOCK_CONTENT_LINE, $.math_line)),
     math_line: $ => token(/[^\r\n]*\r?\n/),
 
+    // All blocks - every block contains a trailing newline (like markdown)
+    _block: $ => choice(
+      $._block_not_section,
+      $.section,
+    ),
+    
+    _block_not_section: $ => choice(
+      // High precedence blocks that should be matched before paragraphs
+      prec(PREC.ATTRIBUTE_ENTRY, $.attribute_entry),
+      prec(PREC.ATTRIBUTE_ENTRY + 5, $.include_directive),
+      prec(PREC.ATTRIBUTE_ENTRY + 3, $.bibliography_entry),
+      prec(PREC.LIST + 50, $.unordered_list),
+      prec(PREC.LIST + 50, $.ordered_list), 
+      prec(PREC.LIST, $.description_list),
+      prec(PREC.LIST, $.callout_list),
+      prec.right(PREC.CONDITIONAL, $.conditional_block),
+      prec(PREC.DELIMITED_BLOCK + 5, $.block_comment),
+      prec(PREC.ATTRIBUTE_ENTRY + 1, $.line_comment_block),
+      prec(PREC.DELIMITED_BLOCK, $.example_block),
+      prec(PREC.DELIMITED_BLOCK, $.listing_block),
+      prec(PREC.DELIMITED_BLOCK, $.literal_block),
+      prec(PREC.DELIMITED_BLOCK, $.quote_block),
+      prec(PREC.DELIMITED_BLOCK, $.sidebar_block),
+      prec(PREC.DELIMITED_BLOCK, $.passthrough_block),
+      prec(PREC.DELIMITED_BLOCK, $.open_block),
+      prec(PREC.DELIMITED_BLOCK, $.table_block),
+      prec(PREC.DELIMITED_BLOCK, $.math_block),
+      prec(PREC.ADMONITION, $.admonition_block),
+      // Paragraphs have lowest precedence - fallback when nothing else matches
+      prec(PREC.PARAGRAPH, $.paragraph)
+    ),
 
-  // All blocks - every block contains a trailing newline (like markdown)
-  _block: $ => choice(
-    $._block_not_section,
-    $.section,
-  ),
-  
-  _block_not_section: $ => choice(
-    // High precedence blocks that should be matched before paragraphs
-    prec(PREC.ATTRIBUTE_ENTRY, $.attribute_entry),
-    prec(PREC.ATTRIBUTE_ENTRY + 5, $.include_directive),
-    prec(PREC.ATTRIBUTE_ENTRY + 3, $.bibliography_entry),
-    prec(200, $.unordered_list),  // Extremely high precedence
-    prec(PREC.LIST, $.ordered_list), 
-    prec(PREC.LIST, $.description_list),
-    prec(PREC.LIST, $.callout_list),
-    prec.right(PREC.CONDITIONAL, $.conditional_block),
-    prec(PREC.DELIMITED_BLOCK + 5, $.block_comment),
-    prec(PREC.ATTRIBUTE_ENTRY + 1, $.line_comment_block),
-    prec(PREC.DELIMITED_BLOCK, $.example_block),
-    prec(PREC.DELIMITED_BLOCK, $.listing_block),
-    prec(PREC.DELIMITED_BLOCK, $.literal_block),
-    prec(PREC.DELIMITED_BLOCK, $.quote_block),
-    prec(PREC.DELIMITED_BLOCK, $.sidebar_block),
-    prec(PREC.DELIMITED_BLOCK, $.passthrough_block),
-    prec(PREC.DELIMITED_BLOCK, $.open_block),
-    prec(PREC.DELIMITED_BLOCK, $.table_block),
-    prec(PREC.DELIMITED_BLOCK, $.math_block),
-    prec(PREC.ADMONITION, $.admonition_block),
-    // Paragraphs have lowest precedence - fallback when nothing else matches
-    prec(PREC.PARAGRAPH, $.paragraph)
-  ),
+    // Variant block rules when inside conditional bodies: de-prioritize unordered lists
+    _block_in_conditional: $ => choice(
+      // Allow sections inside conditionals
+      $.section,
+      prec(PREC.ATTRIBUTE_ENTRY, $.attribute_entry),
+      prec(PREC.ATTRIBUTE_ENTRY + 5, $.include_directive),
+      prec(PREC.ATTRIBUTE_ENTRY + 3, $.bibliography_entry),
+      // Keep ordered/description/callout lists recognized normally
+      prec(PREC.LIST, $.ordered_list),
+      prec(PREC.LIST, $.description_list),
+      prec(PREC.LIST, $.callout_list),
+      // Do not recognize unordered lists inside conditionals; treat hyphen bullets as paragraphs
+      prec(PREC.DELIMITED_BLOCK + 5, $.block_comment),
+      prec(PREC.ATTRIBUTE_ENTRY + 1, $.line_comment_block),
+      prec(PREC.DELIMITED_BLOCK, $.example_block),
+      prec(PREC.DELIMITED_BLOCK, $.listing_block),
+      prec(PREC.DELIMITED_BLOCK, $.literal_block),
+      prec(PREC.DELIMITED_BLOCK, $.quote_block),
+      prec(PREC.DELIMITED_BLOCK, $.sidebar_block),
+      prec(PREC.DELIMITED_BLOCK, $.passthrough_block),
+      prec(PREC.DELIMITED_BLOCK, $.open_block),
+      prec(PREC.DELIMITED_BLOCK, $.table_block),
+      prec(PREC.DELIMITED_BLOCK, $.math_block),
+      prec(PREC.ADMONITION, $.admonition_block),
+      // Paragraphs
+      prec(PREC.PARAGRAPH + 1, $.paragraph)
+    ),
 
     // ========================================================================
     // HEADINGS (Following EBNF: heading = [ anchor ], heading_level, ' ', line_content, newline)
     // ========================================================================
     
-  // Allow any section level at root - AsciiDoc supports starting with any level
-  section: $ => choice(
-    $._section1,
-    $._section2,
-    $._section3,
-    $._section4,
-    $._section5,
-    $._section6
-  ),
-  
-  _section1: $ => prec.right(seq(
-    optional(alias($.block_anchor, $.anchor)),
-    alias($._heading1, $.section_title),
-    repeat(choice(
-      alias(choice($._section6, $._section5, $._section4, $._section3, $._section2), $.section),
-      $._block_not_section
-    ))
-  )),
-  
-  _section2: $ => prec.right(seq(
-    optional(alias($.block_anchor, $.anchor)),
-    alias($._heading2, $.section_title),
-    repeat(choice(
-      alias(choice($._section6, $._section5, $._section4, $._section3), $.section),
-      $._block_not_section
-    ))
-  )),
-  
-  _section3: $ => prec.right(seq(
-    optional(alias($.block_anchor, $.anchor)),
-    alias($._heading3, $.section_title),
-    repeat(choice(
-      alias(choice($._section6, $._section5, $._section4), $.section),
-      $._block_not_section
-    ))
-  )),
-  
-  _section4: $ => prec.right(seq(
-    optional(alias($.block_anchor, $.anchor)),
-    alias($._heading4, $.section_title),
-    repeat(choice(
-      alias(choice($._section6, $._section5), $.section),
-      $._block_not_section
-    ))
-  )),
-  
-  _section5: $ => prec.right(seq(
-    optional(alias($.block_anchor, $.anchor)),
-    alias($._heading5, $.section_title),
-    repeat(choice(
-      alias($._section6, $.section),
-      $._block_not_section
-    ))
-  )),
-  
-  _section6: $ => prec.right(seq(
-    optional(alias($.block_anchor, $.anchor)),
-    alias($._heading6, $.section_title),
-    repeat($._block_not_section)
-  )),
+    // Allow any section level at root - AsciiDoc supports starting with any level
+    section: $ => choice(
+      $._section1,
+      $._section2,
+      $._section3,
+      $._section4,
+      $._section5,
+      $._section6
+    ),
     
-    // Section headings with separate marker tokens for syntax highlighting
+    _section1: $ => prec.right(seq(
+      optional(alias($.block_anchor, $.anchor)),
+      alias($._heading1, $.section_title),
+      repeat(choice(
+        alias(choice($._section6, $._section5, $._section4, $._section3, $._section2), $.section),
+        $._block_not_section
+      ))
+    )),
+    
+    _section2: $ => prec.right(seq(
+      optional(alias($.block_anchor, $.anchor)),
+      alias($._heading2, $.section_title),
+      repeat(choice(
+        alias(choice($._section6, $._section5, $._section4, $._section3), $.section),
+        $._block_not_section
+      ))
+    )),
+    
+    _section3: $ => prec.right(seq(
+      optional(alias($.block_anchor, $.anchor)),
+      alias($._heading3, $.section_title),
+      repeat(choice(
+        alias(choice($._section6, $._section5, $._section4), $.section),
+        $._block_not_section
+      ))
+    )),
+    
+    _section4: $ => prec.right(seq(
+      optional(alias($.block_anchor, $.anchor)),
+      alias($._heading4, $.section_title),
+      repeat(choice(
+        alias(choice($._section6, $._section5), $.section),
+        $._block_not_section
+      ))
+    )),
+    
+    _section5: $ => prec.right(seq(
+      optional(alias($.block_anchor, $.anchor)),
+      alias($._heading5, $.section_title),
+      repeat(choice(
+        alias($._section6, $.section),
+        $._block_not_section
+      ))
+    )),
+    
+    _section6: $ => prec.right(seq(
+      optional(alias($.block_anchor, $.anchor)),
+      alias($._heading6, $.section_title),
+      repeat($._block_not_section)
+    )),
+    
+    // Section headings with marker tokens that include required whitespace
     _heading1: $ => seq(
-      field('marker', $.section_marker_1),
-      token.immediate(/[ \t]+/),
-      field('title', $.title),
+      $._section_marker_1,
+      $.title,
       $._newline
     ),
     _heading2: $ => seq(
-      field('marker', $.section_marker_2),
-      token.immediate(/[ \t]+/),
-      field('title', $.title),
+      $._section_marker_2,
+      $.title,
       $._newline
     ),
     _heading3: $ => seq(
-      field('marker', $.section_marker_3),
-      token.immediate(/[ \t]+/),
-      field('title', $.title),
+      $._section_marker_3,
+      $.title,
       $._newline
     ),
     _heading4: $ => seq(
-      field('marker', $.section_marker_4),
-      token.immediate(/[ \t]+/),
-      field('title', $.title),
+      $._section_marker_4,
+      $.title,
       $._newline
     ),
     _heading5: $ => seq(
-      field('marker', $.section_marker_5),
-      token.immediate(/[ \t]+/),
-      field('title', $.title),
+      $._section_marker_5,
+      $.title,
       $._newline
     ),
     _heading6: $ => seq(
-      field('marker', $.section_marker_6),
-      token.immediate(/[ \t]+/),
-      field('title', $.title),
+      $._section_marker_6,
+      $.title,
       $._newline
     ),
     
@@ -418,7 +453,7 @@ module.exports = grammar({
     // PARAGRAPHS
     // ========================================================================
     
-    paragraph: $ => prec(PREC.PARAGRAPH + 10, choice(
+    paragraph: $ => prec.right(PREC.PARAGRAPH, choice(
       $.paragraph_admonition,
       seq(
         optional($.metadata),
@@ -426,9 +461,8 @@ module.exports = grammar({
         optional($._newline)
       )
     )),
-    
     // Paragraph admonitions - NOTE: content format
-    paragraph_admonition: $ => prec(PREC.PARAGRAPH + 1, seq(
+    paragraph_admonition: $ => prec.right(PREC.PARAGRAPH + 1, seq(
       optional($.metadata),
       field('label', $.admonition_label),
       field('content', $.text_with_inlines),
@@ -440,13 +474,13 @@ module.exports = grammar({
       ': '
     ))),
     
-    // Text with inline elements - single line only
-    text_with_inlines: $ => prec.left(repeat1($._inline)),
+    // Text with inline elements - accumulate multiple inline elements before reducing
+    text_with_inlines: $ => prec.right(repeat1($._inline)),
     
-    // Inline types - prioritize formatting over plain text
+    // Inline types - prefer plain text first to avoid SOL list marker conflicts
     _inline: $ => choice(
-      $.inline_element,
-      $._text
+      $._text,
+      $.inline_element
     ),
     
     // Inline element wrapper for complex inline constructs  
@@ -481,13 +515,13 @@ module.exports = grammar({
     // INLINE FORMATTING
     // ========================================================================
     
-    // Strong formatting (bold) - wrapper for constrained/unconstrained
+    // Strong formatting (bold) - use constrained variant for proper inline parsing
     strong: $ => $.strong_constrained,
     
-    // Emphasis formatting (italic) - wrapper for constrained/unconstrained
+    // Emphasis formatting (italic) - use constrained variant for proper inline parsing
     emphasis: $ => $.emphasis_constrained,
     
-    // Monospace formatting (code) - wrapper for constrained/unconstrained
+    // Monospace formatting (code) - use constrained variant for proper inline parsing
     monospace: $ => $.monospace_constrained,
     
     // Superscript - ^text^
@@ -553,10 +587,10 @@ module.exports = grammar({
       $.text_bracket
       // Removed fallback formatting tokens to force inline formatting recognition
     ),
+
     
-    // Match text content - stop at formatting delimiters to allow inline parsing
-    // Also exclude potential list markers at start of line
-    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n:|]+/)),
+    // Match text content - exclude whitespace so blank lines don't produce paragraphs
+    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n:|\t ]+/)),
     
     // Allow standalone colons in text (but not double colons which are handled by external scanner)
     text_colon: $ => prec(PREC.TEXT - 1, token(/:/)),
@@ -566,6 +600,12 @@ module.exports = grammar({
     
     // Fallback for single brackets when not part of role spans or attributes
     text_bracket: $ => prec(PREC.TEXT - 3, token(choice('[', ']'))),
+    
+    // Fallback for single equals when not part of section headers
+    text_equals: $ => prec(PREC.TEXT - 2, token('=')),
+
+    // Simple list content text (single segment), excluding inline markers
+    simple_list_text: $ => token.immediate(/[^\r\n*_`^~\[{+<:|]+/),
     
     // Fallback tokens for single formatting delimiters when not used for formatting
     // These have very low precedence to allow external scanner and formatting to take precedence
@@ -718,30 +758,29 @@ module.exports = grammar({
     // LISTS
     // ========================================================================
     
-    // List markers - high precedence to beat inline formatting
-    unordered_list_marker: $ => token(prec(500, seq(
-      choice('*', '-'),
-      /[ \t]+/
+    // List markers using external scanner for line-start detection
+    
+    // Unordered list - zero or more cont items followed by exactly one last item
+    unordered_list: $ => prec.dynamic(2, prec.right(PREC.LIST + 2000, seq(
+      repeat(alias($.unordered_list_item_cont, $.unordered_list_item)),
+      alias($.unordered_list_item_last, $.unordered_list_item)
     ))),
-    
-    ordered_list_marker: $ => token(prec(500, seq(
-      /[0-9]+\./,
-      /[ \t]+/
-    ))),
-    
-    // Unordered list - group consecutive list items using right associativity
-    unordered_list: $ => prec.right(PREC.LIST + 40, repeat1($.unordered_list_item)),
-    
-    // Each list item consumes its own line ending
-    unordered_list_item: $ => prec.left(PREC.LIST + 50, seq(
-      $.unordered_list_marker,  // Regular token for list markers
-      field('content', $._list_item_content),
-      $._newline,
+
+    // Item variants map to the same public node via alias
+    unordered_list_item_cont: $ => prec.right(PREC.LIST, seq(
+      field('content', alias(seq(alias($.UNORDERED_LIST_LINE_CONT, $.text_segment)), $.text_with_inlines)),
+      repeat($.list_item_continuation)
+    )),
+    unordered_list_item_last: $ => prec.right(PREC.LIST, seq(
+      field('content', alias(seq(alias($.UNORDERED_LIST_LINE_LAST, $.text_segment)), $.text_with_inlines)),
       repeat($.list_item_continuation)
     )),
     
-    // List item content - just the inline text without newlines
-    _list_item_content: $ => $.text_with_inlines,
+    // List item content (legacy path) - kept for compatibility where needed
+    _list_item_content: $ => alias(
+      seq(alias(token.immediate(/[^\r\n]+/), $.text_segment)),
+      $.text_with_inlines
+    ),
     
     // List item continuation - supports attaching blocks to list items
     list_item_continuation: $ => prec.right(PREC.LIST + 5, seq(
@@ -749,13 +788,18 @@ module.exports = grammar({
       repeat1($._block_not_section)  // Any blocks that follow the continuation
     )),
     
-    // Ordered list - group consecutive list items using right associativity
-    ordered_list: $ => prec.right(repeat1($.ordered_list_item)),
-    
-    ordered_list_item: $ => prec.left(PREC.LIST, seq(
-      $.ordered_list_marker,     // Regular token for ordered markers
-      field('content', $._list_item_content),
-      $._newline,
+    // Ordered list - zero or more cont items followed by exactly one last item
+    ordered_list: $ => prec.dynamic(2, prec.right(PREC.LIST + 2000, seq(
+      repeat(alias($.ordered_list_item_cont, $.ordered_list_item)),
+      alias($.ordered_list_item_last, $.ordered_list_item)
+    ))),
+
+    ordered_list_item_cont: $ => prec.right(PREC.LIST, seq(
+      field('content', alias(seq(alias($.ORDERED_LIST_LINE_CONT, $.text_segment)), $.text_with_inlines)),
+      repeat($.list_item_continuation)
+    )),
+    ordered_list_item_last: $ => prec.right(PREC.LIST, seq(
+      field('content', alias(seq(alias($.ORDERED_LIST_LINE_LAST, $.text_segment)), $.text_with_inlines)),
       repeat($.list_item_continuation)
     )),
     
@@ -766,15 +810,15 @@ module.exports = grammar({
       $._DESCRIPTION_LIST_ITEM   // Hidden scanner token that captures entire line
     )),
     
-    // Callout list
-    callout_list: $ => prec(PREC.LIST, repeat1($.callout_item)),
+    // Callout list - group consecutive callout items using right associativity
+    callout_list: $ => prec.right(repeat1($.callout_item)),
     
-    callout_item: $ => seq(
+    callout_item: $ => prec.left(PREC.LIST, seq(
       field('marker', $.CALLOUT_MARKER), // e.g., "<1>"
       token.immediate(prec(1, /[ \t]+/)), // Consume required whitespace after marker
       field('content', $.text_with_inlines),
       $._newline
-    ),
+    )),
     
     // ========================================================================
     // CONDITIONAL BLOCKS
@@ -788,30 +832,31 @@ module.exports = grammar({
     
     ifdef_block: $ => prec.right(seq(
       field('open', $.ifdef_open),
-      repeat(choice($._block, $._blank_line)),
+      repeat(choice($._block_in_conditional, $._blank_line)),
       field('close', $.endif_directive)
     )),
     
     ifndef_block: $ => prec.right(seq(
       field('open', $.ifndef_open),
-      repeat(choice($._block, $._blank_line)),
+      repeat(choice($._block_in_conditional, $._blank_line)),
       field('close', $.endif_directive)
     )),
     
     ifeval_block: $ => prec.right(seq(
       field('open', $.ifeval_open),
-      repeat(choice($._block, $._blank_line)),
+      repeat(choice($._block_in_conditional, $._blank_line)),
       field('close', $.endif_directive)
     )),
     
     // Strict regex-based conditional directives (avoid permissive matches)
-    // ifdef/ifndef require empty brackets [] and attribute list before '['
-    ifdef_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifdef::[A-Za-z0-9_,\-]*\[\][ \t]*\r?\n/)),
-    ifndef_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifndef::[A-Za-z0-9_,\-]*\[\][ \t]*\r?\n/)),
+    // Do not consume trailing newlines; let line endings be handled by _blank_line/_newline
+    // ifdef/ifndef require empty brackets [] and optional attribute list before '[']
+    ifdef_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifdef::[A-Za-z0-9_,\-]*\[\][ \t]*/)),
+    ifndef_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifndef::[A-Za-z0-9_,\-]*\[\][ \t]*/)),
     // ifeval allows an expression inside brackets
-    ifeval_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifeval::\[[^\]\r\n]*\][ \t]*\r?\n/)),
+    ifeval_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifeval::\[[^\]\r\n]+\][ \t]*/)),
     // endif requires empty brackets []
-    endif_directive: $ => token(prec(PREC.CONDITIONAL + 20, /endif::\[\][ \t]*\r?\n/)),
+    endif_directive: $ => token(prec(PREC.CONDITIONAL + 20, /endif::\[\][ \t]*/)),
     
     // ========================================================================
     // TABLE BLOCKS (ENHANCED)
@@ -844,7 +889,8 @@ module.exports = grammar({
     span_spec: $ => token(prec(10, /[0-9]+\+|\.[0-9]+\+|[0-9]+\.[0-9]+\+/)),
     
     // Format specifications: a=asciidoc, l=literal, m=monospace, s=strong, e=emphasis, h=header, v=verse
-    format_spec: $ => token(prec(10, /[aelmshv]/)),
+    // Only used in table cells, lower precedence to avoid conflicts with text
+    format_spec: $ => choice('a', 'l', 'e', 'm', 's', 'h', 'v'),
     
     // Cell content defaults to literal text
     cell_content: $ => $.cell_literal_text,
@@ -949,19 +995,22 @@ module.exports = grammar({
     // Constrained formatting variants - very high precedence to beat text_segment
     strong_constrained: $ => prec(PREC.STRONG + 10, seq(
       field('open', $.strong_open),
-      field('content', alias(token.immediate(/(?:[^*\r\n\\]|\\.)+/), $.strong_text)),
+      // Disallow leading whitespace after opening '*'
+      field('content', alias(token.immediate(/[^ \t\r\n*][^*\r\n]*/), $.strong_text)),
       field('close', $.strong_close)
     )),
     
     emphasis_constrained: $ => prec(PREC.EMPHASIS + 10, seq(
       field('open', $.emphasis_open),
-      field('content', alias(token.immediate(/(?:[^_\r\n\\]|\\.)+/), $.emphasis_text)),
+      // Disallow leading whitespace after opening '_'
+      field('content', alias(token.immediate(/[^ \t\r\n_][^_\r\n]*/), $.emphasis_text)),
       field('close', $.emphasis_close)
     )),
     
     monospace_constrained: $ => prec(PREC.MONOSPACE + 10, seq(
       field('open', $.monospace_open),
-      field('content', alias(token.immediate(/(?:[^`\r\n\\]|\\.)+/), $.monospace_text)),
+      // Disallow leading whitespace after opening '`'
+      field('content', alias(token.immediate(/[^ \t\r\n`][^`\r\n]*/), $.monospace_text)),
       field('close', $.monospace_close)
     )),
     
@@ -969,29 +1018,29 @@ module.exports = grammar({
     // DELIMITER TOKENS
     // ========================================================================
     
-    // Delimiter tokens for inline formatting - higher precedence than fallback text
-    strong_open: $ => token(prec(PREC.TEXT - 5, '*')),
+    // Delimiter tokens for inline formatting - lower precedence to allow lists priority
+    strong_open: $ => token(prec(PREC.TEXT - 10, '*')),
     strong_close: $ => token.immediate('*'),
     
-    emphasis_open: $ => token(prec(PREC.TEXT - 5, '_')),
+    emphasis_open: $ => token(prec(PREC.TEXT - 10, '_')),
     emphasis_close: $ => token.immediate('_'),
     
-    monospace_open: $ => token(prec(PREC.TEXT - 5, '`')),
+    monospace_open: $ => token(prec(PREC.TEXT - 10, '`')),
     monospace_close: $ => token.immediate('`'),
     
-    superscript_open: $ => token(prec(PREC.TEXT - 5, '^')),
+    superscript_open: $ => token(prec(PREC.TEXT + 10, '^')),
     superscript_close: $ => token.immediate('^'),
     
-    subscript_open: $ => token(prec(PREC.TEXT - 5, '~')),
+    subscript_open: $ => token(prec(PREC.TEXT + 10, '~')),
     subscript_close: $ => token.immediate('~'),
     
-    // Section marker tokens for syntax highlighting
-    section_marker_1: $ => token(prec(PREC.SECTION + 20, '=')),
-    section_marker_2: $ => token(prec(PREC.SECTION + 20, '==')),
-    section_marker_3: $ => token(prec(PREC.SECTION + 20, '===')),
-    section_marker_4: $ => token(prec(PREC.SECTION + 20, '====')),
-    section_marker_5: $ => token(prec(PREC.SECTION + 20, '=====')),
-    section_marker_6: $ => token(prec(PREC.SECTION + 20, '======')),
+    // Section marker tokens for syntax highlighting - include required whitespace
+    _section_marker_1: $ => token(prec(PREC.SECTION + 5, /=[ \t]+/)),
+    _section_marker_2: $ => token(prec(PREC.SECTION + 5, /==[ \t]+/)),
+    _section_marker_3: $ => token(prec(PREC.SECTION + 5, /===[ \t]+/)),
+    _section_marker_4: $ => token(prec(PREC.SECTION + 5, /====[ \t]+/)),
+    _section_marker_5: $ => token(prec(PREC.SECTION + 5, /=====[ \t]+/)),
+    _section_marker_6: $ => token(prec(PREC.SECTION + 5, /======[ \t]+/)),
     
     // ========================================================================
     // EXTERNAL TOKEN RULES
@@ -999,6 +1048,12 @@ module.exports = grammar({
     
     // External token rules are overridden by high-precedence tokens above
     
+    // Internal unordered list marker - replaces external scanner token
+    // Uses very high precedence and start-of-line anchoring to beat inline formatting
+    _unordered_marker: $ => token(prec(200, choice(
+      seq('*', /[ \t]+/),
+      seq('-', /[ \t]+/)
+    ))),
     
   }
 });

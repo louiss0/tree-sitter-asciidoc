@@ -19,24 +19,18 @@ Paragraph under C
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
         (text_segment))))
   (section
     (section_title
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
         (text_segment))))
   (section
     (section_title
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -204,7 +198,6 @@ Subsection content
       (value)))
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment)))
   (section
     (section_title
@@ -214,5 +207,4 @@ Subsection content
       (value)))
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment))))

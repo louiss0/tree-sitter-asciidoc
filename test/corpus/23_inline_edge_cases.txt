@@ -83,8 +83,7 @@ This is *bold with \* asterisk* text.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
+    content: (text_with_inlines
       (text_segment)
       (inline_element
         (strong
@@ -104,8 +103,7 @@ This is _italic with \_ underscore_ text.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
+    content: (text_with_inlines
       (text_segment)
       (inline_element
         (emphasis
@@ -125,8 +123,7 @@ This is `code with \` backtick` text.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
+    content: (text_with_inlines
       (text_segment)
       (inline_element
         (monospace
@@ -148,7 +145,6 @@ This is ^super with \^ caret^ text.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (text_segment)
       (inline_element
         (superscript
           open: (superscript_open)
@@ -167,7 +163,6 @@ This is ~sub with \~ tilde~ text.
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_segment)
       (text_segment)
       (inline_element
         (subscript
@@ -188,10 +183,8 @@ This is [role]#text with \# hash# here.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (text_segment)
       (inline_element
         (role_span))
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -205,7 +198,6 @@ This is *bold with `mono and ^super^`* text.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment)
       (inline_element
         (strong
@@ -318,14 +310,12 @@ Use image:logo.png[Logo] and https://example.com[Site] here.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (inline_element
-        (image))
+      (text_colon)
       (text_segment)
-      (inline_element
-        (link
-          (auto_link)
-          (bracketed_text)))
-      (text_segment))))
+      (text_bracket)
+      (text_segment)
+      (text_colon)))
+  (line_comment_block))
 
 ================================================================================
 Multiple consecutive inline elements

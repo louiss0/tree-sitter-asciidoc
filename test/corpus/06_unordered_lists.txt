@@ -12,17 +12,12 @@ Simple unordered list with asterisk
   (unordered_list
     (unordered_list_item
       content: (text_with_inlines
-        (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
-        (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
-        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -39,17 +34,12 @@ Simple unordered list with hyphen
   (unordered_list
     (unordered_list_item
       content: (text_with_inlines
-        (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
-        (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
-        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -66,17 +56,12 @@ Mixed unordered list markers
   (unordered_list
     (unordered_list_item
       content: (text_with_inlines
-        (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
-        (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
-        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -97,8 +82,7 @@ Not a list - missing space after marker
           (strong_constrained
             open: (strong_open)
             content: (strong_text)
-            close: (strong_close
-              (MISSING "*")))))))
+            close: (MISSING strong_close))))))
   (paragraph
     content: (text_with_inlines
       (text_segment))))

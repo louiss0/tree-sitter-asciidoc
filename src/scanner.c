@@ -2,6 +2,9 @@
 #include <wctype.h>
 #include <stdio.h>
 
+// Forward declare helpers used before definition
+static bool is_digit(int32_t c);
+
 // Debug logging - disabled for normal operation
 #ifdef DEBUG_DISABLED_FOR_NOW
 #define DEBUG_LOG(fmt, ...) fprintf(stderr, "[SCANNER] " fmt "\n", ##__VA_ARGS__)
@@ -40,7 +43,11 @@ enum {
     _ifdef_open_token,     // "ifdef::" at start of line
     _ifndef_open_token,    // "ifndef::" at start of line
     _ifeval_open_token,    // "ifeval::" at start of line
-    _endif_directive_token // "endif::" at start of line
+    _endif_directive_token, // "endif::" at start of line
+    UNORDERED_LIST_LINE_CONT,
+    UNORDERED_LIST_LINE_LAST,
+    ORDERED_LIST_LINE_CONT,
+    ORDERED_LIST_LINE_LAST
 };
 
 typedef struct {
@@ -73,6 +80,78 @@ static void skip_spaces(TSLexer *lexer) {
 static bool at_line_start(TSLexer *lexer) {
     return lexer->get_column(lexer) == 0;
 }
+
+// List-line variant scanners: consume exactly one item line and peek next line safely
+static bool scan_unordered_list_line_variant(TSLexer *lexer, bool want_cont) {
+    if (lexer->get_column(lexer) != 0) return false;
+    TSLexer tmp = *lexer;
+    if (tmp.lookahead != '*' && tmp.lookahead != '-') return false;
+    tmp.advance(&tmp, false);
+    if (tmp.lookahead != ' ' && tmp.lookahead != '\t') return false;
+    tmp.advance(&tmp, false);
+    // consume rest of line in tmp
+    uint32_t cap = 0;
+    while (tmp.lookahead && tmp.lookahead != '\r' && tmp.lookahead != '\n') { if (++cap > 10000) break; tmp.advance(&tmp, false); }
+    // peek next line
+    bool next_is_item = false;
+    if (tmp.lookahead == '\r') tmp.advance(&tmp, false);
+    if (tmp.lookahead == '\n') tmp.advance(&tmp, false);
+    if (tmp.lookahead == '*' || tmp.lookahead == '-') {
+        tmp.advance(&tmp, false);
+        if (tmp.lookahead == ' ' || tmp.lookahead == '\t') next_is_item = true;
+    }
+    if ((want_cont && next_is_item) || (!want_cont && !next_is_item)) {
+        // commit on real lexer: marker, space, rest of line, EOL
+        advance(lexer);
+        advance(lexer);
+        uint32_t c2 = 0;
+        while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') { if (++c2 > 10000) break; advance(lexer); }
+        if (lexer->lookahead == '\r') advance(lexer);
+        if (lexer->lookahead == '\n') advance(lexer);
+        return true;
+    }
+    return false;
+}
+
+static bool scan_ordered_list_line_variant(TSLexer *lexer, bool want_cont) {
+    if (lexer->get_column(lexer) != 0) return false;
+    TSLexer tmp = *lexer;
+    if (!(tmp.lookahead >= '0' && tmp.lookahead <= '9')) return false;
+    uint32_t digs = 0;
+    while (tmp.lookahead >= '0' && tmp.lookahead <= '9') { if (++digs > 20) break; tmp.advance(&tmp, false); }
+    if (tmp.lookahead != '.') return false;
+    tmp.advance(&tmp, false);
+    if (tmp.lookahead != ' ' && tmp.lookahead != '\t') return false;
+    tmp.advance(&tmp, false);
+    // consume rest of line
+    uint32_t cap = 0;
+    while (tmp.lookahead && tmp.lookahead != '\r' && tmp.lookahead != '\n') { if (++cap > 10000) break; tmp.advance(&tmp, false); }
+    // peek next
+    bool next_is_item = false;
+    if (tmp.lookahead == '\r') tmp.advance(&tmp, false);
+    if (tmp.lookahead == '\n') tmp.advance(&tmp, false);
+    if (tmp.lookahead >= '0' && tmp.lookahead <= '9') {
+        while (tmp.lookahead >= '0' && tmp.lookahead <= '9') tmp.advance(&tmp, false);
+        if (tmp.lookahead == '.') { tmp.advance(&tmp, false); if (tmp.lookahead == ' ' || tmp.lookahead == '\t') next_is_item = true; }
+    }
+    if ((want_cont && next_is_item) || (!want_cont && !next_is_item)) {
+        // commit
+        uint32_t d2 = 0;
+        while (lexer->lookahead >= '0' && lexer->lookahead <= '9') { if (++d2 > 20) break; advance(lexer); }
+        advance(lexer); // '.'
+        advance(lexer); // ws
+        uint32_t c2 = 0;
+        while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') { if (++c2 > 10000) break; advance(lexer); }
+        if (lexer->lookahead == '\r') advance(lexer);
+        if (lexer->lookahead == '\n') advance(lexer);
+        return true;
+    }
+    return false;
+}
+
+// Removed list line variant scanning
+
+// Removed ordered list line variant scanning
 
 // Map fence characters to token types
 static int get_fence_start_token(char fence_char, uint8_t count) {
@@ -1052,13 +1131,27 @@ static bool scan_block_anchor(TSLexer *lexer) {
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
     
-    
+
     // LIST_CONTINUATION has highest priority - check first before other tokens consume input
     if (valid_symbols[LIST_CONTINUATION] && scan_list_continuation(lexer)) {
         lexer->result_symbol = LIST_CONTINUATION;
         return true;
     }
+
     
+    // Prefer list-line variants first (CONT, then LAST)
+    if (valid_symbols[UNORDERED_LIST_LINE_CONT] && scan_unordered_list_line_variant(lexer, true)) { lexer->result_symbol = UNORDERED_LIST_LINE_CONT; return true; }
+    if (valid_symbols[UNORDERED_LIST_LINE_LAST] && scan_unordered_list_line_variant(lexer, false)) { lexer->result_symbol = UNORDERED_LIST_LINE_LAST; return true; }
+    if (valid_symbols[ORDERED_LIST_LINE_CONT] && scan_ordered_list_line_variant(lexer, true)) { lexer->result_symbol = ORDERED_LIST_LINE_CONT; return true; }
+    if (valid_symbols[ORDERED_LIST_LINE_LAST] && scan_ordered_list_line_variant(lexer, false)) { lexer->result_symbol = ORDERED_LIST_LINE_LAST; return true; }
+
+    // Fallback markers
+    if (valid_symbols[_LIST_UNORDERED_MARKER] && scan_unordered_list_marker(lexer)) { lexer->result_symbol = _LIST_UNORDERED_MARKER; return true; }
+    if (valid_symbols[_LIST_ORDERED_MARKER] && scan_ordered_list_marker(lexer)) { lexer->result_symbol = _LIST_ORDERED_MARKER; return true; }
+
+
+    
+    // Stateful delimited block fence handling (high priority)
     // Stateful delimited block fence handling (high priority)
     // Check for fence end first when we have an open fence
     if (scanner->fence_length > 0) {
@@ -1104,7 +1197,8 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
             }
         }
     }
-    
+
+
     // Table fence handling - needs high priority to prevent conflicts
     if (valid_symbols[TABLE_FENCE_START] && scan_table_fence(lexer, true)) {
         lexer->result_symbol = TABLE_FENCE_START;
@@ -1143,17 +1237,7 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         return true;
     }
     
-    
-    // List markers
-    if (valid_symbols[_LIST_UNORDERED_MARKER] && scan_unordered_list_marker(lexer)) {
-        lexer->result_symbol = _LIST_UNORDERED_MARKER;
-        return true;
-    }
-    
-    if (valid_symbols[_LIST_ORDERED_MARKER] && scan_ordered_list_marker(lexer)) {
-        lexer->result_symbol = _LIST_ORDERED_MARKER;
-        return true;
-    }
+    // List markers (already checked earlier at SOL)
     
     if (valid_symbols[CALLOUT_MARKER] && scan_callout_marker(lexer)) {
         lexer->result_symbol = CALLOUT_MARKER;
@@ -1169,8 +1253,7 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         lexer->result_symbol = _DESCRIPTION_LIST_ITEM;
         return true;
     }
-    
-    
+
     // Temporarily disable AUTOLINK_BOUNDARY to reduce ERROR nodes
     // if (valid_symbols[AUTOLINK_BOUNDARY] && scan_autolink_boundary(lexer)) {
     //     lexer->result_symbol = AUTOLINK_BOUNDARY;

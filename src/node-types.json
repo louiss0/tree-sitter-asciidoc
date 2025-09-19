@@ -525,6 +525,11 @@
     }
   },
   {
+    "type": "format_spec",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "id_and_roles",
     "named": true,
     "fields": {}
@@ -576,10 +581,6 @@
         },
         {
           "type": "callout_list",
-          "named": true
-        },
-        {
-          "type": "conditional_block",
           "named": true
         },
         {
@@ -640,10 +641,6 @@
         },
         {
           "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
           "named": true
         }
       ]
@@ -699,10 +696,6 @@
           "named": true
         },
         {
-          "type": "conditional_block",
-          "named": true
-        },
-        {
           "type": "description_list",
           "named": true
         },
@@ -760,10 +753,6 @@
         },
         {
           "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
           "named": true
         }
       ]
@@ -819,10 +808,6 @@
           "named": true
         },
         {
-          "type": "conditional_block",
-          "named": true
-        },
-        {
           "type": "description_list",
           "named": true
         },
@@ -880,10 +865,6 @@
         },
         {
           "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
           "named": true
         }
       ]
@@ -1681,7 +1662,7 @@
         "required": true,
         "types": [
           {
-            "type": "text_with_inlines",
+            "type": "text_segment",
             "named": true
           }
         ]
@@ -1689,14 +1670,10 @@
     },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "list_item_continuation",
-          "named": true
-        },
-        {
-          "type": "ordered_list_marker",
           "named": true
         }
       ]
@@ -2040,47 +2017,16 @@
   {
     "type": "section_title",
     "named": true,
-    "fields": {
-      "marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "section_marker_1",
-            "named": true
-          },
-          {
-            "type": "section_marker_2",
-            "named": true
-          },
-          {
-            "type": "section_marker_3",
-            "named": true
-          },
-          {
-            "type": "section_marker_4",
-            "named": true
-          },
-          {
-            "type": "section_marker_5",
-            "named": true
-          },
-          {
-            "type": "section_marker_6",
-            "named": true
-          }
-        ]
-      },
-      "title": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "title",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "title",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2666,7 +2612,7 @@
         "required": true,
         "types": [
           {
-            "type": "text_with_inlines",
+            "type": "text_segment",
             "named": true
           }
         ]
@@ -2674,14 +2620,10 @@
     },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "list_item_continuation",
-          "named": true
-        },
-        {
-          "type": "unordered_list_marker",
           "named": true
         }
       ]
@@ -2816,6 +2758,10 @@
     "named": false
   },
   {
+    "type": "a",
+    "named": false
+  },
+  {
     "type": "admonition_label",
     "named": true
   },
@@ -2868,6 +2814,10 @@
     "named": true
   },
   {
+    "type": "e",
+    "named": false
+  },
+  {
     "type": "emphasis_close",
     "named": true
   },
@@ -2900,8 +2850,8 @@
     "named": true
   },
   {
-    "type": "format_spec",
-    "named": true
+    "type": "h",
+    "named": false
   },
   {
     "type": "id",
@@ -2956,12 +2906,20 @@
     "named": true
   },
   {
+    "type": "l",
+    "named": false
+  },
+  {
     "type": "latexmath_block_label",
     "named": true
   },
   {
     "type": "link_macro",
     "named": true
+  },
+  {
+    "type": "m",
+    "named": false
   },
   {
     "type": "math_line",
@@ -2984,36 +2942,12 @@
     "named": true
   },
   {
-    "type": "ordered_list_marker",
-    "named": true
-  },
-  {
     "type": "role_span",
     "named": true
   },
   {
-    "type": "section_marker_1",
-    "named": true
-  },
-  {
-    "type": "section_marker_2",
-    "named": true
-  },
-  {
-    "type": "section_marker_3",
-    "named": true
-  },
-  {
-    "type": "section_marker_4",
-    "named": true
-  },
-  {
-    "type": "section_marker_5",
-    "named": true
-  },
-  {
-    "type": "section_marker_6",
-    "named": true
+    "type": "s",
+    "named": false
   },
   {
     "type": "span_spec",
@@ -3076,8 +3010,8 @@
     "named": true
   },
   {
-    "type": "unordered_list_marker",
-    "named": true
+    "type": "v",
+    "named": false
   },
   {
     "type": "value",

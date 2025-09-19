@@ -11,16 +11,13 @@ Simple ordered list
 (source_file
   (ordered_list
     (ordered_list_item
-      (text_with_inlines
-        (text_segment)
+      content: (text_with_inlines
         (text_segment)))
     (ordered_list_item
-      (text_with_inlines
-        (text_segment)
+      content: (text_with_inlines
         (text_segment)))
     (ordered_list_item
-      (text_with_inlines
-        (text_segment)
+      content: (text_with_inlines
         (text_segment)))))
 
 ================================================================================
@@ -36,16 +33,13 @@ Ordered list with multiple digits
 (source_file
   (ordered_list
     (ordered_list_item
-      (text_with_inlines
-        (text_segment)
+      content: (text_with_inlines
         (text_segment)))
     (ordered_list_item
-      (text_with_inlines
-        (text_segment)
+      content: (text_with_inlines
         (text_segment)))
     (ordered_list_item
-      (text_with_inlines
-        (text_segment)
+      content: (text_with_inlines
         (text_segment)))))
 
 ================================================================================
@@ -60,10 +54,10 @@ Not a list - missing space after period
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)))
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment))))
 
 ================================================================================
@@ -76,12 +70,5 @@ The price is 1.25 dollars and 2.50 euros.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
+    content: (text_with_inlines
       (text_segment))))

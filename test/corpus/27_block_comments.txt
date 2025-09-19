@@ -15,13 +15,11 @@ After comment.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment)))
   (block_comment
     (comment_line))
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -45,7 +43,6 @@ Another paragraph.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment)))
   (block_comment
     (comment_line)
@@ -55,7 +52,6 @@ Another paragraph.
     (comment_line))
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -106,20 +102,17 @@ Third paragraph.
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment)))
   (block_comment
     (comment_line))
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment)))
   (block_comment
     (comment_line)
     (comment_line))
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -155,13 +148,11 @@ More content.
       (title)))
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment)))
   (block_comment
     (comment_line))
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -187,5 +178,4 @@ Final paragraph.
     (comment_line))
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment))))

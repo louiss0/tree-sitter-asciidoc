@@ -27,7 +27,6 @@ This is [highlight]#*bold* and _italic_# text.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (text_segment)
       (inline_element
         (role_span))
       (text_segment))))

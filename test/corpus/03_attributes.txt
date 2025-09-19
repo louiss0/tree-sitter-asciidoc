@@ -14,20 +14,19 @@ Some text.
 
 (source_file
   (attribute_entry
-    (name)
-    (value))
+    name: (name)
+    value: (value))
   (attribute_entry
-    (name)
-    (value))
+    name: (name)
+    value: (value))
   (section
     (section_title
       (title))
     (attribute_entry
-      (name)
-      (value)))
+      name: (name)
+      value: (value)))
   (paragraph
-    (text_with_inlines
-      (text_segment)
+    content: (text_with_inlines
       (text_segment))))
 
 ================================================================================
@@ -45,15 +44,14 @@ Content here
 
 (source_file
   (attribute_entry
-    (name))
+    name: (name))
   (attribute_entry
-    (name))
+    name: (name))
   (section
     (section_title
       (title)))
   (paragraph
-    (text_with_inlines
-      (text_segment)
+    content: (text_with_inlines
       (text_segment))))
 
 ================================================================================
@@ -67,11 +65,11 @@ Attribute entries with spaces in values
 
 (source_file
   (attribute_entry
-    (name)
-    (value))
+    name: (name)
+    value: (value))
   (attribute_entry
-    (name)
-    (value)))
+    name: (name)
+    value: (value)))
 
 ================================================================================
 Invalid attribute patterns should be paragraphs
@@ -87,22 +85,15 @@ Invalid attribute patterns should be paragraphs
   (paragraph
     content: (text_with_inlines
       (text_colon)
-      (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
       (text_colon)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
       (text_colon)
       (text_colon)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -123,19 +114,17 @@ More content
 
 (source_file
   (attribute_entry
-    (name)
-    (value))
+    name: (name)
+    value: (value))
   (paragraph
-    (text_with_inlines
-      (text_segment)
+    content: (text_with_inlines
       (text_segment)))
   (attribute_entry
-    (name)
-    (value))
+    name: (name)
+    value: (value))
   (section
     (section_title
       (title)))
   (paragraph
-    (text_with_inlines
-      (text_segment)
+    content: (text_with_inlines
       (text_segment))))

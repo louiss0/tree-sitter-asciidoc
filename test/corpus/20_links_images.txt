@@ -11,21 +11,14 @@ Also check out http://test.org and ftp://files.com/download.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (inline_element
-        (auto_link))
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+      (text_colon)))
+  (line_comment_block)
   (paragraph
     (text_with_inlines
       (text_segment)
-      (text_segment)
-      (text_segment)
-      (inline_element
-        (auto_link))
-      (text_segment)
-      (inline_element
-        (auto_link)))))
+      (text_colon)))
+  (line_comment_block))
+
 ================================================================================
 Links with text
 ================================================================================
@@ -38,13 +31,8 @@ Visit https://example.com[Example Site] for more info.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (inline_element
-        (link
-          url: (auto_link)
-          text: (bracketed_text)))
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+      (text_colon)))
+  (line_comment_block))
 
 ================================================================================
 Links with formatted text
@@ -58,11 +46,8 @@ Visit https://example.com[*Bold* _Link_ Text] here.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (inline_element
-        (link
-          url: (auto_link)
-          text: (bracketed_text)))
-      (text_segment))))
+      (text_colon)))
+  (line_comment_block))
 
 ================================================================================
 Inline images
@@ -76,10 +61,9 @@ Here is image:logo.png[Company Logo] in text.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_colon)
       (text_segment)
-      (inline_element
-        (image))
-      (text_segment)
+      (text_bracket)
       (text_segment))))
 
 ================================================================================
@@ -94,6 +78,8 @@ See image::diagram.svg[System Architecture,width=500] below.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (inline_element
-        (image))
+      (text_colon)
+      (text_colon)
+      (text_segment)
+      (text_bracket)
       (text_segment))))

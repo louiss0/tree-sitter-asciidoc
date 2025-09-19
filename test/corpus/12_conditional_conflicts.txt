@@ -108,12 +108,6 @@ These look like conditionals but are malformed.
       (text_segment)))
   (paragraph
     (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -143,10 +137,6 @@ endif::[]
       (ifdef_open)
       (paragraph
         (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
           (text_segment)))
       (endif_directive)))
   (attribute_entry
@@ -157,11 +147,6 @@ endif::[]
       (ifndef_open)
       (paragraph
         (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
           (text_segment)))
       (endif_directive))))
 
@@ -181,10 +166,6 @@ another:::word paragraph
       (text_colon)
       (text_colon)
       (text_colon)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
@@ -192,7 +173,6 @@ another:::word paragraph
       (text_colon)
       (text_colon)
       (text_colon)
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -255,7 +235,7 @@ endif::[]
 (source_file
   (section
     (section_title
-      title: (title)))
+      (title)))
   (attribute_entry
     name: (name)
     value: (value))
@@ -264,18 +244,15 @@ endif::[]
       open: (ifdef_open)
       (paragraph
         content: (text_with_inlines
-          (text_segment)
-          (text_segment)
           (text_segment)))
       close: (endif_directive)))
   (section
     (section_title
-      title: (title)))
+      (title)))
   (conditional_block
     (ifndef_block
       open: (ifndef_open)
       (paragraph
         content: (text_with_inlines
-          (text_segment)
           (text_segment)))
       close: (endif_directive))))

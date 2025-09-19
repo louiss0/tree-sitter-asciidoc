@@ -10,7 +10,6 @@ This is *bold* text and _italic_ text and `monospace` text.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (text_segment)
       (inline_element
         (strong
           (strong_constrained
@@ -18,14 +17,12 @@ This is *bold* text and _italic_ text and `monospace` text.
             content: (strong_text)
             close: (strong_close))))
       (text_segment)
-      (text_segment)
       (inline_element
         (emphasis
           (emphasis_constrained
             open: (emphasis_open)
             content: (emphasis_text)
             close: (emphasis_close))))
-      (text_segment)
       (text_segment)
       (inline_element
         (monospace
@@ -47,14 +44,11 @@ This is E=mc^2^ and H~2~O.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (text_segment)
-      (text_segment)
       (inline_element
         (superscript
           open: (superscript_open)
           content: (superscript_text)
           close: (superscript_close)))
-      (text_segment)
       (text_segment)
       (inline_element
         (subscript
@@ -115,11 +109,8 @@ Visit https://example.com for more info.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (inline_element
-        (auto_link))
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+      (text_colon)))
+  (line_comment_block))
 
 ================================================================================
 Links with text
@@ -133,13 +124,8 @@ Visit https://example.com[Example Site] for more info.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (inline_element
-        (link
-          url: (auto_link)
-          text: (bracketed_text)))
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+      (text_colon)))
+  (line_comment_block))
 
 ================================================================================
 Passthrough
