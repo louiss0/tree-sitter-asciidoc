@@ -1,3 +1,68 @@
+;; Highlights for tree-sitter-asciidoc aligned with current AST
+
+;; Sections and titles
+(section (section_title (title) @markup.heading))
+(block_title) @markup.heading
+
+;; Paragraphs and plain text
+(paragraph (text_with_inlines (text_segment) @markup))
+
+;; Lists
+(unordered_list) @markup.list
+(ordered_list) @markup.list
+(description_list) @markup.list
+(callout_list) @markup.list
+
+;; Inline formatting
+(strong_text) @markup.bold
+(emphasis_text) @markup.italic
+(monospace_text) @markup.raw
+
+;; Links, anchors, references
+(inline_anchor) @markup.link
+(internal_xref) @markup.link
+(external_xref) @markup.link
+(link_macro) @markup.link
+(auto_link) @markup.link
+(image) @markup.link
+(block_image) @markup.link
+
+;; Attributes and roles
+(attribute_entry (name) @attribute)
+(attribute_entry (value) @string)
+(attribute_reference) @variable
+(role_span) @attribute
+
+;; Admonitions
+(admonition_block_label) @label
+(paragraph_admonition (admonition_label) @label)
+
+;; Anchors
+(anchor (id) @symbol)
+
+;; Tables
+(table_block) @markup
+(table_row) @markup
+(table_cell) @markup
+(cell_spec) @attribute
+(format_spec) @constant
+
+;; Delimited blocks
+(example_block) @markup.raw
+(listing_block) @markup.raw
+(literal_block) @markup.raw
+(quote_block) @markup
+(sidebar_block) @markup
+(passthrough_block) @markup.raw
+(open_block) @markup
+
+;; Conditionals
+(conditional_block) @keyword
+
+;; Misc
+(block_attributes) @attribute
+(id_and_roles) @attribute
+
 ;; AsciiDoc syntax highlighting - Enhanced version
 ;; Following nvim-treesitter capture naming conventions
 ;; https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#captures
@@ -31,50 +96,50 @@
 
 ;; Block fences - highlighting the open/close delimiters
 (example_block 
-  open: (example_open) @punctuation.special
-  close: (example_close) @punctuation.special)
+  (example_open) @punctuation.special
+  (example_close) @punctuation.special)
 (#set! "priority" 110)
 
 (listing_block 
-  open: (listing_open) @punctuation.special
-  close: (listing_close) @punctuation.special)
+  (listing_open) @punctuation.special
+  (listing_close) @punctuation.special)
 (#set! "priority" 110)
 
 (literal_block 
-  open: (literal_open) @punctuation.special
-  close: (literal_close) @punctuation.special)
+  (literal_open) @punctuation.special
+  (literal_close) @punctuation.special)
 (#set! "priority" 110)
 
 (quote_block 
-  open: (quote_open) @punctuation.special
-  close: (quote_close) @punctuation.special)
+  (quote_open) @punctuation.special
+  (quote_close) @punctuation.special)
 (#set! "priority" 110)
 
 (sidebar_block 
-  open: (sidebar_open) @punctuation.special
-  close: (sidebar_close) @punctuation.special)
+  (sidebar_open) @punctuation.special
+  (sidebar_close) @punctuation.special)
 (#set! "priority" 110)
 
 (passthrough_block 
-  open: (passthrough_open) @punctuation.special
-  close: (passthrough_close) @punctuation.special)
+  (passthrough_open) @punctuation.special
+  (passthrough_close) @punctuation.special)
 (#set! "priority" 110)
 
 (open_block 
-  open: (openblock_open) @punctuation.special
-  close: (openblock_close) @punctuation.special)
+  (openblock_open) @punctuation.special
+  (openblock_close) @punctuation.special)
 (#set! "priority" 110)
 
 (table_block 
-  open: (table_open) @punctuation.special
-  close: (table_close) @punctuation.special)
+  (table_open) @punctuation.special
+  (table_close) @punctuation.special)
 (#set! "priority" 110)
 
 ;; Block content highlighting based on type
-(listing_block content: (block_content) @markup.raw.block)
-(literal_block content: (block_content) @markup.raw.block)
-(quote_block content: (block_content) @markup.quote)
-(passthrough_block content: (block_content) @markup.raw.block)
+(listing_block (block_content) @markup.raw.block)
+(literal_block (block_content) @markup.raw.block)
+(quote_block (block_content) @markup.quote)
+(passthrough_block (block_content) @markup.raw.block)
 
 ;; =============================================================================
 ;; ATTRIBUTE ENTRIES AND REFERENCES
@@ -82,8 +147,8 @@
 
 ;; Attribute declarations (:name: value) - use modern @attribute
 (attribute_entry
-  name: (name) @attribute
-  value: (value) @string)
+  (name) @attribute
+  (value) @string)
 
 ;; Attribute references ({name}) - highlight braces and name separately  
 (attribute_reference) @attribute
@@ -94,9 +159,9 @@
 
 ;; Strong/bold text (*text*) - delimiter-separated captures
 (strong_constrained
-  open: (strong_open) @punctuation.special
-  content: (strong_text) @markup.strong
-  close: (strong_close) @punctuation.special)
+  (strong_open) @punctuation.special
+  (strong_text) @markup.strong
+  (strong_close) @punctuation.special)
 (#set! "priority" 112)
 
 ;; Strong fallback for unclosed formatting
@@ -104,9 +169,9 @@
 
 ;; Emphasis/italic text (_text_) - delimiter-separated captures
 (emphasis_constrained
-  open: (emphasis_open) @punctuation.special
-  content: (emphasis_text) @markup.italic
-  close: (emphasis_close) @punctuation.special)
+  (emphasis_open) @punctuation.special
+  (emphasis_text) @markup.italic
+  (emphasis_close) @punctuation.special)
 (#set! "priority" 112)
 
 ;; Emphasis fallback for unclosed formatting
@@ -114,9 +179,9 @@
 
 ;; Monospace/code text (`text`) - delimiter-separated captures
 (monospace_constrained
-  open: (monospace_open) @punctuation.special
-  content: (monospace_text) @markup.raw.inline
-  close: (monospace_close) @punctuation.special)
+  (monospace_open) @punctuation.special
+  (monospace_text) @markup.raw.inline
+  (monospace_close) @punctuation.special)
 (#set! "priority" 112)
 
 ;; Monospace fallback for unclosed formatting
@@ -124,14 +189,14 @@
 
 ;; Superscript (^text^) and subscript (~text~) - delimiter-separated captures
 (superscript
-  open: (superscript_open) @punctuation.special
-  content: (superscript_text) @string.special
-  close: (superscript_close) @punctuation.special)
+  (superscript_open) @punctuation.special
+  (superscript_text) @string.special
+  (superscript_close) @punctuation.special)
 
 (subscript
-  open: (subscript_open) @punctuation.special
-  content: (subscript_text) @string.special
-  close: (subscript_close) @punctuation.special)
+  (subscript_open) @punctuation.special
+  (subscript_text) @string.special
+  (subscript_close) @punctuation.special)
 
 ;; =============================================================================
 ;; LINKS AND CROSS-REFERENCES
@@ -160,8 +225,8 @@
 ;; =============================================================================
 
 ;; Block and inline anchors - enhanced with bracket highlighting
-(anchor id: (id) @label)
-(anchor text: (anchor_text) @markup.link.label)
+(anchor (id) @label)
+(anchor (anchor_text) @markup.link.label)
 
 ;; Inline anchors - token-based parsing with bracket separation
 (inline_anchor) @label
@@ -218,7 +283,7 @@
 
 ;; Callout lists
 (callout_item) @markup.list
-(callout_item marker: (CALLOUT_MARKER) @markup.list.marker)
+(callout_item (CALLOUT_MARKER) @markup.list.marker)
 
 ;; =============================================================================
 ;; ADMONITIONS
@@ -247,7 +312,7 @@
 ;; =============================================================================
 
 ;; Table cells
-(table_cell content: (cell_content) @string)
+(table_cell (cell_content) @string)
 
 ;; Cell specifications (colspan, rowspan, format) - enhanced
 (cell_spec) @operator
@@ -329,20 +394,20 @@
 (index_text tertiary: (index_term_text) @label)
 
 ;; Bibliography - enhanced with citation types
-(bibliography_entry id: (bibliography_id) @label)
-(bibliography_entry citation: (bibliography_citation) @string)
-(bibliography_entry description: (bibliography_description) @string)
+(bibliography_entry (bibliography_id) @label)
+(bibliography_entry (bibliography_citation) @string)
+(bibliography_entry (bibliography_description) @string)
 
 ;; Bibliography references in text
-(bibliography_reference id: (bibliography_ref_id) @label)
+(bibliography_reference (bibliography_ref_id) @label)
 
 ;; Bibliography entry structure highlighting
 ;; Note: The triple bracket syntax [[[id]]] uses structured parsing
 ;; Future enhancement: separate bracket highlighting as @punctuation.bracket
 
 ;; Include directives - enhanced priority
-(include_directive path: (include_path) @string.special.path)
-(include_directive options: (include_options) @attribute)
+(include_directive (include_path) @string.special.path)
+(include_directive (include_options) @attribute)
 (#set! "priority" 118)
 
 ;; =============================================================================
