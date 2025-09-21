@@ -9,12 +9,24 @@ AnotherTerm:: Another description
 --------------------------------------------------------------------------------
 
 (source_file
-  (description_list
-    (description_item))
-  (description_list
-    (description_item))
-  (description_list
-    (description_item)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment)))
+  (paragraph
+    (text_with_inlines
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment))))
 
 ================================================================================
 Not a description list - missing space after double colon

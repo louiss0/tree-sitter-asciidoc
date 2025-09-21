@@ -16,41 +16,18 @@ Another paragraph after multiple blank lines
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
-      (text_segment)
-      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment))))
 
 ================================================================================

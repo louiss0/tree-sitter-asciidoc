@@ -57,35 +57,24 @@ Content for section 3
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment))))
   (section
     (section_title
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment))))
   (section
     (section_title
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
         (text_segment))))
   (section
     (section_title
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -118,54 +107,36 @@ Content at level 6
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment))))
   (section
     (section_title
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment))))
   (section
     (section_title
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment))))
   (section
     (section_title
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment))))
   (section
     (section_title
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment))))
   (section
     (section_title
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment)))))
 
 ================================================================================
