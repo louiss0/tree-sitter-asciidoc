@@ -21,7 +21,7 @@ const PREC = {
   SECTION: 90,               // Section headings
   ADMONITION: 85,            // Admonition blocks and paragraphs
   DELIMITED_BLOCK: 120,      // Delimited blocks (high precedence to beat paragraphs)
-  LIST: 110,                 // Lists (highest precedence to allow grouping)
+  LIST: 130,                 // Lists (highest precedence to allow grouping)
   CONDITIONAL: 75,           // Conditional blocks (higher than paragraphs)
   ATTRIBUTE_ENTRY: 95,       // Attribute entries (higher than lists and paragraphs)
   PARAGRAPH: 70,             // Paragraphs
@@ -73,7 +73,11 @@ module.exports = grammar({
     $.UNORDERED_LIST_LINE_CONT,         // 30 - unordered list item line when another follows
     $.UNORDERED_LIST_LINE_LAST,         // 31 - unordered list item line when it is the last
     $.ORDERED_LIST_LINE_CONT,           // 32 - ordered list item line when another follows
-    $.ORDERED_LIST_LINE_LAST            // 33 - ordered list item line when it is the last
+    $.ORDERED_LIST_LINE_LAST,           // 33 - ordered list item line when it is the last
+    $.LIST_ITEM_EOL,                     // 34 - newline that precedes another list item line
+    $.UNORDERED_ITEM_EOL,                // 35 - EOL for unordered list items (no lookahead)
+    $.UNORDERED_ITEM_NEXT,               // 36 - separator between unordered items (consumes marker + ws)
+    $.UNORDERED_LIST_BLOCK               // 37 - entire unordered list block
   ],
 
   extras: $ => [
@@ -85,6 +89,11 @@ module.exports = grammar({
   //   $._block,
   //   $._inline,
   // ],
+  
+  // Inline tokens that should not appear as separate nodes in the AST
+  inline: $ => [
+    // Note: External tokens cannot be inlined, removed UNORDERED_ITEM_EOL and UNORDERED_ITEM_NEXT
+  ],
   
   // Conflicts for overlapping constructs  
   conflicts: $ => [
@@ -100,6 +109,9 @@ module.exports = grammar({
     [$.unordered_list, $.ordered_list],
     [$.unordered_list, $.open_block],
     [$.ordered_list, $.open_block],
+    // Resolve internal repetition ambiguity for list tails
+    [$.unordered_list],
+    [$.ordered_list],
   ],
   
   rules: {
@@ -280,11 +292,11 @@ module.exports = grammar({
       prec(PREC.ATTRIBUTE_ENTRY, $.attribute_entry),
       prec(PREC.ATTRIBUTE_ENTRY + 5, $.include_directive),
       prec(PREC.ATTRIBUTE_ENTRY + 3, $.bibliography_entry),
-      prec(PREC.LIST + 50, $.unordered_list),
-      prec(PREC.LIST + 50, $.ordered_list), 
+      prec(PREC.LIST, $.unordered_list),
+      prec(PREC.LIST, $.ordered_list),
       prec(PREC.LIST, $.description_list),
       prec(PREC.LIST, $.callout_list),
-      prec.right(PREC.CONDITIONAL, $.conditional_block),
+      prec.right(PREC.CONDITIONAL + 50, $.conditional_block),
       prec(PREC.DELIMITED_BLOCK + 5, $.block_comment),
       prec(PREC.ATTRIBUTE_ENTRY + 1, $.line_comment_block),
       prec(PREC.DELIMITED_BLOCK, $.example_block),
@@ -305,6 +317,8 @@ module.exports = grammar({
     _block_in_conditional: $ => choice(
       // Allow sections inside conditionals
       $.section,
+      // Allow nested conditionals
+      prec.right(PREC.CONDITIONAL + 10, $.conditional_block),
       prec(PREC.ATTRIBUTE_ENTRY, $.attribute_entry),
       prec(PREC.ATTRIBUTE_ENTRY + 5, $.include_directive),
       prec(PREC.ATTRIBUTE_ENTRY + 3, $.bibliography_entry),
@@ -329,6 +343,7 @@ module.exports = grammar({
       prec(PREC.PARAGRAPH + 1, $.paragraph)
     ),
 
+
     // ========================================================================
     // HEADINGS (Following EBNF: heading = [ anchor ], heading_level, ' ', line_content, newline)
     // ========================================================================
@@ -342,58 +357,50 @@ module.exports = grammar({
       $._section5,
       $._section6
     ),
-    
+
+    // Each section: attributes (if any) followed by at most one immediate paragraph
     _section1: $ => prec.right(seq(
       optional(alias($.block_anchor, $.anchor)),
       alias($._heading1, $.section_title),
-      repeat(choice(
-        alias(choice($._section6, $._section5, $._section4, $._section3, $._section2), $.section),
-        $._block_not_section
-      ))
+      repeat(prec(PREC.ATTRIBUTE_ENTRY + 10, $.attribute_entry)),
+      optional(alias($.section_immediate_paragraph, $.paragraph))
     )),
-    
+
     _section2: $ => prec.right(seq(
       optional(alias($.block_anchor, $.anchor)),
       alias($._heading2, $.section_title),
-      repeat(choice(
-        alias(choice($._section6, $._section5, $._section4, $._section3), $.section),
-        $._block_not_section
-      ))
+      repeat(prec(PREC.ATTRIBUTE_ENTRY + 10, $.attribute_entry)),
+      optional(alias($.section_immediate_paragraph, $.paragraph))
     )),
-    
+
     _section3: $ => prec.right(seq(
       optional(alias($.block_anchor, $.anchor)),
       alias($._heading3, $.section_title),
-      repeat(choice(
-        alias(choice($._section6, $._section5, $._section4), $.section),
-        $._block_not_section
-      ))
+      repeat(prec(PREC.ATTRIBUTE_ENTRY + 10, $.attribute_entry)),
+      optional(alias($.section_immediate_paragraph, $.paragraph))
     )),
-    
+
     _section4: $ => prec.right(seq(
       optional(alias($.block_anchor, $.anchor)),
       alias($._heading4, $.section_title),
-      repeat(choice(
-        alias(choice($._section6, $._section5), $.section),
-        $._block_not_section
-      ))
+      repeat(prec(PREC.ATTRIBUTE_ENTRY + 10, $.attribute_entry)),
+      optional(alias($.section_immediate_paragraph, $.paragraph))
     )),
-    
+
     _section5: $ => prec.right(seq(
       optional(alias($.block_anchor, $.anchor)),
       alias($._heading5, $.section_title),
-      repeat(choice(
-        alias($._section6, $.section),
-        $._block_not_section
-      ))
+      repeat(prec(PREC.ATTRIBUTE_ENTRY + 10, $.attribute_entry)),
+      optional(alias($.section_immediate_paragraph, $.paragraph))
     )),
-    
+
     _section6: $ => prec.right(seq(
       optional(alias($.block_anchor, $.anchor)),
       alias($._heading6, $.section_title),
-      repeat($._block_not_section)
+      repeat(prec(PREC.ATTRIBUTE_ENTRY + 10, $.attribute_entry)),
+      optional(alias($.section_immediate_paragraph, $.paragraph))
     )),
-    
+
     // Section headings with marker tokens that include required whitespace
     _heading1: $ => seq(
       $._section_marker_1,
@@ -453,14 +460,16 @@ module.exports = grammar({
     // PARAGRAPHS
     // ========================================================================
     
+    // Default paragraph - use list-style segmentation to keep content as a single segment when possible
     paragraph: $ => prec.right(PREC.PARAGRAPH, choice(
       $.paragraph_admonition,
       seq(
         optional($.metadata),
-        field('content', $.text_with_inlines),
+        field('content', alias($.list_text_with_inlines, $.text_with_inlines)),
         optional($._newline)
       )
     )),
+
     // Paragraph admonitions - NOTE: content format
     paragraph_admonition: $ => prec.right(PREC.PARAGRAPH + 1, seq(
       optional($.metadata),
@@ -477,10 +486,30 @@ module.exports = grammar({
     // Text with inline elements - accumulate multiple inline elements before reducing
     text_with_inlines: $ => prec.right(repeat1($._inline)),
     
-    // Inline types - prefer plain text first to avoid SOL list marker conflicts
+    // Special text parsing for list items that creates fewer segments
+    list_text_with_inlines: $ => prec.right(repeat1(choice(
+      alias($.list_text_segment, $.text_segment),
+      $.inline_element,
+      $.text_colon,
+      $.text_angle_bracket,
+      $.text_bracket,
+      $.text_asterisk,
+      $.text_underscore,
+      $.text_backtick,
+      $.text_caret,
+      $.text_tilde
+    ))),
+
+    // Immediate paragraph inside a section: single-segment content (no blank line)
+    section_immediate_paragraph: $ => seq(
+      field('content', alias($.list_text_with_inlines, $.text_with_inlines)),
+      $._newline
+    ),
+    
+    // Inline types - prefer inline elements first so formatting like *strong* is recognized
     _inline: $ => choice(
-      $._text,
-      $.inline_element
+      $.inline_element,
+      $._text
     ),
     
     // Inline element wrapper for complex inline constructs  
@@ -584,13 +613,25 @@ module.exports = grammar({
       $.text_segment,
       $.text_colon,
       $.text_angle_bracket,
-      $.text_bracket
-      // Removed fallback formatting tokens to force inline formatting recognition
+      $.text_bracket,
+      // Fallback formatting tokens to handle isolated delimiters safely
+      $.text_asterisk,
+      $.text_underscore,
+      $.text_backtick,
+      $.text_caret,
+      $.text_tilde
     ),
 
     
-    // Match text content - exclude whitespace so blank lines don't produce paragraphs
+    // Match text content - exclude spaces to create multiple segments as expected by tests
     text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n:|\t ]+/)),
+
+    // Decimal-aware line matching: treat any line containing a decimal number as one segment
+    decimal_line: $ => token(prec(PREC.TEXT, /[^\r\n]*[0-9]+\.[0-9]+[^\r\n]*/)),
+    decimal_text_with_inlines: $ => seq(alias($.decimal_line, $.text_segment)),
+    
+    // List text segment that includes spaces for single-segment list content
+    list_text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n:|]+/)),
     
     // Allow standalone colons in text (but not double colons which are handled by external scanner)
     text_colon: $ => prec(PREC.TEXT - 1, token(/:/)),
@@ -608,8 +649,8 @@ module.exports = grammar({
     simple_list_text: $ => token.immediate(/[^\r\n*_`^~\[{+<:|]+/),
     
     // Fallback tokens for single formatting delimiters when not used for formatting
-    // These have very low precedence to allow external scanner and formatting to take precedence
-    text_asterisk: $ => prec(PREC.TEXT - 10, token('*')),
+    // Lower precedence so strong formatting is preferred when applicable
+    text_asterisk: $ => prec(PREC.TEXT - 30, token('*')),
     text_underscore: $ => prec(PREC.TEXT - 10, token('_')),
     text_backtick: $ => prec(PREC.TEXT - 10, token('`')),
     text_caret: $ => prec(PREC.TEXT - 10, token('^')),
@@ -760,54 +801,42 @@ module.exports = grammar({
     
     // List markers using external scanner for line-start detection
     
-    // Unordered list - zero or more cont items followed by exactly one last item
-    unordered_list: $ => prec.dynamic(2, prec.right(PREC.LIST + 2000, seq(
-      repeat(alias($.unordered_list_item_cont, $.unordered_list_item)),
-      alias($.unordered_list_item_last, $.unordered_list_item)
-    ))),
+    // Unordered list - collect consecutive items with dynamic precedence
+    unordered_list: $ => prec.dynamic(PREC.LIST + 50, prec.right(repeat1($.unordered_list_item))),
 
-    // Item variants map to the same public node via alias
-    unordered_list_item_cont: $ => prec.right(PREC.LIST, seq(
-      field('content', alias(seq(alias($.UNORDERED_LIST_LINE_CONT, $.text_segment)), $.text_with_inlines)),
+    // Unordered list item: marker + content + newline 
+    unordered_list_item: $ => prec.right(seq(
+      $._LIST_UNORDERED_MARKER,
+      field('content', alias($.list_text_with_inlines, $.text_with_inlines)),
+      $._newline,
       repeat($.list_item_continuation)
     )),
-    unordered_list_item_last: $ => prec.right(PREC.LIST, seq(
-      field('content', alias(seq(alias($.UNORDERED_LIST_LINE_LAST, $.text_segment)), $.text_with_inlines)),
-      repeat($.list_item_continuation)
-    )),
-    
-    // List item content (legacy path) - kept for compatibility where needed
-    _list_item_content: $ => alias(
-      seq(alias(token.immediate(/[^\r\n]+/), $.text_segment)),
-      $.text_with_inlines
-    ),
-    
-    // List item continuation - supports attaching blocks to list items
     list_item_continuation: $ => prec.right(PREC.LIST + 5, seq(
       $.LIST_CONTINUATION,  // The '+' line
       repeat1($._block_not_section)  // Any blocks that follow the continuation
     )),
     
-    // Ordered list - zero or more cont items followed by exactly one last item
-    ordered_list: $ => prec.dynamic(2, prec.right(PREC.LIST + 2000, seq(
-      repeat(alias($.ordered_list_item_cont, $.ordered_list_item)),
-      alias($.ordered_list_item_last, $.ordered_list_item)
-    ))),
+    // Ordered list - collect consecutive items with dynamic precedence
+    ordered_list: $ => prec.dynamic(PREC.LIST + 50, prec.right(repeat1($.ordered_list_item))),
 
-    ordered_list_item_cont: $ => prec.right(PREC.LIST, seq(
-      field('content', alias(seq(alias($.ORDERED_LIST_LINE_CONT, $.text_segment)), $.text_with_inlines)),
-      repeat($.list_item_continuation)
-    )),
-    ordered_list_item_last: $ => prec.right(PREC.LIST, seq(
-      field('content', alias(seq(alias($.ORDERED_LIST_LINE_LAST, $.text_segment)), $.text_with_inlines)),
+    // Ordered list item using marker external (content line must end with newline)
+    ordered_list_item: $ => prec.right(PREC.LIST, seq(
+      $._LIST_ORDERED_MARKER,
+      field('content', alias($.list_text_with_inlines, $.text_with_inlines)),
+      $._newline,
       repeat($.list_item_continuation)
     )),
     
-    // Description list
+    // Description list (internal, robust to avoid scanner crashes on bare '::')
     description_list: $ => prec(PREC.LIST, repeat1($.description_item)),
     
     description_item: $ => prec(PREC.LIST, seq(
-      $._DESCRIPTION_LIST_ITEM   // Hidden scanner token that captures entire line
+      // Term: at least one non-colon char, avoid leading colon cases
+      field('term', token(/[^:\r\n][^:\r\n]*/)),
+      '::',
+      token.immediate(prec(1, /[ \t]+/)),
+      field('content', alias($.list_text_with_inlines, $.text_with_inlines)),
+      $._newline
     )),
     
     // Callout list - group consecutive callout items using right associativity
@@ -993,7 +1022,7 @@ module.exports = grammar({
     ),
     
     // Constrained formatting variants - very high precedence to beat text_segment
-    strong_constrained: $ => prec(PREC.STRONG + 10, seq(
+    strong_constrained: $ => prec(PREC.STRONG + 25, seq(
       field('open', $.strong_open),
       // Disallow leading whitespace after opening '*'
       field('content', alias(token.immediate(/[^ \t\r\n*][^*\r\n]*/), $.strong_text)),
@@ -1019,7 +1048,7 @@ module.exports = grammar({
     // ========================================================================
     
     // Delimiter tokens for inline formatting - lower precedence to allow lists priority
-    strong_open: $ => token(prec(PREC.TEXT - 10, '*')),
+    strong_open: $ => token(prec(PREC.TEXT - 5, '*')),
     strong_close: $ => token.immediate('*'),
     
     emphasis_open: $ => token(prec(PREC.TEXT - 10, '_')),
@@ -1048,12 +1077,7 @@ module.exports = grammar({
     
     // External token rules are overridden by high-precedence tokens above
     
-    // Internal unordered list marker - replaces external scanner token
-    // Uses very high precedence and start-of-line anchoring to beat inline formatting
-    _unordered_marker: $ => token(prec(200, choice(
-      seq('*', /[ \t]+/),
-      seq('-', /[ \t]+/)
-    ))),
+    // (no-op placeholder removed: marker externals disabled in favor of list-line variants)
     
   }
 });
