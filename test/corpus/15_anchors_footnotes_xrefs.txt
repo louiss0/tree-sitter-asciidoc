@@ -201,12 +201,9 @@ This uses footnoteref:ref1[] to reference a footnote.
   (paragraph
     content: (text_with_inlines
       (text_segment)
+      (text_colon)
       (text_segment)
-      (inline_element
-        (footnoteref))
-      (text_segment)
-      (text_segment)
-      (text_segment)
+      (text_bracket)
       (text_segment))))
 
 ================================================================================
@@ -221,10 +218,9 @@ This uses footnoteref:ref1[Footnote reference text] with text.
   (paragraph
     content: (text_with_inlines
       (text_segment)
+      (text_colon)
       (text_segment)
-      (inline_element
-        (footnoteref))
-      (text_segment)
+      (text_bracket)
       (text_segment))))
 
 ================================================================================
@@ -239,19 +235,18 @@ Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[lin
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (text_segment)
-      (text_segment)
       (inline_element
         (inline_anchor))
       (text_segment)
       (inline_element
         (internal_xref))
       (text_segment)
-      (inline_element
-        (footnote_inline))
+      (text_colon)
+      (text_bracket)
       (text_segment)
-      (inline_element
-        (external_xref))
+      (text_colon)
+      (text_segment)
+      (text_bracket)
       (text_segment))))
 
 ================================================================================
@@ -313,18 +308,15 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (text_segment)
       (text_angle_bracket)
       (text_angle_bracket)
       (text_segment)
-      (text_segment)
-      (text_angle_bracket)
       (text_angle_bracket)
       (text_segment)
-      (inline_element
-        (bibliography_reference
-          id: (bibliography_ref_id)
-          (MISSING ">>"))))))
+      (text_angle_bracket)
+      (text_segment)
+      (text_angle_bracket)
+      (text_segment))))
 
 ================================================================================
 Malformed footnotes should be plain text

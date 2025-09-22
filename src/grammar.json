@@ -502,34 +502,6 @@
         "value": "[^\\r\\n]+"
       }
     },
-    "bibliography_reference": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "<<"
-        },
-        {
-          "type": "FIELD",
-          "name": "id",
-          "content": {
-            "type": "SYMBOL",
-            "name": "bibliography_ref_id"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": ">>"
-        }
-      ]
-    },
-    "bibliography_ref_id": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[^>\\r\\n]+"
-      }
-    },
     "math_block": {
       "type": "CHOICE",
       "members": [
@@ -2000,6 +1972,34 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "footnote_inline"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "footnote_ref"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "footnoteref"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "external_xref"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "internal_xref"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "auto_link"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "link"
+        },
+        {
+          "type": "SYMBOL",
           "name": "strong"
         },
         {
@@ -2024,39 +2024,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "internal_xref"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "external_xref"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "footnote_inline"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "footnote_ref"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "footnoteref"
-        },
-        {
-          "type": "SYMBOL",
           "name": "attribute_reference"
         },
         {
           "type": "SYMBOL",
           "name": "passthrough_triple_plus"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "auto_link"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "link"
         },
         {
           "type": "SYMBOL",
@@ -2089,10 +2061,6 @@
         {
           "type": "SYMBOL",
           "name": "index_term"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "bibliography_reference"
         }
       ]
     },
@@ -2194,7 +2162,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 50,
+        "value": 70,
         "content": {
           "type": "PATTERN",
           "value": "xref:[^\\[\\r\\n]+\\[[^\\]]*\\]"
@@ -2219,7 +2187,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 50,
+        "value": 70,
         "content": {
           "type": "PATTERN",
           "value": "footnote:\\[[^\\]]*\\]"
@@ -2230,7 +2198,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 50,
+        "value": 70,
         "content": {
           "type": "PATTERN",
           "value": "footnote:[A-Za-z0-9_-]+\\[[^\\]]*\\]"
@@ -2241,7 +2209,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": 50,
+        "value": 70,
         "content": {
           "type": "PATTERN",
           "value": "footnoteref:[A-Za-z0-9_-]+\\[[^\\]]*\\]"
@@ -3339,8 +3307,8 @@
       }
     },
     "description_list": {
-      "type": "PREC",
-      "value": 130,
+      "type": "PREC_RIGHT",
+      "value": 0,
       "content": {
         "type": "REPEAT1",
         "content": {
@@ -3914,17 +3882,8 @@
         "type": "PREC",
         "value": 10,
         "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "<<[A-Za-z_][A-Za-z0-9_-]*,[^>\\r\\n]+>>"
-            },
-            {
-              "type": "PATTERN",
-              "value": "<<[A-Za-z_][A-Za-z0-9_-]*>>"
-            }
-          ]
+          "type": "PATTERN",
+          "value": "<<[^>\\r\\n]+>>"
         }
       }
     },

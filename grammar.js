@@ -225,14 +225,6 @@ module.exports = grammar({
     bibliography_citation: $ => token(/[^\]\r\n]+/),
     bibliography_description: $ => token(/[^\r\n]+/),
     
-    // Bibliography reference in text (using existing cross-reference)
-    bibliography_reference: $ => seq(
-      '<<',
-      field('id', $.bibliography_ref_id),
-      '>>'
-    ),
-    
-    bibliography_ref_id: $ => token(/[^>\r\n]+/),
 
     // ========================================================================
     // MATH BLOCK FORMS
@@ -520,22 +512,23 @@ module.exports = grammar({
     ),
     
     // Inline element wrapper for complex inline constructs  
+    // Prioritize footnote and reference tokens to beat text segmentation
     inline_element: $ => choice(
+      $.footnote_inline,
+      $.footnote_ref,
+      $.footnoteref,
+      $.external_xref,
+      $.internal_xref,
+      $.auto_link,
+      $.link,
       $.strong,
       $.emphasis,
       $.monospace,
       $.superscript,
       $.subscript,
       $.inline_anchor,
-      $.internal_xref,
-      $.external_xref,
-      $.footnote_inline,
-      $.footnote_ref,
-      $.footnoteref,
       $.attribute_reference,
       $.passthrough_triple_plus,
-      $.auto_link,
-      $.link,
       $.image,
       $.role_span,
       $.ui_macro,
@@ -543,8 +536,7 @@ module.exports = grammar({
       $.pass_macro,
       $.block_image,
       $.line_break,
-      $.index_term,
-      $.bibliography_reference
+      $.index_term
     ),
 
     // ========================================================================
@@ -580,20 +572,20 @@ module.exports = grammar({
     
     
     
-    // External cross-reference - xref:target[] or xref:target[text] (simple token for now)
-    external_xref: $ => token(prec(50, /xref:[^\[\r\n]+\[[^\]]*\]/)),
+    // External cross-reference - xref:target[] or xref:target[text]
+    external_xref: $ => token(prec(PREC.PASSTHROUGH + 10, /xref:[^\[\r\n]+\[[^\]]*\]/)),
     
     xref_target: $ => token(/[^\[\r\n]+/),
     bracketed_text: $ => token(/[^\]]+/),
     
-    // Footnote inline - footnote:[text] (simple token for now)
-    footnote_inline: $ => token(prec(50, /footnote:\[[^\]]*\]/)),
+    // Footnote inline - footnote:[text]
+    footnote_inline: $ => token(prec(PREC.PASSTHROUGH + 10, /footnote:\[[^\]]*\]/)),
     
-    // Footnote reference - footnote:id[] or footnote:id[text] (simple token for now)
-    footnote_ref: $ => token(prec(50, /footnote:[A-Za-z0-9_-]+\[[^\]]*\]/)),
+    // Footnote reference - footnote:id[] or footnote:id[text]
+    footnote_ref: $ => token(prec(PREC.PASSTHROUGH + 10, /footnote:[A-Za-z0-9_-]+\[[^\]]*\]/)),
     
-    // Footnote reference - footnoteref:id[] (simple token for now)
-    footnoteref: $ => token(prec(50, /footnoteref:[A-Za-z0-9_-]+\[[^\]]*\]/)),
+    // Footnote reference - footnoteref:id[]
+    footnoteref: $ => token(prec(PREC.PASSTHROUGH + 10, /footnoteref:[A-Za-z0-9_-]+\[[^\]]*\]/)),
     
     // Attribute reference - {name}
     attribute_reference: $ => token(/\{[A-Za-z0-9_][A-Za-z0-9_-]*\}/),
@@ -842,8 +834,8 @@ module.exports = grammar({
       repeat($.list_item_continuation)
     )),
     
-    // Description list
-    description_list: $ => prec(PREC.LIST, repeat1($.description_item)),
+    // Description list - group consecutive callout items using right associativity
+    description_list: $ => prec.right(repeat1($.description_item)),
     
     description_item: $ => prec(PREC.LIST, seq(
       $._DESCRIPTION_LIST_ITEM
@@ -979,11 +971,9 @@ module.exports = grammar({
     role_span: $ => token(prec(15, /\[[A-Za-z][A-Za-z0-9_.-]*\]#[^#\r\n]+#/)),
     
     
-    // Internal cross-reference - simple token for well-formed cross-references
-    internal_xref: $ => token(prec(10, choice(
-      /<<[A-Za-z_][A-Za-z0-9_-]*,[^>\r\n]+>>/,  // Cross-reference with text
-      /<<[A-Za-z_][A-Za-z0-9_-]*>>/              // Cross-reference without text
-    ))),
+    // Internal cross-reference - handles both cross-references and bibliography references
+    // Use token-based approach to prevent MISSING errors on malformed input
+    internal_xref: $ => token(prec(10, /<<[^>\r\n]+>>/)),
     
     
     // Inline anchor shortcuts - simplified token to avoid ERROR nodes

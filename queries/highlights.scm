@@ -398,8 +398,7 @@
 (bibliography_entry (bibliography_citation) @string)
 (bibliography_entry (bibliography_description) @string)
 
-;; Bibliography references in text
-(bibliography_reference (bibliography_ref_id) @label)
+;; Bibliography references in text (now handled by internal_xref)
 
 ;; Bibliography entry structure highlighting
 ;; Note: The triple bracket syntax [[[id]]] uses structured parsing

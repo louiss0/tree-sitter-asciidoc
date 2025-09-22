@@ -213,22 +213,6 @@
     "fields": {}
   },
   {
-    "type": "bibliography_reference",
-    "named": true,
-    "fields": {
-      "id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "bibliography_ref_id",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "block_attributes",
     "named": true,
     "fields": {}
@@ -1013,10 +997,6 @@
         },
         {
           "type": "auto_link",
-          "named": true
-        },
-        {
-          "type": "bibliography_reference",
           "named": true
         },
         {
@@ -2639,14 +2619,6 @@
     "named": false
   },
   {
-    "type": "<<",
-    "named": false
-  },
-  {
-    "type": ">>",
-    "named": false
-  },
-  {
     "type": "CALLOUT_MARKER",
     "named": true
   },
@@ -2776,10 +2748,6 @@
   },
   {
     "type": "bibliography_description",
-    "named": true
-  },
-  {
-    "type": "bibliography_ref_id",
     "named": true
   },
   {
