@@ -1,2 +1,0 @@
-* First item with *strong* text
-* Second item

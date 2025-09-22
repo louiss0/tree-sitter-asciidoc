@@ -1,5 +1,0 @@
-= Document Title
-:author: John Doe
-:version: 1.0
-
-Paragraph after attributes.

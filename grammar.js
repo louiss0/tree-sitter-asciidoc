@@ -617,12 +617,12 @@ module.exports = grammar({
     
     // Plain text - match everything that's not a special inline marker  
     _text: $ => choice(
-      $.text_segment,  // Use original text_segment rule
+      $.text_segment,  // Includes hyphens when not list markers
       $.text_colon,
       $.text_angle_bracket,
       $.text_bracket,
       // Fallback formatting tokens to handle isolated delimiters safely
-      // (text_asterisk excluded to prevent consuming bullets at BOL)
+      // (text_asterisk and text_hyphen excluded to prevent consuming at BOL)
       $.text_underscore,
       $.text_backtick,
       $.text_caret,
@@ -630,9 +630,9 @@ module.exports = grammar({
     ),
 
     
-    // Match text content - include spaces for single text segments as expected by tests
+    // Match text content - include spaces and hyphens for single text segments as expected by tests
     // Exclude asterisk to prevent bullet consumption at BOL
-    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n:|\t-]+/)),
+    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n:|\t]+/)),
 
     // Decimal-aware line matching: simplified to avoid attribute entry conflicts
     // Only matches decimal numbers preceded by whitespace to prevent interference

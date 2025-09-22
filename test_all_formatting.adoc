@@ -1,1 +1,0 @@
-Here is *bold*, _italic_, and `code` formatting.
