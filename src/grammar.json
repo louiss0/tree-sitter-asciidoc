@@ -1768,22 +1768,8 @@
                 "type": "FIELD",
                 "name": "content",
                 "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "ALIAS",
-                      "content": {
-                        "type": "SYMBOL",
-                        "name": "decimal_text_with_inlines"
-                      },
-                      "named": true,
-                      "value": "text_with_inlines"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "paragraph_text_with_inlines"
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "text_with_inlines"
                 }
               },
               {
@@ -1899,8 +1885,22 @@
       "content": {
         "type": "REPEAT1",
         "content": {
-          "type": "SYMBOL",
-          "name": "_inline"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "decimal_line"
+              },
+              "named": true,
+              "value": "text_segment"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_inline"
+            }
+          ]
         }
       }
     },
@@ -1952,55 +1952,6 @@
             {
               "type": "SYMBOL",
               "name": "text_backtick"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "text_caret"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "text_tilde"
-            }
-          ]
-        }
-      }
-    },
-    "paragraph_text_with_inlines": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "paragraph_text_segment"
-              },
-              "named": true,
-              "value": "text_segment"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "inline_element"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "text_colon"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "text_angle_bracket"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "text_bracket"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "text_hyphen"
             },
             {
               "type": "SYMBOL",
@@ -2407,7 +2358,7 @@
         "value": 1,
         "content": {
           "type": "PATTERN",
-          "value": "[^_`^~\\[{+<>\\r\\n:|\\t ]+"
+          "value": "[^*_`^~\\[{+<>\\r\\n:|\\t-]+"
         }
       }
     },
@@ -2421,20 +2372,6 @@
           "value": "[ \\t][0-9]+\\.[0-9]+[^\\r\\n]*"
         }
       }
-    },
-    "decimal_text_with_inlines": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "decimal_line"
-          },
-          "named": true,
-          "value": "text_segment"
-        }
-      ]
     },
     "list_text_segment": {
       "type": "TOKEN",
@@ -2555,7 +2492,7 @@
     },
     "text_underscore": {
       "type": "PREC",
-      "value": -9,
+      "value": -14,
       "content": {
         "type": "TOKEN",
         "content": {
@@ -2566,7 +2503,7 @@
     },
     "text_backtick": {
       "type": "PREC",
-      "value": -9,
+      "value": -14,
       "content": {
         "type": "TOKEN",
         "content": {
@@ -4305,7 +4242,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": -4,
+        "value": 6,
         "content": {
           "type": "STRING",
           "value": "*"
@@ -4323,7 +4260,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": -4,
+        "value": 6,
         "content": {
           "type": "STRING",
           "value": "_"
@@ -4341,7 +4278,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": -4,
+        "value": 6,
         "content": {
           "type": "STRING",
           "value": "`"

@@ -430,19 +430,48 @@ static bool scan_list_continuation(TSLexer *lexer) {
 }
 
 // Scan for list item EOL used as a separator between unordered list items.
-// Conservative approach: only consume newlines that are clearly between list items
+// FIXED: Only match when we can verify this is actually between list items to avoid
+// interfering with strong formatting (fixes *NotAList ERROR node regression)
 static bool scan_list_item_eol(TSLexer *lexer) {
     if (lexer->lookahead != '\r' && lexer->lookahead != '\n') return false;
 
-    // For now, be conservative and consume the newline without complex lookahead
-    // This may not be as precise but avoids the TSLexer copy issue
+    // Use mark/reset for safe lookahead to check if next line is a list item
+    lexer->mark_end(lexer);
+    
+    // Advance past the newline
     if (lexer->lookahead == '\r') {
         advance(lexer);
         if (lexer->lookahead == '\n') advance(lexer);
     } else if (lexer->lookahead == '\n') {
         advance(lexer);
     }
-    return true;
+    
+    // Check if the next line starts with a list marker
+    // This ensures we only consume EOL when it's actually between list items
+    if (lexer->lookahead == '*' || lexer->lookahead == '-') {
+        advance(lexer);
+        if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+            // Yes, next line is a list item, so this EOL is valid
+            return true; // Tree-sitter will reset to after the original newline
+        }
+    }
+    // Check for ordered list marker
+    else if (lexer->lookahead >= '0' && lexer->lookahead <= '9') {
+        // Consume digits
+        while (lexer->lookahead >= '0' && lexer->lookahead <= '9') {
+            advance(lexer);
+        }
+        if (lexer->lookahead == '.') {
+            advance(lexer);
+            if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+                // Yes, next line is an ordered list item
+                return true; // Tree-sitter will reset to after the original newline
+            }
+        }
+    }
+    
+    // Not between list items, don't consume this newline
+    return false; // Tree-sitter will reset automatically
 }
 
 // Scan for content line within delimited blocks - only when fence is open
