@@ -1972,13 +1972,8 @@
           "type": "FIELD",
           "name": "content",
           "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "SYMBOL",
-              "name": "list_text_with_inlines"
-            },
-            "named": true,
-            "value": "text_with_inlines"
+            "type": "SYMBOL",
+            "name": "text_with_inlines"
           }
         },
         {

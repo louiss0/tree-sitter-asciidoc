@@ -509,7 +509,7 @@ module.exports = grammar({
 
     // Immediate paragraph inside a section: single-segment content (no blank line)
     section_immediate_paragraph: $ => seq(
-      field('content', alias($.list_text_with_inlines, $.text_with_inlines)),
+      field('content', $.text_with_inlines),
       $._newline
     ),
     
