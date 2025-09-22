@@ -32,10 +32,8 @@
   },
   "devDependencies": {
     "prebuildify": "^6.0.1",
-    "tree-sitter-cli": "^0.25.8"
-  },
-  "peerDependencies": {
-    "tree-sitter": "^0.22.4"
+    "tree-sitter": "0.22.4",
+    "tree-sitter-cli": "^0.25.9"
   },
   "peerDependenciesMeta": {
     "tree-sitter": {
@@ -46,12 +44,19 @@
     "install": "node-gyp-build",
     "prestart": "tree-sitter build --wasm",
     "start": "tree-sitter playground",
-    "test": "node --test bindings/node/*_test.js",
+    "test": "tree-sitter test",
+    "test:node": "node --test bindings/node/*_test.js",
     "ts:gen": "tree-sitter generate",
     "ts:test": "tree-sitter test",
     "ts:test:v": "tree-sitter test",
     "ts:parse": "tree-sitter parse --stat",
     "build:ts": "tree-sitter generate && tree-sitter build",
+    "normalize:lists": "node scripts/normalize_lists.js",
+    "normalize:lists:file": "node scripts/normalize_lists.js tmp.adoc",
+    "normalize:lists:cli": "node scripts/normalize_lists_cli.js",
+    "normalize:lists:cli:file": "node scripts/normalize_lists_cli.js tmp.adoc",
+    "normalize:lists:json": "node scripts/normalize_lists_to_json.js",
+    "normalize:lists:json:file": "node scripts/normalize_lists_to_json.js tmp.adoc",
     "test:highlights": "pnpm run build:ts && bash test/highlight/tools/run.sh",
     "test:highlights:update": "pnpm run build:ts && bash test/highlight/tools/run.sh --update",
     "test:highlights:win": "pnpm run build:ts && powershell -ExecutionPolicy Bypass -File test/highlight/tools/run.ps1",

@@ -289,7 +289,7 @@ module.exports = grammar({
     
     _block_not_section: $ => choice(
       // High precedence blocks that should be matched before paragraphs
-      prec(PREC.ATTRIBUTE_ENTRY, $.attribute_entry),
+      prec(PREC.ATTRIBUTE_ENTRY + 20, $.attribute_entry),
       prec(PREC.ATTRIBUTE_ENTRY + 5, $.include_directive),
       prec(PREC.ATTRIBUTE_ENTRY + 3, $.bibliography_entry),
       prec(PREC.LIST, $.unordered_list),
@@ -319,7 +319,7 @@ module.exports = grammar({
       $.section,
       // Allow nested conditionals
       prec.right(PREC.CONDITIONAL + 10, $.conditional_block),
-      prec(PREC.ATTRIBUTE_ENTRY, $.attribute_entry),
+      prec(PREC.ATTRIBUTE_ENTRY + 20, $.attribute_entry),
       prec(PREC.ATTRIBUTE_ENTRY + 5, $.include_directive),
       prec(PREC.ATTRIBUTE_ENTRY + 3, $.bibliography_entry),
       // Keep ordered/description/callout lists recognized normally
@@ -358,7 +358,10 @@ module.exports = grammar({
       $._section6
     ),
 
-    // Each section: attributes (if any) followed by at most one immediate paragraph
+    // Each section follows AsciiDoc specification:
+    // - Consumes attributes immediately following the heading (no blank line)
+    // - Optionally consumes one paragraph immediately following (no blank line) 
+    // - Content after blank lines remains at root level for proper document structure
     _section1: $ => prec.right(seq(
       optional(alias($.block_anchor, $.anchor)),
       alias($._heading1, $.section_title),
@@ -460,12 +463,15 @@ module.exports = grammar({
     // PARAGRAPHS
     // ========================================================================
     
-    // Default paragraph - use list-style segmentation to keep content as a single segment when possible
+    // Default paragraph - standard precedence; lists and blocks win when applicable
     paragraph: $ => prec.right(PREC.PARAGRAPH, choice(
       $.paragraph_admonition,
       seq(
         optional($.metadata),
-        field('content', alias($.list_text_with_inlines, $.text_with_inlines)),
+        field('content', choice(
+          alias($.decimal_text_with_inlines, $.text_with_inlines),
+          $.paragraph_text_with_inlines
+        )),
         optional($._newline)
       )
     )),
@@ -489,13 +495,26 @@ module.exports = grammar({
     // Special text parsing for list items that creates fewer segments
     list_text_with_inlines: $ => prec.right(repeat1(choice(
       alias($.list_text_segment, $.text_segment),
-      $.inline_element,
+      prec(PREC.STRONG, $.inline_element),  // Higher precedence for inline formatting
       $.text_colon,
       $.text_angle_bracket,
       $.text_bracket,
       $.text_asterisk,
       $.text_underscore,
       $.text_backtick,
+      $.text_caret,
+      $.text_tilde
+    ))),
+
+    // Paragraph text parsing - excludes bullet markers at BOL to allow unordered_list priority
+    paragraph_text_with_inlines: $ => prec.right(repeat1(choice(
+      alias($.paragraph_text_segment, $.text_segment),
+      $.inline_element,  // This will handle all inline formatting and fallback via _text
+      $.text_colon,
+      $.text_angle_bracket,
+      $.text_bracket,
+      // Removed text_asterisk, text_underscore, text_backtick to let formatting work via inline_element
+      $.text_hyphen,
       $.text_caret,
       $.text_tilde
     ))),
@@ -615,7 +634,7 @@ module.exports = grammar({
       $.text_angle_bracket,
       $.text_bracket,
       // Fallback formatting tokens to handle isolated delimiters safely
-      $.text_asterisk,
+      // (text_asterisk excluded to prevent consuming bullets at BOL)
       $.text_underscore,
       $.text_backtick,
       $.text_caret,
@@ -624,14 +643,21 @@ module.exports = grammar({
 
     
     // Match text content - exclude spaces to create multiple segments as expected by tests
-    text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n:|\t ]+/)),
+    // Include asterisk since text_asterisk removed to prevent bullet consumption
+    text_segment: $ => token(prec(PREC.TEXT, /[^_`^~\[{+<>\r\n:|\t ]+/)),
 
-    // Decimal-aware line matching: treat any line containing a decimal number as one segment
-    decimal_line: $ => token(prec(PREC.TEXT, /[^\r\n]*[0-9]+\.[0-9]+[^\r\n]*/)),
+    // Decimal-aware line matching: simplified to avoid attribute entry conflicts
+    // Only matches decimal numbers preceded by whitespace to prevent interference
+    // with attribute entries like ":version: 1.0" (fixed critical parsing issue)
+    decimal_line: $ => token(prec(PREC.TEXT - 5, /[ \t][0-9]+\.[0-9]+[^\r\n]*/)),
     decimal_text_with_inlines: $ => seq(alias($.decimal_line, $.text_segment)),
-    
+
     // List text segment that includes spaces for single-segment list content
+    // Exclude asterisks to allow strong formatting within lists
     list_text_segment: $ => token(prec(PREC.TEXT, /[^*_`^~\[{+<>\r\n:|]+/)),
+    
+    // Paragraph text segment - excludes asterisk and hyphen entirely to force external scanner priority  
+    paragraph_text_segment: $ => token(prec(PREC.TEXT - 10, /[^*_`^~\[{+<>\r\n:| \t-]+/)),
     
     // Allow standalone colons in text (but not double colons which are handled by external scanner)
     text_colon: $ => prec(PREC.TEXT - 1, token(/:/)),
@@ -645,12 +671,15 @@ module.exports = grammar({
     // Fallback for single equals when not part of section headers
     text_equals: $ => prec(PREC.TEXT - 2, token('=')),
 
+
     // Simple list content text (single segment), excluding inline markers
     simple_list_text: $ => token.immediate(/[^\r\n*_`^~\[{+<:|]+/),
     
     // Fallback tokens for single formatting delimiters when not used for formatting
     // Lower precedence so strong formatting is preferred when applicable
     text_asterisk: $ => prec(PREC.TEXT - 30, token('*')),
+    text_hyphen: $ => prec(PREC.TEXT - 30, token('-')),
+    text_underscore: $ => prec(PREC.TEXT - 10, token('_')),
     text_underscore: $ => prec(PREC.TEXT - 10, token('_')),
     text_backtick: $ => prec(PREC.TEXT - 10, token('`')),
     text_caret: $ => prec(PREC.TEXT - 10, token('^')),
@@ -761,7 +790,7 @@ module.exports = grammar({
     // ATTRIBUTE ENTRIES
     // ========================================================================
     
-    attribute_entry: $ => prec(PREC.ATTRIBUTE_ENTRY, seq(
+    attribute_entry: $ => prec(PREC.ATTRIBUTE_ENTRY + 20, seq(
       field('name', alias(token(/:[A-Za-z][A-Za-z0-9_-]*:/), $.name)),
       optional(seq(
         optional(token.immediate(/[ \t]+/)),
@@ -801,7 +830,7 @@ module.exports = grammar({
     
     // List markers using external scanner for line-start detection
     
-    // Unordered list - collect consecutive items with dynamic precedence
+    // Unordered list - collect consecutive items with dynamic precedence  
     unordered_list: $ => prec.dynamic(PREC.LIST + 50, prec.right(repeat1($.unordered_list_item))),
 
     // Unordered list item: marker + content + newline 
@@ -827,16 +856,11 @@ module.exports = grammar({
       repeat($.list_item_continuation)
     )),
     
-    // Description list (internal, robust to avoid scanner crashes on bare '::')
+    // Description list
     description_list: $ => prec(PREC.LIST, repeat1($.description_item)),
     
     description_item: $ => prec(PREC.LIST, seq(
-      // Term: at least one non-colon char, avoid leading colon cases
-      field('term', token(/[^:\r\n][^:\r\n]*/)),
-      '::',
-      token.immediate(prec(1, /[ \t]+/)),
-      field('content', alias($.list_text_with_inlines, $.text_with_inlines)),
-      $._newline
+      $._DESCRIPTION_LIST_ITEM
     )),
     
     // Callout list - group consecutive callout items using right associativity
@@ -1047,14 +1071,14 @@ module.exports = grammar({
     // DELIMITER TOKENS
     // ========================================================================
     
-    // Delimiter tokens for inline formatting - lower precedence to allow lists priority
+    // Delimiter tokens for inline formatting - very low precedence to not interfere with lists
     strong_open: $ => token(prec(PREC.TEXT - 5, '*')),
     strong_close: $ => token.immediate('*'),
     
-    emphasis_open: $ => token(prec(PREC.TEXT - 10, '_')),
+    emphasis_open: $ => token(prec(PREC.TEXT - 5, '_')),
     emphasis_close: $ => token.immediate('_'),
     
-    monospace_open: $ => token(prec(PREC.TEXT - 10, '`')),
+    monospace_open: $ => token(prec(PREC.TEXT - 5, '`')),
     monospace_close: $ => token.immediate('`'),
     
     superscript_open: $ => token(prec(PREC.TEXT + 10, '^')),

@@ -1,0 +1,65 @@
+﻿C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\lists.adoc
+C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\lists.adoc
+    pattern: 23, capture: 6 - markup.strong, start: (0, 0), end: (0, 22), text: `* First unordered item`
+    pattern: 112, capture: 26 - text.strong, start: (0, 0), end: (0, 22), text: `* First unordered item`
+    pattern: 24, capture: 6 - markup.strong, start: (0, 1), end: (0, 22), text: ` First unordered item`
+    pattern: 23, capture: 6 - markup.strong, start: (1, 0), end: (1, 23), text: `* Second unordered item`
+    pattern: 112, capture: 26 - text.strong, start: (1, 0), end: (1, 23), text: `* Second unordered item`
+    pattern: 24, capture: 6 - markup.strong, start: (1, 1), end: (1, 23), text: ` Second unordered item`
+    pattern: 23, capture: 6 - markup.strong, start: (2, 0), end: (2, 2), text: `**`
+    pattern: 112, capture: 26 - text.strong, start: (2, 0), end: (2, 2), text: `**`
+    pattern: 108, capture: 25 - none, start: (2, 2), end: (2, 9), text: ` Nested`
+    pattern: 108, capture: 25 - none, start: (2, 9), end: (2, 19), text: ` unordered`
+    pattern: 108, capture: 25 - none, start: (2, 19), end: (2, 24), text: ` item`
+    pattern: 23, capture: 6 - markup.strong, start: (3, 0), end: (3, 2), text: `**`
+    pattern: 112, capture: 26 - text.strong, start: (3, 0), end: (3, 2), text: `**`
+    pattern: 108, capture: 25 - none, start: (3, 2), end: (3, 10), text: ` Another`
+    pattern: 108, capture: 25 - none, start: (3, 10), end: (3, 17), text: ` nested`
+    pattern: 108, capture: 25 - none, start: (3, 17), end: (3, 22), text: ` item`
+    pattern: 23, capture: 6 - markup.strong, start: (4, 0), end: (4, 22), text: `* Third top-level item`
+    pattern: 112, capture: 26 - text.strong, start: (4, 0), end: (4, 22), text: `* Third top-level item`
+    pattern: 24, capture: 6 - markup.strong, start: (4, 1), end: (4, 22), text: ` Third top-level item`
+    pattern: 47, capture: 15 - markup.list, start: (6, 0), end: (7, 0), text: `1. First ordered item
+`
+    pattern: 108, capture: 25 - none, start: (6, 3), end: (6, 8), text: `First`
+    pattern: 108, capture: 25 - none, start: (6, 8), end: (6, 16), text: ` ordered`
+    pattern: 108, capture: 25 - none, start: (6, 16), end: (6, 21), text: ` item`
+    pattern: 47, capture: 15 - markup.list, start: (7, 0), end: (8, 0), text: `2. Second ordered item
+`
+    pattern: 108, capture: 25 - none, start: (7, 3), end: (7, 9), text: `Second`
+    pattern: 108, capture: 25 - none, start: (7, 9), end: (7, 17), text: ` ordered`
+    pattern: 108, capture: 25 - none, start: (7, 17), end: (7, 22), text: ` item`
+    pattern: 108, capture: 25 - none, start: (8, 0), end: (8, 2), text: `a.`
+    pattern: 108, capture: 25 - none, start: (8, 2), end: (8, 9), text: ` Nested`
+    pattern: 108, capture: 25 - none, start: (8, 9), end: (8, 18), text: ` lettered`
+    pattern: 108, capture: 25 - none, start: (8, 18), end: (8, 23), text: ` item`
+    pattern: 108, capture: 25 - none, start: (9, 0), end: (9, 2), text: `b.`
+    pattern: 108, capture: 25 - none, start: (9, 2), end: (9, 10), text: ` Another`
+    pattern: 108, capture: 25 - none, start: (9, 10), end: (9, 17), text: ` nested`
+    pattern: 108, capture: 25 - none, start: (9, 17), end: (9, 26), text: ` lettered`
+    pattern: 108, capture: 25 - none, start: (9, 26), end: (9, 31), text: ` item`
+    pattern: 47, capture: 15 - markup.list, start: (10, 0), end: (11, 0), text: `3. Third numbered item
+`
+    pattern: 108, capture: 25 - none, start: (10, 3), end: (10, 8), text: `Third`
+    pattern: 108, capture: 25 - none, start: (10, 8), end: (10, 17), text: ` numbered`
+    pattern: 108, capture: 25 - none, start: (10, 17), end: (10, 22), text: ` item`
+    pattern: 48, capture: 15 - markup.list, start: (12, 0), end: (12, 30), text: `Term 1:: Description of term 1`
+    pattern: 48, capture: 15 - markup.list, start: (13, 0), end: (13, 30), text: `Term 2:: Description of term 2`
+    pattern: 48, capture: 15 - markup.list, start: (14, 0), end: (14, 73), text: `Longer Term:: A longer description of this term that provides more detail`
+    pattern: 49, capture: 15 - markup.list, start: (16, 0), end: (17, 0), text: `<1> First callout description
+`
+    pattern: 50, capture: 16 - markup.list.marker, start: (16, 0), end: (16, 3), text: `<1>`
+    pattern: 108, capture: 25 - none, start: (16, 4), end: (16, 9), text: `First`
+    pattern: 108, capture: 25 - none, start: (16, 9), end: (16, 17), text: ` callout`
+    pattern: 108, capture: 25 - none, start: (16, 17), end: (16, 29), text: ` description`
+    pattern: 49, capture: 15 - markup.list, start: (17, 0), end: (18, 0), text: `<2> Second callout description
+`
+    pattern: 50, capture: 16 - markup.list.marker, start: (17, 0), end: (17, 3), text: `<2>`
+    pattern: 108, capture: 25 - none, start: (17, 4), end: (17, 10), text: `Second`
+    pattern: 108, capture: 25 - none, start: (17, 10), end: (17, 18), text: ` callout`
+    pattern: 108, capture: 25 - none, start: (17, 18), end: (17, 30), text: ` description`
+    pattern: 49, capture: 15 - markup.list, start: (18, 0), end: (19, 0), text: `<10> Double-digit callout
+`
+    pattern: 50, capture: 16 - markup.list.marker, start: (18, 0), end: (18, 4), text: `<10>`
+    pattern: 108, capture: 25 - none, start: (18, 5), end: (18, 17), text: `Double-digit`
+    pattern: 108, capture: 25 - none, start: (18, 17), end: (18, 25), text: ` callout`

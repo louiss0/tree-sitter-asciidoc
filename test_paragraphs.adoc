@@ -1,0 +1,3 @@
+First paragraph with *strong text*.
+
+Second paragraph with *more strong* formatting.

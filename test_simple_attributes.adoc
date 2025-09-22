@@ -1,0 +1,5 @@
+= Document Title
+:author: John Doe
+:version: abc
+
+Paragraph after attributes.

@@ -1,0 +1,43 @@
+﻿C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\paragraphs.adoc
+C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\paragraphs.adoc
+    pattern: 108, capture: 25 - none, start: (0, 0), end: (0, 4), text: `This`
+    pattern: 108, capture: 25 - none, start: (0, 4), end: (0, 7), text: ` is`
+    pattern: 108, capture: 25 - none, start: (0, 7), end: (0, 9), text: ` a`
+    pattern: 108, capture: 25 - none, start: (0, 9), end: (0, 16), text: ` simple`
+    pattern: 108, capture: 25 - none, start: (0, 16), end: (0, 26), text: ` paragraph`
+    pattern: 108, capture: 25 - none, start: (0, 26), end: (0, 31), text: ` with`
+    pattern: 108, capture: 25 - none, start: (0, 31), end: (0, 37), text: ` plain`
+    pattern: 108, capture: 25 - none, start: (0, 37), end: (0, 42), text: ` text`
+    pattern: 108, capture: 25 - none, start: (0, 42), end: (0, 51), text: ` content.`
+    pattern: 108, capture: 25 - none, start: (2, 0), end: (2, 4), text: `This`
+    pattern: 108, capture: 25 - none, start: (2, 4), end: (2, 14), text: ` paragraph`
+    pattern: 108, capture: 25 - none, start: (2, 14), end: (2, 18), text: ` has`
+    pattern: 108, capture: 25 - none, start: (2, 18), end: (2, 27), text: ` multiple`
+    pattern: 108, capture: 25 - none, start: (2, 27), end: (2, 38), text: ` sentences.`
+    pattern: 108, capture: 25 - none, start: (2, 38), end: (2, 43), text: ` Each`
+    pattern: 108, capture: 25 - none, start: (2, 43), end: (2, 52), text: ` sentence`
+    pattern: 108, capture: 25 - none, start: (2, 52), end: (2, 61), text: ` contains`
+    pattern: 108, capture: 25 - none, start: (2, 61), end: (2, 69), text: ` several`
+    pattern: 108, capture: 25 - none, start: (2, 69), end: (2, 76), text: ` words.`
+    pattern: 108, capture: 25 - none, start: (3, 0), end: (3, 2), text: `It`
+    pattern: 108, capture: 25 - none, start: (3, 2), end: (3, 8), text: ` spans`
+    pattern: 108, capture: 25 - none, start: (3, 8), end: (3, 15), text: ` across`
+    pattern: 108, capture: 25 - none, start: (3, 15), end: (3, 24), text: ` multiple`
+    pattern: 108, capture: 25 - none, start: (3, 24), end: (3, 30), text: ` lines`
+    pattern: 108, capture: 25 - none, start: (3, 30), end: (3, 33), text: ` to`
+    pattern: 108, capture: 25 - none, start: (3, 33), end: (3, 38), text: ` test`
+    pattern: 108, capture: 25 - none, start: (3, 38), end: (3, 43), text: ` line`
+    pattern: 108, capture: 25 - none, start: (3, 43), end: (3, 52), text: ` wrapping`
+    pattern: 108, capture: 25 - none, start: (3, 52), end: (3, 62), text: ` behavior.`
+    pattern: 108, capture: 25 - none, start: (5, 0), end: (5, 7), text: `Another`
+    pattern: 108, capture: 25 - none, start: (5, 7), end: (5, 17), text: ` paragraph`
+    pattern: 108, capture: 25 - none, start: (5, 17), end: (5, 22), text: ` with`
+    pattern: 108, capture: 25 - none, start: (5, 22), end: (5, 32), text: ` different`
+    pattern: 108, capture: 25 - none, start: (5, 32), end: (5, 40), text: ` content`
+    pattern: 108, capture: 25 - none, start: (5, 40), end: (5, 43), text: ` to`
+    pattern: 108, capture: 25 - none, start: (5, 43), end: (5, 50), text: ` ensure`
+    pattern: 108, capture: 25 - none, start: (5, 50), end: (5, 59), text: ` multiple`
+    pattern: 108, capture: 25 - none, start: (5, 59), end: (5, 70), text: ` paragraphs`
+    pattern: 108, capture: 25 - none, start: (5, 70), end: (5, 74), text: ` are`
+    pattern: 108, capture: 25 - none, start: (5, 74), end: (5, 82), text: ` handled`
+    pattern: 108, capture: 25 - none, start: (5, 82), end: (5, 93), text: ` correctly.`

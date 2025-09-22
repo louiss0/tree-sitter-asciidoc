@@ -1,0 +1,511 @@
+Opened log file 'cdb_min_star2.log'
+
+Microsoft (R) Windows Debugger Version 10.0.18362.1 AMD64
+Copyright (c) Microsoft Corporation. All rights reserved.
+
+CommandLine: C:\Users\bvlou\projects\tree-sitter-asciidoc\node_modules\.pnpm\tree-sitter-cli@0.25.9\node_modules\tree-sitter-cli\tree-sitter.exe parse min_star.adoc
+NatVis script successfully loaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\atlmfc.natvis'
+NatVis script successfully loaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\concurrency.natvis'
+NatVis script successfully loaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\cpp_rest.natvis'
+NatVis script successfully loaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\stl.natvis'
+NatVis script successfully loaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\Windows.Data.Json.natvis'
+NatVis script successfully loaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\Windows.Devices.Geolocation.natvis'
+NatVis script successfully loaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\Windows.Devices.Sensors.natvis'
+NatVis script successfully loaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\Windows.Media.natvis'
+NatVis script successfully loaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\windows.natvis'
+NatVis script successfully loaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\winrt.natvis'
+Symbol search path is: srv*
+Executable search path is: 
+ModLoad: 00007ff6`880a0000 00007ff6`88e9f000   tree_sitter.exe
+ModLoad: 00007ffd`52ee0000 00007ffd`53147000   ntdll.dll
+ModLoad: 00007ffd`51640000 00007ffd`51709000   C:\WINDOWS\System32\KERNEL32.DLL
+ModLoad: 00007ffd`50180000 00007ffd`50570000   C:\WINDOWS\System32\KERNELBASE.dll
+ModLoad: 00007ffd`50850000 00007ffd`508e9000   C:\WINDOWS\System32\bcryptprimitives.dll
+ModLoad: 00007ffd`52b10000 00007ffd`52b7a000   C:\WINDOWS\System32\SHLWAPI.dll
+ModLoad: 00007ffd`50d20000 00007ffd`50dc9000   C:\WINDOWS\System32\msvcrt.dll
+ModLoad: 00007ffd`528f0000 00007ffd`529a4000   C:\WINDOWS\System32\ADVAPI32.dll
+ModLoad: 00007ffd`51810000 00007ffd`518b6000   C:\WINDOWS\System32\sechost.dll
+ModLoad: 00007ffd`518c0000 00007ffd`519d8000   C:\WINDOWS\System32\RPCRT4.dll
+ModLoad: 00007ffd`525f0000 00007ffd`52790000   C:\WINDOWS\System32\ole32.dll
+ModLoad: 00007ffd`500d0000 00007ffd`50173000   C:\WINDOWS\System32\msvcp_win.dll
+ModLoad: 00007ffd`50580000 00007ffd`506cb000   C:\WINDOWS\System32\ucrtbase.dll
+ModLoad: 00007ffd`52ae0000 00007ffd`52b0b000   C:\WINDOWS\System32\GDI32.dll
+ModLoad: 00007ffd`508f0000 00007ffd`50917000   C:\WINDOWS\System32\win32u.dll
+ModLoad: 00007ffd`50920000 00007ffd`50a58000   C:\WINDOWS\System32\gdi32full.dll
+ModLoad: 00007ffd`51260000 00007ffd`51425000   C:\WINDOWS\System32\USER32.dll
+ModLoad: 00007ffd`519e0000 00007ffd`51d65000   C:\WINDOWS\System32\combase.dll
+ModLoad: 00007ffd`52500000 00007ffd`525e0000   C:\WINDOWS\System32\OLEAUT32.dll
+ModLoad: 00007ffd`527a0000 00007ffd`52814000   C:\WINDOWS\System32\ws2_32.dll
+ModLoad: 00007ffd`51da0000 00007ffd`524ed000   C:\WINDOWS\System32\shell32.dll
+ModLoad: 00007ffd`506d0000 00007ffd`50843000   C:\WINDOWS\System32\wintypes.dll
+ModLoad: 00007ffd`4ff00000 00007ffd`4ff26000   C:\WINDOWS\SYSTEM32\bcrypt.dll
+ModLoad: 00007ffd`0a2a0000 00007ffd`0a2be000   C:\WINDOWS\SYSTEM32\VCRUNTIME140.dll
+ModLoad: 00007ffd`4f600000 00007ffd`4f60c000   C:\WINDOWS\SYSTEM32\CRYPTBASE.DLL
+(1798.938): Break instruction exception - code 80000003 (first chance)
+ntdll!LdrpDoDebuggerBreak+0x35:
+00007ffd`53004199 cc              int     3
+0:000> .symfix; .reload; sxe av; g; !analyze -v; kb; q
+Reloading current modules
+.........................
+ModLoad: 00007ffd`529b0000 00007ffd`529df000   C:\WINDOWS\System32\IMM32.DLL
+ModLoad: 00007ffd`09ea0000 00007ffd`09f4c000   C:\Users\bvlou\AppData\Local\tree-sitter\lib\asciidoc.dll
+(1798.938): Access violation - code c0000005 (first chance)
+First chance exceptions are reported before any exception handling.
+This exception may be expected and handled.
+*******************************************************************************
+*                                                                             *
+*                        Exception Analysis                                   *
+*                                                                             *
+*******************************************************************************
+
+*** WARNING: Unable to verify checksum for tree_sitter.exe
+*** WARNING: Unable to verify checksum for C:\Users\bvlou\AppData\Local\tree-sitter\lib\asciidoc.dll
+
+KEY_VALUES_STRING: 1
+
+    Key  : AV.Fault
+    Value: Execute
+
+    Key  : Timeline.OS.Boot.DeltaSec
+    Value: 408229
+
+
+PROCESSES_ANALYSIS: 1
+
+SERVICE_ANALYSIS: 1
+
+STACKHASH_ANALYSIS: 1
+
+TIMELINE_ANALYSIS: 1
+
+Timeline: !analyze.Start
+    Name: <blank>
+    Time: 2025-09-21T18:30:37.824Z
+    Diff: 824 mSec
+
+Timeline: Dump.Current
+    Name: <blank>
+    Time: 2025-09-21T18:30:37.0Z
+    Diff: 0 mSec
+
+Timeline: OS.Boot
+    Name: <blank>
+    Time: 2025-09-17T01:06:48.0Z
+    Diff: 408229000 mSec
+
+
+DUMP_CLASS: 2
+
+DUMP_QUALIFIER: 0
+
+FAULTING_IP: 
++0
+00000000`00000000 ??              ???
+
+EXCEPTION_RECORD:  (.exr -1)
+.exr -1
+ExceptionAddress: 0000000000000000
+   ExceptionCode: c0000005 (Access violation)
+  ExceptionFlags: 00000000
+NumberParameters: 2
+   Parameter[0]: 0000000000000008
+   Parameter[1]: 0000000000000000
+Attempt to execute non-executable address 0000000000000000
+
+FAULTING_THREAD:  00000938
+
+DEFAULT_BUCKET_ID:  SOFTWARE_NX_FAULT
+
+PROCESS_NAME:  tree_sitter.exe
+
+FOLLOWUP_IP: 
+tree_sitter+55f86
+00007ff6`880f5f86 0f28b520430000  movaps  xmm6,xmmword ptr [rbp+4320h]
+
+EXECUTE_ADDRESS: 0
+
+FAILED_INSTRUCTION_ADDRESS: 
++0
+00000000`00000000 ??              ???
+
+ERROR_CODE: (NTSTATUS) 0xc0000005 - The instruction at 0x%p referenced memory at 0x%p. The memory could not be %s.
+
+EXCEPTION_CODE: (NTSTATUS) 0xc0000005 - The instruction at 0x%p referenced memory at 0x%p. The memory could not be %s.
+
+EXCEPTION_CODE_STR:  c0000005
+
+EXCEPTION_PARAMETER1:  0000000000000008
+
+EXCEPTION_PARAMETER2:  0000000000000000
+
+WATSON_BKT_PROCSTAMP:  68bc940e
+
+WATSON_BKT_MODULE:  unknown
+
+WATSON_BKT_MODVER:  0.0.0.0
+
+WATSON_BKT_MODOFFSET:  0
+
+WATSON_BKT_MODSTAMP:  bbbbbbb4
+
+BUILD_VERSION_STRING:  26100.1.amd64fre.ge_release.240331-1435
+
+MODLIST_WITH_TSCHKSUM_HASH:  7dfced9bdfb8f6051db1c696d0928d28ebd73d75
+
+MODLIST_SHA1_HASH:  ce010ff8ac36c84bfba77f274828c610b4399dbe
+
+NTGLOBALFLAG:  70
+
+PROCESS_BAM_CURRENT_THROTTLED: 0
+
+PROCESS_BAM_PREVIOUS_THROTTLED: 0
+
+APPLICATION_VERIFIER_FLAGS:  0
+
+PRODUCT_TYPE:  1
+
+SUITE_MASK:  784
+
+DUMP_TYPE:  fe
+
+ANALYSIS_SESSION_HOST:  DESKTOP-O018JMQ
+
+ANALYSIS_SESSION_TIME:  09-21-2025 14:30:37.0824
+
+ANALYSIS_VERSION: 10.0.18362.1 amd64fre
+
+THREAD_ATTRIBUTES: 
+STACK_ADDR_RAW_STACK_SYMBOL: 4e07efe070
+
+ADDITIONAL_DEBUG_TEXT:  Followup set based on attribute [Is_ChosenCrashFollowupThread] from Frame:[0] on thread:[PSEUDO_THREAD]
+
+LAST_CONTROL_TRANSFER:  from 0000000000000000 to 0000000000000000
+
+THREAD_SHA1_HASH_MOD_FUNC:  e7a1909c56140e4e8587cf28b28c8b27ef057977
+
+THREAD_SHA1_HASH_MOD_FUNC_OFFSET:  f7d33a8446332c55e20e0a899e3d98308e5d9711
+
+OS_LOCALE:  ENU
+
+BUGCHECK_STR:  APPLICATION_FAULT_SOFTWARE_NX_FAULT_NULL_INVALID_POINTER_EXECUTE
+
+PRIMARY_PROBLEM_CLASS:  APPLICATION_FAULT
+
+PROBLEM_CLASSES: 
+
+    ID:     [0n313]
+    Type:   [@ACCESS_VIOLATION]
+    Class:  Addendum
+    Scope:  BUCKET_ID
+    Name:   Omit
+    Data:   Omit
+    PID:    [Unspecified]
+    TID:    [0x938]
+    Frame:  [0] : unknown!unknown
+
+    ID:     [0n287]
+    Type:   [INVALID_POINTER_EXECUTE]
+    Class:  Primary
+    Scope:  BUCKET_ID
+    Name:   Add
+    Data:   Omit
+    PID:    [Unspecified]
+    TID:    [0x938]
+    Frame:  [0] : unknown!unknown
+
+    ID:     [0n295]
+    Type:   [SOFTWARE_NX_FAULT]
+    Class:  Primary
+    Scope:  DEFAULT_BUCKET_ID (Failure Bucket ID prefix)
+            BUCKET_ID
+    Name:   Add
+    Data:   Omit
+    PID:    [0x1798]
+    TID:    [0x938]
+    Frame:  [0] : unknown!unknown
+
+    ID:     [0n294]
+    Type:   [NULL]
+    Class:  Primary
+    Scope:  BUCKET_ID
+    Name:   Add
+    Data:   Omit
+    PID:    [0x1798]
+    TID:    [0x938]
+    Frame:  [0] : unknown!unknown
+
+STACK_TEXT:  
+0000004e`07ef0778 00007ffd`52f28f8d ntdll!RtlReAllocateHeap+0x4d
+0000004e`07ef0af0 00007ff6`88aabdbc tree_sitter!_jit_debug_register_code+0x5e96c
+0000004e`07ef0b00 00007ff6`88aac219 tree_sitter!_jit_debug_register_code+0x5edc9
+0000004e`07ef0b58 00007ff6`880f5f86 tree_sitter+0x55f86
+0000004e`07ef0db8 00007ff6`88aab124 tree_sitter!_jit_debug_register_code+0x5dcd4
+0000004e`07ef1080 00007ff6`88aab100 tree_sitter!_jit_debug_register_code+0x5dcb0
+0000004e`07ef1c38 00007ff6`88a4e91e tree_sitter!_jit_debug_register_code+0x14ce
+0000004e`07ef1c70 00007ff6`88cc7a58 tree_sitter!_jit_debug_register_code+0x27a608
+0000004e`07ef1c78 00007ff6`889a1bfe tree_sitter+0x901bfe
+0000004e`07ef1ce8 00007ff6`88990665 tree_sitter+0x8f0665
+0000004e`07ef1f50 00007ff6`88ab2b70 tree_sitter!_jit_debug_register_code+0x65720
+0000004e`07ef1f70 00007ff6`88aac4b2 tree_sitter!_jit_debug_register_code+0x5f062
+0000004e`07ef1fc8 00007ff6`880ff117 tree_sitter+0x5f117
+0000004e`07ef2508 00007ff6`88aac282 tree_sitter!_jit_debug_register_code+0x5ee32
+0000004e`07ef25a8 00007ff6`88ab3c20 tree_sitter!_jit_debug_register_code+0x667d0
+0000004e`07ef2790 00007ff6`88aabc60 tree_sitter!_jit_debug_register_code+0x5e810
+0000004e`07ef2a18 00007ff6`88aac23a tree_sitter!_jit_debug_register_code+0x5edea
+0000004e`07ef2ca0 00007ff6`88aabd66 tree_sitter!_jit_debug_register_code+0x5e916
+0000004e`07ef2f28 00007ff6`88aabd24 tree_sitter!_jit_debug_register_code+0x5e8d4
+0000004e`07ef31b0 00007ff6`88aab8ea tree_sitter!_jit_debug_register_code+0x5e49a
+0000004e`07ef3438 00007ff6`88aac231 tree_sitter!_jit_debug_register_code+0x5ede1
+0000004e`07ef36c0 00007ff6`88aabd7c tree_sitter!_jit_debug_register_code+0x5e92c
+0000004e`07ef3930 00007ff6`88aaac08 tree_sitter!_jit_debug_register_code+0x5d7b8
+0000004e`07ef3948 00007ff6`88aabb46 tree_sitter!_jit_debug_register_code+0x5e6f6
+0000004e`07ef3b18 00007ffd`52f27dad ntdll!RtlpExtendHeap+0x6d
+0000004e`07ef4328 00007ffd`52f282f1 ntdll!RtlpCreateUCREntry+0xe1
+0000004e`07ef4368 00007ffd`52f28746 ntdll!RtlpFindAndCommitPages+0x286
+0000004e`07ef4388 00007ffd`52ef6142 ntdll!RtlpCoalesceFreeBlocks+0x3a2
+0000004e`07ef4d50 00007ff6`88aaccbb tree_sitter!_jit_debug_register_code+0x5f86b
+0000004e`07ef4da0 00007ff6`88ab0f58 tree_sitter!_jit_debug_register_code+0x63b08
+0000004e`07ef4da8 00007ff6`88213edb tree_sitter+0x173edb
+0000004e`07ef4df8 00007ffd`502649b0 KERNELBASE!WaitOnAddress+0x0
+0000004e`07ef4e18 00007ff6`88149e14 tree_sitter+0xa9e14
+0000004e`07ef4e30 00007ff6`88e2c460 tree_sitter!_jit_debug_descriptor+0x3b0
+0000004e`07ef4ec0 00007ff6`88aacc7f tree_sitter!_jit_debug_register_code+0x5f82f
+0000004e`07ef4ed8 00007ff6`8813ddb5 tree_sitter+0x9ddb5
+0000004e`07ef4f10 00007ff6`88aafda0 tree_sitter!_jit_debug_register_code+0x62950
+0000004e`07ef4f30 00007ff6`88ab1e68 tree_sitter!_jit_debug_register_code+0x64a18
+0000004e`07ef4f58 00007ff6`880dfc50 tree_sitter+0x3fc50
+0000004e`07ef51b8 00007ff6`88aab14a tree_sitter!_jit_debug_register_code+0x5dcfa
+0000004e`07ef5480 00007ff6`88aab13c tree_sitter!_jit_debug_register_code+0x5dcec
+0000004e`07ef5748 00007ff6`88aab132 tree_sitter!_jit_debug_register_code+0x5dce2
+0000004e`07ef5a10 00007ff6`88aaac22 tree_sitter!_jit_debug_register_code+0x5d7d2
+0000004e`07ef5cd8 00007ff6`88aaac19 tree_sitter!_jit_debug_register_code+0x5d7c9
+0000004e`07ef5fa0 00007ff6`88aab12d tree_sitter!_jit_debug_register_code+0x5dcdd
+0000004e`07ef6268 00007ff6`88aab129 tree_sitter!_jit_debug_register_code+0x5dcd9
+0000004e`07ef6530 00007ff6`88aa9fc5 tree_sitter!_jit_debug_register_code+0x5cb75
+0000004e`07ef7528 00007ffd`52f07b38 ntdll!RtlDebugFreeHeap+0x108
+0000004e`07ef8238 00007ffd`52f27800 ntdll!RtlpAllocateHeap+0x2390
+0000004e`07ef8508 00007ffd`52ef0000 ntdll!RtlpLowFragHeapAllocFromContext+0x740
+0000004e`07ef85e8 00007ffd`52eef100 ntdll!RtlAllocateHeap+0xa70
+0000004e`07ef8928 00007ff6`88a4e935 tree_sitter!_jit_debug_register_code+0x14e5
+0000004e`07ef8960 00007ff6`88c36c30 tree_sitter!_jit_debug_register_code+0x1e97e0
+0000004e`07ef8968 00007ff6`88134a1f tree_sitter+0x94a1f
+0000004e`07ef89d8 00007ff6`8889d676 tree_sitter+0x7fd676
+0000004e`07ef8a68 00007ff6`888c9aee tree_sitter+0x829aee
+0000004e`07ef8b48 00007ff6`88a0052e tree_sitter+0x96052e
+0000004e`07ef8b88 00007ff6`88888465 tree_sitter+0x7e8465
+0000004e`07ef8bd8 00007ff6`88888d60 tree_sitter+0x7e8d60
+0000004e`07ef8c38 00007ff6`8888e315 tree_sitter+0x7ee315
+0000004e`07efa478 00007ff6`888ac913 tree_sitter+0x80c913
+0000004e`07efaf80 00007ff6`88c3e658 tree_sitter!_jit_debug_register_code+0x1f1208
+0000004e`07efb7a8 00007ff6`888aa540 tree_sitter+0x80a540
+0000004e`07efb7b8 00007ff6`88c3bfb0 tree_sitter!_jit_debug_register_code+0x1eeb60
+0000004e`07efbe78 00007ffd`52f24e71 ntdll!RtlDebugAllocateHeap+0x131
+0000004e`07efbf88 00007ffd`52f0643d ntdll!RtlpCheckBusyBlockTail+0xc1
+0000004e`07efc278 00007ffd`5021db9d KERNELBASE!WriteFile+0x8d
+0000004e`07efc2e8 00007ffd`505b7e59 ucrtbase!write_text_ansi_nolock+0xe9
+0000004e`07efc318 00007ffd`52f2a8ec ntdll!RtlpReAllocateHeap+0xf2c
+0000004e`07efc478 00007ffd`53008be1 ntdll!bsearch+0x81
+0000004e`07efc4a8 00007ffd`5300e7d3 ntdll!write_char+0x27
+0000004e`07efc4c8 00007ffd`52f3b24e ntdll!RtlpLocateActivationContextSection+0xce
+0000004e`07efc4e8 00007ffd`52f3ac43 ntdll!RtlpFindUnicodeStringInSection+0x203
+0000004e`07efc4f0 00007ffd`52fc3530 ntdll!RtlpCompareActivationContextDataTOCEntryById+0x0
+0000004e`07efc508 00007ffd`52f589bd ntdll!LdrpFindLoadedDllByName+0x47d
+0000004e`07efc5b8 00007ffd`52f3a93a ntdll!RtlFindActivationContextSectionString+0x25a
+0000004e`07efc678 00007ffd`52f3a11e ntdll!sxsisol_SearchActCtxForDllName+0x13e
+0000004e`07efc6a8 00007ffd`52faa003 ntdll!LdrpResGetResourceDirectory+0xe3
+0000004e`07efc738 00007ffd`52f59870 ntdll!LdrpLogInternal+0x320
+0000004e`07efc818 00007ffd`5018f698 KERNELBASE!MultiByteToWideChar+0x2d8
+0000004e`07efca68 00007ffd`52f212f6 ntdll!RtlImageDirectoryEntryToData+0x56
+0000004e`07efcd08 00007ffd`52f250a5 ntdll!RtlDebugAllocateHeap+0x365
+0000004e`07efcd68 00007ffd`52f278da ntdll!RtlpAllocateHeap+0x246a
+0000004e`07efcd98 00007ffd`53050000 ntdll!ScpCfgHeader_ES+0x0
+0000004e`07efce38 00007ffd`52f27107 ntdll!RtlpAllocateHeap+0x1c97
+0000004e`07efce78 00007ffd`52faadd9 ntdll!RtlpReferenceCurrentDirectory+0x69
+0000004e`07efcef8 00007ffd`52ef58b1 ntdll!RtlpFreeHeap+0x1471
+0000004e`07efcf18 00007ffd`52f397a4 ntdll!RtlGetFullPathName_Ustr+0x1354
+0000004e`07efd060 00007ffd`09f476fa asciidoc!tree_sitter_asciidoc+0x8a2fa
+0000004e`07efd068 00007ffd`50241f7f KERNELBASE!SetFilePointerEx+0xdf
+0000004e`07efd0f8 00007ffd`505b7379 ucrtbase!common_lseek<__int64>+0x149
+0000004e`07efd188 00007ffd`52f0988f ntdll!RtlpDeCommitFreeBlock+0x25f
+0000004e`07efd1a8 00007ffd`506b7000 ucrtbase!_acrt_lconv_c+0x0
+0000004e`07efd238 00007ffd`52ef49d6 ntdll!RtlpFreeHeap+0x596
+0000004e`07efd278 00007ffd`505b4c1c ucrtbase!__crt_stdio_output::output_processor<char,__crt_stdio_output::stream_output_adapter<char>,__crt_stdio_output::standard_base<char,__crt_stdio_output::stream_output_adapter<char> > >::state_case_type+0x3c
+0000004e`07efd2f8 00007ffd`505b556e ucrtbase!__crt_stdio_output::output_processor<char,__crt_stdio_output::stream_output_adapter<char>,__crt_stdio_output::standard_base<char,__crt_stdio_output::stream_output_adapter<char> > >::process+0x1fe
+0000004e`07efd348 00007ffd`505b5316 ucrtbase!<lambda_303760bc4008a2b3ec4768a30b06a80c>::operator+0xe6
+0000004e`07efd478 00007ffd`52f070f3 ntdll!RtlpValidateHeap+0x33
+0000004e`07efd4a8 00007ffd`52f136b4 ntdll!SbSelectProcedure+0x1d4
+0000004e`07efd508 00007ffd`52f07cf8 ntdll!RtlDebugFreeHeap+0x2c8
+0000004e`07efd510 00007ffd`50330e38 KERNELBASE!g_SbModuleTable_KernelBase+0x0
+0000004e`07efd568 00007ffd`52ef5bcc ntdll!RtlpFreeHeap+0x178c
+0000004e`07efd788 00007ffd`501f6249 KERNELBASE!CloseHandle+0x49
+0000004e`07efd7b8 00007ffd`505b84dc ucrtbase!close_os_handle_nolock+0x3c
+0000004e`07efd818 00007ffd`505e224e ucrtbase!__crt_seh_guarded_call<int>::operator+0x6a
+0000004e`07efd828 00007ffd`506b8e80 ucrtbase!_pioinfo+0x0
+0000004e`07efd848 00007ffd`505e2194 ucrtbase!close_internal+0x70
+0000004e`07efd898 00007ffd`505e2062 ucrtbase!_fclose_nolock_internal+0x52
+0000004e`07efd8d8 00007ffd`505e1fb2 ucrtbase!_fclose_internal+0x56
+0000004e`07efd908 00007ffd`506b70b0 ucrtbase!_acrt_initial_locale_data+0x0
+0000004e`07efd918 00007ffd`505e1f4d ucrtbase!fclose+0x4d
+0000004e`07efd948 00007ffd`09f466dc asciidoc!tree_sitter_asciidoc+0x892dc
+0000004e`07efd958 00007ff6`88a2e6b5 tree_sitter+0x98e6b5
+0000004e`07efd978 00007ffd`09f45e00 asciidoc!tree_sitter_asciidoc+0x88a00
+0000004e`07efd988 00007ffd`09ebe28a asciidoc!tree_sitter_asciidoc+0xe8a
+0000004e`07efd998 00007ffd`09f45e3c asciidoc!tree_sitter_asciidoc+0x88a3c
+0000004e`07efd9a0 00007ffd`09f476f0 asciidoc!tree_sitter_asciidoc+0x8a2f0
+0000004e`07efd9c8 00007ff6`88a2e620 tree_sitter+0x98e620
+0000004e`07efd9d0 00007ff6`88a2eb30 tree_sitter+0x98eb30
+0000004e`07efd9d8 00007ff6`88a2e870 tree_sitter+0x98e870
+0000004e`07efd9e0 00007ff6`88a2ea70 tree_sitter+0x98ea70
+0000004e`07efd9e8 00007ff6`88a2e800 tree_sitter+0x98e800
+0000004e`07efd9f0 00007ff6`88a2eaa0 tree_sitter+0x98eaa0
+0000004e`07efd9f8 00007ff6`88a2ee9b tree_sitter+0x98ee9b
+0000004e`07efdb90 00007ff6`88a4a6b0 tree_sitter+0x9aa6b0
+0000004e`07efdc28 00007ff6`88a30a9b tree_sitter+0x990a9b
+0000004e`07efdd08 00007ff6`88a37b75 tree_sitter+0x997b75
+0000004e`07efdd38 00007ff6`889f03d5 tree_sitter+0x9503d5
+0000004e`07efddb8 00007ff6`88a37e6b tree_sitter+0x997e6b
+0000004e`07efddc8 00007ff6`8845e00f tree_sitter+0x3be00f
+0000004e`07efde08 00007ff6`881d4c03 tree_sitter+0x134c03
+0000004e`07efde80 00007ff6`88b55700 tree_sitter!_jit_debug_register_code+0x1082b0
+0000004e`07efdef8 00007ff6`883ee469 tree_sitter+0x34e469
+0000004e`07efdf60 00007ff6`88a05b00 tree_sitter+0x965b00
+0000004e`07efdf88 00007ffd`52f75960 ntdll!RtlFreeHeap+0x620
+0000004e`07efe038 00007ffd`52eef591 ntdll!RtlpAllocateNTHeapInternal+0x3d1
+0000004e`07efe068 00007ff6`8845e280 tree_sitter+0x3be280
+0000004e`07efe078 00007ff6`883c79bd tree_sitter+0x3279bd
+0000004e`07efe0c8 00007ffd`52eef164 ntdll!RtlAllocateHeap+0xad4
+0000004e`07efe1c8 00007ff6`88a05b67 tree_sitter+0x965b67
+0000004e`07efe208 00007ff6`88b21c10 tree_sitter!_jit_debug_register_code+0xd47c0
+0000004e`07efe228 00007ff6`88218a00 tree_sitter+0x178a00
+0000004e`07efe248 00007ff6`88a4ea1a tree_sitter!_jit_debug_register_code+0x15ca
+0000004e`07efe308 00007ff6`880b11b4 tree_sitter+0x111b4
+0000004e`07efe528 00007ff6`88aa9b18 tree_sitter!_jit_debug_register_code+0x5c6c8
+0000004e`07efe5a8 00007ff6`883c51c6 tree_sitter+0x3251c6
+0000004e`07efe5d0 00007ffd`09f461d0 asciidoc!tree_sitter_asciidoc+0x88dd0
+0000004e`07efe6b8 00007ff6`880bdcf0 tree_sitter+0x1dcf0
+0000004e`07efe6d8 00007ffd`5300e789 ntdll!woutput_l+0x8e9
+0000004e`07efe6e0 00007ffd`5305db20 ntdll!`string'+0x0
+0000004e`07efe6e8 00007ffd`5305db21 ntdll!`string'+0x1
+0000004e`07efe758 00007ffd`5305d42a ntdll!`string'+0x12
+0000004e`07efe958 00007ffd`5300de57 ntdll!write_string+0x47
+0000004e`07efe988 00007ffd`5300dd45 ntdll!output_l+0x855
+0000004e`07efec20 00007ffd`5305b5d0 ntdll!`string'+0x0
+0000004e`07eff038 00007ffd`50502e10 KERNELBASE!api-ms-win-security-isolationpolicy-l1-2-0_NULL_THUNK_DATA_DLB+0x1f0
+0000004e`07eff070 00007ffd`5305b288 ntdll!`string'+0x0
+0000004e`07eff598 00007ff6`88b55800 tree_sitter!_jit_debug_register_code+0x1083b0
+0000004e`07eff738 00007ff6`88aab018 tree_sitter!_jit_debug_register_code+0x5dbc8
+0000004e`07eff790 00007ff6`88a05844 tree_sitter+0x965844
+0000004e`07eff818 00007ffd`5026c4c0 KERNELBASE!SetThreadDescription+0x0
+0000004e`07eff828 00007ff6`88cd20b1 tree_sitter!_jit_debug_register_code+0x284c61
+0000004e`07eff860 00007ffd`5305b490 ntdll!`string'+0x0
+0000004e`07eff930 00007ff6`880bc4b6 tree_sitter+0x1c4b6
+0000004e`07eff978 00007ff6`88168456 tree_sitter+0xc8456
+0000004e`07eff998 00007ffd`5026c4ff KERNELBASE!SetThreadDescription+0x3f
+0000004e`07eff9a8 00007ff6`8815053c tree_sitter+0xb053c
+0000004e`07eff9c8 00007ff6`88cd1f78 tree_sitter!_jit_debug_register_code+0x284b28
+0000004e`07eff9d8 00007ff6`889eca65 tree_sitter+0x94ca65
+0000004e`07eff9e8 00007ff6`88ab1108 tree_sitter!_jit_debug_register_code+0x63cb8
+0000004e`07effa48 00007ffd`505943a1 ucrtbase!__crt_state_management::get_current_state_index+0x45
+0000004e`07effa68 00007ff6`8817ca83 tree_sitter+0xdca83
+0000004e`07effa70 00007ff6`88aa97d0 tree
+
+THREAD_SHA1_HASH_MOD:  a3060736fc942f8115a20e0e872f63dbcae1160b
+
+FAULT_INSTR_CODE:  20b5280f
+
+SYMBOL_STACK_INDEX:  3
+
+SYMBOL_NAME:  tree_sitter+55f86
+
+FOLLOWUP_NAME:  MachineOwner
+
+MODULE_NAME: tree_sitter
+
+IMAGE_NAME:  tree_sitter.exe
+
+DEBUG_FLR_IMAGE_TIMESTAMP:  68bc940e
+
+STACK_COMMAND:  ** Pseudo Context ** Pseudo ** Value: 1815fca4370 ** ; kb
+
+FAILURE_BUCKET_ID:  SOFTWARE_NX_FAULT_c0000005_tree_sitter.exe!Unknown
+
+BUCKET_ID:  APPLICATION_FAULT_SOFTWARE_NX_FAULT_NULL_INVALID_POINTER_EXECUTE_NULL_IP_tree_sitter+55f86
+
+FAILURE_EXCEPTION_CODE:  c0000005
+
+FAILURE_IMAGE_NAME:  tree_sitter.exe
+
+BUCKET_ID_IMAGE_STR:  tree_sitter.exe
+
+FAILURE_MODULE_NAME:  tree_sitter
+
+BUCKET_ID_MODULE_STR:  tree_sitter
+
+FAILURE_FUNCTION_NAME:  Unknown
+
+BUCKET_ID_FUNCTION_STR:  Unknown
+
+BUCKET_ID_OFFSET:  55f86
+
+BUCKET_ID_MODTIMEDATESTAMP:  68bc940e
+
+BUCKET_ID_MODCHECKSUM:  0
+
+BUCKET_ID_MODVER_STR:  0.0.0.0
+
+BUCKET_ID_PREFIX_STR:  APPLICATION_FAULT_SOFTWARE_NX_FAULT_NULL_INVALID_POINTER_EXECUTE_NULL_IP_
+
+FAILURE_PROBLEM_CLASS:  APPLICATION_FAULT
+
+FAILURE_SYMBOL_NAME:  tree_sitter.exe!Unknown
+
+TARGET_TIME:  2025-09-21T18:30:48.000Z
+
+OSBUILD:  26100
+
+OSSERVICEPACK:  4768
+
+SERVICEPACK_NUMBER: 0
+
+OS_REVISION: 0
+
+OSPLATFORM_TYPE:  x64
+
+OSNAME:  Windows 10
+
+OSEDITION:  Windows 10 WinNt SingleUserTS Personal
+
+USER_LCID:  0
+
+OSBUILD_TIMESTAMP:  unknown_date
+
+BUILDDATESTAMP_STR:  240331-1435
+
+BUILDLAB_STR:  ge_release
+
+BUILDOSVER_STR:  10.0.26100.1.amd64fre.ge_release.240331-1435
+
+ANALYSIS_SESSION_ELAPSED_TIME:  2814
+
+ANALYSIS_SOURCE:  UM
+
+FAILURE_ID_HASH_STRING:  um:software_nx_fault_c0000005_tree_sitter.exe!unknown
+
+FAILURE_ID_HASH:  {9d248556-5258-afcf-0c28-e9e16893cd10}
+
+Followup:     MachineOwner
+---------
+
+RetAddr           : Args to Child                                                           : Call Site
+00000000`00000000 : 00000000`00000000 00007ff6`88a4a6b0 00000000`00000000 00000000`00000020 : 0x0
+quit:
+NatVis script unloaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\atlmfc.natvis'
+NatVis script unloaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\concurrency.natvis'
+NatVis script unloaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\cpp_rest.natvis'
+NatVis script unloaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\stl.natvis'
+NatVis script unloaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\Windows.Data.Json.natvis'
+NatVis script unloaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\Windows.Devices.Geolocation.natvis'
+NatVis script unloaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\Windows.Devices.Sensors.natvis'
+NatVis script unloaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\Windows.Media.natvis'
+NatVis script unloaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\windows.natvis'
+NatVis script unloaded from 'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\Visualizers\winrt.natvis'

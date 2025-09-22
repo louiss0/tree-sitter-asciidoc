@@ -1,0 +1,69 @@
+﻿C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\conditionals.adoc
+C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\conditionals.adoc
+    pattern: 54, capture: 18 - keyword.directive, start: (0, 0), end: (1, 0), text: `ifdef::debug[]
+`
+    pattern: 108, capture: 25 - none, start: (1, 0), end: (1, 4), text: `This`
+    pattern: 108, capture: 25 - none, start: (1, 4), end: (1, 12), text: ` content`
+    pattern: 108, capture: 25 - none, start: (1, 12), end: (1, 20), text: ` appears`
+    pattern: 108, capture: 25 - none, start: (1, 20), end: (1, 25), text: ` when`
+    pattern: 108, capture: 25 - none, start: (1, 25), end: (1, 31), text: ` debug`
+    pattern: 108, capture: 25 - none, start: (1, 31), end: (1, 41), text: ` attribute`
+    pattern: 108, capture: 25 - none, start: (1, 41), end: (1, 44), text: ` is`
+    pattern: 108, capture: 25 - none, start: (1, 44), end: (1, 49), text: ` set.`
+    pattern: 108, capture: 25 - none, start: (2, 0), end: (2, 5), text: `endif`
+    pattern: 109, capture: 25 - none, start: (2, 5), end: (2, 6), text: `:`
+    pattern: 109, capture: 25 - none, start: (2, 6), end: (2, 7), text: `:`
+    pattern: 108, capture: 25 - none, start: (2, 7), end: (2, 12), text: `debug`
+    pattern: 95, capture: 4 - attribute, start: (2, 12), end: (4, 0), text: `[]
+
+`
+    pattern: 108, capture: 25 - none, start: (4, 0), end: (4, 6), text: `ifndef`
+    pattern: 109, capture: 25 - none, start: (4, 6), end: (4, 7), text: `:`
+    pattern: 109, capture: 25 - none, start: (4, 7), end: (4, 8), text: `:`
+    pattern: 108, capture: 25 - none, start: (4, 8), end: (4, 18), text: `production`
+    pattern: 95, capture: 4 - attribute, start: (4, 18), end: (5, 0), text: `[]
+`
+    pattern: 108, capture: 25 - none, start: (5, 0), end: (5, 4), text: `This`
+    pattern: 108, capture: 25 - none, start: (5, 4), end: (5, 12), text: ` content`
+    pattern: 108, capture: 25 - none, start: (5, 12), end: (5, 20), text: ` appears`
+    pattern: 108, capture: 25 - none, start: (5, 20), end: (5, 25), text: ` when`
+    pattern: 108, capture: 25 - none, start: (5, 25), end: (5, 36), text: ` production`
+    pattern: 108, capture: 25 - none, start: (5, 36), end: (5, 46), text: ` attribute`
+    pattern: 108, capture: 25 - none, start: (5, 46), end: (5, 49), text: ` is`
+    pattern: 108, capture: 25 - none, start: (5, 49), end: (5, 53), text: ` NOT`
+    pattern: 108, capture: 25 - none, start: (5, 53), end: (5, 58), text: ` set.`
+    pattern: 108, capture: 25 - none, start: (6, 0), end: (6, 5), text: `endif`
+    pattern: 109, capture: 25 - none, start: (6, 5), end: (6, 6), text: `:`
+    pattern: 109, capture: 25 - none, start: (6, 6), end: (6, 7), text: `:`
+    pattern: 108, capture: 25 - none, start: (6, 7), end: (6, 17), text: `production`
+    pattern: 95, capture: 4 - attribute, start: (6, 17), end: (8, 0), text: `[]
+
+`
+    pattern: 108, capture: 25 - none, start: (8, 0), end: (8, 6), text: `ifeval`
+    pattern: 109, capture: 25 - none, start: (8, 6), end: (8, 7), text: `:`
+    pattern: 109, capture: 25 - none, start: (8, 7), end: (8, 8), text: `:`
+    pattern: 94, capture: 4 - attribute, start: (8, 8), end: (9, 0), text: `["{version}" >= "2.0"]
+`
+    pattern: 108, capture: 25 - none, start: (9, 0), end: (9, 4), text: `This`
+    pattern: 108, capture: 25 - none, start: (9, 4), end: (9, 12), text: ` content`
+    pattern: 108, capture: 25 - none, start: (9, 12), end: (9, 20), text: ` appears`
+    pattern: 108, capture: 25 - none, start: (9, 20), end: (9, 25), text: ` when`
+    pattern: 108, capture: 25 - none, start: (9, 25), end: (9, 33), text: ` version`
+    pattern: 108, capture: 25 - none, start: (9, 33), end: (9, 36), text: ` is`
+    pattern: 108, capture: 25 - none, start: (9, 36), end: (9, 40), text: ` 2.0`
+    pattern: 108, capture: 25 - none, start: (9, 40), end: (9, 43), text: ` or`
+    pattern: 108, capture: 25 - none, start: (9, 43), end: (9, 51), text: ` higher.`
+    pattern: 57, capture: 18 - keyword.directive, start: (10, 0), end: (11, 0), text: `endif::[]
+`
+    pattern: 54, capture: 18 - keyword.directive, start: (12, 0), end: (13, 0), text: `ifdef::backend-html5[]
+`
+    pattern: 108, capture: 25 - none, start: (13, 0), end: (13, 5), text: `HTML5`
+    pattern: 108, capture: 25 - none, start: (13, 5), end: (13, 14), text: ` specific`
+    pattern: 108, capture: 25 - none, start: (13, 14), end: (13, 22), text: ` content`
+    pattern: 108, capture: 25 - none, start: (13, 22), end: (13, 28), text: ` here.`
+    pattern: 108, capture: 25 - none, start: (14, 0), end: (14, 5), text: `endif`
+    pattern: 109, capture: 25 - none, start: (14, 5), end: (14, 6), text: `:`
+    pattern: 109, capture: 25 - none, start: (14, 6), end: (14, 7), text: `:`
+    pattern: 108, capture: 25 - none, start: (14, 7), end: (14, 20), text: `backend-html5`
+    pattern: 95, capture: 4 - attribute, start: (14, 20), end: (15, 0), text: `[]
+`

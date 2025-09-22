@@ -380,18 +380,7 @@
   {
     "type": "description_item",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "text_with_inlines",
-            "named": true
-          }
-        ]
-      }
-    }
+    "fields": {}
   },
   {
     "type": "description_list",
@@ -1711,6 +1700,10 @@
         "required": false,
         "types": [
           {
+            "type": "paragraph_text_with_inlines",
+            "named": true
+          },
+          {
             "type": "text_with_inlines",
             "named": true
           }
@@ -1763,6 +1756,49 @@
       "types": [
         {
           "type": "metadata",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "paragraph_text_with_inlines",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "inline_element",
+          "named": true
+        },
+        {
+          "type": "text_angle_bracket",
+          "named": true
+        },
+        {
+          "type": "text_bracket",
+          "named": true
+        },
+        {
+          "type": "text_caret",
+          "named": true
+        },
+        {
+          "type": "text_colon",
+          "named": true
+        },
+        {
+          "type": "text_hyphen",
+          "named": true
+        },
+        {
+          "type": "text_segment",
+          "named": true
+        },
+        {
+          "type": "text_tilde",
           "named": true
         }
       ]
@@ -2488,6 +2524,11 @@
     "fields": {}
   },
   {
+    "type": "text_hyphen",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "text_tilde",
     "named": true,
     "fields": {}
@@ -2646,11 +2687,11 @@
     "named": false
   },
   {
-    "type": "////",
+    "type": "-",
     "named": false
   },
   {
-    "type": "::",
+    "type": "////",
     "named": false
   },
   {

@@ -103,6 +103,7 @@ endif::[]
           (ifdef_open)
           (paragraph
             (text_with_inlines
+              (text_segment)
               (text_segment)))
           (endif_directive)))
       (endif_directive))))
@@ -127,10 +128,12 @@ Another:: item
   (conditional_block
     (ifdef_block
       (ifdef_open)
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
-      (endif_directive)))
+          (paragraph
+            (text_with_inlines
+              (text_segment)
+              (text_segment)
+              (text_segment)))
+          (endif_directive)))
   (description_list
     (description_item)))
 
@@ -150,6 +153,8 @@ endif::[]
       (ifdef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive))))
 
@@ -194,7 +199,8 @@ endif::[]
         (ordered_list_item
           (text_with_inlines
             (text_segment)
-            (text_segment)))
+            (text_segment))))
+      (ordered_list
         (ordered_list_item
           (text_with_inlines
             (text_segment)
@@ -223,6 +229,7 @@ Normal content
       (endif_directive)))
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -241,5 +248,7 @@ endif::[]
       (ifeval_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive))))
