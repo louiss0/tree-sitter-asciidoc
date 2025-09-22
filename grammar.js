@@ -407,32 +407,32 @@ module.exports = grammar({
     // Section headings with marker tokens that include required whitespace
     _heading1: $ => seq(
       $._section_marker_1,
-      $.title,
+      field('title', $.title),
       $._newline
     ),
     _heading2: $ => seq(
       $._section_marker_2,
-      $.title,
+      field('title', $.title),
       $._newline
     ),
     _heading3: $ => seq(
       $._section_marker_3,
-      $.title,
+      field('title', $.title),
       $._newline
     ),
     _heading4: $ => seq(
       $._section_marker_4,
-      $.title,
+      field('title', $.title),
       $._newline
     ),
     _heading5: $ => seq(
       $._section_marker_5,
-      $.title,
+      field('title', $.title),
       $._newline
     ),
     _heading6: $ => seq(
       $._section_marker_6,
-      $.title,
+      field('title', $.title),
       $._newline
     ),
     
