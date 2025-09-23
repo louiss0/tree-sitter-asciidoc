@@ -48,26 +48,26 @@ module.exports = grammar({
     // SECTIONS - Simple hierarchical structure like tests expect
     // ================================================================================
     
-    section: $ => prec.right(seq(
+    section: $ => seq(
       $.section_title,
       repeat($._element)
-    )),
-
-    section_title: $ => choice(
-      seq($._section_marker_1, $.title, $._line_ending),
-      seq($._section_marker_2, $.title, $._line_ending),
-      seq($._section_marker_3, $.title, $._line_ending),
-      seq($._section_marker_4, $.title, $._line_ending),
-      seq($._section_marker_5, $.title, $._line_ending),
-      seq($._section_marker_6, $.title, $._line_ending),
     ),
 
-    _section_marker_1: $ => token(prec(10, seq('=', ' '))),
-    _section_marker_2: $ => token(prec(10, seq('==', ' '))),
-    _section_marker_3: $ => token(prec(10, seq('===', ' '))),
-    _section_marker_4: $ => token(prec(10, seq('====', ' '))),
-    _section_marker_5: $ => token(prec(10, seq('=====', ' '))),
-    _section_marker_6: $ => token(prec(10, seq('======', ' '))),
+    section_title: $ => choice(
+      seq($.section_marker_1, $.title, $._line_ending),
+      seq($.section_marker_2, $.title, $._line_ending),
+      seq($.section_marker_3, $.title, $._line_ending),
+      seq($.section_marker_4, $.title, $._line_ending),
+      seq($.section_marker_5, $.title, $._line_ending),
+      seq($.section_marker_6, $.title, $._line_ending),
+    ),
+
+    section_marker_1: $ => token(prec(10, seq(field('_start_of_line', '='), ' '))),
+    section_marker_2: $ => token(prec(10, seq(field('_start_of_line', '=='), ' '))),
+    section_marker_3: $ => token(prec(10, seq(field('_start_of_line', '==='), ' '))),
+    section_marker_4: $ => token(prec(10, seq(field('_start_of_line', '===='), ' '))),
+    section_marker_5: $ => token(prec(10, seq(field('_start_of_line', '====='), ' '))),
+    section_marker_6: $ => token(prec(10, seq(field('_start_of_line', '======'), ' '))),
 
     title: $ => token.immediate(/[^\r\n]+/),
 
@@ -75,10 +75,10 @@ module.exports = grammar({
     // PARAGRAPHS - Simple text content, no over-segmentation
     // ================================================================================
     
-    paragraph: $ => prec.left(seq(
+    paragraph: $ => seq(
       repeat1($._line),
       optional($._blank_line)
-    )),
+    ),
 
     _line: $ => seq(
       /[^\r\n]+/,
@@ -96,7 +96,7 @@ module.exports = grammar({
     // LISTS - Simplified for now
     // ================================================================================
     
-    unordered_list: $ => prec.left(repeat1($.unordered_list_item)),
+    unordered_list: $ => repeat1($.unordered_list_item),
     
     unordered_list_item: $ => seq(
       $.unordered_list_marker,
@@ -106,7 +106,7 @@ module.exports = grammar({
     
     unordered_list_marker: $ => token(choice('* ', '- ')),
 
-    ordered_list: $ => prec.left(repeat1($.ordered_list_item)),
+    ordered_list: $ => repeat1($.ordered_list_item),
     
     ordered_list_item: $ => seq(
       $.ordered_list_marker, 
@@ -116,7 +116,7 @@ module.exports = grammar({
     
     ordered_list_marker: $ => token(/\d+\. /),
 
-    description_list: $ => prec.left(repeat1($.description_item)),
+    description_list: $ => repeat1($.description_item),
     description_item: $ => seq(
       /[^\r\n:]+/,
       '::',
@@ -125,9 +125,9 @@ module.exports = grammar({
       $._line_ending
     ),
 
-    callout_list: $ => prec.left(repeat1($.callout_item)),
+    callout_list: $ => repeat1($.callout_item),
     callout_item: $ => seq(
-      /<\d+> /,
+      /\<\d+\> /,
       repeat1(/[^\r\n]+/),
       $._line_ending  
     ),
