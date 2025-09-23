@@ -21,6 +21,7 @@ module.exports = grammar({
       $.section,
       $.unordered_list,
       $.ordered_list,
+      $.attribute_entry,
       $.paragraph,
       $._blank_line,
     ),
@@ -48,6 +49,18 @@ module.exports = grammar({
     _section_marker_6: $ => token(prec(10, seq('======', ' '))),
 
     title: $ => token.immediate(/[^\r\n]+/),
+
+    // ATTRIBUTE ENTRIES
+    attribute_entry: $ => seq(
+      ':',
+      field('name', $.name),
+      ':',
+      optional(seq(/[ \t]+/, field('value', $.value))),
+      $._line_ending
+    ),
+    
+    name: $ => token.immediate(/[a-zA-Z0-9_-]+/),
+    value: $ => /[^\r\n]+/,
 
     // LISTS
     unordered_list: $ => prec.left(repeat1($.unordered_list_item)),
@@ -79,11 +92,19 @@ module.exports = grammar({
     ),
 
     text_with_inlines: $ => prec.left(seq(
-      $.text_segment,
-      repeat(seq(/[ \t\f]+/, $.text_segment))
+      $._text_element,
+      repeat(seq(/[ \t\f]+/, $._text_element))
     )),
     
-    text_segment: $ => token(/[^\s\r\n]+/),
+    _text_element: $ => choice(
+      $.text_segment,
+      $.text_colon
+    ),
+    
+    text_segment: $ => token(/[^\s\r\n:]+/),
+    
+    // For colons in invalid attribute patterns
+    text_colon: $ => ':',
 
     // BASIC TOKENS
     _line_ending: $ => choice('\r\n', '\n'),

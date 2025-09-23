@@ -1,5 +1,31 @@
 [
   {
+    "type": "attribute_entry",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "ordered_list",
     "named": true,
     "fields": {},
@@ -53,6 +79,10 @@
       "required": true,
       "types": [
         {
+          "type": "attribute_entry",
+          "named": true
+        },
+        {
           "type": "ordered_list",
           "named": true
         },
@@ -100,6 +130,10 @@
       "required": false,
       "types": [
         {
+          "type": "attribute_entry",
+          "named": true
+        },
+        {
           "type": "ordered_list",
           "named": true
         },
@@ -119,6 +153,11 @@
     }
   },
   {
+    "type": "text_colon",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "text_with_inlines",
     "named": true,
     "fields": {},
@@ -126,6 +165,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "text_colon",
+          "named": true
+        },
         {
           "type": "text_segment",
           "named": true
@@ -173,11 +216,23 @@
     "named": false
   },
   {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "name",
+    "named": true
+  },
+  {
     "type": "text_segment",
     "named": true
   },
   {
     "type": "title",
+    "named": true
+  },
+  {
+    "type": "value",
     "named": true
   }
 ]

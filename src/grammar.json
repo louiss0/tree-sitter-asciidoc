@@ -26,6 +26,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "attribute_entry"
+        },
+        {
+          "type": "SYMBOL",
           "name": "paragraph"
         },
         {
@@ -288,6 +292,67 @@
         "value": "[^\\r\\n]+"
       }
     },
+    "attribute_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "name"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "[ \\t]+"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "value",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "value"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_ending"
+        }
+      ]
+    },
+    "name": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[a-zA-Z0-9_-]+"
+      }
+    },
+    "value": {
+      "type": "PATTERN",
+      "value": "[^\\r\\n]+"
+    },
     "unordered_list": {
       "type": "PREC_LEFT",
       "value": 0,
@@ -421,7 +486,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "text_segment"
+            "name": "_text_element"
           },
           {
             "type": "REPEAT",
@@ -434,7 +499,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "text_segment"
+                  "name": "_text_element"
                 }
               ]
             }
@@ -442,12 +507,29 @@
         ]
       }
     },
+    "_text_element": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "text_segment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "text_colon"
+        }
+      ]
+    },
     "text_segment": {
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "[^\\s\\r\\n]+"
+        "value": "[^\\s\\r\\n:]+"
       }
+    },
+    "text_colon": {
+      "type": "STRING",
+      "value": ":"
     },
     "_line_ending": {
       "type": "CHOICE",
