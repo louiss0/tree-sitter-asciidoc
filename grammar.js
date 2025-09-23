@@ -19,6 +19,8 @@ module.exports = grammar({
 
     _element: $ => choice(
       $.section,
+      $.unordered_list,
+      $.ordered_list,
       $.paragraph,
       $._blank_line,
     ),
@@ -47,7 +49,30 @@ module.exports = grammar({
 
     title: $ => token.immediate(/[^\r\n]+/),
 
-    // PARAGRAPHS - Ultra simple
+    // LISTS
+    unordered_list: $ => prec.left(repeat1($.unordered_list_item)),
+    
+    unordered_list_item: $ => seq(
+      $._unordered_list_marker,
+      field('content', $.text_with_inlines),
+      optional($._line_ending)
+    ),
+    
+    _unordered_list_marker: $ => token(prec(5, /[ \t]*[*-]+[ \t]+/)),
+    
+    ordered_list: $ => prec.left(seq(
+      $.ordered_list_item,
+      repeat(seq($._line_ending, $.ordered_list_item))
+    )),
+    
+    ordered_list_item: $ => seq(
+      $._ordered_list_marker,
+      $.text_with_inlines
+    ),
+    
+    _ordered_list_marker: $ => token(prec(5, /[ \t]*[0-9]+\.[ \t]+/)),
+
+    // PARAGRAPHS
     paragraph: $ => seq(
       $.text_with_inlines,
       optional($._line_ending)
