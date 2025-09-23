@@ -30,12 +30,32 @@
     "fields": {}
   },
   {
+    "type": "PASSTHROUGH_FENCE_END",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "PASSTHROUGH_FENCE_START",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "QUOTE_FENCE_END",
     "named": true,
     "fields": {}
   },
   {
     "type": "QUOTE_FENCE_START",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "SIDEBAR_FENCE_END",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "SIDEBAR_FENCE_START",
     "named": true,
     "fields": {}
   },
@@ -329,6 +349,59 @@
     }
   },
   {
+    "type": "passthrough_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_content",
+          "named": true
+        },
+        {
+          "type": "passthrough_close",
+          "named": true
+        },
+        {
+          "type": "passthrough_open",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "passthrough_close",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "PASSTHROUGH_FENCE_END",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "passthrough_open",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "PASSTHROUGH_FENCE_START",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "quote_block",
     "named": true,
     "fields": {},
@@ -414,6 +487,10 @@
           "named": true
         },
         {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
           "type": "quote_block",
           "named": true
         },
@@ -423,6 +500,10 @@
         },
         {
           "type": "section_title",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
           "named": true
         },
         {
@@ -442,6 +523,59 @@
       "types": [
         {
           "type": "title",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sidebar_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_content",
+          "named": true
+        },
+        {
+          "type": "sidebar_close",
+          "named": true
+        },
+        {
+          "type": "sidebar_open",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sidebar_close",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "SIDEBAR_FENCE_END",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sidebar_open",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "SIDEBAR_FENCE_START",
           "named": true
         }
       ]
@@ -481,11 +615,19 @@
           "named": true
         },
         {
+          "type": "passthrough_block",
+          "named": true
+        },
+        {
           "type": "quote_block",
           "named": true
         },
         {
           "type": "section",
+          "named": true
+        },
+        {
+          "type": "sidebar_block",
           "named": true
         },
         {
@@ -556,6 +698,14 @@
   },
   {
     "type": "\r\n",
+    "named": false
+  },
+  {
+    "type": "****",
+    "named": false
+  },
+  {
+    "type": "++++",
     "named": false
   },
   {

@@ -26,6 +26,8 @@ module.exports = grammar({
       $.listing_block,
       $.quote_block,
       $.literal_block,
+      $.sidebar_block,
+      $.passthrough_block,
       $.paragraph,
       $._blank_line,
     ),
@@ -145,6 +147,46 @@ module.exports = grammar({
     
     LITERAL_FENCE_START: $ => token('....'),
     LITERAL_FENCE_END: $ => token('....'),
+    
+    // Sidebar blocks
+    sidebar_block: $ => seq(
+      $.sidebar_open,
+      $.block_content,
+      $.sidebar_close
+    ),
+    
+    sidebar_open: $ => seq(
+      $.SIDEBAR_FENCE_START,
+      $._line_ending
+    ),
+    
+    sidebar_close: $ => seq(
+      $.SIDEBAR_FENCE_END,
+      optional($._line_ending)
+    ),
+    
+    SIDEBAR_FENCE_START: $ => token('****'),
+    SIDEBAR_FENCE_END: $ => token('****'),
+    
+    // Passthrough blocks
+    passthrough_block: $ => seq(
+      $.passthrough_open,
+      $.block_content,
+      $.passthrough_close
+    ),
+    
+    passthrough_open: $ => seq(
+      $.PASSTHROUGH_FENCE_START,
+      $._line_ending
+    ),
+    
+    passthrough_close: $ => seq(
+      $.PASSTHROUGH_FENCE_END,
+      optional($._line_ending)
+    ),
+    
+    PASSTHROUGH_FENCE_START: $ => token('++++'),
+    PASSTHROUGH_FENCE_END: $ => token('++++'),
     
     block_content: $ => repeat1($.content_line),
     content_line: $ => seq(
