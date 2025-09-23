@@ -22,6 +22,10 @@ module.exports = grammar({
       $.unordered_list,
       $.ordered_list,
       $.attribute_entry,
+      $.example_block,
+      $.listing_block,
+      $.quote_block,
+      $.literal_block,
       $.paragraph,
       $._blank_line,
     ),
@@ -61,6 +65,92 @@ module.exports = grammar({
     
     name: $ => token.immediate(/[a-zA-Z0-9_-]+/),
     value: $ => /[^\r\n]+/,
+
+    // DELIMITED BLOCKS
+    example_block: $ => seq(
+      field('open', $.example_open),
+      optional(field('content', $.block_content)),
+      field('close', $.example_close)
+    ),
+    
+    example_open: $ => seq(
+      $.EXAMPLE_FENCE_START,
+      $._line_ending
+    ),
+    
+    example_close: $ => seq(
+      $.EXAMPLE_FENCE_END,
+      optional($._line_ending)
+    ),
+    
+    EXAMPLE_FENCE_START: $ => token('===='),
+    EXAMPLE_FENCE_END: $ => token('===='),
+    
+    // Listing blocks
+    listing_block: $ => seq(
+      field('open', $.listing_open),
+      optional(field('content', $.block_content)),
+      field('close', $.listing_close)
+    ),
+    
+    listing_open: $ => seq(
+      $.LISTING_FENCE_START,
+      $._line_ending
+    ),
+    
+    listing_close: $ => seq(
+      $.LISTING_FENCE_END,
+      optional($._line_ending)
+    ),
+    
+    LISTING_FENCE_START: $ => token('----'),
+    LISTING_FENCE_END: $ => token('----'),
+    
+    // Quote blocks
+    quote_block: $ => seq(
+      $.quote_open,
+      $.block_content,
+      $.quote_close
+    ),
+    
+    quote_open: $ => seq(
+      $.QUOTE_FENCE_START,
+      $._line_ending
+    ),
+    
+    quote_close: $ => seq(
+      $.QUOTE_FENCE_END,
+      optional($._line_ending)
+    ),
+    
+    QUOTE_FENCE_START: $ => token('____'),
+    QUOTE_FENCE_END: $ => token('____'),
+    
+    // Literal blocks  
+    literal_block: $ => seq(
+      field('open', $.literal_open),
+      field('content', $.block_content),
+      field('close', $.literal_close)
+    ),
+    
+    literal_open: $ => seq(
+      $.LITERAL_FENCE_START,
+      $._line_ending
+    ),
+    
+    literal_close: $ => seq(
+      $.LITERAL_FENCE_END,
+      optional($._line_ending)
+    ),
+    
+    LITERAL_FENCE_START: $ => token('....'),
+    LITERAL_FENCE_END: $ => token('....'),
+    
+    block_content: $ => repeat1($.content_line),
+    content_line: $ => seq(
+      /[^\r\n]*/,
+      $._line_ending
+    ),
 
     // LISTS
     unordered_list: $ => prec.left(repeat1($.unordered_list_item)),
