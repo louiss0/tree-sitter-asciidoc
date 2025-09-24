@@ -38,15 +38,26 @@ module.exports = grammar({
       $._blank_line,
     ),
 
-    // SECTIONS
+    // SECTIONS with hierarchical nesting
     section: $ => prec.right(seq(
       optional($.anchor),
       $.section_title,
-      repeat($._section_content)
+      repeat(choice(
+        $.section,
+        $._non_section_content
+      ))
     )),
-    
-    _section_content: $ => choice(
-      // Everything except other sections
+
+    section_title: $ => choice(
+      seq($._section_marker_1, $.title, $._line_ending),
+      seq($._section_marker_2, $.title, $._line_ending),
+      seq($._section_marker_3, $.title, $._line_ending),
+      seq($._section_marker_4, $.title, $._line_ending),
+      seq($._section_marker_5, $.title, $._line_ending),
+      seq($._section_marker_6, $.title, $._line_ending),
+    ),
+
+    _non_section_content: $ => choice(
       $.unordered_list,
       $.ordered_list,
       $.description_list,
@@ -66,23 +77,14 @@ module.exports = grammar({
       $._blank_line,
     ),
 
-    section_title: $ => choice(
-      seq($._section_marker_1, $.title, $._line_ending),
-      seq($._section_marker_2, $.title, $._line_ending),
-      seq($._section_marker_3, $.title, $._line_ending),
-      seq($._section_marker_4, $.title, $._line_ending),
-      seq($._section_marker_5, $.title, $._line_ending),
-      seq($._section_marker_6, $.title, $._line_ending),
-    ),
+    title: $ => token.immediate(/[^\r\n]+/),
 
     _section_marker_1: $ => token(prec(10, seq('=', ' '))),
-    _section_marker_2: $ => token(prec(10, seq('==', ' '))),
-    _section_marker_3: $ => token(prec(10, seq('===', ' '))),
-    _section_marker_4: $ => token(prec(10, seq('====', ' '))),
-    _section_marker_5: $ => token(prec(10, seq('=====', ' '))),
-    _section_marker_6: $ => token(prec(10, seq('======', ' '))),
-
-    title: $ => token.immediate(/[^\r\n]+/),
+    _section_marker_2: $ => token(prec(9, seq('==', ' '))),
+    _section_marker_3: $ => token(prec(8, seq('===', ' '))),
+    _section_marker_4: $ => token(prec(7, seq('====', ' '))),
+    _section_marker_5: $ => token(prec(6, seq('=====', ' '))),
+    _section_marker_6: $ => token(prec(5, seq('======', ' '))),
 
     // ATTRIBUTE ENTRIES
     attribute_entry: $ => prec(10, seq(
