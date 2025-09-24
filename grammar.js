@@ -595,7 +595,7 @@ module.exports = grammar({
 
     internal_xref: $ => seq(
       '<<',
-      /[^>\r\n,]+/,  // target id
+      /[^>,\r\n]+/,  // target id (don't allow > to prevent partial matches)
       optional(seq(',', /[^>\r\n]+/)),  // optional link text
       '>>'
     ),
@@ -607,6 +607,7 @@ module.exports = grammar({
       optional(/[^\]\r\n]+/),  // optional link text
       ']'
     ),
+
 
     footnote_inline: $ => seq(
       'footnote:[',
