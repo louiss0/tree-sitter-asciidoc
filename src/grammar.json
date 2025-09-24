@@ -2887,55 +2887,64 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "stem:["
-            },
-            {
-              "type": "PATTERN",
-              "value": "[^\\]\\r\\n]+"
-            },
-            {
-              "type": "STRING",
-              "value": "]"
-            }
-          ]
+          "type": "TOKEN",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "stem:["
+              },
+              {
+                "type": "PATTERN",
+                "value": "[^\\]\\r\\n]+"
+              },
+              {
+                "type": "STRING",
+                "value": "]"
+              }
+            ]
+          }
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "latexmath:["
-            },
-            {
-              "type": "PATTERN",
-              "value": "[^\\]\\r\\n]+"
-            },
-            {
-              "type": "STRING",
-              "value": "]"
-            }
-          ]
+          "type": "TOKEN",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "latexmath:["
+              },
+              {
+                "type": "PATTERN",
+                "value": "[^\\]\\r\\n]+"
+              },
+              {
+                "type": "STRING",
+                "value": "]"
+              }
+            ]
+          }
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "asciimath:["
-            },
-            {
-              "type": "PATTERN",
-              "value": "[^\\]\\r\\n]+"
-            },
-            {
-              "type": "STRING",
-              "value": "]"
-            }
-          ]
+          "type": "TOKEN",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "asciimath:["
+              },
+              {
+                "type": "PATTERN",
+                "value": "[^\\]\\r\\n]+"
+              },
+              {
+                "type": "STRING",
+                "value": "]"
+              }
+            ]
+          }
         }
       ]
     },

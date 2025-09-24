@@ -694,9 +694,9 @@ module.exports = grammar({
 
     // MATH MACROS
     math_macro: $ => choice(
-      seq('stem:[', /[^\]\r\n]+/, ']'),
-      seq('latexmath:[', /[^\]\r\n]+/, ']'),
-      seq('asciimath:[', /[^\]\r\n]+/, ']')
+      token(seq('stem:[', /[^\]\r\n]+/, ']')),
+      token(seq('latexmath:[', /[^\]\r\n]+/, ']')),
+      token(seq('asciimath:[', /[^\]\r\n]+/, ']'))
     ),
 
     // UI MACROS

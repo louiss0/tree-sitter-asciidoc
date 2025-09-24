@@ -2552,10 +2552,6 @@
     "named": false
   },
   {
-    "type": "asciimath:[",
-    "named": false
-  },
-  {
     "type": "auto_link",
     "named": true
   },
@@ -2652,10 +2648,6 @@
     "named": false
   },
   {
-    "type": "latexmath:[",
-    "named": false
-  },
-  {
     "type": "m",
     "named": false
   },
@@ -2686,10 +2678,6 @@
   {
     "type": "span_spec",
     "named": true
-  },
-  {
-    "type": "stem:[",
-    "named": false
   },
   {
     "type": "strong_text",
