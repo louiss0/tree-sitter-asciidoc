@@ -2241,6 +2241,11 @@
     "fields": {}
   },
   {
+    "type": "text_caret",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "text_colon",
     "named": true,
     "fields": {}
@@ -2252,6 +2257,11 @@
   },
   {
     "type": "text_paren",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "text_tilde",
     "named": true,
     "fields": {}
   },
@@ -2280,6 +2290,10 @@
           "named": true
         },
         {
+          "type": "text_caret",
+          "named": true
+        },
+        {
           "type": "text_colon",
           "named": true
         },
@@ -2293,6 +2307,10 @@
         },
         {
           "type": "text_segment",
+          "named": true
+        },
+        {
+          "type": "text_tilde",
           "named": true
         }
       ]

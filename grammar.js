@@ -462,21 +462,23 @@ module.exports = grammar({
 
     text_with_inlines: $ => prec.left(seq(
       $._text_element,
-      repeat(seq(/[ \t\f]+/, $._text_element))
+      repeat(seq(optional(/[ \t\f]+/), $._text_element))
     )),
     
-    _text_element: $ => choice(
-      $.inline_element,
+    _text_element: $ => prec.left(choice(
+      prec(1000, $.inline_element),
       $.text_segment,
       $.text_colon,
       $.text_angle_bracket,
       $.text_brace,
       $.text_hash,
       $.text_bracket,
-      $.text_paren
-    ),
+      $.text_paren,
+      $.text_caret,
+      $.text_tilde
+    )),
     
-    text_segment: $ => token(/[^\s\r\n:*_\`^~\[\]<>+{}#()]+/),
+    text_segment: $ => token(/[^\s\r\n:*_\`\[\]<>+{}#()]+/),
     
     // For colons in invalid attribute patterns
     text_colon: $ => ':',
@@ -495,6 +497,12 @@ module.exports = grammar({
     
     // For parentheses in invalid patterns
     text_paren: $ => choice('(', ')'),
+    
+    // For carets in invalid superscript patterns
+    text_caret: $ => '^',
+    
+    // For tildes in invalid subscript patterns
+    text_tilde: $ => '~',
 
     // INLINE FORMATTING
     inline_element: $ => choice(
@@ -568,26 +576,26 @@ module.exports = grammar({
     monospace_text: $ => token.immediate(prec(1, /[^`\r\n]+/)),
 
     // Superscript (^super^)
-    superscript: $ => prec(5, seq(
+    superscript: $ => prec(100, seq(
       field('open', $.superscript_open),
       field('content', $.superscript_text),
       field('close', $.superscript_close)
     )),
 
-    superscript_open: $ => '^',
-    superscript_close: $ => '^',
-    superscript_text: $ => token.immediate(prec(1, /[^\^\r\n]+/)),
+    superscript_open: $ => prec(10, '^'),
+    superscript_close: $ => prec(10, '^'),
+    superscript_text: $ => token.immediate(/[^\^\r\n]+/),
 
     // Subscript (~sub~)
-    subscript: $ => prec(5, seq(
+    subscript: $ => prec(100, seq(
       field('open', $.subscript_open),
       field('content', $.subscript_text),
       field('close', $.subscript_close)
     )),
 
-    subscript_open: $ => '~',
-    subscript_close: $ => '~',
-    subscript_text: $ => token.immediate(prec(1, /[^~\r\n]+/)),
+    subscript_open: $ => prec(10, '~'),
+    subscript_close: $ => prec(10, '~'),
+    subscript_text: $ => token.immediate(/[^~\r\n]+/),
 
     // ANCHORS & CROSS-REFERENCES
     inline_anchor: $ => seq(

@@ -1969,88 +1969,100 @@
       }
     },
     "text_with_inlines": {
-      "type": "PREC_DYNAMIC",
-      "value": 1,
+      "type": "PREC_LEFT",
+      "value": 0,
       "content": {
-        "type": "PREC_LEFT",
-        "value": 0,
-        "content": {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_text_element"
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "PATTERN",
-                        "value": "[ \\t\\f]+"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_text_element"
-                  }
-                ]
-              }
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_text_element"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "PATTERN",
+                      "value": "[ \\t\\f]+"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_text_element"
+                }
+              ]
             }
-          ]
-        }
+          }
+        ]
       }
     },
     "_text_element": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "inline_element"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "text_segment"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "text_colon"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "text_angle_bracket"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "text_brace"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "text_hash"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "text_bracket"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "text_paren"
-        }
-      ]
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PREC",
+            "value": 1000,
+            "content": {
+              "type": "SYMBOL",
+              "name": "inline_element"
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "text_segment"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "text_colon"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "text_angle_bracket"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "text_brace"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "text_hash"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "text_bracket"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "text_paren"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "text_caret"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "text_tilde"
+          }
+        ]
+      }
     },
     "text_segment": {
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "[^\\s\\r\\n:*_\\`^~\\[\\]<>+{}#()]+"
+        "value": "[^\\s\\r\\n:*_\\`\\[\\]<>+{}#()]+"
       }
     },
     "text_colon": {
@@ -2112,6 +2124,14 @@
           "value": ")"
         }
       ]
+    },
+    "text_caret": {
+      "type": "STRING",
+      "value": "^"
+    },
+    "text_tilde": {
+      "type": "STRING",
+      "value": "~"
     },
     "inline_element": {
       "type": "CHOICE",
@@ -2379,7 +2399,7 @@
     },
     "superscript": {
       "type": "PREC",
-      "value": 5,
+      "value": 100,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2411,27 +2431,31 @@
       }
     },
     "superscript_open": {
-      "type": "STRING",
-      "value": "^"
+      "type": "PREC",
+      "value": 10,
+      "content": {
+        "type": "STRING",
+        "value": "^"
+      }
     },
     "superscript_close": {
-      "type": "STRING",
-      "value": "^"
+      "type": "PREC",
+      "value": 10,
+      "content": {
+        "type": "STRING",
+        "value": "^"
+      }
     },
     "superscript_text": {
       "type": "IMMEDIATE_TOKEN",
       "content": {
-        "type": "PREC",
-        "value": 1,
-        "content": {
-          "type": "PATTERN",
-          "value": "[^\\^\\r\\n]+"
-        }
+        "type": "PATTERN",
+        "value": "[^\\^\\r\\n]+"
       }
     },
     "subscript": {
       "type": "PREC",
-      "value": 5,
+      "value": 100,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2463,22 +2487,26 @@
       }
     },
     "subscript_open": {
-      "type": "STRING",
-      "value": "~"
+      "type": "PREC",
+      "value": 10,
+      "content": {
+        "type": "STRING",
+        "value": "~"
+      }
     },
     "subscript_close": {
-      "type": "STRING",
-      "value": "~"
+      "type": "PREC",
+      "value": 10,
+      "content": {
+        "type": "STRING",
+        "value": "~"
+      }
     },
     "subscript_text": {
       "type": "IMMEDIATE_TOKEN",
       "content": {
-        "type": "PREC",
-        "value": 1,
-        "content": {
-          "type": "PATTERN",
-          "value": "[^~\\r\\n]+"
-        }
+        "type": "PATTERN",
+        "value": "[^~\\r\\n]+"
       }
     },
     "inline_anchor": {
