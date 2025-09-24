@@ -205,9 +205,10 @@ module.exports = grammar({
     
     _unordered_list_marker: $ => token(prec(5, /[ \t]*[*-]+[ \t]+/)),
     
-    ordered_list: $ => prec.left(seq(
+    ordered_list: $ => prec.left(10, seq(
       $.ordered_list_item,
-      repeat(seq($._line_ending, $.ordered_list_item))
+      repeat(seq($._line_ending, $.ordered_list_item)),
+      optional($._line_ending)
     )),
     
     ordered_list_item: $ => seq(
@@ -230,13 +231,90 @@ module.exports = grammar({
     
     _text_element: $ => choice(
       $.text_segment,
-      $.text_colon
+      $.text_colon,
+      $.inline_element
     ),
     
-    text_segment: $ => token(/[^\s\r\n:]+/),
+    text_segment: $ => token(/[^\s\r\n:*_\`^~]+/),
     
     // For colons in invalid attribute patterns
     text_colon: $ => ':',
+
+    // INLINE FORMATTING
+    inline_element: $ => choice(
+      $.strong,
+      $.emphasis,
+      $.monospace,
+      $.superscript,
+      $.subscript
+    ),
+
+    // Strong formatting (*bold*)
+    strong: $ => choice(
+      $.strong_constrained
+    ),
+
+    strong_constrained: $ => seq(
+      field('open', $.strong_open),
+      field('content', $.strong_text),
+      field('close', $.strong_close)
+    ),
+
+    strong_open: $ => '*',
+    strong_close: $ => '*',
+    strong_text: $ => token.immediate(prec(1, /[^*\r\n]+/)),
+
+    // Emphasis formatting (_italic_)
+    emphasis: $ => choice(
+      $.emphasis_constrained
+    ),
+
+    emphasis_constrained: $ => seq(
+      field('open', $.emphasis_open),
+      field('content', $.emphasis_text),
+      field('close', $.emphasis_close)
+    ),
+
+    emphasis_open: $ => '_',
+    emphasis_close: $ => '_',
+    emphasis_text: $ => token.immediate(prec(1, /[^_\r\n]+/)),
+
+    // Monospace formatting (`code`)
+    monospace: $ => choice(
+      $.monospace_constrained
+    ),
+
+    monospace_constrained: $ => seq(
+      field('open', $.monospace_open),
+      field('content', $.monospace_text),
+      field('close', $.monospace_close)
+    ),
+
+    monospace_open: $ => '`',
+    monospace_close: $ => '`',
+    monospace_text: $ => token.immediate(prec(1, /[^`\r\n]+/)),
+
+    // Superscript (^super^)
+    superscript: $ => seq(
+      field('open', $.superscript_open),
+      field('content', $.superscript_text),
+      field('close', $.superscript_close)
+    ),
+
+    superscript_open: $ => '^',
+    superscript_close: $ => '^',
+    superscript_text: $ => token.immediate(prec(1, /[^\^\r\n]+/)),
+
+    // Subscript (~sub~)
+    subscript: $ => seq(
+      field('open', $.subscript_open),
+      field('content', $.subscript_text),
+      field('close', $.subscript_close)
+    ),
+
+    subscript_open: $ => '~',
+    subscript_close: $ => '~',
+    subscript_text: $ => token.immediate(prec(1, /[^~\r\n]+/)),
 
     // BASIC TOKENS
     _line_ending: $ => choice('\r\n', '\n'),
