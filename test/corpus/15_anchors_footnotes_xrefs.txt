@@ -8,12 +8,13 @@ This paragraph has [[simple-anchor]] in the middle.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)
       (inline_element
-        (inline_anchor))
+        (inline_anchor
+          (inline_anchor_id)))
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -28,12 +29,14 @@ This paragraph has [[anchor-id,anchor text]] with text.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)
       (inline_element
-        (inline_anchor))
+        (inline_anchor
+          (inline_anchor_id)
+          (inline_anchor_text)))
       (text_segment)
       (text_segment))))
 
@@ -51,7 +54,7 @@ Content after block anchor.
 (source_file
   (section
     (anchor
-      id: (id))
+      id: (inline_anchor_id))
     (section_title
       title: (title)))
   (paragraph
@@ -75,8 +78,8 @@ Content after block anchor with text.
 (source_file
   (section
     (anchor
-      id: (id)
-      text: (anchor_text))
+      id: (inline_anchor_id)
+      text: (inline_anchor_text))
     (section_title
       title: (title)))
   (paragraph
