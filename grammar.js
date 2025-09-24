@@ -22,6 +22,7 @@ module.exports = grammar({
       $.unordered_list,
       $.ordered_list,
       $.description_list,
+      $.callout_list,
       $.attribute_entry,
       $.example_block,
       $.listing_block,
@@ -29,12 +30,17 @@ module.exports = grammar({
       $.literal_block,
       $.sidebar_block,
       $.passthrough_block,
+      $.open_block,
+      $.conditional_block,
+      $.include_directive,
+      $.block_comment,
       $.paragraph,
       $._blank_line,
     ),
 
     // SECTIONS
     section: $ => prec.right(seq(
+      optional($.anchor),
       $.section_title,
       repeat($._section_content)
     )),
@@ -44,6 +50,7 @@ module.exports = grammar({
       $.unordered_list,
       $.ordered_list,
       $.description_list,
+      $.callout_list,
       $.attribute_entry,
       $.example_block,
       $.listing_block,
@@ -51,6 +58,10 @@ module.exports = grammar({
       $.literal_block,
       $.sidebar_block,
       $.passthrough_block,
+      $.open_block,
+      $.conditional_block,
+      $.include_directive,
+      $.block_comment,
       $.paragraph,
       $._blank_line,
     ),
@@ -74,7 +85,7 @@ module.exports = grammar({
     title: $ => token.immediate(/[^\r\n]+/),
 
     // ATTRIBUTE ENTRIES
-    attribute_entry: $ => prec(-1, seq(
+    attribute_entry: $ => prec(10, seq(
       ':',
       field('name', $.name),
       ':',
@@ -87,6 +98,7 @@ module.exports = grammar({
 
     // DELIMITED BLOCKS
     example_block: $ => seq(
+      optional($.metadata),
       field('open', $.example_open),
       optional(field('content', $.block_content)),
       field('close', $.example_close)
@@ -107,6 +119,7 @@ module.exports = grammar({
     
     // Listing blocks
     listing_block: $ => seq(
+      optional($.metadata),
       field('open', $.listing_open),
       optional(field('content', $.block_content)),
       field('close', $.listing_close)
@@ -127,6 +140,7 @@ module.exports = grammar({
     
     // Quote blocks
     quote_block: $ => seq(
+      optional($.metadata),
       $.quote_open,
       $.block_content,
       $.quote_close
@@ -147,6 +161,7 @@ module.exports = grammar({
     
     // Literal blocks  
     literal_block: $ => seq(
+      optional($.metadata),
       field('open', $.literal_open),
       field('content', $.block_content),
       field('close', $.literal_close)
@@ -167,6 +182,7 @@ module.exports = grammar({
     
     // Sidebar blocks
     sidebar_block: $ => seq(
+      optional($.metadata),
       $.sidebar_open,
       $.block_content,
       $.sidebar_close
@@ -187,6 +203,7 @@ module.exports = grammar({
     
     // Passthrough blocks
     passthrough_block: $ => seq(
+      optional($.metadata),
       $.passthrough_open,
       $.block_content,
       $.passthrough_close
@@ -205,6 +222,126 @@ module.exports = grammar({
     PASSTHROUGH_FENCE_START: $ => token('++++'),
     PASSTHROUGH_FENCE_END: $ => token('++++'),
     
+    // Open blocks
+    open_block: $ => seq(
+      optional($.metadata),
+      field('open', $.openblock_open),
+      field('content', $.block_content),
+      field('close', $.openblock_close)
+    ),
+    
+    openblock_open: $ => seq(
+      $.OPENBLOCK_FENCE_START,
+      $._line_ending
+    ),
+    
+    openblock_close: $ => seq(
+      $.OPENBLOCK_FENCE_END,
+      optional($._line_ending)
+    ),
+    
+    OPENBLOCK_FENCE_START: $ => token('--'),
+    OPENBLOCK_FENCE_END: $ => token('--'),
+    
+    // CONDITIONAL BLOCKS
+    conditional_block: $ => choice(
+      $.ifdef_block,
+      $.ifndef_block,
+      $.ifeval_block
+    ),
+    
+    ifdef_block: $ => seq(
+      field('open', $.ifdef_open),
+      repeat($._element),
+      field('close', $.endif_directive)
+    ),
+    
+    ifndef_block: $ => seq(
+      field('open', $.ifndef_open),
+      repeat($._element),
+      field('close', $.endif_directive)
+    ),
+    
+    ifeval_block: $ => seq(
+      field('open', $.ifeval_open),
+      repeat($._element),
+      field('close', $.endif_directive)
+    ),
+    
+    ifdef_open: $ => seq(
+      'ifdef::',
+      /[^\[\r\n]+/,  // attribute name(s)
+      '[',
+      optional(/[^\]\r\n]*/),  // optional content
+      ']',
+      $._line_ending
+    ),
+    
+    ifndef_open: $ => seq(
+      'ifndef::',
+      /[^\[\r\n]+/,  // attribute name(s)
+      '[',
+      optional(/[^\]\r\n]*/),  // optional content
+      ']',
+      $._line_ending
+    ),
+    
+    ifeval_open: $ => seq(
+      'ifeval::',
+      '[',
+      /[^\]\r\n]+/,  // expression
+      ']',
+      $._line_ending
+    ),
+    
+    endif_directive: $ => seq(
+      'endif::',
+      '[',
+      optional(/[^\]\r\n]*/),  // optional content
+      ']',
+      optional($._line_ending)
+    ),
+    
+    // METADATA
+    metadata: $ => prec.right(repeat1(choice(
+      $.block_attributes,
+      $.id_and_roles,
+      $.block_title
+    ))),
+    
+    block_attributes: $ => seq(
+      '[',
+      /[^\]\r\n]+/,  // attribute content
+      ']',
+      $._line_ending
+    ),
+    
+    id_and_roles: $ => seq(
+      '[',
+      /#[^\]\r\n]+/,  // content starting with # for ID
+      ']',
+      $._line_ending
+    ),
+    
+    block_title: $ => seq(
+      '.',
+      /[^\r\n]+/,  // title text
+      $._line_ending
+    ),
+    
+    // INCLUDE DIRECTIVES
+    include_directive: $ => seq(
+      'include::',
+      field('path', $.include_path),
+      '[',
+      field('options', $.include_options),
+      ']',
+      $._line_ending
+    ),
+    
+    include_path: $ => /[^\[\r\n]+/,
+    include_options: $ => /[^\]\r\n]*/,
+    
     block_content: $ => repeat1($.content_line),
     content_line: $ => seq(
       /[^\r\n]*/,
@@ -212,46 +349,98 @@ module.exports = grammar({
     ),
 
     // LISTS
-    unordered_list: $ => prec.left(repeat1($.unordered_list_item)),
+    unordered_list: $ => prec.right(seq(
+      $.unordered_list_item,
+      repeat($.unordered_list_item)
+    )),
     
     unordered_list_item: $ => seq(
       $._unordered_list_marker,
-      field('content', $.text_with_inlines),
-      optional($._line_ending)
+      $.text_with_inlines,
+      $._line_ending,
+      repeat($.list_item_continuation)
     ),
     
     _unordered_list_marker: $ => token(prec(5, /[ \t]*[*-]+[ \t]+/)),
     
-    ordered_list: $ => prec.left(10, seq(
+    ordered_list: $ => prec.right(seq(
       $.ordered_list_item,
-      repeat(seq($._line_ending, $.ordered_list_item)),
-      optional($._line_ending)
+      repeat($.ordered_list_item)
     )),
     
     ordered_list_item: $ => seq(
       $._ordered_list_marker,
-      $.text_with_inlines
+      $.text_with_inlines,
+      $._line_ending,
+      repeat($.list_item_continuation)
     ),
     
     _ordered_list_marker: $ => token(prec(5, /[ \t]*[0-9]+\.[ \t]+/)),
 
     // DESCRIPTION LISTS
-    description_list: $ => prec.left(repeat1($.description_item)),
+    description_list: $ => prec.right(seq(
+      $.description_item,
+      repeat($.description_item)
+    )),
     
     description_item: $ => seq(
       $._description_marker,
       $.description_content,
-      optional($._line_ending)
+      $._line_ending
     ),
     
     _description_marker: $ => token(prec(5, /[^\s\r\n:]+::[ \t]+/)),
     description_content: $ => $.text_with_inlines,
 
+    // CALLOUT LISTS
+    callout_list: $ => prec.right(seq(
+      $.callout_item,
+      repeat($.callout_item)
+    )),
+    
+    callout_item: $ => seq(
+      $.CALLOUT_MARKER,
+      $.text_with_inlines,
+      $._line_ending
+    ),
+    
+    CALLOUT_MARKER: $ => token(prec(5, /<[0-9]+>[ \t]+/)),
+
+    // LIST CONTINUATIONS
+    list_item_continuation: $ => seq(
+      $.LIST_CONTINUATION,
+      choice(
+        $.open_block,
+        $.example_block,
+        $.listing_block,
+        $.quote_block,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block
+      )
+    ),
+
+    LIST_CONTINUATION: $ => token(seq('+', /[ \t]*/, /\r?\n/)),
+
     // PARAGRAPHS
     paragraph: $ => seq(
-      $.text_with_inlines,
+      optional($.metadata),
+      choice(
+        $.paragraph_admonition,
+        field('content', $.text_with_inlines)
+      ),
       optional($._line_ending)
     ),
+
+    // PARAGRAPH ADMONITIONS
+    paragraph_admonition: $ => seq(
+      field('label', $.admonition_label),
+      ':',
+      /[ \t]+/,
+      field('content', $.text_with_inlines)
+    ),
+    
+    admonition_label: $ => choice('NOTE', 'TIP', 'IMPORTANT', 'WARNING', 'CAUTION'),
 
     text_with_inlines: $ => prec.left(seq(
       $._text_element,
@@ -261,13 +450,33 @@ module.exports = grammar({
     _text_element: $ => choice(
       $.text_segment,
       $.text_colon,
-      $.inline_element
+      $.text_angle_bracket,
+      $.text_brace,
+      $.text_hash,
+      $.text_bracket,
+      $.text_paren,
+      prec(1, $.inline_element)
     ),
     
-    text_segment: $ => token(/[^\s\r\n:*_\`^~\[\]<>]+/),
+    text_segment: $ => token(/[^\s\r\n:*_\`^~\[\]<>+{}#()]+/),
     
     // For colons in invalid attribute patterns
     text_colon: $ => ':',
+    
+    // For angle brackets in invalid callout patterns
+    text_angle_bracket: $ => choice('<', '>'),
+    
+    // For curly braces in invalid attribute patterns
+    text_brace: $ => choice('{', '}'),
+    
+    // For hash symbols in invalid role span patterns
+    text_hash: $ => '#',
+    
+    // For brackets in invalid patterns
+    text_bracket: $ => choice('[', ']'),
+    
+    // For parentheses in invalid patterns
+    text_paren: $ => choice('(', ')'),
 
     // INLINE FORMATTING
     inline_element: $ => choice(
@@ -280,7 +489,19 @@ module.exports = grammar({
       $.internal_xref,
       $.external_xref,
       $.footnote_inline,
-      $.footnote_ref
+      $.footnote_ref,
+      $.footnoteref,
+      $.auto_link,
+      $.link,
+      $.image,
+      $.passthrough_triple_plus,
+      $.pass_macro,
+      $.attribute_reference,
+      $.role_span,
+      $.math_macro,
+      $.ui_macro,
+      $.index_term,
+      $.line_break
     ),
 
     // Strong formatting (*bold*)
@@ -361,6 +582,15 @@ module.exports = grammar({
     inline_anchor_id: $ => /[^\]\r\n,]+/,
     inline_anchor_text: $ => /[^\]\r\n]+/,
 
+    // Block anchors (stand-alone)
+    anchor: $ => prec(2, seq(
+      '[[',
+      field('id', $.inline_anchor_id),
+      optional(seq(',', field('text', $.inline_anchor_text))),
+      ']]',
+      $._line_ending
+    )),
+
     internal_xref: $ => seq(
       '<<',
       /[^>\r\n,]+/,  // target id
@@ -388,6 +618,142 @@ module.exports = grammar({
       '[',
       optional(/[^\]\r\n]+/),  // optional text
       ']'
+    ),
+
+    footnoteref: $ => seq(
+      'footnoteref:',
+      /[^\[\r\n]+/,  // reference id
+      '[',
+      optional(/[^\]\r\n]+/),  // optional text
+      ']'
+    ),
+
+    // AUTO LINKS & LINKS
+    auto_link: $ => /https?:\/\/[^\s\[\]<>"']+|ftp:\/\/[^\s\[\]<>"']+/,
+    
+    link: $ => prec(1, seq(
+      field('url', $.auto_link),
+      '[',
+      field('text', $.bracketed_text),
+      ']'
+    )),
+    
+    bracketed_text: $ => /[^\]\r\n]+/,
+
+    // IMAGES
+    image: $ => choice(
+      seq('image:', /[^\[\r\n]+/, '[', optional(/[^\]\r\n]+/), ']'),
+      seq('image::', /[^\[\r\n]+/, '[', optional(/[^\]\r\n]+/), ']')
+    ),
+
+    // PASSTHROUGH
+    passthrough_triple_plus: $ => seq(
+      '+++',
+      /[^+]+/,  // content without + characters (simplified)
+      '+++'
+    ),
+    
+    pass_macro: $ => seq(
+      'pass:',
+      optional(/[a-zA-Z,]+/),  // optional substitutions like 'quotes'
+      '[',
+      /[^\]\r\n]*/,  // content
+      ']'
+    ),
+
+    // ATTRIBUTE REFERENCES
+    attribute_reference: $ => prec(2, seq(
+      '{',
+      /[^}\r\n]+/,
+      '}'
+    )),
+
+    // ROLE SPANS
+    role_span: $ => prec(1, seq(
+      '[',
+      /[^\]\r\n]+/,  // role name
+      ']',
+      '#',
+      /[^#\r\n]+/,  // content
+      '#'
+    )),
+
+    // MATH MACROS
+    math_macro: $ => choice(
+      seq('stem:[', /[^\]\r\n]+/, ']'),
+      seq('latexmath:[', /[^\]\r\n]+/, ']'),
+      seq('asciimath:[', /[^\]\r\n]+/, ']')
+    ),
+
+    // UI MACROS
+    ui_macro: $ => choice(
+      $.ui_kbd,
+      $.ui_btn,
+      $.ui_menu
+    ),
+
+    ui_kbd: $ => seq('kbd:[', /[^\]\r\n]+/, ']'),
+    ui_btn: $ => seq('btn:[', /[^\]\r\n]+/, ']'),
+    ui_menu: $ => seq('menu:', /[^\[\r\n]+/, '[', /[^\]\r\n]+/, ']'),
+
+    // BLOCK COMMENTS
+    block_comment: $ => seq(
+      $.comment_open,
+      repeat($.comment_line),
+      $.comment_close
+    ),
+
+    comment_open: $ => token(prec(2, seq('////', /[ \t]*/, /\r?\n/))),
+    comment_close: $ => token(prec(2, seq('////', /[ \t]*/, optional(/\r?\n/)))),
+    comment_line: $ => /[^\r\n]*\r?\n/,
+
+    // INDEX TERMS
+    index_term: $ => choice(
+      $.index_term_macro,
+      $.index_term2_macro,
+      $.concealed_index_term
+    ),
+
+    index_term_macro: $ => seq(
+      'indexterm:[',
+      field('terms', $.index_text),
+      ']'
+    ),
+
+    index_term2_macro: $ => seq(
+      'indexterm2:[',
+      field('terms', $.index_text),
+      ']'
+    ),
+
+    concealed_index_term: $ => seq(
+      '(((',
+      field('terms', $.index_text),
+      ')))'
+    ),
+
+    index_text: $ => choice(
+      seq(
+        field('primary', $.index_term_text),
+        ',',
+        field('secondary', $.index_term_text),
+        ',',
+        field('tertiary', $.index_term_text)
+      ),
+      seq(
+        field('primary', $.index_term_text),
+        ',',
+        field('secondary', $.index_term_text)
+      ),
+      field('primary', $.index_term_text)
+    ),
+
+    index_term_text: $ => /[^,\]\)\r\n]+/,
+
+    // LINE BREAKS
+    line_break: $ => seq(
+      '+',
+      $._line_ending
     ),
 
     // BASIC TOKENS
