@@ -780,18 +780,10 @@ module.exports = grammar({
       )
     ),
 
-    table_row: $ => choice(
-      // Row with multiple cells on one line
-      prec(5, seq(
-        repeat1($.table_cell),
-        $._line_ending
-      )),
-      // Single cell content line (continuation)
-      prec(4, seq(
-        $.table_cell,
-        $._line_ending
-      ))
-    ),
+    table_row: $ => prec(4, seq(
+      repeat1($.table_cell),
+      $._line_ending
+    )),
 
     table_cell: $ => seq(
       '|',
@@ -804,20 +796,24 @@ module.exports = grammar({
       $.span_spec,
     ),
 
-    format_spec: $ => choice(
-      'h',  // header
-      'a',  // AsciiDoc
-      'l',  // left align
-      'm',  // center/middle align
-      'r',  // right align
-      's',  // strong/right align
+    format_spec: $ => seq(
+      choice(
+        'h',  // header
+        'a',  // AsciiDoc
+        'l',  // left align
+        'm',  // center/middle align
+        'r',  // right align
+        's',  // strong/right align
+      ),
+      '|'
     ),
 
-    span_spec: $ => seq(
-      optional(/\d+/),  // column span
+    span_spec: $ => token(seq(
+      /\d+/,  // column span (required)
       optional(seq('.', /\d+/)),  // row span
       '+',
-    ),
+      '|'
+    )),
 
     cell_content: $ => $.cell_literal_text,
 

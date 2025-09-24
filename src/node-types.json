@@ -1958,11 +1958,6 @@
     }
   },
   {
-    "type": "span_spec",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "strong",
     "named": true,
     "fields": {},
@@ -2666,6 +2661,10 @@
   {
     "type": "s",
     "named": false
+  },
+  {
+    "type": "span_spec",
+    "named": true
   },
   {
     "type": "stem:[",
