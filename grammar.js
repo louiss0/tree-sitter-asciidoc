@@ -462,23 +462,26 @@ module.exports = grammar({
 
     text_with_inlines: $ => prec.left(seq(
       $._text_element,
-      repeat(seq(optional(/[ \t\f]+/), $._text_element))
+      repeat(choice(
+        seq(/[ \t\f]+/, $._text_element),    // Spaced elements
+        prec(1, $._text_element)             // Adjacent elements
+      ))
     )),
     
     _text_element: $ => prec.left(choice(
       prec(1000, $.inline_element),
       $.text_segment,
+      prec(-1, $.text_caret),
+      prec(-1, $.text_tilde),
       $.text_colon,
       $.text_angle_bracket,
       $.text_brace,
       $.text_hash,
       $.text_bracket,
-      $.text_paren,
-      $.text_caret,
-      $.text_tilde
+      $.text_paren
     )),
     
-    text_segment: $ => token(/[^\s\r\n:*_\`\[\]<>+{}#()]+/),
+    text_segment: $ => token(prec(-1, /[^\s\r\n:*_\`\[\]<>+{}#()^~]+/)),
     
     // For colons in invalid attribute patterns
     text_colon: $ => ':',
@@ -581,9 +584,9 @@ module.exports = grammar({
       field('content', $.superscript_text),
       field('close', $.superscript_close)
     )),
-
-    superscript_open: $ => prec(10, '^'),
-    superscript_close: $ => prec(10, '^'),
+    
+    superscript_open: $ => '^',
+    superscript_close: $ => '^',
     superscript_text: $ => token.immediate(/[^\^\r\n]+/),
 
     // Subscript (~sub~)
@@ -592,9 +595,9 @@ module.exports = grammar({
       field('content', $.subscript_text),
       field('close', $.subscript_close)
     )),
-
-    subscript_open: $ => prec(10, '~'),
-    subscript_close: $ => prec(10, '~'),
+    
+    subscript_open: $ => '~',
+    subscript_close: $ => '~',
     subscript_text: $ => token.immediate(/[^~\r\n]+/),
 
     // ANCHORS & CROSS-REFERENCES

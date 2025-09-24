@@ -1981,23 +1981,28 @@
           {
             "type": "REPEAT",
             "content": {
-              "type": "SEQ",
+              "type": "CHOICE",
               "members": [
                 {
-                  "type": "CHOICE",
+                  "type": "SEQ",
                   "members": [
                     {
                       "type": "PATTERN",
                       "value": "[ \\t\\f]+"
                     },
                     {
-                      "type": "BLANK"
+                      "type": "SYMBOL",
+                      "name": "_text_element"
                     }
                   ]
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "_text_element"
+                  "type": "PREC",
+                  "value": 1,
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_text_element"
+                  }
                 }
               ]
             }
@@ -2024,6 +2029,22 @@
             "name": "text_segment"
           },
           {
+            "type": "PREC",
+            "value": -1,
+            "content": {
+              "type": "SYMBOL",
+              "name": "text_caret"
+            }
+          },
+          {
+            "type": "PREC",
+            "value": -1,
+            "content": {
+              "type": "SYMBOL",
+              "name": "text_tilde"
+            }
+          },
+          {
             "type": "SYMBOL",
             "name": "text_colon"
           },
@@ -2046,14 +2067,6 @@
           {
             "type": "SYMBOL",
             "name": "text_paren"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "text_caret"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "text_tilde"
           }
         ]
       }
@@ -2061,8 +2074,12 @@
     "text_segment": {
       "type": "TOKEN",
       "content": {
-        "type": "PATTERN",
-        "value": "[^\\s\\r\\n:*_\\`\\[\\]<>+{}#()]+"
+        "type": "PREC",
+        "value": -1,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\\s\\r\\n:*_\\`\\[\\]<>+{}#()^~]+"
+        }
       }
     },
     "text_colon": {
@@ -2431,20 +2448,12 @@
       }
     },
     "superscript_open": {
-      "type": "PREC",
-      "value": 10,
-      "content": {
-        "type": "STRING",
-        "value": "^"
-      }
+      "type": "STRING",
+      "value": "^"
     },
     "superscript_close": {
-      "type": "PREC",
-      "value": 10,
-      "content": {
-        "type": "STRING",
-        "value": "^"
-      }
+      "type": "STRING",
+      "value": "^"
     },
     "superscript_text": {
       "type": "IMMEDIATE_TOKEN",
@@ -2487,20 +2496,12 @@
       }
     },
     "subscript_open": {
-      "type": "PREC",
-      "value": 10,
-      "content": {
-        "type": "STRING",
-        "value": "~"
-      }
+      "type": "STRING",
+      "value": "~"
     },
     "subscript_close": {
-      "type": "PREC",
-      "value": 10,
-      "content": {
-        "type": "STRING",
-        "value": "~"
-      }
+      "type": "STRING",
+      "value": "~"
     },
     "subscript_text": {
       "type": "IMMEDIATE_TOKEN",
