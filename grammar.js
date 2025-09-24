@@ -466,14 +466,14 @@ module.exports = grammar({
     )),
     
     _text_element: $ => choice(
+      $.inline_element,
       $.text_segment,
       $.text_colon,
       $.text_angle_bracket,
       $.text_brace,
       $.text_hash,
       $.text_bracket,
-      $.text_paren,
-      prec(1, $.inline_element)
+      $.text_paren
     ),
     
     text_segment: $ => token(/[^\s\r\n:*_\`^~\[\]<>+{}#()]+/),
@@ -568,22 +568,22 @@ module.exports = grammar({
     monospace_text: $ => token.immediate(prec(1, /[^`\r\n]+/)),
 
     // Superscript (^super^)
-    superscript: $ => seq(
+    superscript: $ => prec(5, seq(
       field('open', $.superscript_open),
       field('content', $.superscript_text),
       field('close', $.superscript_close)
-    ),
+    )),
 
     superscript_open: $ => '^',
     superscript_close: $ => '^',
     superscript_text: $ => token.immediate(prec(1, /[^\^\r\n]+/)),
 
     // Subscript (~sub~)
-    subscript: $ => seq(
+    subscript: $ => prec(5, seq(
       field('open', $.subscript_open),
       field('content', $.subscript_text),
       field('close', $.subscript_close)
-    ),
+    )),
 
     subscript_open: $ => '~',
     subscript_close: $ => '~',
