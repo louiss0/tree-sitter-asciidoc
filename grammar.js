@@ -322,12 +322,12 @@ module.exports = grammar({
       $.block_title
     ))),
     
-    block_attributes: $ => seq(
+    block_attributes: $ => prec(3, seq(
       '[',
       /[^\]\r\n]+/,  // attribute content
       ']',
       $._line_ending
-    ),
+    )),
     
     id_and_roles: $ => seq(
       '[',
@@ -448,12 +448,17 @@ module.exports = grammar({
     // PARAGRAPH ADMONITIONS
     paragraph_admonition: $ => seq(
       field('label', $.admonition_label),
-      ':',
       /[ \t]+/,
       field('content', $.text_with_inlines)
     ),
     
-    admonition_label: $ => choice('NOTE', 'TIP', 'IMPORTANT', 'WARNING', 'CAUTION'),
+    admonition_label: $ => token(prec(1, choice(
+      seq('NOTE', /[ \t]*:/),
+      seq('TIP', /[ \t]*:/),
+      seq('IMPORTANT', /[ \t]*:/),
+      seq('WARNING', /[ \t]*:/),
+      seq('CAUTION', /[ \t]*:/)
+    ))),
 
     text_with_inlines: $ => prec.left(seq(
       $._text_element,

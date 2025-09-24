@@ -70,11 +70,6 @@
     "fields": {}
   },
   {
-    "type": "admonition_label",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "anchor",
     "named": true,
     "fields": {
@@ -2484,20 +2479,8 @@
     "named": true
   },
   {
-    "type": "CAUTION",
-    "named": false
-  },
-  {
-    "type": "IMPORTANT",
-    "named": false
-  },
-  {
     "type": "LIST_CONTINUATION",
     "named": true
-  },
-  {
-    "type": "NOTE",
-    "named": false
   },
   {
     "type": "TABLE_FENCE_END",
@@ -2506,14 +2489,6 @@
   {
     "type": "TABLE_FENCE_START",
     "named": true
-  },
-  {
-    "type": "TIP",
-    "named": false
-  },
-  {
-    "type": "WARNING",
-    "named": false
   },
   {
     "type": "[",
@@ -2550,6 +2525,10 @@
   {
     "type": "a",
     "named": false
+  },
+  {
+    "type": "admonition_label",
+    "named": true
   },
   {
     "type": "auto_link",

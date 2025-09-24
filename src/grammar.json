@@ -1409,25 +1409,29 @@
       }
     },
     "block_attributes": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "["
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^\\]\\r\\n]+"
-        },
-        {
-          "type": "STRING",
-          "value": "]"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_line_ending"
-        }
-      ]
+      "type": "PREC",
+      "value": 3,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "["
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^\\]\\r\\n]+"
+          },
+          {
+            "type": "STRING",
+            "value": "]"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_line_ending"
+          }
+        ]
+      }
     },
     "id_and_roles": {
       "type": "SEQ",
@@ -1874,10 +1878,6 @@
           }
         },
         {
-          "type": "STRING",
-          "value": ":"
-        },
-        {
           "type": "PATTERN",
           "value": "[ \\t]+"
         },
@@ -1892,29 +1892,81 @@
       ]
     },
     "admonition_label": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "NOTE"
-        },
-        {
-          "type": "STRING",
-          "value": "TIP"
-        },
-        {
-          "type": "STRING",
-          "value": "IMPORTANT"
-        },
-        {
-          "type": "STRING",
-          "value": "WARNING"
-        },
-        {
-          "type": "STRING",
-          "value": "CAUTION"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "NOTE"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[ \\t]*:"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "TIP"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[ \\t]*:"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "IMPORTANT"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[ \\t]*:"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "WARNING"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[ \\t]*:"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "CAUTION"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[ \\t]*:"
+                }
+              ]
+            }
+          ]
         }
-      ]
+      }
     },
     "text_with_inlines": {
       "type": "PREC_LEFT",
