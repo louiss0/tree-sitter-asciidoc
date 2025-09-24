@@ -1,0 +1,5 @@
+This equation stem:[x^2 + y^2 = z^2] is famous.
+
+LaTeX math: latexmath:[E = mc^2]
+
+ASCII math: asciimath:[x = (-b +- sqrt(b^2-4ac))/(2a)]
