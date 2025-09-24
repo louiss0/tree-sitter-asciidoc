@@ -278,6 +278,45 @@
     }
   },
   {
+    "type": "external_xref",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "footnote_inline",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "footnote_ref",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "inline_anchor",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "inline_anchor_id",
+          "named": true
+        },
+        {
+          "type": "inline_anchor_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "inline_anchor_text",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "inline_element",
     "named": true,
     "fields": {},
@@ -287,6 +326,26 @@
       "types": [
         {
           "type": "emphasis",
+          "named": true
+        },
+        {
+          "type": "external_xref",
+          "named": true
+        },
+        {
+          "type": "footnote_inline",
+          "named": true
+        },
+        {
+          "type": "footnote_ref",
+          "named": true
+        },
+        {
+          "type": "inline_anchor",
+          "named": true
+        },
+        {
+          "type": "internal_xref",
           "named": true
         },
         {
@@ -307,6 +366,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "internal_xref",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "listing_block",
@@ -1076,6 +1140,10 @@
     "named": false
   },
   {
+    "type": ",",
+    "named": false
+  },
+  {
     "type": "----",
     "named": false
   },
@@ -1088,7 +1156,31 @@
     "named": false
   },
   {
+    "type": "<<",
+    "named": false
+  },
+  {
     "type": "====",
+    "named": false
+  },
+  {
+    "type": ">>",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "[[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "]]",
     "named": false
   },
   {
@@ -1109,6 +1201,18 @@
   },
   {
     "type": "emphasis_text",
+    "named": true
+  },
+  {
+    "type": "footnote:",
+    "named": false
+  },
+  {
+    "type": "footnote:[",
+    "named": false
+  },
+  {
+    "type": "inline_anchor_id",
     "named": true
   },
   {
@@ -1142,6 +1246,10 @@
   {
     "type": "value",
     "named": true
+  },
+  {
+    "type": "xref:",
+    "named": false
   },
   {
     "type": "~",

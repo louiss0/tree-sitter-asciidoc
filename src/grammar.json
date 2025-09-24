@@ -1081,7 +1081,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "[^\\s\\r\\n:*_\\`^~]+"
+        "value": "[^\\s\\r\\n:*_\\`^~\\[\\]<>]+"
       }
     },
     "text_colon": {
@@ -1110,6 +1110,26 @@
         {
           "type": "SYMBOL",
           "name": "subscript"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "inline_anchor"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "internal_xref"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "external_xref"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "footnote_inline"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "footnote_ref"
         }
       ]
     },
@@ -1379,6 +1399,173 @@
           "value": "[^~\\r\\n]+"
         }
       }
+    },
+    "inline_anchor": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "[["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "inline_anchor_id"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "inline_anchor_text"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "]]"
+        }
+      ]
+    },
+    "inline_anchor_id": {
+      "type": "PATTERN",
+      "value": "[^\\]\\r\\n,]+"
+    },
+    "inline_anchor_text": {
+      "type": "PATTERN",
+      "value": "[^\\]\\r\\n]+"
+    },
+    "internal_xref": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<<"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^>\\r\\n,]+"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[^>\\r\\n]+"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ">>"
+        }
+      ]
+    },
+    "external_xref": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "xref:"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^\\[\\r\\n]+"
+        },
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[^\\]\\r\\n]+"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "footnote_inline": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "footnote:["
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^\\]\\r\\n]+"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "footnote_ref": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "footnote:"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^\\[\\r\\n]+"
+        },
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[^\\]\\r\\n]+"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
     },
     "_line_ending": {
       "type": "CHOICE",

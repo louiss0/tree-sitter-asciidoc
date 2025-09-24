@@ -248,7 +248,7 @@ module.exports = grammar({
       $.inline_element
     ),
     
-    text_segment: $ => token(/[^\s\r\n:*_\`^~]+/),
+    text_segment: $ => token(/[^\s\r\n:*_\`^~\[\]<>]+/),
     
     // For colons in invalid attribute patterns
     text_colon: $ => ':',
@@ -259,7 +259,12 @@ module.exports = grammar({
       $.emphasis,
       $.monospace,
       $.superscript,
-      $.subscript
+      $.subscript,
+      $.inline_anchor,
+      $.internal_xref,
+      $.external_xref,
+      $.footnote_inline,
+      $.footnote_ref
     ),
 
     // Strong formatting (*bold*)
@@ -328,6 +333,46 @@ module.exports = grammar({
     subscript_open: $ => '~',
     subscript_close: $ => '~',
     subscript_text: $ => token.immediate(prec(1, /[^~\r\n]+/)),
+
+    // ANCHORS & CROSS-REFERENCES
+    inline_anchor: $ => seq(
+      '[[',
+      $.inline_anchor_id,  // anchor id
+      optional(seq(',', $.inline_anchor_text)),  // optional anchor text
+      ']]'
+    ),
+    
+    inline_anchor_id: $ => /[^\]\r\n,]+/,
+    inline_anchor_text: $ => /[^\]\r\n]+/,
+
+    internal_xref: $ => seq(
+      '<<',
+      /[^>\r\n,]+/,  // target id
+      optional(seq(',', /[^>\r\n]+/)),  // optional link text
+      '>>'
+    ),
+
+    external_xref: $ => seq(
+      'xref:',
+      /[^\[\r\n]+/,  // file path
+      '[',
+      optional(/[^\]\r\n]+/),  // optional link text
+      ']'
+    ),
+
+    footnote_inline: $ => seq(
+      'footnote:[',
+      /[^\]\r\n]+/,  // footnote text
+      ']'
+    ),
+
+    footnote_ref: $ => seq(
+      'footnote:',
+      /[^\[\r\n]+/,  // reference id
+      '[',
+      optional(/[^\]\r\n]+/),  // optional text
+      ']'
+    ),
 
     // BASIC TOKENS
     _line_ending: $ => choice('\r\n', '\n'),
