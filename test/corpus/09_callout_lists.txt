@@ -12,19 +12,17 @@ Simple callout list
   (callout_list
     (callout_item
       (CALLOUT_MARKER)
-      (text_with_inlines
+      content: (text_with_inlines
         (text_segment)
-        (text_segment))))
-  (callout_list
+        (text_segment)))
     (callout_item
       (CALLOUT_MARKER)
-      (text_with_inlines
+      content: (text_with_inlines
         (text_segment)
-        (text_segment))))
-  (callout_list
+        (text_segment)))
     (callout_item
       (CALLOUT_MARKER)
-      (text_with_inlines
+      content: (text_with_inlines
         (text_segment)
         (text_segment)))))
 
