@@ -89,15 +89,24 @@ module.exports = grammar({
     _section_marker_6: $ => token(prec(5, seq('======', ' '))),
 
     // ATTRIBUTE ENTRIES
-    attribute_entry: $ => prec(10, seq(
-      ':',
-      field('name', $.name),
-      ':',
-      optional(seq(/[ \t]+/, field('value', $.value))),
-      $._line_ending
-    )),
+    attribute_entry: $ => choice(
+      prec(2, seq(
+        token(':'),
+        field('name', $.name),
+        token(':'),
+        /[ \t]+/,
+        field('value', $.value),
+        $._line_ending
+      )),
+      prec(2, seq(
+        token(':'),
+        field('name', $.name),
+        token(':'),
+        $._line_ending
+      ))
+    ),
     
-    name: $ => token.immediate(/[a-zA-Z0-9_-]+/),
+    name: $ => token(/[a-zA-Z0-9_-]+/),
     value: $ => /[^\r\n]+/,
 
     // DELIMITED BLOCKS
