@@ -13,13 +13,11 @@ Simple unordered list with asterisk
     (unordered_list_item
       content: (text_with_inlines
         (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
         (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
         (text_segment)
@@ -40,13 +38,11 @@ Simple unordered list with hyphen
     (unordered_list_item
       content: (text_with_inlines
         (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
         (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
         (text_segment)
@@ -67,13 +63,11 @@ Mixed unordered list markers
     (unordered_list_item
       content: (text_with_inlines
         (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
         (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
         (text_segment)

@@ -1560,8 +1560,12 @@
           "name": "_unordered_list_marker"
         },
         {
-          "type": "SYMBOL",
-          "name": "text_with_inlines"
+          "type": "FIELD",
+          "name": "content",
+          "content": {
+            "type": "SYMBOL",
+            "name": "text_with_inlines"
+          }
         },
         {
           "type": "SYMBOL",
@@ -1615,8 +1619,12 @@
           "name": "_ordered_list_marker"
         },
         {
-          "type": "SYMBOL",
-          "name": "text_with_inlines"
+          "type": "FIELD",
+          "name": "content",
+          "content": {
+            "type": "SYMBOL",
+            "name": "text_with_inlines"
+          }
         },
         {
           "type": "SYMBOL",
@@ -1722,8 +1730,12 @@
           "name": "CALLOUT_MARKER"
         },
         {
-          "type": "SYMBOL",
-          "name": "text_with_inlines"
+          "type": "FIELD",
+          "name": "content",
+          "content": {
+            "type": "SYMBOL",
+            "name": "text_with_inlines"
+          }
         },
         {
           "type": "SYMBOL",

@@ -27,8 +27,7 @@ Final paragraph.
     (unordered_list_item
       content: (text_with_inlines
         (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
         (text_segment)
@@ -96,8 +95,7 @@ More content here.
     (unordered_list_item
       content: (text_with_inlines
         (text_segment)
-        (text_segment))))
-  (unordered_list
+        (text_segment)))
     (unordered_list_item
       content: (text_with_inlines
         (text_segment)

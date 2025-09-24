@@ -369,7 +369,7 @@ module.exports = grammar({
     
     unordered_list_item: $ => seq(
       $._unordered_list_marker,
-      $.text_with_inlines,
+      field('content', $.text_with_inlines),
       $._line_ending,
       repeat($.list_item_continuation)
     ),
@@ -383,7 +383,7 @@ module.exports = grammar({
     
     ordered_list_item: $ => seq(
       $._ordered_list_marker,
-      $.text_with_inlines,
+      field('content', $.text_with_inlines),
       $._line_ending,
       repeat($.list_item_continuation)
     ),
@@ -413,7 +413,7 @@ module.exports = grammar({
     
     callout_item: $ => seq(
       $.CALLOUT_MARKER,
-      $.text_with_inlines,
+      field('content', $.text_with_inlines),
       $._line_ending
     ),
     

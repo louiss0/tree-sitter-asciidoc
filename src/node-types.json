@@ -187,17 +187,24 @@
   {
     "type": "callout_item",
     "named": true,
-    "fields": {},
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "text_with_inlines",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "CALLOUT_MARKER",
-          "named": true
-        },
-        {
-          "type": "text_with_inlines",
           "named": true
         }
       ]
@@ -1509,17 +1516,24 @@
   {
     "type": "ordered_list_item",
     "named": true,
-    "fields": {},
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "text_with_inlines",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "list_item_continuation",
-          "named": true
-        },
-        {
-          "type": "text_with_inlines",
           "named": true
         }
       ]
@@ -2345,17 +2359,24 @@
   {
     "type": "unordered_list_item",
     "named": true,
-    "fields": {},
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "text_with_inlines",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "list_item_continuation",
-          "named": true
-        },
-        {
-          "type": "text_with_inlines",
           "named": true
         }
       ]
