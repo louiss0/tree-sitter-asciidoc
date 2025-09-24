@@ -21,6 +21,7 @@ module.exports = grammar({
       $.section,
       $.unordered_list,
       $.ordered_list,
+      $.description_list,
       $.attribute_entry,
       $.example_block,
       $.listing_block,
@@ -217,6 +218,18 @@ module.exports = grammar({
     ),
     
     _ordered_list_marker: $ => token(prec(5, /[ \t]*[0-9]+\.[ \t]+/)),
+
+    // DESCRIPTION LISTS
+    description_list: $ => prec.left(repeat1($.description_item)),
+    
+    description_item: $ => seq(
+      $._description_marker,
+      $.description_content,
+      optional($._line_ending)
+    ),
+    
+    _description_marker: $ => token(prec(5, /[^\s\r\n:]+::[ \t]+/)),
+    description_content: $ => $.text_with_inlines,
 
     // PARAGRAPHS
     paragraph: $ => seq(

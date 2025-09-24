@@ -26,6 +26,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "description_list"
+        },
+        {
+          "type": "SYMBOL",
           "name": "attribute_entry"
         },
         {
@@ -954,6 +958,57 @@
           "value": "[ \\t]*[0-9]+\\.[ \\t]+"
         }
       }
+    },
+    "description_list": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "SYMBOL",
+          "name": "description_item"
+        }
+      }
+    },
+    "description_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_description_marker"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "description_content"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_line_ending"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_description_marker": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 5,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\\s\\r\\n:]+::[ \\t]+"
+        }
+      }
+    },
+    "description_content": {
+      "type": "SYMBOL",
+      "name": "text_with_inlines"
     },
     "paragraph": {
       "type": "SEQ",
