@@ -36,8 +36,24 @@ module.exports = grammar({
     // SECTIONS
     section: $ => prec.right(seq(
       $.section_title,
-      repeat($._element)
+      repeat($._section_content)
     )),
+    
+    _section_content: $ => choice(
+      // Everything except other sections
+      $.unordered_list,
+      $.ordered_list,
+      $.description_list,
+      $.attribute_entry,
+      $.example_block,
+      $.listing_block,
+      $.quote_block,
+      $.literal_block,
+      $.sidebar_block,
+      $.passthrough_block,
+      $.paragraph,
+      $._blank_line,
+    ),
 
     section_title: $ => choice(
       seq($._section_marker_1, $.title, $._line_ending),
@@ -58,13 +74,13 @@ module.exports = grammar({
     title: $ => token.immediate(/[^\r\n]+/),
 
     // ATTRIBUTE ENTRIES
-    attribute_entry: $ => seq(
+    attribute_entry: $ => prec(-1, seq(
       ':',
       field('name', $.name),
       ':',
       optional(seq(/[ \t]+/, field('value', $.value))),
       $._line_ending
-    ),
+    )),
     
     name: $ => token.immediate(/[a-zA-Z0-9_-]+/),
     value: $ => /[^\r\n]+/,
