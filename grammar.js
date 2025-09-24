@@ -34,6 +34,7 @@ module.exports = grammar({
       $.conditional_block,
       $.include_directive,
       $.block_comment,
+      $.table_block,
       $.paragraph,
       $._blank_line,
     ),
@@ -73,6 +74,7 @@ module.exports = grammar({
       $.conditional_block,
       $.include_directive,
       $.block_comment,
+      $.table_block,
       $.paragraph,
       $._blank_line,
     ),
@@ -752,6 +754,74 @@ module.exports = grammar({
     ),
 
     index_term_text: $ => /[^,\]\)\r\n]+/,
+
+    // TABLES
+    table_block: $ => seq(
+      optional($.metadata),
+      $.table_open,
+      optional($.table_content),
+      $.table_close,
+    ),
+
+    table_open: $ => seq(
+      alias('|===', $.TABLE_FENCE_START),
+      $._line_ending,
+    ),
+
+    table_close: $ => seq(
+      alias('|===', $.TABLE_FENCE_END),
+      $._line_ending,
+    ),
+
+    table_content: $ => repeat1(
+      choice(
+        $.table_row,
+        $._blank_line,
+      )
+    ),
+
+    table_row: $ => choice(
+      // Row with multiple cells on one line
+      prec(5, seq(
+        repeat1($.table_cell),
+        $._line_ending
+      )),
+      // Single cell content line (continuation)
+      prec(4, seq(
+        $.table_cell,
+        $._line_ending
+      ))
+    ),
+
+    table_cell: $ => seq(
+      '|',
+      optional($.cell_spec),
+      $.cell_content,
+    ),
+
+    cell_spec: $ => choice(
+      $.format_spec,
+      $.span_spec,
+    ),
+
+    format_spec: $ => choice(
+      'h',  // header
+      'a',  // AsciiDoc
+      'l',  // left align
+      'm',  // center/middle align
+      'r',  // right align
+      's',  // strong/right align
+    ),
+
+    span_spec: $ => seq(
+      optional(/\d+/),  // column span
+      optional(seq('.', /\d+/)),  // row span
+      '+',
+    ),
+
+    cell_content: $ => $.cell_literal_text,
+
+    cell_literal_text: $ => /[^|\r\n]*/,
 
     // LINE BREAKS
     line_break: $ => seq(
