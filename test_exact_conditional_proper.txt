@@ -1,0 +1,8 @@
+﻿Term:: definition
+
+ifdef::flag[]
+Content inside conditional
+endif::[]
+
+Another:: item
+

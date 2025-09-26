@@ -56,13 +56,13 @@ Content after block anchor.
     (anchor
       id: (inline_anchor_id))
     (section_title
-      title: (title)))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+      (title))
+    (paragraph
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Block anchor with text
@@ -81,15 +81,15 @@ Content after block anchor with text.
       id: (inline_anchor_id)
       text: (inline_anchor_text))
     (section_title
-      title: (title)))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+      (title))
+    (paragraph
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Internal cross-reference without text
@@ -143,7 +143,7 @@ Check out xref:other-file.adoc[].
       (text_segment)
       (inline_element
         (external_xref))
-      (text_segment))))
+      (text_period))))
 
 ================================================================================
 External cross-reference with text
@@ -160,7 +160,7 @@ Check out xref:other-file.adoc[Other Document].
       (text_segment)
       (inline_element
         (external_xref))
-      (text_segment))))
+      (text_period))))
 
 ================================================================================
 Inline footnote
@@ -272,7 +272,8 @@ Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[lin
       (text_segment)
       (text_segment)
       (inline_element
-        (inline_anchor))
+        (inline_anchor
+          (inline_anchor_id)))
       (text_segment)
       (inline_element
         (internal_xref))
@@ -282,7 +283,7 @@ Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[lin
       (text_segment)
       (inline_element
         (external_xref))
-      (text_segment))))
+      (text_period))))
 
 ================================================================================
 Adjacent inline elements
@@ -297,7 +298,8 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
     content: (text_with_inlines
       (text_segment)
       (inline_element
-        (inline_anchor))
+        (inline_anchor
+          (inline_anchor_id)))
       (inline_element
         (internal_xref))
       (inline_element

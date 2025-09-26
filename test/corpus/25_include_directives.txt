@@ -134,18 +134,18 @@ More text here.
 (source_file
   (section
     (section_title
-      title: (title)))
-  (include_directive
-    path: (include_path)
-    options: (include_options))
-  (section
-    (section_title
-      title: (title)))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+      (title))
+    (include_directive
+      path: (include_path)
+      options: (include_options))
+    (section
+      (section_title
+        (title))
+      (paragraph
+        content: (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment))))))
 
 ================================================================================
 Multiple includes

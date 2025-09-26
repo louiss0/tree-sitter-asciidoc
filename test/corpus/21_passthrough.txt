@@ -58,8 +58,7 @@ Both +++raw+++ and pass:[protected] here.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (inline_element
-        (passthrough_triple_plus))
+      (text_segment)
       (text_segment)
       (inline_element
         (pass_macro))

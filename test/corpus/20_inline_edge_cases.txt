@@ -205,25 +205,21 @@ Role spans with complex attributes
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_bracket)
+      (inline_element
+        (role_span))
       (text_segment)
+      (text_segment)))
+  (paragraph
+    content: (text_with_inlines
+      (inline_element
+        (role_span))
       (text_segment)
       (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
-      (text_bracket)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
-      (text_bracket)
-      (text_segment)
-      (text_segment)
-      (text_segment)
+      (inline_element
+        (role_span))
       (text_segment)
       (text_segment))))
 
@@ -313,7 +309,7 @@ Complex image: image::path/file.png[Alt text,width=100,height=50].
       (inline_element
         (ui_macro
           (ui_btn)))
-      (text_segment)))
+      (text_period)))
   (paragraph
     content: (text_with_inlines
       (text_segment)
@@ -324,7 +320,7 @@ Complex image: image::path/file.png[Alt text,width=100,height=50].
       (text_segment)
       (inline_element
         (math_macro))
-      (text_segment)))
+      (text_period)))
   (paragraph
     content: (text_with_inlines
       (text_segment)
@@ -335,13 +331,13 @@ Complex image: image::path/file.png[Alt text,width=100,height=50].
       (text_segment)
       (inline_element
         (footnoteref))
-      (text_segment)))
+      (text_period)))
   (paragraph
     content: (text_with_inlines
       (text_segment)
       (inline_element
         (image))
-      (text_segment))))
+      (text_period))))
 
 ================================================================================
 Cross-reference and anchor combinations

@@ -159,7 +159,7 @@ Both indexterm:[Java] and indexterm2:[Python] are indexterm:[programming,languag
             terms: (index_text
               primary: (index_term_text)
               secondary: (index_term_text)))))
-      (text_segment))))
+      (text_period))))
 
 ================================================================================
 Index terms with special characters

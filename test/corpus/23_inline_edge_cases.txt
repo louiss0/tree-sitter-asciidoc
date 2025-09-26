@@ -247,7 +247,7 @@ This is *bold {name}* and `code {version}` and ^super{level}^.
           (superscript_open)
           (superscript_text)
           (superscript_close)))
-      (text_segment))))
+      (text_period))))
 
 ================================================================================
 Line break with proper EOL
@@ -379,25 +379,26 @@ This has ** and __ and `` empty markers.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
-      (text_segment)
-      (inline_element
-        (strong
-          (strong_constrained
-            open: (strong_open))))
-      (text_segment)
-      (inline_element
-        (emphasis
-          (emphasis_constrained
-            open: (emphasis_open))))
-      (text_segment)
-      (inline_element
-        (monospace
-          (monospace_constrained
-            open: (monospace_open))))
-      (text_segment)
-      (text_segment))))
+      (text_segment)))
+  (unordered_list
+    (unordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (inline_element
+          (emphasis
+            (emphasis_constrained
+              open: (emphasis_open)
+              close: (emphasis_close))))
+        (text_segment)
+        (inline_element
+          (monospace
+            (monospace_constrained
+              open: (monospace_open)
+              close: (monospace_close))))
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Role span with dots in name

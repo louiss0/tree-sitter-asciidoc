@@ -1,0 +1,4 @@
+= Section Title
+:version: 1.0
+
+Paragraph after attribute

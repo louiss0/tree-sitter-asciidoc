@@ -119,18 +119,32 @@ module.exports = grammar({
     _section_marker_5: $ => token(prec(6, seq('=====', /[ \t]+/))),
     _section_marker_6: $ => token(prec(5, seq('======', /[ \t]+/))),
 
-    // ATTRIBUTE ENTRIES
-    attribute_entry: $ => prec(3, seq(
-      field('name', alias(
-        token(seq(':', /([a-zA-Z0-9_-]+)/, ':')),
-        $.name
+    // ATTRIBUTE ENTRIES  
+    attribute_entry: $ => choice(
+      prec(3, seq(
+        field('name', alias(
+          token(seq(':', /([a-zA-Z0-9_-]+)/, ':')),
+          $.name
+        )),
+        optional(seq(
+          /[ \t]+/,
+          field('value', $.value)
+        )),
+        $._line_ending
       )),
-      optional(seq(
-        /[ \t]+/,
-        field('value', $.value)
-      )),
-      $._line_ending
-    )),
+      // Attribute unset syntax: :!name: or :name!:
+      prec(3, seq(
+        field('name', alias(
+          choice(
+            token(seq(':!', /([a-zA-Z0-9_-]+)/, ':')),
+            token(seq(':', /([a-zA-Z0-9_-]+)/, '!:'))
+          ),
+          $.name
+        )),
+        optional(seq(/[ \t]+/)), // Allow trailing spaces
+        $._line_ending
+      ))
+    ),
     
     name: $ => token(/[a-zA-Z0-9_-]+/),
     value: $ => /[^\r\n]+/,
@@ -353,18 +367,20 @@ module.exports = grammar({
     _ordered_list_marker: $ => token(prec(5, /[ \t]*[0-9]+\.[ \t]+/)),
 
     // DESCRIPTION LISTS
-    description_list: $ => prec.right(seq(
+    description_list: $ => prec.right(10, seq(
       $.description_item,
       repeat($.description_item)
     )),
     
-    description_item: $ => seq(
-      $._description_marker,
-      $.description_content,
+    description_item: $ => prec(5, seq(
+      field('term', $.description_term),
+      token.immediate('::'),
+      /[ \t]+/,
+      field('content', $.description_content),
       $._line_ending
-    ),
+    )),
     
-    _description_marker: $ => token(prec(5, /[^\s\r\n:]+::[ \t]+/)),
+    description_term: $ => /[^\s\r\n:]+/,
     description_content: $ => $.text_with_inlines,
 
     // CALLOUT LISTS

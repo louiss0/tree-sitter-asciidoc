@@ -201,18 +201,18 @@ Subsection content
       (title))
     (attribute_entry
       (name)
-      (value)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)))
-  (section
-    (section_title
-      (title))
-    (attribute_entry
-      (name)
-      (value)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment))))
+      (value))
+    (paragraph
+      (text_with_inlines
+        (text_segment)
+        (text_segment)))
+    (section
+      (section_title
+        (title))
+      (attribute_entry
+        (name)
+        (value))
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment))))))
