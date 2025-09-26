@@ -367,20 +367,18 @@ module.exports = grammar({
     _ordered_list_marker: $ => token(prec(5, /[ \t]*[0-9]+\.[ \t]+/)),
 
     // DESCRIPTION LISTS
-    description_list: $ => prec.right(10, seq(
+    description_list: $ => prec.right(seq(
       $.description_item,
       repeat($.description_item)
     )),
     
-    description_item: $ => prec(5, seq(
-      field('term', $.description_term),
-      token.immediate('::'),
-      /[ \t]+/,
-      field('content', $.description_content),
+    description_item: $ => seq(
+      $._description_marker,
+      $.description_content,
       $._line_ending
-    )),
+    ),
     
-    description_term: $ => /[^\s\r\n:]+/,
+    _description_marker: $ => token(prec(5, /[^\s\r\n:]+::[ \t]+/)),
     description_content: $ => $.text_with_inlines,
 
     // CALLOUT LISTS
