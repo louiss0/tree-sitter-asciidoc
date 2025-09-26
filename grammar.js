@@ -350,7 +350,7 @@ module.exports = grammar({
       repeat($.list_item_continuation)
     ),
     
-    _unordered_list_marker: $ => token(prec(5, /[ \t]*[*-]+[ \t]+/)),
+    _unordered_list_marker: $ => token(prec(10, /[ \t]*[*-][ \t]+/)),
     
     ordered_list: $ => prec.right(seq(
       $.ordered_list_item,
@@ -364,7 +364,7 @@ module.exports = grammar({
       repeat($.list_item_continuation)
     ),
     
-    _ordered_list_marker: $ => token(prec(5, /[ \\t]*[0-9]+\\.[\\t ]+/)),
+    _ordered_list_marker: $ => token(prec(15, seq(/[0-9]+/, '.', /[ \t]+/))),
 
     // DESCRIPTION LISTS
     description_list: $ => prec.right(seq(

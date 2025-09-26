@@ -1052,7 +1052,6 @@ static bool scan_block_anchor(TSLexer *lexer) {
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
     
-    
     // LIST_CONTINUATION has highest priority - check first before other tokens consume input
     if (valid_symbols[LIST_CONTINUATION] && scan_list_continuation(lexer)) {
         lexer->result_symbol = LIST_CONTINUATION;
@@ -1144,31 +1143,32 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
     }
     
     
-    // List markers
-    if (valid_symbols[_LIST_UNORDERED_MARKER] && scan_unordered_list_marker(lexer)) {
-        lexer->result_symbol = _LIST_UNORDERED_MARKER;
-        return true;
-    }
-    
-    if (valid_symbols[_LIST_ORDERED_MARKER] && scan_ordered_list_marker(lexer)) {
-        lexer->result_symbol = _LIST_ORDERED_MARKER;
-        return true;
-    }
+    // List markers - DISABLED: handled by grammar tokens now
+    // if (valid_symbols[_LIST_UNORDERED_MARKER] && scan_unordered_list_marker(lexer)) {
+    //     lexer->result_symbol = _LIST_UNORDERED_MARKER;
+    //     return true;
+    // }
+    // 
+    // if (valid_symbols[_LIST_ORDERED_MARKER] && scan_ordered_list_marker(lexer)) {
+    //     lexer->result_symbol = _LIST_ORDERED_MARKER;
+    //     return true;
+    // }
     
     if (valid_symbols[CALLOUT_MARKER] && scan_callout_marker(lexer)) {
         lexer->result_symbol = CALLOUT_MARKER;
         return true;
     }
     
-    if (valid_symbols[DESCRIPTION_LIST_SEP] && scan_description_list_sep(lexer)) {
-        lexer->result_symbol = DESCRIPTION_LIST_SEP;
-        return true;
-    }
-    
-    if (valid_symbols[_DESCRIPTION_LIST_ITEM] && scan_description_list_item(lexer)) {
-        lexer->result_symbol = _DESCRIPTION_LIST_ITEM;
-        return true;
-    }
+    // Description list handling - DISABLED: handled by grammar tokens now
+    // if (valid_symbols[DESCRIPTION_LIST_SEP] && scan_description_list_sep(lexer)) {
+    //     lexer->result_symbol = DESCRIPTION_LIST_SEP;
+    //     return true;
+    // }
+    // 
+    // if (valid_symbols[_DESCRIPTION_LIST_ITEM] && scan_description_list_item(lexer)) {
+    //     lexer->result_symbol = _DESCRIPTION_LIST_ITEM;
+    //     return true;
+    // }
     
     
     // Temporarily disable AUTOLINK_BOUNDARY to reduce ERROR nodes
