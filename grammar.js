@@ -364,7 +364,7 @@ module.exports = grammar({
       repeat($.list_item_continuation)
     ),
     
-    _ordered_list_marker: $ => token(prec(5, /[ \t]*[0-9]+\.[ \t]+/)),
+    _ordered_list_marker: $ => token(prec(5, /[ \\t]*[0-9]+\\.[\\t ]+/)),
 
     // DESCRIPTION LISTS
     description_list: $ => prec.right(seq(
