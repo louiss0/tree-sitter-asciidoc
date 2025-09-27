@@ -1115,32 +1115,33 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         return true;
     }
     
-    // Conditional directives (high priority) - check longer patterns first
-    if (valid_symbols[_ifndef_open_token] && scan_ifndef_open(lexer)) {
-        lexer->result_symbol = _ifndef_open_token;
-        return true;
-    }
+    // Conditional directives - DISABLED: handled by grammar tokens now
+    // These tokens are not declared in grammar.js externals
+    // if (valid_symbols[_ifndef_open_token] && scan_ifndef_open(lexer)) {
+    //     lexer->result_symbol = _ifndef_open_token;
+    //     return true;
+    // }
+    // 
+    // if (valid_symbols[_ifdef_open_token] && scan_ifdef_open(lexer)) {
+    //     lexer->result_symbol = _ifdef_open_token;
+    //     return true;
+    // }
+    // 
+    // if (valid_symbols[_ifeval_open_token] && scan_ifeval_open(lexer)) {
+    //     lexer->result_symbol = _ifeval_open_token;
+    //     return true;
+    // }
+    // 
+    // if (valid_symbols[_endif_directive_token] && scan_endif_directive(lexer)) {
+    //     lexer->result_symbol = _endif_directive_token;
+    //     return true;
+    // }
     
-    if (valid_symbols[_ifdef_open_token] && scan_ifdef_open(lexer)) {
-        lexer->result_symbol = _ifdef_open_token;
-        return true;
-    }
-    
-    if (valid_symbols[_ifeval_open_token] && scan_ifeval_open(lexer)) {
-        lexer->result_symbol = _ifeval_open_token;
-        return true;
-    }
-    
-    if (valid_symbols[_endif_directive_token] && scan_endif_directive(lexer)) {
-        lexer->result_symbol = _endif_directive_token;
-        return true;
-    }
-    
-    // Block anchor at start of line
-    if (valid_symbols[_BLOCK_ANCHOR] && scan_block_anchor(lexer)) {
-        lexer->result_symbol = _BLOCK_ANCHOR;
-        return true;
-    }
+    // Block anchor - DISABLED: not declared in grammar.js externals
+    // if (valid_symbols[_BLOCK_ANCHOR] && scan_block_anchor(lexer)) {
+    //     lexer->result_symbol = _BLOCK_ANCHOR;
+    //     return true;
+    // }
     
     
     // List markers - DISABLED: handled by grammar tokens now

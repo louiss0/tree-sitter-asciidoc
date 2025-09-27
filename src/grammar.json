@@ -1799,49 +1799,45 @@
       }
     },
     "text_with_inlines": {
-      "type": "PREC_DYNAMIC",
-      "value": 30,
+      "type": "PREC_RIGHT",
+      "value": 0,
       "content": {
-        "type": "PREC_RIGHT",
-        "value": 0,
-        "content": {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_text_element"
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "PATTERN",
-                        "value": "[ \\t\\f]+"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "_text_element"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "PREC_RIGHT",
-                    "value": 1,
-                    "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_text_element"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "PATTERN",
+                      "value": "[ \\t\\f]+"
+                    },
+                    {
                       "type": "SYMBOL",
                       "name": "_text_element"
                     }
+                  ]
+                },
+                {
+                  "type": "PREC_RIGHT",
+                  "value": 1,
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_text_element"
                   }
-                ]
-              }
+                }
+              ]
             }
-          ]
-        }
+          }
+        ]
       }
     },
     "_text_element": {
@@ -2070,7 +2066,7 @@
       ]
     },
     "strong": {
-      "type": "PREC_DYNAMIC",
+      "type": "PREC",
       "value": 50,
       "content": {
         "type": "SEQ",
@@ -2153,7 +2149,7 @@
       }
     },
     "emphasis": {
-      "type": "PREC_DYNAMIC",
+      "type": "PREC",
       "value": 50,
       "content": {
         "type": "SEQ",
@@ -2236,7 +2232,7 @@
       }
     },
     "monospace": {
-      "type": "PREC_DYNAMIC",
+      "type": "PREC",
       "value": 50,
       "content": {
         "type": "SEQ",

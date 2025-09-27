@@ -451,13 +451,13 @@ module.exports = grammar({
       seq('CAUTION', ':', /[ \t]+/)
     ))),
 
-    text_with_inlines: $ => prec.dynamic(30, prec.right(seq(
+    text_with_inlines: $ => prec.right(seq(
       $._text_element,
       repeat(choice(
         seq(/[ \t\f]+/, $._text_element),    // Spaced elements
         prec.right(1, $._text_element)       // Adjacent elements with right associativity
       ))
-    ))),
+    )),
     
     _text_element: $ => choice(
       prec(2000, $.inline_element),
@@ -530,7 +530,7 @@ module.exports = grammar({
     ),
 
     // Strong formatting (*bold*)
-    strong: $ => prec.dynamic(50, seq(
+    strong: $ => prec(50, seq(
       field('open', $.strong_open),
       field('content', $.strong_content),
       field('close', $.strong_close)
@@ -549,7 +549,7 @@ module.exports = grammar({
     )),
 
     // Emphasis formatting (_italic_)
-    emphasis: $ => prec.dynamic(50, seq(
+    emphasis: $ => prec(50, seq(
       field('open', $.emphasis_open),
       field('content', $.emphasis_content),
       field('close', $.emphasis_close)
@@ -568,7 +568,7 @@ module.exports = grammar({
     )),
 
     // Monospace formatting (`code`)
-    monospace: $ => prec.dynamic(50, seq(
+    monospace: $ => prec(50, seq(
       field('open', $.monospace_open),
       field('content', $.monospace_content),
       field('close', $.monospace_close)
