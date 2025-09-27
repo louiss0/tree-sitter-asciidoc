@@ -1,0 +1,22 @@
+= Performance Test Lists
+
+== Lists Section
+
+* First item with *bold*
+* Second item with _italic_  
+* Third item with `code`
+
+1. First ordered
+2. Second ordered
+3. Third ordered
+
+Term:: Definition here
+Other:: Another definition
+
+====
+Example block content here.
+====
+
+----
+Code block content
+----
