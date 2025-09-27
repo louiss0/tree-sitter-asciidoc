@@ -448,13 +448,10 @@ module.exports = grammar({
       seq('CAUTION', ':', /[ \t]+/)
     ))),
 
-    text_with_inlines: $ => prec.right(seq(
-      $._text_element,
-      repeat(choice(
-        seq(/[ \t\f]+/, $._text_element),    // Spaced elements
-        prec.right(1, $._text_element)       // Adjacent elements with right associativity
-      ))
-    )),
+    text_with_inlines: $ => prec.right(repeat1(choice(
+      seq(/[ \t\f]+/, $._text_element),    // Spaced elements
+      $._text_element                      // Direct elements
+    ))),
     
     _text_element: $ => choice(
       prec(2000, $.inline_element),
@@ -515,7 +512,6 @@ module.exports = grammar({
       $.footnote_ref,
       $.footnoteref,
       $.auto_link,
-      $.link,
       $.image,
       $.passthrough_triple_plus,
       $.pass_macro,
@@ -670,22 +666,12 @@ module.exports = grammar({
       ']'
     ),
 
-    // AUTO LINKS & LINKS
-    auto_link: $ => seq(
-      choice(
-        /https?:\/\/[^\s\[\]<>"',.;:!?(){}]+/,  // More restrictive core URL
-        /ftp:\/\/[^\s\[\]<>"',.;:!?(){}]+/,
-        /mailto:[^\s\[\]<>"',.;:!?(){}]+/      // Email links
-      ),
-      optional($.AUTOLINK_BOUNDARY)  // Use external scanner for boundary detection
+    // AUTO LINKS
+    auto_link: $ => choice(
+      /https?:\/\/[^\s\[\]<>"',.;:!?(){}]+/,
+      /ftp:\/\/[^\s\[\]<>"',.;:!?(){}]+/,
+      /mailto:[^\s\[\]<>"',.;:!?(){}]+/
     ),
-    
-    link: $ => prec(1, seq(
-      field('url', $.auto_link),
-      '[',
-      field('text', $.bracketed_text),
-      ']'
-    )),
     
     bracketed_text: $ => /[^\]\r\n]+/,
 

@@ -54,17 +54,7 @@
   {
     "type": "auto_link",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "AUTOLINK_BOUNDARY",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "bibliography_entry",
@@ -134,11 +124,6 @@
   },
   {
     "type": "block_title",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "bracketed_text",
     "named": true,
     "fields": {}
   },
@@ -1071,10 +1056,6 @@
           "named": true
         },
         {
-          "type": "link",
-          "named": true
-        },
-        {
           "type": "math_macro",
           "named": true
         },
@@ -1117,32 +1098,6 @@
     "type": "internal_xref",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "link",
-    "named": true,
-    "fields": {
-      "text": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "bracketed_text",
-            "named": true
-          }
-        ]
-      },
-      "url": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "auto_link",
-            "named": true
-          }
-        ]
-      }
-    }
   },
   {
     "type": "list_item_continuation",
@@ -2595,10 +2550,6 @@
   {
     "type": ">>",
     "named": false
-  },
-  {
-    "type": "AUTOLINK_BOUNDARY",
-    "named": true
   },
   {
     "type": "CALLOUT_MARKER",

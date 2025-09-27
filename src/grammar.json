@@ -1794,42 +1794,29 @@
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_text_element"
-          },
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "CHOICE",
+        "type": "REPEAT1",
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
               "members": [
                 {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "PATTERN",
-                      "value": "[ \\t\\f]+"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_text_element"
-                    }
-                  ]
+                  "type": "PATTERN",
+                  "value": "[ \\t\\f]+"
                 },
                 {
-                  "type": "PREC_RIGHT",
-                  "value": 1,
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_text_element"
-                  }
+                  "type": "SYMBOL",
+                  "name": "_text_element"
                 }
               ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_text_element"
             }
-          }
-        ]
+          ]
+        }
       }
     },
     "_text_element": {
@@ -2018,10 +2005,6 @@
         {
           "type": "SYMBOL",
           "name": "auto_link"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "link"
         },
         {
           "type": "SYMBOL",
@@ -2695,71 +2678,21 @@
       ]
     },
     "auto_link": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "https?:\\/\\/[^\\s\\[\\]<>\"',.;:!?(){}]+"
-            },
-            {
-              "type": "PATTERN",
-              "value": "ftp:\\/\\/[^\\s\\[\\]<>\"',.;:!?(){}]+"
-            },
-            {
-              "type": "PATTERN",
-              "value": "mailto:[^\\s\\[\\]<>\"',.;:!?(){}]+"
-            }
-          ]
+          "type": "PATTERN",
+          "value": "https?:\\/\\/[^\\s\\[\\]<>\"',.;:!?(){}]+"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "AUTOLINK_BOUNDARY"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "PATTERN",
+          "value": "ftp:\\/\\/[^\\s\\[\\]<>\"',.;:!?(){}]+"
+        },
+        {
+          "type": "PATTERN",
+          "value": "mailto:[^\\s\\[\\]<>\"',.;:!?(){}]+"
         }
       ]
-    },
-    "link": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "FIELD",
-            "name": "url",
-            "content": {
-              "type": "SYMBOL",
-              "name": "auto_link"
-            }
-          },
-          {
-            "type": "STRING",
-            "value": "["
-          },
-          {
-            "type": "FIELD",
-            "name": "text",
-            "content": {
-              "type": "SYMBOL",
-              "name": "bracketed_text"
-            }
-          },
-          {
-            "type": "STRING",
-            "value": "]"
-          }
-        ]
-      }
     },
     "bracketed_text": {
       "type": "PATTERN",
