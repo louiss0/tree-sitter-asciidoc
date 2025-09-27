@@ -10,12 +10,15 @@ This has *bold* text in it.
   (paragraph
     content: (text_with_inlines
       (text_segment)
+      (text_segment)
       (inline_element
         (strong
           (strong_constrained
             open: (strong_open)
             content: (strong_text)
             close: (strong_close))))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -30,12 +33,15 @@ This has _italic_ text in it.
   (paragraph
     content: (text_with_inlines
       (text_segment)
+      (text_segment)
       (inline_element
         (emphasis
           (emphasis_constrained
             open: (emphasis_open)
             content: (emphasis_text)
             close: (emphasis_close))))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -50,12 +56,15 @@ This has `code` text in it.
   (paragraph
     content: (text_with_inlines
       (text_segment)
+      (text_segment)
       (inline_element
         (monospace
           (monospace_constrained
             open: (monospace_open)
             content: (monospace_text)
             close: (monospace_close))))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -91,6 +100,7 @@ This has *bold* and _italic_ and `code` together.
   (paragraph
     content: (text_with_inlines
       (text_segment)
+      (text_segment)
       (inline_element
         (strong
           (strong_constrained
@@ -124,6 +134,7 @@ This has ^superscript^ and ~subscript~ text.
 (source_file
   (paragraph
     content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (inline_element
         (superscript

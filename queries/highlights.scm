@@ -1,509 +1,206 @@
-;; Highlights for tree-sitter-asciidoc aligned with current AST
+; Sections and Structure
+(section) @markup.heading
 
-;; Sections and titles
-(section (section_title (title) @markup.heading))
-(block_title) @markup.heading
+; Section titles with individual markers for different levels
+(section_title
+  (section_marker_1) @markup.heading.1.marker
+  (title) @markup.heading.1) @markup.heading.1
 
-;; Paragraphs and plain text
-(paragraph (text_with_inlines (text_segment) @markup))
+(section_title
+  (section_marker_2) @markup.heading.2.marker
+  (title) @markup.heading.2) @markup.heading.2
 
-;; Lists
-(unordered_list) @markup.list
-(ordered_list) @markup.list
-(description_list) @markup.list
-(callout_list) @markup.list
+(section_title
+  (section_marker_3) @markup.heading.3.marker
+  (title) @markup.heading.3) @markup.heading.3
 
-;; Inline formatting
-(strong_text) @markup.bold
-(emphasis_text) @markup.italic
-(monospace_text) @markup.raw
+(section_title
+  (section_marker_4) @markup.heading.4.marker
+  (title) @markup.heading.4) @markup.heading.4
 
-;; Links, anchors, references
-(inline_anchor) @markup.link
+(section_title
+  (section_marker_5) @markup.heading.5.marker
+  (title) @markup.heading.5) @markup.heading.5
+
+(section_title
+  (section_marker_6) @markup.heading.6.marker
+  (title) @markup.heading.6) @markup.heading.6
+
+; Generic title (fallback)
+(title) @markup.heading
+
+; Inline Formatting
+(strong_open) @markup.bold
+(strong_close) @markup.bold
+(strong_content) @markup.bold
+
+(emphasis_open) @markup.italic
+(emphasis_close) @markup.italic
+(emphasis_content) @markup.italic
+
+(monospace_open) @markup.raw
+(monospace_close) @markup.raw
+(monospace_content) @markup.raw
+
+(superscript_open) @markup.underline
+(superscript_close) @markup.underline
+(superscript_text) @markup.underline
+
+(subscript_open) @markup.underline
+(subscript_close) @markup.underline
+(subscript_text) @markup.underline
+
+; Links and References
+(auto_link) @markup.link.url
+(explicit_link) @markup.link
+(link_text) @markup.link.text
 (internal_xref) @markup.link
 (external_xref) @markup.link
-(link_macro) @markup.link
-(auto_link) @markup.link
-(image) @markup.link
-(block_image) @markup.link
 
-;; Attributes and roles
-(attribute_entry (name) @attribute)
-(attribute_entry (value) @string)
-(attribute_reference) @variable
-(role_span) @attribute
+; Anchors
+(inline_anchor) @markup.link.label
+(inline_anchor_id) @markup.link.label
+(anchor) @markup.link.label
 
-;; Admonitions
-(admonition_block_label) @label
-(paragraph_admonition (admonition_label) @label)
+; Attributes
+(attribute_entry) @variable
+(name) @variable.builtin
+(value) @string
+(attribute_reference) @variable.builtin
 
-;; Anchors
-(anchor (id) @symbol)
-
-;; Tables
-(table_block) @markup
-(table_row) @markup
-(table_cell) @markup
-(cell_spec) @attribute
-(format_spec) @constant
-
-;; Delimited blocks
-(example_block) @markup.raw
-(listing_block) @markup.raw
-(literal_block) @markup.raw
-(quote_block) @markup
-(sidebar_block) @markup
-(passthrough_block) @markup.raw
-(open_block) @markup
-
-;; Conditionals
-(conditional_block) @keyword
-
-;; Misc
-(block_attributes) @attribute
-(id_and_roles) @attribute
-
-;; AsciiDoc syntax highlighting - Enhanced version
-;; Following nvim-treesitter capture naming conventions
-;; https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#captures
-
-;; =============================================================================
-;; SECTION HEADINGS
-;; =============================================================================
-
-;; Section titles with enhanced level differentiation
-(section_title (title) @markup.heading)
-
-;; Level-specific heading captures based on the section hierarchy
-;; Note: The current grammar uses generic 'section' nodes
-;; Level differentiation would require grammar enhancement or depth-based matching
-;; (_section1 (section_title (title) @markup.heading.1))
-;; (_section2 (section_title (title) @markup.heading.2)) 
-;; (_section3 (section_title (title) @markup.heading.3))
-;; (_section4 (section_title (title) @markup.heading.4))
-;; (_section5 (section_title (title) @markup.heading.5))
-;; (_section6 (section_title (title) @markup.heading.6))
-
-;; Heading marker tokens (when available as separate nodes)
-;; Note: Currently integrated in heading tokens. Future grammar enhancement could expose:
-;; (_heading1_marker) @markup.heading.marker
-;; (_heading2_marker) @markup.heading.marker  
-;; etc.
-
-;; =============================================================================
-;; DELIMITED BLOCKS
-;; =============================================================================
-
-;; Block fences - highlighting the open/close delimiters
-(example_block 
-  (example_open) @punctuation.special
-  (example_close) @punctuation.special)
-(#set! "priority" 110)
-
-(listing_block 
-  (listing_open) @punctuation.special
-  (listing_close) @punctuation.special)
-(#set! "priority" 110)
-
-(literal_block 
-  (literal_open) @punctuation.special
-  (literal_close) @punctuation.special)
-(#set! "priority" 110)
-
-(quote_block 
-  (quote_open) @punctuation.special
-  (quote_close) @punctuation.special)
-(#set! "priority" 110)
-
-(sidebar_block 
-  (sidebar_open) @punctuation.special
-  (sidebar_close) @punctuation.special)
-(#set! "priority" 110)
-
-(passthrough_block 
-  (passthrough_open) @punctuation.special
-  (passthrough_close) @punctuation.special)
-(#set! "priority" 110)
-
-(open_block 
-  (openblock_open) @punctuation.special
-  (openblock_close) @punctuation.special)
-(#set! "priority" 110)
-
-(table_block 
-  (table_open) @punctuation.special
-  (table_close) @punctuation.special)
-(#set! "priority" 110)
-
-;; Block content highlighting based on type
-(listing_block (block_content) @markup.raw.block)
-(literal_block (block_content) @markup.raw.block)
-(quote_block (block_content) @markup.quote)
-(passthrough_block (block_content) @markup.raw.block)
-
-;; =============================================================================
-;; ATTRIBUTE ENTRIES AND REFERENCES
-;; =============================================================================
-
-;; Attribute declarations (:name: value) - use modern @attribute
-(attribute_entry
-  (name) @attribute
-  (value) @string)
-
-;; Attribute references ({name}) - highlight braces and name separately  
-(attribute_reference) @attribute
-
-;; =============================================================================
-;; INLINE FORMATTING
-;; =============================================================================
-
-;; Strong/bold text (*text*) - delimiter-separated captures
-(strong_constrained
-  (strong_open) @punctuation.special
-  (strong_text) @markup.strong
-  (strong_close) @punctuation.special)
-(#set! "priority" 112)
-
-;; Strong fallback for unclosed formatting
-(strong) @markup.strong
-
-;; Emphasis/italic text (_text_) - delimiter-separated captures
-(emphasis_constrained
-  (emphasis_open) @punctuation.special
-  (emphasis_text) @markup.italic
-  (emphasis_close) @punctuation.special)
-(#set! "priority" 112)
-
-;; Emphasis fallback for unclosed formatting
-(emphasis) @markup.italic
-
-;; Monospace/code text (`text`) - delimiter-separated captures
-(monospace_constrained
-  (monospace_open) @punctuation.special
-  (monospace_text) @markup.raw.inline
-  (monospace_close) @punctuation.special)
-(#set! "priority" 112)
-
-;; Monospace fallback for unclosed formatting
-(monospace) @markup.raw.inline
-
-;; Superscript (^text^) and subscript (~text~) - delimiter-separated captures
-(superscript
-  (superscript_open) @punctuation.special
-  (superscript_text) @string.special
-  (superscript_close) @punctuation.special)
-
-(subscript
-  (subscript_open) @punctuation.special
-  (subscript_text) @string.special
-  (subscript_close) @punctuation.special)
-
-;; =============================================================================
-;; LINKS AND CROSS-REFERENCES
-;; =============================================================================
-
-;; Auto links (bare URLs)
-(auto_link) @markup.link.url
-
-;; Internal cross-references (<<target,text>>) - enhanced for future parsing
-(internal_xref) @markup.link
-;; Note: Currently token-based. Future enhancement could parse:
-;; - Target ID: @markup.link.url or @label
-;; - Reference text: @markup.link.label  
-;; - Angle brackets: @punctuation.bracket
-
-;; External cross-references (xref:target[text]) - treated as macros with high priority
-(external_xref) @function.macro
-(#set! "priority" 108)
-
-;; Link macros (link:url[text]) - treated as macros 
-(link) @function.macro
-(link_macro) @function.macro
-
-;; =============================================================================
-;; ANCHORS
-;; =============================================================================
-
-;; Block and inline anchors - enhanced with bracket highlighting
-(anchor (id) @label)
-(anchor (anchor_text) @markup.link.label)
-
-;; Inline anchors - token-based parsing with bracket separation
-(inline_anchor) @label
-
-;; Future enhancement: Parse [[id]] and [[id,text]] with separate bracket captures
-;; Current: token-based /\[\[[A-Za-z_][A-Za-z0-9_-]*,[^\]\r\n]+\]\]/ and /\[\[[A-Za-z_][A-Za-z0-9_-]*\]\]/
-
-;; =============================================================================
-;; IMAGES AND MEDIA
-;; =============================================================================
-
-;; Image macros (image::target[alt] and image:target[alt])
-(image) @function.macro
-(block_image) @function.macro
-
-;; =============================================================================
-;; PASSTHROUGHS - Enhanced delimiter and content highlighting
-;; =============================================================================
-
-;; Inline passthrough with triple plus (+++content+++)
-(passthrough_triple_plus) @markup.raw.inline
-(#set! "priority" 108)
-
-;; Pass macro variants (pass:[content] and pass:substitution[content])
-(pass_macro) @function.macro
-(#set! "priority" 108)
-
-;; Passthrough block content - already handled in DELIMITED BLOCKS section
-;; See passthrough_block content highlighting above
-
-;; Note: Current grammar uses token-based passthrough parsing.
-;; Inline formatting delimiters (strong, emphasis, monospace, superscript, subscript)
-;; now use structured parsing with separate delimiter nodes for enhanced highlighting.
-
-;; =============================================================================
-;; LISTS
-;; =============================================================================
-
-;; List items
+; Lists
 (unordered_list_item) @markup.list
-(ordered_list_item) @markup.list 
+(ordered_list_item) @markup.list
 (description_item) @markup.list
-
-;; List markers (external tokens) - high priority to ensure visibility
-;; Note: Current grammar may not expose these as separate nodes
-;; (_LIST_UNORDERED_MARKER) @markup.list.marker
-;; (_LIST_ORDERED_MARKER) @markup.list.marker
-;; (DESCRIPTION_LIST_SEP) @markup.list.marker
-;; (#set! "priority" 105)
-
-;; List continuation markers
-;; (LIST_CONTINUATION) @punctuation.special
-;; (#set! "priority" 105)
-
-;; Callout lists
 (callout_item) @markup.list
-(callout_item (CALLOUT_MARKER) @markup.list.marker)
 
-;; =============================================================================
-;; ADMONITIONS
-;; =============================================================================
+; Delimited Blocks
+(example_block) @markup.quote
+(listing_block) @markup.raw.block
+(literal_block) @markup.raw.block
+(quote_block) @markup.quote
+(sidebar_block) @markup.quote
+(passthrough_block) @markup.raw.block
+(open_block) @markup.quote
+(table_block) @markup.list.unnumbered
 
-;; Inline admonitions (NOTE: text)
-(paragraph_admonition label: (admonition_label) @keyword)
+; Block fences and external tokens
+(EXAMPLE_FENCE_START) @punctuation.delimiter
+(EXAMPLE_FENCE_END) @punctuation.delimiter
+(LISTING_FENCE_START) @punctuation.delimiter
+(LISTING_FENCE_END) @punctuation.delimiter
+(LITERAL_FENCE_START) @punctuation.delimiter
+(LITERAL_FENCE_END) @punctuation.delimiter
+(QUOTE_FENCE_START) @punctuation.delimiter
+(QUOTE_FENCE_END) @punctuation.delimiter
+(SIDEBAR_FENCE_START) @punctuation.delimiter
+(SIDEBAR_FENCE_END) @punctuation.delimiter
+(PASSTHROUGH_FENCE_START) @punctuation.delimiter
+(PASSTHROUGH_FENCE_END) @punctuation.delimiter
+(OPENBLOCK_FENCE_START) @punctuation.delimiter
+(OPENBLOCK_FENCE_END) @punctuation.delimiter
 
-;; Block admonitions ([NOTE])
-(admonition_block label: (admonition_block_label) @keyword)
-(admonition_label) @keyword
+(example_open) @punctuation.delimiter
+(example_close) @punctuation.delimiter
+(listing_open) @punctuation.delimiter
+(listing_close) @punctuation.delimiter
+(literal_open) @punctuation.delimiter
+(literal_close) @punctuation.delimiter
+(quote_open) @punctuation.delimiter
+(quote_close) @punctuation.delimiter
+(sidebar_open) @punctuation.delimiter
+(sidebar_close) @punctuation.delimiter
+(passthrough_open) @punctuation.delimiter
+(passthrough_close) @punctuation.delimiter
+(openblock_open) @punctuation.delimiter
+(openblock_close) @punctuation.delimiter
 
-;; =============================================================================
-;; CONDITIONAL DIRECTIVES
-;; =============================================================================
+; External tokens
+(TABLE_FENCE_START) @punctuation.delimiter
+(TABLE_FENCE_END) @punctuation.delimiter
+(DELIMITED_BLOCK_CONTENT_LINE) @text
+(LIST_CONTINUATION) @punctuation.special
+(CALLOUT_MARKER) @markup.strong
+(AUTOLINK_BOUNDARY) @punctuation
 
-;; Conditional block directives - higher priority to ensure visibility
-(ifdef_open) @keyword.directive
-(ifndef_open) @keyword.directive
-(ifeval_open) @keyword.directive
-(endif_directive) @keyword.directive
-(#set! "priority" 120)
+; Tables
+(table_open) @punctuation.delimiter
+(table_close) @punctuation.delimiter
+(table_cell) @markup.list
+(cell_spec) @variable.parameter
 
-;; =============================================================================
-;; TABLES
-;; =============================================================================
-
-;; Table cells
-(table_cell (cell_content) @string)
-
-;; Cell specifications (colspan, rowspan, format) - enhanced
-(cell_spec) @operator
-(span_spec) @number  
-(format_spec) @operator
-
-;; Table fences already handled in DELIMITED BLOCKS section
-
-;; =============================================================================
-;; MACROS AND SPECIAL CONSTRUCTS
-;; =============================================================================
-
-;; =============================================================================
-;; UI MACROS - Enhanced for interactive elements
-;; =============================================================================
-
-;; UI interaction macros - prioritized for visibility
-(ui_kbd) @function.macro
-(ui_btn) @function.macro 
-(ui_menu) @function.macro
-(#set! "priority" 108)
-
-;; Note: Current grammar uses token-based UI macro parsing:
-;; - ui_kbd: /kbd:\[[^\]]*\]/  - keyboard shortcuts (e.g., kbd:[Ctrl+C])
-;; - ui_btn: /btn:\[[^\]]*\]/  - UI buttons (e.g., btn:[Save])
-;; - ui_menu: /menu:[^\[\r\n]+\[[^\]]*\]/  - menu paths (e.g., menu:File[Save As])
-;;
-;; Future enhancement: Component-level UI macro highlighting would enable:
-;; - Macro names (kbd, btn, menu) → @function.macro
-;; - Button/key text → @string.special
-;; - Menu path separators (>, +) → @punctuation.delimiter
-;; - Brackets → @punctuation.bracket
-;;
-;; Example structured queries:
-;; ((ui_macro (name) @function.macro (text) @string.special))
-;; ((ui_menu (path_sep) @punctuation.delimiter))
-
-;; Math macros and content - enhanced
-(math_macro) @function.macro
-(math_content) @markup.math
-
-;; Math block labels
-(stem_block_label) @attribute
-(latexmath_block_label) @attribute  
-(asciimath_block_label) @attribute
-(#set! "priority" 108)
-
-;; =============================================================================
-;; FOOTNOTES - Enhanced component-level highlighting
-;; =============================================================================
-
-;; Footnote macros - all variants with consistent highlighting
-(footnote_inline) @function.macro
-(footnote_ref) @function.macro  
-(footnoteref) @function.macro
-(#set! "priority" 108)
-
-;; Note: Current grammar uses token-based footnote parsing:
-;; - footnote_inline: /footnote:\[[^\]]*\]/ 
-;; - footnote_ref: /footnote:[A-Za-z0-9_-]+\[[^\]]*\]/
-;; - footnoteref: /footnoteref:[A-Za-z0-9_-]+\[[^\]]*\]/
-;;
-;; For enhanced component highlighting, the grammar would need structured parsing:
-;; - Macro names (footnote, footnoteref) → @function.macro
-;; - Footnote IDs → @label
-;; - Footnote text → @string
-;; - Brackets and colons → @punctuation.bracket, @punctuation.delimiter
-;; 
-;; Future enhancement example:
-;; ((footnote (name) @function.macro (id) @label (text) @string))
-;; ((footnote_brackets (open) @punctuation.bracket (close) @punctuation.bracket))
-
-;; Index terms
-(index_term_macro) @function.macro
-(index_term2_macro) @function.macro
-(concealed_index_term) @function.macro
-(index_text primary: (index_term_text) @label)
-(index_text secondary: (index_term_text) @label)
-(index_text tertiary: (index_term_text) @label)
-
-;; Bibliography - enhanced with citation types
-(bibliography_entry (bibliography_id) @label)
-(bibliography_entry (bibliography_citation) @string)
-(bibliography_entry (bibliography_description) @string)
-
-;; Bibliography references in text (now handled by internal_xref)
-
-;; Bibliography entry structure highlighting
-;; Note: The triple bracket syntax [[[id]]] uses structured parsing
-;; Future enhancement: separate bracket highlighting as @punctuation.bracket
-
-;; Include directives - enhanced priority
-(include_directive (include_path) @string.special.path)
-(include_directive (include_options) @attribute)
-(#set! "priority" 118)
-
-;; =============================================================================
-;; COMMENTS
-;; =============================================================================
-
-;; Line comments (// comment)
-(line_comment_block) @comment
-
-;; Block comments (////)
-(block_comment) @comment
+; Comments
+(block_comment) @comment.block
 (comment_line) @comment
 
-;; =============================================================================
-;; METADATA AND ATTRIBUTES  
-;; =============================================================================
+; Conditionals
+(ifdef_open) @keyword.conditional
+(ifndef_open) @keyword.conditional
+(ifeval_open) @keyword.conditional
+(endif_directive) @keyword.conditional
 
-;; Block metadata - more granular highlighting
-(block_title) @markup.heading.marker
-(block_attributes) @attribute
-(id_and_roles) @attribute
-
-;; =============================================================================
-;; ROLE SPANS AND STYLING  
-;; =============================================================================
-
-;; Role spans - token-based, parse into components when possible
-(role_span) @punctuation.special
-;; Note: This is token-based currently: /\[[A-Za-z][A-Za-z0-9_.-]*\]#[^#\r\n]+#/
-;; Would benefit from structured parsing to highlight role name vs content
-
-;; =============================================================================
-;; MACROS - Comprehensive macro component highlighting
-;; =============================================================================
-
-;; All inline and block macros with consistent priority for visibility
-(image) @function.macro
-(block_image) @function.macro
-(link) @function.macro
-(link_macro) @function.macro
-(external_xref) @function.macro
-(index_term_macro) @function.macro
-(index_term2_macro) @function.macro
-(concealed_index_term) @function.macro
+; Macros and Functions
+(include_directive) @keyword.import
+(include_path) @string.special.path
+(footnote_inline) @markup.link
+(footnote_ref) @markup.link
+(footnoteref) @markup.link
+(image) @markup.link
+(passthrough_triple_plus) @markup.raw.inline
 (pass_macro) @function.macro
 (math_macro) @function.macro
-(#set! "priority" 108)
+(ui_macro) @function.macro
+(index_term) @markup.link.label
 
-;; Note: Current grammar uses token-based macro parsing for most constructs:
-;; - link_macro: /link:[^\[\r\n]+\[[^\]]*\]/
-;; - image: /image:[^\[\r\n]+\[[^\]]*\]/  
-;; - ui_kbd: /kbd:\[[^\]]*\]/
-;; - ui_btn: /btn:\[[^\]]*\]/
-;; - ui_menu: /menu:[^\[\r\n]+\[[^\]]*\]/
-;; - math_macro: /stem:\[[^\]]*\]/, /latexmath:\[[^\]]*\]/, /asciimath:\[[^\]]*\]/
-;; - pass_macro: /pass:\[[^\]]*\]/
-;;
-;; Future enhancement: Structured macro parsing would enable component-level highlighting:
-;; - Macro names: @function.macro
-;; - Targets (URLs): @string.special.url
-;; - Targets (paths): @string.special.path  
-;; - IDs/refs: @label
-;; - Attribute lists: keys @attribute, values @string/number, separators @punctuation.delimiter
-;; - Brackets and colons: @punctuation.bracket, @punctuation.delimiter
-;;
-;; Example structured queries:
-;; ((inline_macro (name) @function.macro (target (url)) @string.special.url))
-;; ((inline_macro (name) @function.macro (target (path)) @string.special.path))
-;; ((macro_attributes (attribute (name) @attribute (value) @string)))
+; Admonitions
+(paragraph_admonition) @markup.strong
+(admonition_label) @markup.strong
 
-;; =============================================================================
-;; TEXT CONTENT
-;; =============================================================================
+; Metadata
+(metadata) @attribute
+(block_attributes) @attribute
+(id_and_roles) @attribute
+(block_title) @attribute
 
-;; Regular text segments - lower priority
-(text_segment) @none
-(text_colon) @none
-(text_angle_bracket) @none  
-(text_bracket) @none
+; Basic text
+(text_segment) @text
+(content_line) @text
 
-;; Text with inlines containers - don't highlight the container itself
-;; Let the inline elements be highlighted individually
+; Punctuation
+(text_period) @punctuation
+(text_colon) @punctuation
+(text_angle_bracket) @punctuation.bracket
+(text_brace) @punctuation.bracket
+(text_bracket) @punctuation.bracket
+(text_paren) @punctuation.bracket
 
-;; =============================================================================
-;; OPTIONAL LEGACY COMPATIBILITY
-;; =============================================================================
+; Advanced Features
+(bibliography_entry) @markup.link.label
+(bibliography_id) @variable.builtin
+(bibliography_text) @string
 
-;; For themes that don't support modern @markup.* captures, add minimal fallbacks
-;; These are duplicates with lower priority to avoid conflicts
+(role_span) @markup.quote
+(role_list) @attribute
+(role_content) @markup.quote
 
-;; Legacy text formatting fallbacks
-(strong) @text.strong
-(emphasis) @text.emphasis
-(monospace) @text.literal
-(#set! "priority" 50)
+; Table content
+(cell_formatted_content) @markup.list
+(cell_literal_text) @text
+(cell_content) @markup.list
 
-;; Legacy markup fallbacks 
-(section_title (title) @text.title)
-(block_content) @text.literal
-(#set! "priority" 50)
+; UI Macros
+(ui_kbd) @function.builtin
+(ui_btn) @function.builtin
+(ui_menu) @function.builtin
+
+; Index terms
+(index_term_macro) @markup.link.label
+(index_term2_macro) @markup.link.label
+(concealed_index_term) @markup.link.label
+(index_text) @variable.builtin
+(index_term_text) @string
+
+; Error recovery - handled by ERROR nodes automatically
+
+; Line breaks
+(line_break) @punctuation.special

@@ -224,6 +224,8 @@ Final tip content.
     (paragraph_admonition
       (admonition_label)
       (text_with_inlines
+        (text_segment)
+        (text_segment)
         (text_segment))))
   (example_block
     (metadata
@@ -281,37 +283,49 @@ Back to level 2.
 (source_file
   (section
     (section_title
-      (title)))
+      title: (title)))
   (section
     (anchor
       id: (id))
     (section_title
-      (title)))
+      title: (title)))
   (paragraph
     content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (section
     (anchor
       id: (id))
     (section_title
-      (title)))
+      title: (title)))
   (paragraph
     content: (text_with_inlines
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (section
     (anchor
       id: (id)
       text: (anchor_text))
     (section_title
-      (title)))
+      title: (title)))
   (paragraph
     content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (section
     (section_title
-      (title)))
+      title: (title)))
   (paragraph
     content: (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -349,21 +363,18 @@ Enabled: {enabled-attr}
     (text_with_inlines
       (text_segment)
       (text_colon)
-      (text_segment)
       (inline_element
         (attribute_reference))))
   (paragraph
     (text_with_inlines
       (text_segment)
       (text_colon)
-      (text_segment)
       (inline_element
         (attribute_reference))))
   (paragraph
     (text_with_inlines
       (text_segment)
       (text_colon)
-      (text_segment)
       (inline_element
         (attribute_reference))))
   (paragraph
@@ -380,21 +391,17 @@ Enabled: {enabled-attr}
     (text_with_inlines
       (text_segment)
       (text_colon)
-      (text_segment)
       (inline_element
         (attribute_reference))))
   (paragraph
     (text_with_inlines
       (text_segment)
       (text_colon)
-      (text_segment)
       (inline_element
-        (attribute_reference))
-      (text_segment)))
+        (attribute_reference))))
   (paragraph
     (text_with_inlines
       (text_segment)
       (text_colon)
-      (text_segment)
       (inline_element
         (attribute_reference)))))

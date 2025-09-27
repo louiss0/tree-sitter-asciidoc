@@ -1,0 +1,6 @@
+:author: Alice
+
+term:: description here
+another:: more description
+
+:version: 1.0

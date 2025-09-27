@@ -128,12 +128,12 @@ Another:: item
   (conditional_block
     (ifdef_block
       (ifdef_open)
-          (paragraph
-            (text_with_inlines
-              (text_segment)
-              (text_segment)
-              (text_segment)))
-          (endif_directive)))
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)))
+      (endif_directive)))
   (description_list
     (description_item)))
 
@@ -199,8 +199,7 @@ endif::[]
         (ordered_list_item
           (text_with_inlines
             (text_segment)
-            (text_segment))))
-      (ordered_list
+            (text_segment)))
         (ordered_list_item
           (text_with_inlines
             (text_segment)

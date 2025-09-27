@@ -1,0 +1,1 @@
+Check out xref:other-file.adoc[]

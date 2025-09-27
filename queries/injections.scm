@@ -1,32 +1,115 @@
-; AsciiDoc language injections
-; Inject appropriate languages into source blocks based on language attributes
+; AsciiDoc language injections for embedded syntax highlighting
 
-; Note: This grammar doesn't currently expose language attributes in a way
-; that's easy to capture with queries, so these injections may need updates
-; when the grammar is enhanced to better support language-specific source blocks
-
-; Generic source blocks (listing_block) - inject as text by default
-((listing_block 
+; Language-specific code blocks - Now supported!
+; Extract language from [source,language] attributes
+(listing_block
+  (metadata
+    (block_attributes
+      (source_block_attributes
+        language: (language_identifier) @injection.language)))
   content: (block_content) @injection.content)
- (#set! injection.language "text"))
 
-; Generic literal blocks - inject as text
-((literal_block
+; Fallback: Generic source blocks with language detection from content
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,python")))
   content: (block_content) @injection.content)
- (#set! injection.language "text"))
+ (#set! injection.language "python"))
 
-; Math blocks - inject appropriate math languages
-((math_content) @injection.content
- (#set! injection.language "latex"))
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,javascript")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "javascript"))
 
-; TODO: When grammar is enhanced to expose language attributes:
-; - Capture [source,javascript] as @injection.language "javascript"  
-; - Capture [source,python] as @injection.language "python"
-; - Capture [source,go] as @injection.language "go"
-; - Capture [source,rust] as @injection.language "rust"
-; - Capture [source,html] as @injection.language "html"
-; - Capture [source,css] as @injection.language "css"
-; - Capture [source,json] as @injection.language "json"
-; - Capture [source,yaml] as @injection.language "yaml"
-; - Capture [source,bash] as @injection.language "bash"
-; - etc.
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,rust")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "rust"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,json")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "json"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,yaml")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "yaml"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,html")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "html"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,css")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "css"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,go")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "go"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,bash")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "bash"))
+
+; Math content injection (math_macro is a simple token)
+(math_macro) @injection.content
+(#set! injection.language "latex")
+
+; Generic code blocks without language specification
+(listing_block
+  (block_content) @injection.content
+  (#set! injection.language "text"))
+
+; Literal blocks for configuration or data
+(literal_block
+  (block_content) @injection.content  
+  (#set! injection.language "text"))
+
+; Passthrough blocks may contain HTML or other markup
+(passthrough_block
+  (block_content) @injection.content
+  (#set! injection.language "html"))
+
+; Inline code spans - generic
+(monospace_content) @injection.content
+(#set! injection.language "text")
+
+; Attribute values that might contain code or paths
+(value) @injection.content
+(#match? @injection.content "^[a-zA-Z]+:")
+(#set! injection.language "text")
+
+; Include directive paths
+(include_path) @injection.content
+(#set! injection.language "text")

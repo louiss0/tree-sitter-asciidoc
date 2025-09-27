@@ -14,5 +14,8 @@ endif::[]
       (ifdef_open)
       (paragraph
         (text_with_inlines
+          (text_segment)
+          (text_segment)
           (text_segment)))
       (endif_directive))))
+

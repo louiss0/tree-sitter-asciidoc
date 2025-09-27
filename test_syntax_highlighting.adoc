@@ -1,0 +1,109 @@
+= Document Title (Level 0)
+:author: John Doe
+:version: 1.2.3
+:toc: left
+
+This is the document preamble with various inline elements.
+
+== Chapter One (Level 1)
+
+This paragraph contains *bold text*, _italic text_, `monospace code`, a^superscript^, and a~subscript~.
+
+=== Links and References (Level 2)
+
+Here's an auto-link: https://example.com/path/to/resource
+
+Explicit link: https://github.com/user/repo[GitHub Repository]
+
+Internal reference: <<section-id,Section Reference>>
+
+==== Formatting Examples (Level 3)
+
+.Unordered List
+* First item with *bold*
+* Second item with _emphasis_
+* Third item with `code`
+
+.Ordered List
+1. Step one
+2. Step two with https://example.com[link]
+3. Step three
+
+===== Code and Blocks (Level 4)
+
+.Python Code Example
+[source,python]
+----
+def hello_world():
+    print("Hello, AsciiDoc!")
+    return True
+----
+
+.Quote Block
+[quote, Author Name, Book Title]
+____
+This is a quote block with proper attribution.
+____
+
+====== Advanced Features (Level 5)
+
+NOTE: This is a note admonition.
+
+TIP: This is a tip admonition.
+
+WARNING: This is a warning admonition.
+
+IMPORTANT: This is an important admonition.
+
+CAUTION: This is a caution admonition.
+
+======= Tables and More (Level 6)
+
+.Sample Data Table
+|===
+|Name |Age |City
+
+|John |25 |New York
+|Jane |30 |London
+|Bob |35 |Tokyo
+|===
+
+== Advanced Inline Elements
+
+Attribute reference: {author}
+
+Footnote: This has a footnote.footnote:[This is the footnote text]
+
+Math: stem:[sqrt(4) = 2]
+
+UI elements: menu:File[New] and kbd:[Ctrl+S] and btn:[OK]
+
+Index terms: indexterm:[primary] and ((hidden index term))
+
+== Special Characters and Escaping
+
+Escaped formatting: \*not bold\* and \_not italic\_
+
+Special symbols: © ™ ® → ← ↑ ↓
+
+== Bibliography and Glossary
+
+[bibliography]
+== References
+
+- [[[ref1]]] Reference one description
+- [[[ref2]]] Reference two description
+
+== Include and Conditionals
+
+ifdef::show-advanced[]
+This content is conditional.
+endif::[]
+
+include::some-file.adoc[]
+
+== Passthrough and Raw Content
+
++++<script>alert('raw html');</script>+++
+
+pass:[<u>underlined text</u>]

@@ -11,6 +11,13 @@ NOTE: This is a note paragraph with important information.
     (paragraph_admonition
       label: (admonition_label)
       content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -26,6 +33,11 @@ TIP: Here's a helpful tip for users.
     (paragraph_admonition
       label: (admonition_label)
       content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -41,6 +53,11 @@ IMPORTANT: This is crucial information to remember.
     (paragraph_admonition
       label: (admonition_label)
       content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -56,6 +73,10 @@ WARNING: Be careful with this operation.
     (paragraph_admonition
       label: (admonition_label)
       content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -71,6 +92,11 @@ CAUTION: Proceed with caution when making changes.
     (paragraph_admonition
       label: (admonition_label)
       content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -128,6 +154,14 @@ note: This should be a regular paragraph, not an admonition.
     content: (text_with_inlines
       (text_segment)
       (text_colon)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -143,6 +177,11 @@ NOTE:This should be a regular paragraph.
     content: (text_with_inlines
       (text_segment)
       (text_colon)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -158,6 +197,12 @@ INFO: This is not a valid admonition type.
     content: (text_with_inlines
       (text_segment)
       (text_colon)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -177,16 +222,22 @@ TIP: Third admonition paragraph.
     (paragraph_admonition
       label: (admonition_label)
       content: (text_with_inlines
+        (text_segment)
+        (text_segment)
         (text_segment))))
   (paragraph
     (paragraph_admonition
       label: (admonition_label)
       content: (text_with_inlines
+        (text_segment)
+        (text_segment)
         (text_segment))))
   (paragraph
     (paragraph_admonition
       label: (admonition_label)
       content: (text_with_inlines
+        (text_segment)
+        (text_segment)
         (text_segment)))))
 
 ================================================================================

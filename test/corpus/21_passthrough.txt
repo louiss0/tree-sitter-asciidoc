@@ -26,14 +26,8 @@ This pass:[*should not be bold*] text.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (text_colon)
-      (text_bracket)
       (inline_element
-        (strong
-          (strong_constrained
-            (strong_open)
-            (strong_text)
-            (strong_close))))
+        (pass_macro))
       (text_segment))))
 
 ================================================================================
@@ -48,15 +42,8 @@ This pass:quotes[*should not be bold*] text.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (text_colon)
-      (text_segment)
-      (text_bracket)
       (inline_element
-        (strong
-          (strong_constrained
-            (strong_open)
-            (strong_text)
-            (strong_close))))
+        (pass_macro))
       (text_segment))))
 
 ================================================================================
@@ -71,9 +58,8 @@ Both +++raw+++ and pass:[protected] here.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (inline_element
-        (passthrough_triple_plus))
       (text_segment)
-      (text_colon)
-      (text_bracket)
+      (text_segment)
+      (inline_element
+        (pass_macro))
       (text_segment))))

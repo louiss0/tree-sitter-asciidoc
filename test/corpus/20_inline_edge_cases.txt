@@ -159,10 +159,15 @@ Email addresses: contact@example.com.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (text_colon)))
-  (line_comment_block)
+      (inline_element
+        (auto_link))
+      (text_segment)
+      (text_segment)
+      (text_segment)))
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
       (text_segment)
       (text_colon)
       (inline_element
@@ -170,14 +175,17 @@ Email addresses: contact@example.com.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
       (text_colon)
       (inline_element
         (auto_link))
       (text_segment)
-      (text_colon)))
-  (line_comment_block)
+      (inline_element
+        (auto_link))
+      (text_segment)))
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment)
       (text_colon)
       (text_segment))))
@@ -197,15 +205,22 @@ Role spans with complex attributes
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_bracket)
+      (inline_element
+        (role_span))
+      (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
-      (text_bracket)
+      (inline_element
+        (role_span))
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
-      (text_bracket)
+      (inline_element
+        (role_span))
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -285,49 +300,44 @@ Complex image: image::path/file.png[Alt text,width=100,height=50].
   (paragraph
     content: (text_with_inlines
       (text_segment)
+      (text_segment)
       (text_colon)
       (inline_element
         (ui_macro
           (ui_kbd)))
       (text_segment)
-      (text_colon)
-      (text_bracket)
-      (text_segment)))
+      (inline_element
+        (ui_macro
+          (ui_btn)))
+      (text_period)))
   (paragraph
     content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (text_colon)
       (inline_element
         (math_macro))
       (text_segment)
-      (text_colon)
-      (text_bracket)
-      (text_segment)
       (inline_element
-        (emphasis
-          (emphasis_constrained
-            open: (emphasis_open)
-            content: (emphasis_text)
-            close: (emphasis_close))))
-      (text_segment)))
+        (math_macro))
+      (text_period)))
   (paragraph
     content: (text_with_inlines
+      (text_segment)
       (text_segment)
       (text_colon)
       (inline_element
         (footnote_inline))
       (text_segment)
-      (text_colon)
-      (text_segment)
-      (text_bracket)
-      (text_segment)))
+      (inline_element
+        (footnoteref))
+      (text_period)))
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (text_colon)
       (inline_element
         (image))
-      (text_segment))))
+      (text_period))))
 
 ================================================================================
 Cross-reference and anchor combinations
@@ -348,22 +358,25 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
       (inline_element
         (internal_xref))
       (text_segment)
+      (text_segment)
+      (text_segment)
       (inline_element
         (internal_xref))
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
       (text_colon)
       (inline_element
         (external_xref))
       (text_segment)
-      (text_colon)
-      (text_segment)
-      (text_bracket)
+      (inline_element
+        (external_xref))
       (text_segment)))
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment)
       (text_colon)
       (inline_element
@@ -389,6 +402,7 @@ Nested pass: pass:c[{code-block}] with substitution.
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
       (text_colon)
       (inline_element
         (pass_macro))
@@ -396,15 +410,18 @@ Nested pass: pass:c[{code-block}] with substitution.
   (paragraph
     (text_with_inlines
       (text_segment)
-      (text_colon)
       (text_segment)
+      (text_segment)
+      (text_colon)
       (inline_element
         (passthrough_triple_plus))
       (text_segment)))
   (paragraph
     (text_with_inlines
       (text_segment)
+      (text_segment)
       (text_colon)
       (inline_element
         (pass_macro))
+      (text_segment)
       (text_segment))))

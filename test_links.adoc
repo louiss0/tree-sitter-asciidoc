@@ -1,0 +1,10 @@
+= Title
+
+Auto link: https://example.com
+
+Explicit: https://example.com[Link]
+
+Xref: <<anchor>>
+
+[[anchor]]
+Anchor paragraph.

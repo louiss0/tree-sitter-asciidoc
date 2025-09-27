@@ -1,0 +1,7 @@
+[[[ref1]]]
+Reference One: Documentation
+
+[[[ref2,Technical Reference]]]
+Reference Two: With description
+
+Text with reference to [[[ref3]]] inline.

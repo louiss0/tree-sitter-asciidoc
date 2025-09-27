@@ -1,0 +1,1 @@
+Before xref:file.adoc[].

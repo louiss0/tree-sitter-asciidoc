@@ -1,0 +1,19 @@
+= Autolink Boundaries Test
+
+URLs in various contexts:
+
+Visit https://example.com now.
+
+Check out https://docs.asciidoc.org, it's great!
+
+The site (https://github.com) has many repos.
+
+Link: https://example.com/path?param=value&other=test.
+
+End with punctuation: https://example.com.
+
+In parentheses: (https://example.com)
+
+With quotes: "https://example.com"
+
+Complex URL: https://example.com/path?query=1&test=2#section

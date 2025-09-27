@@ -11,16 +11,19 @@ Simple callout list
 (source_file
   (callout_list
     (callout_item
-      marker: (CALLOUT_MARKER)
+      (CALLOUT_MARKER)
       content: (text_with_inlines
+        (text_segment)
         (text_segment)))
     (callout_item
-      marker: (CALLOUT_MARKER)
+      (CALLOUT_MARKER)
       content: (text_with_inlines
+        (text_segment)
         (text_segment)))
     (callout_item
-      marker: (CALLOUT_MARKER)
+      (CALLOUT_MARKER)
       content: (text_with_inlines
+        (text_segment)
         (text_segment)))))
 
 ================================================================================

@@ -1,0 +1,7 @@
+term:: description
+another term:: another description
+
+:attribute: value
+
+another-term:: longer description that continues
+  on multiple lines
