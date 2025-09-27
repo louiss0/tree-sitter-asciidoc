@@ -1173,8 +1173,21 @@
             "value": "["
           },
           {
-            "type": "PATTERN",
-            "value": "[^\\]\\r\\n]+"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "source_block_attributes"
+              },
+              {
+                "type": "FIELD",
+                "name": "content",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "attribute_content"
+                }
+              }
+            ]
           },
           {
             "type": "STRING",
@@ -1186,6 +1199,43 @@
           }
         ]
       }
+    },
+    "source_block_attributes": {
+      "type": "PREC",
+      "value": 100,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "type",
+            "content": {
+              "type": "STRING",
+              "value": "source"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": ","
+          },
+          {
+            "type": "FIELD",
+            "name": "language",
+            "content": {
+              "type": "SYMBOL",
+              "name": "language_identifier"
+            }
+          }
+        ]
+      }
+    },
+    "language_identifier": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z][a-zA-Z0-9_+-]*"
+    },
+    "attribute_content": {
+      "type": "PATTERN",
+      "value": "[^\\]\\r\\n]+"
     },
     "id_and_roles": {
       "type": "SEQ",
@@ -3911,6 +3961,10 @@
     [
       "inline_element",
       "explicit_link"
+    ],
+    [
+      "attribute_content",
+      "role_list"
     ]
   ],
   "precedences": [],

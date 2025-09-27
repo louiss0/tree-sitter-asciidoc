@@ -26,6 +26,11 @@
     }
   },
   {
+    "type": "attribute_content",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "attribute_entry",
     "named": true,
     "fields": {
@@ -85,7 +90,28 @@
   {
     "type": "block_attributes",
     "named": true,
-    "fields": {}
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "attribute_content",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "source_block_attributes",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "block_comment",
@@ -1975,6 +2001,32 @@
     }
   },
   {
+    "type": "source_block_attributes",
+    "named": true,
+    "fields": {
+      "language": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "language_identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "source",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -2807,6 +2859,10 @@
     "named": false
   },
   {
+    "type": "language_identifier",
+    "named": true
+  },
+  {
     "type": "line_break",
     "named": true
   },
@@ -2845,6 +2901,10 @@
   {
     "type": "section_marker_6",
     "named": true
+  },
+  {
+    "type": "source",
+    "named": false
   },
   {
     "type": "subscript_text",

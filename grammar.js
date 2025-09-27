@@ -42,7 +42,8 @@ module.exports = grammar({
     [$.ordered_list_item], 
     [$.description_item],
     [$.callout_item],
-    [$.inline_element, $.explicit_link]
+    [$.inline_element, $.explicit_link],
+    [$.attribute_content, $.role_list]
   ],
 
   rules: {
@@ -301,10 +302,22 @@ module.exports = grammar({
     
     block_attributes: $ => prec(3, seq(
       '[',
-      /[^\]\r\n]+/,  // attribute content
+      choice(
+        $.source_block_attributes,
+        field('content', $.attribute_content)
+      ),
       ']',
       $._line_ending
     )),
+    
+    source_block_attributes: $ => prec(100, seq(
+      field('type', token('source')),
+      token(','),
+      field('language', $.language_identifier)
+    )),
+    
+    language_identifier: $ => /[a-zA-Z][a-zA-Z0-9_+-]*/,
+    attribute_content: $ => /[^\]\r\n]+/,
     
     id_and_roles: $ => seq(
       '[',

@@ -1,14 +1,92 @@
 ; AsciiDoc language injections for embedded syntax highlighting
 
-; Code blocks with language specified in metadata
-; TODO: This would require parsing block attributes to detect language
-; For now, we'll use simpler patterns
+; Language-specific code blocks - Now supported!
+; Extract language from [source,language] attributes
+(listing_block
+  (metadata
+    (block_attributes
+      (source_block_attributes
+        language: (language_identifier) @injection.language)))
+  content: (block_content) @injection.content)
+
+; Fallback: Generic source blocks with language detection from content
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,python")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "python"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,javascript")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "javascript"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,rust")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "rust"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,json")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "json"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,yaml")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "yaml"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,html")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "html"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,css")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "css"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,go")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "go"))
+
+((listing_block
+  (metadata 
+    (block_attributes
+      content: (attribute_content) @_lang
+      (#match? @_lang "source,bash")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "bash"))
 
 ; Math content injection (math_macro is a simple token)
 (math_macro) @injection.content
 (#set! injection.language "latex")
 
-; Generic code blocks (listing blocks often contain code)
+; Generic code blocks without language specification
 (listing_block
   (block_content) @injection.content
   (#set! injection.language "text"))
