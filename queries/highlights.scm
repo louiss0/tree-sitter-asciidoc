@@ -1,6 +1,6 @@
 ; Sections and Structure
 (section) @markup.heading
-(section_heading) @markup.heading
+(section_title) @markup.heading
 (title) @markup.heading
 
 ; Section markers based on level

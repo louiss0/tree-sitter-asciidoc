@@ -69,10 +69,10 @@ module.exports = grammar({
       $._blank_line,
     ),
 
-    // SECTIONS - simple approach that works with Tree Sitter
+    // SECTIONS - hierarchical approach for test compatibility
     section: $ => prec.right(seq(
       optional($.anchor),
-      $.section_heading,
+      $.section_title,
       repeat(choice(
         $.attribute_entry,
         $.paragraph,
@@ -91,11 +91,12 @@ module.exports = grammar({
         $.include_directive,
         $.block_comment,
         $.table_block,
+        prec.right($.section), // Allow nested sections
         $._blank_line
       ))
     )),
     
-    section_heading: $ => seq(
+    section_title: $ => seq(
       choice(
         $._section_marker_1,
         $._section_marker_2,
@@ -436,8 +437,8 @@ module.exports = grammar({
 
     // PARAGRAPH ADMONITIONS
     paragraph_admonition: $ => seq(
-      field('label', $.admonition_label),
-      field('content', $.text_with_inlines)
+      $.admonition_label,
+      $.text_with_inlines
     ),
     
     admonition_label: $ => token(prec(1, choice(

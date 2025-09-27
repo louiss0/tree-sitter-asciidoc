@@ -1578,27 +1578,20 @@
   {
     "type": "paragraph_admonition",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "text_with_inlines",
-            "named": true
-          }
-        ]
-      },
-      "label": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "admonition_label",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "admonition_label",
+          "named": true
+        },
+        {
+          "type": "text_with_inlines",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1864,7 +1857,11 @@
           "named": true
         },
         {
-          "type": "section_heading",
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "section_title",
           "named": true
         },
         {
@@ -1883,7 +1880,7 @@
     }
   },
   {
-    "type": "section_heading",
+    "type": "section_title",
     "named": true,
     "fields": {},
     "children": {
