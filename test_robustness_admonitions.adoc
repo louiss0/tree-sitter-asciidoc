@@ -1,0 +1,5 @@
+NOTE: This is a note admonition.
+
+TIP: This is a tip with https://example.com[link].
+
+WARNING: This is a warning with *bold* text.

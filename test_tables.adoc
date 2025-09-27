@@ -1,0 +1,18 @@
+= Table Test
+
+[.highlight]
+.Table Title  
+|===
+| Header 1 | Header 2 | Header 3
+
+| Cell 1   | Cell with *bold* text | Regular cell  
+| 2+| Spanning cell across two columns | 
+3+| This spans three columns
+| h| Header cell | Normal cell | Another cell
+|===
+
+Simple table:
+|===
+| A | B
+| 1 | 2
+|===

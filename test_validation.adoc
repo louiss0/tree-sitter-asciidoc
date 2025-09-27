@@ -1,0 +1,70 @@
+= Parser Validation Test
+
+:author: John Doe
+:version: 1.0
+
+This document validates key parser features.
+
+== Inline Formatting Tests
+
+This paragraph has *bold*, _italic_, and `monospace` formatting.
+It also has ^superscript^ and ~subscript~ text.
+
+Complex nesting: *bold _italic_ text* and `mono *bold* code`.
+
+== List Tests
+
+* Unordered item 1
+* Unordered item 2
+  +
+  Continuation paragraph
+
+1. Ordered item 1
+2. Ordered item 2
+
+Term 1:: Description for term 1
+Term 2:: Description for term 2
+
+<1> Callout item 1
+<2> Callout item 2
+
+== Delimited Block Tests
+
+====
+This is an example block.
+====
+
+----
+This is a listing block.
+with multiple lines
+----
+
+....
+This is a literal block.
+....
+
+== Link Tests
+
+Auto-detected: https://example.com
+
+Explicit: https://example.com[Example Site]
+
+Cross-reference: <<anchor>>
+
+[[anchor]]
+This paragraph has an anchor.
+
+== Advanced Features
+
+Bibliography: [[[ref1]]] First reference
+
+Role span: [.highlight]#highlighted text#
+
+Footnote reference: footnote:[This is a footnote]
+
+== Error Recovery
+
+This tests error recovery:
+* Broken _emphasis
+* Incomplete `mono
+* Wrong **bold**

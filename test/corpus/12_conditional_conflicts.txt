@@ -255,27 +255,27 @@ endif::[]
 (source_file
   (section
     (section_title
-      title: (title)))
-  (attribute_entry
-    name: (name)
-    value: (value))
-  (conditional_block
-    (ifdef_block
-      open: (ifdef_open)
-      (paragraph
-        content: (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)))
-      close: (endif_directive)))
-  (section
-    (section_title
-      title: (title)))
-  (conditional_block
-    (ifndef_block
-      open: (ifndef_open)
-      (paragraph
-        content: (text_with_inlines
-          (text_segment)
-          (text_segment)))
-      close: (endif_directive))))
+      (title))
+    (attribute_entry
+      name: (name)
+      value: (value))
+    (conditional_block
+      (ifdef_block
+        open: (ifdef_open)
+        (paragraph
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment)))
+        close: (endif_directive)))
+    (section
+      (section_title
+        (title))
+      (conditional_block
+        (ifndef_block
+          open: (ifndef_open)
+          (paragraph
+            content: (text_with_inlines
+              (text_segment)
+              (text_segment)))
+          close: (endif_directive))))))

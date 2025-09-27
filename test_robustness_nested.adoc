@@ -1,0 +1,25 @@
+This paragraph has *bold with _nested italic_ and `code`* formatting.
+
+Another paragraph with **bold** and __italic__ and ``code`` double formatting.
+
+Complex: This is *bold _and italic_ back to bold* with https://example.com[external link].
+
+Math: E=mc^2^ and H~2~O with chemical formula ^14^C isotope and CO~2~ gas.
+
+Role spans: [.highlight]#This is highlighted# and [#special]#This has an ID#.
+
+== Section with Complex Lists
+
+. First item with *bold* text
+.. Nested item with _italic_ text  
+... Third level with `code` span
+. Second item with https://docs.asciidoc.org[link to docs]
+
+* Unordered list with ^superscript^
+** Nested with ~subscript~  
+*** Deep nesting with **formatting**
+
+Mixed list:
+- Item one with link:++https://example.com++[pass through link]
+- Item two with stem:[sqrt(4) = 2] math
+- Item three with kbd:[Ctrl+C] keyboard shortcut

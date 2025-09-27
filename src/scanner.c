@@ -1052,7 +1052,6 @@ static bool scan_block_anchor(TSLexer *lexer) {
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
     
-    
     // LIST_CONTINUATION has highest priority - check first before other tokens consume input
     if (valid_symbols[LIST_CONTINUATION] && scan_list_continuation(lexer)) {
         lexer->result_symbol = LIST_CONTINUATION;
@@ -1116,66 +1115,68 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         return true;
     }
     
-    // Conditional directives (high priority) - check longer patterns first
-    if (valid_symbols[_ifndef_open_token] && scan_ifndef_open(lexer)) {
-        lexer->result_symbol = _ifndef_open_token;
-        return true;
-    }
+    // Conditional directives - DISABLED: handled by grammar tokens now
+    // These tokens are not declared in grammar.js externals
+    // if (valid_symbols[_ifndef_open_token] && scan_ifndef_open(lexer)) {
+    //     lexer->result_symbol = _ifndef_open_token;
+    //     return true;
+    // }
+    // 
+    // if (valid_symbols[_ifdef_open_token] && scan_ifdef_open(lexer)) {
+    //     lexer->result_symbol = _ifdef_open_token;
+    //     return true;
+    // }
+    // 
+    // if (valid_symbols[_ifeval_open_token] && scan_ifeval_open(lexer)) {
+    //     lexer->result_symbol = _ifeval_open_token;
+    //     return true;
+    // }
+    // 
+    // if (valid_symbols[_endif_directive_token] && scan_endif_directive(lexer)) {
+    //     lexer->result_symbol = _endif_directive_token;
+    //     return true;
+    // }
     
-    if (valid_symbols[_ifdef_open_token] && scan_ifdef_open(lexer)) {
-        lexer->result_symbol = _ifdef_open_token;
-        return true;
-    }
-    
-    if (valid_symbols[_ifeval_open_token] && scan_ifeval_open(lexer)) {
-        lexer->result_symbol = _ifeval_open_token;
-        return true;
-    }
-    
-    if (valid_symbols[_endif_directive_token] && scan_endif_directive(lexer)) {
-        lexer->result_symbol = _endif_directive_token;
-        return true;
-    }
-    
-    // Block anchor at start of line
-    if (valid_symbols[_BLOCK_ANCHOR] && scan_block_anchor(lexer)) {
-        lexer->result_symbol = _BLOCK_ANCHOR;
-        return true;
-    }
+    // Block anchor - DISABLED: not declared in grammar.js externals
+    // if (valid_symbols[_BLOCK_ANCHOR] && scan_block_anchor(lexer)) {
+    //     lexer->result_symbol = _BLOCK_ANCHOR;
+    //     return true;
+    // }
     
     
-    // List markers
-    if (valid_symbols[_LIST_UNORDERED_MARKER] && scan_unordered_list_marker(lexer)) {
-        lexer->result_symbol = _LIST_UNORDERED_MARKER;
-        return true;
-    }
-    
-    if (valid_symbols[_LIST_ORDERED_MARKER] && scan_ordered_list_marker(lexer)) {
-        lexer->result_symbol = _LIST_ORDERED_MARKER;
-        return true;
-    }
+    // List markers - DISABLED: handled by grammar tokens now
+    // if (valid_symbols[_LIST_UNORDERED_MARKER] && scan_unordered_list_marker(lexer)) {
+    //     lexer->result_symbol = _LIST_UNORDERED_MARKER;
+    //     return true;
+    // }
+    // 
+    // if (valid_symbols[_LIST_ORDERED_MARKER] && scan_ordered_list_marker(lexer)) {
+    //     lexer->result_symbol = _LIST_ORDERED_MARKER;
+    //     return true;
+    // }
     
     if (valid_symbols[CALLOUT_MARKER] && scan_callout_marker(lexer)) {
         lexer->result_symbol = CALLOUT_MARKER;
         return true;
     }
     
-    if (valid_symbols[DESCRIPTION_LIST_SEP] && scan_description_list_sep(lexer)) {
-        lexer->result_symbol = DESCRIPTION_LIST_SEP;
-        return true;
-    }
-    
-    if (valid_symbols[_DESCRIPTION_LIST_ITEM] && scan_description_list_item(lexer)) {
-        lexer->result_symbol = _DESCRIPTION_LIST_ITEM;
-        return true;
-    }
-    
-    
-    // Temporarily disable AUTOLINK_BOUNDARY to reduce ERROR nodes
-    // if (valid_symbols[AUTOLINK_BOUNDARY] && scan_autolink_boundary(lexer)) {
-    //     lexer->result_symbol = AUTOLINK_BOUNDARY;
+    // Description list handling - DISABLED: handled by grammar tokens now
+    // if (valid_symbols[DESCRIPTION_LIST_SEP] && scan_description_list_sep(lexer)) {
+    //     lexer->result_symbol = DESCRIPTION_LIST_SEP;
     //     return true;
     // }
+    // 
+    // if (valid_symbols[_DESCRIPTION_LIST_ITEM] && scan_description_list_item(lexer)) {
+    //     lexer->result_symbol = _DESCRIPTION_LIST_ITEM;
+    //     return true;
+    // }
+    
+    
+    // Re-enable AUTOLINK_BOUNDARY for proper boundary detection
+    if (valid_symbols[AUTOLINK_BOUNDARY] && scan_autolink_boundary(lexer)) {
+        lexer->result_symbol = AUTOLINK_BOUNDARY;
+        return true;
+    }
     
     if (valid_symbols[ATTRIBUTE_LIST_START] && scan_attribute_list_start(lexer)) {
         lexer->result_symbol = ATTRIBUTE_LIST_START;

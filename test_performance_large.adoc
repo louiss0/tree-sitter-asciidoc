@@ -1,0 +1,80 @@
+= Performance Test Document
+
+== Introduction
+
+This document contains various AsciiDoc constructs to test parsing performance:
+
+* *Bold text* with emphasis _italic text_ 
+* Code spans like `function()` and `var x = 1`
+* Links like https://example.com and https://github.com[GitHub]
+* Superscript E=mc^2^ and subscript H~2~O chemistry
+
+=== Lists and More Content
+
+1. Ordered list item with https://docs.asciidoc.org[AsciiDoc docs]
+2. Another item with *bold* and _italic_ formatting
+3. Third item with `code` and more ^superscript^ text
+
+Unordered lists:
+
+* Item with https://example.com inline link
+* Another *bold item* with _emphasis_
+* Final item with `code span` and ~subscript~
+
+=== Code Blocks
+
+----
+function test() {
+  return "Hello World";
+}
+----
+
+=== More Complex Content
+
+NOTE: This is an admonition with https://example.com[a link] and *formatting*.
+
+TIP: Another admonition with `code` and _emphasis_.
+
+==== Nested Sections
+
+Content with inline anchor [[important-section]] for cross-references.
+
+Reference: <<important-section,Important Section>>
+
+External reference: xref:other.adoc[Other Document]
+
+=== Bibliography and References  
+
+[[[ref1]]]
+Reference One: Important documentation about performance.
+
+[[[ref2,Technical Reference]]]  
+Reference Two: Technical details with description.
+
+=== Tables
+
+|===
+|Column 1 |Column 2 |Column 3
+
+|*Bold* cell
+|Cell with https://example.com[link]  
+|`code` cell
+
+|Normal cell
+|_Italic_ content
+|Final cell
+|===
+
+== Conclusion
+
+This document tests various parsing scenarios including:
+
+* Inline formatting: *bold*, _italic_, `code`, ^super^, ~sub~
+* Links: https://example.com and https://github.com[GitHub]  
+* Lists with mixed content and formatting
+* Code blocks and admonitions
+* Cross-references and anchors
+* Bibliography entries
+* Tables with formatted content
+
+The parser should handle all these constructs efficiently.

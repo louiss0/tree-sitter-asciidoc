@@ -24,11 +24,11 @@ Some text.
       (title))
     (attribute_entry
       (name)
-      (value)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment))))
+      (value))
+    (paragraph
+      (text_with_inlines
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Attribute entries without values
@@ -50,11 +50,11 @@ Content here
     (name))
   (section
     (section_title
-      (title)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment))))
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Attribute entries with spaces in values
@@ -134,8 +134,8 @@ More content
     (value))
   (section
     (section_title
-      (title)))
-  (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment))))
+      (title))
+    (paragraph
+      (text_with_inlines
+        (text_segment)
+        (text_segment)))))

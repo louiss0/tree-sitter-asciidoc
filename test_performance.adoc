@@ -1,0 +1,121 @@
+= Large AsciiDoc Performance Test Document
+:author: Test Author  
+:version: 1.0
+:toc:
+
+This document tests parser performance with a variety of AsciiDoc constructs.
+
+== Section with Multiple Features
+
+This section combines *bold*, _italic_, and `monospace` formatting in various ways.
+We also test https://example.com[explicit links] and attribute references like {author}.
+
+=== Subsection with Lists
+
+Here are various list types to test performance:
+
+* First unordered item with *bold text*
+* Second item with _italic text_ 
+* Third item with `code text`
+  +
+  Continuation paragraph with more content to parse.
+  +
+  ----
+  Code block in continuation
+  some code here
+  ----
+
+1. First ordered item
+2. Second ordered item with https://docs.example.com[documentation link]
+3. Third ordered item
+
+Term 1:: Definition with *formatting* and links
+Term 2:: Another definition with `code` examples
+Term 3:: Complex definition with [.highlight]#role spans# and {attribute} refs
+
+=== Tables Section
+
+Complex table with formatting:
+
+[.striped]
+.Performance Test Table
+|===
+| *Feature* | _Status_ | `Performance` | Description
+
+| Sections | Working | Excellent | Hierarchical parsing works well
+| 2+| Spanning cell across two columns | Performance is good  
+| Lists | Working | Very Good | All list types supported
+| h| Header Cell | Normal cell | Another cell with *bold*
+| Formatting | Working | Excellent | Inline formatting in cells
+|===
+
+== Advanced Features Testing
+
+=== Bibliography and References
+
+This document references [[[knuth84]]] and [[[lamport94,LaTeX Guide]]] for testing.
+Multiple references like [[[ref1]]] and [[[ref2,Second Reference]]] test parsing performance.
+
+=== Delimited Blocks
+
+Example block:
+====
+This is an example block with content.
+It can contain *formatting* and other elements.
+====
+
+Listing block:
+----
+function parse_asciidoc() {
+  // This tests code block performance
+  return "success";
+}
+----
+
+Quote block:
+____
+"The performance of this parser is excellent."
+-- Test Author
+____
+
+=== Complex Inline Features
+
+Role spans: [.big.red]#large red text# and [#special.highlight]#special content#.
+
+UI Macros: kbd:[Ctrl+C], btn:[Save], and menu:File[New Document].
+
+Math: stem:[sqrt(x^2 + y^2)] and latexmath:[\sum_{i=1}^n x_i].
+
+Footnotes: This has a footnote.footnote:[This is the footnote text]
+
+Index terms: ((primary term)) and (((primary,secondary,tertiary))).
+
+=== Conditional Content
+
+ifdef::draft[]
+This content only appears in draft mode.
+endif::[]
+
+ifndef::final[]
+This appears when not in final mode.
+endif::[]
+
+== Performance Summary
+
+This document exercises:
+
+* Multiple section levels (1-3)
+* All inline formatting types
+* All list types with continuations  
+* Complex tables with spans and formatting
+* Delimited blocks (example, listing, quote)
+* Links (explicit and auto-detected)
+* Role spans with nested formatting
+* Bibliography entries
+* UI macros and math formulas
+* Footnotes and index terms
+* Conditional processing
+* Attribute references
+* Metadata and block attributes
+
+The parser should handle all these features efficiently with sub-millisecond performance for documents of this size.

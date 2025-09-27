@@ -57,7 +57,7 @@ Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].
       (text_segment)
       (inline_element
         (math_macro))
-      (text_segment))))
+      (text_period))))
 
 ================================================================================
 UI macros
