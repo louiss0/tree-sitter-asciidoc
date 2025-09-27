@@ -39,8 +39,9 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.unordered_list_item],
-    [$.ordered_list_item],
-    [$.description_item]
+    [$.ordered_list_item], 
+    [$.description_item],
+    [$.callout_item]
   ],
 
   rules: {
@@ -233,30 +234,30 @@ module.exports = grammar({
     
     openblock_close: $ => $.OPENBLOCK_FENCE_END,
     
-    // CONDITIONAL BLOCKS
-    conditional_block: $ => choice(
+    // CONDITIONAL BLOCKS - with error recovery
+    conditional_block: $ => prec(2, choice(
       $.ifdef_block,
       $.ifndef_block,
       $.ifeval_block
-    ),
+    )),
     
-    ifdef_block: $ => seq(
+    ifdef_block: $ => prec.right(seq(
       field('open', $.ifdef_open),
       repeat($._element),
-      field('close', $.endif_directive)
-    ),
+      optional(field('close', $.endif_directive))
+    )),
     
-    ifndef_block: $ => seq(
+    ifndef_block: $ => prec.right(seq(
       field('open', $.ifndef_open),
       repeat($._element),
-      field('close', $.endif_directive)
-    ),
+      optional(field('close', $.endif_directive))
+    )),
     
-    ifeval_block: $ => seq(
+    ifeval_block: $ => prec.right(seq(
       field('open', $.ifeval_open),
       repeat($._element),
-      field('close', $.endif_directive)
-    ),
+      optional(field('close', $.endif_directive))
+    )),
     
     ifdef_open: $ => seq(
       'ifdef::',
@@ -320,14 +321,16 @@ module.exports = grammar({
     )),
     
     // INCLUDE DIRECTIVES
-    include_directive: $ => seq(
+    include_directive: $ => prec(1, seq(
       'include::',
       field('path', $.include_path),
-      '[',
-      field('options', $.include_options),
-      ']',
+      optional(seq(
+        '[',
+        field('options', $.include_options),
+        ']'
+      )),
       $._line_ending
-    ),
+    )),
     
     include_path: $ => /[^\[\r\n]+/,
     include_options: $ => /[^\]\r\n]*/,
@@ -783,7 +786,7 @@ module.exports = grammar({
       optional($.metadata),
       field('open', $.table_open),
       optional(field('content', $.table_content)),
-      field('close', $.table_close),
+      field('close', $.table_close)
     ),
 
     table_open: $ => seq(
@@ -799,7 +802,7 @@ module.exports = grammar({
     table_content: $ => repeat1(
       choice(
         $.table_row,
-        alias($._blank_line, $.content_line),
+        alias($._blank_line, $.content_line)
       )
     ),
 

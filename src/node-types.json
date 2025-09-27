@@ -448,7 +448,7 @@
     "fields": {
       "close": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "endif_directive",
@@ -557,7 +557,7 @@
     "fields": {
       "close": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "endif_directive",
@@ -666,7 +666,7 @@
     "fields": {
       "close": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "endif_directive",
@@ -780,7 +780,7 @@
     "fields": {
       "options": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "include_options",
