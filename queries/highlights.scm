@@ -1,6 +1,15 @@
 ; Sections and Structure
+(section) @markup.heading
+(section_heading) @markup.heading
 (title) @markup.heading
-(section_title) @markup.heading
+
+; Section markers based on level
+((_section_marker_1) @markup.heading.1.marker)
+((_section_marker_2) @markup.heading.2.marker)
+((_section_marker_3) @markup.heading.3.marker)
+((_section_marker_4) @markup.heading.4.marker)
+((_section_marker_5) @markup.heading.5.marker)
+((_section_marker_6) @markup.heading.6.marker)
 
 ; Inline Formatting
 (strong_open) @markup.bold
@@ -123,6 +132,16 @@
 (text_brace) @punctuation.bracket
 (text_bracket) @punctuation.bracket
 (text_paren) @punctuation.bracket
+
+; Advanced Features
+(bibliography_entry) @markup.link.label
+(bibliography_id) @variable.builtin
+(bibliography_text) @string
+
+(role_list) @attribute
+(role_content) @markup.quote
+
+(cell_formatted_content) @markup.list
 
 ; Line breaks
 (line_break) @punctuation.special

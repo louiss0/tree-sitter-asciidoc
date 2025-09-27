@@ -52,6 +52,52 @@
     }
   },
   {
+    "type": "auto_link",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "AUTOLINK_BOUNDARY",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bibliography_entry",
+    "named": true,
+    "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "bibliography_text",
+            "named": true
+          }
+        ]
+      },
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bibliography_id",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bibliography_text",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "block_attributes",
     "named": true,
     "fields": {}
@@ -150,7 +196,46 @@
       "required": true,
       "types": [
         {
+          "type": "cell_formatted_content",
+          "named": true
+        },
+        {
           "type": "cell_literal_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cell_formatted_content",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute_reference",
+          "named": true
+        },
+        {
+          "type": "auto_link",
+          "named": true
+        },
+        {
+          "type": "emphasis",
+          "named": true
+        },
+        {
+          "type": "monospace",
+          "named": true
+        },
+        {
+          "type": "strong",
+          "named": true
+        },
+        {
+          "type": "text_segment",
           "named": true
         }
       ]
@@ -942,6 +1027,10 @@
           "named": true
         },
         {
+          "type": "bibliography_entry",
+          "named": true
+        },
+        {
           "type": "emphasis",
           "named": true
         },
@@ -1655,9 +1744,70 @@
     }
   },
   {
-    "type": "role_span",
+    "type": "role_content",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute_reference",
+          "named": true
+        },
+        {
+          "type": "auto_link",
+          "named": true
+        },
+        {
+          "type": "emphasis",
+          "named": true
+        },
+        {
+          "type": "monospace",
+          "named": true
+        },
+        {
+          "type": "strong",
+          "named": true
+        },
+        {
+          "type": "text_segment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "role_list",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "role_span",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "role_content",
+            "named": true
+          }
+        ]
+      },
+      "roles": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "role_list",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "section",
@@ -1728,11 +1878,7 @@
           "named": true
         },
         {
-          "type": "section",
-          "named": true
-        },
-        {
-          "type": "section_title",
+          "type": "section_heading",
           "named": true
         },
         {
@@ -1751,7 +1897,7 @@
     }
   },
   {
-    "type": "section_title",
+    "type": "section_heading",
     "named": true,
     "fields": {},
     "children": {
@@ -2451,6 +2597,10 @@
     "named": false
   },
   {
+    "type": "AUTOLINK_BOUNDARY",
+    "named": true
+  },
+  {
     "type": "CALLOUT_MARKER",
     "named": true
   },
@@ -2535,11 +2685,19 @@
     "named": false
   },
   {
+    "type": "[[[",
+    "named": false
+  },
+  {
     "type": "]",
     "named": false
   },
   {
     "type": "]]",
+    "named": false
+  },
+  {
+    "type": "]]]",
     "named": false
   },
   {
@@ -2563,7 +2721,7 @@
     "named": true
   },
   {
-    "type": "auto_link",
+    "type": "bibliography_id",
     "named": true
   },
   {

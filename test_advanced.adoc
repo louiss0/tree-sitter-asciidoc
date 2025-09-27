@@ -1,0 +1,206 @@
+= Advanced AsciiDoc Document Test
+:author: Parser Test Suite
+:version: 1.2.3
+:toc: left
+:icons: font
+
+This document tests advanced AsciiDoc parsing capabilities including complex nesting, edge cases, and modern syntax.
+
+== Section Hierarchy Testing
+
+=== Level 3 Section
+Content under level 3.
+
+==== Level 4 Section
+Content under level 4.
+
+===== Level 5 Section  
+Content under level 5.
+
+====== Level 6 Section
+Content under level 6.
+
+== Complex Inline Formatting
+
+This paragraph contains *bold text*, _italic text_, and `monospace text`.
+
+Advanced formatting: *bold _italic_ combination* and _italic *bold* combination_.
+
+Escaped formatting: \*not bold\* and \_not italic\_ and \`not monospace\`.
+
+Adjacent formatting: *bold*_italic_`monospace` without spaces.
+
+Unicode formatting: *héllo* and _naïve_ and `κόσμος`.
+
+== Advanced List Structures
+
+1. First ordered item
+   * Nested unordered item
+   * Another nested item
+   +
+   This is a continuation paragraph for the nested item.
+   
+   +
+   ----
+   This is a continuation code block.
+   ----
+
+2. Second ordered item
+   +
+   [NOTE]
+   ====
+   This is a continuation admonition block.
+   ====
+
+Term1:: Description with continuation
++
+Additional paragraph for the term.
++
+----
+Code block for the term.
+----
+
+Term2:: Simple description
+
+<1> First callout
+<2> Second callout
+
+== Complex Delimited Blocks
+
+.Example with metadata
+[#example-id.highlight]
+====
+This is an example block with:
+- Metadata
+- ID and role
+
+----
+Nested listing block inside example.
+Multiple lines of code.
+----
+
+Back to example content.
+====
+
+.Listing with title
+----
+def hello_world():
+    print("Hello, World!")
+    
+# This is a comment
+for i in range(3):
+    hello_world()
+----
+
+.Complex table
+[cols="1,2,1",options="header"]
+|===
+| Name | Description | Status
+
+| *Feature A*
+| This is a _complex_ description with `code`
+| ✓ Done
+
+| Feature B
+| Simple description
+| ⚠ In Progress  
+
+3+| This cell spans all columns
+|===
+
+== Conditional Content
+
+ifdef::draft[]
+[WARNING]
+====
+This is draft content that only appears when the `draft` attribute is set.
+
+It can contain:
+- Complex formatting
+- *Bold text*
+- Code blocks
+
+----
+Draft-only code here
+----
+====
+endif::[]
+
+ifndef::production[]
+NOTE: Development note that appears unless `production` is set.
+endif::[]
+
+ifeval::["{version}" >= "1.0"]
+This content appears for version 1.0 and higher.
+endif::[]
+
+== Advanced Macros and References
+
+See <<complex-anchor>> for more details.
+
+[[complex-anchor]]
+=== Referenced Section
+
+This section is referenced from above.
+
+Cross-references: xref:another-file.adoc#section[Link to another file].
+
+Footnote inline: footnote:[This is an inline footnote with _formatting_.]
+
+Footnote reference: footnoteref:[ref1,This is a referenced footnote.]
+
+Index terms: indexterm:[parsing] and ((AsciiDoc)) and indexterm2:[Tree-sitter].
+
+== Attributes and Substitutions
+
+Document title: {doctitle}
+Author: {author} 
+Version: {version}
+
+Custom attribute: {custom-attr}
+Undefined attribute: {undefined-attr}
+
+== Advanced Inline Elements
+
+Link with text: https://example.com[Example Website]
+
+Auto-detected link: https://github.com/tree-sitter/tree-sitter
+
+Image: image:logo.png[Company Logo,width=100]
+
+Keyboard: kbd:[Ctrl+C]
+
+Button: btn:[OK]
+
+Menu: menu:File[Save As]
+
+== Passthrough and Raw Content
+
+Raw passthrough: +++<b>HTML content</b>+++
+
+Pass macro: pass:quotes[This _will_ be formatted]
+
+== Edge Cases and Error Recovery
+
+Malformed conditional:
+ifdef::missing-endif[
+This has no matching endif.
+
+== This section continues normally
+
+Incomplete include:: 
+include::missing-file.adoc
+
+Broken table:
+|===
+| Header 1 | Header 2
+Missing closing fence causes fallback.
+
+== Final Section
+
+This document tests the parser's ability to handle:
+1. Complex nesting scenarios
+2. Error recovery situations  
+3. Advanced formatting combinations
+4. Modern AsciiDoc features
+5. Unicode and international content

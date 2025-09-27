@@ -69,10 +69,10 @@ module.exports = grammar({
       $._blank_line,
     ),
 
-    // SECTIONS - simplified approach
+    // SECTIONS - simple approach that works with Tree Sitter
     section: $ => prec.right(seq(
       optional($.anchor),
-      $.section_title,
+      $.section_heading,
       repeat(choice(
         $.attribute_entry,
         $.paragraph,
@@ -91,13 +91,11 @@ module.exports = grammar({
         $.include_directive,
         $.block_comment,
         $.table_block,
-        // Nested sections allowed
-        prec.right($.section),
         $._blank_line
       ))
     )),
     
-    section_title: $ => seq(
+    section_heading: $ => seq(
       choice(
         $._section_marker_1,
         $._section_marker_2,
@@ -109,16 +107,15 @@ module.exports = grammar({
       $.title,
       $._line_ending
     ),
-
-
+    
     title: $ => token.immediate(/[^\r\n]+/),
 
-    _section_marker_1: $ => token(prec(10, seq('=', /[ \t]+/))),
-    _section_marker_2: $ => token(prec(9, seq('==', /[ \t]+/))),
-    _section_marker_3: $ => token(prec(8, seq('===', /[ \t]+/))),
-    _section_marker_4: $ => token(prec(7, seq('====', /[ \t]+/))),
-    _section_marker_5: $ => token(prec(6, seq('=====', /[ \t]+/))),
-    _section_marker_6: $ => token(prec(5, seq('======', /[ \t]+/))),
+    _section_marker_1: $ => token(prec(50, seq('=', /[ \t]+/))),
+    _section_marker_2: $ => token(prec(45, seq('==', /[ \t]+/))),
+    _section_marker_3: $ => token(prec(40, seq('===', /[ \t]+/))),
+    _section_marker_4: $ => token(prec(35, seq('====', /[ \t]+/))),
+    _section_marker_5: $ => token(prec(30, seq('=====', /[ \t]+/))),
+    _section_marker_6: $ => token(prec(25, seq('======', /[ \t]+/))),
 
     // ATTRIBUTE ENTRIES  
     attribute_entry: $ => choice(
@@ -511,6 +508,7 @@ module.exports = grammar({
       $.superscript,
       $.subscript,
       $.inline_anchor,
+      $.bibliography_entry,
       $.internal_xref,
       $.external_xref,
       $.footnote_inline,
@@ -611,6 +609,17 @@ module.exports = grammar({
       ']]'
     ),
     
+    // Bibliography entries [[[ref]]]
+    bibliography_entry: $ => seq(
+      '[[[',
+      field('id', $.bibliography_id),
+      optional(seq(',', field('description', $.bibliography_text))),
+      ']]]'
+    ),
+    
+    bibliography_id: $ => /[^,\]\r\n]+/,
+    bibliography_text: $ => /[^\]\r\n]+/,
+    
     inline_anchor_id: $ => /[^\]\r\n,]+/,
     inline_anchor_text: $ => /[^\]\r\n]+/,
 
@@ -662,7 +671,14 @@ module.exports = grammar({
     ),
 
     // AUTO LINKS & LINKS
-    auto_link: $ => /https?:\/\/[^\s\[\]<>"']+|ftp:\/\/[^\s\[\]<>"']+/,
+    auto_link: $ => seq(
+      choice(
+        /https?:\/\/[^\s\[\]<>"',.;:!?(){}]+/,  // More restrictive core URL
+        /ftp:\/\/[^\s\[\]<>"',.;:!?(){}]+/,
+        /mailto:[^\s\[\]<>"',.;:!?(){}]+/      // Email links
+      ),
+      optional($.AUTOLINK_BOUNDARY)  // Use external scanner for boundary detection
+    ),
     
     link: $ => prec(1, seq(
       field('url', $.auto_link),
@@ -702,13 +718,25 @@ module.exports = grammar({
     ))),
 
     // ROLE SPANS
-    role_span: $ => prec(1, seq(
+    role_span: $ => prec(2, seq(
       '[',
-      /[^\]\r\n]+/,  // role name
+      field('roles', $.role_list),  // Support multiple roles and IDs
       ']',
       '#',
-      /[^#\r\n]+/,  // content
+      field('content', $.role_content),
       '#'
+    )),
+    
+    role_list: $ => /[^\]\r\n]+/,  // Roles like .class1.class2#id
+    
+    role_content: $ => repeat1(choice(
+      $.text_segment,
+      $.strong,
+      $.emphasis,
+      $.monospace,
+      $.auto_link,
+      $.attribute_reference,
+      token.immediate(/[^#\r\n]+/)  // Other text
     )),
 
     // MATH MACROS
@@ -839,7 +867,20 @@ module.exports = grammar({
       choice('h', 'a', 'l', 'm', 'r', 's')
     )),
 
-    cell_content: $ => $.cell_literal_text,
+    cell_content: $ => choice(
+      $.cell_formatted_content,  // Rich content with formatting
+      $.cell_literal_text        // Plain text fallback
+    ),
+    
+    cell_formatted_content: $ => repeat1(choice(
+      $.text_segment,
+      $.strong,
+      $.emphasis,
+      $.monospace,
+      $.auto_link,
+      $.attribute_reference,
+      token.immediate(/[^|*_`\r\n]+/)  // Text excluding formatting delimiters
+    )),
 
     cell_literal_text: $ => /[^|\r\n]*/,
 
