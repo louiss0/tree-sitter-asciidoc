@@ -511,7 +511,7 @@ module.exports = grammar({
       $.footnote_inline,
       $.footnote_ref,
       $.footnoteref,
-      $.auto_link,
+      $.explicit_link,
       $.image,
       $.passthrough_triple_plus,
       $.pass_macro,
@@ -666,12 +666,28 @@ module.exports = grammar({
       ']'
     ),
 
-    // AUTO LINKS
-    auto_link: $ => choice(
-      /https?:\/\/[^\s\[\]<>"',.;:!?(){}]+/,
+    // EXPLICIT LINKS - URL followed by [text] (higher precedence)
+    explicit_link: $ => prec(20, seq(
+      field('url', $.link_url),
+      '[',
+      field('text', optional($.link_text)),
+      ']'
+    )),
+    
+    link_url: $ => choice(
+      /https?:\/\/[^\s\[\]<>"']+/,  // More permissive for explicit links
+      /ftp:\/\/[^\s\[\]<>"']+/,
+      /mailto:[^\s\[\]<>"']+/
+    ),
+    
+    link_text: $ => /[^\]\r\n]+/,
+    
+    // AUTO LINKS - standalone URLs (lower precedence)
+    auto_link: $ => prec(5, choice(
+      /https?:\/\/[^\s\[\]<>"',.;:!?(){}]+/,  // More restrictive for auto links
       /ftp:\/\/[^\s\[\]<>"',.;:!?(){}]+/,
       /mailto:[^\s\[\]<>"',.;:!?(){}]+/
-    ),
+    )),
     
     bracketed_text: $ => /[^\]\r\n]+/,
 
@@ -716,13 +732,15 @@ module.exports = grammar({
     role_list: $ => /[^\]\r\n]+/,  // Roles like .class1.class2#id
     
     role_content: $ => repeat1(choice(
-      $.text_segment,
-      $.strong,
-      $.emphasis,
-      $.monospace,
-      $.auto_link,
-      $.attribute_reference,
-      token.immediate(/[^#\r\n]+/)  // Other text
+      prec(100, $.strong),
+      prec(100, $.emphasis),
+      prec(100, $.monospace),
+      prec(100, $.superscript),
+      prec(100, $.subscript),
+      prec(100, $.explicit_link),
+      prec(100, $.attribute_reference),
+      token.immediate(/[^#\r\n*_`^~\[\{]+/),  // Plain text, avoiding formatting chars
+      token.immediate(/[*_`^~\[\{]/)  // Individual formatting chars when not part of patterns
     )),
 
     // MATH MACROS
@@ -859,12 +877,11 @@ module.exports = grammar({
     ),
     
     cell_formatted_content: $ => repeat1(choice(
-      $.text_segment,
-      $.strong,
-      $.emphasis,
-      $.monospace,
-      $.auto_link,
-      $.attribute_reference,
+      prec(100, $.strong),
+      prec(100, $.emphasis),
+      prec(100, $.monospace),
+      prec(100, $.explicit_link),
+      prec(100, $.attribute_reference),
       token.immediate(/[^|*_`\r\n]+/)  // Text excluding formatting delimiters
     )),
 

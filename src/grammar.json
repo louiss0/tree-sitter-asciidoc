@@ -2004,7 +2004,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "auto_link"
+          "name": "explicit_link"
         },
         {
           "type": "SYMBOL",
@@ -2677,22 +2677,88 @@
         }
       ]
     },
-    "auto_link": {
+    "explicit_link": {
+      "type": "PREC",
+      "value": 20,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "url",
+            "content": {
+              "type": "SYMBOL",
+              "name": "link_url"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "["
+          },
+          {
+            "type": "FIELD",
+            "name": "text",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "link_text"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "]"
+          }
+        ]
+      }
+    },
+    "link_url": {
       "type": "CHOICE",
       "members": [
         {
           "type": "PATTERN",
-          "value": "https?:\\/\\/[^\\s\\[\\]<>\"',.;:!?(){}]+"
+          "value": "https?:\\/\\/[^\\s\\[\\]<>\"']+"
         },
         {
           "type": "PATTERN",
-          "value": "ftp:\\/\\/[^\\s\\[\\]<>\"',.;:!?(){}]+"
+          "value": "ftp:\\/\\/[^\\s\\[\\]<>\"']+"
         },
         {
           "type": "PATTERN",
-          "value": "mailto:[^\\s\\[\\]<>\"',.;:!?(){}]+"
+          "value": "mailto:[^\\s\\[\\]<>\"']+"
         }
       ]
+    },
+    "link_text": {
+      "type": "PATTERN",
+      "value": "[^\\]\\r\\n]+"
+    },
+    "auto_link": {
+      "type": "PREC",
+      "value": 5,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "https?:\\/\\/[^\\s\\[\\]<>\"',.;:!?(){}]+"
+          },
+          {
+            "type": "PATTERN",
+            "value": "ftp:\\/\\/[^\\s\\[\\]<>\"',.;:!?(){}]+"
+          },
+          {
+            "type": "PATTERN",
+            "value": "mailto:[^\\s\\[\\]<>\"',.;:!?(){}]+"
+          }
+        ]
+      }
     },
     "bracketed_text": {
       "type": "PATTERN",
@@ -2894,34 +2960,73 @@
         "type": "CHOICE",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "text_segment"
+            "type": "PREC",
+            "value": 100,
+            "content": {
+              "type": "SYMBOL",
+              "name": "strong"
+            }
           },
           {
-            "type": "SYMBOL",
-            "name": "strong"
+            "type": "PREC",
+            "value": 100,
+            "content": {
+              "type": "SYMBOL",
+              "name": "emphasis"
+            }
           },
           {
-            "type": "SYMBOL",
-            "name": "emphasis"
+            "type": "PREC",
+            "value": 100,
+            "content": {
+              "type": "SYMBOL",
+              "name": "monospace"
+            }
           },
           {
-            "type": "SYMBOL",
-            "name": "monospace"
+            "type": "PREC",
+            "value": 100,
+            "content": {
+              "type": "SYMBOL",
+              "name": "superscript"
+            }
           },
           {
-            "type": "SYMBOL",
-            "name": "auto_link"
+            "type": "PREC",
+            "value": 100,
+            "content": {
+              "type": "SYMBOL",
+              "name": "subscript"
+            }
           },
           {
-            "type": "SYMBOL",
-            "name": "attribute_reference"
+            "type": "PREC",
+            "value": 100,
+            "content": {
+              "type": "SYMBOL",
+              "name": "explicit_link"
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 100,
+            "content": {
+              "type": "SYMBOL",
+              "name": "attribute_reference"
+            }
           },
           {
             "type": "IMMEDIATE_TOKEN",
             "content": {
               "type": "PATTERN",
-              "value": "[^#\\r\\n]+"
+              "value": "[^#\\r\\n*_`^~\\[\\{]+"
+            }
+          },
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "[*_`^~\\[\\{]"
             }
           }
         ]
@@ -3654,28 +3759,44 @@
         "type": "CHOICE",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "text_segment"
+            "type": "PREC",
+            "value": 100,
+            "content": {
+              "type": "SYMBOL",
+              "name": "strong"
+            }
           },
           {
-            "type": "SYMBOL",
-            "name": "strong"
+            "type": "PREC",
+            "value": 100,
+            "content": {
+              "type": "SYMBOL",
+              "name": "emphasis"
+            }
           },
           {
-            "type": "SYMBOL",
-            "name": "emphasis"
+            "type": "PREC",
+            "value": 100,
+            "content": {
+              "type": "SYMBOL",
+              "name": "monospace"
+            }
           },
           {
-            "type": "SYMBOL",
-            "name": "monospace"
+            "type": "PREC",
+            "value": 100,
+            "content": {
+              "type": "SYMBOL",
+              "name": "explicit_link"
+            }
           },
           {
-            "type": "SYMBOL",
-            "name": "auto_link"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "attribute_reference"
+            "type": "PREC",
+            "value": 100,
+            "content": {
+              "type": "SYMBOL",
+              "name": "attribute_reference"
+            }
           },
           {
             "type": "IMMEDIATE_TOKEN",

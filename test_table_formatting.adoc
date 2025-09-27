@@ -1,0 +1,6 @@
+= Table Formatting Test
+
+|===
+| *Bold* | _Italic_ | `Code`
+| Cell with *bold text* inside | Normal cell | More content
+|===

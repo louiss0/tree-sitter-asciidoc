@@ -52,11 +52,6 @@
     }
   },
   {
-    "type": "auto_link",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "bibliography_entry",
     "named": true,
     "fields": {
@@ -204,11 +199,11 @@
           "named": true
         },
         {
-          "type": "auto_link",
+          "type": "emphasis",
           "named": true
         },
         {
-          "type": "emphasis",
+          "type": "explicit_link",
           "named": true
         },
         {
@@ -217,10 +212,6 @@
         },
         {
           "type": "strong",
-          "named": true
-        },
-        {
-          "type": "text_segment",
           "named": true
         }
       ]
@@ -485,6 +476,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "explicit_link",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "link_text",
+            "named": true
+          }
+        ]
+      },
+      "url": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "link_url",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1008,15 +1025,15 @@
           "named": true
         },
         {
-          "type": "auto_link",
-          "named": true
-        },
-        {
           "type": "bibliography_entry",
           "named": true
         },
         {
           "type": "emphasis",
+          "named": true
+        },
+        {
+          "type": "explicit_link",
           "named": true
         },
         {
@@ -1096,6 +1113,16 @@
   },
   {
     "type": "internal_xref",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "link_text",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "link_url",
     "named": true,
     "fields": {}
   },
@@ -1711,11 +1738,11 @@
           "named": true
         },
         {
-          "type": "auto_link",
+          "type": "emphasis",
           "named": true
         },
         {
-          "type": "emphasis",
+          "type": "explicit_link",
           "named": true
         },
         {
@@ -1727,7 +1754,11 @@
           "named": true
         },
         {
-          "type": "text_segment",
+          "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "superscript",
           "named": true
         }
       ]

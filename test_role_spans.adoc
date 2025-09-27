@@ -1,0 +1,9 @@
+= Role Spans Test
+
+Simple role: [.highlight]#highlighted text#
+
+Multiple roles: [.big.red]#big red text#
+
+With ID: [#special.highlight]#special highlighted text#
+
+Nested formatting: [.emphasis]#text with *bold* inside#
