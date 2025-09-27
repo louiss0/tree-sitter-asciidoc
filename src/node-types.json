@@ -112,11 +112,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "CALLOUT_MARKER",
+          "named": true
+        },
+        {
+          "type": "list_item_continuation",
           "named": true
         }
       ]
@@ -226,11 +230,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "description_content",
+          "named": true
+        },
+        {
+          "type": "list_item_continuation",
           "named": true
         }
       ]
@@ -1060,6 +1068,18 @@
           "named": true
         },
         {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "conditional_block",
+          "named": true
+        },
+        {
+          "type": "description_list",
+          "named": true
+        },
+        {
           "type": "example_block",
           "named": true
         },
@@ -1076,6 +1096,14 @@
           "named": true
         },
         {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
           "type": "passthrough_block",
           "named": true
         },
@@ -1085,6 +1113,14 @@
         },
         {
           "type": "sidebar_block",
+          "named": true
+        },
+        {
+          "type": "table_block",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
           "named": true
         }
       ]

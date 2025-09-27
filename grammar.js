@@ -37,8 +37,11 @@ module.exports = grammar({
     /[ \t]/  // Allow spaces and tabs but not newlines
   ],
 
-  // Conflicts resolved by precedence tuning
-  // conflicts: $ => [],
+  conflicts: $ => [
+    [$.unordered_list_item],
+    [$.ordered_list_item],
+    [$.description_item]
+  ],
 
   rules: {
     source_file: $ => repeat($._element),
@@ -374,7 +377,8 @@ module.exports = grammar({
     description_item: $ => seq(
       $._description_marker,
       $.description_content,
-      $._line_ending
+      $._line_ending,
+      repeat($.list_item_continuation)
     ),
     
     _description_marker: $ => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
@@ -389,7 +393,8 @@ module.exports = grammar({
     callout_item: $ => seq(
       $.CALLOUT_MARKER,
       field('content', $.text_with_inlines),
-      $._line_ending
+      $._line_ending,
+      repeat($.list_item_continuation)
     ),
     
     CALLOUT_MARKER: $ => token(prec(5, /<[0-9]+>[ \t]+/)),
@@ -398,17 +403,26 @@ module.exports = grammar({
     list_item_continuation: $ => seq(
       $.LIST_CONTINUATION,
       choice(
+        $.paragraph,
         $.open_block,
         $.example_block,
         $.listing_block,
         $.quote_block,
         $.literal_block,
         $.sidebar_block,
-        $.passthrough_block
+        $.passthrough_block,
+        $.table_block,
+        $.block_comment,
+        $.conditional_block,
+        // Allow nested lists in continuations
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list
       )
     ),
 
-    LIST_CONTINUATION: $ => token(seq('+', /[ \t]*/, /\r?\n/)),
+    // LIST_CONTINUATION handled by external scanner
+    // LIST_CONTINUATION: $ => token(seq('+', /[ \t]*/, /\r?\n/)),
 
     // PARAGRAPHS
     paragraph: $ => prec.right(1, seq(

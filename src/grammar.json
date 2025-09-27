@@ -1419,6 +1419,13 @@
         {
           "type": "SYMBOL",
           "name": "_line_ending"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "list_item_continuation"
+          }
         }
       ]
     },
@@ -1475,6 +1482,13 @@
         {
           "type": "SYMBOL",
           "name": "_line_ending"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "list_item_continuation"
+          }
         }
       ]
     },
@@ -1499,6 +1513,10 @@
         {
           "type": "CHOICE",
           "members": [
+            {
+              "type": "SYMBOL",
+              "name": "paragraph"
+            },
             {
               "type": "SYMBOL",
               "name": "open_block"
@@ -1526,30 +1544,34 @@
             {
               "type": "SYMBOL",
               "name": "passthrough_block"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "table_block"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "block_comment"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "conditional_block"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "unordered_list"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "ordered_list"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "description_list"
             }
           ]
         }
       ]
-    },
-    "LIST_CONTINUATION": {
-      "type": "TOKEN",
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "+"
-          },
-          {
-            "type": "PATTERN",
-            "value": "[ \\t]*"
-          },
-          {
-            "type": "PATTERN",
-            "value": "\\r?\\n"
-          }
-        ]
-      }
     },
     "paragraph": {
       "type": "PREC_RIGHT",
@@ -3555,7 +3577,17 @@
       "value": "[ \\t]"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "unordered_list_item"
+    ],
+    [
+      "ordered_list_item"
+    ],
+    [
+      "description_item"
+    ]
+  ],
   "precedences": [],
   "externals": [
     {
