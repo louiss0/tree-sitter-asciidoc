@@ -37,7 +37,7 @@ module.exports = grammar({
     /[ \t]/  // Allow spaces and tabs but not newlines
   ],
 
-  // Most conflicts resolved by precedence tuning
+  // Conflicts resolved by precedence tuning
   // conflicts: $ => [],
 
   rules: {
@@ -513,49 +513,56 @@ module.exports = grammar({
     ),
 
     // Strong formatting (*bold*)
-    strong: $ => choice(
-      $.strong_constrained
-    ),
-
-    strong_constrained: $ => seq(
+    strong: $ => prec.dynamic(50, seq(
       field('open', $.strong_open),
-      optional(field('content', $.strong_text)),
+      field('content', $.strong_content),
       field('close', $.strong_close)
-    ),
+    )),
 
     strong_open: $ => '*',
     strong_close: $ => '*',
-    strong_text: $ => token.immediate(prec(1, /(?:\\.|[^*\r\n])+/)),
+    strong_content: $ => repeat1(choice(
+      $.text_segment,
+      $.emphasis,
+      $.monospace,
+      $.superscript,
+      $.subscript,
+      token.immediate(/\\[*_`^~]/),  // escaped formatting chars
+      token.immediate(/[^*\r\n]+/)   // other text
+    )),
 
     // Emphasis formatting (_italic_)
-    emphasis: $ => choice(
-      $.emphasis_constrained
-    ),
-
-    emphasis_constrained: $ => seq(
+    emphasis: $ => prec.dynamic(50, seq(
       field('open', $.emphasis_open),
-      optional(field('content', $.emphasis_text)),
+      field('content', $.emphasis_content),
       field('close', $.emphasis_close)
-    ),
+    )),
 
     emphasis_open: $ => '_',
     emphasis_close: $ => '_',
-    emphasis_text: $ => token.immediate(prec(1, /(?:\\.|[^_\r\n])+/)),
+    emphasis_content: $ => repeat1(choice(
+      $.text_segment,
+      $.strong,
+      $.monospace,
+      $.superscript,
+      $.subscript,
+      token.immediate(/\\[*_`^~]/),  // escaped formatting chars
+      token.immediate(/[^_\r\n]+/)   // other text
+    )),
 
     // Monospace formatting (`code`)
-    monospace: $ => choice(
-      $.monospace_constrained
-    ),
-
-    monospace_constrained: $ => seq(
+    monospace: $ => prec.dynamic(50, seq(
       field('open', $.monospace_open),
-      optional(field('content', $.monospace_text)),
+      field('content', $.monospace_content),
       field('close', $.monospace_close)
-    ),
+    )),
 
     monospace_open: $ => '`',
     monospace_close: $ => '`',
-    monospace_text: $ => token.immediate(prec(1, /(?:\\.|[^`\r\n])+/)),
+    monospace_content: $ => repeat1(choice(
+      token.immediate(/\\[*_`^~]/),  // escaped formatting chars
+      token.immediate(/[^`\r\n]+/)   // plain text (no nesting in monospace)
+    )),
 
     // Superscript (^super^)
     superscript: $ => prec.dynamic(100, seq(
