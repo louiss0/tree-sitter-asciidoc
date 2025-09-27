@@ -41,7 +41,8 @@ module.exports = grammar({
     [$.unordered_list_item],
     [$.ordered_list_item], 
     [$.description_item],
-    [$.callout_item]
+    [$.callout_item],
+    [$.inline_element, $.explicit_link]
   ],
 
   rules: {
@@ -98,12 +99,12 @@ module.exports = grammar({
     
     section_title: $ => seq(
       choice(
-        $._section_marker_1,
-        $._section_marker_2,
-        $._section_marker_3,
-        $._section_marker_4,
-        $._section_marker_5,
-        $._section_marker_6
+        $.section_marker_1,
+        $.section_marker_2,
+        $.section_marker_3,
+        $.section_marker_4,
+        $.section_marker_5,
+        $.section_marker_6
       ),
       $.title,
       $._line_ending
@@ -111,12 +112,12 @@ module.exports = grammar({
     
     title: $ => token.immediate(/[^\r\n]+/),
 
-    _section_marker_1: $ => token(prec(50, seq('=', /[ \t]+/))),
-    _section_marker_2: $ => token(prec(45, seq('==', /[ \t]+/))),
-    _section_marker_3: $ => token(prec(40, seq('===', /[ \t]+/))),
-    _section_marker_4: $ => token(prec(35, seq('====', /[ \t]+/))),
-    _section_marker_5: $ => token(prec(30, seq('=====', /[ \t]+/))),
-    _section_marker_6: $ => token(prec(25, seq('======', /[ \t]+/))),
+    section_marker_1: $ => token(prec(50, seq('=', /[ \t]+/))),
+    section_marker_2: $ => token(prec(45, seq('==', /[ \t]+/))),
+    section_marker_3: $ => token(prec(40, seq('===', /[ \t]+/))),
+    section_marker_4: $ => token(prec(35, seq('====', /[ \t]+/))),
+    section_marker_5: $ => token(prec(30, seq('=====', /[ \t]+/))),
+    section_marker_6: $ => token(prec(25, seq('======', /[ \t]+/))),
 
     // ATTRIBUTE ENTRIES  
     attribute_entry: $ => choice(
@@ -465,10 +466,17 @@ module.exports = grammar({
       $.text_bracket,
       $.text_paren,
       $.text_caret,
-      $.text_tilde
+      $.text_tilde,
+      // Error recovery: treat orphaned formatting chars as text
+      prec(-100, '*'),
+      prec(-100, '_'),
+      prec(-100, '`')
     ),
     
-    text_segment: $ => token(/[^\s\r\n:*_\`^~\[\]<>{}#()]+/),
+    text_segment: $ => token(prec(-1, /[^\s\r\n:*_\`^~\[\]<>{}#()]+/)),
+    
+    // Error recovery: fallback for any remaining characters
+    error_recovery: $ => prec(-1000, /./),
     
     // For periods after inline elements
     text_period: $ => '.',
@@ -513,6 +521,7 @@ module.exports = grammar({
       $.footnote_ref,
       $.footnoteref,
       $.explicit_link,
+      $.auto_link,
       $.image,
       $.passthrough_triple_plus,
       $.pass_macro,
@@ -577,7 +586,7 @@ module.exports = grammar({
     )),
 
     // Superscript (^super^)
-    superscript: $ => prec.dynamic(100, seq(
+    superscript: $ => prec(100, seq(
       field('open', $.superscript_open),
       field('content', $.superscript_text),
       field('close', $.superscript_close)
@@ -588,7 +597,7 @@ module.exports = grammar({
     superscript_text: $ => token.immediate(/(?:\\.|[^\^\r\n])+/),
 
     // Subscript (~sub~)
-    subscript: $ => prec.dynamic(100, seq(
+    subscript: $ => prec(100, seq(
       field('open', $.subscript_open),
       field('content', $.subscript_text),
       field('close', $.subscript_close)
@@ -667,28 +676,22 @@ module.exports = grammar({
       ']'
     ),
 
-    // EXPLICIT LINKS - URL followed by [text] (higher precedence)
-    explicit_link: $ => prec(20, seq(
-      field('url', $.link_url),
-      '[',
+    // EXPLICIT LINKS - URL followed by [text] (uses auto_link, higher precedence)
+    explicit_link: $ => prec.dynamic(2000, seq(
+      field('url', $.auto_link),
+      token('['),
       field('text', optional($.link_text)),
-      ']'
+      token(']')
     )),
     
-    link_url: $ => choice(
-      /https?:\/\/[^\s\[\]<>"']+/,  // More permissive for explicit links
+    // AUTO LINKS - standalone URLs as simple tokens
+    auto_link: $ => token(prec(5, choice(
+      /https?:\/\/[^\s\[\]<>"']+/,
       /ftp:\/\/[^\s\[\]<>"']+/,
       /mailto:[^\s\[\]<>"']+/
-    ),
+    ))),
     
     link_text: $ => /[^\]\r\n]+/,
-    
-    // AUTO LINKS - standalone URLs (lower precedence)
-    auto_link: $ => prec(5, choice(
-      /https?:\/\/[^\s\[\]<>"',.;:!?(){}]+/,  // More restrictive for auto links
-      /ftp:\/\/[^\s\[\]<>"',.;:!?(){}]+/,
-      /mailto:[^\s\[\]<>"',.;:!?(){}]+/
-    )),
     
     bracketed_text: $ => /[^\]\r\n]+/,
 

@@ -497,7 +497,7 @@
         "required": true,
         "types": [
           {
-            "type": "link_url",
+            "type": "auto_link",
             "named": true
           }
         ]
@@ -1025,6 +1025,10 @@
           "named": true
         },
         {
+          "type": "auto_link",
+          "named": true
+        },
+        {
           "type": "bibliography_entry",
           "named": true
         },
@@ -1118,11 +1122,6 @@
   },
   {
     "type": "link_text",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "link_url",
     "named": true,
     "fields": {}
   },
@@ -1884,9 +1883,33 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "section_marker_1",
+          "named": true
+        },
+        {
+          "type": "section_marker_2",
+          "named": true
+        },
+        {
+          "type": "section_marker_3",
+          "named": true
+        },
+        {
+          "type": "section_marker_4",
+          "named": true
+        },
+        {
+          "type": "section_marker_5",
+          "named": true
+        },
+        {
+          "type": "section_marker_6",
+          "named": true
+        },
         {
           "type": "title",
           "named": true
@@ -2386,7 +2409,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "inline_element",
@@ -2700,6 +2723,10 @@
     "named": true
   },
   {
+    "type": "auto_link",
+    "named": true
+  },
+  {
     "type": "bibliography_id",
     "named": true
   },
@@ -2794,6 +2821,30 @@
   {
     "type": "pass:",
     "named": false
+  },
+  {
+    "type": "section_marker_1",
+    "named": true
+  },
+  {
+    "type": "section_marker_2",
+    "named": true
+  },
+  {
+    "type": "section_marker_3",
+    "named": true
+  },
+  {
+    "type": "section_marker_4",
+    "named": true
+  },
+  {
+    "type": "section_marker_5",
+    "named": true
+  },
+  {
+    "type": "section_marker_6",
+    "named": true
   },
   {
     "type": "subscript_text",

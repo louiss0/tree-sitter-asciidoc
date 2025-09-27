@@ -211,27 +211,27 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_section_marker_1"
+              "name": "section_marker_1"
             },
             {
               "type": "SYMBOL",
-              "name": "_section_marker_2"
+              "name": "section_marker_2"
             },
             {
               "type": "SYMBOL",
-              "name": "_section_marker_3"
+              "name": "section_marker_3"
             },
             {
               "type": "SYMBOL",
-              "name": "_section_marker_4"
+              "name": "section_marker_4"
             },
             {
               "type": "SYMBOL",
-              "name": "_section_marker_5"
+              "name": "section_marker_5"
             },
             {
               "type": "SYMBOL",
-              "name": "_section_marker_6"
+              "name": "section_marker_6"
             }
           ]
         },
@@ -252,7 +252,7 @@
         "value": "[^\\r\\n]+"
       }
     },
-    "_section_marker_1": {
+    "section_marker_1": {
       "type": "TOKEN",
       "content": {
         "type": "PREC",
@@ -272,7 +272,7 @@
         }
       }
     },
-    "_section_marker_2": {
+    "section_marker_2": {
       "type": "TOKEN",
       "content": {
         "type": "PREC",
@@ -292,7 +292,7 @@
         }
       }
     },
-    "_section_marker_3": {
+    "section_marker_3": {
       "type": "TOKEN",
       "content": {
         "type": "PREC",
@@ -312,7 +312,7 @@
         }
       }
     },
-    "_section_marker_4": {
+    "section_marker_4": {
       "type": "TOKEN",
       "content": {
         "type": "PREC",
@@ -332,7 +332,7 @@
         }
       }
     },
-    "_section_marker_5": {
+    "section_marker_5": {
       "type": "TOKEN",
       "content": {
         "type": "PREC",
@@ -352,7 +352,7 @@
         }
       }
     },
-    "_section_marker_6": {
+    "section_marker_6": {
       "type": "TOKEN",
       "content": {
         "type": "PREC",
@@ -1869,14 +1869,50 @@
         {
           "type": "SYMBOL",
           "name": "text_tilde"
+        },
+        {
+          "type": "PREC",
+          "value": -100,
+          "content": {
+            "type": "STRING",
+            "value": "*"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": -100,
+          "content": {
+            "type": "STRING",
+            "value": "_"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": -100,
+          "content": {
+            "type": "STRING",
+            "value": "`"
+          }
         }
       ]
     },
     "text_segment": {
       "type": "TOKEN",
       "content": {
+        "type": "PREC",
+        "value": -1,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\\s\\r\\n:*_\\`^~\\[\\]<>{}#()]+"
+        }
+      }
+    },
+    "error_recovery": {
+      "type": "PREC",
+      "value": -1000,
+      "content": {
         "type": "PATTERN",
-        "value": "[^\\s\\r\\n:*_\\`^~\\[\\]<>{}#()]+"
+        "value": "."
       }
     },
     "text_period": {
@@ -2005,6 +2041,10 @@
         {
           "type": "SYMBOL",
           "name": "explicit_link"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "auto_link"
         },
         {
           "type": "SYMBOL",
@@ -2274,7 +2314,7 @@
       }
     },
     "superscript": {
-      "type": "PREC_DYNAMIC",
+      "type": "PREC",
       "value": 100,
       "content": {
         "type": "SEQ",
@@ -2322,7 +2362,7 @@
       }
     },
     "subscript": {
-      "type": "PREC_DYNAMIC",
+      "type": "PREC",
       "value": 100,
       "content": {
         "type": "SEQ",
@@ -2678,8 +2718,8 @@
       ]
     },
     "explicit_link": {
-      "type": "PREC",
-      "value": 20,
+      "type": "PREC_DYNAMIC",
+      "value": 2000,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2688,12 +2728,15 @@
             "name": "url",
             "content": {
               "type": "SYMBOL",
-              "name": "link_url"
+              "name": "auto_link"
             }
           },
           {
-            "type": "STRING",
-            "value": "["
+            "type": "TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": "["
+            }
           },
           {
             "type": "FIELD",
@@ -2712,53 +2755,42 @@
             }
           },
           {
-            "type": "STRING",
-            "value": "]"
+            "type": "TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": "]"
+            }
           }
         ]
       }
     },
-    "link_url": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": "https?:\\/\\/[^\\s\\[\\]<>\"']+"
-        },
-        {
-          "type": "PATTERN",
-          "value": "ftp:\\/\\/[^\\s\\[\\]<>\"']+"
-        },
-        {
-          "type": "PATTERN",
-          "value": "mailto:[^\\s\\[\\]<>\"']+"
+    "auto_link": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 5,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "https?:\\/\\/[^\\s\\[\\]<>\"']+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "ftp:\\/\\/[^\\s\\[\\]<>\"']+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "mailto:[^\\s\\[\\]<>\"']+"
+            }
+          ]
         }
-      ]
+      }
     },
     "link_text": {
       "type": "PATTERN",
       "value": "[^\\]\\r\\n]+"
-    },
-    "auto_link": {
-      "type": "PREC",
-      "value": 5,
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "https?:\\/\\/[^\\s\\[\\]<>\"',.;:!?(){}]+"
-          },
-          {
-            "type": "PATTERN",
-            "value": "ftp:\\/\\/[^\\s\\[\\]<>\"',.;:!?(){}]+"
-          },
-          {
-            "type": "PATTERN",
-            "value": "mailto:[^\\s\\[\\]<>\"',.;:!?(){}]+"
-          }
-        ]
-      }
     },
     "bracketed_text": {
       "type": "PATTERN",
@@ -3875,6 +3907,10 @@
     ],
     [
       "callout_item"
+    ],
+    [
+      "inline_element",
+      "explicit_link"
     ]
   ],
   "precedences": [],
