@@ -80,7 +80,7 @@
       "required": false,
       "types": [
         {
-          "type": "DELIMITED_BLOCK_CONTENT_LINE",
+          "type": "content_line",
           "named": true
         }
       ]
@@ -186,6 +186,21 @@
         },
         {
           "type": "ifndef_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "content_line",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "DELIMITED_BLOCK_CONTENT_LINE",
           "named": true
         }
       ]
@@ -2507,10 +2522,6 @@
   },
   {
     "type": "comment_line",
-    "named": true
-  },
-  {
-    "type": "content_line",
     "named": true
   },
   {

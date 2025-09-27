@@ -1171,11 +1171,11 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
     // }
     
     
-    // Temporarily disable AUTOLINK_BOUNDARY to reduce ERROR nodes
-    // if (valid_symbols[AUTOLINK_BOUNDARY] && scan_autolink_boundary(lexer)) {
-    //     lexer->result_symbol = AUTOLINK_BOUNDARY;
-    //     return true;
-    // }
+    // Re-enable AUTOLINK_BOUNDARY for proper boundary detection
+    if (valid_symbols[AUTOLINK_BOUNDARY] && scan_autolink_boundary(lexer)) {
+        lexer->result_symbol = AUTOLINK_BOUNDARY;
+        return true;
+    }
     
     if (valid_symbols[ATTRIBUTE_LIST_START] && scan_attribute_list_start(lexer)) {
         lexer->result_symbol = ATTRIBUTE_LIST_START;

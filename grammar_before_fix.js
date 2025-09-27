@@ -37,8 +37,14 @@ module.exports = grammar({
     /[ \t]/  // Allow spaces and tabs but not newlines
   ],
 
-  // Most conflicts resolved by precedence tuning
-  // conflicts: $ => [],
+  conflicts: $ => [
+    [$.paragraph, $.unordered_list],
+    [$.paragraph, $.ordered_list],
+    [$.paragraph, $.description_list],
+    [$.attribute_entry, $.description_list],
+    [$.conditional_block, $.description_list],
+    [$.section, $.paragraph]
+  ],
 
   rules: {
     source_file: $ => repeat($._element),
@@ -118,7 +124,7 @@ module.exports = grammar({
 
     // ATTRIBUTE ENTRIES  
     attribute_entry: $ => choice(
-      prec(25, seq(
+      prec(3, seq(
         field('name', alias(
           token(seq(':', /([a-zA-Z0-9_-]+)/, ':')),
           $.name
@@ -130,7 +136,7 @@ module.exports = grammar({
         $._line_ending
       )),
       // Attribute unset syntax: :!name: or :name!:
-      prec(25, seq(
+      prec(3, seq(
         field('name', alias(
           choice(
             token(seq(':!', /([a-zA-Z0-9_-]+)/, ':')),
@@ -138,7 +144,7 @@ module.exports = grammar({
           ),
           $.name
         )),
-        optional(/[ \t]+/), // Allow trailing spaces  
+        optional(seq(/[ \t]+/)), // Allow trailing spaces
         $._line_ending
       ))
     ),
@@ -366,7 +372,7 @@ module.exports = grammar({
     _ordered_list_marker: $ => token(prec(15, seq(/[0-9]+/, '.', /[ \t]+/))),
 
     // DESCRIPTION LISTS
-    description_list: $ => prec.right(2, seq(
+    description_list: $ => prec.right(seq(
       $.description_item,
       repeat($.description_item)
     )),
@@ -377,7 +383,7 @@ module.exports = grammar({
       $._line_ending
     ),
     
-    _description_marker: $ => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
+    _description_marker: $ => token(prec(5, /[^\s\r\n:]+::[ \t]+/)),
     description_content: $ => $.text_with_inlines,
 
     // CALLOUT LISTS
