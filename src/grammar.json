@@ -1210,13 +1210,19 @@
             "type": "FIELD",
             "name": "type",
             "content": {
-              "type": "STRING",
-              "value": "source"
+              "type": "TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "source"
+              }
             }
           },
           {
-            "type": "STRING",
-            "value": ","
+            "type": "TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": ","
+            }
           },
           {
             "type": "FIELD",
