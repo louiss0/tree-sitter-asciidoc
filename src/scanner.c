@@ -1,15 +1,9 @@
 #include <tree_sitter/parser.h>
 #include <wctype.h>
-#ifndef __EMSCRIPTEN__
-#include <stdio.h>
-#endif
 
-// Debug logging - disabled for normal operation and WASM builds
-#if defined(DEBUG_DISABLED_FOR_NOW) && !defined(__EMSCRIPTEN__)
-#define DEBUG_LOG(fmt, ...) fprintf(stderr, "[SCANNER] " fmt "\n", ##__VA_ARGS__)
-#else
-#define DEBUG_LOG(fmt, ...) do { } while (0)
-#endif
+// Debug logging completely disabled
+// For debugging, use tree-sitter's parse --debug flag instead
+#define DEBUG_LOG(fmt, ...) ((void)0)
 
 // External token types (must match grammar.js externals)
 enum {
