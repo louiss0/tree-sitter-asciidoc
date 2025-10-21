@@ -1,7 +1,0 @@
-= Links Test
-
-Auto: https://example.com and more text.
-
-Explicit: https://github.com[GitHub] is great.
-
-Mixed: Visit https://docs.asciidoc.org[AsciiDoc Docs] or https://example.com directly.

@@ -1,7 +1,0 @@
-:author: Alice
-:version:
-:!debug:
-
-= Document Title
-
-Some content here.

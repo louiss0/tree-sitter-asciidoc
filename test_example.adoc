@@ -1,6 +1,0 @@
-====
-This is example content
-line 2
-====
-
-Some text after.

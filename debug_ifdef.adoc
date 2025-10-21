@@ -1,3 +1,0 @@
-ifdef::backend[]
-Test content
-endif::[]

@@ -1,3 +1,0 @@
-= Role Nested Test
-
-Role with bold: [.highlight]#This has *bold text* in it#

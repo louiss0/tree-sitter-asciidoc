@@ -1,3 +1,0 @@
-include::chapter01.adoc[]
-
-This is content after the include.

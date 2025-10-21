@@ -1,6 +1,0 @@
-:imagesdir:
-:source-highlighter:
-
-= Document
-
-Content here

@@ -1,3 +1,0 @@
-: missing name
-:incomplete because no colon
-:: starts with double colon

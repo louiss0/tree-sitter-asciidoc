@@ -1,5 +1,0 @@
-Press kbd:[Ctrl+C] to copy.
-
-Click the btn:[OK] button to proceed.
-
-Navigate to menu:File[Save As] to save the document.
