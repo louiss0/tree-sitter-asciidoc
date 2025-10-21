@@ -1,7 +1,0 @@
-Before comment.
-
-////
-This is a block comment.
-////
-
-After comment.

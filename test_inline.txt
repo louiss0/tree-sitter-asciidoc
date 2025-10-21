@@ -1,1 +1,0 @@
-This is *bold* text and _italic_ text and `monospace` text.
