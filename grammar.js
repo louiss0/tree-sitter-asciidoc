@@ -27,6 +27,9 @@ module.exports = grammar({
     $.PASSTHROUGH_FENCE_END,
     $.OPENBLOCK_FENCE_START,
     $.OPENBLOCK_FENCE_END,
+    $.MARKDOWN_FENCE_START,
+    $.MARKDOWN_FENCE_END,
+    $.MARKDOWN_FENCE_CONTENT_LINE,
     $.LIST_CONTINUATION,
     $.AUTOLINK_BOUNDARY,
     $.ATTRIBUTE_LIST_START,
@@ -61,6 +64,7 @@ module.exports = grammar({
       $.attribute_entry,
       $.example_block,
       $.listing_block,
+      $.fenced_code_block,
       $.quote_block,
       $.literal_block,
       $.sidebar_block,
@@ -87,6 +91,7 @@ module.exports = grammar({
         $.callout_list,
         $.example_block,
         $.listing_block,
+        $.fenced_code_block,
         $.quote_block,
         $.literal_block,
         $.sidebar_block,
@@ -176,6 +181,35 @@ module.exports = grammar({
     listing_open: $ => $.LISTING_FENCE_START,
     
     listing_close: $ => $.LISTING_FENCE_END,
+    
+    // Markdown fenced code blocks (```language)
+    fenced_code_block: $ => seq(
+      field('open', $.code_fence_open),
+      optional(field('content', $.code)),
+      field('close', $.code_fence_close)
+    ),
+    
+    code_fence_open: $ => seq(
+      $.MARKDOWN_FENCE_START,
+      optional($.info_string),
+      $._line_ending
+    ),
+    
+    info_string: $ => seq(
+      field('language', $.language),
+      optional(/[^\r\n]*/)
+    ),
+    
+    language: $ => /[a-zA-Z][a-zA-Z0-9_+-]*/,
+    
+    code: $ => repeat1($.code_line),
+    
+    code_line: $ => $.MARKDOWN_FENCE_CONTENT_LINE,
+    
+    code_fence_close: $ => seq(
+      $.MARKDOWN_FENCE_END,
+      $._line_ending
+    ),
     
     // Quote blocks
     quote_block: $ => seq(
@@ -512,15 +546,19 @@ module.exports = grammar({
     ),
 
     // Strong formatting (*bold*)
-    strong: $ => prec(50, seq(
+    strong: $ => seq(
+      $.strong_constrained
+    ),
+
+    strong_constrained: $ => prec(50, seq(
       field('open', $.strong_open),
-      field('content', $.strong_content),
+      field('content', $.strong_text),
       field('close', $.strong_close)
     )),
 
     strong_open: $ => '*',
     strong_close: $ => '*',
-    strong_content: $ => repeat1(choice(
+    strong_text: $ => repeat1(choice(
       $.text_segment,
       $.emphasis,
       $.monospace,
@@ -531,15 +569,19 @@ module.exports = grammar({
     )),
 
     // Emphasis formatting (_italic_)
-    emphasis: $ => prec(50, seq(
+    emphasis: $ => seq(
+      $.emphasis_constrained
+    ),
+
+    emphasis_constrained: $ => prec(50, seq(
       field('open', $.emphasis_open),
-      field('content', $.emphasis_content),
+      field('content', $.emphasis_text),
       field('close', $.emphasis_close)
     )),
 
     emphasis_open: $ => '_',
     emphasis_close: $ => '_',
-    emphasis_content: $ => repeat1(choice(
+    emphasis_text: $ => repeat1(choice(
       $.text_segment,
       $.strong,
       $.monospace,
@@ -550,15 +592,19 @@ module.exports = grammar({
     )),
 
     // Monospace formatting (`code`)
-    monospace: $ => prec(50, seq(
+    monospace: $ => seq(
+      $.monospace_constrained
+    ),
+
+    monospace_constrained: $ => prec(50, seq(
       field('open', $.monospace_open),
-      field('content', $.monospace_content),
+      field('content', $.monospace_text),
       field('close', $.monospace_close)
     )),
 
     monospace_open: $ => '`',
     monospace_close: $ => '`',
-    monospace_content: $ => repeat1(choice(
+    monospace_text: $ => repeat1(choice(
       token.immediate(/\\[*_`^~]/),  // escaped formatting chars
       token.immediate(/[^`\r\n]+/)   // plain text (no nesting in monospace)
     )),
