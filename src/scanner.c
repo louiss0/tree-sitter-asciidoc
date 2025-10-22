@@ -50,6 +50,10 @@ typedef struct {
     bool in_ordered_list;
     char last_unordered_marker; // '*' or '-'
     bool list_block_consumed;   // Track if we've consumed a list block
+    // Depth tracking for nested lists  
+    uint8_t list_depth_stack[32];  // Stack of list depths (0-31 levels max)
+    uint8_t list_depth_count;       // Number of active depth levels
+    uint8_t current_marker_depth;   // Depth of the marker we just saw
 } Scanner;
 
 static void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
@@ -63,6 +67,20 @@ static void skip_spaces(TSLexer *lexer) {
         if (++count > 1000) break; // Prevent infinite loops
         skip(lexer);
     }
+}
+
+// Count the number of marker characters (*, -, .) to determine list depth
+static uint8_t count_marker_depth(TSLexer *lexer, char marker_char) {
+    uint8_t depth = 0;
+    TSLexer temp = *lexer;
+    
+    // Count consecutive marker characters
+    while (temp.lookahead == marker_char && depth < 32) {
+        depth++;
+        temp.advance(&temp, false);
+    }
+    
+    return depth;
 }
 
 // Check if at start of line (only whitespace before)
@@ -1047,6 +1065,7 @@ static bool scan_block_anchor(TSLexer *lexer) {
 
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
+    if (!scanner || !lexer) return false;
     
     // LIST_CONTINUATION has highest priority - check first before other tokens consume input
     if (valid_symbols[LIST_CONTINUATION] && scan_list_continuation(lexer)) {
@@ -1199,8 +1218,16 @@ unsigned tree_sitter_asciidoc_external_scanner_serialize(void *payload, char *bu
     buffer[9] = scanner->in_ordered_list ? 1 : 0;
     buffer[10] = scanner->last_unordered_marker;
     buffer[11] = scanner->list_block_consumed ? 1 : 0;
+    // Serialize depth tracking
+    buffer[12] = scanner->list_depth_count;
+    buffer[13] = scanner->current_marker_depth;
+    // Serialize depth stack (up to 32 levels, but only store first 16 for space)
+    uint8_t depth_to_store = scanner->list_depth_count > 16 ? 16 : scanner->list_depth_count;
+    for (uint8_t i = 0; i < depth_to_store; i++) {
+        buffer[14 + i] = scanner->list_depth_stack[i];
+    }
     
-    return 12;
+    return 14 + depth_to_store;
 }
 
 void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char *buffer, unsigned length) {
@@ -1215,6 +1242,11 @@ void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char
     scanner->in_ordered_list = false;
     scanner->last_unordered_marker = 0;
     scanner->list_block_consumed = false;
+    scanner->list_depth_count = 0;
+    scanner->current_marker_depth = 0;
+    for (uint8_t i = 0; i < 32; i++) {
+        scanner->list_depth_stack[i] = 0;
+    }
     
     if (length >= 8) {
         scanner->fence_length = buffer[0];
@@ -1232,6 +1264,17 @@ void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char
                 scanner->in_ordered_list = buffer[9] != 0;
                 scanner->last_unordered_marker = buffer[10];
                 scanner->list_block_consumed = buffer[11] != 0;
+                
+                // Deserialize depth tracking if available
+                if (length >= 14) {
+                    scanner->list_depth_count = buffer[12];
+                    scanner->current_marker_depth = buffer[13];
+                    // Restore depth stack
+                    uint8_t stored_depth = scanner->list_depth_count > 16 ? 16 : scanner->list_depth_count;
+                    for (uint8_t i = 0; i < stored_depth && (14 + i) < length; i++) {
+                        scanner->list_depth_stack[i] = buffer[14 + i];
+                    }
+                }
             }
         } else {
             scanner->fence_length = 0;
@@ -1241,9 +1284,26 @@ void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char
 
 void *tree_sitter_asciidoc_external_scanner_create() {
     Scanner *scanner = calloc(1, sizeof(Scanner));
+    if (!scanner) return NULL;
+    // Initialize all fields explicitly
+    scanner->fence_length = 0;
+    scanner->fence_count = 0;
+    scanner->fence_type = 0;
+    scanner->at_line_start = false;
+    scanner->in_unordered_list = false;
+    scanner->in_ordered_list = false;
+    scanner->last_unordered_marker = 0;
+    scanner->list_block_consumed = false;
+    scanner->list_depth_count = 0;
+    scanner->current_marker_depth = 0;
+    for (uint8_t i = 0; i < 32; i++) {
+        scanner->list_depth_stack[i] = 0;
+    }
     return scanner;
 }
 
 void tree_sitter_asciidoc_external_scanner_destroy(void *payload) {
-    free(payload);
+    if (payload) {
+        free(payload);
+    }
 }
