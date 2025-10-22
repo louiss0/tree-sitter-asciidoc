@@ -23,6 +23,9 @@ enum {
     PASSTHROUGH_FENCE_END,
     OPENBLOCK_FENCE_START,  // --
     OPENBLOCK_FENCE_END,
+    MARKDOWN_FENCE_START,   // ```
+    MARKDOWN_FENCE_END,
+    MARKDOWN_FENCE_CONTENT_LINE,
     LIST_CONTINUATION,
     AUTOLINK_BOUNDARY,
     ATTRIBUTE_LIST_START,
@@ -48,6 +51,9 @@ typedef struct {
     uint8_t fence_count;
     uint8_t fence_type;    // Store which type of fence we're in
     bool at_line_start;
+    // Markdown fence state
+    uint8_t markdown_fence_count;  // Number of backticks in opening fence
+    bool in_markdown_fence;         // Whether we're inside a Markdown fence
     // List state tracking
     bool in_unordered_list;
     bool in_ordered_list;
@@ -278,6 +284,122 @@ static bool scan_table_fence(TSLexer *lexer, bool is_start) {
     }
     
     return false;
+}
+
+// Scan for Markdown fence start (```)
+static bool scan_markdown_fence_start(Scanner *scanner, TSLexer *lexer) {
+    DEBUG_LOG("scan_markdown_fence_start: checking at column %d, char='%c'", lexer->get_column(lexer), lexer->lookahead);
+    if (!at_line_start(lexer)) {
+        DEBUG_LOG("scan_markdown_fence_start: not at line start, skipping");
+        return false;
+    }
+    
+    if (lexer->lookahead != '`') return false;
+    
+    uint8_t count = 0;
+    uint32_t loop_count = 0;
+    while (lexer->lookahead == '`' && count < 255) {
+        if (++loop_count > 500) break; // Prevent infinite loops
+        advance(lexer);
+        count++;
+    }
+    
+    // Minimum 3 backticks for valid fence
+    if (count < 3) return false;
+    
+    // Store fence info for matching close
+    scanner->markdown_fence_count = count;
+    scanner->in_markdown_fence = true;
+    
+    DEBUG_LOG("scan_markdown_fence_start: matched fence '`' x%d", count);
+    
+    // Don't consume the newline - let grammar handle info_string and line ending
+    return true;
+}
+
+// Scan for Markdown fence end (```)
+static bool scan_markdown_fence_end(Scanner *scanner, TSLexer *lexer) {
+    if (!at_line_start(lexer)) return false;
+    if (!scanner->in_markdown_fence) return false;
+    
+    if (lexer->lookahead != '`') return false;
+    
+    uint8_t count = 0;
+    uint32_t loop_count = 0;
+    while (lexer->lookahead == '`' && count < 255) {
+        if (++loop_count > 500) break;
+        advance(lexer);
+        count++;
+    }
+    
+    // Must match or exceed stored fence count
+    if (count >= scanner->markdown_fence_count) {
+        skip_spaces(lexer);
+        if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
+            DEBUG_LOG("scan_markdown_fence_end: SUCCESS! Found %d backticks, clearing fence state", count);
+            // Clear fence state
+            scanner->markdown_fence_count = 0;
+            scanner->in_markdown_fence = false;
+            // Don't consume the newline - let grammar handle it
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+// Scan for Markdown fence content line
+static bool scan_markdown_fence_content_line(Scanner *scanner, TSLexer *lexer) {
+    // Only valid when we're inside a Markdown fence
+    if (!scanner->in_markdown_fence) {
+        return false;
+    }
+    
+    // Must be at start of line
+    if (!at_line_start(lexer)) {
+        return false;
+    }
+    
+    // Check if this line would be a fence end - if so, don't consume it
+    TSLexer temp = *lexer;
+    uint8_t count = 0;
+    
+    // Count backticks at start of line
+    uint32_t loop_count = 0;
+    while (temp.lookahead == '`' && count < 255) {
+        if (++loop_count > 500) break;
+        temp.advance(&temp, false);
+        count++;
+    }
+    
+    // If this looks like a fence end (enough backticks + line end), don't consume it
+    if (count >= scanner->markdown_fence_count) {
+        // Skip trailing spaces
+        while (temp.lookahead == ' ' || temp.lookahead == '\t') {
+            temp.advance(&temp, false);
+        }
+        // If at line end, this is a fence end line - don't consume
+        if (temp.lookahead == '\n' || temp.lookahead == '\r' || temp.eof(&temp)) {
+            return false;
+        }
+    }
+    
+    // This is not a fence end line, consume the entire line as content
+    uint32_t char_count = 0;
+    while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
+        if (++char_count > 10000) break; // Prevent infinite loops
+        advance(lexer);
+    }
+    
+    // Include the newline
+    if (lexer->lookahead == '\r') {
+        advance(lexer);
+        if (lexer->lookahead == '\n') advance(lexer);
+    } else if (lexer->lookahead == '\n') {
+        advance(lexer);
+    }
+    
+    return true;
 }
 
 // Scan for list continuation (line with only '+')
@@ -1078,8 +1200,29 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         return true;
     }
     
-    // Stateful delimited block fence handling (high priority)
-    // Check for fence end first when we have an open fence
+    // Handle Markdown fences separately from AsciiDoc fences
+    // When Markdown fence is open, check for fence end first
+    if (scanner->in_markdown_fence) {
+        if (valid_symbols[MARKDOWN_FENCE_END] && scan_markdown_fence_end(scanner, lexer)) {
+            lexer->result_symbol = MARKDOWN_FENCE_END;
+            return true;
+        }
+        
+        if (valid_symbols[MARKDOWN_FENCE_CONTENT_LINE] && scan_markdown_fence_content_line(scanner, lexer)) {
+            lexer->result_symbol = MARKDOWN_FENCE_CONTENT_LINE;
+            return true;
+        }
+    }
+    
+    // Check for Markdown fence start when no fence is open
+    if (!scanner->in_markdown_fence && !scanner->fence_length) {
+        if (valid_symbols[MARKDOWN_FENCE_START] && scan_markdown_fence_start(scanner, lexer)) {
+            lexer->result_symbol = MARKDOWN_FENCE_START;
+            return true;
+        }
+    }
+    
+    // When fence is open, check for fence end first (highest priority within fence context)
     if (scanner->fence_length > 0) {
         int end_token = get_fence_end_token(scanner->fence_chars[0], scanner->fence_count);
         if (scanner->fence_chars[0] == '-' && scanner->fence_count >= 4) {
@@ -1222,21 +1365,24 @@ unsigned tree_sitter_asciidoc_external_scanner_serialize(void *payload, char *bu
     buffer[5] = scanner->fence_count;
     buffer[6] = scanner->fence_type;
     buffer[7] = scanner->at_line_start ? 1 : 0;
+    // Serialize Markdown fence state
+    buffer[8] = scanner->markdown_fence_count;
+    buffer[9] = scanner->in_markdown_fence ? 1 : 0;
     // Serialize list state fields
-    buffer[8] = scanner->in_unordered_list ? 1 : 0;
-    buffer[9] = scanner->in_ordered_list ? 1 : 0;
-    buffer[10] = scanner->last_unordered_marker;
-    buffer[11] = scanner->list_block_consumed ? 1 : 0;
+    buffer[10] = scanner->in_unordered_list ? 1 : 0;
+    buffer[11] = scanner->in_ordered_list ? 1 : 0;
+    buffer[12] = scanner->last_unordered_marker;
+    buffer[13] = scanner->list_block_consumed ? 1 : 0;
     // Serialize depth tracking
-    buffer[12] = scanner->list_depth_count;
-    buffer[13] = scanner->current_marker_depth;
+    buffer[14] = scanner->list_depth_count;
+    buffer[15] = scanner->current_marker_depth;
     // Serialize depth stack (up to 32 levels, but only store first 16 for space)
     uint8_t depth_to_store = scanner->list_depth_count > 16 ? 16 : scanner->list_depth_count;
     for (uint8_t i = 0; i < depth_to_store; i++) {
-        buffer[14 + i] = scanner->list_depth_stack[i];
+        buffer[16 + i] = scanner->list_depth_stack[i];
     }
     
-    return 14 + depth_to_store;
+    return 16 + depth_to_store;
 }
 
 void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char *buffer, unsigned length) {
@@ -1247,6 +1393,8 @@ void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char
     scanner->fence_count = 0;
     scanner->fence_type = 0;
     scanner->at_line_start = false;
+    scanner->markdown_fence_count = 0;
+    scanner->in_markdown_fence = false;
     scanner->in_unordered_list = false;
     scanner->in_ordered_list = false;
     scanner->last_unordered_marker = 0;
@@ -1267,21 +1415,27 @@ void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char
             scanner->fence_type = buffer[6];
             scanner->at_line_start = buffer[7] != 0;
             
-            // Deserialize list state fields if available
-            if (length >= 12) {
-                scanner->in_unordered_list = buffer[8] != 0;
-                scanner->in_ordered_list = buffer[9] != 0;
-                scanner->last_unordered_marker = buffer[10];
-                scanner->list_block_consumed = buffer[11] != 0;
+            // Deserialize Markdown fence state if available
+            if (length >= 10) {
+                scanner->markdown_fence_count = buffer[8];
+                scanner->in_markdown_fence = buffer[9] != 0;
                 
-                // Deserialize depth tracking if available
+                // Deserialize list state fields if available
                 if (length >= 14) {
-                    scanner->list_depth_count = buffer[12];
-                    scanner->current_marker_depth = buffer[13];
-                    // Restore depth stack
-                    uint8_t stored_depth = scanner->list_depth_count > 16 ? 16 : scanner->list_depth_count;
-                    for (uint8_t i = 0; i < stored_depth && (14 + i) < length; i++) {
-                        scanner->list_depth_stack[i] = buffer[14 + i];
+                    scanner->in_unordered_list = buffer[10] != 0;
+                    scanner->in_ordered_list = buffer[11] != 0;
+                    scanner->last_unordered_marker = buffer[12];
+                    scanner->list_block_consumed = buffer[13] != 0;
+                    
+                    // Deserialize depth tracking if available
+                    if (length >= 16) {
+                        scanner->list_depth_count = buffer[14];
+                        scanner->current_marker_depth = buffer[15];
+                        // Restore depth stack
+                        uint8_t stored_depth = scanner->list_depth_count > 16 ? 16 : scanner->list_depth_count;
+                        for (uint8_t i = 0; i < stored_depth && (16 + i) < length; i++) {
+                            scanner->list_depth_stack[i] = buffer[16 + i];
+                        }
                     }
                 }
             }
@@ -1298,6 +1452,8 @@ void *tree_sitter_asciidoc_external_scanner_create() {
     scanner->fence_length = 0;
     scanner->fence_count = 0;
     scanner->fence_type = 0;
+    scanner->markdown_fence_count = 0;
+    scanner->in_markdown_fence = false;
     scanner->at_line_start = false;
     scanner->in_unordered_list = false;
     scanner->in_ordered_list = false;
