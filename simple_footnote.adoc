@@ -1,1 +1,0 @@
-This is footnote:[a note] in text.
