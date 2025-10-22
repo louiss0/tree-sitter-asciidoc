@@ -1172,10 +1172,6 @@
           "named": true
         },
         {
-          "type": "description_list",
-          "named": true
-        },
-        {
           "type": "example_block",
           "named": true
         },
@@ -1189,10 +1185,6 @@
         },
         {
           "type": "open_block",
-          "named": true
-        },
-        {
-          "type": "ordered_list",
           "named": true
         },
         {
@@ -1213,10 +1205,6 @@
         },
         {
           "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
           "named": true
         }
       ]
@@ -1565,6 +1553,14 @@
       "types": [
         {
           "type": "list_item_continuation",
+          "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
           "named": true
         }
       ]
@@ -2416,95 +2412,19 @@
     }
   },
   {
-    "type": "text_angle_bracket",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_brace",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_bracket",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_caret",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_hash",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_paren",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_period",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_tilde",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "text_with_inlines",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "inline_element",
           "named": true
         },
         {
-          "type": "text_angle_bracket",
-          "named": true
-        },
-        {
-          "type": "text_brace",
-          "named": true
-        },
-        {
-          "type": "text_bracket",
-          "named": true
-        },
-        {
-          "type": "text_caret",
-          "named": true
-        },
-        {
-          "type": "text_colon",
-          "named": true
-        },
-        {
-          "type": "text_hash",
-          "named": true
-        },
-        {
-          "type": "text_paren",
-          "named": true
-        },
-        {
-          "type": "text_period",
-          "named": true
-        },
-        {
           "type": "text_segment",
-          "named": true
-        },
-        {
-          "type": "text_tilde",
           "named": true
         }
       ]
@@ -2585,6 +2505,14 @@
         {
           "type": "list_item_continuation",
           "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
+          "named": true
         }
       ]
     }
@@ -2607,15 +2535,7 @@
     "named": false
   },
   {
-    "type": "(",
-    "named": false
-  },
-  {
     "type": "(((",
-    "named": false
-  },
-  {
-    "type": ")",
     "named": false
   },
   {
@@ -2639,15 +2559,7 @@
     "named": false
   },
   {
-    "type": "<",
-    "named": false
-  },
-  {
     "type": "<<",
-    "named": false
-  },
-  {
-    "type": ">",
     "named": false
   },
   {
@@ -2915,10 +2827,6 @@
     "named": true
   },
   {
-    "type": "text_colon",
-    "named": true
-  },
-  {
     "type": "text_segment",
     "named": true
   },
@@ -2931,15 +2839,7 @@
     "named": false
   },
   {
-    "type": "{",
-    "named": false
-  },
-  {
     "type": "|",
-    "named": false
-  },
-  {
-    "type": "}",
     "named": false
   },
   {

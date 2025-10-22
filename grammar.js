@@ -355,7 +355,7 @@ module.exports = grammar({
     content_line: $ => $.DELIMITED_BLOCK_CONTENT_LINE,
 
     // LISTS
-    unordered_list: $ => prec.right(seq(
+    unordered_list: $ => prec.right(2, seq(
       $.unordered_list_item,
       repeat($.unordered_list_item)
     )),
@@ -364,10 +364,14 @@ module.exports = grammar({
       $._unordered_list_marker,
       field('content', $.text_with_inlines),
       $._line_ending,
+      optional(choice(
+        $.unordered_list,
+        $.ordered_list
+      )),
       repeat($.list_item_continuation)
     ),
     
-    _unordered_list_marker: $ => token(prec(10, /[ \t]*[*-][ \t]+/)),
+    _unordered_list_marker: $ => token(prec(10, seq(/[ \t]*/, /\*+|\-+/, /[ \t]+/))),
     
     ordered_list: $ => prec.right(seq(
       $.ordered_list_item,
@@ -378,10 +382,14 @@ module.exports = grammar({
       $._ordered_list_marker,
       field('content', $.text_with_inlines),
       $._line_ending,
+      optional(choice(
+        $.unordered_list,
+        $.ordered_list
+      )),
       repeat($.list_item_continuation)
     ),
     
-    _ordered_list_marker: $ => token(prec(15, seq(/[0-9]+/, '.', /[ \t]+/))),
+    _ordered_list_marker: $ => token(prec(15, seq(optional(/[0-9]+/), /\.+/, /[ \t]+/))),
 
     // DESCRIPTION LISTS
     description_list: $ => prec.right(2, seq(
@@ -428,11 +436,11 @@ module.exports = grammar({
         $.passthrough_block,
         $.table_block,
         $.block_comment,
-        $.conditional_block,
-        // Allow nested lists in continuations
-        $.unordered_list,
-        $.ordered_list,
-        $.description_list
+        $.conditional_block
+        // Nested lists removed from continuations to prevent deep recursion
+        // $.unordered_list,
+        // $.ordered_list,
+        // $.description_list
       )
     ),
 
@@ -463,60 +471,14 @@ module.exports = grammar({
       seq('CAUTION', ':', /[ \t]+/)
     ))),
 
-    text_with_inlines: $ => prec.right(repeat1(choice(
-      seq(/[ \t\f]+/, $._text_element),    // Spaced elements
-      $._text_element                      // Direct elements
+    text_with_inlines: $ => prec.left(repeat1(choice(
+      $.inline_element,
+      $.text_segment
     ))),
     
-    _text_element: $ => choice(
-      prec(2000, $.inline_element),
-      $.text_segment,
-      $.text_period,
-      $.text_colon,
-      $.text_angle_bracket,
-      $.text_brace,
-      $.text_hash,
-      $.text_bracket,
-      $.text_paren,
-      $.text_caret,
-      $.text_tilde,
-      // Error recovery: treat orphaned formatting chars as text
-      prec(-100, '*'),
-      prec(-100, '_'),
-      prec(-100, '`')
-    ),
-    
-    text_segment: $ => token(prec(-1, /[^\s\r\n:*_\`^~\[\]<>{}#()]+/)),
-    
-    // Error recovery: fallback for any remaining characters
-    error_recovery: $ => prec(-1000, /./),
-    
-    // For periods after inline elements
-    text_period: $ => '.',
-    
-    // For colons in invalid attribute patterns
-    text_colon: $ => ':',
-    
-    // For angle brackets in invalid callout patterns
-    text_angle_bracket: $ => choice('<', '>'),
-    
-    // For curly braces in invalid attribute patterns
-    text_brace: $ => choice('{', '}'),
-    
-    // For hash symbols in invalid role span patterns
-    text_hash: $ => '#',
-    
-    // For brackets in invalid patterns
-    text_bracket: $ => choice('[', ']'),
-    
-    // For parentheses in invalid patterns
-    text_paren: $ => choice('(', ')'),
-    
-    // For carets in invalid superscript patterns
-    text_caret: $ => '^',
-    
-    // For tildes in invalid subscript patterns
-    text_tilde: $ => '~',
+    // Greedy text segment that consumes everything except inline formatting markers
+    // and line breaks. This eliminates the exponential ambiguity from whitespace handling.
+    text_segment: $ => token(prec(-1, /[^\r\n*_`^~\[\]]+/)),
     
 
     // INLINE FORMATTING
