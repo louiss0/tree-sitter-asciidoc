@@ -30,7 +30,10 @@ module.exports = grammar({
     $.LIST_CONTINUATION,
     $.AUTOLINK_BOUNDARY,
     $.ATTRIBUTE_LIST_START,
-    $.DELIMITED_BLOCK_CONTENT_LINE
+    $.DELIMITED_BLOCK_CONTENT_LINE,
+    $._LIST_MARKER_PUSH_DEPTH,  // Hidden: signals entering deeper nesting
+    $._LIST_MARKER_SAME_DEPTH,  // Hidden: signals continuing at same depth
+    $._LIST_MARKER_POP_DEPTH    // Hidden: signals returning to shallower depth
   ],
 
   extras: $ => [
@@ -355,7 +358,7 @@ module.exports = grammar({
     content_line: $ => $.DELIMITED_BLOCK_CONTENT_LINE,
 
     // LISTS
-    unordered_list: $ => prec.right(2, seq(
+    unordered_list: $ => prec.right(10, seq(
       $.unordered_list_item,
       repeat($.unordered_list_item)
     )),
@@ -364,16 +367,16 @@ module.exports = grammar({
       $._unordered_list_marker,
       field('content', $.text_with_inlines),
       $._line_ending,
-      optional(choice(
+      prec(-1, optional(choice(
         $.unordered_list,
         $.ordered_list
-      )),
+      ))),
       repeat($.list_item_continuation)
     ),
     
     _unordered_list_marker: $ => token(prec(10, seq(/[ \t]*/, /\*+|\-+/, /[ \t]+/))),
     
-    ordered_list: $ => prec.right(seq(
+    ordered_list: $ => prec.right(10, seq(
       $.ordered_list_item,
       repeat($.ordered_list_item)
     )),
@@ -382,10 +385,10 @@ module.exports = grammar({
       $._ordered_list_marker,
       field('content', $.text_with_inlines),
       $._line_ending,
-      optional(choice(
+      prec(-1, optional(choice(
         $.unordered_list,
         $.ordered_list
-      )),
+      ))),
       repeat($.list_item_continuation)
     ),
     
