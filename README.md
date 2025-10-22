@@ -42,6 +42,10 @@ This parser implements **comprehensive AsciiDoc parsing** with excellent perform
   - **Sidebar blocks**: `****` ... `****`
   - **Passthrough blocks**: `++++` ... `++++` (raw content)
   - **Open blocks**: `--` ... `--`
+- ✅ **Markdown-compatible fenced code blocks**: ` ```language ` ... ` ``` `
+  - Full language injection support for syntax highlighting
+  - Works alongside traditional AsciiDoc `[source,language]` blocks
+  - Supports 3+ backticks for nesting (` ```` ` for blocks containing ` ``` `)
 - ✅ **Tables** with full cell specification support:
   - Basic tables with `|===` delimiters
   - Cell spans and formatting specifications
@@ -247,8 +251,12 @@ This is an admonition block.
 
 [source,javascript]
 ----
-console.log("Code block example");
+console.log("AsciiDoc code block");
 ----
+
+```javascript
+console.log("Markdown code block");
+```
 
 Footnote example footnote:[This appears at bottom].
 `;

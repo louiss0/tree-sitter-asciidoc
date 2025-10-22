@@ -1,0 +1,145 @@
+= Mixed Code Block Syntax Example
+:toc:
+
+This document demonstrates both AsciiDoc and Markdown-style code blocks.
+
+== Markdown-Style Fenced Code Blocks
+
+Markdown-style code blocks use three or more backticks.
+
+=== JavaScript Example
+
+```javascript
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+console.log(greet('World'));
+```
+
+=== Python Example
+
+```python
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("World"))
+```
+
+=== Without Language Specification
+
+```
+This is plain text without syntax highlighting.
+You can still use code blocks without specifying a language.
+```
+
+=== Four Backticks (Nested)
+
+````markdown
+# This markdown contains ```code```
+You can nest three backticks inside four backticks.
+````
+
+== AsciiDoc-Style Source Blocks
+
+Traditional AsciiDoc source blocks use [source,language] with ---- delimiters.
+
+=== JavaScript Example
+
+[source,javascript]
+----
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+console.log(greet('World'));
+----
+
+=== Python Example
+
+[source,python]
+----
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("World"))
+----
+
+== Mixed Usage
+
+You can use both syntaxes in the same document:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello from Markdown fence!")
+}
+```
+
+[source,rust]
+----
+fn main() {
+    println!("Hello from AsciiDoc source block!");
+}
+----
+
+== More Languages
+
+=== TypeScript
+
+```typescript
+interface Person {
+  name: string;
+  age: number;
+}
+
+const person: Person = {
+  name: "Alice",
+  age: 30
+};
+```
+
+=== Ruby
+
+```ruby
+class Person
+  attr_accessor :name, :age
+  
+  def initialize(name, age)
+    @name = name
+    @age = age
+  end
+end
+
+person = Person.new("Alice", 30)
+```
+
+=== Shell
+
+```bash
+#!/bin/bash
+
+echo "Hello, World!"
+for i in {1..5}; do
+  echo "Count: $i"
+done
+```
+
+=== SQL
+
+```sql
+SELECT 
+  users.name,
+  COUNT(orders.id) as order_count
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id
+GROUP BY users.id
+HAVING order_count > 5;
+```
+
+== Conclusion
+
+Both syntaxes are fully supported with language injection for syntax highlighting!
