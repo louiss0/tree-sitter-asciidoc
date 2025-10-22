@@ -480,3 +480,82 @@ Nested list with depth transition
         (text_segment)
         (text_segment)
         (text_segment)))))
+
+================================================================================
+Edge case: List with continuation block
+================================================================================
+
+* First item
++
+--
+Continuation block content
+--
+** Nested item after continuation
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment))
+      (list_item_continuation
+        (open_block
+          open: (openblock_open)
+          content: (block_content
+            (content_line))
+          close: (openblock_close)))
+      (unordered_list
+        (unordered_list_item
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)))))))
+
+================================================================================
+Edge case: Mixed marker types (asterisk and hyphen)
+================================================================================
+
+* Asterisk item
+- Hyphen item  
+* Asterisk again
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)))
+    (unordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)))
+    (unordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)))))
+
+================================================================================
+Edge case: Empty list item with nested children
+================================================================================
+
+*
+** Child of empty item
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      content: (text_with_inlines)
+      (unordered_list
+        (unordered_list_item
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)))))))

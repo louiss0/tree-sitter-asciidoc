@@ -27,6 +27,9 @@ enum {
     AUTOLINK_BOUNDARY,
     ATTRIBUTE_LIST_START,
     DELIMITED_BLOCK_CONTENT_LINE, // Content line within delimited blocks (not fence end)
+    _LIST_MARKER_PUSH_DEPTH,  // Signals entering deeper nesting (hidden from AST)
+    _LIST_MARKER_SAME_DEPTH,  // Signals continuing at same depth (hidden from AST)
+    _LIST_MARKER_POP_DEPTH,   // Signals returning to shallower depth (hidden from AST)
     _BLOCK_ANCHOR,         // Block anchor at start of line (hidden from AST)
     _LIST_UNORDERED_MARKER, // "* " or "- " at start of line (hidden from AST)
     _LIST_ORDERED_MARKER,   // "N. " at start of line (hidden from AST)
@@ -70,6 +73,8 @@ static void skip_spaces(TSLexer *lexer) {
 }
 
 // Count the number of marker characters (*, -, .) to determine list depth
+// NOTE: This helper function is kept for potential future use with depth-aware parsing.
+// Currently not actively used in parsing decisions (see NESTED_LISTS_STATUS.md).
 static uint8_t count_marker_depth(TSLexer *lexer, char marker_char) {
     uint8_t depth = 0;
     TSLexer temp = *lexer;
@@ -1158,7 +1163,11 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
     //     return true;
     // }
     
-    
+    // Depth-aware list markers - NOT IMPLEMENTED
+    // External tokens _LIST_MARKER_PUSH_DEPTH, _LIST_MARKER_SAME_DEPTH, _LIST_MARKER_POP_DEPTH
+    // are declared in grammar but not actively emitted due to architectural constraints.
+    // See NESTED_LISTS_STATUS.md for detailed explanation of why this approach doesn't work.
+    // 
     // List markers - DISABLED: handled by grammar tokens now
     // if (valid_symbols[_LIST_UNORDERED_MARKER] && scan_unordered_list_marker(lexer)) {
     //     lexer->result_symbol = _LIST_UNORDERED_MARKER;

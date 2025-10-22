@@ -3947,6 +3947,18 @@
     {
       "type": "SYMBOL",
       "name": "DELIMITED_BLOCK_CONTENT_LINE"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_LIST_MARKER_PUSH_DEPTH"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_LIST_MARKER_SAME_DEPTH"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_LIST_MARKER_POP_DEPTH"
     }
   ],
   "inline": [],
