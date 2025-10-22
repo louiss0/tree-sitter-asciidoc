@@ -1,5 +1,12 @@
 ; AsciiDoc language injections for embedded syntax highlighting
 
+; Markdown-style fenced code blocks (```language)
+((fenced_code_block
+  (code_fence_open
+    (info_string
+      language: (language) @injection.language))
+  content: (code) @injection.content))
+
 ; Language-specific code blocks - Now supported!
 ; Extract language from [source,language] attributes
 (listing_block

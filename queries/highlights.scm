@@ -87,6 +87,7 @@
 ; Delimited Blocks
 (example_block) @markup.quote
 (listing_block) @markup.raw.block
+(fenced_code_block) @markup.raw.block
 (literal_block) @markup.raw.block
 (quote_block) @markup.quote
 (sidebar_block) @markup.quote
@@ -99,6 +100,9 @@
 (EXAMPLE_FENCE_END) @punctuation.delimiter
 (LISTING_FENCE_START) @punctuation.delimiter
 (LISTING_FENCE_END) @punctuation.delimiter
+(MARKDOWN_FENCE_START) @punctuation.delimiter
+(MARKDOWN_FENCE_END) @punctuation.delimiter
+(MARKDOWN_FENCE_CONTENT_LINE) @text
 (LITERAL_FENCE_START) @punctuation.delimiter
 (LITERAL_FENCE_END) @punctuation.delimiter
 (QUOTE_FENCE_START) @punctuation.delimiter
@@ -114,6 +118,13 @@
 (example_close) @punctuation.delimiter
 (listing_open) @punctuation.delimiter
 (listing_close) @punctuation.delimiter
+
+; Markdown fenced code blocks
+(code_fence_open) @punctuation.delimiter
+(code_fence_close) @punctuation.delimiter
+(info_string (language) @attribute)
+(code_line) @text
+(code) @markup.raw.block
 (literal_open) @punctuation.delimiter
 (literal_close) @punctuation.delimiter
 (quote_open) @punctuation.delimiter
