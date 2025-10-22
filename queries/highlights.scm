@@ -69,10 +69,18 @@
 (attribute_reference) @variable.builtin
 
 ; Lists
-(unordered_list_item) @markup.list
-(ordered_list_item) @markup.list
+(unordered_list) @markup.list
+(ordered_list) @markup.list
+(description_list) @markup.list
+(callout_list) @markup.list
+
+(unordered_list_item) @markup.list.unnumbered
+(ordered_list_item) @markup.list.numbered
 (description_item) @markup.list
 (callout_item) @markup.list
+
+; Note: List markers are hidden nodes (prefixed with _) and don't appear in the AST
+; They are consumed as part of the token but not exposed as separate nodes
 
 ; Delimited Blocks
 (example_block) @markup.quote
@@ -166,13 +174,14 @@
 (text_segment) @text
 (content_line) @text
 
-; Punctuation
-(text_period) @punctuation
-(text_colon) @punctuation
-(text_angle_bracket) @punctuation.bracket
-(text_brace) @punctuation.bracket
-(text_bracket) @punctuation.bracket
-(text_paren) @punctuation.bracket
+; Punctuation - basic punctuation is part of text_segment
+; These specific node types may not exist in current grammar
+; (text_period) @punctuation
+; (text_colon) @punctuation
+; (text_angle_bracket) @punctuation.bracket
+; (text_brace) @punctuation.bracket
+; (text_bracket) @punctuation.bracket
+; (text_paren) @punctuation.bracket
 
 ; Advanced Features
 (bibliography_entry) @markup.link.label
