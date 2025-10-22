@@ -21,13 +21,13 @@ Some text.
     (value))
   (section
     (section_title
+      (section_marker_1)
       (title))
     (attribute_entry
       (name)
       (value))
     (paragraph
       (text_with_inlines
-        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -50,10 +50,10 @@ Content here
     (name))
   (section
     (section_title
+      (section_marker_1)
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
         (text_segment)))))
 
 ================================================================================
@@ -86,23 +86,12 @@ Invalid attribute patterns should be paragraphs
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_colon)
-      (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
-      (text_colon)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
-      (text_colon)
-      (text_colon)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -127,15 +116,14 @@ More content
     (value))
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment)))
   (attribute_entry
     (name)
     (value))
   (section
     (section_title
+      (section_marker_1)
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
         (text_segment)))))

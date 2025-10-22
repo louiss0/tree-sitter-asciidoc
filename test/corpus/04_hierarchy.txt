@@ -16,27 +16,24 @@ Paragraph under C
 (source_file
   (section
     (section_title
+      (section_marker_1)
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
         (text_segment)))
     (section
       (section_title
+        (section_marker_2)
         (title))
       (paragraph
         (text_with_inlines
-          (text_segment)
-          (text_segment)
           (text_segment)))
       (section
         (section_title
+          (section_marker_3)
           (title))
         (paragraph
           (text_with_inlines
-            (text_segment)
-            (text_segment)
             (text_segment)))))))
 
 ================================================================================
@@ -60,39 +57,32 @@ Content for section 3
 (source_file
   (section
     (section_title
+      (section_marker_1)
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment))))
-  (section
-    (section_title
-      (title))
-    (paragraph
-      (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment)))
     (section
       (section_title
+        (section_marker_1)
         (title))
       (paragraph
         (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)))))
-  (section
-    (section_title
-      (title))
-    (paragraph
-      (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))))
+          (text_segment)))
+      (section
+        (section_title
+          (section_marker_2)
+          (title))
+        (paragraph
+          (text_with_inlines
+            (text_segment)))
+        (section
+          (section_title
+            (section_marker_1)
+            (title))
+          (paragraph
+            (text_with_inlines
+              (text_segment))))))))
 
 ================================================================================
 Deep nesting with all levels
@@ -121,58 +111,46 @@ Content at level 6
 (source_file
   (section
     (section_title
+      (section_marker_1)
       (title))
     (paragraph
       (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment)))
     (section
       (section_title
+        (section_marker_2)
         (title))
       (paragraph
         (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
           (text_segment)))
       (section
         (section_title
+          (section_marker_3)
           (title))
         (paragraph
           (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)
             (text_segment)))
         (section
           (section_title
+            (section_marker_4)
             (title))
           (paragraph
             (text_with_inlines
-              (text_segment)
-              (text_segment)
-              (text_segment)
               (text_segment)))
           (section
             (section_title
+              (section_marker_5)
               (title))
             (paragraph
               (text_with_inlines
-                (text_segment)
-                (text_segment)
-                (text_segment)
                 (text_segment)))
             (section
               (section_title
+                (section_marker_6)
                 (title))
               (paragraph
                 (text_with_inlines
-                  (text_segment)
-                  (text_segment)
-                  (text_segment)
-                  (text_segment)))))))))
+                  (text_segment))))))))))
 
 ================================================================================
 Sections with attributes
@@ -198,21 +176,21 @@ Subsection content
     (value))
   (section
     (section_title
+      (section_marker_1)
       (title))
     (attribute_entry
       (name)
       (value))
     (paragraph
       (text_with_inlines
-        (text_segment)
         (text_segment)))
     (section
       (section_title
+        (section_marker_2)
         (title))
       (attribute_entry
         (name)
         (value))
       (paragraph
         (text_with_inlines
-          (text_segment)
           (text_segment))))))

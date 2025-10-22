@@ -11,12 +11,15 @@ Indented headings are treated as valid headings
 (source_file
   (section
     (section_title
+      (section_marker_1)
       (title))
     (section
       (section_title
+        (section_marker_2)
         (title))
       (section
         (section_title
+          (section_marker_3)
           (title))))))
 
 ================================================================================
@@ -33,28 +36,15 @@ Invalid attribute patterns should be paragraphs
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_colon)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
-      (text_colon)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
-      (text_colon)
-      (text_colon)
-      (text_segment)
-      (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
-      (text_colon)
-      (text_colon)
-      (text_colon)
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -95,21 +85,12 @@ Third paragraph after three blanks
 (source_file
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -125,10 +106,13 @@ Headings with trailing spaces
 (source_file
   (section
     (section_title
+      (section_marker_1)
       (title))
     (section
       (section_title
+        (section_marker_2)
         (title))
       (section
         (section_title
+          (section_marker_3)
           (title))))))

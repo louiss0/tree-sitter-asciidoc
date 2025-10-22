@@ -20,11 +20,10 @@ endif::[]
       (ifdef_open)
       (section
         (section_title
+          (section_marker_2)
           (title))
         (paragraph
           (text_with_inlines
-            (text_segment)
-            (text_segment)
             (text_segment))))
       (endif_directive))))
 
@@ -44,8 +43,6 @@ endif::[]
       (ifndef_open)
       (paragraph
         (text_with_inlines
-          (text_segment)
-          (text_segment)
           (text_segment)))
       (endif_directive))))
 
@@ -71,14 +68,10 @@ endif::[]
       (ifeval_open)
       (section
         (section_title
+          (section_marker_2)
           (title))
         (paragraph
           (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)
-            (text_segment)
-            (text_segment)
             (text_segment))))
       (endif_directive))))
 
@@ -103,7 +96,6 @@ endif::[]
           (ifdef_open)
           (paragraph
             (text_with_inlines
-              (text_segment)
               (text_segment)))
           (endif_directive)))
       (endif_directive))))
@@ -124,18 +116,24 @@ Another:: item
 
 (source_file
   (description_list
-    (description_item))
+    (description_item
+      (description_marker)
+      (description_content
+        (text_with_inlines
+          (text_segment)))))
   (conditional_block
     (ifdef_block
       (ifdef_open)
       (paragraph
         (text_with_inlines
-          (text_segment)
-          (text_segment)
           (text_segment)))
       (endif_directive)))
   (description_list
-    (description_item)))
+    (description_item
+      (description_marker)
+      (description_content
+        (text_with_inlines
+          (text_segment))))))
 
 ================================================================================
 Multiple attribute targets
@@ -153,8 +151,6 @@ endif::[]
       (ifdef_open)
       (paragraph
         (text_with_inlines
-          (text_segment)
-          (text_segment)
           (text_segment)))
       (endif_directive))))
 
@@ -182,32 +178,31 @@ endif::[]
       (ifdef_open)
       (section
         (section_title
-          (title)))
-      (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)))
-      (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)))
-      (ordered_list
-        (ordered_list_item
+          (section_marker_2)
+          (title))
+        (unordered_list
+          (unordered_list_item
+            (unordered_list_marker)
+            (text_with_inlines
+              (text_segment))
+            (unordered_list
+              (unordered_list_item
+                (unordered_list_marker)
+                (text_with_inlines
+                  (text_segment))))))
+        (ordered_list
+          (ordered_list_item
+            (ordered_list_marker)
+            (text_with_inlines
+              (text_segment))
+            (ordered_list
+              (ordered_list_item
+                (ordered_list_marker)
+                (text_with_inlines
+                  (text_segment))))))
+        (paragraph
           (text_with_inlines
-            (text_segment)
-            (text_segment)))
-        (ordered_list_item
-          (text_with_inlines
-            (text_segment)
             (text_segment))))
-      (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)))
       (endif_directive))))
 
 ================================================================================
@@ -228,7 +223,6 @@ Normal content
       (endif_directive)))
   (paragraph
     (text_with_inlines
-      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -247,7 +241,5 @@ endif::[]
       (ifeval_open)
       (paragraph
         (text_with_inlines
-          (text_segment)
-          (text_segment)
           (text_segment)))
       (endif_directive))))

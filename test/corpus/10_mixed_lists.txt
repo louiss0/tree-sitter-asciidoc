@@ -18,39 +18,33 @@ Final paragraph.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
+    content: (text_with_inlines
       (text_segment)))
   (unordered_list
     (unordered_list_item
+      marker: (unordered_list_marker)
       content: (text_with_inlines
-        (text_segment)
-        (text_segment)))
-    (unordered_list_item
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment))))
+        (text_segment))
+      (unordered_list
+        (unordered_list_item
+          marker: (unordered_list_marker)
+          content: (text_with_inlines
+            (text_segment))))))
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
+    content: (text_with_inlines
       (text_segment)))
   (ordered_list
     (ordered_list_item
-      (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)))
-    (ordered_list_item
-      (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment))))
+      marker: (ordered_list_marker)
+      content: (text_with_inlines
+        (text_segment))
+      (ordered_list
+        (ordered_list_item
+          marker: (ordered_list_marker)
+          content: (text_with_inlines
+            (text_segment))))))
   (paragraph
-    (text_with_inlines
-      (text_segment)
+    content: (text_with_inlines
       (text_segment))))
 
 ================================================================================
@@ -81,40 +75,35 @@ More content here.
     value: (value))
   (section
     (section_title
+      (section_marker_1)
       (title))
     (paragraph
       content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment)))
     (unordered_list
       (unordered_list_item
+        marker: (unordered_list_marker)
         content: (text_with_inlines
-          (text_segment)
-          (text_segment)))
-      (unordered_list_item
-        content: (text_with_inlines
-          (text_segment)
-          (text_segment))))
+          (text_segment))
+        (unordered_list
+          (unordered_list_item
+            marker: (unordered_list_marker)
+            content: (text_with_inlines
+              (text_segment))))))
     (section
       (section_title
+        (section_marker_2)
         (title))
       (paragraph
         content: (text_with_inlines
-          (text_segment)
-          (text_segment)
           (text_segment)))
       (ordered_list
         (ordered_list_item
+          marker: (ordered_list_marker)
           content: (text_with_inlines
-            (text_segment)
-            (text_segment)))
-        (ordered_list_item
-          content: (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)))))))
+            (text_segment))
+          (ordered_list
+            (ordered_list_item
+              marker: (ordered_list_marker)
+              content: (text_with_inlines
+                (text_segment)))))))))

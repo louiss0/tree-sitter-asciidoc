@@ -14,43 +14,34 @@ Nested unordered list - 3 levels deep
 (source_file
   (unordered_list
     (unordered_list_item
+      marker: (unordered_list_marker)
       content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment))
       (unordered_list
         (unordered_list_item
+          marker: (unordered_list_marker)
           content: (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)
             (text_segment))
           (unordered_list
             (unordered_list_item
+              marker: (unordered_list_marker)
               content: (text_with_inlines
-                (text_segment)
-                (text_segment)
-                (text_segment)
-                (text_segment)))
-            (unordered_list_item
-              content: (text_with_inlines
-                (text_segment)
-                (text_segment)
-                (text_segment)
-                (text_segment)))))
-        (unordered_list_item
-          content: (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)
-            (text_segment)))))
-    (unordered_list_item
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))))
+                (text_segment))
+              (unordered_list
+                (unordered_list_item
+                  marker: (unordered_list_marker)
+                  content: (text_with_inlines
+                    (text_segment))
+                  (unordered_list
+                    (unordered_list_item
+                      marker: (unordered_list_marker)
+                      content: (text_with_inlines
+                        (text_segment))
+                      (unordered_list
+                        (unordered_list_item
+                          marker: (unordered_list_marker)
+                          content: (text_with_inlines
+                            (text_segment)))))))))))))))
 
 ================================================================================
 Nested unordered list - 5 levels deep
@@ -67,28 +58,28 @@ Nested unordered list - 5 levels deep
 (source_file
   (unordered_list
     (unordered_list_item
+      marker: (unordered_list_marker)
       content: (text_with_inlines
-        (text_segment)
         (text_segment))
       (unordered_list
         (unordered_list_item
+          marker: (unordered_list_marker)
           content: (text_with_inlines
-            (text_segment)
             (text_segment))
           (unordered_list
             (unordered_list_item
+              marker: (unordered_list_marker)
               content: (text_with_inlines
-                (text_segment)
                 (text_segment))
               (unordered_list
                 (unordered_list_item
+                  marker: (unordered_list_marker)
                   content: (text_with_inlines
-                    (text_segment)
                     (text_segment))
                   (unordered_list
                     (unordered_list_item
+                      marker: (unordered_list_marker)
                       content: (text_with_inlines
-                        (text_segment)
                         (text_segment)))))))))))))
 
 ================================================================================
@@ -116,64 +107,75 @@ Nested unordered list - 15 levels deep
 (source_file
   (unordered_list
     (unordered_list_item
+      marker: (unordered_list_marker)
       content: (text_with_inlines
         (text_segment))
       (unordered_list
         (unordered_list_item
+          marker: (unordered_list_marker)
           content: (text_with_inlines
             (text_segment))
           (unordered_list
             (unordered_list_item
+              marker: (unordered_list_marker)
+              content: (text_with_inlines
+                (text_segment)))
+            (unordered_list_item
+              marker: (unordered_list_marker)
               content: (text_with_inlines
                 (text_segment))
               (unordered_list
                 (unordered_list_item
+                  marker: (unordered_list_marker)
+                  content: (text_with_inlines
+                    (text_segment)))
+                (unordered_list_item
+                  marker: (unordered_list_marker)
                   content: (text_with_inlines
                     (text_segment))
                   (unordered_list
                     (unordered_list_item
+                      marker: (unordered_list_marker)
+                      content: (text_with_inlines
+                        (text_segment)))
+                    (unordered_list_item
+                      marker: (unordered_list_marker)
                       content: (text_with_inlines
                         (text_segment))
                       (unordered_list
                         (unordered_list_item
+                          marker: (unordered_list_marker)
+                          content: (text_with_inlines
+                            (text_segment)))
+                        (unordered_list_item
+                          marker: (unordered_list_marker)
                           content: (text_with_inlines
                             (text_segment))
                           (unordered_list
                             (unordered_list_item
+                              marker: (unordered_list_marker)
                               content: (text_with_inlines
                                 (text_segment))
                               (unordered_list
                                 (unordered_list_item
+                                  marker: (unordered_list_marker)
                                   content: (text_with_inlines
                                     (text_segment))
                                   (unordered_list
                                     (unordered_list_item
+                                      marker: (unordered_list_marker)
                                       content: (text_with_inlines
                                         (text_segment))
                                       (unordered_list
                                         (unordered_list_item
+                                          marker: (unordered_list_marker)
                                           content: (text_with_inlines
                                             (text_segment))
                                           (unordered_list
                                             (unordered_list_item
+                                              marker: (unordered_list_marker)
                                               content: (text_with_inlines
-                                                (text_segment))
-                                              (unordered_list
-                                                (unordered_list_item
-                                                  content: (text_with_inlines
-                                                    (text_segment))
-                                                  (unordered_list
-                                                    (unordered_list_item
-                                                      content: (text_with_inlines
-                                                        (text_segment))
-                                                      (unordered_list
-                                                        (unordered_list_item
-                                                          content: (text_with_inlines
-                                                            (text_segment))
-                                                          (unordered_list
-                                                            (unordered_list_item
-                                                              content: (text_with_inlines
-                                                                (text_segment)))))))))))))))))))))))))))))))))
+                                                (text_segment)))))))))))))))))))))))))
 
 ================================================================================
 Nested unordered list - 20 levels deep
@@ -205,84 +207,97 @@ Nested unordered list - 20 levels deep
 (source_file
   (unordered_list
     (unordered_list_item
+      marker: (unordered_list_marker)
       content: (text_with_inlines
         (text_segment))
       (unordered_list
         (unordered_list_item
+          marker: (unordered_list_marker)
           content: (text_with_inlines
             (text_segment))
           (unordered_list
             (unordered_list_item
+              marker: (unordered_list_marker)
+              content: (text_with_inlines
+                (text_segment)))
+            (unordered_list_item
+              marker: (unordered_list_marker)
               content: (text_with_inlines
                 (text_segment))
               (unordered_list
                 (unordered_list_item
+                  marker: (unordered_list_marker)
+                  content: (text_with_inlines
+                    (text_segment)))
+                (unordered_list_item
+                  marker: (unordered_list_marker)
                   content: (text_with_inlines
                     (text_segment))
                   (unordered_list
                     (unordered_list_item
+                      marker: (unordered_list_marker)
+                      content: (text_with_inlines
+                        (text_segment)))
+                    (unordered_list_item
+                      marker: (unordered_list_marker)
                       content: (text_with_inlines
                         (text_segment))
                       (unordered_list
                         (unordered_list_item
+                          marker: (unordered_list_marker)
+                          content: (text_with_inlines
+                            (text_segment)))
+                        (unordered_list_item
+                          marker: (unordered_list_marker)
                           content: (text_with_inlines
                             (text_segment))
                           (unordered_list
                             (unordered_list_item
+                              marker: (unordered_list_marker)
+                              content: (text_with_inlines
+                                (text_segment)))
+                            (unordered_list_item
+                              marker: (unordered_list_marker)
                               content: (text_with_inlines
                                 (text_segment))
                               (unordered_list
                                 (unordered_list_item
+                                  marker: (unordered_list_marker)
+                                  content: (text_with_inlines
+                                    (text_segment)))
+                                (unordered_list_item
+                                  marker: (unordered_list_marker)
                                   content: (text_with_inlines
                                     (text_segment))
                                   (unordered_list
                                     (unordered_list_item
+                                      marker: (unordered_list_marker)
+                                      content: (text_with_inlines
+                                        (text_segment)))
+                                    (unordered_list_item
+                                      marker: (unordered_list_marker)
                                       content: (text_with_inlines
                                         (text_segment))
                                       (unordered_list
                                         (unordered_list_item
+                                          marker: (unordered_list_marker)
                                           content: (text_with_inlines
                                             (text_segment))
                                           (unordered_list
                                             (unordered_list_item
+                                              marker: (unordered_list_marker)
                                               content: (text_with_inlines
                                                 (text_segment))
                                               (unordered_list
                                                 (unordered_list_item
+                                                  marker: (unordered_list_marker)
                                                   content: (text_with_inlines
                                                     (text_segment))
                                                   (unordered_list
                                                     (unordered_list_item
+                                                      marker: (unordered_list_marker)
                                                       content: (text_with_inlines
-                                                        (text_segment))
-                                                      (unordered_list
-                                                        (unordered_list_item
-                                                          content: (text_with_inlines
-                                                            (text_segment))
-                                                          (unordered_list
-                                                            (unordered_list_item
-                                                              content: (text_with_inlines
-                                                                (text_segment))
-                                                              (unordered_list
-                                                                (unordered_list_item
-                                                                  content: (text_with_inlines
-                                                                    (text_segment))
-                                                                  (unordered_list
-                                                                    (unordered_list_item
-                                                                      content: (text_with_inlines
-                                                                        (text_segment))
-                                                                      (unordered_list
-                                                                        (unordered_list_item
-                                                                          content: (text_with_inlines
-                                                                            (text_segment))
-                                                                          (unordered_list
-                                                                            (unordered_list_item
-                                                                              content: (text_with_inlines
-                                                                                (text_segment))
-                                                                              (unordered_list
-                                                                                (unordered_list_item
-                                                                                  content: (text_with_inlines
-                                                                                    (text_segment)))))))))))))))))))))))))))))))))))))))))
+                                                        (text_segment)))))))))))))))))))))))))))))
 
 ================================================================================
 Nested ordered list - 3 levels deep
@@ -300,43 +315,34 @@ Nested ordered list - 3 levels deep
 (source_file
   (ordered_list
     (ordered_list_item
+      marker: (ordered_list_marker)
       content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
         (text_segment))
       (ordered_list
         (ordered_list_item
+          marker: (ordered_list_marker)
           content: (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)
             (text_segment))
           (ordered_list
             (ordered_list_item
+              marker: (ordered_list_marker)
               content: (text_with_inlines
-                (text_segment)
-                (text_segment)
-                (text_segment)
-                (text_segment)))
-            (ordered_list_item
-              content: (text_with_inlines
-                (text_segment)
-                (text_segment)
-                (text_segment)
-                (text_segment)))))
-        (ordered_list_item
-          content: (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)
-            (text_segment)))))
-    (ordered_list_item
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))))
+                (text_segment))
+              (ordered_list
+                (ordered_list_item
+                  marker: (ordered_list_marker)
+                  content: (text_with_inlines
+                    (text_segment))
+                  (ordered_list
+                    (ordered_list_item
+                      marker: (ordered_list_marker)
+                      content: (text_with_inlines
+                        (text_segment))
+                      (ordered_list
+                        (ordered_list_item
+                          marker: (ordered_list_marker)
+                          content: (text_with_inlines
+                            (text_segment)))))))))))))))
 
 ================================================================================
 Nested ordered list - 5 levels deep
@@ -353,28 +359,28 @@ Nested ordered list - 5 levels deep
 (source_file
   (ordered_list
     (ordered_list_item
+      marker: (ordered_list_marker)
       content: (text_with_inlines
-        (text_segment)
         (text_segment))
       (ordered_list
         (ordered_list_item
+          marker: (ordered_list_marker)
           content: (text_with_inlines
-            (text_segment)
             (text_segment))
           (ordered_list
             (ordered_list_item
+              marker: (ordered_list_marker)
               content: (text_with_inlines
-                (text_segment)
                 (text_segment))
               (ordered_list
                 (ordered_list_item
+                  marker: (ordered_list_marker)
                   content: (text_with_inlines
-                    (text_segment)
                     (text_segment))
                   (ordered_list
                     (ordered_list_item
+                      marker: (ordered_list_marker)
                       content: (text_with_inlines
-                        (text_segment)
                         (text_segment)))))))))))))
 
 ================================================================================
@@ -391,27 +397,23 @@ Mixed nested lists - unordered containing ordered (3 levels)
 (source_file
   (unordered_list
     (unordered_list_item
+      marker: (unordered_list_marker)
       content: (text_with_inlines
-        (text_segment)
-        (text_segment)
         (text_segment))
       (unordered_list
         (unordered_list_item
+          marker: (unordered_list_marker)
           content: (text_with_inlines
-            (text_segment)
-            (text_segment)
             (text_segment))
           (ordered_list
             (ordered_list_item
+              marker: (ordered_list_marker)
               content: (text_with_inlines
-                (text_segment)
-                (text_segment)
                 (text_segment))
               (ordered_list
                 (ordered_list_item
+                  marker: (ordered_list_marker)
                   content: (text_with_inlines
-                    (text_segment)
-                    (text_segment)
                     (text_segment)))))))))))
 
 ================================================================================
@@ -428,27 +430,23 @@ Mixed nested lists - ordered containing unordered (3 levels)
 (source_file
   (ordered_list
     (ordered_list_item
+      marker: (ordered_list_marker)
       content: (text_with_inlines
-        (text_segment)
-        (text_segment)
         (text_segment))
       (ordered_list
         (ordered_list_item
+          marker: (ordered_list_marker)
           content: (text_with_inlines
-            (text_segment)
-            (text_segment)
             (text_segment))
           (unordered_list
             (unordered_list_item
+              marker: (unordered_list_marker)
               content: (text_with_inlines
-                (text_segment)
-                (text_segment)
                 (text_segment))
               (unordered_list
                 (unordered_list_item
+                  marker: (unordered_list_marker)
                   content: (text_with_inlines
-                    (text_segment)
-                    (text_segment)
                     (text_segment)))))))))))
 
 ================================================================================
@@ -464,22 +462,19 @@ Nested list with depth transition
 (source_file
   (unordered_list
     (unordered_list_item
+      marker: (unordered_list_marker)
       content: (text_with_inlines
-        (text_segment)
         (text_segment))
       (unordered_list
         (unordered_list_item
+          marker: (unordered_list_marker)
           content: (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)
-            (text_segment)
-            (text_segment)))))
-    (unordered_list_item
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)))))
+            (text_segment))
+          (unordered_list
+            (unordered_list_item
+              marker: (unordered_list_marker)
+              content: (text_with_inlines
+                (text_segment)))))))))
 
 ================================================================================
 Edge case: List with continuation block
@@ -497,22 +492,23 @@ Continuation block content
 (source_file
   (unordered_list
     (unordered_list_item
+      marker: (unordered_list_marker)
       content: (text_with_inlines
-        (text_segment)
         (text_segment))
       (list_item_continuation
+        (LIST_CONTINUATION)
         (open_block
-          open: (openblock_open)
+          open: (openblock_open
+            (OPENBLOCK_FENCE_START))
           content: (block_content
-            (content_line))
-          close: (openblock_close)))
-      (unordered_list
-        (unordered_list_item
-          content: (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)
-            (text_segment)))))))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          close: (openblock_close
+            (OPENBLOCK_FENCE_END)))))
+    (unordered_list_item
+      marker: (unordered_list_marker)
+      content: (text_with_inlines
+        (text_segment)))))
 
 ================================================================================
 Edge case: Mixed marker types (asterisk and hyphen)
@@ -527,17 +523,19 @@ Edge case: Mixed marker types (asterisk and hyphen)
 (source_file
   (unordered_list
     (unordered_list_item
+      marker: (unordered_list_marker)
       content: (text_with_inlines
-        (text_segment)
-        (text_segment)))
-    (unordered_list_item
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)))
-    (unordered_list_item
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)))))
+        (text_segment))
+      (unordered_list
+        (unordered_list_item
+          marker: (unordered_list_marker)
+          content: (text_with_inlines
+            (text_segment))
+          (unordered_list
+            (unordered_list_item
+              marker: (unordered_list_marker)
+              content: (text_with_inlines
+                (text_segment)))))))))
 
 ================================================================================
 Edge case: Empty list item with nested children
