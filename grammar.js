@@ -515,7 +515,7 @@ module.exports = grammar({
     
     // Greedy text segment that consumes everything except inline formatting markers
     // and line breaks. This eliminates the exponential ambiguity from whitespace handling.
-    text_segment: $ => token(prec(-1, /[^\r\n*_`^~\[\]]+/)),
+    text_segment: $ => token(prec(-1, /[^\r\n*_`^~\[\]<>]+/)),
     
 
     // INLINE FORMATTING
