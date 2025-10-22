@@ -107,8 +107,31 @@ The scanner communicates with the grammar through:
 - Scanner: `src/scanner.c` (lines 42-57 for Scanner struct, 72-84 for depth counting)
 - Tests: `test/corpus/06b_nested_lists.txt`
 
-## Next Steps
-1. Implement depth comparison logic in scanner
-2. Create external tokens or use valid_symbols to signal depth relationships
-3. Update grammar to respond to depth signals
-4. Test and iterate
+## Latest Findings (After WIP Commit)
+
+### Problem Analysis
+Experimenting with precedence adjustments (setting `unordered_list` precedence to 10 and nested list option to -1) did NOT resolve the issue. The root cause is more fundamental:
+
+**Tree-sitter's greedy parsing** + **flexible marker regex** = Parser can't distinguish depth
+
+When the parser sees:
+```
+* First
+* Second
+```
+
+It evaluates:
+1. Match first `*` as `unordered_list_item`
+2. Check if `optional($.unordered_list)` can match
+3. See second `*` which DOES match `_unordered_list_marker` pattern `/\*+/`
+4. Greedily consume it as a nested list
+
+The `repeat($.unordered_list_item)` in the parent list never gets a chance because the nested option is satisfied first.
+
+### Why Precedence Doesn't Help
+Precedence tells tree-sitter which parse to prefer when MULTIPLE valid parses exist. But here, there's only ONE valid parse given the grammar rules - nesting. The grammar needs to be restructured so that:
+- Same-depth markers create siblings
+- Different-depth markers create nesting
+
+### Next Implementation Target
+Option 3 (Hybrid Token Approach) - implement depth signal scanner logic
