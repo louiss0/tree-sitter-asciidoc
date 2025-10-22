@@ -315,7 +315,18 @@
   {
     "type": "description_item",
     "named": true,
-    "fields": {},
+    "fields": {
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "description_marker",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -1545,6 +1556,16 @@
             "named": true
           }
         ]
+      },
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ordered_list_marker",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -2496,6 +2517,16 @@
             "named": true
           }
         ]
+      },
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "unordered_list_marker",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -2711,6 +2742,10 @@
     "named": true
   },
   {
+    "type": "description_marker",
+    "named": true
+  },
+  {
     "type": "endif::",
     "named": false
   },
@@ -2787,6 +2822,10 @@
     "named": true
   },
   {
+    "type": "ordered_list_marker",
+    "named": true
+  },
+  {
     "type": "pass:",
     "named": false
   },
@@ -2832,6 +2871,10 @@
   },
   {
     "type": "title",
+    "named": true
+  },
+  {
+    "type": "unordered_list_marker",
     "named": true
   },
   {

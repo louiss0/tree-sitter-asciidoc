@@ -79,8 +79,10 @@
 (description_item) @markup.list
 (callout_item) @markup.list
 
-; Note: List markers are hidden nodes (prefixed with _) and don't appear in the AST
-; They are consumed as part of the token but not exposed as separate nodes
+; List markers - now visible in AST with field names
+(unordered_list_marker) @punctuation.special
+(ordered_list_marker) @punctuation.special
+(description_marker) @punctuation.special
 
 ; Delimited Blocks
 (example_block) @markup.quote

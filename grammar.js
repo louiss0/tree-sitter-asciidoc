@@ -364,7 +364,7 @@ module.exports = grammar({
     )),
     
     unordered_list_item: $ => seq(
-      $._unordered_list_marker,
+      field('marker', $.unordered_list_marker),
       field('content', $.text_with_inlines),
       $._line_ending,
       prec(-1, optional(choice(
@@ -374,7 +374,7 @@ module.exports = grammar({
       repeat($.list_item_continuation)
     ),
     
-    _unordered_list_marker: $ => token(prec(10, seq(/[ \t]*/, /\*+|\-+/, /[ \t]+/))),
+    unordered_list_marker: $ => token(prec(10, seq(/[ \t]*/, /\*+|\-+/, /[ \t]+/))),
     
     ordered_list: $ => prec.right(10, seq(
       $.ordered_list_item,
@@ -382,7 +382,7 @@ module.exports = grammar({
     )),
     
     ordered_list_item: $ => seq(
-      $._ordered_list_marker,
+      field('marker', $.ordered_list_marker),
       field('content', $.text_with_inlines),
       $._line_ending,
       prec(-1, optional(choice(
@@ -392,7 +392,7 @@ module.exports = grammar({
       repeat($.list_item_continuation)
     ),
     
-    _ordered_list_marker: $ => token(prec(15, seq(optional(/[0-9]+/), /\.+/, /[ \t]+/))),
+    ordered_list_marker: $ => token(prec(15, seq(optional(/[0-9]+/), /\.+/, /[ \t]+/))),
 
     // DESCRIPTION LISTS
     description_list: $ => prec.right(2, seq(
@@ -401,13 +401,13 @@ module.exports = grammar({
     )),
     
     description_item: $ => seq(
-      $._description_marker,
+      field('marker', $.description_marker),
       $.description_content,
       $._line_ending,
       repeat($.list_item_continuation)
     ),
     
-    _description_marker: $ => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
+    description_marker: $ => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
     description_content: $ => $.text_with_inlines,
 
     // CALLOUT LISTS
