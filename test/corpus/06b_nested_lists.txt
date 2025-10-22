@@ -1,0 +1,482 @@
+================================================================================
+Nested unordered list - 3 levels deep
+================================================================================
+
+* Level 1 item 1
+** Level 2 item 1
+*** Level 3 item 1
+*** Level 3 item 2
+** Level 2 item 2
+* Level 1 item 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment))
+      (unordered_list
+        (unordered_list_item
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment))
+          (unordered_list
+            (unordered_list_item
+              content: (text_with_inlines
+                (text_segment)
+                (text_segment)
+                (text_segment)
+                (text_segment)))
+            (unordered_list_item
+              content: (text_with_inlines
+                (text_segment)
+                (text_segment)
+                (text_segment)
+                (text_segment)))))
+        (unordered_list_item
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)))))
+    (unordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
+
+================================================================================
+Nested unordered list - 5 levels deep
+================================================================================
+
+* Level 1
+** Level 2
+*** Level 3
+**** Level 4
+***** Level 5
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment))
+      (unordered_list
+        (unordered_list_item
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment))
+          (unordered_list
+            (unordered_list_item
+              content: (text_with_inlines
+                (text_segment)
+                (text_segment))
+              (unordered_list
+                (unordered_list_item
+                  content: (text_with_inlines
+                    (text_segment)
+                    (text_segment))
+                  (unordered_list
+                    (unordered_list_item
+                      content: (text_with_inlines
+                        (text_segment)
+                        (text_segment)))))))))))))
+
+================================================================================
+Nested unordered list - 15 levels deep
+================================================================================
+
+* L1
+** L2
+*** L3
+**** L4
+***** L5
+****** L6
+******* L7
+******** L8
+********* L9
+********** L10
+*********** L11
+************ L12
+************* L13
+************** L14
+*************** L15
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      content: (text_with_inlines
+        (text_segment))
+      (unordered_list
+        (unordered_list_item
+          content: (text_with_inlines
+            (text_segment))
+          (unordered_list
+            (unordered_list_item
+              content: (text_with_inlines
+                (text_segment))
+              (unordered_list
+                (unordered_list_item
+                  content: (text_with_inlines
+                    (text_segment))
+                  (unordered_list
+                    (unordered_list_item
+                      content: (text_with_inlines
+                        (text_segment))
+                      (unordered_list
+                        (unordered_list_item
+                          content: (text_with_inlines
+                            (text_segment))
+                          (unordered_list
+                            (unordered_list_item
+                              content: (text_with_inlines
+                                (text_segment))
+                              (unordered_list
+                                (unordered_list_item
+                                  content: (text_with_inlines
+                                    (text_segment))
+                                  (unordered_list
+                                    (unordered_list_item
+                                      content: (text_with_inlines
+                                        (text_segment))
+                                      (unordered_list
+                                        (unordered_list_item
+                                          content: (text_with_inlines
+                                            (text_segment))
+                                          (unordered_list
+                                            (unordered_list_item
+                                              content: (text_with_inlines
+                                                (text_segment))
+                                              (unordered_list
+                                                (unordered_list_item
+                                                  content: (text_with_inlines
+                                                    (text_segment))
+                                                  (unordered_list
+                                                    (unordered_list_item
+                                                      content: (text_with_inlines
+                                                        (text_segment))
+                                                      (unordered_list
+                                                        (unordered_list_item
+                                                          content: (text_with_inlines
+                                                            (text_segment))
+                                                          (unordered_list
+                                                            (unordered_list_item
+                                                              content: (text_with_inlines
+                                                                (text_segment)))))))))))))))))))))))))))))))))
+
+================================================================================
+Nested unordered list - 20 levels deep
+================================================================================
+
+* L1
+** L2
+*** L3
+**** L4
+***** L5
+****** L6
+******* L7
+******** L8
+********* L9
+********** L10
+*********** L11
+************ L12
+************* L13
+************** L14
+*************** L15
+**************** L16
+***************** L17
+****************** L18
+******************* L19
+******************** L20
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      content: (text_with_inlines
+        (text_segment))
+      (unordered_list
+        (unordered_list_item
+          content: (text_with_inlines
+            (text_segment))
+          (unordered_list
+            (unordered_list_item
+              content: (text_with_inlines
+                (text_segment))
+              (unordered_list
+                (unordered_list_item
+                  content: (text_with_inlines
+                    (text_segment))
+                  (unordered_list
+                    (unordered_list_item
+                      content: (text_with_inlines
+                        (text_segment))
+                      (unordered_list
+                        (unordered_list_item
+                          content: (text_with_inlines
+                            (text_segment))
+                          (unordered_list
+                            (unordered_list_item
+                              content: (text_with_inlines
+                                (text_segment))
+                              (unordered_list
+                                (unordered_list_item
+                                  content: (text_with_inlines
+                                    (text_segment))
+                                  (unordered_list
+                                    (unordered_list_item
+                                      content: (text_with_inlines
+                                        (text_segment))
+                                      (unordered_list
+                                        (unordered_list_item
+                                          content: (text_with_inlines
+                                            (text_segment))
+                                          (unordered_list
+                                            (unordered_list_item
+                                              content: (text_with_inlines
+                                                (text_segment))
+                                              (unordered_list
+                                                (unordered_list_item
+                                                  content: (text_with_inlines
+                                                    (text_segment))
+                                                  (unordered_list
+                                                    (unordered_list_item
+                                                      content: (text_with_inlines
+                                                        (text_segment))
+                                                      (unordered_list
+                                                        (unordered_list_item
+                                                          content: (text_with_inlines
+                                                            (text_segment))
+                                                          (unordered_list
+                                                            (unordered_list_item
+                                                              content: (text_with_inlines
+                                                                (text_segment))
+                                                              (unordered_list
+                                                                (unordered_list_item
+                                                                  content: (text_with_inlines
+                                                                    (text_segment))
+                                                                  (unordered_list
+                                                                    (unordered_list_item
+                                                                      content: (text_with_inlines
+                                                                        (text_segment))
+                                                                      (unordered_list
+                                                                        (unordered_list_item
+                                                                          content: (text_with_inlines
+                                                                            (text_segment))
+                                                                          (unordered_list
+                                                                            (unordered_list_item
+                                                                              content: (text_with_inlines
+                                                                                (text_segment))
+                                                                              (unordered_list
+                                                                                (unordered_list_item
+                                                                                  content: (text_with_inlines
+                                                                                    (text_segment)))))))))))))))))))))))))))))))))))))))))
+
+================================================================================
+Nested ordered list - 3 levels deep
+================================================================================
+
+. Level 1 item 1
+.. Level 2 item 1
+... Level 3 item 1
+... Level 3 item 2
+.. Level 2 item 2
+. Level 1 item 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ordered_list
+    (ordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment))
+      (ordered_list
+        (ordered_list_item
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment))
+          (ordered_list
+            (ordered_list_item
+              content: (text_with_inlines
+                (text_segment)
+                (text_segment)
+                (text_segment)
+                (text_segment)))
+            (ordered_list_item
+              content: (text_with_inlines
+                (text_segment)
+                (text_segment)
+                (text_segment)
+                (text_segment)))))
+        (ordered_list_item
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)))))
+    (ordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
+
+================================================================================
+Nested ordered list - 5 levels deep
+================================================================================
+
+. Level 1
+.. Level 2
+... Level 3
+.... Level 4
+..... Level 5
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ordered_list
+    (ordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment))
+      (ordered_list
+        (ordered_list_item
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment))
+          (ordered_list
+            (ordered_list_item
+              content: (text_with_inlines
+                (text_segment)
+                (text_segment))
+              (ordered_list
+                (ordered_list_item
+                  content: (text_with_inlines
+                    (text_segment)
+                    (text_segment))
+                  (ordered_list
+                    (ordered_list_item
+                      content: (text_with_inlines
+                        (text_segment)
+                        (text_segment)))))))))))))
+
+================================================================================
+Mixed nested lists - unordered containing ordered (3 levels)
+================================================================================
+
+* Unordered level 1
+** Unordered level 2
+. Ordered level 2
+.. Ordered level 3
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment))
+      (unordered_list
+        (unordered_list_item
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment))
+          (ordered_list
+            (ordered_list_item
+              content: (text_with_inlines
+                (text_segment)
+                (text_segment)
+                (text_segment))
+              (ordered_list
+                (ordered_list_item
+                  content: (text_with_inlines
+                    (text_segment)
+                    (text_segment)
+                    (text_segment)))))))))))
+
+================================================================================
+Mixed nested lists - ordered containing unordered (3 levels)
+================================================================================
+
+. Ordered level 1
+.. Ordered level 2
+* Unordered level 2
+** Unordered level 3
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ordered_list
+    (ordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment))
+      (ordered_list
+        (ordered_list_item
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment))
+          (unordered_list
+            (unordered_list_item
+              content: (text_with_inlines
+                (text_segment)
+                (text_segment)
+                (text_segment))
+              (unordered_list
+                (unordered_list_item
+                  content: (text_with_inlines
+                    (text_segment)
+                    (text_segment)
+                    (text_segment)))))))))))
+
+================================================================================
+Nested list with depth transition
+================================================================================
+
+* Level 1
+*** Level 3 (skips level 2)
+* Level 1 again
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment))
+      (unordered_list
+        (unordered_list_item
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)))))
+    (unordered_list_item
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
