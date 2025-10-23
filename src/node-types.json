@@ -505,10 +505,6 @@
         {
           "type": "superscript",
           "named": true
-        },
-        {
-          "type": "text_segment",
-          "named": true
         }
       ]
     }
@@ -1717,7 +1713,7 @@
     "fields": {
       "content": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "text_with_inlines",
@@ -1812,25 +1808,44 @@
   {
     "type": "passthrough_block",
     "named": true,
-    "fields": {},
+    "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "passthrough_close",
+            "named": true
+          }
+        ]
+      },
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_content",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "passthrough_open",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
-          "type": "block_content",
-          "named": true
-        },
-        {
           "type": "metadata",
-          "named": true
-        },
-        {
-          "type": "passthrough_close",
-          "named": true
-        },
-        {
-          "type": "passthrough_open",
           "named": true
         }
       ]
@@ -1874,25 +1889,44 @@
   {
     "type": "quote_block",
     "named": true,
-    "fields": {},
+    "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "quote_close",
+            "named": true
+          }
+        ]
+      },
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_content",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "quote_open",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
-          "type": "block_content",
-          "named": true
-        },
-        {
           "type": "metadata",
-          "named": true
-        },
-        {
-          "type": "quote_close",
-          "named": true
-        },
-        {
-          "type": "quote_open",
           "named": true
         }
       ]
@@ -2135,25 +2169,44 @@
   {
     "type": "sidebar_block",
     "named": true,
-    "fields": {},
+    "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sidebar_close",
+            "named": true
+          }
+        ]
+      },
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_content",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sidebar_open",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
-          "type": "block_content",
-          "named": true
-        },
-        {
           "type": "metadata",
-          "named": true
-        },
-        {
-          "type": "sidebar_close",
-          "named": true
-        },
-        {
-          "type": "sidebar_open",
           "named": true
         }
       ]
@@ -2386,10 +2439,6 @@
         },
         {
           "type": "superscript",
-          "named": true
-        },
-        {
-          "type": "text_segment",
           "named": true
         }
       ]
@@ -2701,7 +2750,7 @@
     "fields": {
       "content": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "text_with_inlines",

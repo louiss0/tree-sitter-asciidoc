@@ -240,9 +240,8 @@
 
 ; Block attributes - [attribute]
 (block_attributes) @attribute
-(source_block_attributes
-  type: (_) @keyword.directive
-  language: (language_identifier) @label)
+(source_block_attributes) @attribute
+(language_identifier) @label
 (attribute_content) @string
 
 ; ID and roles - [#id.role]
@@ -332,9 +331,6 @@
 
 ; Line breaks - +
 (line_break) @punctuation.special
-
-; Blank lines
-(_blank_line) @none
 
 ; ============================================================================
 ; EXTERNAL SCANNER TOKENS (AUTOLINK_BOUNDARY not used for highlighting)

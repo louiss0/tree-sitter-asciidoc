@@ -214,9 +214,9 @@ module.exports = grammar({
     // Quote blocks
     quote_block: $ => seq(
       optional($.metadata),
-      $.quote_open,
-      $.block_content,
-      $.quote_close
+      field('open', $.quote_open),
+      field('content', $.block_content),
+      field('close', $.quote_close)
     ),
     
     quote_open: $ => $.QUOTE_FENCE_START,
@@ -238,9 +238,9 @@ module.exports = grammar({
     // Sidebar blocks
     sidebar_block: $ => seq(
       optional($.metadata),
-      $.sidebar_open,
-      $.block_content,
-      $.sidebar_close
+      field('open', $.sidebar_open),
+      field('content', $.block_content),
+      field('close', $.sidebar_close)
     ),
     
     sidebar_open: $ => $.SIDEBAR_FENCE_START,
@@ -250,9 +250,9 @@ module.exports = grammar({
     // Passthrough blocks
     passthrough_block: $ => seq(
       optional($.metadata),
-      $.passthrough_open,
-      $.block_content,
-      $.passthrough_close
+      field('open', $.passthrough_open),
+      field('content', $.block_content),
+      field('close', $.passthrough_close)
     ),
     
     passthrough_open: $ => $.PASSTHROUGH_FENCE_START,
@@ -399,7 +399,7 @@ module.exports = grammar({
     
     unordered_list_item: $ => seq(
       field('marker', $.unordered_list_marker),
-      field('content', $.text_with_inlines),
+      field('content', optional($.text_with_inlines)),
       $._line_ending,
       prec(-1, optional(choice(
         $.unordered_list,
@@ -417,7 +417,7 @@ module.exports = grammar({
     
     ordered_list_item: $ => seq(
       field('marker', $.ordered_list_marker),
-      field('content', $.text_with_inlines),
+      field('content', optional($.text_with_inlines)),
       $._line_ending,
       prec(-1, optional(choice(
         $.unordered_list,
@@ -515,7 +515,8 @@ module.exports = grammar({
     
     // Greedy text segment that consumes everything except inline formatting markers
     // and line breaks. This eliminates the exponential ambiguity from whitespace handling.
-    text_segment: $ => token(prec(-1, /[^\r\n*_`^~\[\]<>]+/)),
+    // Note: < and > are allowed since callouts like <1>NotACallout should be plain text
+    text_segment: $ => token(prec(-1, /[^\r\n*_`^~\[\]]+/)),
     
 
     // INLINE FORMATTING
@@ -546,9 +547,7 @@ module.exports = grammar({
     ),
 
     // Strong formatting (*bold*)
-    strong: $ => seq(
-      $.strong_constrained
-    ),
+    strong: $ => $.strong_constrained,
 
     strong_constrained: $ => prec(50, seq(
       field('open', $.strong_open),
@@ -559,7 +558,6 @@ module.exports = grammar({
     strong_open: $ => '*',
     strong_close: $ => '*',
     strong_text: $ => repeat1(choice(
-      $.text_segment,
       $.emphasis,
       $.monospace,
       $.superscript,
@@ -569,9 +567,7 @@ module.exports = grammar({
     )),
 
     // Emphasis formatting (_italic_)
-    emphasis: $ => seq(
-      $.emphasis_constrained
-    ),
+    emphasis: $ => $.emphasis_constrained,
 
     emphasis_constrained: $ => prec(50, seq(
       field('open', $.emphasis_open),
@@ -582,7 +578,6 @@ module.exports = grammar({
     emphasis_open: $ => '_',
     emphasis_close: $ => '_',
     emphasis_text: $ => repeat1(choice(
-      $.text_segment,
       $.strong,
       $.monospace,
       $.superscript,
@@ -592,9 +587,7 @@ module.exports = grammar({
     )),
 
     // Monospace formatting (`code`)
-    monospace: $ => seq(
-      $.monospace_constrained
-    ),
+    monospace: $ => $.monospace_constrained,
 
     monospace_constrained: $ => prec(50, seq(
       field('open', $.monospace_open),

@@ -1,0 +1,726 @@
+= AsciiDoc Syntax Reference
+John Doe <john.doe@example.com>
+v1.0, 2025-01-22
+:toc: left
+:toclevels: 3
+:icons: font
+:source-highlighter: rouge
+:numbered:
+:experimental:
+:description: Comprehensive AsciiDoc syntax reference with all basic elements
+:keywords: asciidoc, syntax, reference, documentation
+
+// This is a single-line comment
+
+////
+This is a block comment.
+Multiple lines can be written here.
+They will not appear in the rendered output.
+////
+
+This document demonstrates all basic AsciiDoc syntax elements.
+It serves as both a reference guide and a test file for AsciiDoc parsers.
+
+== Text Formatting
+
+=== Basic Text Styles
+
+This paragraph demonstrates *bold text* and **b**old within a word.
+
+This paragraph demonstrates _italic text_ and __it__alic within a word.
+
+This paragraph demonstrates `monospace text` and ``mono``space within a word.
+
+This paragraph demonstrates #highlighted text# and ##high##lighted within a word.
+
+This paragraph demonstrates ~subscript~ text like H~2~O.
+
+This paragraph demonstrates ^superscript^ text like E=mc^2^.
+
+This paragraph demonstrates [.underline]#underlined text# with a role.
+
+This paragraph demonstrates [.line-through]#strikethrough text# with a role.
+
+You can also combine styles: *_bold italic_*, `*bold monospace*`, and _`italic monospace`_.
+
+=== Custom Styled Text
+
+[.custom-role]#This text has a custom role applied.#
+
+[big]#Large text# and [small]#small text#.
+
+== Headings
+
+All heading levels are demonstrated below:
+
+=== Level 3 Heading
+
+This is content under a level 3 heading.
+
+==== Level 4 Heading
+
+This is content under a level 4 heading.
+
+===== Level 5 Heading
+
+This is content under a level 5 heading.
+
+== Paragraphs
+
+=== Normal Paragraph
+
+This is a normal paragraph.
+It can span multiple lines, but they will be joined together in the output.
+
+This is another paragraph, separated by a blank line.
+
+=== Lead Paragraph
+
+[.lead]
+This is a lead paragraph.
+It is typically styled differently to draw attention as an introduction.
+
+=== Literal Paragraph
+
+ This is a literal paragraph.
+ It is indented with a space.
+ All whitespace is preserved.
+ No formatting is applied.
+
+=== Verse Block
+
+[verse, Carl Sandburg, Fog]
+____
+The fog comes
+on little cat feet.
+____
+
+=== Admonitions
+
+NOTE: This is a note admonition.
+It provides additional information.
+
+TIP: This is a tip admonition.
+It offers helpful suggestions.
+
+IMPORTANT: This is an important admonition.
+It highlights critical information.
+
+CAUTION: This is a caution admonition.
+It warns about potential issues.
+
+WARNING: This is a warning admonition.
+It alerts about dangerous situations.
+
+[[links-section]]
+== Links and Cross-References
+
+=== URL Links (All Variations)
+
+Auto-detected URL: https://example.com
+
+URL with custom text: https://example.com[Example Website]
+
+URL with title attribute: https://example.com[Example Website, title="Visit Example"]
+
+URL opening in new window: https://example.com[Example Website, window="_blank"]
+
+URL with role attribute: https://example.com[External Link, role="external"]
+
+URL with multiple attributes: https://example.com[Example, title="Example Site", role="button", window="_blank"]
+
+FTP link: ftp://ftp.example.com/file.zip[Download File]
+
+File link: link:document.pdf[Download PDF]
+
+Relative file link: link:../other/file.html[Other Document]
+
+=== Email Links
+
+Auto-detected email: user@example.com
+
+Mailto link: mailto:user@example.com[Email Me]
+
+Email with subject: mailto:user@example.com?subject=Hello[Email with Subject]
+
+Email with subject and body: mailto:user@example.com?subject=Hello&body=Message[Email with Content]
+
+=== Internal Cross-References
+
+[[anchor-point]]
+This paragraph has an anchor.
+
+Reference to anchor: <<anchor-point>>
+
+Reference with custom text: <<anchor-point, Jump to Anchor>>
+
+Reference to section by ID: <<links-section>>
+
+Reference to section with custom text: <<links-section, Go to Links Section>>
+
+Reference using section title: <<Text Formatting>>
+
+=== Link Macros
+
+Link to external site: link:https://example.com[External Link]
+
+Link with protocol omitted: link:example.com[Example] (requires link: macro)
+
+== Lists
+
+=== Unordered Lists
+
+* First item
+* Second item
+* Third item
+
+==== Nested Unordered List
+
+* Level 1
+** Level 2
+*** Level 3
+**** Level 4
+***** Level 5
+* Back to Level 1
+
+=== Ordered Lists
+
+. First item
+. Second item
+. Third item
+
+==== Nested Ordered List
+
+. Level 1
+.. Level 2
+... Level 3
+.... Level 4
+..... Level 5
+. Back to Level 1
+
+=== Mixed Nested Lists
+
+* Unordered item 1
+* Unordered item 2
+. Ordered sub-item 1
+. Ordered sub-item 2
+* Unordered item 3
+
+=== Description Lists
+
+Term 1:: Definition 1
+Term 2:: Definition 2
+Term 3::
+This is a longer definition
+that spans multiple lines.
+
+==== Horizontal Description List
+
+[horizontal]
+CPU:: Central Processing Unit
+RAM:: Random Access Memory
+SSD:: Solid State Drive
+
+=== Checklists
+
+* [x] Completed task
+* [x] Another completed task
+* [ ] Pending task
+* [ ] Another pending task
+
+=== List Continuation
+
+* List item with multiple paragraphs
++
+This is the second paragraph of the same list item.
++
+This is the third paragraph.
+
+* Another list item
++
+----
+Code block within list item
+----
+
+== Code and Source
+
+=== Inline Code
+
+Use the `print()` function to output text.
+
+The ``mono``space can be applied mid-word.
+
+=== Literal Code Block (Indented)
+
+    def hello():
+        print("Hello, World!")
+
+=== Delimited Code Block
+
+----
+function greet(name) {
+    console.log("Hello, " + name);
+}
+----
+
+=== Source Code with Syntax Highlighting
+
+[source,javascript]
+----
+function fibonacci(n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+----
+
+[source,python]
+----
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+----
+
+[source,go]
+----
+func fibonacci(n int) int {
+    if n <= 1 {
+        return n
+    }
+    return fibonacci(n-1) + fibonacci(n-2)
+}
+----
+
+=== Code Block with Title
+
+.Fibonacci Function in Ruby
+[source,ruby]
+----
+def fibonacci(n)
+  return n if n <= 1
+  fibonacci(n - 1) + fibonacci(n - 2)
+end
+----
+
+=== Code Block with Callouts
+
+[source,java]
+----
+public class Hello {
+    public static void main(String[] args) { // <1>
+        System.out.println("Hello, World!"); // <2>
+    }
+}
+----
+<1> Main method entry point
+<2> Print message to console
+
+== Tables
+
+=== Simple Table
+
+|===
+| Column 1 | Column 2 | Column 3
+
+| Cell 1.1
+| Cell 1.2
+| Cell 1.3
+
+| Cell 2.1
+| Cell 2.2
+| Cell 2.3
+|===
+
+=== Table with Header
+
+[cols="1,1,2"]
+|===
+| Name | Age | Description
+
+| Alice
+| 30
+| Software Engineer
+
+| Bob
+| 25
+| Designer
+
+| Charlie
+| 35
+| Manager
+|===
+
+=== Table with Title
+
+.Employee Information
+|===
+| Name | Department | Role
+
+| Alice | Engineering | Developer
+| Bob | Design | UX Designer
+| Charlie | Management | Product Manager
+|===
+
+=== Table with Formatted Cells
+
+|===
+| *Header 1* | *Header 2* | *Header 3*
+
+| Normal
+| _Italic_
+| `Monospace`
+
+| *Bold*
+| Normal
+| https://example.com[Link]
+|===
+
+=== Table with Column Alignment
+
+[cols="<,^,>"]
+|===
+| Left | Center | Right
+
+| Aligned left
+| Aligned center
+| Aligned right
+
+| Text
+| Text
+| Text
+|===
+
+=== Table with Merged Cells
+
+|===
+| Cell 1.1 2+| Merged cells 1.2 and 1.3
+
+| Cell 2.1
+| Cell 2.2
+| Cell 2.3
+
+.2+| Merged cells 3.1 and 4.1
+| Cell 3.2
+| Cell 3.3
+
+| Cell 4.2
+| Cell 4.3
+|===
+
+== Images
+
+=== Block Image
+
+image::https://via.placeholder.com/600x400[Placeholder Image]
+
+=== Block Image with Title
+
+.Image Caption
+image::https://via.placeholder.com/600x400[Placeholder Image with Caption]
+
+=== Block Image with Dimensions
+
+image::https://via.placeholder.com/800x600[Image with Size,600,400]
+
+=== Inline Image
+
+This paragraph contains an inline image:image:https://via.placeholder.com/50[Small Icon] within the text.
+
+=== Image with Link
+
+image::https://via.placeholder.com/600x400[Linked Image,link=https://example.com]
+
+== Block Types
+
+=== Quote Block
+
+[quote, Albert Einstein]
+____
+Imagination is more important than knowledge.
+Knowledge is limited.
+Imagination encircles the world.
+____
+
+==== Quote with Citation
+
+[quote, Abraham Lincoln, Gettysburg Address]
+____
+Four score and seven years ago our fathers brought forth
+on this continent a new nation...
+____
+
+==== Simple Quote Block
+
+____
+This is a simple quote block without attribution.
+It can contain multiple paragraphs.
+
+Like this one.
+____
+
+=== Example Block
+
+====
+This is an example block.
+It can contain any type of content.
+
+* Lists
+* Images
+* Code
+
+It's useful for demonstrating concepts.
+====
+
+=== Sidebar Block
+
+****
+This is a sidebar.
+It contains related information that complements the main content.
+
+Sidebars are often styled differently to stand out.
+****
+
+=== Literal Block
+
+....
+This is a literal block.
+All   whitespace   is   preserved.
+No formatting *is* _applied_.
+....
+
+=== Passthrough Block
+
+++++
+<div class="custom">
+This HTML will be passed through unprocessed.
+</div>
+++++
+
+== Special Elements
+
+=== Horizontal Rules
+
+Standard horizontal rule:
+
+'''
+
+Alternative horizontal rule:
+
+---
+
+=== Page Break
+
+<<<
+
+Content after page break.
+
+=== Hard Line Break
+
+This line ends with a plus sign +
+so this line appears directly below it.
+
+Without the plus sign,
+this would be joined with the previous line.
+
+=== Thematic Break
+
+Section content here.
+
+'''
+
+New thematic section here.
+
+== Text Replacements and Symbols
+
+=== Special Characters
+
+Copyright: (C) → ©
+
+Registered: (R) → ®
+
+Trademark: (TM) → ™
+
+=== Arrows
+
+Right arrow: -> → →
+
+Left arrow: <- → ←
+
+Double right arrow: => → ⇒
+
+Double left arrow: <= → ⇐
+
+=== Punctuation
+
+Ellipsis: ... → …
+
+Apostrophe: Sam's → Sam's (curved apostrophe)
+
+Em dash: -- → —
+
+En dash: number range 1--10 → 1–10
+
+=== Keyboard Shortcuts
+
+Press kbd:[Ctrl+C] to copy.
+
+Press kbd:[Ctrl+Alt+Del] for task manager.
+
+Press kbd:[Cmd+Space] on macOS.
+
+=== UI Elements
+
+Click the btn:[OK] button.
+
+Navigate to menu:File[Save As].
+
+Navigate to menu:View[Zoom > Zoom In].
+
+=== Icons
+
+icon:heart[] Heart icon
+
+icon:star[role=yellow] Star icon with role
+
+icon:github[size=2x] Large GitHub icon
+
+== Footnotes
+
+This text has a footnote.footnote:[This is the footnote content.]
+
+This text has another footnote.footnote:fn1[This is a named footnote.]
+
+Reference the same footnote again.footnoteref:[fn1]
+
+== Document Attributes
+
+=== Attribute Definition and Usage
+
+:my-attribute: attribute value
+
+The attribute value is: {my-attribute}
+
+:project-name: AsciiDoc Parser
+:version: 1.0.0
+
+Project: {project-name} v{version}
+
+=== Built-in Attributes
+
+Document title: {doctitle}
+
+Author: {author}
+
+Revision: {revnumber}
+
+Date: {docdate}
+
+== Includes
+
+=== Include Another File
+
+// include::chapter1.adoc[]
+
+=== Include with Line Selection
+
+// include::code.java[lines=10..20]
+
+=== Include with Tag Selection
+
+// include::example.adoc[tag=snippet]
+
+== Macros
+
+=== Button Macro
+
+Click btn:[Submit] to continue.
+
+=== Keyboard Macro
+
+Use kbd:[Ctrl+S] to save.
+
+=== Menu Macro
+
+Go to menu:File[Open] to open a file.
+
+=== Icon Macro
+
+icon:heart[size=2x,role=red]
+
+== Advanced Lists
+
+=== List with Complex Items
+
+. First item
++
+With a continuation paragraph.
++
+[source,python]
+----
+def example():
+    pass
+----
+
+. Second item
++
+--
+This is an open block within a list item.
+It can contain multiple elements.
+
+* Nested list
+* Another item
+--
+
+. Third item
+
+=== Description List with Multiple Terms
+
+[[terms]]
+CPU::
+GPU::
+Central and Graphics Processing Units
+
+API::
+Application Programming Interface
+
+== Conditional Content
+
+ifdef::env-github[]
+This content only appears on GitHub.
+endif::[]
+
+ifndef::env-github[]
+This content appears everywhere except GitHub.
+endif::[]
+
+== Mathematical Expressions
+
+=== Inline Math
+
+The formula for the area of a circle is stem:[A = \pi r^2].
+
+=== Block Math
+
+[stem]
+++++
+\sum_{i=1}^n i = \frac{n(n+1)}{2}
+++++
+
+== Conclusion
+
+This document has demonstrated all basic AsciiDoc syntax elements, including:
+
+* Text formatting (bold, italic, monospace, etc.)
+* Headings at all levels
+* Various paragraph types
+* Comprehensive link variations
+* Lists of all types
+* Code blocks with and without syntax highlighting
+* Tables with various configurations
+* Images (block and inline)
+* Special blocks (quotes, examples, sidebars, etc.)
+* Text replacements and special symbols
+* Footnotes and cross-references
+* And much more!
+
+This file serves as both a reference and a comprehensive test case for AsciiDoc parsers.

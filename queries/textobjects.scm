@@ -202,18 +202,15 @@
 
 ; Strong (bold)
 (strong) @text.outer
-(strong
-  content: (strong_text) @text.inner)
+(strong_text) @text.inner
 
 ; Emphasis (italic)
 (emphasis) @text.outer
-(emphasis
-  content: (emphasis_text) @text.inner)
+(emphasis_text) @text.inner
 
 ; Monospace (code)
 (monospace) @text.outer
-(monospace
-  content: (monospace_text) @text.inner)
+(monospace_text) @text.inner
 
 ; Superscript
 (superscript) @text.outer

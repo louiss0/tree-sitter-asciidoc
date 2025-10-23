@@ -541,7 +541,7 @@ Edge case: Mixed marker types (asterisk and hyphen)
 Edge case: Empty list item with nested children
 ================================================================================
 
-*
+* 
 ** Child of empty item
 
 --------------------------------------------------------------------------------
@@ -549,11 +549,9 @@ Edge case: Empty list item with nested children
 (source_file
   (unordered_list
     (unordered_list_item
-      content: (text_with_inlines)
+      marker: (unordered_list_marker)
       (unordered_list
         (unordered_list_item
+          marker: (unordered_list_marker)
           content: (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)
             (text_segment)))))))

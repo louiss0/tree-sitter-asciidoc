@@ -1,0 +1,58 @@
+Running tree-sitter tests in batches...
+========================================
+Testing 01_sections.txt... ✓
+Testing 02_paragraphs.txt... ✓
+Testing 03_attributes.txt... ✓
+Testing 04_hierarchy.txt... ✓
+Testing 05_edge_cases.txt... ✓
+Testing 06_unordered_lists.txt... ✓
+Testing 06b_nested_lists.txt... ✓
+Testing 07_ordered_lists.txt... ✓
+Testing 08_description_lists.txt... ✓
+Testing 09_callout_lists.txt... ✓
+Testing 10_mixed_lists.txt... ✓
+Testing 11_conditionals.txt... ✓
+Testing 12_conditional_conflicts.txt... ✗ (SEGFAULT)
+Testing 13_inline_conditionals.txt... ✓
+Testing 14_delimited_blocks.txt... ✗ (test failures)
+Testing 15_anchors_footnotes_xrefs.txt... ✗ (SEGFAULT)
+Testing 16_admonitions.txt... ✗ (SEGFAULT)
+Testing 16_paragraph_admonitions.txt... ✗ (test failures)
+Testing 17_block_admonitions.txt... ✗ (test failures)
+Testing 18_basic_formatting.txt... ✗ (test failures)
+Testing 19_inline_formatting.txt... ✗ (SEGFAULT)
+Testing 20_inline_edge_cases.txt... ✗ (SEGFAULT)
+Testing 20_links_images.txt... ✗ (SEGFAULT)
+Testing 20_markdown_fenced_blocks.txt... ✗ (test failures)
+Testing 21_block_edge_cases.txt... ✗ (test failures)
+Testing 21_passthrough.txt... ✗ (SEGFAULT)
+Testing 22_macros_roles.txt... ✗ (SEGFAULT)
+Testing 23_inline_edge_cases.txt... ✗ (SEGFAULT)
+Testing 24_tables.txt... ✓
+Testing 25_include_directives.txt... ✗ (SEGFAULT)
+Testing 26_index_terms.txt... ✗ (SEGFAULT)
+Testing 27_block_comments.txt... ✓
+Testing 28_advanced_tables.txt... ✗ (SEGFAULT)
+
+========================================
+Results: 15 passed, 18 failed
+
+Failed test files:
+  - 12_conditional_conflicts.txt (segfault)
+  - 14_delimited_blocks.txt (test failures)
+  - 15_anchors_footnotes_xrefs.txt (segfault)
+  - 16_admonitions.txt (segfault)
+  - 16_paragraph_admonitions.txt (test failures)
+  - 17_block_admonitions.txt (test failures)
+  - 18_basic_formatting.txt (test failures)
+  - 19_inline_formatting.txt (segfault)
+  - 20_inline_edge_cases.txt (segfault)
+  - 20_links_images.txt (segfault)
+  - 20_markdown_fenced_blocks.txt (test failures)
+  - 21_block_edge_cases.txt (test failures)
+  - 21_passthrough.txt (segfault)
+  - 22_macros_roles.txt (segfault)
+  - 23_inline_edge_cases.txt (segfault)
+  - 25_include_directives.txt (segfault)
+  - 26_index_terms.txt (segfault)
+  - 28_advanced_tables.txt (segfault)

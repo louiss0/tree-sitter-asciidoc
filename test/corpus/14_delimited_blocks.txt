@@ -38,11 +38,14 @@ line with ---- not at beginning
     open: (listing_open
       (LISTING_FENCE_START))
     content: (block_content
-      (content_line)
-      (content_line)
-      (content_line))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
     close: (listing_close
-      (MISSING LISTING_FENCE_END))))
+      (LISTING_FENCE_END))))
 
 ================================================================================
 Literal block with content
@@ -61,9 +64,12 @@ Literal block with content
     open: (literal_open
       (LITERAL_FENCE_START))
     content: (block_content
-      (content_line)
-      (content_line)
-      (content_line))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
     close: (literal_close
       (LITERAL_FENCE_END))))
 
@@ -83,8 +89,10 @@ ____
     (quote_open
       (QUOTE_FENCE_START))
     (block_content
-      (content_line)
-      (content_line))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
     (quote_close
       (QUOTE_FENCE_END))))
 
@@ -104,8 +112,10 @@ It's displayed separately from main text.
     (sidebar_open
       (SIDEBAR_FENCE_START))
     (block_content
-      (content_line)
-      (content_line))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
     (sidebar_close
       (SIDEBAR_FENCE_END))))
 
@@ -126,9 +136,12 @@ Raw HTML content
     (passthrough_open
       (PASSTHROUGH_FENCE_START))
     (block_content
-      (content_line)
-      (content_line)
-      (content_line))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
     (passthrough_close
       (PASSTHROUGH_FENCE_END))))
 
@@ -148,8 +161,10 @@ Can contain any content.
     open: (openblock_open
       (OPENBLOCK_FENCE_START))
     content: (block_content
-      (content_line)
-      (content_line))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
     close: (openblock_close
       (OPENBLOCK_FENCE_END))))
 
@@ -192,7 +207,8 @@ ____
     (quote_open
       (QUOTE_FENCE_START))
     (block_content
-      (content_line))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
     (quote_close
       (QUOTE_FENCE_END))))
 
@@ -212,8 +228,10 @@ Also a line with....suffix
     open: (literal_open
       (LITERAL_FENCE_START))
     content: (block_content
-      (content_line)
-      (content_line))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
     close: (literal_close
       (LITERAL_FENCE_END))))
 
@@ -233,7 +251,9 @@ Another -- delimiter
     open: (openblock_open
       (OPENBLOCK_FENCE_START))
     content: (block_content
-      (content_line)
-      (content_line))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
     close: (openblock_close
       (OPENBLOCK_FENCE_END))))

@@ -1192,6 +1192,7 @@ static bool scan_block_anchor(TSLexer *lexer) {
 
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
+    if (!scanner || !lexer) return false; // Safety check
     if (!scanner || !lexer) return false;
     
     // LIST_CONTINUATION has highest priority - check first before other tokens consume input
@@ -1355,6 +1356,7 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
 
 unsigned tree_sitter_asciidoc_external_scanner_serialize(void *payload, char *buffer) {
     Scanner *scanner = (Scanner *)payload;
+    if (!scanner || !buffer) return 0; // Safety check
     
     if (scanner->fence_length > 4) return 0; // Sanity check
     
@@ -1374,6 +1376,8 @@ unsigned tree_sitter_asciidoc_external_scanner_serialize(void *payload, char *bu
     buffer[12] = scanner->last_unordered_marker;
     buffer[13] = scanner->list_block_consumed ? 1 : 0;
     // Serialize depth tracking
+    // Bounds check to prevent buffer overflow
+    if (scanner->list_depth_count > 32) scanner->list_depth_count = 0;
     buffer[14] = scanner->list_depth_count;
     buffer[15] = scanner->current_marker_depth;
     // Serialize depth stack (up to 32 levels, but only store first 16 for space)
@@ -1387,6 +1391,7 @@ unsigned tree_sitter_asciidoc_external_scanner_serialize(void *payload, char *bu
 
 void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char *buffer, unsigned length) {
     Scanner *scanner = (Scanner *)payload;
+    if (!scanner) return; // Safety check
     
     // Initialize all fields to default values
     scanner->fence_length = 0;
@@ -1430,6 +1435,8 @@ void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char
                     // Deserialize depth tracking if available
                     if (length >= 16) {
                         scanner->list_depth_count = buffer[14];
+                        // Bounds check to prevent buffer overflow
+                        if (scanner->list_depth_count > 32) scanner->list_depth_count = 0;
                         scanner->current_marker_depth = buffer[15];
                         // Restore depth stack
                         uint8_t stored_depth = scanner->list_depth_count > 16 ? 16 : scanner->list_depth_count;

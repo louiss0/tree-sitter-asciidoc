@@ -150,12 +150,6 @@ Mixed AsciiDoc and Markdown blocks
 console.log('asciidoc');
 ----
 
-```javascript
-console.log('markdown');
-```
-
----
-
 (source_file
   (listing_block
     (metadata
@@ -177,4 +171,4 @@ console.log('markdown');
       (code_line
         (MARKDOWN_FENCE_CONTENT_LINE)))
     (code_fence_close
-      (MARKDOWN_FENCE_END))))
+      (MARKDOWN_FENCE_END)))

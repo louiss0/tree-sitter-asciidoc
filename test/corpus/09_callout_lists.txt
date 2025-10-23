@@ -13,6 +13,14 @@ Simple callout list
     (callout_item
       (CALLOUT_MARKER)
       content: (text_with_inlines
+        (text_segment)))
+    (callout_item
+      (CALLOUT_MARKER)
+      content: (text_with_inlines
+        (text_segment)))
+    (callout_item
+      (CALLOUT_MARKER)
+      content: (text_with_inlines
         (text_segment)))))
 
 ================================================================================
