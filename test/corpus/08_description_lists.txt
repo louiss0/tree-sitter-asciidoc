@@ -1,0 +1,55 @@
+================================================================================
+Simple description list
+================================================================================
+
+Term1:: Description for term 1
+Term2:: Description for term 2
+AnotherTerm:: Another description
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment))))
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment))))
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment))))))
+
+================================================================================
+Description list with complex content
+================================================================================
+
+Linux:: An open-source operating system
+Windows:: A proprietary operating system
+macOS:: Apple's Unix-based operating system
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment))))
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment))))
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment))))))

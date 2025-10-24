@@ -1,0 +1,87 @@
+================================================================================
+List termination with two empty lines
+================================================================================
+
+* Item 1
+* Item 2
+
+
+* Item 3
+
+This is a paragraph
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (asciidoc_unordered_list
+    (asciidoc_unordered_list_item
+      marker: (asciidoc_list_marker)
+      content: (text_with_inlines
+        (text_segment)))
+    (asciidoc_unordered_list_item
+      marker: (asciidoc_list_marker)
+      content: (text_with_inlines
+        (text_segment))))
+  (asciidoc_unordered_list
+    (asciidoc_unordered_list_item
+      marker: (asciidoc_list_marker)
+      content: (text_with_inlines
+        (text_segment))))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment))))
+
+================================================================================
+Single empty line does NOT terminate list
+================================================================================
+
+1. Item 1
+
+1. Item 2
+
+1. Item 3
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ordered_list
+    (ordered_list_item
+      marker: (ordered_list_marker)
+      content: (text_with_inlines
+        (text_segment)))
+    (ordered_list_item
+      marker: (ordered_list_marker)
+      content: (text_with_inlines
+        (text_segment)))
+    (ordered_list_item
+      marker: (ordered_list_marker)
+      content: (text_with_inlines
+        (text_segment)))))
+
+================================================================================
+Description list termination
+================================================================================
+
+Term1:: Description 1
+Term2:: Description 2
+
+
+A new paragraph starts here
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment))))
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment)))))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment))))
