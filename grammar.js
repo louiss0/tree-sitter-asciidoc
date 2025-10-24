@@ -58,7 +58,8 @@ module.exports = grammar({
       $.attribute_entry,
       $.example_block,
       $.listing_block,
-      $.quote_block,
+      $.asciidoc_blockquote,
+      $.markdown_blockquote,
       $.literal_block,
       $.sidebar_block,
       $.passthrough_block,
@@ -84,7 +85,8 @@ module.exports = grammar({
         $.callout_list,
         $.example_block,
         $.listing_block,
-        $.quote_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
         $.literal_block,
         $.sidebar_block,
         $.passthrough_block,
@@ -174,19 +176,36 @@ module.exports = grammar({
     
     listing_close: $ => $.LISTING_FENCE_END,
     
-    // Quote blocks
-    quote_block: $ => seq(
+    // AsciiDoc quote blocks (fenced with ____)
+    asciidoc_blockquote: $ => seq(
       optional($.metadata),
-      $.quote_open,
-      $.block_content,
-      $.quote_close
+      field('open', $.asciidoc_blockquote_open),
+      field('content', $.block_content),
+      field('close', $.asciidoc_blockquote_close)
     ),
     
-    quote_open: $ => $.QUOTE_FENCE_START,
+    asciidoc_blockquote_open: $ => $.QUOTE_FENCE_START,
     
-    quote_close: $ => $.QUOTE_FENCE_END,
+    asciidoc_blockquote_close: $ => $.QUOTE_FENCE_END,
     
-    // Literal blocks  
+    // Markdown-style blockquotes (lines starting with >)
+    markdown_blockquote: $ => prec.right(seq(
+      optional($.metadata),
+      repeat1($.markdown_blockquote_line)
+    )),
+    
+    markdown_blockquote_line: $ => seq(
+      field('marker', $.markdown_blockquote_marker),
+      optional(field('content', $.text_with_inlines)),
+      $._line_ending
+    ),
+    
+    markdown_blockquote_marker: $ => token(prec(15, seq(
+      repeat1('>'),
+      optional(/[ \t]+/)
+    ))),
+    
+    // Literal blocks
     literal_block: $ => seq(
       optional($.metadata),
       field('open', $.literal_open),
@@ -422,7 +441,8 @@ module.exports = grammar({
         $.open_block,
         $.example_block,
         $.listing_block,
-        $.quote_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
         $.literal_block,
         $.sidebar_block,
         $.passthrough_block,

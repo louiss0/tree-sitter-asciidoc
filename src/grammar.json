@@ -46,7 +46,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "quote_block"
+          "name": "asciidoc_blockquote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "markdown_blockquote"
         },
         {
           "type": "SYMBOL",
@@ -151,7 +155,11 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "quote_block"
+                  "name": "asciidoc_blockquote"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "markdown_blockquote"
                 },
                 {
                   "type": "SYMBOL",
@@ -648,7 +656,7 @@
       "type": "SYMBOL",
       "name": "LISTING_FENCE_END"
     },
-    "quote_block": {
+    "asciidoc_blockquote": {
       "type": "SEQ",
       "members": [
         {
@@ -664,26 +672,130 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "quote_open"
+          "type": "FIELD",
+          "name": "open",
+          "content": {
+            "type": "SYMBOL",
+            "name": "asciidoc_blockquote_open"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "block_content"
+          "type": "FIELD",
+          "name": "content",
+          "content": {
+            "type": "SYMBOL",
+            "name": "block_content"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "quote_close"
+          "type": "FIELD",
+          "name": "close",
+          "content": {
+            "type": "SYMBOL",
+            "name": "asciidoc_blockquote_close"
+          }
         }
       ]
     },
-    "quote_open": {
+    "asciidoc_blockquote_open": {
       "type": "SYMBOL",
       "name": "QUOTE_FENCE_START"
     },
-    "quote_close": {
+    "asciidoc_blockquote_close": {
       "type": "SYMBOL",
       "name": "QUOTE_FENCE_END"
+    },
+    "markdown_blockquote": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "metadata"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "markdown_blockquote_line"
+            }
+          }
+        ]
+      }
+    },
+    "markdown_blockquote_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "marker",
+          "content": {
+            "type": "SYMBOL",
+            "name": "markdown_blockquote_marker"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "content",
+              "content": {
+                "type": "SYMBOL",
+                "name": "text_with_inlines"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_ending"
+        }
+      ]
+    },
+    "markdown_blockquote_marker": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 15,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "STRING",
+                "value": ">"
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "[ \\t]+"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        }
+      }
     },
     "literal_block": {
       "type": "SEQ",
@@ -1644,7 +1756,11 @@
             },
             {
               "type": "SYMBOL",
-              "name": "quote_block"
+              "name": "asciidoc_blockquote"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "markdown_blockquote"
             },
             {
               "type": "SYMBOL",

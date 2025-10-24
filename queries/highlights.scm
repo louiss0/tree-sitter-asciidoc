@@ -78,7 +78,8 @@
 (example_block) @markup.quote
 (listing_block) @markup.raw.block
 (literal_block) @markup.raw.block
-(quote_block) @markup.quote
+(asciidoc_blockquote) @markup.quote
+(markdown_blockquote) @markup.quote
 (sidebar_block) @markup.quote
 (passthrough_block) @markup.raw.block
 (open_block) @markup.quote
@@ -106,8 +107,10 @@
 (listing_close) @punctuation.delimiter
 (literal_open) @punctuation.delimiter
 (literal_close) @punctuation.delimiter
-(quote_open) @punctuation.delimiter
-(quote_close) @punctuation.delimiter
+(asciidoc_blockquote_open) @punctuation.delimiter
+(asciidoc_blockquote_close) @punctuation.delimiter
+(markdown_blockquote_line) @markup.quote
+(markdown_blockquote_marker) @punctuation.delimiter
 (sidebar_open) @punctuation.delimiter
 (sidebar_close) @punctuation.delimiter
 (passthrough_open) @punctuation.delimiter

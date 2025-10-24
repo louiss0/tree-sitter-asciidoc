@@ -49,10 +49,34 @@ Block types:
 - `example_block` with `example_open`/`example_close`
 - `listing_block` with `listing_open`/`listing_close`  
 - `literal_block` with `literal_open`/`literal_close`
-- `quote_block` with `quote_open`/`quote_close`
+- `asciidoc_blockquote` with `asciidoc_blockquote_open`/`asciidoc_blockquote_close`
+- `markdown_blockquote` with repeated `markdown_blockquote_line` nodes
 - `sidebar_block` with `sidebar_open`/`sidebar_close`
 - `passthrough_block` with `passthrough_open`/`passthrough_close`
 - `open_block` with `openblock_open`/`openblock_close`
+
+#### Blockquote Variants
+
+**AsciiDoc Blockquotes** (fenced with `____`):
+```
+(asciidoc_blockquote
+  [optional: (metadata ...)]
+  (asciidoc_blockquote_open)
+  [optional: (block_content)]
+  (asciidoc_blockquote_close))
+```
+
+**Markdown Blockquotes** (lines starting with `>`):
+```
+(markdown_blockquote
+  [optional: (metadata ...)]
+  (markdown_blockquote_line
+    (markdown_blockquote_marker)
+    [optional: (text_with_inlines)])
+  ...repeat for each line...)
+```
+
+Markdown blockquote markers expose the `>` characters as separate tokens, supporting nested blockquotes with multiple `>` characters (e.g., `>>`, `>>>`).
 
 ### Inline Elements
 

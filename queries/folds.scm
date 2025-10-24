@@ -15,8 +15,10 @@
 (literal_block 
   (block_content) @fold)
   
-(quote_block 
+(asciidoc_blockquote 
   (block_content) @fold)
+  
+(markdown_blockquote) @fold
   
 (sidebar_block 
   (block_content) @fold)

@@ -68,7 +68,7 @@ Literal block with content
       (LITERAL_FENCE_END))))
 
 ================================================================================
-Quote block with content
+AsciiDoc blockquote with content
 ================================================================================
 
 ____
@@ -79,16 +79,16 @@ ____
 ---
 
 (source_file
-  (quote_block
-    (quote_open
+  (asciidoc_blockquote
+    open: (asciidoc_blockquote_open
       (QUOTE_FENCE_START))
-    (block_content
-      (content_line)
-      (content_line))
-    (quote_close
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (asciidoc_blockquote_close
       (QUOTE_FENCE_END))))
-
-================================================================================
 Sidebar block with content
 ================================================================================
 
@@ -153,6 +153,56 @@ Can contain any content.
     close: (openblock_close
       (OPENBLOCK_FENCE_END))))
 
+================================================================================
+Simple markdown blockquote
+================================================================================
+
+> This is a simple markdown blockquote.
+> It spans multiple lines.
+
+---
+
+(source_file
+  (markdown_blockquote
+    (markdown_blockquote_line
+      marker: (markdown_blockquote_marker)
+      content: (text_with_inlines
+        (text_segment)))
+    (markdown_blockquote_line
+      marker: (markdown_blockquote_marker)
+      content: (text_with_inlines
+        (text_segment)))))
+
+================================================================================
+Nested markdown blockquotes
+================================================================================
+
+> This is a level 1 blockquote.
+>> This is nested level 2.
+>>> And this is level 3.
+> Back to level 1.
+
+---
+
+(source_file
+  (markdown_blockquote
+    (markdown_blockquote_line
+      marker: (markdown_blockquote_marker)
+      content: (text_with_inlines
+        (text_segment)))
+    (markdown_blockquote_line
+      marker: (markdown_blockquote_marker)
+      content: (text_with_inlines
+        (text_segment)))
+    (markdown_blockquote_line
+      marker: (markdown_blockquote_marker)
+      content: (text_with_inlines
+        (text_segment)))
+    (markdown_blockquote_line
+      marker: (markdown_blockquote_marker)
+      content: (text_with_inlines
+        (text_segment)))))
+
 ====
 System.out.println("Hello");
 ====
@@ -188,14 +238,14 @@ ____
 ---
 
 (source_file
-  (quote_block
-    (quote_open
+  (asciidoc_blockquote
+    open: (asciidoc_blockquote_open
       (QUOTE_FENCE_START))
-    (block_content
-      (content_line))
-    (quote_close
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (asciidoc_blockquote_close
       (QUOTE_FENCE_END))))
-
 ================================================================================
 Content with near-delimiters not at beginning of line
 ================================================================================
