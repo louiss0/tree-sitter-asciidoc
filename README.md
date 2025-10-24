@@ -25,15 +25,24 @@ This parser implements **comprehensive AsciiDoc parsing** with excellent perform
 
 ### 🧱 Block Elements
 - ✅ **Paragraphs** with comprehensive inline formatting support
-- ✅ **Lists** (complete implementation with **separate marker tokens** and **nested list support**):
-  - **Unordered lists**: `*` and `-` markers → `unordered_list_marker` tokens
-    - **Nested support**: `*`, `**`, `***`, etc. for up to 20 levels of nesting
-  - **Ordered lists**: `1.`, `10.` numeric markers → `ordered_list_marker` tokens
-    - **Nested support**: `.`, `..`, `...`, etc. for up to 20 levels of nesting
-  - **Description lists**: `Term:: Definition` format
-  - **Callout lists**: `<1>`, `<10>` markers
-  - **Mixed nesting**: Unordered and ordered lists can be nested within each other
-  - **List continuations**: `+` for adding blocks to list items
+- ✅ **Lists** (complete implementation with **distinct semantic node types** and **nested list support up to 10 levels**):
+  - **AsciiDoc unordered lists** (`asciidoc_unordered_list`): `*` and `**` markers
+    - Nesting via marker count: `*` (level 1), `**` (level 2), up to `**********` (level 10)
+  - **Markdown unordered lists** (`markdown_unordered_list`): `-` markers with indentation
+    - Nesting via indentation: 0-space (level 0), 2-space (level 1), 4-space (level 2), etc.
+  - **Ordered lists** (`ordered_list`): Sequential numbers 1-10 with period depth
+    - `1.` (level 1), `1..` (level 2), `1...` (level 3), up to 10 periods
+    - Sequential numbering enforcement: 1, 2, 3, ..., 10 per level
+  - **AsciiDoc checklists** (`asciidoc_checklist`): `* [ ]` and `* [x]` markers
+    - Full checkbox support: empty `[ ]`, checked `[x]`, uppercase `[X]`
+    - Nesting via asterisk count like unordered lists
+  - **Markdown checklists** (`markdown_checklist`): `- [ ]` and `- [x]` markers
+    - Full checkbox support with indentation-based nesting
+  - **Description lists** (`description_list`): `Term:: Definition` format
+  - **List continuations** (`list_item_continuation`): `+` marker for block attachment
+    - Supports all block types: example, listing, quote, sidebar, literal, open, table, paragraph, code
+  - **Mixed nesting**: Any list type can contain any other list type
+  - **Termination**: Two consecutive empty lines break lists; single empty line does not
 - ✅ **Delimited blocks** (all major types):
   - **Example blocks**: `====` ... `====`
   - **Listing blocks**: `----` ... `----` (source code)
@@ -182,12 +191,15 @@ This parser provides **exceptional syntax highlighting capabilities** with all m
 
 ### ⚠️ **Known Limitations**
 
-#### Nested Lists
-- **Parser recognizes all marker depths** (`*`, `**`, `***`, etc.) but depth tracking is in development
-- **Current behavior**: Items nest within previous items regardless of marker depth
-- **Workaround**: The parser is functional for basic use; full depth-aware parsing coming soon
-- **See**: `NESTED_LISTS_STATUS.md` for implementation roadmap and technical details
-- **Performance**: No issues parsing up to 20 levels deep (<1 second)
+#### List System (Now Fully Implemented!)
+- ✅ **Nested lists up to 10 levels** - Fully supported with semantic node types
+- ✅ **AsciiDoc unordered & checklist lists** - Depth indicated by marker count
+- ✅ **Markdown unordered & checklist lists** - Depth indicated by indentation
+- ✅ **Ordered lists with sequential validation** - 1-10 with period-based nesting
+- ✅ **List continuations** - Block attachments via `+` marker
+- ✅ **Mixed nesting** - Any list type within any other
+- ✅ **Proper termination** - Two empty lines break lists
+- **Note**: Callout lists (`<1>`, `<2>`) temporarily removed; separate implementation pending
 
 ### 🔥 **Ready for Production Use**
 This parser is **production-ready** and suitable for:
