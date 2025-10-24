@@ -1,42 +1,39 @@
 ================================================================================
-Simple callout list
+Simple AsciiDoc checklist - unchecked and checked items
 ================================================================================
 
-<1> First callout
-<2> Second callout
-<10> Tenth callout
+* [ ] Unchecked item 1
+* [x] Checked item 2
+* [ ] Unchecked item 3
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (callout_list
-    (callout_item
-      (CALLOUT_MARKER)
+  (asciidoc_checklist
+    (asciidoc_checklist_item
+      marker: (asciidoc_checklist_marker)
       content: (text_with_inlines
         (text_segment)))
-    (callout_item
-      (CALLOUT_MARKER)
+    (asciidoc_checklist_item
+      marker: (asciidoc_checklist_marker)
       content: (text_with_inlines
         (text_segment)))
-    (callout_item
-      (CALLOUT_MARKER)
+    (asciidoc_checklist_item
+      marker: (asciidoc_checklist_marker)
       content: (text_with_inlines
         (text_segment)))))
 
 ================================================================================
-Not a callout list - missing space after marker
+AsciiDoc checklist with uppercase X
 ================================================================================
 
-<1>NotACallout
-
-<2>NotACallout
+* [X] Checked with uppercase
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment))))
+  (asciidoc_checklist
+    (asciidoc_checklist_item
+      marker: (asciidoc_checklist_marker)
+      content: (text_with_inlines
+        (text_segment)))))

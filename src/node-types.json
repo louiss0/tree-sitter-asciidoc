@@ -26,6 +26,128 @@
     }
   },
   {
+    "type": "asciidoc_checklist",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "asciidoc_checklist_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "asciidoc_checklist_item",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "text_with_inlines",
+            "named": true
+          }
+        ]
+      },
+      "list_item_continuation": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "list_item_continuation",
+            "named": true
+          }
+        ]
+      },
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "asciidoc_checklist_marker",
+            "named": true
+          }
+        ]
+      },
+      "nested_list": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "asciidoc_checklist",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "asciidoc_unordered_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "asciidoc_unordered_list_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "asciidoc_unordered_list_item",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "text_with_inlines",
+            "named": true
+          }
+        ]
+      },
+      "list_item_continuation": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "list_item_continuation",
+            "named": true
+          }
+        ]
+      },
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "asciidoc_list_marker",
+            "named": true
+          }
+        ]
+      },
+      "nested_list": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "asciidoc_unordered_list",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "attribute_content",
     "named": true,
     "fields": {}
@@ -147,47 +269,6 @@
     "type": "block_title",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "callout_item",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "text_with_inlines",
-            "named": true
-          }
-        ]
-      },
-      "marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "callout_marker",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "callout_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "callout_item",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "cell_content",
@@ -398,6 +479,16 @@
           }
         ]
       },
+      "list_item_continuation": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "list_item_continuation",
+            "named": true
+          }
+        ]
+      },
       "marker": {
         "multiple": false,
         "required": true,
@@ -408,28 +499,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "callout_list",
-          "named": true
-        },
-        {
-          "type": "description_list",
-          "named": true
-        },
-        {
-          "type": "ordered_list",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -733,15 +802,19 @@
       "required": false,
       "types": [
         {
+          "type": "asciidoc_checklist",
+          "named": true
+        },
+        {
+          "type": "asciidoc_unordered_list",
+          "named": true
+        },
+        {
           "type": "attribute_entry",
           "named": true
         },
         {
           "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "callout_list",
           "named": true
         },
         {
@@ -770,6 +843,14 @@
         },
         {
           "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "markdown_checklist",
+          "named": true
+        },
+        {
+          "type": "markdown_unordered_list",
           "named": true
         },
         {
@@ -802,10 +883,6 @@
         },
         {
           "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
           "named": true
         }
       ]
@@ -851,15 +928,19 @@
       "required": false,
       "types": [
         {
+          "type": "asciidoc_checklist",
+          "named": true
+        },
+        {
+          "type": "asciidoc_unordered_list",
+          "named": true
+        },
+        {
           "type": "attribute_entry",
           "named": true
         },
         {
           "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "callout_list",
           "named": true
         },
         {
@@ -888,6 +969,14 @@
         },
         {
           "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "markdown_checklist",
+          "named": true
+        },
+        {
+          "type": "markdown_unordered_list",
           "named": true
         },
         {
@@ -920,10 +1009,6 @@
         },
         {
           "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
           "named": true
         }
       ]
@@ -969,15 +1054,19 @@
       "required": false,
       "types": [
         {
+          "type": "asciidoc_checklist",
+          "named": true
+        },
+        {
+          "type": "asciidoc_unordered_list",
+          "named": true
+        },
+        {
           "type": "attribute_entry",
           "named": true
         },
         {
           "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "callout_list",
           "named": true
         },
         {
@@ -1006,6 +1095,14 @@
         },
         {
           "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "markdown_checklist",
+          "named": true
+        },
+        {
+          "type": "markdown_unordered_list",
           "named": true
         },
         {
@@ -1038,10 +1135,6 @@
         },
         {
           "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
           "named": true
         }
       ]
@@ -1353,6 +1446,64 @@
     "fields": {}
   },
   {
+    "type": "list_item_continuation",
+    "named": true,
+    "fields": {
+      "block": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "example_block",
+            "named": true
+          },
+          {
+            "type": "fenced_code_block",
+            "named": true
+          },
+          {
+            "type": "listing_block",
+            "named": true
+          },
+          {
+            "type": "literal_block",
+            "named": true
+          },
+          {
+            "type": "open_block",
+            "named": true
+          },
+          {
+            "type": "paragraph",
+            "named": true
+          },
+          {
+            "type": "quote_block",
+            "named": true
+          },
+          {
+            "type": "sidebar_block",
+            "named": true
+          },
+          {
+            "type": "table_block",
+            "named": true
+          }
+        ]
+      },
+      "continuation_marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "continuation_marker",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "listing_block",
     "named": true,
     "fields": {
@@ -1502,6 +1653,128 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "markdown_checklist",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "markdown_checklist_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "markdown_checklist_item",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "text_with_inlines",
+            "named": true
+          }
+        ]
+      },
+      "list_item_continuation": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "list_item_continuation",
+            "named": true
+          }
+        ]
+      },
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "markdown_checklist_marker",
+            "named": true
+          }
+        ]
+      },
+      "nested_list": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "markdown_checklist",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "markdown_unordered_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "markdown_unordered_list_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "markdown_unordered_list_item",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "text_with_inlines",
+            "named": true
+          }
+        ]
+      },
+      "list_item_continuation": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "list_item_continuation",
+            "named": true
+          }
+        ]
+      },
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "markdown_list_marker",
+            "named": true
+          }
+        ]
+      },
+      "nested_list": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "markdown_unordered_list",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1703,6 +1976,16 @@
           }
         ]
       },
+      "list_item_continuation": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "list_item_continuation",
+            "named": true
+          }
+        ]
+      },
       "marker": {
         "multiple": false,
         "required": true,
@@ -1712,29 +1995,17 @@
             "named": true
           }
         ]
+      },
+      "nested_list": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ordered_list",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "callout_list",
-          "named": true
-        },
-        {
-          "type": "description_list",
-          "named": true
-        },
-        {
-          "type": "ordered_list",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -2031,15 +2302,19 @@
           "named": true
         },
         {
+          "type": "asciidoc_checklist",
+          "named": true
+        },
+        {
+          "type": "asciidoc_unordered_list",
+          "named": true
+        },
+        {
           "type": "attribute_entry",
           "named": true
         },
         {
           "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "callout_list",
           "named": true
         },
         {
@@ -2068,6 +2343,14 @@
         },
         {
           "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "markdown_checklist",
+          "named": true
+        },
+        {
+          "type": "markdown_unordered_list",
           "named": true
         },
         {
@@ -2104,10 +2387,6 @@
         },
         {
           "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
           "named": true
         }
       ]
@@ -2264,15 +2543,19 @@
       "required": false,
       "types": [
         {
+          "type": "asciidoc_checklist",
+          "named": true
+        },
+        {
+          "type": "asciidoc_unordered_list",
+          "named": true
+        },
+        {
           "type": "attribute_entry",
           "named": true
         },
         {
           "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "callout_list",
           "named": true
         },
         {
@@ -2301,6 +2584,14 @@
         },
         {
           "type": "literal_block",
+          "named": true
+        },
+        {
+          "type": "markdown_checklist",
+          "named": true
+        },
+        {
+          "type": "markdown_unordered_list",
           "named": true
         },
         {
@@ -2333,10 +2624,6 @@
         },
         {
           "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
           "named": true
         }
       ]
@@ -2716,69 +3003,6 @@
     "fields": {}
   },
   {
-    "type": "unordered_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "unordered_list_item",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "unordered_list_item",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "text_with_inlines",
-            "named": true
-          }
-        ]
-      },
-      "marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "unordered_list_marker",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "callout_list",
-          "named": true
-        },
-        {
-          "type": "description_list",
-          "named": true
-        },
-        {
-          "type": "ordered_list",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "value",
     "named": true,
     "fields": {}
@@ -2948,6 +3172,14 @@
     "named": true
   },
   {
+    "type": "asciidoc_checklist_marker",
+    "named": true
+  },
+  {
+    "type": "asciidoc_list_marker",
+    "named": true
+  },
+  {
     "type": "attribute_reference",
     "named": true
   },
@@ -2964,10 +3196,6 @@
     "named": false
   },
   {
-    "type": "callout_marker",
-    "named": true
-  },
-  {
     "type": "cell_literal_text",
     "named": true
   },
@@ -2977,6 +3205,10 @@
   },
   {
     "type": "comment_line",
+    "named": true
+  },
+  {
+    "type": "continuation_marker",
     "named": true
   },
   {
@@ -3048,6 +3280,14 @@
     "named": true
   },
   {
+    "type": "markdown_checklist_marker",
+    "named": true
+  },
+  {
+    "type": "markdown_list_marker",
+    "named": true
+  },
+  {
     "type": "menu:",
     "named": false
   },
@@ -3105,10 +3345,6 @@
   },
   {
     "type": "title",
-    "named": true
-  },
-  {
-    "type": "unordered_list_marker",
     "named": true
   },
   {

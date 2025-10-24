@@ -33,9 +33,7 @@ module.exports = grammar({
     $.AUTOLINK_BOUNDARY,
     $.ATTRIBUTE_LIST_START,
     $.DELIMITED_BLOCK_CONTENT_LINE,
-    $._LIST_MARKER_PUSH_DEPTH,  // Hidden: signals entering deeper nesting
-    $._LIST_MARKER_SAME_DEPTH,  // Hidden: signals continuing at same depth
-    $._LIST_MARKER_POP_DEPTH    // Hidden: signals returning to shallower depth
+    // List-related external tokens will be added here
   ],
 
   extras: $ => [
@@ -43,8 +41,11 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$.unordered_list_item],
-    [$.ordered_list_item], 
+    [$.asciidoc_unordered_list_item],
+    [$.markdown_unordered_list_item],
+    [$.ordered_list_item],
+    [$.asciidoc_checklist_item],
+    [$.markdown_checklist_item],
     [$.description_item],
     [$.inline_element, $.explicit_link],
     [$.attribute_content, $.role_list]
@@ -55,10 +56,12 @@ module.exports = grammar({
 
     _element: $ => choice(
       $.section,
-      $.unordered_list,
+      $.asciidoc_unordered_list,
+      $.markdown_unordered_list,
       $.ordered_list,
+      $.asciidoc_checklist,
+      $.markdown_checklist,
       $.description_list,
-      $.callout_list,
       $.attribute_entry,
       $.example_block,
       $.listing_block,
@@ -83,10 +86,12 @@ module.exports = grammar({
       repeat(choice(
         $.attribute_entry,
         $.paragraph,
-        $.unordered_list,
+        $.asciidoc_unordered_list,
+        $.markdown_unordered_list,
         $.ordered_list,
+        $.asciidoc_checklist,
+        $.markdown_checklist,
         $.description_list,
-        $.callout_list,
         $.example_block,
         $.listing_block,
         $.fenced_code_block,
@@ -311,10 +316,12 @@ module.exports = grammar({
       field('open', $.ifdef_block_open),
       repeat(choice(
         $.section,
-        $.unordered_list,
+        $.asciidoc_unordered_list,
+        $.markdown_unordered_list,
         $.ordered_list,
+        $.asciidoc_checklist,
+        $.markdown_checklist,
         $.description_list,
-        $.callout_list,
         $.attribute_entry,
         $.example_block,
         $.listing_block,
@@ -338,10 +345,12 @@ module.exports = grammar({
       field('open', $.ifndef_block_open),
       repeat(choice(
         $.section,
-        $.unordered_list,
+        $.asciidoc_unordered_list,
+        $.markdown_unordered_list,
         $.ordered_list,
+        $.asciidoc_checklist,
+        $.markdown_checklist,
         $.description_list,
-        $.callout_list,
         $.attribute_entry,
         $.example_block,
         $.listing_block,
@@ -365,10 +374,12 @@ module.exports = grammar({
       field('open', $.ifeval_block_open),
       repeat(choice(
         $.section,
-        $.unordered_list,
+        $.asciidoc_unordered_list,
+        $.markdown_unordered_list,
         $.ordered_list,
+        $.asciidoc_checklist,
+        $.markdown_checklist,
         $.description_list,
-        $.callout_list,
         $.attribute_entry,
         $.example_block,
         $.listing_block,
@@ -481,79 +492,140 @@ module.exports = grammar({
     
     content_line: $ => $.DELIMITED_BLOCK_CONTENT_LINE,
 
-    // LISTS
-    unordered_list: $ => prec.right(10, seq(
-      $.unordered_list_item,
-      repeat($.unordered_list_item)
+    // LISTS - New implementations
+    
+    // AsciiDoc unordered lists (1-10 asterisks)
+    asciidoc_unordered_list: $ => prec.right(10, seq(
+      $.asciidoc_unordered_list_item,
+      repeat($.asciidoc_unordered_list_item)
     )),
     
-    unordered_list_item: $ => seq(
-      field('marker', $.unordered_list_marker),
-      field('content', optional($.text_with_inlines)),
+    asciidoc_unordered_list_item: $ => prec.right(seq(
+      field('marker', $.asciidoc_list_marker),
+      optional(field('content', $.text_with_inlines)),
       $._line_ending,
-      repeat(choice(
-        $.unordered_list,
-        $.ordered_list,
-        $.description_list,
-        $.callout_list
-      ))
-    ),
+      optional(field('list_item_continuation', $.list_item_continuation)),
+      optional(field('nested_list', $.asciidoc_unordered_list))
+    )),
     
-    unordered_list_marker: $ => token(prec(10, seq(/[ \t]*/, /\*+|\-+/, /[ \t]+/))),
+    asciidoc_list_marker: $ => token(prec(10, seq(repeat1('*'), /[ \t]+/))),
     
-    ordered_list: $ => prec.right(10, seq(
+    // Markdown unordered lists (hyphen, indentation-based depth)
+    markdown_unordered_list: $ => prec.right(9, seq(
+      $.markdown_unordered_list_item,
+      repeat($.markdown_unordered_list_item)
+    )),
+    
+    markdown_unordered_list_item: $ => prec.right(seq(
+      field('marker', $.markdown_list_marker),
+      optional(field('content', $.text_with_inlines)),
+      $._line_ending,
+      optional(field('list_item_continuation', $.list_item_continuation)),
+      optional(field('nested_list', $.markdown_unordered_list))
+    )),
+    
+    markdown_list_marker: $ => token(prec(10, seq(/[ \t]*/, '-', /[ \t]+/))),
+    
+    // AsciiDoc checklists (* [ ] or * [x])
+    asciidoc_checklist: $ => prec.right(10, seq(
+      $.asciidoc_checklist_item,
+      repeat($.asciidoc_checklist_item)
+    )),
+    
+    asciidoc_checklist_item: $ => prec.right(seq(
+      field('marker', $.asciidoc_checklist_marker),
+      optional(field('content', $.text_with_inlines)),
+      $._line_ending,
+      optional(field('list_item_continuation', $.list_item_continuation)),
+      optional(field('nested_list', $.asciidoc_checklist))
+    )),
+    
+    asciidoc_checklist_marker: $ => token(prec(11, seq(
+      repeat1('*'),
+      /[ \t]+/,
+      '[',
+      choice(' ', 'x', 'X'),
+      ']',
+      /[ \t]+/
+    ))),
+    
+    // Markdown checklists (- [ ] or - [x])
+    markdown_checklist: $ => prec.right(9, seq(
+      $.markdown_checklist_item,
+      repeat($.markdown_checklist_item)
+    )),
+    
+    markdown_checklist_item: $ => prec.right(seq(
+      field('marker', $.markdown_checklist_marker),
+      optional(field('content', $.text_with_inlines)),
+      $._line_ending,
+      optional(field('list_item_continuation', $.list_item_continuation)),
+      optional(field('nested_list', $.markdown_checklist))
+    )),
+    
+    markdown_checklist_marker: $ => token(prec(11, seq(
+      /[ \t]*/,
+      '-',
+      /[ \t]+/,
+      '[',
+      choice(' ', 'x', 'X'),
+      ']',
+      /[ \t]+/
+    ))),
+    
+    // Ordered lists (sequential 1-10 with period depth)
+    ordered_list: $ => prec.right(8, seq(
       $.ordered_list_item,
       repeat($.ordered_list_item)
     )),
     
-    ordered_list_item: $ => seq(
+    ordered_list_item: $ => prec.right(seq(
       field('marker', $.ordered_list_marker),
-      field('content', optional($.text_with_inlines)),
+      optional(field('content', $.text_with_inlines)),
       $._line_ending,
-      repeat(choice(
-        $.unordered_list,
-        $.ordered_list,
-        $.description_list,
-        $.callout_list
-      ))
-    ),
+      optional(field('list_item_continuation', $.list_item_continuation)),
+      optional(field('nested_list', $.ordered_list))
+    )),
     
-    ordered_list_marker: $ => token(prec(15, seq(optional(/[0-9]+/), /\.+/, /[ \t]+/))),
-
-    // DESCRIPTION LISTS
+    ordered_list_marker: $ => token(prec(15, seq(
+      /[1-9][0-9]?/,  // 1-10 only
+      repeat1('.'),    // depth via period count
+      /[ \t]+/
+    ))),
+    
+    // Description lists (term::)
     description_list: $ => prec.right(2, seq(
       $.description_item,
       repeat($.description_item)
     )),
     
-    description_item: $ => seq(
+    description_item: $ => prec.right(seq(
       field('marker', $.description_marker),
       field('content', $.description_content),
       $._line_ending,
-      repeat(choice(
-        $.unordered_list,
-        $.ordered_list,
-        $.description_list,
-        $.callout_list
-      ))
-    ),
+      optional(field('list_item_continuation', $.list_item_continuation))
+    )),
     
     description_marker: $ => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
     description_content: $ => $.text_with_inlines,
-
-    // CALLOUT LISTS
-    callout_list: $ => prec.right(seq(
-      $.callout_item,
-      repeat($.callout_item)
-    )),
     
-    callout_item: $ => seq(
-      field('marker', $.callout_marker),
-      field('content', optional($.text_with_inlines)),
-      $._line_ending
+    // List item continuation (+ followed by a block)
+    list_item_continuation: $ => seq(
+      field('continuation_marker', $.continuation_marker),
+      field('block', choice(
+        $.example_block,
+        $.listing_block,
+        $.quote_block,
+        $.sidebar_block,
+        $.literal_block,
+        $.open_block,
+        $.table_block,
+        $.paragraph,
+        $.fenced_code_block
+      ))
     ),
     
-    callout_marker: $ => token(prec(5, /<[0-9]+>[ \t]+/)),
+    continuation_marker: $ => token(prec(5, seq(/[ \t]*/, '+', /[ \t]*/))),
 
     // PARAGRAPHS
     paragraph: $ => prec.right(1, seq(
