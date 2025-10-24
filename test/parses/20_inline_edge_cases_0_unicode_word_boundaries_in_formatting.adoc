@@ -1,0 +1,5 @@
+Text with *héllo* and _naïve_ formatting.
+
+Japanese text with *こんにちは* and _世界_ formatting.
+
+Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.

@@ -1,0 +1,8 @@
+|===
+|Name |Department |Role
+
+|.2+|John Doe |Engineering |Senior Developer
+|DevOps Engineer
+
+|Jane Smith |Marketing |Manager
+|===

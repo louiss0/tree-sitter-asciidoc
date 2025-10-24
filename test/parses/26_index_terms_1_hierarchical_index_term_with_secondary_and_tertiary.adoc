@@ -1,0 +1,1 @@
+The indexterm:[databases,relational,PostgreSQL] system is robust.

@@ -154,28 +154,24 @@
     "fields": {
       "content": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "text_with_inlines",
             "named": true
           }
         ]
+      },
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "callout_marker",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "CALLOUT_MARKER",
-          "named": true
-        },
-        {
-          "type": "list_item_continuation",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -336,11 +332,23 @@
           "named": true
         },
         {
+          "type": "ifdef_inline",
+          "named": true
+        },
+        {
           "type": "ifeval_block",
           "named": true
         },
         {
+          "type": "ifeval_inline",
+          "named": true
+        },
+        {
           "type": "ifndef_block",
+          "named": true
+        },
+        {
+          "type": "ifndef_inline",
           "named": true
         }
       ]
@@ -380,6 +388,16 @@
     "type": "description_item",
     "named": true,
     "fields": {
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "description_content",
+            "named": true
+          }
+        ]
+      },
       "marker": {
         "multiple": false,
         "required": true,
@@ -393,14 +411,22 @@
     },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "description_content",
+          "type": "callout_list",
           "named": true
         },
         {
-          "type": "list_item_continuation",
+          "type": "description_list",
+          "named": true
+        },
+        {
+          "type": "ordered_list",
+          "named": true
+        },
+        {
+          "type": "unordered_list",
           "named": true
         }
       ]
@@ -683,7 +709,7 @@
     "fields": {
       "close": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "endif_directive",
@@ -696,7 +722,7 @@
         "required": true,
         "types": [
           {
-            "type": "ifdef_open",
+            "type": "ifdef_block_open",
             "named": true
           }
         ]
@@ -786,7 +812,12 @@
     }
   },
   {
-    "type": "ifdef_open",
+    "type": "ifdef_block_open",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "ifdef_inline",
     "named": true,
     "fields": {}
   },
@@ -796,7 +827,7 @@
     "fields": {
       "close": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "endif_directive",
@@ -809,7 +840,7 @@
         "required": true,
         "types": [
           {
-            "type": "ifeval_open",
+            "type": "ifeval_block_open",
             "named": true
           }
         ]
@@ -899,7 +930,12 @@
     }
   },
   {
-    "type": "ifeval_open",
+    "type": "ifeval_block_open",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "ifeval_inline",
     "named": true,
     "fields": {}
   },
@@ -909,7 +945,7 @@
     "fields": {
       "close": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "endif_directive",
@@ -922,7 +958,7 @@
         "required": true,
         "types": [
           {
-            "type": "ifndef_open",
+            "type": "ifndef_block_open",
             "named": true
           }
         ]
@@ -1012,7 +1048,12 @@
     }
   },
   {
-    "type": "ifndef_open",
+    "type": "ifndef_block_open",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "ifndef_inline",
     "named": true,
     "fields": {}
   },
@@ -1310,65 +1351,6 @@
     "type": "link_text",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "list_item_continuation",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "LIST_CONTINUATION",
-          "named": true
-        },
-        {
-          "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "conditional_block",
-          "named": true
-        },
-        {
-          "type": "example_block",
-          "named": true
-        },
-        {
-          "type": "listing_block",
-          "named": true
-        },
-        {
-          "type": "literal_block",
-          "named": true
-        },
-        {
-          "type": "open_block",
-          "named": true
-        },
-        {
-          "type": "paragraph",
-          "named": true
-        },
-        {
-          "type": "passthrough_block",
-          "named": true
-        },
-        {
-          "type": "quote_block",
-          "named": true
-        },
-        {
-          "type": "sidebar_block",
-          "named": true
-        },
-        {
-          "type": "table_block",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "listing_block",
@@ -1737,7 +1719,11 @@
       "required": false,
       "types": [
         {
-          "type": "list_item_continuation",
+          "type": "callout_list",
+          "named": true
+        },
+        {
+          "type": "description_list",
           "named": true
         },
         {
@@ -2774,7 +2760,11 @@
       "required": false,
       "types": [
         {
-          "type": "list_item_continuation",
+          "type": "callout_list",
+          "named": true
+        },
+        {
+          "type": "description_list",
           "named": true
         },
         {
@@ -2838,10 +2828,6 @@
     "named": false
   },
   {
-    "type": "CALLOUT_MARKER",
-    "named": true
-  },
-  {
     "type": "DELIMITED_BLOCK_CONTENT_LINE",
     "named": true
   },
@@ -2859,10 +2845,6 @@
   },
   {
     "type": "LISTING_FENCE_START",
-    "named": true
-  },
-  {
-    "type": "LIST_CONTINUATION",
     "named": true
   },
   {
@@ -2980,6 +2962,10 @@
   {
     "type": "btn:[",
     "named": false
+  },
+  {
+    "type": "callout_marker",
+    "named": true
   },
   {
     "type": "cell_literal_text",

@@ -28,6 +28,9 @@
             "/std:c11",
             "/utf-8",
           ],
+          "ldflags": [
+            "/STACK:8388608",  # 8MB stack (default is 1MB)
+          ],
         }],
       ],
     }

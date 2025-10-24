@@ -1,0 +1,5 @@
+NOTE: This note contains a cross-reference <<section-id>> in the text.
+
+TIP: Check out this external link xref:other.adoc[Other Document] for more info.
+
+IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.

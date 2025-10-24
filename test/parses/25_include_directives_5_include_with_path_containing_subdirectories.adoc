@@ -1,0 +1,3 @@
+include::chapters/getting-started/intro.adoc[]
+
+Following content.

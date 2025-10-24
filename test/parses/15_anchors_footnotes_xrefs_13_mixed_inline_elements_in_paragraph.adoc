@@ -1,0 +1,1 @@
+Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[link].

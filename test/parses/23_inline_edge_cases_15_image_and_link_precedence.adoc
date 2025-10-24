@@ -1,0 +1,1 @@
+Use image:logo.png[Logo] and https://example.com[Site] here.

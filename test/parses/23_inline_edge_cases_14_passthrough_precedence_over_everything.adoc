@@ -1,0 +1,1 @@
+This +++*bold* `code` _italic_+++ is literal.

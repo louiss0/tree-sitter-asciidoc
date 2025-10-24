@@ -1,0 +1,7 @@
+*Strong with `code` inside* normal text.
+
+_Emphasis with ^superscript^ and ~subscript~ mixed_.
+
+**Unconstrained **with** double** asterisks.
+
+++Complex `monospace with _emphasis_` not parsed++ content.

@@ -1,0 +1,1 @@
+This has footnote:ref1[Referenced footnote text] in it.

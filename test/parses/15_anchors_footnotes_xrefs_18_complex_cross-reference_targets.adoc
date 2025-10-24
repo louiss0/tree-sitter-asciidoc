@@ -1,0 +1,1 @@
+See xref:../other/doc.adoc#section1[Complex target] for details.

@@ -30,7 +30,6 @@ module.exports = grammar({
     $.MARKDOWN_FENCE_START,
     $.MARKDOWN_FENCE_END,
     $.MARKDOWN_FENCE_CONTENT_LINE,
-    $.LIST_CONTINUATION,
     $.AUTOLINK_BOUNDARY,
     $.ATTRIBUTE_LIST_START,
     $.DELIMITED_BLOCK_CONTENT_LINE,
@@ -47,7 +46,6 @@ module.exports = grammar({
     [$.unordered_list_item],
     [$.ordered_list_item], 
     [$.description_item],
-    [$.callout_item],
     [$.inline_element, $.explicit_link],
     [$.attribute_content, $.role_list]
   ],
@@ -271,54 +269,146 @@ module.exports = grammar({
     
     openblock_close: $ => $.OPENBLOCK_FENCE_END,
     
-    // CONDITIONAL BLOCKS - with error recovery
+    // CONDITIONAL BLOCKS - inline and block forms
     conditional_block: $ => prec(2, choice(
+      $.ifdef_inline,
       $.ifdef_block,
+      $.ifndef_inline,
       $.ifndef_block,
+      $.ifeval_inline,
       $.ifeval_block
     )),
     
-    ifdef_block: $ => prec.right(seq(
-      field('open', $.ifdef_open),
-      repeat($._element),
-      optional(field('close', $.endif_directive))
-    )),
-    
-    ifndef_block: $ => prec.right(seq(
-      field('open', $.ifndef_open),
-      repeat($._element),
-      optional(field('close', $.endif_directive))
-    )),
-    
-    ifeval_block: $ => prec.right(seq(
-      field('open', $.ifeval_open),
-      repeat($._element),
-      optional(field('close', $.endif_directive))
-    )),
-    
-    ifdef_open: $ => seq(
+    // INLINE CONDITIONALS - self-contained, with content in brackets
+    ifdef_inline: $ => prec(10, seq(
       'ifdef::',
       /[^\[\r\n]+/,  // attribute name(s)
       '[',
-      optional(/[^\]\r\n]*/),  // optional content
+      field('content', /[^\]\r\n]+/),  // non-empty content in brackets
       ']',
       $._line_ending
-    ),
+    )),
     
-    ifndef_open: $ => seq(
+    ifndef_inline: $ => prec(10, seq(
       'ifndef::',
       /[^\[\r\n]+/,  // attribute name(s)
       '[',
-      optional(/[^\]\r\n]*/),  // optional content
+      field('content', /[^\]\r\n]+/),  // non-empty content in brackets
       ']',
+      $._line_ending
+    )),
+    
+    ifeval_inline: $ => prec(10, seq(
+      'ifeval::',
+      '[',
+      field('expression', /[^\]\r\n]+/),  // expression in brackets
+      ']',
+      $._line_ending
+    )),
+    
+    // BLOCK CONDITIONALS - empty brackets, require endif
+    ifdef_block: $ => prec.right(seq(
+      field('open', $.ifdef_block_open),
+      repeat(choice(
+        $.section,
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list,
+        $.attribute_entry,
+        $.example_block,
+        $.listing_block,
+        $.fenced_code_block,
+        $.quote_block,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.include_directive,
+        $.block_comment,
+        $.table_block,
+        $.paragraph,
+        $._blank_line
+      )),
+      field('close', $.endif_directive)
+    )),
+    
+    ifndef_block: $ => prec.right(seq(
+      field('open', $.ifndef_block_open),
+      repeat(choice(
+        $.section,
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list,
+        $.attribute_entry,
+        $.example_block,
+        $.listing_block,
+        $.fenced_code_block,
+        $.quote_block,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.include_directive,
+        $.block_comment,
+        $.table_block,
+        $.paragraph,
+        $._blank_line
+      )),
+      field('close', $.endif_directive)
+    )),
+    
+    ifeval_block: $ => prec.right(seq(
+      field('open', $.ifeval_block_open),
+      repeat(choice(
+        $.section,
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list,
+        $.attribute_entry,
+        $.example_block,
+        $.listing_block,
+        $.fenced_code_block,
+        $.quote_block,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.include_directive,
+        $.block_comment,
+        $.table_block,
+        $.paragraph,
+        $._blank_line
+      )),
+      field('close', $.endif_directive)
+    )),
+    
+    // Block open directives with empty brackets only
+    ifdef_block_open: $ => seq(
+      'ifdef::',
+      /[^\[\r\n]+/,  // attribute name(s)
+      '[',
+      ']',  // empty brackets
       $._line_ending
     ),
     
-    ifeval_open: $ => seq(
+    ifndef_block_open: $ => seq(
+      'ifndef::',
+      /[^\[\r\n]+/,  // attribute name(s)
+      '[',
+      ']',  // empty brackets
+      $._line_ending
+    ),
+    
+    ifeval_block_open: $ => seq(
       'ifeval::',
       '[',
-      /[^\]\r\n]+/,  // expression
-      ']',
+      ']',  // empty brackets
       $._line_ending
     ),
     
@@ -327,7 +417,7 @@ module.exports = grammar({
       '[',
       optional(/[^\]\r\n]*/),  // optional content
       ']',
-      optional($._line_ending)
+      $._line_ending
     ),
     
     // METADATA
@@ -401,11 +491,12 @@ module.exports = grammar({
       field('marker', $.unordered_list_marker),
       field('content', optional($.text_with_inlines)),
       $._line_ending,
-      prec(-1, optional(choice(
+      repeat(choice(
         $.unordered_list,
-        $.ordered_list
-      ))),
-      repeat($.list_item_continuation)
+        $.ordered_list,
+        $.description_list,
+        $.callout_list
+      ))
     ),
     
     unordered_list_marker: $ => token(prec(10, seq(/[ \t]*/, /\*+|\-+/, /[ \t]+/))),
@@ -419,11 +510,12 @@ module.exports = grammar({
       field('marker', $.ordered_list_marker),
       field('content', optional($.text_with_inlines)),
       $._line_ending,
-      prec(-1, optional(choice(
+      repeat(choice(
         $.unordered_list,
-        $.ordered_list
-      ))),
-      repeat($.list_item_continuation)
+        $.ordered_list,
+        $.description_list,
+        $.callout_list
+      ))
     ),
     
     ordered_list_marker: $ => token(prec(15, seq(optional(/[0-9]+/), /\.+/, /[ \t]+/))),
@@ -436,9 +528,14 @@ module.exports = grammar({
     
     description_item: $ => seq(
       field('marker', $.description_marker),
-      $.description_content,
+      field('content', $.description_content),
       $._line_ending,
-      repeat($.list_item_continuation)
+      repeat(choice(
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list
+      ))
     ),
     
     description_marker: $ => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
@@ -451,38 +548,12 @@ module.exports = grammar({
     )),
     
     callout_item: $ => seq(
-      $.CALLOUT_MARKER,
-      field('content', $.text_with_inlines),
-      $._line_ending,
-      repeat($.list_item_continuation)
+      field('marker', $.callout_marker),
+      field('content', optional($.text_with_inlines)),
+      $._line_ending
     ),
     
-    CALLOUT_MARKER: $ => token(prec(5, /<[0-9]+>[ \t]+/)),
-
-    // LIST CONTINUATIONS
-    list_item_continuation: $ => seq(
-      $.LIST_CONTINUATION,
-      choice(
-        $.paragraph,
-        $.open_block,
-        $.example_block,
-        $.listing_block,
-        $.quote_block,
-        $.literal_block,
-        $.sidebar_block,
-        $.passthrough_block,
-        $.table_block,
-        $.block_comment,
-        $.conditional_block
-        // Nested lists removed from continuations to prevent deep recursion
-        // $.unordered_list,
-        // $.ordered_list,
-        // $.description_list
-      )
-    ),
-
-    // LIST_CONTINUATION handled by external scanner
-    // LIST_CONTINUATION: $ => token(seq('+', /[ \t]*/, /\r?\n/)),
+    callout_marker: $ => token(prec(5, /<[0-9]+>[ \t]+/)),
 
     // PARAGRAPHS
     paragraph: $ => prec.right(1, seq(
@@ -491,7 +562,7 @@ module.exports = grammar({
         $.paragraph_admonition,
         field('content', $.text_with_inlines)
       ),
-      optional($._line_ending)
+      $._line_ending
     )),
 
     // PARAGRAPH ADMONITIONS

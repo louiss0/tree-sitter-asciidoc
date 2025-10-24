@@ -1,0 +1,3 @@
+include::simple.adoc[]
+
+Text after.

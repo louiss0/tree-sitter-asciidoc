@@ -1192,8 +1192,7 @@ static bool scan_block_anchor(TSLexer *lexer) {
 
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
-    if (!scanner || !lexer) return false; // Safety check
-    if (!scanner || !lexer) return false;
+    if (!scanner || !lexer || !valid_symbols) return false;
     
     // LIST_CONTINUATION has highest priority - check first before other tokens consume input
     if (valid_symbols[LIST_CONTINUATION] && scan_list_continuation(lexer)) {
@@ -1453,7 +1452,7 @@ void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char
 }
 
 void *tree_sitter_asciidoc_external_scanner_create() {
-    Scanner *scanner = calloc(1, sizeof(Scanner));
+    Scanner *scanner = (Scanner *)calloc(1, sizeof(Scanner));
     if (!scanner) return NULL;
     // Initialize all fields explicitly
     scanner->fence_length = 0;

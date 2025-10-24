@@ -1,0 +1,8 @@
+|===
+|Name |Details
+
+|2.2+|Complex Cell
+|Regular Cell
+
+|Another Name |Another Detail
+|===

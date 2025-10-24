@@ -1,0 +1,7 @@
+Adjacent *strong* and _emphasis_ formatting.
+
+Escaped \*not strong\* and \_not emphasis\_.
+
+Mixed: *strong _with emphasis_ inside*.
+
+Monospace with `code *not strong* here` content.

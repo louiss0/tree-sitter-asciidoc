@@ -1,0 +1,1 @@
+See image::diagram.svg[System Architecture,width=500] below.

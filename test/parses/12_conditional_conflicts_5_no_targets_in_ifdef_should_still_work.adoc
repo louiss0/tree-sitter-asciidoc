@@ -1,0 +1,7 @@
+ifdef::[]
+Content without specific target
+endif::[]
+
+ifndef::[]
+Content for ifndef without target  
+endif::[]

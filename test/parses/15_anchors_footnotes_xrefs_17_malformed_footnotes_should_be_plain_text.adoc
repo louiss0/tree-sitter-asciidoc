@@ -1,0 +1,1 @@
+This has foot note:[spaced] and footnote:[unclosed and regular text.

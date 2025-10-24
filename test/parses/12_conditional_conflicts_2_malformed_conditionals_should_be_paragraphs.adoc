@@ -1,0 +1,5 @@
+ifdef::attr[extra content after bracket]
+ifndef::
+ifeval::[incomplete
+
+These look like conditionals but are malformed.

@@ -1,0 +1,3 @@
+include::examples.adoc[lines=10..20]
+
+Text after include.

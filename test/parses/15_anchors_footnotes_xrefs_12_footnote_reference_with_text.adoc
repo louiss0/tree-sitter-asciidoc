@@ -1,0 +1,1 @@
+This uses footnoteref:ref1[Footnote reference text] with text.

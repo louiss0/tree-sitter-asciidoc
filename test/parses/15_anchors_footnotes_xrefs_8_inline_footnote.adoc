@@ -1,0 +1,1 @@
+This has a footnote footnote:[This is a footnote] in it.

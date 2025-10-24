@@ -1,0 +1,1 @@
+Here is image:logo.png[Company Logo] in text.

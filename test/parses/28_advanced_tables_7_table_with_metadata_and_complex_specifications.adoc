@@ -1,0 +1,19 @@
+.Employee Information
+[#employee-table.data-table]
+|===
+|h|Name |h|Department 2+h|Contact Information
+
+|John Doe
+|Engineering
+|john@company.com
+|555-1234
+
+2+|Team Lead
+|lead@company.com
+|555-5678
+
+|Jane Smith
+|Marketing
+2+a|Email: jane@company.com +
+Phone: *555-9012*
+|===

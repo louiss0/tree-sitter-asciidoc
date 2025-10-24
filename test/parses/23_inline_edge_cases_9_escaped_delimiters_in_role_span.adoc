@@ -1,0 +1,1 @@
+This is [role]#text with \# hash# here.

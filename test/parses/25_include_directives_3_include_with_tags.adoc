@@ -1,0 +1,3 @@
+include::code.adoc[tag=example,indent=0]
+
+More content.

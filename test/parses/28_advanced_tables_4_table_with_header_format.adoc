@@ -1,0 +1,6 @@
+|===
+|h|Name |h|Age |h|City
+
+|John Doe |30 |New York
+|Jane Smith |25 |Los Angeles
+|===

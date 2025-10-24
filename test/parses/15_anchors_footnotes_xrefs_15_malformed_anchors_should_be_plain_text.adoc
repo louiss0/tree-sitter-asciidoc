@@ -1,0 +1,1 @@
+This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
