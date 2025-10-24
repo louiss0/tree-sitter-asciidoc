@@ -648,14 +648,14 @@ module.exports = grammar({
     )),
 
     quanda_description_marker: $ => token(prec(21, seq(
-      /[^\s\r\n:]+\?/, // term ending with question mark
+      /[^:\r\n]+\?/, // term (can include spaces) ending with question mark
       choice(
         '::',      // depth 1
         ':::',     // depth 2
         '::::',    // depth 3
         ':::::',   // depth 4
         '::::::',  // depth 5
-        ':::::::'  // allow up to 7 colons, consistent with description depth rules
+        ':::::::'  // up to 7 colons allowed (depth rules apply)
       ),
       /[ \t]*/
     ))),

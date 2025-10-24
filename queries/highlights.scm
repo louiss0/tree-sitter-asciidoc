@@ -231,9 +231,9 @@
 (ifdef_block) @keyword.conditional
 (ifndef_block) @keyword.conditional
 (ifeval_block) @keyword.conditional
-(ifdef_open) @keyword.conditional
-(ifndef_open) @keyword.conditional
-(ifeval_open) @keyword.conditional
+(ifdef_block_open) @keyword.conditional
+(ifndef_block_open) @keyword.conditional
+(ifeval_block_open) @keyword.conditional
 (endif_directive) @keyword.conditional
 
 ; ============================================================================
