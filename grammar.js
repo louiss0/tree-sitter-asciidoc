@@ -62,6 +62,7 @@ module.exports = grammar({
       $.asciidoc_checklist,
       $.markdown_checklist,
       $.description_list,
+      $.quanda_description_list,
       $.attribute_entry,
       $.example_block,
       $.listing_block,
@@ -322,6 +323,7 @@ module.exports = grammar({
         $.asciidoc_checklist,
         $.markdown_checklist,
         $.description_list,
+        $.quanda_description_list,
         $.attribute_entry,
         $.example_block,
         $.listing_block,
@@ -351,6 +353,7 @@ module.exports = grammar({
         $.asciidoc_checklist,
         $.markdown_checklist,
         $.description_list,
+        $.quanda_description_list,
         $.attribute_entry,
         $.example_block,
         $.listing_block,
@@ -380,6 +383,7 @@ module.exports = grammar({
         $.asciidoc_checklist,
         $.markdown_checklist,
         $.description_list,
+        $.quanda_description_list,
         $.attribute_entry,
         $.example_block,
         $.listing_block,
@@ -627,6 +631,34 @@ module.exports = grammar({
       /[ \t]+/
     ))),
     description_content: $ => $.text_with_inlines,
+
+    // Quanda description lists: require [quanda], question?::, no inline content, answer below, no nesting
+    quanda_description_list: $ => prec.right(2, seq(
+      field('quanda', $.quanda_label),
+      $.quanda_description_item,
+      repeat($.quanda_description_item)
+    )),
+
+    quanda_label: $ => seq('[', 'quanda', ']', $._line_ending),
+
+    quanda_description_item: $ => prec.right(seq(
+      field('marker', $.quanda_description_marker),
+      $._line_ending,
+      field('answer', $.paragraph)
+    )),
+
+    quanda_description_marker: $ => token(prec(21, seq(
+      /[^\s\r\n:]+\?/, // term ending with question mark
+      choice(
+        '::',      // depth 1
+        ':::',     // depth 2
+        '::::',    // depth 3
+        ':::::',   // depth 4
+        '::::::',  // depth 5
+        ':::::::'  // allow up to 7 colons, consistent with description depth rules
+      ),
+      /[ \t]*/
+    ))),
     
     // List item continuation (+ followed by a block)
     list_item_continuation: $ => seq(

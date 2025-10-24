@@ -206,3 +206,30 @@ Fourth:: After two empty lines
       content: (description_content
         (text_with_inlines
           (text_segment))))))
+
+================================================================================
+Quanda description list
+================================================================================
+
+[quanda]
+What is Linux?::
+Linux is a kernel.
+
+Why AsciiDoc?::::
+Because it is powerful.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (quanda_description_list
+    quanda: (quanda_label)
+    (quanda_description_item
+      marker: (quanda_description_marker)
+      answer: (paragraph
+        content: (text_with_inlines
+          (text_segment))))
+    (quanda_description_item
+      marker: (quanda_description_marker)
+      answer: (paragraph
+        content: (text_with_inlines
+          (text_segment))))))
