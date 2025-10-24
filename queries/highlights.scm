@@ -136,19 +136,23 @@
 ; ============================================================================
 
 ; List markers
-(unordered_list_marker) @markup.list.unnumbered
+(asciidoc_list_marker) @markup.list.unnumbered
+(markdown_list_marker) @markup.list.unnumbered
+(asciidoc_checklist_marker) @markup.list.unnumbered
+(markdown_checklist_marker) @markup.list.unnumbered
 (ordered_list_marker) @markup.list.numbered
-(description_marker) @markup.list
-(CALLOUT_MARKER) @markup.list.numbered
+(description_marker) @markup.list.description
 
 ; List items
-(unordered_list_item) @markup.list.unnumbered
+(asciidoc_unordered_list_item) @markup.list.unnumbered
+(markdown_unordered_list_item) @markup.list.unnumbered
+(asciidoc_checklist_item) @markup.list.unnumbered
+(markdown_checklist_item) @markup.list.unnumbered
 (ordered_list_item) @markup.list.numbered
 (description_item) @markup.list
-(callout_item) @markup.list.numbered
 
 ; List continuations
-(LIST_CONTINUATION) @punctuation.special
+(continuation_marker) @punctuation.special
 
 ; ============================================================================
 ; DELIMITED BLOCKS

@@ -78,8 +78,23 @@
 ; LISTS - Indent list item content
 ; ============================================================================
 
-; Unordered list items
-(unordered_list_item
+; AsciiDoc unordered list items
+(asciidoc_unordered_list_item
+  marker: (_)
+  content: (_) @indent)
+
+; Markdown unordered list items
+(markdown_unordered_list_item
+  marker: (_)
+  content: (_) @indent)
+
+; AsciiDoc checklist items
+(asciidoc_checklist_item
+  marker: (_)
+  content: (_) @indent)
+
+; Markdown checklist items
+(markdown_checklist_item
   marker: (_)
   content: (_) @indent)
 
@@ -92,11 +107,6 @@
 (description_item
   marker: (_)
   (_) @indent)
-
-; Callout list items
-(callout_item
-  (_)
-  content: (_) @indent)
 
 ; List continuations (+ followed by attached block)
 (list_item_continuation) @indent

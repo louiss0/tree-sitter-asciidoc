@@ -593,7 +593,7 @@ module.exports = grammar({
       /[ \t]+/
     ))),
     
-    // Description lists (term::)
+    // Description lists (term:: with colon-based depth, 5 levels max)
     description_list: $ => prec.right(2, seq(
       $.description_item,
       repeat($.description_item)
@@ -601,12 +601,31 @@ module.exports = grammar({
     
     description_item: $ => prec.right(seq(
       field('marker', $.description_marker),
-      field('content', $.description_content),
+      optional(field('content', $.description_content)),
       $._line_ending,
-      optional(field('list_item_continuation', $.list_item_continuation))
+      optional(field('nested_lists', choice(
+        $.asciidoc_unordered_list,
+        $.markdown_unordered_list,
+        $.ordered_list,
+        $.asciidoc_checklist,
+        $.markdown_checklist,
+        $.description_list
+      )))
     )),
     
-    description_marker: $ => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
+    // Description marker with 2-7 colons (depth levels 1-5)
+    description_marker: $ => token(prec(20, seq(
+      /[^\s\r\n:]+/,  // term
+      choice(
+        '::',      // depth 1
+        ':::',     // depth 2
+        '::::',    // depth 3
+        ':::::',   // depth 4
+        '::::::',  // depth 5
+        ':::::::'  // max depth (will be 6th level, should generate error if > 5)
+      ),
+      /[ \t]+/
+    ))),
     description_content: $ => $.text_with_inlines,
     
     // List item continuation (+ followed by a block)

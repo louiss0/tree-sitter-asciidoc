@@ -1,5 +1,5 @@
 ================================================================================
-Simple description list
+Simple description list (depth 1)
 ================================================================================
 
 Term1:: Description for term 1
@@ -27,12 +27,159 @@ AnotherTerm:: Another description
           (text_segment))))))
 
 ================================================================================
-Description list with complex content
+Nested description lists with colon-based depth (2-6 colons)
 ================================================================================
 
-Linux:: An open-source operating system
-Windows:: A proprietary operating system
-macOS:: Apple's Unix-based operating system
+OS:: Operating Systems
+Linux::: Open-source Unix-like OS
+Ubuntu:::: Popular Linux distribution
+Flavors::::: Different Ubuntu variants
+Desktop:::::: Desktop-focused versions
+Server::::::: Server-focused versions
+Windows::: Microsoft's proprietary OS
+macOS::: Apple's Unix-based system
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment)))
+      nested_lists: (description_list
+        (description_item
+          marker: (description_marker)
+          content: (description_content
+            (text_with_inlines
+              (text_segment)))
+          nested_lists: (description_list
+            (description_item
+              marker: (description_marker)
+              content: (description_content
+                (text_with_inlines
+                  (text_segment)))
+              nested_lists: (description_list
+                (description_item
+                  marker: (description_marker)
+                  content: (description_content
+                    (text_with_inlines
+                      (text_segment)))
+                  nested_lists: (description_list
+                    (description_item
+                      marker: (description_marker)
+                      content: (description_content
+                        (text_with_inlines
+                          (text_segment)))
+                      nested_lists: (description_list
+                        (description_item
+                          marker: (description_marker)
+                          content: (description_content
+                            (text_with_inlines
+                              (text_segment))))))))))
+        (description_item
+          marker: (description_marker)
+          content: (description_content
+            (text_with_inlines
+              (text_segment))))
+        (description_item
+          marker: (description_marker)
+          content: (description_content
+            (text_with_inlines
+              (text_segment))))))
+
+================================================================================
+Description list with other list types as children
+================================================================================
+
+Tools:: Available tools
+* AsciiDoc list item 1
+* AsciiDoc list item 2
+
+Languages:: Programming languages
+- Markdown list item 1
+- Markdown list item 2
+
+Numbers:: Ordered items
+1. First item
+2. Second item
+
+Tasks:: Todo items
+* [ ] Unchecked task
+* [x] Completed task
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment)))
+      nested_lists: (asciidoc_unordered_list
+        (asciidoc_unordered_list_item
+          marker: (asciidoc_list_marker)
+          content: (text_with_inlines
+            (text_segment)))
+        (asciidoc_unordered_list_item
+          marker: (asciidoc_list_marker)
+          content: (text_with_inlines
+            (text_segment)))))
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment)))
+      nested_lists: (markdown_unordered_list
+        (markdown_unordered_list_item
+          marker: (markdown_list_marker)
+          content: (text_with_inlines
+            (text_segment)))
+        (markdown_unordered_list_item
+          marker: (markdown_list_marker)
+          content: (text_with_inlines
+            (text_segment)))))
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment)))
+      nested_lists: (ordered_list
+        (ordered_list_item
+          marker: (ordered_list_marker)
+          content: (text_with_inlines
+            (text_segment)))
+        (ordered_list_item
+          marker: (ordered_list_marker)
+          content: (text_with_inlines
+            (text_segment)))))
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment)))
+      nested_lists: (asciidoc_checklist
+        (asciidoc_checklist_item
+          marker: (asciidoc_checklist_marker)
+          content: (text_with_inlines
+            (text_segment)))
+        (asciidoc_checklist_item
+          marker: (asciidoc_checklist_marker)
+          content: (text_with_inlines
+            (text_segment)))))))
+
+================================================================================
+Description list termination with two empty lines
+================================================================================
+
+First:: First description list
+Second:: Second item
+
+
+Third:: This starts a new description list
+Fourth:: After two empty lines
 
 --------------------------------------------------------------------------------
 
@@ -43,6 +190,12 @@ macOS:: Apple's Unix-based operating system
       content: (description_content
         (text_with_inlines
           (text_segment))))
+    (description_item
+      marker: (description_marker)
+      content: (description_content
+        (text_with_inlines
+          (text_segment)))))
+  (description_list
     (description_item
       marker: (description_marker)
       content: (description_content

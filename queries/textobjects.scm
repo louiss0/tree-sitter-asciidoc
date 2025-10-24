@@ -88,9 +88,24 @@
 ; LISTS - Treat list items as parameters
 ; ============================================================================
 
-; Unordered list items
-(unordered_list_item) @parameter.outer
-(unordered_list_item
+; AsciiDoc unordered list items
+(asciidoc_unordered_list_item) @parameter.outer
+(asciidoc_unordered_list_item
+  content: (_) @parameter.inner)
+
+; Markdown unordered list items
+(markdown_unordered_list_item) @parameter.outer
+(markdown_unordered_list_item
+  content: (_) @parameter.inner)
+
+; AsciiDoc checklist items
+(asciidoc_checklist_item) @parameter.outer
+(asciidoc_checklist_item
+  content: (_) @parameter.inner)
+
+; Markdown checklist items
+(markdown_checklist_item) @parameter.outer
+(markdown_checklist_item
   content: (_) @parameter.inner)
 
 ; Ordered list items
@@ -102,11 +117,6 @@
 (description_item) @parameter.outer
 (description_item
   (_) @parameter.inner)
-
-; Callout list items
-(callout_item) @parameter.outer
-(callout_item
-  content: (_) @parameter.inner)
 
 ; List continuations
 (list_item_continuation) @parameter.outer

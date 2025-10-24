@@ -96,25 +96,35 @@
 ; LISTS - Fold when multiple items exist
 ; ============================================================================
 
-; Unordered lists
-(unordered_list 
-  (unordered_list_item)+
-  (unordered_list_item)+ @fold)
+; AsciiDoc unordered lists
+(asciidoc_unordered_list 
+  (asciidoc_unordered_list_item)+
+  (asciidoc_unordered_list_item)+ @fold)
+
+; Markdown unordered lists
+(markdown_unordered_list 
+  (markdown_unordered_list_item)+
+  (markdown_unordered_list_item)+ @fold)
 
 ; Ordered lists
 (ordered_list 
   (ordered_list_item)
   (ordered_list_item)+ @fold)
 
+; AsciiDoc checklists
+(asciidoc_checklist 
+  (asciidoc_checklist_item)+
+  (asciidoc_checklist_item)+ @fold)
+
+; Markdown checklists
+(markdown_checklist 
+  (markdown_checklist_item)+
+  (markdown_checklist_item)+ @fold)
+
 ; Description lists
 (description_list 
   (description_item)
   (description_item)+ @fold)
-
-; Callout lists
-(callout_list
-  (callout_item)
-  (callout_item)+ @fold)
 
 ; List item continuations (attached blocks)
 (list_item_continuation) @fold
