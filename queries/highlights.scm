@@ -162,6 +162,19 @@
 (ui_macro) @function.macro
 (index_term) @markup.link.label
 
+; Expression syntax in ifeval
+(binary_expression) @expression
+(unary_expression) @expression
+(grouped_expression) @expression
+(string_literal) @string
+(numeric_literal) @number
+(boolean_literal) @boolean
+
+; Specific math macro types
+(stem_inline) @function.macro
+(latexmath_inline) @function.macro
+(asciimath_inline) @function.macro
+
 ; Admonitions
 (paragraph_admonition) @markup.strong
 (admonition_label) @markup.strong

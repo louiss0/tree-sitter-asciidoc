@@ -2,12 +2,13 @@
 
 ; Language-specific code blocks - Now supported!
 ; Extract language from [source,language] attributes
-(listing_block
-  (metadata
-    (block_attributes
-      (source_block_attributes
-        language: (language_identifier) @injection.language)))
-  content: (block_content) @injection.content)
+; TODO: Fix this query - source_block_attributes structure changed
+;(listing_block
+;  (metadata
+;    (block_attributes
+;      (source_block_attributes
+;        language: (language_identifier) @injection.language)))
+;  content: (block_content) @injection.content)
 
 ; Fallback: Generic source blocks with language detection from content
 ((listing_block
@@ -82,9 +83,46 @@
   content: (block_content) @injection.content)
  (#set! injection.language "bash"))
 
-; Math content injection (math_macro is a simple token)
-(math_macro) @injection.content
+; Math content injection - specific language detection
+; Stem inline macro - default to asciimath
+(stem_inline) @injection.content
+(#set! injection.language "text")  ; fallback to text since asciimath isn't widely supported
+
+; LaTeX math inline macro
+(latexmath_inline) @injection.content
 (#set! injection.language "latex")
+
+; AsciiMath inline macro  
+(asciimath_inline) @injection.content
+(#set! injection.language "text")  ; fallback to text since asciimath isn't widely supported
+
+; Math block detection via attributes and passthrough content
+; Stem blocks (default to asciimath but use text fallback)
+((passthrough_block
+  (metadata
+    (block_attributes
+      content: (attribute_content) @_attr
+      (#match? @_attr "stem")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "text"))
+
+; LaTeX math blocks
+((passthrough_block
+  (metadata
+    (block_attributes
+      content: (attribute_content) @_attr
+      (#match? @_attr "latexmath")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "latex"))
+
+; AsciiMath blocks
+((passthrough_block
+  (metadata
+    (block_attributes
+      content: (attribute_content) @_attr
+      (#match? @_attr "asciimath")))
+  content: (block_content) @injection.content)
+ (#set! injection.language "text"))
 
 ; Generic code blocks without language specification
 (listing_block

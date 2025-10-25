@@ -1,6 +1,1 @@
-====
-This is example content
-line 2
-====
-
-Some text after.
+[NOTE]\n====\nThis is an example block with metadata.\n====

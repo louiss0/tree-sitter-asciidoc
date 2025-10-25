@@ -219,7 +219,12 @@ static bool scan_table_fence(TSLexer *lexer, bool is_start) {
     }
     
     if (lexer->lookahead != '|') return false;
-    advance(lexer); // consume '|'
+    // Allow one or two leading pipes
+    uint8_t pipe_count = 0;
+    while (lexer->lookahead == '|' && pipe_count < 2) {
+      advance(lexer);
+      pipe_count++;
+    }
     
     // Look for at least 3 equals signs
     uint8_t equals_count = 0;
@@ -1041,25 +1046,6 @@ static bool scan_block_anchor(TSLexer *lexer) {
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
 
-    // TEMP: narrow down crash source - only attempt fence-start scanning on '=' '-' '.' '_' '*' '+' at BOL
-    if (at_line_start(lexer)) {
-        char c = lexer->lookahead;
-        if (c == '=' || c == '-' || c == '.' || c == '_' || c == '*' || c == '+') {
-            if ((valid_symbols[EXAMPLE_FENCE_START] || valid_symbols[LISTING_FENCE_START] || 
-                 valid_symbols[LITERAL_FENCE_START] || valid_symbols[QUOTE_FENCE_START] ||
-                 valid_symbols[SIDEBAR_FENCE_START] || valid_symbols[PASSTHROUGH_FENCE_START] ||
-                 valid_symbols[OPENBLOCK_FENCE_START]) && scan_block_fence_start(scanner, lexer)) {
-                int start_token = scanner->fence_type;
-                if (start_token != -1 && valid_symbols[start_token]) {
-                    lexer->result_symbol = start_token;
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
-    return false;
-    
     // LIST_CONTINUATION has highest priority - check first before other tokens consume input
     if (valid_symbols[LIST_CONTINUATION] && scan_list_continuation(lexer)) {
         lexer->result_symbol = LIST_CONTINUATION;

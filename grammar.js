@@ -299,10 +299,54 @@ module.exports = grammar({
     ifeval_open: $ => seq(
       'ifeval::',
       '[',
-      /[^\]\r\n]+/,  // expression
+      field('expression', $.expression),  // parsed expression
       ']',
       $._line_ending
     ),
+    
+    // EXPRESSIONS - for ifeval conditions
+    expression: $ => prec.right(choice(
+      $.binary_expression,
+      $.unary_expression,
+      $.grouped_expression,
+      $.primary_expression
+    )),
+    
+    binary_expression: $ => choice(
+      // Logical operators (lowest precedence)
+      prec.left(1, seq($.expression, choice('&&', '||', 'and', 'or'), $.expression)),
+      // Comparison operators  
+      prec.left(2, seq($.expression, choice('==', '!=', '<', '>', '<=', '>='), $.expression)),
+      // Arithmetic operators (highest precedence)
+      prec.left(3, seq($.expression, choice('+', '-'), $.expression)),
+      prec.left(4, seq($.expression, choice('*', '/', '%'), $.expression))
+    ),
+    
+    unary_expression: $ => prec(5, choice(
+      seq('!', $.expression),
+      seq('-', $.expression)
+    )),
+    
+    grouped_expression: $ => seq('(', $.expression, ')'),
+    
+    primary_expression: $ => choice(
+      $.string_literal,
+      $.numeric_literal,
+      $.boolean_literal,
+      $.attribute_reference
+    ),
+    
+    string_literal: $ => choice(
+      seq('"', /[^"\r\n]*/, '"'),
+      seq("'", /[^'\r\n]*/, "'")
+    ),
+    
+    numeric_literal: $ => token(choice(
+      /\d+\.\d+/,  // float
+      /\d+/        // integer
+    )),
+    
+    boolean_literal: $ => choice('true', 'false'),
     
     endif_directive: $ => seq(
       'endif::',
@@ -321,21 +365,11 @@ module.exports = grammar({
     
     block_attributes: $ => prec(3, seq(
       '[',
-      choice(
-        $.source_block_attributes,
-        field('content', $.attribute_content)
-      ),
+      field('content', $.attribute_content),
       ']',
       $._line_ending
     )),
     
-    source_block_attributes: $ => prec(100, seq(
-      field('type', token('source')),
-      token(','),
-      field('language', $.language_identifier)
-    )),
-    
-    language_identifier: $ => /[a-zA-Z][a-zA-Z0-9_+-]*/,
     attribute_content: $ => /[^\]\r\n]+/,
     
     id_and_roles: $ => seq(
@@ -415,7 +449,7 @@ module.exports = grammar({
       repeat($.list_item_continuation)
     ),
     
-    _description_marker: $ => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
+    _description_marker: $ => token(prec(20, /(?!ifn?def|ifeval)[^\s\r\n:]+::[ \t]+/)),
     description_content: $ => $.text_with_inlines,
 
     // CALLOUT LISTS
@@ -506,7 +540,7 @@ module.exports = grammar({
       prec(-100, '`')
     ),
     
-    text_segment: $ => token(prec(-1, /[^\s\r\n:*_\`^~\[\]<>{}#()]+/)),
+    text_segment: $ => token(prec(-1, /[^\s\r\n:*_\`^~\[\]<>\{}#()|]+/)),
     
     // Error recovery: fallback for any remaining characters
     error_recovery: $ => prec(-1000, /./),
@@ -792,10 +826,15 @@ module.exports = grammar({
 
     // MATH MACROS
     math_macro: $ => choice(
-      token(seq('stem:[', /[^\]\r\n]+/, ']')),
-      token(seq('latexmath:[', /[^\]\r\n]+/, ']')),
-      token(seq('asciimath:[', /[^\]\r\n]+/, ']'))
+      $.stem_inline,
+      $.latexmath_inline,
+      $.asciimath_inline
     ),
+    
+    // Keep as tokens to avoid parsing conflicts but allow separate node types
+    stem_inline: $ => token(seq('stem:[', /[^\]\r\n]+/, ']')),
+    latexmath_inline: $ => token(seq('latexmath:[', /[^\]\r\n]+/, ']')),
+    asciimath_inline: $ => token(seq('asciimath:[', /[^\]\r\n]+/, ']')),
 
     // UI MACROS
     ui_macro: $ => choice(
@@ -868,15 +907,9 @@ module.exports = grammar({
       field('close', $.table_close)
     ),
 
-    table_open: $ => seq(
-      alias('|===', $.TABLE_FENCE_START),
-      $._line_ending,
-    ),
+    table_open: $ => $.TABLE_FENCE_START,
 
-    table_close: $ => seq(
-      alias('|===', $.TABLE_FENCE_END),
-      $._line_ending,
-    ),
+    table_close: $ => $.TABLE_FENCE_END,
 
     table_content: $ => repeat1(
       choice(
@@ -892,8 +925,14 @@ module.exports = grammar({
 
     table_cell: $ => seq(
       '|',
-      optional(seq($.cell_spec, '|')),
-      field('content', $.cell_content),
+      choice(
+        // Header-style cell marker: leading '||'
+        seq('|', field('content', $.cell_content)),
+        // Specified cell: e.g., 'h|', '2+|', '.3+|'
+        seq($.cell_spec, '|', field('content', $.cell_content)),
+        // Regular cell: single '|' then content
+        field('content', $.cell_content)
+      ),
     ),
 
     cell_spec: $ => token(choice(
@@ -918,21 +957,9 @@ module.exports = grammar({
       choice('h', 'a', 'l', 'm', 'r', 's')
     )),
 
-    cell_content: $ => choice(
-      $.cell_formatted_content,  // Rich content with formatting
-      $.cell_literal_text        // Plain text fallback
-    ),
-    
-    cell_formatted_content: $ => repeat1(choice(
-      prec(100, $.strong),
-      prec(100, $.emphasis),
-      prec(100, $.monospace),
-      prec(100, $.explicit_link),
-      prec(100, $.attribute_reference),
-      token.immediate(/[^|*_`\r\n]+/)  // Text excluding formatting delimiters
-    )),
+    cell_content: $ => $.cell_literal_text,
 
-    cell_literal_text: $ => /[^|\r\n]*/,
+    cell_literal_text: $ => /[^|\r\n]+/,
 
     // LINE BREAKS
     line_break: $ => token(prec(2, seq(
