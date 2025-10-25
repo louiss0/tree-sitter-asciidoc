@@ -59,6 +59,7 @@
 ; Links and References
 (auto_link) @markup.link.url
 (explicit_link) @markup.link
+(link_macro) @markup.link
 (link_text) @markup.link.text
 (internal_xref) @markup.link
 (external_xref) @markup.link

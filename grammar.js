@@ -550,6 +550,7 @@ module.exports = grammar({
       $.bibliography_entry,
       $.internal_xref,
       $.external_xref,
+      $.link_macro,
       $.footnote_inline,
       $.footnote_ref,
       $.footnoteref,
@@ -715,6 +716,15 @@ module.exports = grammar({
       token('['),
       field('text', optional($.link_text)),
       token(']')
+    )),
+
+    // LINK MACRO - link:URL[text]
+    link_macro: $ => prec(10, seq(
+      'link:',
+      /[^\[\r\n]+/,
+      '[',
+      optional($.link_text),
+      ']'
     )),
     
     // AUTO LINKS - standalone URLs as simple tokens
