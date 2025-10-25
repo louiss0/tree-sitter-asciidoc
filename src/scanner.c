@@ -67,6 +67,8 @@ static void skip_spaces(TSLexer *lexer) {
 
 // Check if at start of line (only whitespace before)
 static bool at_line_start(TSLexer *lexer) {
+    // Some hosts may not implement get_column; assume line start in that case
+    if (!lexer->get_column) return true;
     return lexer->get_column(lexer) == 0;
 }
 
@@ -102,7 +104,7 @@ static int get_fence_end_token(char fence_char, uint8_t count) {
 
 // Scan for delimited block fences (====, ----, ...., ____, ****, --, ++++)
 static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
-    DEBUG_LOG("scan_block_fence_start: checking at column %d, char='%c'", lexer->get_column(lexer), lexer->lookahead);
+    DEBUG_LOG("scan_block_fence_start: checking at column %d, char='%c'", lexer->get_column ? lexer->get_column(lexer) : -1, lexer->lookahead);
     if (!at_line_start(lexer)) {
         DEBUG_LOG("scan_block_fence_start: not at line start, skipping");
         return false;
@@ -137,6 +139,12 @@ static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
     
     if (count < min_count || count > max_count) return false;
     
+    // Must be followed by end of line or attributes (only spaces allowed)
+    skip_spaces(lexer);
+    if (!(lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer))) {
+        return false;
+    }
+    
     // Store fence info for matching close
     scanner->fence_chars[0] = fence_char;
     scanner->fence_length = 1;
@@ -148,20 +156,14 @@ static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
         DEBUG_LOG("LISTING_FENCE_START: stored fence_count=%d, fence_type=%d", scanner->fence_count, scanner->fence_type);
     }
     
-    // Must be followed by end of line or attributes
-    skip_spaces(lexer);
-    if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
-        // Include the newline as part of the fence token
-        if (lexer->lookahead == '\r') {
-            advance(lexer);
-            if (lexer->lookahead == '\n') advance(lexer);
-        } else if (lexer->lookahead == '\n') {
-            advance(lexer);
-        }
-        return true;
+    // Include the newline
+    if (lexer->lookahead == '\r') {
+        advance(lexer);
+        if (lexer->lookahead == '\n') advance(lexer);
+    } else if (lexer->lookahead == '\n') {
+        advance(lexer);
     }
-    
-    return false;
+    return true;
 }
 
 static bool scan_block_fence_end(Scanner *scanner, TSLexer *lexer) {
@@ -172,7 +174,7 @@ static bool scan_block_fence_end(Scanner *scanner, TSLexer *lexer) {
     uint8_t count = 0;
     
     if (expected_char == '-' && scanner->fence_count >= 4) {
-        DEBUG_LOG("LISTING_FENCE_END: checking for '%c' x%d at column %d, found '%c'", expected_char, scanner->fence_count, lexer->get_column(lexer), lexer->lookahead);
+        DEBUG_LOG("LISTING_FENCE_END: checking for '%c' x%d at column %d, found '%c'", expected_char, scanner->fence_count, lexer->get_column ? lexer->get_column(lexer) : -1, lexer->lookahead);
     }
     
     uint32_t loop_count = 0;
@@ -182,9 +184,9 @@ static bool scan_block_fence_end(Scanner *scanner, TSLexer *lexer) {
         count++;
     }
     
-    // Must match stored fence count and be at line end
-    // Allow more chars than the opening fence, but require at least the same count
+    // Must match stored fence count and be at line end (spaces allowed)
     if (count >= scanner->fence_count) {
+        // Check for end of line
         skip_spaces(lexer);
         if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
             if (scanner->fence_chars[0] == '-' && scanner->fence_count >= 4) {
@@ -202,14 +204,6 @@ static bool scan_block_fence_end(Scanner *scanner, TSLexer *lexer) {
             scanner->fence_count = 0;
             scanner->fence_type = 0;
             return true;
-        } else {
-            if (scanner->fence_chars[0] == '-' && scanner->fence_count >= 4) {
-                DEBUG_LOG("LISTING_FENCE_END: FAIL - not at line end, found char '%c' (code %d)", lexer->lookahead, (int)lexer->lookahead);
-            }
-        }
-    } else {
-        if (scanner->fence_chars[0] == '-' && scanner->fence_count >= 4) {
-            DEBUG_LOG("LISTING_FENCE_END: FAIL - count mismatch, found %d, needed %d", count, scanner->fence_count);
         }
     }
     
@@ -218,17 +212,14 @@ static bool scan_block_fence_end(Scanner *scanner, TSLexer *lexer) {
 
 // Scan for table fences |===
 static bool scan_table_fence(TSLexer *lexer, bool is_start) {
-    DEBUG_LOG("scan_table_fence: checking %s fence at column %d, char='%c'", is_start ? "start" : "end", lexer->get_column(lexer), lexer->lookahead);
+    DEBUG_LOG("scan_table_fence: checking %s fence at column %d, char='%c'", is_start ? "start" : "end", lexer->get_column ? lexer->get_column(lexer) : -1, lexer->lookahead);
     if (!at_line_start(lexer)) {
         DEBUG_LOG("scan_table_fence: not at line start, skipping");
         return false;
     }
     
-    // Don't skip spaces - table fences must start with | at BOL
-    // skip_spaces(lexer);
-    
     if (lexer->lookahead != '|') return false;
-    advance(lexer);
+    advance(lexer); // consume '|'
     
     // Look for at least 3 equals signs
     uint8_t equals_count = 0;
@@ -241,35 +232,35 @@ static bool scan_table_fence(TSLexer *lexer, bool is_start) {
     
     if (equals_count < 3) return false;
     
-    // Must be followed by line end
+    // Must be followed by line end (allow spaces)
     skip_spaces(lexer);
-    if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
-        // Include the newline as part of the fence token like other fence scanners
-        if (lexer->lookahead == '\r') {
-            advance(lexer);
-            if (lexer->lookahead == '\n') advance(lexer);
-        } else if (lexer->lookahead == '\n') {
-            advance(lexer);
-        }
-        return true;
+    if (!(lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer))) {
+        return false;
     }
     
-    return false;
+    // Include the newline
+    if (lexer->lookahead == '\r') {
+        advance(lexer);
+        if (lexer->lookahead == '\n') advance(lexer);
+    } else if (lexer->lookahead == '\n') {
+        advance(lexer);
+    }
+    return true;
 }
 
 // Scan for list continuation (line with only '+')
 static bool scan_list_continuation(TSLexer *lexer) {
     if (!at_line_start(lexer)) return false;
     
+    // Skip spaces
     skip_spaces(lexer);
     
     if (lexer->lookahead != '+') return false;
     advance(lexer);
     
-    // Must be only '+' on the line
+    // Must be only '+' on the line (allow spaces before EOL)
     skip_spaces(lexer);
     if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
-        // Consume the newline as part of the list continuation token
         if (lexer->lookahead == '\r') {
             advance(lexer);
             if (lexer->lookahead == '\n') advance(lexer);
@@ -349,6 +340,8 @@ static bool scan_autolink_boundary(TSLexer *lexer) {
         temp.advance(&temp, false);
         if (temp.lookahead == ' ' || temp.lookahead == '\t' || 
             temp.lookahead == '\n' || temp.lookahead == '\r' || temp.eof(&temp)) {
+            // Consume the punctuation as the boundary token
+            advance(lexer);
             return true;
         }
     }
@@ -1047,6 +1040,25 @@ static bool scan_block_anchor(TSLexer *lexer) {
 
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
+
+    // TEMP: narrow down crash source - only attempt fence-start scanning on '=' '-' '.' '_' '*' '+' at BOL
+    if (at_line_start(lexer)) {
+        char c = lexer->lookahead;
+        if (c == '=' || c == '-' || c == '.' || c == '_' || c == '*' || c == '+') {
+            if ((valid_symbols[EXAMPLE_FENCE_START] || valid_symbols[LISTING_FENCE_START] || 
+                 valid_symbols[LITERAL_FENCE_START] || valid_symbols[QUOTE_FENCE_START] ||
+                 valid_symbols[SIDEBAR_FENCE_START] || valid_symbols[PASSTHROUGH_FENCE_START] ||
+                 valid_symbols[OPENBLOCK_FENCE_START]) && scan_block_fence_start(scanner, lexer)) {
+                int start_token = scanner->fence_type;
+                if (start_token != -1 && valid_symbols[start_token]) {
+                    lexer->result_symbol = start_token;
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    return false;
     
     // LIST_CONTINUATION has highest priority - check first before other tokens consume input
     if (valid_symbols[LIST_CONTINUATION] && scan_list_continuation(lexer)) {
@@ -1151,10 +1163,11 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
     //     return true;
     // }
     
-    if (valid_symbols[CALLOUT_MARKER] && scan_callout_marker(lexer)) {
-        lexer->result_symbol = CALLOUT_MARKER;
-        return true;
-    }
+    // Callout marker handled by grammar tokens now (not an external token)
+    // if (valid_symbols[CALLOUT_MARKER] && scan_callout_marker(lexer)) {
+    //     lexer->result_symbol = CALLOUT_MARKER;
+    //     return true;
+    // }
     
     // Description list handling - DISABLED: handled by grammar tokens now
     // if (valid_symbols[DESCRIPTION_LIST_SEP] && scan_description_list_sep(lexer)) {
@@ -1174,10 +1187,11 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         return true;
     }
     
-    if (valid_symbols[ATTRIBUTE_LIST_START] && scan_attribute_list_start(lexer)) {
-        lexer->result_symbol = ATTRIBUTE_LIST_START;
-        return true;
-    }
+    // ATTRIBUTE_LIST_START disabled to avoid consuming '[' at BOL incorrectly
+    // if (valid_symbols[ATTRIBUTE_LIST_START] && scan_attribute_list_start(lexer)) {
+    //     lexer->result_symbol = ATTRIBUTE_LIST_START;
+    //     return true;
+    // }
     
     return false;
 }

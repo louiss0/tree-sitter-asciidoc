@@ -4,27 +4,33 @@
 ; Section titles with individual markers for different levels
 (section_title
   (section_marker_1) @markup.heading.1.marker
-  (title) @markup.heading.1) @markup.heading.1
+  (title) @markup.heading.1
+) @markup.heading.1
 
 (section_title
   (section_marker_2) @markup.heading.2.marker
-  (title) @markup.heading.2) @markup.heading.2
+  (title) @markup.heading.2
+) @markup.heading.2
 
 (section_title
   (section_marker_3) @markup.heading.3.marker
-  (title) @markup.heading.3) @markup.heading.3
+  (title) @markup.heading.3
+) @markup.heading.3
 
 (section_title
   (section_marker_4) @markup.heading.4.marker
-  (title) @markup.heading.4) @markup.heading.4
+  (title) @markup.heading.4
+) @markup.heading.4
 
 (section_title
   (section_marker_5) @markup.heading.5.marker
-  (title) @markup.heading.5) @markup.heading.5
+  (title) @markup.heading.5
+) @markup.heading.5
 
 (section_title
   (section_marker_6) @markup.heading.6.marker
-  (title) @markup.heading.6) @markup.heading.6
+  (title) @markup.heading.6
+) @markup.heading.6
 
 ; Generic title (fallback)
 (title) @markup.heading
