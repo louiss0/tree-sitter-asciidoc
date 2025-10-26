@@ -79,7 +79,7 @@ Table with row spanning
             (cell_literal_text))))
       (content_line)
       (table_row
-        (table_cell
+         (table_cell
           (cell_spec)
           content: (cell_content
             (cell_literal_text)))

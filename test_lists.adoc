@@ -1,9 +1,0 @@
-= Title
-
-* Item 1
-* Item 2
-
-1. Ordered 1
-2. Ordered 2
-
-Term:: Description

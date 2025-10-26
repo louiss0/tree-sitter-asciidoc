@@ -7,8 +7,6 @@
 
 // External token types (must match grammar.js externals)
 enum {
-    TABLE_FENCE_START,
-    TABLE_FENCE_END,
     EXAMPLE_FENCE_START,    // ====
     EXAMPLE_FENCE_END,
     LISTING_FENCE_START,    // ----
@@ -210,48 +208,7 @@ static bool scan_block_fence_end(Scanner *scanner, TSLexer *lexer) {
     return false;
 }
 
-// Scan for table fences |===
-static bool scan_table_fence(TSLexer *lexer, bool is_start) {
-    DEBUG_LOG("scan_table_fence: checking %s fence at column %d, char='%c'", is_start ? "start" : "end", lexer->get_column ? lexer->get_column(lexer) : -1, lexer->lookahead);
-    if (!at_line_start(lexer)) {
-        DEBUG_LOG("scan_table_fence: not at line start, skipping");
-        return false;
-    }
-    
-    if (lexer->lookahead != '|') return false;
-    // Allow one or two leading pipes
-    uint8_t pipe_count = 0;
-    while (lexer->lookahead == '|' && pipe_count < 2) {
-      advance(lexer);
-      pipe_count++;
-    }
-    
-    // Look for at least 3 equals signs
-    uint8_t equals_count = 0;
-    uint32_t loop_count = 0;
-    while (lexer->lookahead == '=') {
-        if (++loop_count > 100) break; // Prevent infinite loops
-        advance(lexer);
-        equals_count++;
-    }
-    
-    if (equals_count < 3) return false;
-    
-    // Must be followed by line end (allow spaces)
-    skip_spaces(lexer);
-    if (!(lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer))) {
-        return false;
-    }
-    
-    // Include the newline
-    if (lexer->lookahead == '\r') {
-        advance(lexer);
-        if (lexer->lookahead == '\n') advance(lexer);
-    } else if (lexer->lookahead == '\n') {
-        advance(lexer);
-    }
-    return true;
-}
+// Scan for table fences removed - handled in grammar tokens now
 
 // Scan for list continuation (line with only '+')
 static bool scan_list_continuation(TSLexer *lexer) {
@@ -1096,17 +1053,6 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
                 return true;
             }
         }
-    }
-    
-    // Table fence handling - needs high priority to prevent conflicts
-    if (valid_symbols[TABLE_FENCE_START] && scan_table_fence(lexer, true)) {
-        lexer->result_symbol = TABLE_FENCE_START;
-        return true;
-    }
-    
-    if (valid_symbols[TABLE_FENCE_END] && scan_table_fence(lexer, false)) {
-        lexer->result_symbol = TABLE_FENCE_END;
-        return true;
     }
     
     // Conditional directives - DISABLED: handled by grammar tokens now

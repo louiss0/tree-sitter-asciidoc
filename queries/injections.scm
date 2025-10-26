@@ -101,27 +101,27 @@
 ((passthrough_block
   (metadata
     (block_attributes
-      content: (attribute_content) @_attr
-      (#match? @_attr "stem")))
+      content: (attribute_content) @_attr))
   content: (block_content) @injection.content)
+ (#match? @_attr "stem")
  (#set! injection.language "text"))
 
 ; LaTeX math blocks
 ((passthrough_block
   (metadata
     (block_attributes
-      content: (attribute_content) @_attr
-      (#match? @_attr "latexmath")))
+      content: (attribute_content) @_attr))
   content: (block_content) @injection.content)
+ (#match? @_attr "latexmath")
  (#set! injection.language "latex"))
 
 ; AsciiMath blocks
 ((passthrough_block
   (metadata
     (block_attributes
-      content: (attribute_content) @_attr
-      (#match? @_attr "asciimath")))
+      content: (attribute_content) @_attr))
   content: (block_content) @injection.content)
+ (#match? @_attr "asciimath")
  (#set! injection.language "text"))
 
 ; Generic code blocks without language specification

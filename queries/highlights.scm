@@ -138,6 +138,7 @@
 (table_close) @punctuation.delimiter
 (table_cell) @markup.list
 (cell_spec) @variable.parameter
+(format_spec) @variable.parameter
 
 ; Comments
 (block_comment) @comment.block
@@ -207,7 +208,6 @@
 (role_content) @markup.quote
 
 ; Table content
-(cell_formatted_content) @markup.list
 (cell_literal_text) @text
 (cell_content) @markup.list
 

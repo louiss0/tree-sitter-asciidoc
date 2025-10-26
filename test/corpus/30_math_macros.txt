@@ -1,0 +1,106 @@
+================================================================================
+Basic stem inline macro
+================================================================================
+
+The quadratic formula is stem:[x = (-b +- sqrt(b^2-4ac))/(2a)].
+
+---
+
+(source_file
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (inline_element
+        (math_macro
+          (stem_inline)))
+      (text_period))))
+
+================================================================================
+LaTeX math inline macro
+================================================================================
+
+Einstein's equation: latexmath:[\sum_{i=1}^n x_i = x_1 + x_2 + \cdots + x_n]
+
+---
+
+(source_file
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (inline_element
+        (math_macro
+          (latexmath_inline))))))
+
+================================================================================
+AsciiMath inline macro
+================================================================================
+
+Series sum: asciimath:[sum_(i=1)^n x_i = (n(n+1))/2]
+
+---
+
+(source_file
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (inline_element
+        (math_macro
+          (asciimath_inline))))))
+
+================================================================================
+Multiple math macros in one paragraph
+================================================================================
+
+Compare stem:[a^2 + b^2] with latexmath:[c^2] and asciimath:[d^2].
+
+---
+
+(source_file
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (inline_element
+        (math_macro
+          (stem_inline)))
+      (text_segment)
+      (inline_element
+        (math_macro
+          (latexmath_inline)))
+      (text_segment)
+      (inline_element
+        (math_macro
+          (asciimath_inline)))
+      (text_period))))
+
+================================================================================
+Math macro with complex content
+================================================================================
+
+Integration formula: latexmath:[\int u \, dv = uv - \int v \, du]
+
+---
+
+(source_file
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (inline_element
+        (math_macro
+          (latexmath_inline))))))
+
+================================================================================
+Empty math macro
+================================================================================
+
+Empty stem:[] macro should work.
+
+---
+
+(source_file
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (inline_element
+        (math_macro
+          (stem_inline)))
+      (text_segment))))

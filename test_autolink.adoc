@@ -1,3 +1,0 @@
-= Title
-
-Auto link: https://example.com

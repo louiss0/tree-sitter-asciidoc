@@ -102,11 +102,6 @@
     }
   },
   {
-    "type": "attribute_content",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "attribute_entry",
     "named": true,
     "fields": {
@@ -176,22 +171,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "block_attributes",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "attribute_content",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -288,42 +267,7 @@
       "required": true,
       "types": [
         {
-          "type": "cell_formatted_content",
-          "named": true
-        },
-        {
           "type": "cell_literal_text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "cell_formatted_content",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "attribute_reference",
-          "named": true
-        },
-        {
-          "type": "emphasis",
-          "named": true
-        },
-        {
-          "type": "explicit_link",
-          "named": true
-        },
-        {
-          "type": "monospace",
-          "named": true
-        },
-        {
-          "type": "strong",
           "named": true
         }
       ]
@@ -2539,7 +2483,15 @@
       "required": false,
       "types": [
         {
-          "type": "cell_spec",
+          "type": "header_spec_token",
+          "named": true
+        },
+        {
+          "type": "pipe_span_token",
+          "named": true
+        },
+        {
+          "type": "row_span_token",
           "named": true
         }
       ]
@@ -3048,15 +3000,15 @@
     "named": true
   },
   {
+    "type": "block_attributes",
+    "named": true
+  },
+  {
     "type": "btn:[",
     "named": false
   },
   {
     "type": "cell_literal_text",
-    "named": true
-  },
-  {
-    "type": "cell_spec",
     "named": true
   },
   {
@@ -3082,6 +3034,10 @@
   {
     "type": "footnoteref:",
     "named": false
+  },
+  {
+    "type": "header_spec_token",
+    "named": true
   },
   {
     "type": "ifdef::",
@@ -3162,6 +3118,14 @@
   {
     "type": "pass:",
     "named": false
+  },
+  {
+    "type": "pipe_span_token",
+    "named": true
+  },
+  {
+    "type": "row_span_token",
+    "named": true
   },
   {
     "type": "section_marker_1",

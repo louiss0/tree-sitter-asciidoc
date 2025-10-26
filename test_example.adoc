@@ -1,1 +1,0 @@
-[NOTE]\n====\nThis is an example block with metadata.\n====

@@ -11,8 +11,6 @@ module.exports = grammar({
   name: "asciidoc",
 
   externals: $ => [
-    $.TABLE_FENCE_START,
-    $.TABLE_FENCE_END,
     $.EXAMPLE_FENCE_START,
     $.EXAMPLE_FENCE_END,
     $.LISTING_FENCE_START,
@@ -72,11 +70,21 @@ module.exports = grammar({
       $._blank_line,
     ),
 
-    // SECTIONS - hierarchical approach for test compatibility
-    section: $ => prec.right(seq(
+    // SECTIONS - level-based hierarchy for proper sibling relationships
+    section: $ => choice(
+      $.section_level_1,
+      $.section_level_2,
+      $.section_level_3,
+      $.section_level_4,
+      $.section_level_5,
+      $.section_level_6
+    ),
+    
+    section_level_1: $ => seq(
       optional($.anchor),
-      $.section_title,
-      repeat(choice(
+      field('marker', $.section_marker_1),
+      field('title', $.section_title),
+      field('content', repeat(choice(
         $.attribute_entry,
         $.paragraph,
         $.unordered_list,
@@ -95,10 +103,144 @@ module.exports = grammar({
         $.include_directive,
         $.block_comment,
         $.table_block,
-        prec.right($.section), // Allow nested sections
+        $.section_level_2,  // Only nested sections can be level_2+
         $._blank_line
-      ))
-    )),
+      )))
+    ),
+    
+    section_level_2: $ => seq(
+      field('marker', $.section_marker_2),
+      field('title', $.section_title),
+      field('content', repeat(choice(
+        $.attribute_entry,
+        $.paragraph,
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list,
+        $.example_block,
+        $.listing_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.include_directive,
+        $.block_comment,
+        $.table_block,
+        $.section_level_3,
+        $._blank_line
+      )))
+    ),
+    
+    section_level_3: $ => seq(
+      field('marker', $.section_marker_3),
+      field('title', $.section_title),
+      field('content', repeat(choice(
+        $.attribute_entry,
+        $.paragraph,
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list,
+        $.example_block,
+        $.listing_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.include_directive,
+        $.block_comment,
+        $.table_block,
+        $.section_level_4,
+        $._blank_line
+      )))
+    ),
+    
+    section_level_4: $ => seq(
+      field('marker', $.section_marker_4),
+      field('title', $.section_title),
+      field('content', repeat(choice(
+        $.attribute_entry,
+        $.paragraph,
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list,
+        $.example_block,
+        $.listing_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.include_directive,
+        $.block_comment,
+        $.table_block,
+        $.section_level_5,
+        $._blank_line
+      )))
+    ),
+    
+    section_level_5: $ => seq(
+      field('marker', $.section_marker_5),
+      field('title', $.section_title),
+      field('content', repeat(choice(
+        $.attribute_entry,
+        $.paragraph,
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list,
+        $.example_block,
+        $.listing_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.include_directive,
+        $.block_comment,
+        $.table_block,
+        $.section_level_6,
+        $._blank_line
+      )))
+    ),
+    
+    section_level_6: $ => seq(
+      field('marker', $.section_marker_6),
+      field('title', $.section_title),
+      field('content', repeat(choice(
+        $.attribute_entry,
+        $.paragraph,
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list,
+        $.example_block,
+        $.listing_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.include_directive,
+        $.block_comment,
+        $.table_block,
+        $._blank_line
+      )))
+    ),
     
     section_title: $ => seq(
       choice(
@@ -122,35 +264,29 @@ module.exports = grammar({
     section_marker_5: $ => token(prec(30, seq('=====', /[ \t]+/))),
     section_marker_6: $ => token(prec(25, seq('======', /[ \t]+/))),
 
-    // ATTRIBUTE ENTRIES  
+    // ATTRIBUTE ENTRIES - Support both :name: and :name: value forms
     attribute_entry: $ => choice(
+      // Standard form: :name: value or :name:
       prec(25, seq(
-        field('name', alias(
-          token(seq(':', /([a-zA-Z0-9_-]+)/, ':')),
-          $.name
-        )),
-        optional(seq(
-          /[ \t]+/,
-          field('value', $.value)
-        )),
+        ':',
+        field('name', $.attribute_name),
+        ':',
+        field('value', optional(seq(/[ \t]+/, $.attribute_value))),
         $._line_ending
       )),
-      // Attribute unset syntax: :!name: or :name!:
+      // Unset form: :!name: or :name!:
       prec(25, seq(
-        field('name', alias(
-          choice(
-            token(seq(':!', /([a-zA-Z0-9_-]+)/, ':')),
-            token(seq(':', /([a-zA-Z0-9_-]+)/, '!:'))
-          ),
-          $.name
-        )),
-        optional(/[ \t]+/), // Allow trailing spaces  
+        choice(
+          seq(':', '!', field('name', $.attribute_name), ':'),
+          seq(':', field('name', $.attribute_name), '!', ':')
+        ),
+        optional(/[ \t]+/),
         $._line_ending
       ))
     ),
     
-    name: $ => token(/[a-zA-Z0-9_-]+/),
-    value: $ => /[^\r\n]+/,
+    attribute_name: $ => /[a-zA-Z0-9_-]+/,
+    attribute_value: $ => /[^\r\n]+/,
 
     // DELIMITED BLOCKS
     example_block: $ => seq(
@@ -253,56 +389,56 @@ module.exports = grammar({
     
     openblock_close: $ => $.OPENBLOCK_FENCE_END,
     
-    // CONDITIONAL BLOCKS - with error recovery
-    conditional_block: $ => prec(2, choice(
+    // CONDITIONAL BLOCKS - with higher precedence to resolve conflicts with description lists
+    conditional_block: $ => prec(10, choice(
       $.ifdef_block,
       $.ifndef_block,
       $.ifeval_block
     )),
     
-    ifdef_block: $ => prec.right(seq(
-      field('open', $.ifdef_open),
-      repeat($._element),
-      optional(field('close', $.endif_directive))
-    )),
+    ifdef_block: $ => seq(
+      field('directive', $.ifdef_open),
+      field('content', repeat($._element)),
+      field('end', optional($.endif_directive))
+    ),
     
-    ifndef_block: $ => prec.right(seq(
-      field('open', $.ifndef_open),
-      repeat($._element),
-      optional(field('close', $.endif_directive))
-    )),
+    ifndef_block: $ => seq(
+      field('directive', $.ifndef_open),
+      field('content', repeat($._element)),
+      field('end', optional($.endif_directive))
+    ),
     
-    ifeval_block: $ => prec.right(seq(
-      field('open', $.ifeval_open),
-      repeat($._element),
-      optional(field('close', $.endif_directive))
-    )),
+    ifeval_block: $ => seq(
+      field('directive', $.ifeval_open),
+      field('content', repeat($._element)),
+      field('end', optional($.endif_directive))
+    ),
     
-    ifdef_open: $ => seq(
+    ifdef_open: $ => prec(75, seq(
       'ifdef::',
-      /[^\[\r\n]+/,  // attribute name(s)
+      field('condition', /[^\[\r\n]+/),
       '[',
-      optional(/[^\]\r\n]*/),  // optional content
+      field('args', optional(/[^\]\r\n]*/)),
       ']',
       $._line_ending
-    ),
+    )),
     
-    ifndef_open: $ => seq(
+    ifndef_open: $ => prec(75, seq(
       'ifndef::',
-      /[^\[\r\n]+/,  // attribute name(s)
+      field('condition', /[^\[\r\n]+/),
       '[',
-      optional(/[^\]\r\n]*/),  // optional content
+      field('args', optional(/[^\]\r\n]*/)),
       ']',
       $._line_ending
-    ),
+    )),
     
-    ifeval_open: $ => seq(
+    ifeval_open: $ => prec(75, seq(
       'ifeval::',
       '[',
-      field('expression', $.expression),  // parsed expression
+      field('expression', $.expression),
       ']',
       $._line_ending
-    ),
+    )),
     
     // EXPRESSIONS - for ifeval conditions
     expression: $ => prec.right(choice(
@@ -363,12 +499,8 @@ module.exports = grammar({
       $.block_title
     ))),
     
-    block_attributes: $ => prec(3, seq(
-      '[',
-      field('content', $.attribute_content),
-      ']',
-      $._line_ending
-    )),
+    // Treat block attributes as a single token to simplify AST and avoid duplicate nodes
+    block_attributes: $ => token(prec(3, /\[[^\]\r\n]+\][ \t]*\r?\n/)),
     
     attribute_content: $ => /[^\]\r\n]+/,
     
@@ -385,16 +517,25 @@ module.exports = grammar({
       $._line_ending
     )),
     
-    // INCLUDE DIRECTIVES
-    include_directive: $ => prec(1, seq(
-      'include::',
-      field('path', $.include_path),
-      optional(seq(
-        '[',
-        field('options', $.include_options),
-        ']'
-      )),
-      $._line_ending
+    // INCLUDE DIRECTIVES - with fallback for malformed includes
+    include_directive: $ => prec(5, choice(
+      // Proper form: include::path[options]
+      seq(
+        'include::',
+        field('path', $.include_path),
+        optional(seq(
+          '[',
+          field('options', $.include_options),
+          ']'
+        )),
+        $._line_ending
+      ),
+      // Fallback for malformed (no colon)
+      seq(
+        'include:',  // single colon - malformed
+        /[^\r\n]*/,
+        $._line_ending
+      )
     )),
     
     include_path: $ => /[^\[\r\n]+/,
@@ -449,7 +590,7 @@ module.exports = grammar({
       repeat($.list_item_continuation)
     ),
     
-    _description_marker: $ => token(prec(20, /(?!ifn?def|ifeval)[^\s\r\n:]+::[ \t]+/)),
+    _description_marker: $ => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
     description_content: $ => $.text_with_inlines,
 
     // CALLOUT LISTS
@@ -503,12 +644,22 @@ module.exports = grammar({
       optional($._line_ending)
     )),
 
-    // PARAGRAPH ADMONITIONS
+    // PARAGRAPH ADMONITIONS - Handle both content and empty forms
     paragraph_admonition: $ => seq(
-      $.admonition_label,
-      $.text_with_inlines
+      field('type', $.admonition_type),
+      ':',
+      field('content', optional(seq(/[ \t]+/, $.text_with_inlines)))
     ),
     
+    admonition_type: $ => choice(
+      'NOTE',
+      'TIP',
+      'IMPORTANT',
+      'WARNING',
+      'CAUTION'
+    ),
+    
+    // Legacy token-based admonition_label for backward compatibility
     admonition_label: $ => token(prec(1, choice(
       seq('NOTE', ':', /[ \t]+/),
       seq('TIP', ':', /[ \t]+/),
@@ -676,19 +827,27 @@ module.exports = grammar({
     subscript_text: $ => token.immediate(/(?:\\.|[^~\r\n])+/),
 
     // ANCHORS & CROSS-REFERENCES
-    inline_anchor: $ => seq(
-      '[[',
-      $.inline_anchor_id,  // anchor id
-      optional(seq(',', $.inline_anchor_text)),  // optional anchor text
-      ']]'
+    inline_anchor: $ => choice(
+      seq(
+        '[[',
+        field('id', $.inline_anchor_id),
+        optional(seq(',', field('text', $.inline_anchor_text))),
+        ']]'
+      ),
+      // Fallback for incomplete anchors
+      seq('[[', /[^\]]*$/)
     ),
     
     // Bibliography entries [[[ref]]]
-    bibliography_entry: $ => seq(
-      '[[[',
-      field('id', $.bibliography_id),
-      optional(seq(',', field('description', $.bibliography_text))),
-      ']]]'
+    bibliography_entry: $ => choice(
+      seq(
+        '[[[',
+        field('id', $.bibliography_id),
+        optional(seq(',', field('description', $.bibliography_text))),
+        ']]]'
+      ),
+      // Fallback for incomplete bibliography entries
+      seq('[[[', /[^\]]*$/)
     ),
     
     bibliography_id: $ => /[^,\]\r\n]+/,
@@ -698,27 +857,39 @@ module.exports = grammar({
     inline_anchor_text: $ => /[^\]\r\n]+/,
 
     // Block anchors (stand-alone)
-    anchor: $ => prec(2, seq(
-      '[[',
-      field('id', $.inline_anchor_id),
-      optional(seq(',', field('text', $.inline_anchor_text))),
-      ']]',
-      $._line_ending
+    anchor: $ => prec(2, choice(
+      seq(
+        '[[',
+        field('id', $.inline_anchor_id),
+        optional(seq(',', field('text', $.inline_anchor_text))),
+        ']]',
+        $._line_ending
+      ),
+      // Fallback for incomplete block anchors
+      seq('[[', /[^\r\n]*/, $._line_ending)
     )),
 
-    internal_xref: $ => seq(
-      '<<',
-      /[^>,\r\n]+/,  // target id (don't allow > to prevent partial matches)
-      optional(seq(',', /[^>\r\n]+/)),  // optional link text
-      '>>'
+    internal_xref: $ => choice(
+      seq(
+        '<<',
+        field('target', /[^>,\r\n]+/),
+        optional(seq(',', field('text', /[^>\r\n]+/))),
+        '>>'
+      ),
+      // Fallback for incomplete xrefs
+      seq('<<', /[^>]*$/)
     ),
 
-    external_xref: $ => seq(
-      'xref:',
-      /[^\[\r\n]+/,  // file path
-      '[',
-      optional(/[^\]\r\n]+/),  // optional link text
-      ']'
+    external_xref: $ => choice(
+      seq(
+        'xref:',
+        field('path', /[^\[\r\n]+/),
+        '[',
+        field('text', optional(/[^\]\r\n]+/)),
+        ']'
+      ),
+      // Fallback for malformed xrefs
+      seq('xref:', /[^\[\r\n]+/, /\[?[^\]]*$/)
     ),
 
 
@@ -856,29 +1027,41 @@ module.exports = grammar({
 
     comment_line: $ => /[^\r\n]*\r?\n/,
 
-    // INDEX TERMS
+    // INDEX TERMS - with fallback for malformed constructs
     index_term: $ => choice(
       $.index_term_macro,
       $.index_term2_macro,
       $.concealed_index_term
     ),
 
-    index_term_macro: $ => seq(
-      'indexterm:[',
-      field('terms', $.index_text),
-      ']'
+    index_term_macro: $ => choice(
+      seq(
+        'indexterm:[',
+        field('terms', $.index_text),
+        ']'
+      ),
+      // Fallback for malformed (missing bracket)
+      seq('indexterm:', /[^\[\r\n]*$/)
     ),
 
-    index_term2_macro: $ => seq(
-      'indexterm2:[',
-      field('terms', $.index_text),
-      ']'
+    index_term2_macro: $ => choice(
+      seq(
+        'indexterm2:[',
+        field('terms', $.index_text),
+        ']'
+      ),
+      // Fallback for malformed
+      seq('indexterm2:', /[^\[\r\n]*$/)
     ),
 
-    concealed_index_term: $ => seq(
-      '(((',
-      field('terms', $.index_text),
-      ')))'
+    concealed_index_term: $ => choice(
+      seq(
+        '(((',
+        field('terms', $.index_text),
+        ')))'
+      ),
+      // Fallback for incomplete concealed term
+      seq('(((', /[^\)]*/)
     ),
 
     index_text: $ => choice(
@@ -900,17 +1083,19 @@ module.exports = grammar({
     index_term_text: $ => /[^,\]\)\r\n]+/,
 
     // TABLES
-    table_block: $ => seq(
+    table_block: $ => prec.right(10, seq(
       optional($.metadata),
       field('open', $.table_open),
       optional(field('content', $.table_content)),
       field('close', $.table_close)
-    ),
+    )),
 
-    table_open: $ => $.TABLE_FENCE_START,
+    // Recognize table fences in grammar (one or two pipes followed by === and optional spaces, then newline)
+    table_open: $ => alias(token(prec(200, /\|{1,2}={3}[ \t]*\r?\n/)), $.TABLE_FENCE_START),
 
-    table_close: $ => $.TABLE_FENCE_END,
+    table_close: $ => alias(token(prec(200, /\|{1,2}={3}[ \t]*\r?\n/)), $.TABLE_FENCE_END),
 
+    // Table content does not admit metadata - only rows or blank lines
     table_content: $ => repeat1(
       choice(
         $.table_row,
@@ -923,43 +1108,45 @@ module.exports = grammar({
       $._line_ending
     )),
 
-    table_cell: $ => seq(
-      '|',
-      choice(
-        // Header-style cell marker: leading '||'
-        seq('|', field('content', $.cell_content)),
-        // Specified cell: e.g., 'h|', '2+|', '.3+|'
-        seq($.cell_spec, '|', field('content', $.cell_content)),
-        // Regular cell: single '|' then content
-        field('content', $.cell_content)
-      ),
+    // Tokens to make spec-bearing openings deterministic (no look-ahead)
+    header_spec_token: $ => token(prec(80, /\|\|(?:(?:\d+(?:\.\d+)?|\.\d+)\+)?[halmrs]\|/)),
+    pipe_span_token: $ => token(prec(75, /\|(?:\d+(?:\.\d+)?|\.\d+)\|/)),
+    row_span_token: $ => token(prec(70, /(?:\d+(?:\.\d+)?|\.\d+)\|/)),
+
+    table_cell: $ => choice(
+      // Header with spec: ||<spec>| content
+      prec(120, seq($.header_spec_token, field('content', $.cell_content))),
+      // Header without spec: || content
+      prec(110, seq('|', '|', field('content', $.cell_content))),
+      // Specified cell: |<span>| content
+      prec(100, seq($.pipe_span_token, field('content', $.cell_content))),
+      // Row-start span-only: 2+| content
+      prec(95, seq($.row_span_token, field('content', $.cell_content))),
+      // Regular cell: | content (allows empty)
+      seq('|', field('content', $.cell_content))
     ),
 
-    cell_spec: $ => token(choice(
-      // Combined span + format specifications
-      seq(
-        choice(
-          seq(/\d+/, optional(seq('.', /\d+/))),  // column span with optional row span
-          seq('.', /\d+/)  // row span only
-        ),
-        '+',
-        choice('h', 'a', 'l', 'm', 'r', 's')  // format spec
-      ),
-      // Span-only specifications
-      seq(
-        choice(
-          seq(/\d+/, optional(seq('.', /\d+/))),  // column span with optional row span
-          seq('.', /\d+/)  // row span only
-        ),
-        '+'
-      ),
-      // Format-only specifications  
-      choice('h', 'a', 'l', 'm', 'r', 's')
+    // Keep spec components available for future use (not used in cell matching now)
+    cell_spec: $ => choice(
+      seq($.span_spec, optional($.format_spec)),
+      $.format_spec
+    ),
+
+    span_spec: $ => token(choice(
+      // Combined column and row span: "2.3+"
+      seq(/\d+/, '.', /\d+/, '+'),
+      // Column span only: "2+"
+      seq(/\d+/, '+'),
+      // Row span only: ".3+"
+      seq('.', /\d+/, '+')
     )),
 
+    format_spec: $ => token(choice('h', 'a', 'l', 'm', 'r', 's')),
+
+    // Disallow metadata inside table content by keeping cell_content strictly literal
     cell_content: $ => $.cell_literal_text,
 
-    cell_literal_text: $ => /[^|\r\n]+/,
+    cell_literal_text: $ => /[^|\r\n]*/,
 
     // LINE BREAKS
     line_break: $ => token(prec(2, seq(

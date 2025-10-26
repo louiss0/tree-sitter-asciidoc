@@ -1,0 +1,183 @@
+================================================================================
+Basic comparison operators
+================================================================================
+
+ifeval::['{foo}' == 'bar']
+Content when condition is true
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      open: (ifeval_open
+        expression: (expression
+          (binary_expression
+            (expression
+              (primary_expression
+                (string_literal)))
+            (expression
+              (primary_expression
+                (string_literal))))))
+      (paragraph
+        content: (text_with_inlines
+          (text_segment)))
+      close: (endif_directive))))
+
+================================================================================
+Numeric comparison
+================================================================================
+
+ifeval::[{count} > 5]
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      open: (ifeval_open
+        expression: (expression
+          (binary_expression
+            (expression
+              (primary_expression
+                (attribute_reference)))
+            (expression
+              (primary_expression
+                (numeric_literal))))))
+      close: (endif_directive))))
+
+================================================================================
+Logical operators
+================================================================================
+
+ifeval::[{a} && {b}]
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      open: (ifeval_open
+        expression: (expression
+          (binary_expression
+            (expression
+              (primary_expression
+                (attribute_reference)))
+            (expression
+              (primary_expression
+                (attribute_reference))))))
+      close: (endif_directive))))
+
+================================================================================
+Logical NOT operator
+================================================================================
+
+ifeval::[!{flag}]
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      open: (ifeval_open
+        expression: (expression
+          (unary_expression
+            (expression
+              (primary_expression
+                (attribute_reference))))))
+      close: (endif_directive))))
+
+================================================================================
+Complex arithmetic expression
+================================================================================
+
+ifeval::[{x} + {y} * 2 > 10]
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      open: (ifeval_open
+        expression: (expression
+          (binary_expression
+            (expression
+              (binary_expression
+                (expression
+                  (primary_expression
+                    (attribute_reference)))
+                (expression
+                  (binary_expression
+                    (expression
+                      (primary_expression
+                        (attribute_reference)))
+                    (expression
+                      (primary_expression
+                        (numeric_literal)))))))
+            (expression
+              (primary_expression
+                (numeric_literal))))))
+      close: (endif_directive))))
+
+================================================================================
+Grouped expressions with parentheses
+================================================================================
+
+ifeval::[({x} + {y}) * 2 == {result}]
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      open: (ifeval_open
+        expression: (expression
+          (binary_expression
+            (expression
+              (binary_expression
+                (expression
+                  (grouped_expression
+                    (expression
+                      (binary_expression
+                        (expression
+                          (primary_expression
+                            (attribute_reference)))
+                        (expression
+                          (primary_expression
+                            (attribute_reference)))))))
+                (expression
+                  (primary_expression
+                    (numeric_literal)))))
+            (expression
+              (primary_expression
+                (attribute_reference))))))
+      close: (endif_directive))))
+
+================================================================================
+Boolean literals
+================================================================================
+
+ifeval::[true && false]
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      open: (ifeval_open
+        expression: (expression
+          (binary_expression
+            (expression
+              (primary_expression
+                (boolean_literal)))
+            (expression
+              (primary_expression
+                (boolean_literal))))))
+      close: (endif_directive))))

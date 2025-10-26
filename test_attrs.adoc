@@ -1,6 +1,0 @@
-= Title
-
-:author: John Doe
-:version: 1.0
-
-A paragraph with {author} reference.
