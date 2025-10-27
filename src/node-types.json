@@ -1,11 +1,16 @@
 [
   {
+    "type": "admonition_type",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "anchor",
     "named": true,
     "fields": {
       "id": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "inline_anchor_id",
@@ -110,22 +115,27 @@
         "required": true,
         "types": [
           {
-            "type": "name",
+            "type": "attribute_name",
             "named": true
           }
         ]
       },
       "value": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "value",
+            "type": "attribute_value",
             "named": true
           }
         ]
       }
     }
+  },
+  {
+    "type": "attribute_value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "bibliography_entry",
@@ -143,7 +153,7 @@
       },
       "id": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "bibliography_id",
@@ -279,7 +289,7 @@
     "fields": {
       "terms": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "index_text",
@@ -631,17 +641,89 @@
     "type": "ifdef_block",
     "named": true,
     "fields": {
-      "close": {
-        "multiple": false,
+      "content": {
+        "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "endif_directive",
+            "type": "asciidoc_blockquote",
+            "named": true
+          },
+          {
+            "type": "attribute_entry",
+            "named": true
+          },
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "callout_list",
+            "named": true
+          },
+          {
+            "type": "conditional_block",
+            "named": true
+          },
+          {
+            "type": "description_list",
+            "named": true
+          },
+          {
+            "type": "example_block",
+            "named": true
+          },
+          {
+            "type": "include_directive",
+            "named": true
+          },
+          {
+            "type": "listing_block",
+            "named": true
+          },
+          {
+            "type": "literal_block",
+            "named": true
+          },
+          {
+            "type": "markdown_blockquote",
+            "named": true
+          },
+          {
+            "type": "open_block",
+            "named": true
+          },
+          {
+            "type": "ordered_list",
+            "named": true
+          },
+          {
+            "type": "paragraph",
+            "named": true
+          },
+          {
+            "type": "passthrough_block",
+            "named": true
+          },
+          {
+            "type": "section",
+            "named": true
+          },
+          {
+            "type": "sidebar_block",
+            "named": true
+          },
+          {
+            "type": "table_block",
+            "named": true
+          },
+          {
+            "type": "unordered_list",
             "named": true
           }
         ]
       },
-      "open": {
+      "directive": {
         "multiple": false,
         "required": true,
         "types": [
@@ -650,89 +732,17 @@
             "named": true
           }
         ]
+      },
+      "end": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "endif_directive",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "asciidoc_blockquote",
-          "named": true
-        },
-        {
-          "type": "attribute_entry",
-          "named": true
-        },
-        {
-          "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "callout_list",
-          "named": true
-        },
-        {
-          "type": "conditional_block",
-          "named": true
-        },
-        {
-          "type": "description_list",
-          "named": true
-        },
-        {
-          "type": "example_block",
-          "named": true
-        },
-        {
-          "type": "include_directive",
-          "named": true
-        },
-        {
-          "type": "listing_block",
-          "named": true
-        },
-        {
-          "type": "literal_block",
-          "named": true
-        },
-        {
-          "type": "markdown_blockquote",
-          "named": true
-        },
-        {
-          "type": "open_block",
-          "named": true
-        },
-        {
-          "type": "ordered_list",
-          "named": true
-        },
-        {
-          "type": "paragraph",
-          "named": true
-        },
-        {
-          "type": "passthrough_block",
-          "named": true
-        },
-        {
-          "type": "section",
-          "named": true
-        },
-        {
-          "type": "sidebar_block",
-          "named": true
-        },
-        {
-          "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -744,17 +754,89 @@
     "type": "ifeval_block",
     "named": true,
     "fields": {
-      "close": {
-        "multiple": false,
+      "content": {
+        "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "endif_directive",
+            "type": "asciidoc_blockquote",
+            "named": true
+          },
+          {
+            "type": "attribute_entry",
+            "named": true
+          },
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "callout_list",
+            "named": true
+          },
+          {
+            "type": "conditional_block",
+            "named": true
+          },
+          {
+            "type": "description_list",
+            "named": true
+          },
+          {
+            "type": "example_block",
+            "named": true
+          },
+          {
+            "type": "include_directive",
+            "named": true
+          },
+          {
+            "type": "listing_block",
+            "named": true
+          },
+          {
+            "type": "literal_block",
+            "named": true
+          },
+          {
+            "type": "markdown_blockquote",
+            "named": true
+          },
+          {
+            "type": "open_block",
+            "named": true
+          },
+          {
+            "type": "ordered_list",
+            "named": true
+          },
+          {
+            "type": "paragraph",
+            "named": true
+          },
+          {
+            "type": "passthrough_block",
+            "named": true
+          },
+          {
+            "type": "section",
+            "named": true
+          },
+          {
+            "type": "sidebar_block",
+            "named": true
+          },
+          {
+            "type": "table_block",
+            "named": true
+          },
+          {
+            "type": "unordered_list",
             "named": true
           }
         ]
       },
-      "open": {
+      "directive": {
         "multiple": false,
         "required": true,
         "types": [
@@ -763,89 +845,17 @@
             "named": true
           }
         ]
+      },
+      "end": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "endif_directive",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "asciidoc_blockquote",
-          "named": true
-        },
-        {
-          "type": "attribute_entry",
-          "named": true
-        },
-        {
-          "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "callout_list",
-          "named": true
-        },
-        {
-          "type": "conditional_block",
-          "named": true
-        },
-        {
-          "type": "description_list",
-          "named": true
-        },
-        {
-          "type": "example_block",
-          "named": true
-        },
-        {
-          "type": "include_directive",
-          "named": true
-        },
-        {
-          "type": "listing_block",
-          "named": true
-        },
-        {
-          "type": "literal_block",
-          "named": true
-        },
-        {
-          "type": "markdown_blockquote",
-          "named": true
-        },
-        {
-          "type": "open_block",
-          "named": true
-        },
-        {
-          "type": "ordered_list",
-          "named": true
-        },
-        {
-          "type": "paragraph",
-          "named": true
-        },
-        {
-          "type": "passthrough_block",
-          "named": true
-        },
-        {
-          "type": "section",
-          "named": true
-        },
-        {
-          "type": "sidebar_block",
-          "named": true
-        },
-        {
-          "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -868,17 +878,89 @@
     "type": "ifndef_block",
     "named": true,
     "fields": {
-      "close": {
-        "multiple": false,
+      "content": {
+        "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "endif_directive",
+            "type": "asciidoc_blockquote",
+            "named": true
+          },
+          {
+            "type": "attribute_entry",
+            "named": true
+          },
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "callout_list",
+            "named": true
+          },
+          {
+            "type": "conditional_block",
+            "named": true
+          },
+          {
+            "type": "description_list",
+            "named": true
+          },
+          {
+            "type": "example_block",
+            "named": true
+          },
+          {
+            "type": "include_directive",
+            "named": true
+          },
+          {
+            "type": "listing_block",
+            "named": true
+          },
+          {
+            "type": "literal_block",
+            "named": true
+          },
+          {
+            "type": "markdown_blockquote",
+            "named": true
+          },
+          {
+            "type": "open_block",
+            "named": true
+          },
+          {
+            "type": "ordered_list",
+            "named": true
+          },
+          {
+            "type": "paragraph",
+            "named": true
+          },
+          {
+            "type": "passthrough_block",
+            "named": true
+          },
+          {
+            "type": "section",
+            "named": true
+          },
+          {
+            "type": "sidebar_block",
+            "named": true
+          },
+          {
+            "type": "table_block",
+            "named": true
+          },
+          {
+            "type": "unordered_list",
             "named": true
           }
         ]
       },
-      "open": {
+      "directive": {
         "multiple": false,
         "required": true,
         "types": [
@@ -887,89 +969,17 @@
             "named": true
           }
         ]
+      },
+      "end": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "endif_directive",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "asciidoc_blockquote",
-          "named": true
-        },
-        {
-          "type": "attribute_entry",
-          "named": true
-        },
-        {
-          "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "callout_list",
-          "named": true
-        },
-        {
-          "type": "conditional_block",
-          "named": true
-        },
-        {
-          "type": "description_list",
-          "named": true
-        },
-        {
-          "type": "example_block",
-          "named": true
-        },
-        {
-          "type": "include_directive",
-          "named": true
-        },
-        {
-          "type": "listing_block",
-          "named": true
-        },
-        {
-          "type": "literal_block",
-          "named": true
-        },
-        {
-          "type": "markdown_blockquote",
-          "named": true
-        },
-        {
-          "type": "open_block",
-          "named": true
-        },
-        {
-          "type": "ordered_list",
-          "named": true
-        },
-        {
-          "type": "paragraph",
-          "named": true
-        },
-        {
-          "type": "passthrough_block",
-          "named": true
-        },
-        {
-          "type": "section",
-          "named": true
-        },
-        {
-          "type": "sidebar_block",
-          "named": true
-        },
-        {
-          "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -998,7 +1008,7 @@
       },
       "path": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "include_path",
@@ -1047,7 +1057,7 @@
     "fields": {
       "terms": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "index_text",
@@ -1063,7 +1073,7 @@
     "fields": {
       "terms": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "index_text",
@@ -1112,20 +1122,27 @@
   {
     "type": "inline_anchor",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "inline_anchor_id",
-          "named": true
-        },
-        {
-          "type": "inline_anchor_text",
-          "named": true
-        }
-      ]
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "inline_anchor_id",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "inline_anchor_text",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1784,20 +1801,27 @@
   {
     "type": "paragraph_admonition",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "admonition_label",
-          "named": true
-        },
-        {
-          "type": "text_with_inlines",
-          "named": true
-        }
-      ]
+    "fields": {
+      "content": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "text_with_inlines",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "admonition_type",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1969,94 +1993,688 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
+      "types": [
+        {
+          "type": "section_level_1",
+          "named": true
+        },
+        {
+          "type": "section_level_2",
+          "named": true
+        },
+        {
+          "type": "section_level_3",
+          "named": true
+        },
+        {
+          "type": "section_level_4",
+          "named": true
+        },
+        {
+          "type": "section_level_5",
+          "named": true
+        },
+        {
+          "type": "section_level_6",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "section_level_1",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "asciidoc_blockquote",
+            "named": true
+          },
+          {
+            "type": "attribute_entry",
+            "named": true
+          },
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "callout_list",
+            "named": true
+          },
+          {
+            "type": "conditional_block",
+            "named": true
+          },
+          {
+            "type": "description_list",
+            "named": true
+          },
+          {
+            "type": "example_block",
+            "named": true
+          },
+          {
+            "type": "include_directive",
+            "named": true
+          },
+          {
+            "type": "listing_block",
+            "named": true
+          },
+          {
+            "type": "literal_block",
+            "named": true
+          },
+          {
+            "type": "markdown_blockquote",
+            "named": true
+          },
+          {
+            "type": "open_block",
+            "named": true
+          },
+          {
+            "type": "ordered_list",
+            "named": true
+          },
+          {
+            "type": "paragraph",
+            "named": true
+          },
+          {
+            "type": "passthrough_block",
+            "named": true
+          },
+          {
+            "type": "section_level_2",
+            "named": true
+          },
+          {
+            "type": "sidebar_block",
+            "named": true
+          },
+          {
+            "type": "table_block",
+            "named": true
+          },
+          {
+            "type": "unordered_list",
+            "named": true
+          }
+        ]
+      },
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_marker_1",
+            "named": true
+          }
+        ]
+      },
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_title",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "anchor",
           "named": true
-        },
-        {
-          "type": "asciidoc_blockquote",
-          "named": true
-        },
-        {
-          "type": "attribute_entry",
-          "named": true
-        },
-        {
-          "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "callout_list",
-          "named": true
-        },
-        {
-          "type": "conditional_block",
-          "named": true
-        },
-        {
-          "type": "description_list",
-          "named": true
-        },
-        {
-          "type": "example_block",
-          "named": true
-        },
-        {
-          "type": "include_directive",
-          "named": true
-        },
-        {
-          "type": "listing_block",
-          "named": true
-        },
-        {
-          "type": "literal_block",
-          "named": true
-        },
-        {
-          "type": "markdown_blockquote",
-          "named": true
-        },
-        {
-          "type": "open_block",
-          "named": true
-        },
-        {
-          "type": "ordered_list",
-          "named": true
-        },
-        {
-          "type": "paragraph",
-          "named": true
-        },
-        {
-          "type": "passthrough_block",
-          "named": true
-        },
-        {
-          "type": "section",
-          "named": true
-        },
-        {
-          "type": "section_title",
-          "named": true
-        },
-        {
-          "type": "sidebar_block",
-          "named": true
-        },
-        {
-          "type": "table_block",
-          "named": true
-        },
-        {
-          "type": "unordered_list",
-          "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "section_level_2",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "asciidoc_blockquote",
+            "named": true
+          },
+          {
+            "type": "attribute_entry",
+            "named": true
+          },
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "callout_list",
+            "named": true
+          },
+          {
+            "type": "conditional_block",
+            "named": true
+          },
+          {
+            "type": "description_list",
+            "named": true
+          },
+          {
+            "type": "example_block",
+            "named": true
+          },
+          {
+            "type": "include_directive",
+            "named": true
+          },
+          {
+            "type": "listing_block",
+            "named": true
+          },
+          {
+            "type": "literal_block",
+            "named": true
+          },
+          {
+            "type": "markdown_blockquote",
+            "named": true
+          },
+          {
+            "type": "open_block",
+            "named": true
+          },
+          {
+            "type": "ordered_list",
+            "named": true
+          },
+          {
+            "type": "paragraph",
+            "named": true
+          },
+          {
+            "type": "passthrough_block",
+            "named": true
+          },
+          {
+            "type": "section_level_3",
+            "named": true
+          },
+          {
+            "type": "sidebar_block",
+            "named": true
+          },
+          {
+            "type": "table_block",
+            "named": true
+          },
+          {
+            "type": "unordered_list",
+            "named": true
+          }
+        ]
+      },
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_marker_2",
+            "named": true
+          }
+        ]
+      },
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_title",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "section_level_3",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "asciidoc_blockquote",
+            "named": true
+          },
+          {
+            "type": "attribute_entry",
+            "named": true
+          },
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "callout_list",
+            "named": true
+          },
+          {
+            "type": "conditional_block",
+            "named": true
+          },
+          {
+            "type": "description_list",
+            "named": true
+          },
+          {
+            "type": "example_block",
+            "named": true
+          },
+          {
+            "type": "include_directive",
+            "named": true
+          },
+          {
+            "type": "listing_block",
+            "named": true
+          },
+          {
+            "type": "literal_block",
+            "named": true
+          },
+          {
+            "type": "markdown_blockquote",
+            "named": true
+          },
+          {
+            "type": "open_block",
+            "named": true
+          },
+          {
+            "type": "ordered_list",
+            "named": true
+          },
+          {
+            "type": "paragraph",
+            "named": true
+          },
+          {
+            "type": "passthrough_block",
+            "named": true
+          },
+          {
+            "type": "section_level_4",
+            "named": true
+          },
+          {
+            "type": "sidebar_block",
+            "named": true
+          },
+          {
+            "type": "table_block",
+            "named": true
+          },
+          {
+            "type": "unordered_list",
+            "named": true
+          }
+        ]
+      },
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_marker_3",
+            "named": true
+          }
+        ]
+      },
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_title",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "section_level_4",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "asciidoc_blockquote",
+            "named": true
+          },
+          {
+            "type": "attribute_entry",
+            "named": true
+          },
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "callout_list",
+            "named": true
+          },
+          {
+            "type": "conditional_block",
+            "named": true
+          },
+          {
+            "type": "description_list",
+            "named": true
+          },
+          {
+            "type": "example_block",
+            "named": true
+          },
+          {
+            "type": "include_directive",
+            "named": true
+          },
+          {
+            "type": "listing_block",
+            "named": true
+          },
+          {
+            "type": "literal_block",
+            "named": true
+          },
+          {
+            "type": "markdown_blockquote",
+            "named": true
+          },
+          {
+            "type": "open_block",
+            "named": true
+          },
+          {
+            "type": "ordered_list",
+            "named": true
+          },
+          {
+            "type": "paragraph",
+            "named": true
+          },
+          {
+            "type": "passthrough_block",
+            "named": true
+          },
+          {
+            "type": "section_level_5",
+            "named": true
+          },
+          {
+            "type": "sidebar_block",
+            "named": true
+          },
+          {
+            "type": "table_block",
+            "named": true
+          },
+          {
+            "type": "unordered_list",
+            "named": true
+          }
+        ]
+      },
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_marker_4",
+            "named": true
+          }
+        ]
+      },
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_title",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "section_level_5",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "asciidoc_blockquote",
+            "named": true
+          },
+          {
+            "type": "attribute_entry",
+            "named": true
+          },
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "callout_list",
+            "named": true
+          },
+          {
+            "type": "conditional_block",
+            "named": true
+          },
+          {
+            "type": "description_list",
+            "named": true
+          },
+          {
+            "type": "example_block",
+            "named": true
+          },
+          {
+            "type": "include_directive",
+            "named": true
+          },
+          {
+            "type": "listing_block",
+            "named": true
+          },
+          {
+            "type": "literal_block",
+            "named": true
+          },
+          {
+            "type": "markdown_blockquote",
+            "named": true
+          },
+          {
+            "type": "open_block",
+            "named": true
+          },
+          {
+            "type": "ordered_list",
+            "named": true
+          },
+          {
+            "type": "paragraph",
+            "named": true
+          },
+          {
+            "type": "passthrough_block",
+            "named": true
+          },
+          {
+            "type": "section_level_6",
+            "named": true
+          },
+          {
+            "type": "sidebar_block",
+            "named": true
+          },
+          {
+            "type": "table_block",
+            "named": true
+          },
+          {
+            "type": "unordered_list",
+            "named": true
+          }
+        ]
+      },
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_marker_5",
+            "named": true
+          }
+        ]
+      },
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_title",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "section_level_6",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "asciidoc_blockquote",
+            "named": true
+          },
+          {
+            "type": "attribute_entry",
+            "named": true
+          },
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "callout_list",
+            "named": true
+          },
+          {
+            "type": "conditional_block",
+            "named": true
+          },
+          {
+            "type": "description_list",
+            "named": true
+          },
+          {
+            "type": "example_block",
+            "named": true
+          },
+          {
+            "type": "include_directive",
+            "named": true
+          },
+          {
+            "type": "listing_block",
+            "named": true
+          },
+          {
+            "type": "literal_block",
+            "named": true
+          },
+          {
+            "type": "markdown_blockquote",
+            "named": true
+          },
+          {
+            "type": "open_block",
+            "named": true
+          },
+          {
+            "type": "ordered_list",
+            "named": true
+          },
+          {
+            "type": "paragraph",
+            "named": true
+          },
+          {
+            "type": "passthrough_block",
+            "named": true
+          },
+          {
+            "type": "sidebar_block",
+            "named": true
+          },
+          {
+            "type": "table_block",
+            "named": true
+          },
+          {
+            "type": "unordered_list",
+            "named": true
+          }
+        ]
+      },
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_marker_6",
+            "named": true
+          }
+        ]
+      },
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "section_title",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2477,24 +3095,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "header_spec_token",
-          "named": true
-        },
-        {
-          "type": "pipe_span_token",
-          "named": true
-        },
-        {
-          "type": "row_span_token",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -2578,6 +3178,11 @@
   },
   {
     "type": "text_caret",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "text_colon",
     "named": true,
     "fields": {}
   },
@@ -2751,11 +3356,6 @@
     }
   },
   {
-    "type": "value",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "\n",
     "named": false
   },
@@ -2836,6 +3436,10 @@
     "named": false
   },
   {
+    "type": ":",
+    "named": false
+  },
+  {
     "type": "<",
     "named": false
   },
@@ -2868,6 +3472,10 @@
     "named": true
   },
   {
+    "type": "CAUTION",
+    "named": false
+  },
+  {
     "type": "DELIMITED_BLOCK_CONTENT_LINE",
     "named": true
   },
@@ -2878,6 +3486,10 @@
   {
     "type": "EXAMPLE_FENCE_START",
     "named": true
+  },
+  {
+    "type": "IMPORTANT",
+    "named": false
   },
   {
     "type": "LISTING_FENCE_END",
@@ -2898,6 +3510,10 @@
   {
     "type": "LITERAL_FENCE_START",
     "named": true
+  },
+  {
+    "type": "NOTE",
+    "named": false
   },
   {
     "type": "OPENBLOCK_FENCE_END",
@@ -2940,6 +3556,14 @@
     "named": true
   },
   {
+    "type": "TIP",
+    "named": false
+  },
+  {
+    "type": "WARNING",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -2976,15 +3600,15 @@
     "named": false
   },
   {
-    "type": "admonition_label",
-    "named": true
-  },
-  {
     "type": "and",
     "named": false
   },
   {
     "type": "asciimath_inline",
+    "named": true
+  },
+  {
+    "type": "attribute_name",
     "named": true
   },
   {
@@ -3036,10 +3660,6 @@
     "named": false
   },
   {
-    "type": "header_spec_token",
-    "named": true
-  },
-  {
     "type": "ifdef::",
     "named": false
   },
@@ -3060,6 +3680,10 @@
     "named": false
   },
   {
+    "type": "include:",
+    "named": false
+  },
+  {
     "type": "include::",
     "named": false
   },
@@ -3068,7 +3692,15 @@
     "named": true
   },
   {
+    "type": "indexterm2:",
+    "named": false
+  },
+  {
     "type": "indexterm2:[",
+    "named": false
+  },
+  {
+    "type": "indexterm:",
     "named": false
   },
   {
@@ -3104,10 +3736,6 @@
     "named": false
   },
   {
-    "type": "name",
-    "named": true
-  },
-  {
     "type": "numeric_literal",
     "named": true
   },
@@ -3118,14 +3746,6 @@
   {
     "type": "pass:",
     "named": false
-  },
-  {
-    "type": "pipe_span_token",
-    "named": true
-  },
-  {
-    "type": "row_span_token",
-    "named": true
   },
   {
     "type": "section_marker_1",
@@ -3161,10 +3781,6 @@
   },
   {
     "type": "superscript_text",
-    "named": true
-  },
-  {
-    "type": "text_colon",
     "named": true
   },
   {

@@ -41,7 +41,8 @@ module.exports = grammar({
     [$.description_item],
     [$.callout_item],
     [$.inline_element, $.explicit_link],
-    [$.attribute_content, $.role_list]
+    [$.attribute_content, $.role_list],
+    [$.external_xref]
   ],
 
   rules: {
@@ -80,7 +81,7 @@ module.exports = grammar({
       $.section_level_6
     ),
     
-    section_level_1: $ => seq(
+    section_level_1: $ => prec.right(seq(
       optional($.anchor),
       field('marker', $.section_marker_1),
       field('title', $.section_title),
@@ -106,9 +107,9 @@ module.exports = grammar({
         $.section_level_2,  // Only nested sections can be level_2+
         $._blank_line
       )))
-    ),
+    )),
     
-    section_level_2: $ => seq(
+    section_level_2: $ => prec.right(seq(
       field('marker', $.section_marker_2),
       field('title', $.section_title),
       field('content', repeat(choice(
@@ -133,9 +134,9 @@ module.exports = grammar({
         $.section_level_3,
         $._blank_line
       )))
-    ),
+    )),
     
-    section_level_3: $ => seq(
+    section_level_3: $ => prec.right(seq(
       field('marker', $.section_marker_3),
       field('title', $.section_title),
       field('content', repeat(choice(
@@ -160,9 +161,9 @@ module.exports = grammar({
         $.section_level_4,
         $._blank_line
       )))
-    ),
+    )),
     
-    section_level_4: $ => seq(
+    section_level_4: $ => prec.right(seq(
       field('marker', $.section_marker_4),
       field('title', $.section_title),
       field('content', repeat(choice(
@@ -187,9 +188,9 @@ module.exports = grammar({
         $.section_level_5,
         $._blank_line
       )))
-    ),
+    )),
     
-    section_level_5: $ => seq(
+    section_level_5: $ => prec.right(seq(
       field('marker', $.section_marker_5),
       field('title', $.section_title),
       field('content', repeat(choice(
@@ -214,9 +215,9 @@ module.exports = grammar({
         $.section_level_6,
         $._blank_line
       )))
-    ),
+    )),
     
-    section_level_6: $ => seq(
+    section_level_6: $ => prec.right(seq(
       field('marker', $.section_marker_6),
       field('title', $.section_title),
       field('content', repeat(choice(
@@ -240,7 +241,7 @@ module.exports = grammar({
         $.table_block,
         $._blank_line
       )))
-    ),
+    )),
     
     section_title: $ => seq(
       choice(
@@ -396,23 +397,23 @@ module.exports = grammar({
       $.ifeval_block
     )),
     
-    ifdef_block: $ => seq(
+    ifdef_block: $ => prec.right(seq(
       field('directive', $.ifdef_open),
       field('content', repeat($._element)),
       field('end', optional($.endif_directive))
-    ),
+    )),
     
-    ifndef_block: $ => seq(
+    ifndef_block: $ => prec.right(seq(
       field('directive', $.ifndef_open),
       field('content', repeat($._element)),
       field('end', optional($.endif_directive))
-    ),
+    )),
     
-    ifeval_block: $ => seq(
+    ifeval_block: $ => prec.right(seq(
       field('directive', $.ifeval_open),
       field('content', repeat($._element)),
       field('end', optional($.endif_directive))
-    ),
+    )),
     
     ifdef_open: $ => prec(75, seq(
       'ifdef::',
@@ -835,7 +836,7 @@ module.exports = grammar({
         ']]'
       ),
       // Fallback for incomplete anchors
-      seq('[[', /[^\]]*$/)
+      seq('[[', /[^\]]+/)
     ),
     
     // Bibliography entries [[[ref]]]
@@ -847,7 +848,7 @@ module.exports = grammar({
         ']]]'
       ),
       // Fallback for incomplete bibliography entries
-      seq('[[[', /[^\]]*$/)
+      seq('[[[', /[^\]]+/)
     ),
     
     bibliography_id: $ => /[^,\]\r\n]+/,
@@ -877,7 +878,7 @@ module.exports = grammar({
         '>>'
       ),
       // Fallback for incomplete xrefs
-      seq('<<', /[^>]*$/)
+      seq('<<', /[^>]+/)
     ),
 
     external_xref: $ => choice(
@@ -889,7 +890,7 @@ module.exports = grammar({
         ']'
       ),
       // Fallback for malformed xrefs
-      seq('xref:', /[^\[\r\n]+/, /\[?[^\]]*$/)
+      seq('xref:', /[^\[\r\n]+/)
     ),
 
 
@@ -1041,7 +1042,7 @@ module.exports = grammar({
         ']'
       ),
       // Fallback for malformed (missing bracket)
-      seq('indexterm:', /[^\[\r\n]*$/)
+      seq('indexterm:', /[^\[\r\n]+/)
     ),
 
     index_term2_macro: $ => choice(
@@ -1051,7 +1052,7 @@ module.exports = grammar({
         ']'
       ),
       // Fallback for malformed
-      seq('indexterm2:', /[^\[\r\n]*$/)
+      seq('indexterm2:', /[^\[\r\n]+/)
     ),
 
     concealed_index_term: $ => choice(
@@ -1061,7 +1062,7 @@ module.exports = grammar({
         ')))'
       ),
       // Fallback for incomplete concealed term
-      seq('(((', /[^\)]*/)
+      seq('(((', /[^\)]+/)
     ),
 
     index_text: $ => choice(
@@ -1108,20 +1109,16 @@ module.exports = grammar({
       $._line_ending
     )),
 
-    // Tokens to make spec-bearing openings deterministic (no look-ahead)
-    header_spec_token: $ => token(prec(80, /\|\|(?:(?:\d+(?:\.\d+)?|\.\d+)\+)?[halmrs]\|/)),
-    pipe_span_token: $ => token(prec(75, /\|(?:\d+(?:\.\d+)?|\.\d+)\|/)),
-    row_span_token: $ => token(prec(70, /(?:\d+(?:\.\d+)?|\.\d+)\|/)),
-
+    // Deterministic spec-bearing openings as anonymous tokens (no named nodes)
     table_cell: $ => choice(
       // Header with spec: ||<spec>| content
-      prec(120, seq($.header_spec_token, field('content', $.cell_content))),
-      // Header without spec: || content
-      prec(110, seq('|', '|', field('content', $.cell_content))),
+      prec(120, seq(token(prec(80, /\|\|(?:(?:\d+(?:\.\d+)?|\.\d+)\+)?[halmrs]\|/)), field('content', $.cell_content))),
       // Specified cell: |<span>| content
-      prec(100, seq($.pipe_span_token, field('content', $.cell_content))),
+      prec(110, seq(token(prec(75, /\|(?:\d+(?:\.\d+)?|\.\d+)\|/)), field('content', $.cell_content))),
       // Row-start span-only: 2+| content
-      prec(95, seq($.row_span_token, field('content', $.cell_content))),
+      prec(105, seq(token(prec(70, /(?:\d+(?:\.\d+)?|\.\d+)\|/)), field('content', $.cell_content))),
+      // Header without spec: || content
+      prec(90, seq('|', '|', field('content', $.cell_content))),
       // Regular cell: | content (allows empty)
       seq('|', field('content', $.cell_content))
     ),
