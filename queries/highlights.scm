@@ -1,38 +1,32 @@
 ; Sections and Structure
 (section) @markup.heading
 
-; Section titles with individual markers for different levels
-(section_title
-  (section_marker_1) @markup.heading.1.marker
-  (title) @markup.heading.1
-) @markup.heading.1
+; Section level markers and titles
+(section_level_1
+  (marker) @markup.heading.1.marker
+  (title) @markup.heading.1)
 
-(section_title
-  (section_marker_2) @markup.heading.2.marker
-  (title) @markup.heading.2
-) @markup.heading.2
+(section_level_2
+  (marker) @markup.heading.2.marker
+  (title) @markup.heading.2)
 
-(section_title
-  (section_marker_3) @markup.heading.3.marker
-  (title) @markup.heading.3
-) @markup.heading.3
+(section_level_3
+  (marker) @markup.heading.3.marker
+  (title) @markup.heading.3)
 
-(section_title
-  (section_marker_4) @markup.heading.4.marker
-  (title) @markup.heading.4
-) @markup.heading.4
+(section_level_4
+  (marker) @markup.heading.4.marker
+  (title) @markup.heading.4)
 
-(section_title
-  (section_marker_5) @markup.heading.5.marker
-  (title) @markup.heading.5
-) @markup.heading.5
+(section_level_5
+  (marker) @markup.heading.5.marker
+  (title) @markup.heading.5)
 
-(section_title
-  (section_marker_6) @markup.heading.6.marker
-  (title) @markup.heading.6
-) @markup.heading.6
+(section_level_6
+  (marker) @markup.heading.6.marker
+  (title) @markup.heading.6)
 
-; Generic title (fallback)
+; Generic title
 (title) @markup.heading
 
 ; Inline Formatting
@@ -61,18 +55,25 @@
 (explicit_link) @markup.link
 (link_macro) @markup.link
 (link_text) @markup.link.text
-(internal_xref) @markup.link
-(external_xref) @markup.link
+(internal_xref
+  (target) @markup.link
+  (text)? @string)
+(external_xref
+  (path) @markup.link
+  (text)? @string)
 
 ; Anchors
-(inline_anchor) @markup.link.label
-(inline_anchor_id) @markup.link.label
-(anchor) @markup.link.label
+(inline_anchor
+  (id) @markup.link.label
+  (text)? @string)
+(anchor
+  (id) @markup.link.label
+  (text)? @string)
 
 ; Attributes
-(attribute_entry) @variable
-(name) @variable.builtin
-(value) @string
+(attribute_entry
+  (name) @variable.parameter
+  (value)? @string)
 (attribute_reference) @variable.builtin
 
 ; Lists
@@ -145,14 +146,20 @@
 (comment_line) @comment
 
 ; Conditionals
-(ifdef_open) @keyword.conditional
-(ifndef_open) @keyword.conditional
-(ifeval_open) @keyword.conditional
-(endif_directive) @keyword.conditional
+(ifdef_block
+  (directive) @keyword.conditional
+  (end) @keyword.conditional)
+(ifndef_block
+  (directive) @keyword.conditional
+  (end) @keyword.conditional)
+(ifeval_block
+  (directive) @keyword.conditional
+  (end) @keyword.conditional)
 
 ; Macros and Functions
-(include_directive) @keyword.import
-(include_path) @string.special.path
+(include_directive
+  (path) @string.special.path
+  (options)? @variable.parameter)
 (footnote_inline) @markup.link
 (footnote_ref) @markup.link
 (footnoteref) @markup.link
@@ -177,7 +184,9 @@
 (asciimath_inline) @function.macro
 
 ; Admonitions
-(paragraph_admonition) @markup.strong
+(paragraph_admonition
+  (type) @keyword.directive
+  (content)? @markup.quote)
 (admonition_label) @markup.strong
 
 ; Metadata
