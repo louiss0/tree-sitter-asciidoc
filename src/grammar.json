@@ -154,8 +154,12 @@
             "name": "title",
             "content": {
               "type": "SYMBOL",
-              "name": "section_title"
+              "name": "title"
             }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_line_ending"
           },
           {
             "type": "FIELD",
@@ -271,8 +275,12 @@
             "name": "title",
             "content": {
               "type": "SYMBOL",
-              "name": "section_title"
+              "name": "title"
             }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_line_ending"
           },
           {
             "type": "FIELD",
@@ -388,8 +396,12 @@
             "name": "title",
             "content": {
               "type": "SYMBOL",
-              "name": "section_title"
+              "name": "title"
             }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_line_ending"
           },
           {
             "type": "FIELD",
@@ -505,8 +517,12 @@
             "name": "title",
             "content": {
               "type": "SYMBOL",
-              "name": "section_title"
+              "name": "title"
             }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_line_ending"
           },
           {
             "type": "FIELD",
@@ -622,8 +638,12 @@
             "name": "title",
             "content": {
               "type": "SYMBOL",
-              "name": "section_title"
+              "name": "title"
             }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_line_ending"
           },
           {
             "type": "FIELD",
@@ -739,8 +759,12 @@
             "name": "title",
             "content": {
               "type": "SYMBOL",
-              "name": "section_title"
+              "name": "title"
             }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_line_ending"
           },
           {
             "type": "FIELD",
@@ -832,48 +856,6 @@
           }
         ]
       }
-    },
-    "section_title": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "section_marker_1"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "section_marker_2"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "section_marker_3"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "section_marker_4"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "section_marker_5"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "section_marker_6"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "title"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_line_ending"
-        }
-      ]
     },
     "title": {
       "type": "IMMEDIATE_TOKEN",
@@ -5025,12 +5007,15 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "STRING",
-                "value": "|"
-              },
-              {
-                "type": "STRING",
-                "value": "|"
+                "type": "TOKEN",
+                "content": {
+                  "type": "PREC",
+                  "value": 65,
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "\\|\\|[^=\\r\\n]"
+                  }
+                }
               },
               {
                 "type": "FIELD",
@@ -5047,8 +5032,15 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "|"
+              "type": "TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": 60,
+                "content": {
+                  "type": "PATTERN",
+                  "value": "\\|[^=\\r\\n]"
+                }
+              }
             },
             {
               "type": "FIELD",

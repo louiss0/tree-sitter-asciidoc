@@ -84,7 +84,8 @@ module.exports = grammar({
     section_level_1: $ => prec.right(seq(
       optional($.anchor),
       field('marker', $.section_marker_1),
-      field('title', $.section_title),
+      field('title', $.title),
+      $._line_ending,
       field('content', repeat(choice(
         $.attribute_entry,
         $.paragraph,
@@ -111,7 +112,8 @@ module.exports = grammar({
     
     section_level_2: $ => prec.right(seq(
       field('marker', $.section_marker_2),
-      field('title', $.section_title),
+      field('title', $.title),
+      $._line_ending,
       field('content', repeat(choice(
         $.attribute_entry,
         $.paragraph,
@@ -138,7 +140,8 @@ module.exports = grammar({
     
     section_level_3: $ => prec.right(seq(
       field('marker', $.section_marker_3),
-      field('title', $.section_title),
+      field('title', $.title),
+      $._line_ending,
       field('content', repeat(choice(
         $.attribute_entry,
         $.paragraph,
@@ -165,7 +168,8 @@ module.exports = grammar({
     
     section_level_4: $ => prec.right(seq(
       field('marker', $.section_marker_4),
-      field('title', $.section_title),
+      field('title', $.title),
+      $._line_ending,
       field('content', repeat(choice(
         $.attribute_entry,
         $.paragraph,
@@ -192,7 +196,8 @@ module.exports = grammar({
     
     section_level_5: $ => prec.right(seq(
       field('marker', $.section_marker_5),
-      field('title', $.section_title),
+      field('title', $.title),
+      $._line_ending,
       field('content', repeat(choice(
         $.attribute_entry,
         $.paragraph,
@@ -219,7 +224,8 @@ module.exports = grammar({
     
     section_level_6: $ => prec.right(seq(
       field('marker', $.section_marker_6),
-      field('title', $.section_title),
+      field('title', $.title),
+      $._line_ending,
       field('content', repeat(choice(
         $.attribute_entry,
         $.paragraph,
@@ -242,19 +248,6 @@ module.exports = grammar({
         $._blank_line
       )))
     )),
-    
-    section_title: $ => seq(
-      choice(
-        $.section_marker_1,
-        $.section_marker_2,
-        $.section_marker_3,
-        $.section_marker_4,
-        $.section_marker_5,
-        $.section_marker_6
-      ),
-      $.title,
-      $._line_ending
-    ),
     
     title: $ => token.immediate(/[^\r\n]+/),
 
@@ -1117,10 +1110,10 @@ module.exports = grammar({
       prec(110, seq(token(prec(75, /\|(?:\d+(?:\.\d+)?|\.\d+)\|/)), field('content', $.cell_content))),
       // Row-start span-only: 2+| content
       prec(105, seq(token(prec(70, /(?:\d+(?:\.\d+)?|\.\d+)\|/)), field('content', $.cell_content))),
-      // Header without spec: || content
-      prec(90, seq('|', '|', field('content', $.cell_content))),
-      // Regular cell: | content (allows empty)
-      seq('|', field('content', $.cell_content))
+      // Header without spec: || followed by at least one non '=' char
+      prec(90, seq(token(prec(65, /\|\|[^=\r\n]/)), field('content', $.cell_content))),
+      // Regular cell: | followed by at least one non '=' char
+      seq(token(prec(60, /\|[^=\r\n]/)), field('content', $.cell_content))
     ),
 
     // Keep spec components available for future use (not used in cell matching now)
