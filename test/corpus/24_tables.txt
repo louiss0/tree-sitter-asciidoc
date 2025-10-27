@@ -156,47 +156,63 @@ Table with Cell Specifications - Spans and Formats
     content: (table_content
       (table_row
         (table_cell
-          (cell_spec)
           content: (cell_content
             (cell_literal_text)))
         (table_cell
-          (cell_spec)
           content: (cell_content
             (cell_literal_text)))
         (table_cell
-          (cell_spec)
           content: (cell_content
-            (cell_literal_text))))
-      (content_line)
-      (table_row
+            (cell_literal_text)))
         (table_cell
-          (cell_spec)
           content: (cell_content
-            (cell_literal_text))))
-      (table_row
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
       (table_row
         (table_cell
-          (cell_spec)
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
           content: (cell_content
             (cell_literal_text))))
       (table_row
         (table_cell
-          (cell_spec)
-          content: (cell_content
-            (cell_literal_text))))
-      (table_row
-        (table_cell
-          (cell_spec)
           content: (cell_content
             (cell_literal_text))))
       (content_line)
       (table_row
         (table_cell
-          (cell_spec)
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      (table_row
+        (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
@@ -230,7 +246,9 @@ Table with AsciiDoc Content in Cells
       (content_line)
       (table_row
         (table_cell
-          (cell_spec)
+          content: (cell_content
+            (cell_literal_text)))
+        (table_cell
           content: (cell_content
             (cell_literal_text))))
       (table_row

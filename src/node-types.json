@@ -3056,6 +3056,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "cell_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3597,6 +3607,10 @@
     "named": true
   },
   {
+    "type": "cell_spec",
+    "named": true
+  },
+  {
     "type": "comment_line",
     "named": true
   },
@@ -3762,6 +3776,10 @@
   },
   {
     "type": "{",
+    "named": false
+  },
+  {
+    "type": "|",
     "named": false
   },
   {

@@ -1089,10 +1089,14 @@ module.exports = grammar({
 
     table_close: $ => alias(token(prec(200, /\|{1,2}={3}[ \t]*\r?\n/)), $.TABLE_FENCE_END),
 
-    // Table content does not admit metadata - only rows or blank lines
+    // Table content does not admit metadata - only rows or blank lines;
+    // allow non-pipe lines as content lines for stability
+    table_free_line: $ => token(prec(1, /[^|\r\n].*\r?\n/)),
+
     table_content: $ => repeat1(
       choice(
         $.table_row,
+        alias($.table_free_line, $.content_line),
         alias($._blank_line, $.content_line)
       )
     ),
@@ -1102,36 +1106,49 @@ module.exports = grammar({
       $._line_ending
     )),
 
-    // Deterministic spec-bearing openings as anonymous tokens (no named nodes)
+    // Table cells - distinguish cells with specs from regular cells
     table_cell: $ => choice(
-      // Header with spec: ||<spec>| content
-      prec(120, seq(token(prec(80, /\|\|(?:(?:\d+(?:\.\d+)?|\.\d+)\+)?[halmrs]\|/)), field('content', $.cell_content))),
-      // Specified cell: |<span>| content
-      prec(110, seq(token(prec(75, /\|(?:\d+(?:\.\d+)?|\.\d+)\|/)), field('content', $.cell_content))),
-      // Row-start span-only: 2+| content
-      prec(105, seq(token(prec(70, /(?:\d+(?:\.\d+)?|\.\d+)\|/)), field('content', $.cell_content))),
-      // Header without spec: || followed by at least one non '=' char
+      // Cell with spec: | followed by cell_spec (which includes closing |) then content
+      prec.left(200, prec.dynamic(200, seq(
+        '|',
+        $.cell_spec,
+        field('content', $.cell_content)
+      ))),
+      // Header cell: || followed by content (not =)
       prec(90, seq(token(prec(65, /\|\|[^=\r\n]/)), field('content', $.cell_content))),
-      // Regular cell: | followed by at least one non '=' char
-      seq(token(prec(60, /\|[^=\r\n]/)), field('content', $.cell_content))
+      // Regular cell: | followed by optional content  
+      prec(-100, seq(
+        token(prec(60, '|')),
+        field('content', $.cell_content)
+      ))
     ),
 
-    // Keep spec components available for future use (not used in cell matching now)
-    cell_spec: $ => choice(
-      seq($.span_spec, optional($.format_spec)),
-      $.format_spec
-    ),
-
-    span_spec: $ => token(choice(
-      // Combined column and row span: "2.3+"
-      seq(/\d+/, '.', /\d+/, '+'),
-      // Column span only: "2+"
-      seq(/\d+/, '+'),
-      // Row span only: ".3+"
-      seq('.', /\d+/, '+')
+    // Cell specifications for table cells - includes closing pipe
+    cell_spec: $ => token(choice(
+      // Span + format + closing pipe
+      seq(choice(
+        seq(/\d+/, '.', /\d+/, '+'),  // 2.3+
+        seq(/\d+/, '+'),                // 2+
+        seq('.', /\d+/, '+')            // .3+
+      ), /[halmrs]/, '|'),
+      // Span only + closing pipe
+      seq(choice(
+        seq(/\d+/, '.', /\d+/, '+'),
+        seq(/\d+/, '+'),
+        seq('.', /\d+/, '+')
+      ), '|'),
+      // Format only + closing pipe
+      seq(/[halmrs]/, '|')
     )),
 
-    format_spec: $ => token(choice('h', 'a', 'l', 'm', 'r', 's')),
+    // Keep these for backward compatibility or future use
+    span_spec: $ => choice(
+      token(seq(/\d+/, '.', /\d+/, '+')),
+      token(seq(/\d+/, '+')),
+      token(seq('.', /\d+/, '+'))
+    ),
+
+    format_spec: $ => /[halmrs]/,
 
     // Disallow metadata inside table content by keeping cell_content strictly literal
     cell_content: $ => $.cell_literal_text,
