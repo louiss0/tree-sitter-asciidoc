@@ -1,5 +1,24 @@
 [
   {
+    "type": "additive_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additive_expression",
+          "named": true
+        },
+        {
+          "type": "multiplicative_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "admonition_type",
     "named": true,
     "fields": {}
@@ -169,21 +188,6 @@
     "fields": {}
   },
   {
-    "type": "binary_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "block_comment",
     "named": true,
     "fields": {},
@@ -278,6 +282,25 @@
       "types": [
         {
           "type": "cell_literal_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "comparison_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additive_expression",
+          "named": true
+        },
+        {
+          "type": "comparison_expression",
           "named": true
         }
       ]
@@ -579,19 +602,7 @@
       "required": true,
       "types": [
         {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "grouped_expression",
-          "named": true
-        },
-        {
-          "type": "primary_expression",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
+          "type": "logical_expression",
           "named": true
         }
       ]
@@ -616,21 +627,6 @@
     "type": "footnoteref",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "grouped_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "id_and_roles",
@@ -1510,6 +1506,25 @@
     }
   },
   {
+    "type": "logical_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comparison_expression",
+          "named": true
+        },
+        {
+          "type": "logical_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "markdown_blockquote",
     "named": true,
     "fields": {},
@@ -1650,6 +1665,25 @@
     "type": "monospace_open",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "multiplicative_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "multiplicative_expression",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "open_block",
@@ -3279,7 +3313,11 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "primary_expression",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
           "named": true
         }
       ]

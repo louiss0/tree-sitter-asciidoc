@@ -434,28 +434,48 @@ module.exports = grammar({
       $._line_ending
     )),
     
-    // EXPRESSIONS - for ifeval conditions
-    expression: $ => prec.right(choice(
-      $.binary_expression,
-      $.unary_expression,
-      $.grouped_expression,
-      $.primary_expression
-    )),
+    // EXPRESSIONS - for ifeval conditions (fixed to eliminate recursion)
+    // Use prec.left/right with explicit precedence levels to avoid recursion
+    expression: $ => $.logical_expression,
     
-    binary_expression: $ => choice(
-      // Logical operators (lowest precedence)
-      prec.left(1, seq($.expression, choice('&&', '||', 'and', 'or'), $.expression)),
-      // Comparison operators  
-      prec.left(2, seq($.expression, choice('==', '!=', '<', '>', '<=', '>='), $.expression)),
-      // Arithmetic operators (highest precedence)
-      prec.left(3, seq($.expression, choice('+', '-'), $.expression)),
-      prec.left(4, seq($.expression, choice('*', '/', '%'), $.expression))
+    // Precedence level 1: Logical operators (&&, ||, and, or) - lowest precedence, left-associative
+    logical_expression: $ => choice(
+      prec.left(1, seq($.logical_expression, choice('&&', '||', 'and', 'or'), $.comparison_expression)),
+      $.comparison_expression
     ),
     
-    unary_expression: $ => prec(5, choice(
-      seq('!', $.expression),
-      seq('-', $.expression)
-    )),
+    // Precedence level 2: Comparison operators (==, !=, <, >, <=, >=), left-associative
+    comparison_expression: $ => choice(
+      prec.left(2, seq($.comparison_expression, choice('==', '!=', '<', '>', '<=', '>='), $.additive_expression)),
+      $.additive_expression
+    ),
+    
+    // Precedence level 3: Additive operators (+, -), left-associative
+    additive_expression: $ => choice(
+      prec.left(3, seq($.additive_expression, choice('+', '-'), $.multiplicative_expression)),
+      $.multiplicative_expression
+    ),
+    
+    // Precedence level 4: Multiplicative operators (*, /, %), left-associative
+    multiplicative_expression: $ => choice(
+      prec.left(4, seq($.multiplicative_expression, choice('*', '/', '%'), $.unary_expression)),
+      $.unary_expression
+    ),
+    
+    // Precedence level 5: Unary operators (!, -), right-associative
+    unary_expression: $ => choice(
+      prec.right(5, seq(choice('!', '-'), $.unary_expression)),
+      $.primary_expression
+    ),
+    
+    // Highest precedence: Primary and grouped expressions
+    primary_expression: $ => choice(
+      $.grouped_expression,
+      $.string_literal,
+      $.numeric_literal,
+      $.boolean_literal,
+      $.attribute_reference
+    ),
     
     grouped_expression: $ => seq('(', $.expression, ')'),
     
