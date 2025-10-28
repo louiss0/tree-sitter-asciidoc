@@ -17,17 +17,15 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
       (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            (strong_open)
-            (strong_text)
-            (strong_close))))
+          (strong_open)
+          (strong_content)
+          (strong_close)))
       (text_segment)
       (inline_element
         (emphasis
-          (emphasis_constrained
-            (emphasis_open)
-            (emphasis_text)
-            (emphasis_close))))
+          (emphasis_open)
+          (emphasis_content)
+          (emphasis_close)))
       (text_segment)))
   (paragraph
     (text_with_inlines
@@ -36,17 +34,15 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
       (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            (strong_open)
-            (strong_text)
-            (strong_close))))
+          (strong_open)
+          (strong_content)
+          (strong_close)))
       (text_segment)
       (inline_element
         (emphasis
-          (emphasis_constrained
-            (emphasis_open)
-            (emphasis_text)
-            (emphasis_close))))
+          (emphasis_open)
+          (emphasis_content)
+          (emphasis_close)))
       (text_segment)))
   (paragraph
     (text_with_inlines
@@ -87,17 +83,15 @@ Monospace with `code *not strong* here` content.
       (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            (strong_open)
-            (strong_text)
-            (strong_close))))
+          (strong_open)
+          (strong_content)
+          (strong_close)))
       (text_segment)
       (inline_element
         (emphasis
-          (emphasis_constrained
-            (emphasis_open)
-            (emphasis_text)
-            (emphasis_close))))
+          (emphasis_open)
+          (emphasis_content)
+          (emphasis_close)))
       (text_segment)))
   (paragraph
     (text_with_inlines
@@ -105,40 +99,36 @@ Monospace with `code *not strong* here` content.
       (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            (strong_open)
-            (strong_text)
-            (strong_close))))
+          (strong_open)
+          (strong_content)
+          (strong_close)))
       (text_segment)
       (text_segment)
       (inline_element
         (emphasis
-          (emphasis_constrained
-            (emphasis_open)
-            (emphasis_text)
-            (emphasis_close))))
-      (text_segment)))
+          (emphasis_open)
+          (emphasis_content)
+          (emphasis_close)))
+      (text_period)))
   (paragraph
     (text_with_inlines
       (text_segment)
       (text_colon)
       (inline_element
         (strong
-          (strong_constrained
-            (strong_open)
-            (strong_text)
-            (strong_close))))
-      (text_segment)))
+          (strong_open)
+          (strong_content)
+          (strong_close)))
+      (text_period)))
   (paragraph
     (text_with_inlines
       (text_segment)
       (text_segment)
       (inline_element
         (monospace
-          (monospace_constrained
-            (monospace_open)
-            (monospace_text)
-            (monospace_close))))
+          (monospace_open)
+          (monospace_content)
+          (monospace_close)))
       (text_segment))))
 
 ================================================================================
@@ -149,7 +139,7 @@ Visit https://example.com/path?query=value&other=test for more.
 
 Link with punctuation: https://docs.com/api#section.
 
-Multiple URLs: https://first.com, https://second.org! 
+Multiple URLs: https://first.com, https://second.org!
 
 Email addresses: contact@example.com.
 
@@ -161,7 +151,6 @@ Email addresses: contact@example.com.
       (text_segment)
       (inline_element
         (auto_link))
-      (text_segment)
       (text_segment)
       (text_segment)))
   (paragraph
@@ -179,10 +168,8 @@ Email addresses: contact@example.com.
       (text_colon)
       (inline_element
         (auto_link))
-      (text_segment)
       (inline_element
-        (auto_link))
-      (text_segment)))
+        (auto_link))))
   (paragraph
     (text_with_inlines
       (text_segment)
@@ -206,20 +193,30 @@ Role spans with complex attributes
   (paragraph
     content: (text_with_inlines
       (inline_element
-        (role_span))
+        (role_span
+          roles: (role_list)
+          content: (role_content)))
       (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
       (inline_element
-        (role_span))
+        (role_span
+          roles: (role_list)
+          content: (role_content)))
       (text_segment)
       (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
-      (inline_element
-        (role_span))
+      (text_bracket)
+      (text_segment)
+      (text_bracket)
+      (text_hash)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_hash)
       (text_segment)
       (text_segment))))
 
@@ -316,10 +313,12 @@ Complex image: image::path/file.png[Alt text,width=100,height=50].
       (text_segment)
       (text_colon)
       (inline_element
-        (math_macro))
+        (math_macro
+          (stem_inline)))
       (text_segment)
       (inline_element
-        (math_macro))
+        (math_macro
+          (asciimath_inline)))
       (text_period)))
   (paragraph
     content: (text_with_inlines
@@ -361,8 +360,12 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
       (text_segment)
       (text_segment)
       (inline_element
-        (internal_xref))
-      (text_segment)))
+        (internal_xref))))
+  (markdown_blockquote
+    (markdown_blockquote_line
+      (markdown_blockquote_marker)
+      (text_with_inlines
+        (text_period))))
   (paragraph
     (text_with_inlines
       (text_segment)
@@ -373,7 +376,7 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
       (text_segment)
       (inline_element
         (external_xref))
-      (text_segment)))
+      (text_period)))
   (paragraph
     (text_with_inlines
       (text_segment)

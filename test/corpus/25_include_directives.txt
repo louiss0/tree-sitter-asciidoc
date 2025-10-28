@@ -9,9 +9,7 @@ This is content after the include.
 --------------------------------------------------------------------------------
 
 (source_file
-  (include_directive
-    path: (include_path)
-    options: (include_options))
+  (include_directive)
   (paragraph
     content: (text_with_inlines
       (text_segment)
@@ -32,9 +30,7 @@ Another paragraph.
 --------------------------------------------------------------------------------
 
 (source_file
-  (include_directive
-    path: (include_path)
-    options: (include_options))
+  (include_directive)
   (paragraph
     content: (text_with_inlines
       (text_segment)
@@ -51,9 +47,7 @@ Text after include.
 --------------------------------------------------------------------------------
 
 (source_file
-  (include_directive
-    path: (include_path)
-    options: (include_options))
+  (include_directive)
   (paragraph
     content: (text_with_inlines
       (text_segment)
@@ -71,9 +65,7 @@ More content.
 --------------------------------------------------------------------------------
 
 (source_file
-  (include_directive
-    path: (include_path)
-    options: (include_options))
+  (include_directive)
   (paragraph
     content: (text_with_inlines
       (text_segment)
@@ -90,9 +82,7 @@ Final paragraph.
 --------------------------------------------------------------------------------
 
 (source_file
-  (include_directive
-    path: (include_path)
-    options: (include_options))
+  (include_directive)
   (paragraph
     content: (text_with_inlines
       (text_segment)
@@ -109,9 +99,7 @@ Following content.
 --------------------------------------------------------------------------------
 
 (source_file
-  (include_directive
-    path: (include_path)
-    options: (include_options))
+  (include_directive)
   (paragraph
     content: (text_with_inlines
       (text_segment)
@@ -133,15 +121,15 @@ More text here.
 
 (source_file
   (section
-    (section_title
-      (title))
-    (include_directive
-      path: (include_path)
-      options: (include_options))
-    (section
-      (section_title
-        (title))
-      (paragraph
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (include_directive)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
         content: (text_with_inlines
           (text_segment)
           (text_segment)
@@ -160,15 +148,9 @@ include::conclusion.adoc[]
 --------------------------------------------------------------------------------
 
 (source_file
-  (include_directive
-    path: (include_path)
-    options: (include_options))
-  (include_directive
-    path: (include_path)
-    options: (include_options))
-  (include_directive
-    path: (include_path)
-    options: (include_options)))
+  (include_directive)
+  (include_directive)
+  (include_directive))
 
 ================================================================================
 Include with empty options
@@ -181,9 +163,7 @@ Text after.
 --------------------------------------------------------------------------------
 
 (source_file
-  (include_directive
-    path: (include_path)
-    options: (include_options))
+  (include_directive)
   (paragraph
     content: (text_with_inlines
       (text_segment)
@@ -204,10 +184,10 @@ This should be a paragraph.
     content: (text_with_inlines
       (text_segment)
       (text_colon)
-      (text_segment)))
+      (text_segment)
+      (text_bracket)
+      (text_bracket)))
   (paragraph
-    (metadata
-      (id_and_roles))
     content: (text_with_inlines
       (text_segment)
       (text_segment)
@@ -226,9 +206,14 @@ This should be a paragraph.
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
-    (include_path)
-    (include_options))
+  (paragraph
+    content: (text_with_inlines
+      (text_segment)
+      (text_colon)
+      (text_colon)
+      (text_segment)
+      (text_bracket)
+      (text_segment)))
   (paragraph
     content: (text_with_inlines
       (text_segment)

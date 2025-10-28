@@ -1,343 +1,238 @@
-; ============================================================================
-; AsciiDoc Syntax Highlighting Queries
-; ============================================================================
-; Aligned with grammar.js node names and field definitions
+; Sections and Structure
+(section) @markup.heading
 
-; ============================================================================
-; SECTIONS & DOCUMENT STRUCTURE
-; ============================================================================
+; Section level markers and titles
+(section_level_1
+  (marker) @markup.heading.1.marker
+  (title) @markup.heading.1)
 
-; Section titles with level-specific markers
-(section_title
-  (section_marker_1) @markup.heading.1.marker
-  (title) @markup.heading.1.asciidoc) @markup.heading.1
+(section_level_2
+  (marker) @markup.heading.2.marker
+  (title) @markup.heading.2)
 
-(section_title
-  (section_marker_2) @markup.heading.2.marker
-  (title) @markup.heading.2.asciidoc) @markup.heading.2
+(section_level_3
+  (marker) @markup.heading.3.marker
+  (title) @markup.heading.3)
 
-(section_title
-  (section_marker_3) @markup.heading.3.marker
-  (title) @markup.heading.3.asciidoc) @markup.heading.3
+(section_level_4
+  (marker) @markup.heading.4.marker
+  (title) @markup.heading.4)
 
-(section_title
-  (section_marker_4) @markup.heading.4.marker
-  (title) @markup.heading.4.asciidoc) @markup.heading.4
+(section_level_5
+  (marker) @markup.heading.5.marker
+  (title) @markup.heading.5)
 
-(section_title
-  (section_marker_5) @markup.heading.5.marker
-  (title) @markup.heading.5.asciidoc) @markup.heading.5
+(section_level_6
+  (marker) @markup.heading.6.marker
+  (title) @markup.heading.6)
 
-(section_title
-  (section_marker_6) @markup.heading.6.marker
-  (title) @markup.heading.6.asciidoc) @markup.heading.6
-
-; Fallback for title nodes
+; Generic title
 (title) @markup.heading
 
-; ============================================================================
-; INLINE FORMATTING
-; ============================================================================
+; Inline Formatting
+(strong_open) @markup.bold
+(strong_close) @markup.bold
+(strong_content) @markup.bold
 
-; Strong (bold) - **text** or *text*
-(strong) @markup.strong
-(strong_open) @punctuation.delimiter.bold
-(strong_close) @punctuation.delimiter.bold
-(strong_text) @markup.strong
+(emphasis_open) @markup.italic
+(emphasis_close) @markup.italic
+(emphasis_content) @markup.italic
 
-; Emphasis (italic) - __text__ or _text_
-(emphasis) @markup.italic
-(emphasis_open) @punctuation.delimiter.italic
-(emphasis_close) @punctuation.delimiter.italic
-(emphasis_text) @markup.italic
+(monospace_open) @markup.raw
+(monospace_close) @markup.raw
+(monospace_content) @markup.raw
 
-; Monospace (code) - ``text`` or `text`
-(monospace) @markup.raw.inline
-(monospace_open) @punctuation.delimiter.code
-(monospace_close) @punctuation.delimiter.code
-(monospace_text) @markup.raw.inline
+(superscript_open) @markup.underline
+(superscript_close) @markup.underline
+(superscript_text) @markup.underline
 
-; Superscript - ^text^
-(superscript) @markup.superscript
-(superscript_open) @punctuation.delimiter
-(superscript_close) @punctuation.delimiter
-(superscript_text) @markup.superscript
+(subscript_open) @markup.underline
+(subscript_close) @markup.underline
+(subscript_text) @markup.underline
 
-; Subscript - ~text~
-(subscript) @markup.subscript
-(subscript_open) @punctuation.delimiter
-(subscript_close) @punctuation.delimiter
-(subscript_text) @markup.subscript
-
-; ============================================================================
-; LINKS & CROSS-REFERENCES
-; ============================================================================
-
-; Auto-detected URLs
+; Links and References
 (auto_link) @markup.link.url
-
-; Explicit links with text - https://url[text]
 (explicit_link) @markup.link
-(explicit_link
-  url: (auto_link) @markup.link.url
-  text: (link_text) @markup.link.label)
+(link_macro) @markup.link
+(link_text) @markup.link.text
+(internal_xref
+  (target) @markup.link
+  (text)? @string)
+(external_xref
+  (path) @markup.link
+  (text)? @string)
 
-(link_text) @markup.link.label
-
-; Internal cross-references - <<anchor,text>>
-(internal_xref) @markup.link
-
-; External cross-references - xref:file[text]
-(external_xref) @markup.link
-
-; ============================================================================
-; ANCHORS & BIBLIOGRAPHY
-; ============================================================================
-
-; Inline anchors - [[id,text]]
-(inline_anchor) @markup.link.label
-(inline_anchor_id) @constant
-(inline_anchor_text) @string
-
-; Block-level anchors
-(anchor) @markup.link.label
+; Anchors
+(inline_anchor
+  (id) @markup.link.label
+  (text)? @string)
 (anchor
-  id: (inline_anchor_id) @constant
-  text: (inline_anchor_text)? @string)
+  (id) @markup.link.label
+  (text)? @string)
 
-; Bibliography entries - [[[id,description]]]
-(bibliography_entry) @markup.link.label
-(bibliography_id) @constant
-(bibliography_text) @string
-
-; ============================================================================
-; FOOTNOTES
-; ============================================================================
-
-(footnote_inline) @markup.link
-(footnote_ref) @markup.link
-(footnoteref) @markup.link
-
-; ============================================================================
-; ATTRIBUTES
-; ============================================================================
-
-; Attribute definitions - :name: value
-(attribute_entry) @keyword.directive
+; Attributes
 (attribute_entry
-  name: (name) @variable.builtin
-  value: (value)? @string)
-
-; Attribute references - {name}
+  (name) @variable.parameter
+  (value)? @string)
 (attribute_reference) @variable.builtin
 
-; ============================================================================
-; LISTS
-; ============================================================================
-
-; List markers
-(asciidoc_list_marker) @markup.list.unnumbered
-(markdown_list_marker) @markup.list.unnumbered
-(asciidoc_checklist_marker) @markup.list.unnumbered
-(markdown_checklist_marker) @markup.list.unnumbered
-(ordered_list_marker) @markup.list.numbered
-(description_marker) @markup.list.description
-
-; List items
-(asciidoc_unordered_list_item) @markup.list.unnumbered
-(markdown_unordered_list_item) @markup.list.unnumbered
-(asciidoc_checklist_item) @markup.list.unnumbered
-(markdown_checklist_item) @markup.list.unnumbered
-(ordered_list_item) @markup.list.numbered
+; Lists
+(unordered_list_item) @markup.list
+(ordered_list_item) @markup.list
 (description_item) @markup.list
+(callout_item) @markup.list
 
-; List continuations
-(continuation_marker) @punctuation.special
-
-; ============================================================================
-; DELIMITED BLOCKS
-; ============================================================================
-
-; Example blocks
+; Delimited Blocks
 (example_block) @markup.quote
-(example_open) @punctuation.delimiter
-(example_close) @punctuation.delimiter
+(listing_block) @markup.raw.block
+(literal_block) @markup.raw.block
+(asciidoc_blockquote) @markup.quote
+(markdown_blockquote) @markup.quote
+(sidebar_block) @markup.quote
+(passthrough_block) @markup.raw.block
+(open_block) @markup.quote
+(table_block) @markup.list.unnumbered
+
+; Block fences and external tokens
 (EXAMPLE_FENCE_START) @punctuation.delimiter
 (EXAMPLE_FENCE_END) @punctuation.delimiter
-
-; Listing blocks
-(listing_block) @markup.raw.block
-(listing_open) @punctuation.delimiter
-(listing_close) @punctuation.delimiter
 (LISTING_FENCE_START) @punctuation.delimiter
 (LISTING_FENCE_END) @punctuation.delimiter
-
-; Fenced code blocks (```language)
-(fenced_code_block) @markup.raw.block
-(code_fence_open) @punctuation.delimiter
-(code_fence_close) @punctuation.delimiter
-(MARKDOWN_FENCE_START) @punctuation.delimiter
-(MARKDOWN_FENCE_END) @punctuation.delimiter
-(info_string
-  language: (language) @label)
-(code) @markup.raw.block
-(code_line) @none
-(MARKDOWN_FENCE_CONTENT_LINE) @none
-
-; Literal blocks
-(literal_block) @markup.raw.block
-(literal_open) @punctuation.delimiter
-(literal_close) @punctuation.delimiter
 (LITERAL_FENCE_START) @punctuation.delimiter
 (LITERAL_FENCE_END) @punctuation.delimiter
-
-; Quote blocks
-(quote_block) @markup.quote
-(quote_open) @punctuation.delimiter
-(quote_close) @punctuation.delimiter
 (QUOTE_FENCE_START) @punctuation.delimiter
 (QUOTE_FENCE_END) @punctuation.delimiter
-
-; Sidebar blocks
-(sidebar_block) @markup.quote
-(sidebar_open) @punctuation.delimiter
-(sidebar_close) @punctuation.delimiter
 (SIDEBAR_FENCE_START) @punctuation.delimiter
 (SIDEBAR_FENCE_END) @punctuation.delimiter
-
-; Passthrough blocks
-(passthrough_block) @markup.raw.block
-(passthrough_open) @punctuation.delimiter
-(passthrough_close) @punctuation.delimiter
 (PASSTHROUGH_FENCE_START) @punctuation.delimiter
 (PASSTHROUGH_FENCE_END) @punctuation.delimiter
-
-; Open blocks
-(open_block) @markup.quote
-(openblock_open) @punctuation.delimiter
-(openblock_close) @punctuation.delimiter
 (OPENBLOCK_FENCE_START) @punctuation.delimiter
 (OPENBLOCK_FENCE_END) @punctuation.delimiter
 
-; Block content
-(block_content) @none
-(content_line) @none
-(DELIMITED_BLOCK_CONTENT_LINE) @none
+(example_open) @punctuation.delimiter
+(example_close) @punctuation.delimiter
+(listing_open) @punctuation.delimiter
+(listing_close) @punctuation.delimiter
+(literal_open) @punctuation.delimiter
+(literal_close) @punctuation.delimiter
+(asciidoc_blockquote_open) @punctuation.delimiter
+(asciidoc_blockquote_close) @punctuation.delimiter
+(markdown_blockquote_line) @markup.quote
+(markdown_blockquote_marker) @punctuation.delimiter
+(sidebar_open) @punctuation.delimiter
+(sidebar_close) @punctuation.delimiter
+(passthrough_open) @punctuation.delimiter
+(passthrough_close) @punctuation.delimiter
+(openblock_open) @punctuation.delimiter
+(openblock_close) @punctuation.delimiter
 
-; ============================================================================
-; CONDITIONAL BLOCKS
-; ============================================================================
-
-(ifdef_block) @keyword.conditional
-(ifndef_block) @keyword.conditional
-(ifeval_block) @keyword.conditional
-(ifdef_block_open) @keyword.conditional
-(ifndef_block_open) @keyword.conditional
-(ifeval_block_open) @keyword.conditional
-(endif_directive) @keyword.conditional
-
-; ============================================================================
-; METADATA & BLOCK ATTRIBUTES
-; ============================================================================
-
-(metadata) @attribute
-
-; Block attributes - [attribute]
-(block_attributes) @attribute
-(source_block_attributes) @attribute
-(language_identifier) @label
-(attribute_content) @string
-
-; ID and roles - [#id.role]
-(id_and_roles) @attribute
-
-; Block title - .Title
-(block_title) @markup.heading
-
-; ============================================================================
-; TABLES
-; ============================================================================
-
-(table_block) @markup.list.unnumbered
-(table_open) @punctuation.delimiter
-(table_close) @punctuation.delimiter
+; External tokens
 (TABLE_FENCE_START) @punctuation.delimiter
 (TABLE_FENCE_END) @punctuation.delimiter
-(table_row) @markup.list
-(table_cell) @none
+(DELIMITED_BLOCK_CONTENT_LINE) @text
+(LIST_CONTINUATION) @punctuation.special
+(CALLOUT_MARKER) @markup.strong
+(AUTOLINK_BOUNDARY) @punctuation
+
+; Tables
+(table_open) @punctuation.delimiter
+(table_close) @punctuation.delimiter
+(table_cell) @markup.list
 (cell_spec) @variable.parameter
-(cell_content) @none
-(cell_formatted_content) @none
-(cell_literal_text) @none
+(format_spec) @variable.parameter
 
-; ============================================================================
-; COMMENTS
-; ============================================================================
-
+; Comments
 (block_comment) @comment.block
 (comment_line) @comment
 
-; ============================================================================
-; PARAGRAPHS & ADMONITIONS
-; ============================================================================
+; Conditionals
+(ifdef_block
+  (directive) @keyword.conditional
+  (end) @keyword.conditional)
+(ifndef_block
+  (directive) @keyword.conditional
+  (end) @keyword.conditional)
+(ifeval_block
+  (directive) @keyword.conditional
+  (end) @keyword.conditional)
 
-(paragraph) @none
-
-; Paragraph admonitions - NOTE: text
-(paragraph_admonition) @markup.strong
-(admonition_label) @keyword.directive
-
-; ============================================================================
-; MACROS & SPECIAL CONSTRUCTS
-; ============================================================================
-
-; Include directive - include::path[]
-(include_directive) @keyword.import
-(include_path) @string.special.path
-(include_options) @string
-
-; Images - image::path[] or image:path[]
+; Macros and Functions
+(include_directive
+  (path) @string.special.path
+  (options)? @variable.parameter)
+(footnote_inline) @markup.link
+(footnote_ref) @markup.link
+(footnoteref) @markup.link
 (image) @markup.link
-
-; Passthrough - +++content+++ or pass:[content]
 (passthrough_triple_plus) @markup.raw.inline
 (pass_macro) @function.macro
-
-; Math macros - stem:[], latexmath:[], asciimath:[]
 (math_macro) @function.macro
-
-; UI macros - kbd:[], btn:[], menu:[]
 (ui_macro) @function.macro
+(index_term) @markup.link.label
+
+; Expression syntax in ifeval
+(binary_expression) @expression
+(unary_expression) @expression
+(grouped_expression) @expression
+(string_literal) @string
+(numeric_literal) @number
+(boolean_literal) @boolean
+
+; Specific math macro types
+(stem_inline) @function.macro
+(latexmath_inline) @function.macro
+(asciimath_inline) @function.macro
+
+; Admonitions
+(paragraph_admonition
+  (type) @keyword.directive
+  (content)? @markup.quote)
+(admonition_label) @markup.strong
+
+; Metadata
+(metadata) @attribute
+(block_attributes) @attribute
+(id_and_roles) @attribute
+(block_title) @attribute
+
+; Basic text
+(text_segment) @text
+(content_line) @text
+
+; Punctuation
+(text_period) @punctuation
+(text_colon) @punctuation
+(text_angle_bracket) @punctuation.bracket
+(text_brace) @punctuation.bracket
+(text_bracket) @punctuation.bracket
+(text_paren) @punctuation.bracket
+
+; Advanced Features
+(bibliography_entry) @markup.link.label
+(bibliography_id) @variable.builtin
+(bibliography_text) @string
+
+(role_span) @markup.quote
+(role_list) @attribute
+(role_content) @markup.quote
+
+; Table content
+(cell_literal_text) @text
+(cell_content) @markup.list
+
+; UI Macros
 (ui_kbd) @function.builtin
 (ui_btn) @function.builtin
 (ui_menu) @function.builtin
 
-; Index terms - indexterm:[] or ((()))
-(index_term) @markup.link.label
+; Index terms
 (index_term_macro) @markup.link.label
 (index_term2_macro) @markup.link.label
 (concealed_index_term) @markup.link.label
-(index_text) @string
+(index_text) @variable.builtin
 (index_term_text) @string
 
-; Role spans - [.role]#text#
-(role_span) @attribute
-(role_list) @attribute
-(role_content) @none
+; Error recovery - handled by ERROR nodes automatically
 
-; ============================================================================
-; TEXT & BASIC ELEMENTS
-; ============================================================================
-
-; Text segments
-(text_segment) @none
-(text_with_inlines) @none
-
-; Line breaks - +
+; Line breaks
 (line_break) @punctuation.special
-
-; ============================================================================
-; EXTERNAL SCANNER TOKENS (AUTOLINK_BOUNDARY not used for highlighting)
-; ============================================================================
-
-(AUTOLINK_BOUNDARY) @none

@@ -21,8 +21,7 @@ Useful information here.
 (source_file
   (sidebar_block
     (metadata
-      (block_attributes
-        (attribute_content)))
+      (block_attributes))
     (sidebar_open
       (SIDEBAR_FENCE_START))
     (block_content
@@ -46,18 +45,17 @@ ____
 ---
 
 (source_file
-  (quote_block
+  (asciidoc_blockquote
     (metadata
-      (block_attributes
-        (attribute_content)))
-    (quote_open
+      (block_attributes))
+    (asciidoc_blockquote_open
       (QUOTE_FENCE_START))
     (block_content
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE))
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
-    (quote_close
+    (asciidoc_blockquote_close
       (QUOTE_FENCE_END))))
 
 ================================================================================
@@ -74,13 +72,15 @@ rm -rf /path/to/files
   (listing_block
     (metadata
       (block_attributes))
-    (listing_open
+    open: (listing_open
       (LISTING_FENCE_START))
-    (block_content
-      (content_line)
-      (content_line))
-    (listing_close
-      (MISSING LISTING_FENCE_END))))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
 
 ================================================================================
 CAUTION block with literal delimiters
@@ -98,8 +98,7 @@ CAUTION block with literal delimiters
 (source_file
   (literal_block
     (metadata
-      (block_attributes
-        (attribute_content)))
+      (block_attributes))
     (literal_open
       (LITERAL_FENCE_START))
     (block_content
@@ -125,22 +124,19 @@ TIP block with metadata
 ----
 
 (source_file
-  (paragraph
-    (metadata
-      (block_attributes))
-    (text_with_inlines
-      (text_segment)
-      (text_segment)))
   (listing_block
     (metadata
-      (id_and_roles)
+      (block_attributes)
+      (block_title)
+      (block_attributes)
       (block_attributes))
-    (listing_open
+    open: (listing_open
       (LISTING_FENCE_START))
-    (block_content
-      (content_line))
-    (listing_close
-      (MISSING LISTING_FENCE_END))))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
 
 ====
 This warning block has an anchor.
@@ -162,7 +158,17 @@ This should be parsed as a generic attribute list followed by paragraph.
 (source_file
   (paragraph
     (metadata
-      (block_attributes
-        (attribute_content)))
+      (block_attributes))
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))

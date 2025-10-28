@@ -24,39 +24,39 @@ Basic Table
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (content_line)
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (content_line)
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))))
+            (cell_literal_text)))))
     close: (table_close
       (TABLE_FENCE_END))))
 
@@ -83,50 +83,50 @@ Table with Title and Metadata
 (source_file
   (paragraph
     content: (text_with_inlines
+      (text_segment)
       (text_segment)))
   (table_block
     (metadata
-      (block_attributes
-        content: (attribute_content)))
+      (block_attributes))
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (content_line)
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (content_line)
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))))
+            (cell_literal_text)))))
     close: (table_close
       (TABLE_FENCE_END))))
 
@@ -157,64 +157,64 @@ Table with Cell Specifications - Spans and Formats
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (content_line)
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (content_line)
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (content_line)
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))))
+            (cell_literal_text)))))
     close: (table_close
       (TABLE_FENCE_END))))
 
@@ -239,22 +239,22 @@ Table with AsciiDoc Content in Cells
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (content_line)
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
             (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))))
+            (cell_literal_text)))))
     close: (table_close
       (TABLE_FENCE_END))))
 
@@ -296,10 +296,10 @@ Table with Empty Cells
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))
+            (cell_literal_text)))
         (table_cell
           content: (cell_content
             (cell_literal_text))))
@@ -307,7 +307,7 @@ Table with Empty Cells
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content))))
+            (cell_literal_text))))
       (table_row
         (table_cell
           content: (cell_content
@@ -315,6 +315,6 @@ Table with Empty Cells
       (table_row
         (table_cell
           content: (cell_content
-            (cell_formatted_content)))))
+            (cell_literal_text)))))
     close: (table_close
       (TABLE_FENCE_END))))

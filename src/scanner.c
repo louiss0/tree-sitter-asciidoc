@@ -7,8 +7,6 @@
 
 // External token types (must match grammar.js externals)
 enum {
-    TABLE_FENCE_START,
-    TABLE_FENCE_END,
     EXAMPLE_FENCE_START,    // ====
     EXAMPLE_FENCE_END,
     LISTING_FENCE_START,    // ----
@@ -23,16 +21,10 @@ enum {
     PASSTHROUGH_FENCE_END,
     OPENBLOCK_FENCE_START,  // --
     OPENBLOCK_FENCE_END,
-    MARKDOWN_FENCE_START,   // ```
-    MARKDOWN_FENCE_END,
-    MARKDOWN_FENCE_CONTENT_LINE,
     LIST_CONTINUATION,
     AUTOLINK_BOUNDARY,
     ATTRIBUTE_LIST_START,
     DELIMITED_BLOCK_CONTENT_LINE, // Content line within delimited blocks (not fence end)
-    _LIST_MARKER_PUSH_DEPTH,  // Signals entering deeper nesting (hidden from AST)
-    _LIST_MARKER_SAME_DEPTH,  // Signals continuing at same depth (hidden from AST)
-    _LIST_MARKER_POP_DEPTH,   // Signals returning to shallower depth (hidden from AST)
     _BLOCK_ANCHOR,         // Block anchor at start of line (hidden from AST)
     _LIST_UNORDERED_MARKER, // "* " or "- " at start of line (hidden from AST)
     _LIST_ORDERED_MARKER,   // "N. " at start of line (hidden from AST)
@@ -51,18 +43,11 @@ typedef struct {
     uint8_t fence_count;
     uint8_t fence_type;    // Store which type of fence we're in
     bool at_line_start;
-    // Markdown fence state
-    uint8_t markdown_fence_count;  // Number of backticks in opening fence
-    bool in_markdown_fence;         // Whether we're inside a Markdown fence
     // List state tracking
     bool in_unordered_list;
     bool in_ordered_list;
     char last_unordered_marker; // '*' or '-'
     bool list_block_consumed;   // Track if we've consumed a list block
-    // Depth tracking for nested lists  
-    uint8_t list_depth_stack[32];  // Stack of list depths (0-31 levels max)
-    uint8_t list_depth_count;       // Number of active depth levels
-    uint8_t current_marker_depth;   // Depth of the marker we just saw
 } Scanner;
 
 static void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
@@ -78,24 +63,10 @@ static void skip_spaces(TSLexer *lexer) {
     }
 }
 
-// Count the number of marker characters (*, -, .) to determine list depth
-// NOTE: This helper function is kept for potential future use with depth-aware parsing.
-// Currently not actively used in parsing decisions (see NESTED_LISTS_STATUS.md).
-static uint8_t count_marker_depth(TSLexer *lexer, char marker_char) {
-    uint8_t depth = 0;
-    TSLexer temp = *lexer;
-    
-    // Count consecutive marker characters
-    while (temp.lookahead == marker_char && depth < 32) {
-        depth++;
-        temp.advance(&temp, false);
-    }
-    
-    return depth;
-}
-
 // Check if at start of line (only whitespace before)
 static bool at_line_start(TSLexer *lexer) {
+    // Some hosts may not implement get_column; assume line start in that case
+    if (!lexer->get_column) return true;
     return lexer->get_column(lexer) == 0;
 }
 
@@ -131,7 +102,7 @@ static int get_fence_end_token(char fence_char, uint8_t count) {
 
 // Scan for delimited block fences (====, ----, ...., ____, ****, --, ++++)
 static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
-    DEBUG_LOG("scan_block_fence_start: checking at column %d, char='%c'", lexer->get_column(lexer), lexer->lookahead);
+    DEBUG_LOG("scan_block_fence_start: checking at column %d, char='%c'", lexer->get_column ? lexer->get_column(lexer) : -1, lexer->lookahead);
     if (!at_line_start(lexer)) {
         DEBUG_LOG("scan_block_fence_start: not at line start, skipping");
         return false;
@@ -166,6 +137,12 @@ static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
     
     if (count < min_count || count > max_count) return false;
     
+    // Must be followed by end of line or attributes (only spaces allowed)
+    skip_spaces(lexer);
+    if (!(lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer))) {
+        return false;
+    }
+    
     // Store fence info for matching close
     scanner->fence_chars[0] = fence_char;
     scanner->fence_length = 1;
@@ -177,20 +154,14 @@ static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
         DEBUG_LOG("LISTING_FENCE_START: stored fence_count=%d, fence_type=%d", scanner->fence_count, scanner->fence_type);
     }
     
-    // Must be followed by end of line or attributes
-    skip_spaces(lexer);
-    if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
-        // Include the newline as part of the fence token
-        if (lexer->lookahead == '\r') {
-            advance(lexer);
-            if (lexer->lookahead == '\n') advance(lexer);
-        } else if (lexer->lookahead == '\n') {
-            advance(lexer);
-        }
-        return true;
+    // Include the newline
+    if (lexer->lookahead == '\r') {
+        advance(lexer);
+        if (lexer->lookahead == '\n') advance(lexer);
+    } else if (lexer->lookahead == '\n') {
+        advance(lexer);
     }
-    
-    return false;
+    return true;
 }
 
 static bool scan_block_fence_end(Scanner *scanner, TSLexer *lexer) {
@@ -201,7 +172,7 @@ static bool scan_block_fence_end(Scanner *scanner, TSLexer *lexer) {
     uint8_t count = 0;
     
     if (expected_char == '-' && scanner->fence_count >= 4) {
-        DEBUG_LOG("LISTING_FENCE_END: checking for '%c' x%d at column %d, found '%c'", expected_char, scanner->fence_count, lexer->get_column(lexer), lexer->lookahead);
+        DEBUG_LOG("LISTING_FENCE_END: checking for '%c' x%d at column %d, found '%c'", expected_char, scanner->fence_count, lexer->get_column ? lexer->get_column(lexer) : -1, lexer->lookahead);
     }
     
     uint32_t loop_count = 0;
@@ -211,9 +182,9 @@ static bool scan_block_fence_end(Scanner *scanner, TSLexer *lexer) {
         count++;
     }
     
-    // Must match stored fence count and be at line end
-    // Allow more chars than the opening fence, but require at least the same count
+    // Must match stored fence count and be at line end (spaces allowed)
     if (count >= scanner->fence_count) {
+        // Check for end of line
         skip_spaces(lexer);
         if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
             if (scanner->fence_chars[0] == '-' && scanner->fence_count >= 4) {
@@ -231,190 +202,27 @@ static bool scan_block_fence_end(Scanner *scanner, TSLexer *lexer) {
             scanner->fence_count = 0;
             scanner->fence_type = 0;
             return true;
-        } else {
-            if (scanner->fence_chars[0] == '-' && scanner->fence_count >= 4) {
-                DEBUG_LOG("LISTING_FENCE_END: FAIL - not at line end, found char '%c' (code %d)", lexer->lookahead, (int)lexer->lookahead);
-            }
-        }
-    } else {
-        if (scanner->fence_chars[0] == '-' && scanner->fence_count >= 4) {
-            DEBUG_LOG("LISTING_FENCE_END: FAIL - count mismatch, found %d, needed %d", count, scanner->fence_count);
         }
     }
     
     return false;
 }
 
-// Scan for table fences |===
-static bool scan_table_fence(TSLexer *lexer, bool is_start) {
-    DEBUG_LOG("scan_table_fence: checking %s fence at column %d, char='%c'", is_start ? "start" : "end", lexer->get_column(lexer), lexer->lookahead);
-    if (!at_line_start(lexer)) {
-        DEBUG_LOG("scan_table_fence: not at line start, skipping");
-        return false;
-    }
-    
-    // Don't skip spaces - table fences must start with | at BOL
-    // skip_spaces(lexer);
-    
-    if (lexer->lookahead != '|') return false;
-    advance(lexer);
-    
-    // Look for at least 3 equals signs
-    uint8_t equals_count = 0;
-    uint32_t loop_count = 0;
-    while (lexer->lookahead == '=') {
-        if (++loop_count > 100) break; // Prevent infinite loops
-        advance(lexer);
-        equals_count++;
-    }
-    
-    if (equals_count < 3) return false;
-    
-    // Must be followed by line end
-    skip_spaces(lexer);
-    if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
-        // Include the newline as part of the fence token like other fence scanners
-        if (lexer->lookahead == '\r') {
-            advance(lexer);
-            if (lexer->lookahead == '\n') advance(lexer);
-        } else if (lexer->lookahead == '\n') {
-            advance(lexer);
-        }
-        return true;
-    }
-    
-    return false;
-}
-
-// Scan for Markdown fence start (```)
-static bool scan_markdown_fence_start(Scanner *scanner, TSLexer *lexer) {
-    DEBUG_LOG("scan_markdown_fence_start: checking at column %d, char='%c'", lexer->get_column(lexer), lexer->lookahead);
-    if (!at_line_start(lexer)) {
-        DEBUG_LOG("scan_markdown_fence_start: not at line start, skipping");
-        return false;
-    }
-    
-    if (lexer->lookahead != '`') return false;
-    
-    uint8_t count = 0;
-    uint32_t loop_count = 0;
-    while (lexer->lookahead == '`' && count < 255) {
-        if (++loop_count > 500) break; // Prevent infinite loops
-        advance(lexer);
-        count++;
-    }
-    
-    // Minimum 3 backticks for valid fence
-    if (count < 3) return false;
-    
-    // Store fence info for matching close
-    scanner->markdown_fence_count = count;
-    scanner->in_markdown_fence = true;
-    
-    DEBUG_LOG("scan_markdown_fence_start: matched fence '`' x%d", count);
-    
-    // Don't consume the newline - let grammar handle info_string and line ending
-    return true;
-}
-
-// Scan for Markdown fence end (```)
-static bool scan_markdown_fence_end(Scanner *scanner, TSLexer *lexer) {
-    if (!at_line_start(lexer)) return false;
-    if (!scanner->in_markdown_fence) return false;
-    
-    if (lexer->lookahead != '`') return false;
-    
-    uint8_t count = 0;
-    uint32_t loop_count = 0;
-    while (lexer->lookahead == '`' && count < 255) {
-        if (++loop_count > 500) break;
-        advance(lexer);
-        count++;
-    }
-    
-    // Must match or exceed stored fence count
-    if (count >= scanner->markdown_fence_count) {
-        skip_spaces(lexer);
-        if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
-            DEBUG_LOG("scan_markdown_fence_end: SUCCESS! Found %d backticks, clearing fence state", count);
-            // Clear fence state
-            scanner->markdown_fence_count = 0;
-            scanner->in_markdown_fence = false;
-            // Don't consume the newline - let grammar handle it
-            return true;
-        }
-    }
-    
-    return false;
-}
-
-// Scan for Markdown fence content line
-static bool scan_markdown_fence_content_line(Scanner *scanner, TSLexer *lexer) {
-    // Only valid when we're inside a Markdown fence
-    if (!scanner->in_markdown_fence) {
-        return false;
-    }
-    
-    // Must be at start of line
-    if (!at_line_start(lexer)) {
-        return false;
-    }
-    
-    // Check if this line would be a fence end - if so, don't consume it
-    TSLexer temp = *lexer;
-    uint8_t count = 0;
-    
-    // Count backticks at start of line
-    uint32_t loop_count = 0;
-    while (temp.lookahead == '`' && count < 255) {
-        if (++loop_count > 500) break;
-        temp.advance(&temp, false);
-        count++;
-    }
-    
-    // If this looks like a fence end (enough backticks + line end), don't consume it
-    if (count >= scanner->markdown_fence_count) {
-        // Skip trailing spaces
-        while (temp.lookahead == ' ' || temp.lookahead == '\t') {
-            temp.advance(&temp, false);
-        }
-        // If at line end, this is a fence end line - don't consume
-        if (temp.lookahead == '\n' || temp.lookahead == '\r' || temp.eof(&temp)) {
-            return false;
-        }
-    }
-    
-    // This is not a fence end line, consume the entire line as content
-    uint32_t char_count = 0;
-    while (lexer->lookahead && lexer->lookahead != '\r' && lexer->lookahead != '\n') {
-        if (++char_count > 10000) break; // Prevent infinite loops
-        advance(lexer);
-    }
-    
-    // Include the newline
-    if (lexer->lookahead == '\r') {
-        advance(lexer);
-        if (lexer->lookahead == '\n') advance(lexer);
-    } else if (lexer->lookahead == '\n') {
-        advance(lexer);
-    }
-    
-    return true;
-}
+// Scan for table fences removed - handled in grammar tokens now
 
 // Scan for list continuation (line with only '+')
 static bool scan_list_continuation(TSLexer *lexer) {
     if (!at_line_start(lexer)) return false;
     
+    // Skip spaces
     skip_spaces(lexer);
     
     if (lexer->lookahead != '+') return false;
     advance(lexer);
     
-    // Must be only '+' on the line
+    // Must be only '+' on the line (allow spaces before EOL)
     skip_spaces(lexer);
     if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer)) {
-        // Consume the newline as part of the list continuation token
         if (lexer->lookahead == '\r') {
             advance(lexer);
             if (lexer->lookahead == '\n') advance(lexer);
@@ -494,6 +302,8 @@ static bool scan_autolink_boundary(TSLexer *lexer) {
         temp.advance(&temp, false);
         if (temp.lookahead == ' ' || temp.lookahead == '\t' || 
             temp.lookahead == '\n' || temp.lookahead == '\r' || temp.eof(&temp)) {
+            // Consume the punctuation as the boundary token
+            advance(lexer);
             return true;
         }
     }
@@ -1192,37 +1002,15 @@ static bool scan_block_anchor(TSLexer *lexer) {
 
 bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
-    if (!scanner || !lexer || !valid_symbols) return false;
-    
+
     // LIST_CONTINUATION has highest priority - check first before other tokens consume input
     if (valid_symbols[LIST_CONTINUATION] && scan_list_continuation(lexer)) {
         lexer->result_symbol = LIST_CONTINUATION;
         return true;
     }
     
-    // Handle Markdown fences separately from AsciiDoc fences
-    // When Markdown fence is open, check for fence end first
-    if (scanner->in_markdown_fence) {
-        if (valid_symbols[MARKDOWN_FENCE_END] && scan_markdown_fence_end(scanner, lexer)) {
-            lexer->result_symbol = MARKDOWN_FENCE_END;
-            return true;
-        }
-        
-        if (valid_symbols[MARKDOWN_FENCE_CONTENT_LINE] && scan_markdown_fence_content_line(scanner, lexer)) {
-            lexer->result_symbol = MARKDOWN_FENCE_CONTENT_LINE;
-            return true;
-        }
-    }
-    
-    // Check for Markdown fence start when no fence is open
-    if (!scanner->in_markdown_fence && !scanner->fence_length) {
-        if (valid_symbols[MARKDOWN_FENCE_START] && scan_markdown_fence_start(scanner, lexer)) {
-            lexer->result_symbol = MARKDOWN_FENCE_START;
-            return true;
-        }
-    }
-    
-    // When fence is open, check for fence end first (highest priority within fence context)
+    // Stateful delimited block fence handling (high priority)
+    // Check for fence end first when we have an open fence
     if (scanner->fence_length > 0) {
         int end_token = get_fence_end_token(scanner->fence_chars[0], scanner->fence_count);
         if (scanner->fence_chars[0] == '-' && scanner->fence_count >= 4) {
@@ -1267,17 +1055,6 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         }
     }
     
-    // Table fence handling - needs high priority to prevent conflicts
-    if (valid_symbols[TABLE_FENCE_START] && scan_table_fence(lexer, true)) {
-        lexer->result_symbol = TABLE_FENCE_START;
-        return true;
-    }
-    
-    if (valid_symbols[TABLE_FENCE_END] && scan_table_fence(lexer, false)) {
-        lexer->result_symbol = TABLE_FENCE_END;
-        return true;
-    }
-    
     // Conditional directives - DISABLED: handled by grammar tokens now
     // These tokens are not declared in grammar.js externals
     // if (valid_symbols[_ifndef_open_token] && scan_ifndef_open(lexer)) {
@@ -1306,11 +1083,7 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
     //     return true;
     // }
     
-    // Depth-aware list markers - NOT IMPLEMENTED
-    // External tokens _LIST_MARKER_PUSH_DEPTH, _LIST_MARKER_SAME_DEPTH, _LIST_MARKER_POP_DEPTH
-    // are declared in grammar but not actively emitted due to architectural constraints.
-    // See NESTED_LISTS_STATUS.md for detailed explanation of why this approach doesn't work.
-    // 
+    
     // List markers - DISABLED: handled by grammar tokens now
     // if (valid_symbols[_LIST_UNORDERED_MARKER] && scan_unordered_list_marker(lexer)) {
     //     lexer->result_symbol = _LIST_UNORDERED_MARKER;
@@ -1322,10 +1095,11 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
     //     return true;
     // }
     
-    if (valid_symbols[CALLOUT_MARKER] && scan_callout_marker(lexer)) {
-        lexer->result_symbol = CALLOUT_MARKER;
-        return true;
-    }
+    // Callout marker handled by grammar tokens now (not an external token)
+    // if (valid_symbols[CALLOUT_MARKER] && scan_callout_marker(lexer)) {
+    //     lexer->result_symbol = CALLOUT_MARKER;
+    //     return true;
+    // }
     
     // Description list handling - DISABLED: handled by grammar tokens now
     // if (valid_symbols[DESCRIPTION_LIST_SEP] && scan_description_list_sep(lexer)) {
@@ -1345,17 +1119,17 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         return true;
     }
     
-    if (valid_symbols[ATTRIBUTE_LIST_START] && scan_attribute_list_start(lexer)) {
-        lexer->result_symbol = ATTRIBUTE_LIST_START;
-        return true;
-    }
+    // ATTRIBUTE_LIST_START disabled to avoid consuming '[' at BOL incorrectly
+    // if (valid_symbols[ATTRIBUTE_LIST_START] && scan_attribute_list_start(lexer)) {
+    //     lexer->result_symbol = ATTRIBUTE_LIST_START;
+    //     return true;
+    // }
     
     return false;
 }
 
 unsigned tree_sitter_asciidoc_external_scanner_serialize(void *payload, char *buffer) {
     Scanner *scanner = (Scanner *)payload;
-    if (!scanner || !buffer) return 0; // Safety check
     
     if (scanner->fence_length > 4) return 0; // Sanity check
     
@@ -1366,48 +1140,27 @@ unsigned tree_sitter_asciidoc_external_scanner_serialize(void *payload, char *bu
     buffer[5] = scanner->fence_count;
     buffer[6] = scanner->fence_type;
     buffer[7] = scanner->at_line_start ? 1 : 0;
-    // Serialize Markdown fence state
-    buffer[8] = scanner->markdown_fence_count;
-    buffer[9] = scanner->in_markdown_fence ? 1 : 0;
     // Serialize list state fields
-    buffer[10] = scanner->in_unordered_list ? 1 : 0;
-    buffer[11] = scanner->in_ordered_list ? 1 : 0;
-    buffer[12] = scanner->last_unordered_marker;
-    buffer[13] = scanner->list_block_consumed ? 1 : 0;
-    // Serialize depth tracking
-    // Bounds check to prevent buffer overflow
-    if (scanner->list_depth_count > 32) scanner->list_depth_count = 0;
-    buffer[14] = scanner->list_depth_count;
-    buffer[15] = scanner->current_marker_depth;
-    // Serialize depth stack (up to 32 levels, but only store first 16 for space)
-    uint8_t depth_to_store = scanner->list_depth_count > 16 ? 16 : scanner->list_depth_count;
-    for (uint8_t i = 0; i < depth_to_store; i++) {
-        buffer[16 + i] = scanner->list_depth_stack[i];
-    }
+    buffer[8] = scanner->in_unordered_list ? 1 : 0;
+    buffer[9] = scanner->in_ordered_list ? 1 : 0;
+    buffer[10] = scanner->last_unordered_marker;
+    buffer[11] = scanner->list_block_consumed ? 1 : 0;
     
-    return 16 + depth_to_store;
+    return 12;
 }
 
 void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char *buffer, unsigned length) {
     Scanner *scanner = (Scanner *)payload;
-    if (!scanner) return; // Safety check
     
     // Initialize all fields to default values
     scanner->fence_length = 0;
     scanner->fence_count = 0;
     scanner->fence_type = 0;
     scanner->at_line_start = false;
-    scanner->markdown_fence_count = 0;
-    scanner->in_markdown_fence = false;
     scanner->in_unordered_list = false;
     scanner->in_ordered_list = false;
     scanner->last_unordered_marker = 0;
     scanner->list_block_consumed = false;
-    scanner->list_depth_count = 0;
-    scanner->current_marker_depth = 0;
-    for (uint8_t i = 0; i < 32; i++) {
-        scanner->list_depth_stack[i] = 0;
-    }
     
     if (length >= 8) {
         scanner->fence_length = buffer[0];
@@ -1419,31 +1172,12 @@ void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char
             scanner->fence_type = buffer[6];
             scanner->at_line_start = buffer[7] != 0;
             
-            // Deserialize Markdown fence state if available
-            if (length >= 10) {
-                scanner->markdown_fence_count = buffer[8];
-                scanner->in_markdown_fence = buffer[9] != 0;
-                
-                // Deserialize list state fields if available
-                if (length >= 14) {
-                    scanner->in_unordered_list = buffer[10] != 0;
-                    scanner->in_ordered_list = buffer[11] != 0;
-                    scanner->last_unordered_marker = buffer[12];
-                    scanner->list_block_consumed = buffer[13] != 0;
-                    
-                    // Deserialize depth tracking if available
-                    if (length >= 16) {
-                        scanner->list_depth_count = buffer[14];
-                        // Bounds check to prevent buffer overflow
-                        if (scanner->list_depth_count > 32) scanner->list_depth_count = 0;
-                        scanner->current_marker_depth = buffer[15];
-                        // Restore depth stack
-                        uint8_t stored_depth = scanner->list_depth_count > 16 ? 16 : scanner->list_depth_count;
-                        for (uint8_t i = 0; i < stored_depth && (16 + i) < length; i++) {
-                            scanner->list_depth_stack[i] = buffer[16 + i];
-                        }
-                    }
-                }
+            // Deserialize list state fields if available
+            if (length >= 12) {
+                scanner->in_unordered_list = buffer[8] != 0;
+                scanner->in_ordered_list = buffer[9] != 0;
+                scanner->last_unordered_marker = buffer[10];
+                scanner->list_block_consumed = buffer[11] != 0;
             }
         } else {
             scanner->fence_length = 0;
@@ -1452,29 +1186,10 @@ void tree_sitter_asciidoc_external_scanner_deserialize(void *payload, const char
 }
 
 void *tree_sitter_asciidoc_external_scanner_create() {
-    Scanner *scanner = (Scanner *)calloc(1, sizeof(Scanner));
-    if (!scanner) return NULL;
-    // Initialize all fields explicitly
-    scanner->fence_length = 0;
-    scanner->fence_count = 0;
-    scanner->fence_type = 0;
-    scanner->markdown_fence_count = 0;
-    scanner->in_markdown_fence = false;
-    scanner->at_line_start = false;
-    scanner->in_unordered_list = false;
-    scanner->in_ordered_list = false;
-    scanner->last_unordered_marker = 0;
-    scanner->list_block_consumed = false;
-    scanner->list_depth_count = 0;
-    scanner->current_marker_depth = 0;
-    for (uint8_t i = 0; i < 32; i++) {
-        scanner->list_depth_stack[i] = 0;
-    }
+    Scanner *scanner = calloc(1, sizeof(Scanner));
     return scanner;
 }
 
 void tree_sitter_asciidoc_external_scanner_destroy(void *payload) {
-    if (payload) {
-        free(payload);
-    }
+    free(payload);
 }

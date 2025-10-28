@@ -9,17 +9,15 @@ This has *bold* text in it.
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            open: (strong_open)
-            content: (strong_text)
-            close: (strong_close))))))
-  (paragraph
-    content: (text_with_inlines
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -33,17 +31,15 @@ This has _italic_ text in it.
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
       (inline_element
         (emphasis
-          (emphasis_constrained
-            open: (emphasis_open)
-            content: (emphasis_text)
-            close: (emphasis_close))))))
-  (paragraph
-    content: (text_with_inlines
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -57,17 +53,15 @@ This has `code` text in it.
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
       (inline_element
         (monospace
-          (monospace_constrained
-            open: (monospace_open)
-            content: (monospace_text)
-            close: (monospace_close))))))
-  (paragraph
-    content: (text_with_inlines
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -81,18 +75,14 @@ This has *unclosed bold and _unclosed italic and `unclosed code.
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            open: (strong_open)
-            content: (strong_text)
-            close: (strong_close
-              (MISSING "*"))))))))
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close
+            (MISSING "*")))))))
 
 ================================================================================
 Mixed formatting elements
@@ -105,39 +95,25 @@ This has *bold* and _italic_ and `code` together.
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            open: (strong_open)
-            content: (strong_text)
-            close: (strong_close))))))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (text_segment)
       (inline_element
         (emphasis
-          (emphasis_constrained
-            open: (emphasis_open)
-            content: (emphasis_text)
-            close: (emphasis_close))))))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
+      (text_segment)
       (inline_element
         (monospace
-          (monospace_constrained
-            open: (monospace_open)
-            content: (monospace_text)
-            close: (monospace_close))))))
-  (paragraph
-    content: (text_with_inlines
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
       (text_segment))))
 
 ================================================================================
@@ -151,24 +127,17 @@ This has ^superscript^ and ~subscript~ text.
 (source_file
   (paragraph
     content: (text_with_inlines
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
+      (text_segment)
+      (text_segment)
       (inline_element
         (superscript
           open: (superscript_open)
           content: (superscript_text)
-          close: (superscript_close)))))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)))
-  (paragraph
-    content: (text_with_inlines
+          close: (superscript_close)))
+      (text_segment)
       (inline_element
         (subscript
           open: (subscript_open)
           content: (subscript_text)
-          close: (subscript_close)))))
-  (paragraph
-    content: (text_with_inlines
+          close: (subscript_close)))
       (text_segment))))

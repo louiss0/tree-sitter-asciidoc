@@ -15,11 +15,13 @@ After comment.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment)))
   (block_comment
     (comment_line))
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -43,6 +45,7 @@ Another paragraph.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment)))
   (block_comment
     (comment_line)
@@ -52,6 +55,7 @@ Another paragraph.
     (comment_line))
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -102,17 +106,20 @@ Third paragraph.
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment)))
   (block_comment
     (comment_line))
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment)))
   (block_comment
     (comment_line)
     (comment_line))
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -139,23 +146,24 @@ More content.
 
 (source_file
   (section
-    (section_title
+    (section_level_1
       (section_marker_1)
-      (title))
-    (block_comment
-      (comment_line))
-    (section
-      (section_title
-        (section_marker_2)
-        (title))
-      (paragraph
-        (text_with_inlines
-          (text_segment)))
+      (title)
       (block_comment
         (comment_line))
-      (paragraph
-        (text_with_inlines
-          (text_segment))))))
+      (section_level_2
+        (section_marker_2)
+        (title)
+        (paragraph
+          (text_with_inlines
+            (text_segment)
+            (text_segment)))
+        (block_comment
+          (comment_line))
+        (paragraph
+          (text_with_inlines
+            (text_segment)
+            (text_segment)))))))
 
 ================================================================================
 Block comments with nested delimited block markers
@@ -180,4 +188,5 @@ Final paragraph.
     (comment_line))
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment))))

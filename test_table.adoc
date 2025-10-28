@@ -1,0 +1,7 @@
+|===
+|Name |Age
+
+|John |30
+|2+|Spanning cell
+|h|Header cell
+|===

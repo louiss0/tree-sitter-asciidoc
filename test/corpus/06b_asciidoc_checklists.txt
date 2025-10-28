@@ -1,39 +1,57 @@
 ================================================================================
-Simple AsciiDoc checklist - unchecked and checked items
+Simple callout list
 ================================================================================
 
-* [ ] Unchecked item 1
-* [x] Checked item 2
-* [ ] Unchecked item 3
+<1> First callout
+<2> Second callout
+<10> Tenth callout
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (asciidoc_checklist
-    (asciidoc_checklist_item
-      marker: (asciidoc_checklist_marker)
+  (callout_list
+    (callout_item
+      (CALLOUT_MARKER)
       content: (text_with_inlines
+        (text_segment)
         (text_segment)))
-    (asciidoc_checklist_item
-      marker: (asciidoc_checklist_marker)
+    (callout_item
+      (CALLOUT_MARKER)
       content: (text_with_inlines
+        (text_segment)
         (text_segment)))
-    (asciidoc_checklist_item
-      marker: (asciidoc_checklist_marker)
+    (callout_item
+      (CALLOUT_MARKER)
       content: (text_with_inlines
+        (text_segment)
         (text_segment)))))
 
 ================================================================================
-AsciiDoc checklist with uppercase X
+Not a callout list - missing space after marker
 ================================================================================
 
-* [X] Checked with uppercase
+<1>NotACallout
+
+<2>NotACallout
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (asciidoc_checklist
-    (asciidoc_checklist_item
-      marker: (asciidoc_checklist_marker)
+  (paragraph
+    content: (text_with_inlines
+      (text_angle_bracket)
+      (text_segment)))
+  (markdown_blockquote
+    (markdown_blockquote_line
+      marker: (markdown_blockquote_marker)
+      content: (text_with_inlines
+        (text_segment))))
+  (paragraph
+    content: (text_with_inlines
+      (text_angle_bracket)
+      (text_segment)))
+  (markdown_blockquote
+    (markdown_blockquote_line
+      marker: (markdown_blockquote_marker)
       content: (text_with_inlines
         (text_segment)))))

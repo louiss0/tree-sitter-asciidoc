@@ -1,0 +1,4 @@
+[[section-one]]
+== First Section
+
+See <<section-one>> for more details.

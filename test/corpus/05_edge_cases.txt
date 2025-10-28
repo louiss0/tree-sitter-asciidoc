@@ -10,15 +10,13 @@ Indented headings are treated as valid headings
 
 (source_file
   (section
-    (section_title
+    (section_level_1
       (section_marker_1)
-      (title))
-    (section
-      (section_title
+      (title)
+      (section_level_2
         (section_marker_2)
-        (title))
-      (section
-        (section_title
+        (title)
+        (section_level_3
           (section_marker_3)
           (title))))))
 
@@ -36,15 +34,28 @@ Invalid attribute patterns should be paragraphs
 (source_file
   (paragraph
     content: (text_with_inlines
+      (text_colon)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
+      (text_colon)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
+      (text_colon)
+      (text_colon)
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
+      (text_colon)
+      (text_colon)
+      (text_colon)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -59,13 +70,10 @@ Attributes with spaces in values and empty values
 
 (source_file
   (attribute_entry
-    (name)
-    (value))
+    (attribute_value))
+  (attribute_entry)
   (attribute_entry
-    (name))
-  (attribute_entry
-    (name)
-    (value)))
+    (attribute_value)))
 
 ================================================================================
 Multiple consecutive blank lines
@@ -85,12 +93,21 @@ Third paragraph after three blanks
 (source_file
   (paragraph
     (text_with_inlines
+      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment)))
   (paragraph
     (text_with_inlines
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -105,14 +122,12 @@ Headings with trailing spaces
 
 (source_file
   (section
-    (section_title
+    (section_level_1
       (section_marker_1)
-      (title))
-    (section
-      (section_title
+      (title)
+      (section_level_2
         (section_marker_2)
-        (title))
-      (section
-        (section_title
+        (title)
+        (section_level_3
           (section_marker_3)
           (title))))))

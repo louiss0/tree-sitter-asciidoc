@@ -1,0 +1,35 @@
+= Links and Anchors Test
+
+== Auto Links
+
+Visit https://asciidoctor.org for more information.
+
+Check out http://example.com/path?param=value for examples.
+
+== Link Macros
+
+Check out link:https://docs.asciidoctor.org[AsciiDoc Documentation] for details.
+
+Download the link:files/manual.pdf[User Manual] (PDF).
+
+== Anchors
+
+[[section-one]]
+== First Section
+
+This section has an anchor.
+
+[[custom-anchor,Custom Anchor Text]]
+== Section with Custom Anchor
+
+This section has an anchor with custom text.
+
+== Internal Cross References
+
+See <<section-one>> for more details.
+
+Refer to <<custom-anchor,the custom section>>.
+
+== External Cross References
+
+See xref:other-doc.adoc#section[Other Document Section].

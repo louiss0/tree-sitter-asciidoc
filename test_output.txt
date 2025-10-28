@@ -1,0 +1,737 @@
+  01_sections:
+      1. ✓ [32mSection titles with different levels[0m
+      2. ✓ [32mSingle section with title[0m
+      3. ✓ [32mSection titles with varied spacing[0m
+  02_paragraphs:
+      4. ✓ [32mParagraphs with blank lines[0m
+      5. ✓ [32mFake headings without space should be paragraphs[0m
+      6. ✓ [32mMixed paragraphs and blank lines[0m
+      7. ✓ [32mSingle paragraph line[0m
+  03_attributes:
+      8. ✓ [32mBasic attribute entries[0m
+      9. ✓ [32mAttribute entries without values[0m
+     10. ✓ [32mAttribute entries with spaces in values[0m
+     11. ✓ [32mInvalid attribute patterns should be paragraphs[0m
+     12. ✓ [32mMixed attributes and other content[0m
+  04_hierarchy:
+     13. ✓ [32mSection hierarchy nesting[0m
+     14. ✓ [32mMultiple sections at same level[0m
+     15. ✓ [32mDeep nesting with all levels[0m
+     16. ✓ [32mSections with attributes[0m
+  05_edge_cases:
+     17. ✓ [32mIndented headings are treated as valid headings[0m
+     18. ✓ [32mInvalid attribute patterns should be paragraphs[0m
+     19. ✓ [32mAttributes with spaces in values and empty values[0m
+     20. ✓ [32mMultiple consecutive blank lines[0m
+     21. ✓ [32mHeadings with trailing spaces[0m
+  06_unordered_lists:
+     22. ✓ [32mSimple unordered list with asterisk[0m
+     23. ✓ [32mSimple unordered list with hyphen[0m
+     24. ✓ [32mMixed unordered list markers[0m
+     25. ✗ [31mNot a list - missing space after marker[0m
+  07_ordered_lists:
+     26. ✓ [32mSimple ordered list[0m
+     27. ✓ [32mOrdered list with multiple digits[0m
+     28. ✓ [32mNot a list - missing space after period[0m
+     29. ✓ [32mNot a list - decimal number in paragraph[0m
+  08_description_lists:
+     30. ✓ [32mSimple description list[0m
+     31. ✓ [32mNot a description list - missing space after double colon[0m
+     32. ✓ [32mNot a description list - triple colon[0m
+  09_callout_lists:
+     33. ✓ [32mSimple callout list[0m
+     34. ✓ [32mNot a callout list - missing space after marker[0m
+  10_mixed_lists:
+     35. ✓ [32mLists mixed with paragraphs[0m
+     36. ✓ [32mLists mixed with sections and attributes[0m
+  11_conditionals:
+     37. ✓ [32mBasic ifdef block[0m
+     38. ✓ [32mBasic ifndef block[0m
+     39. ✓ [32mBasic ifeval block[0m
+     40. ✓ [32mNested conditionals[0m
+     41. ✓ [32mMixed conditional and description list[0m
+     42. ✓ [32mMultiple attribute targets[0m
+     43. ✓ [32mConditional with lists and sections[0m
+     44. ✓ [32mEmpty conditional block[0m
+     45. ✓ [32mComplex ifeval expression[0m
+  12_conditional_conflicts:
+     46. ✓ [32mDescription lists should not become conditionals[0m
+     47. ✓ [32mParagraphs with directive-like words[0m
+     48. ✓ [32mMalformed conditionals should be paragraphs[0m
+     49. ✓ [32mMixing attributes and conditionals[0m
+     50. ✓ [32mTriple colons are not conditionals[0m
+     51. ✓ [32mNo targets in ifdef should still work[0m
+     52. ✓ [32mConditionals with attributes inside sections[0m
+  13_inline_conditionals:
+     53. ✓ [32mBlock conditional with single line content[0m
+  14_delimited_blocks:
+     54. ✓ [32mEmpty example block[0m
+     55. ✓ [32mThis is example content
+line 2[0m
+     56. ✗ [31mListing block with content[0m
+     57. ✓ [32mLiteral block with content[0m
+     58. ✗ [31mAsciiDoc blockquote with content[0m
+     59. ✓ [32mPassthrough block with content[0m
+     60. ✓ [32mOpen block with content[0m
+     61. ✓ [32mSimple markdown blockquote[0m
+     62. ✓ [32mNested markdown blockquotes[0m
+     63. ✓ [32mSystem.out.println("Hello");[0m
+     64. ✓ [32mExample content in section[0m
+     65. ✓ [32mThis is an example block[0m
+     66. ✓ [32mBlock with trailing spaces on delimiters[0m
+     67. ✓ [32mContent with near-delimiters not at beginning of line[0m
+     68. ✓ [32mOpen block with nested-looking delimiters[0m
+  15_anchors_footnotes_xrefs:
+     69. ✓ [32mInline anchor without text[0m
+     70. ✓ [32mInline anchor with text[0m
+     71. ✓ [32mBlock anchor without text[0m
+     72. ✓ [32mBlock anchor with text[0m
+     73. ✓ [32mInternal cross-reference without text[0m
+     74. ✓ [32mInternal cross-reference with text[0m
+     75. ✓ [32mExternal cross-reference without text[0m
+     76. ✓ [32mExternal cross-reference with text[0m
+     77. ✓ [32mInline footnote[0m
+     78. ✓ [32mReferenced footnote without text[0m
+     79. ✓ [32mReferenced footnote with text[0m
+     80. ✓ [32mFootnote reference without text[0m
+     81. ✓ [32mFootnote reference with text[0m
+     82. ✓ [32mMixed inline elements in paragraph[0m
+     83. ✓ [32mAdjacent inline elements[0m
+     84. ✓ [32mExample block content with anchor[0m
+     85. ✓ [32mMalformed anchors should be plain text[0m
+     86. ✗ [31mMalformed cross-references should be plain text[0m
+     87. ✗ [31mMalformed footnotes should be plain text[0m
+     88. ✓ [32mComplex cross-reference targets[0m
+  16_admonitions:
+     89. ✓ [32mBasic Paragraph Admonitions[0m
+     90. ✓ [32mAdmonition Blocks with Example[0m
+     91. ✓ [32mAdmonition Blocks with Different Delimited Block Types[0m
+     92. ✓ [32mComplex Paragraph Admonitions with Inline Elements[0m
+     93. ✓ [32mBlock admonitions work in sections as well.[0m
+     94. ✓ [32mThis should not be an admonition block.[0m
+  16_paragraph_admonitions:
+     95. ✓ [32mNOTE paragraph admonition[0m
+     96. ✓ [32mTIP paragraph admonition[0m
+     97. ✓ [32mIMPORTANT paragraph admonition[0m
+     98. ✓ [32mWARNING paragraph admonition[0m
+     99. ✓ [32mCAUTION paragraph admonition[0m
+    100. ✓ [32mNOTE paragraph with inline elements[0m
+    101. ✓ [32mEmpty NOTE paragraph[0m
+    102. ✓ [32mNot an admonition - lowercase label[0m
+    103. ✓ [32mNot an admonition - missing space after colon[0m
+    104. ✓ [32mNot an admonition - invalid label[0m
+    105. ✓ [32mMultiple admonition paragraphs[0m
+    106. ✓ [32mAdmonition paragraph in section[0m
+  17_block_admonitions:
+    107. ✓ [32mThis is a note block with example content.[0m
+    108. ✓ [32mTIP block with sidebar delimiters[0m
+    109. ✓ [32mIMPORTANT block with quote delimiters[0m
+    110. ✗ [31mWARNING block with listing delimiters[0m
+    111. ✓ [32mCAUTION block with literal delimiters[0m
+    112. ✗ [31mTIP block with metadata[0m
+    113. ✓ [32mThis warning block has an anchor.[0m
+    114. ✓ [32mNot an admonition block - no delimited block following[0m
+  18_basic_formatting:
+    115. ✓ [32mSimple strong formatting[0m
+    116. ✓ [32mSimple emphasis formatting[0m
+    117. ✓ [32mSimple monospace formatting[0m
+    118. ✗ [31mUnclosed formatting should be plain text[0m
+    119. ✓ [32mMixed formatting elements[0m
+    120. ✓ [32mSimple superscript and subscript[0m
+  19_inline_formatting:
+    121. ✓ [32mBasic inline formatting[0m
+    122. ✓ [32mSuperscript and subscript[0m
+    123. ✓ [32mNested formatting[0m
+    124. ✓ [32mAttribute references[0m
+    125. ✓ [32mAuto links[0m
+    126. ✓ [32mLinks with text[0m
+    127. ✓ [32mPassthrough[0m
+  20_inline_edge_cases:
+    128. ✓ [32mUnicode word boundaries in formatting[0m
+    129. ✓ [32mDelimiter adjacency and escape handling[0m
+    130. ✓ [32mComplex autolink boundary detection[0m
+    131. ✓ [32mRole spans with complex attributes[0m
+    132. ✗ [31mNested formatting edge cases[0m
+    133. ✓ [32mMacro and attribute edge cases[0m
+    134. ✓ [32mCross-reference and anchor combinations[0m
+    135. ✓ [32mPassthrough and raw content edge cases[0m
+  20_links_images:
+    136. ✓ [32mAuto links[0m
+    137. ✓ [32mLinks with text[0m
+    138. ✓ [32mLinks with formatted text[0m
+    139. ✓ [32mInline images[0m
+    140. ✓ [32mBlock images[0m
+  21_block_edge_cases:
+    141. ✓ [32mNested delimited blocks[0m
+    142. ✓ [32mComplex table structures[0m
+    143. ✓ [32mExample block as continuation.[0m
+    144. ✓ [32mConditional blocks with nesting[0m
+    145. ✓ [32mComplex admonition combinations[0m
+    146. ✓ [32mSection nesting with anchors[0m
+    147. ✓ [32mAttribute edge cases with references[0m
+  21_passthrough:
+    148. ✓ [32mTriple plus passthrough[0m
+    149. ✓ [32mPass macro without substitutions[0m
+    150. ✓ [32mPass macro with substitutions[0m
+    151. ✓ [32mMultiple passthrough in same line[0m
+  22_macros_roles:
+    152. ✓ [32mRole spans[0m
+    153. ✓ [32mRole spans with nested formatting[0m
+    154. ✓ [32mMath macros[0m
+    155. ✓ [32mUI macros[0m
+    156. ✓ [32mAttribute references[0m
+  23_inline_edge_cases:
+    157. ✓ [32mURL followed by monospace (precedence test)[0m
+    158. ✓ [32mInline inside role span content[0m
+    159. ✗ [31mCrossing styles (should fallback gracefully)[0m
+    160. ✓ [32mTrailing plus without EOL (should not create line_break)[0m
+    161. ✓ [32mEscaped delimiters in strong[0m
+    162. ✗ [31mEscaped delimiters in emphasis[0m
+    163. ✗ [31mEscaped delimiters in monospace[0m
+    164. ✓ [32mEscaped delimiters in superscript[0m
+    165. ✓ [32mEscaped delimiters in subscript[0m
+    166. ✓ [32mEscaped delimiters in role span[0m
+    167. ✓ [32mComplex nesting with multiple styles[0m
+    168. ✓ [32mAttribute reference inside various constructs[0m
+    169. ✓ [32mLine break with proper EOL[0m
+    170. ✓ [32mMacro precedence over formatting[0m
+    171. ✓ [32mPassthrough precedence over everything[0m
+    172. ✓ [32mImage and link precedence[0m
+    173. ✓ [32mMultiple consecutive inline elements[0m
+    174. ✗ [31mEmpty inline constructs (edge case)[0m
+    175. ✓ [32mRole span with dots in name[0m
+  24_tables:
+    176. ✓ [32mBasic Table[0m
+    177. ✓ [32mTable with Title and Metadata[0m
+    178. ✓ [32mTable with Cell Specifications - Spans and Formats[0m
+    179. ✓ [32mTable with AsciiDoc Content in Cells[0m
+    180. ✓ [32mEmpty Table and Edge Cases[0m
+    181. ✓ [32mTable with Empty Cells[0m
+  25_include_directives:
+    182. ✓ [32mBasic include without options[0m
+    183. ✓ [32mInclude with leveloffset option[0m
+    184. ✓ [32mInclude with line ranges[0m
+    185. ✓ [32mInclude with tags[0m
+    186. ✓ [32mInclude with multiple options[0m
+    187. ✓ [32mInclude with path containing subdirectories[0m
+    188. ✓ [32mInclude in section[0m
+    189. ✓ [32mMultiple includes[0m
+    190. ✓ [32mInclude with empty options[0m
+    191. ✓ [32mNot an include - missing colon[0m
+    192. ✓ [32mNot an include - malformed brackets[0m
+  26_index_terms:
+    193. ✓ [32mSimple index term macro[0m
+    194. ✓ [32mHierarchical index term with secondary and tertiary[0m
+    195. ✓ [32mIndex term with secondary only[0m
+    196. ✓ [32mVisible index term (indexterm2)[0m
+    197. ✓ [32mConcealed index term[0m
+    198. ✓ [32mConcealed index term with hierarchy[0m
+    199. ✓ [32mMultiple index terms in paragraph[0m
+    200. ✓ [32mIndex terms with special characters[0m
+    201. ✓ [32mMixed index terms with other inline elements[0m
+    202. ✓ [32mNot an index term - malformed brackets[0m
+    203. ✓ [32mNot an index term - incomplete concealed[0m
+  27_block_comments:
+    204. ✓ [32mBasic block comment[0m
+    205. ✓ [32mMulti-line block comment with special characters[0m
+    206. ✓ [32mSingle line block comment[0m
+    207. ✓ [32mMultiple block comments[0m
+    208. ✓ [32mBlock comments with sections[0m
+    209. ✓ [32mBlock comments with nested delimited block markers[0m
+  28_advanced_tables:
+    210. ✓ [32mTable with column spanning[0m
+    211. ✓ [32mTable with row spanning[0m
+    212. ✓ [32mTable with both column and row spanning[0m
+    213. ✓ [32mTable with format specifications[0m
+    214. ✓ [32mTable with header format[0m
+    215. ✓ [32mTable with combined span and format specifications[0m
+    216. ✓ [32mTable with empty cells and edge cases[0m
+    217. ✓ [32mTable with metadata and complex specifications[0m
+  29_expressions_operators:
+    218. ✓ [32mBasic comparison operators[0m
+    219. ✓ [32mNumeric comparison[0m
+    220. ✓ [32mLogical operators[0m
+    221. ✓ [32mLogical NOT operator[0m
+    222. ✓ [32mComplex arithmetic expression[0m
+    223. ✓ [32mGrouped expressions with parentheses[0m
+    224. ✓ [32mBoolean literals[0m
+  30_math_macros:
+    225. ✓ [32mBasic stem inline macro[0m
+    226. ✓ [32mLaTeX math inline macro[0m
+    227. ✓ [32mAsciiMath inline macro[0m
+    228. ✓ [32mMultiple math macros in one paragraph[0m
+    229. ✓ [32mMath macro with complex content[0m
+
+13 failures:
+
+correct / [32mexpected[0m / [31munexpected[0m
+
+  1. Not a list - missing space after marker:
+
+    (source_file
+      (paragraph
+        content: (text_with_inlines
+[31m          (inline_element
+[0m[31m            (strong
+[0m[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close
+[0m[31m                (MISSING "*"))))))
+[0m[32m          (text_segment)))
+[0m      (paragraph
+        content: (text_with_inlines
+          (text_segment))))
+
+
+  2. Listing block with content:
+
+    (source_file
+      (listing_block
+        open: (listing_open
+          (LISTING_FENCE_START))
+        content: (block_content
+          (content_line
+            (DELIMITED_BLOCK_CONTENT_LINE))
+          (content_line
+            (DELIMITED_BLOCK_CONTENT_LINE))
+          (content_line
+            (DELIMITED_BLOCK_CONTENT_LINE)))
+        close: (listing_close
+[31m          (MISSING LISTING_FENCE_END))))[0m
+[32m          (LISTING_FENCE_END))))[0m
+
+
+  3. AsciiDoc blockquote with content:
+
+    (source_file
+[31m      (asciidoc_blockquote
+[0m[31m        (asciidoc_blockquote_open
+[0m[31m          (QUOTE_FENCE_START))
+[0m[31m        (block_content
+[0m[31m          (content_line
+[0m[31m            (DELIMITED_BLOCK_CONTENT_LINE))
+[0m[31m          (content_line
+[0m[31m            (DELIMITED_BLOCK_CONTENT_LINE)))
+[0m[31m        (asciidoc_blockquote_close
+[0m[31m          (QUOTE_FENCE_END)))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_segment)))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_paren)
+[0m[31m          (text_segment))
+[0m[31m        (ERROR
+[0m[31m          (emphasis_open)))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_paren)
+[0m[31m          (text_segment)
+[0m[31m          (inline_element
+[0m[31m            (emphasis
+[0m[31m              (emphasis_open)
+[0m[31m              (emphasis_content)
+[0m[31m              (emphasis_close
+[0m[31m                (MISSING "_"))))))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_paren)
+[0m[31m          (text_segment)
+[0m[31m          (inline_element
+[0m[31m            (emphasis
+[0m[31m              (emphasis_open)
+[0m[31m              (emphasis_content)
+[0m[31m              (emphasis_close)))
+[0m[31m          (text_segment)))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_paren)
+[0m[31m          (text_segment)
+[0m[31m          (inline_element
+[0m[31m            (emphasis
+[0m[31m              (emphasis_open)
+[0m[31m              (emphasis_content)
+[0m[31m              (emphasis_close)))
+[0m[31m          (text_segment)
+[0m[31m          (text_paren)
+[0m[31m          (text_paren)))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_paren)
+[0m[31m          (text_segment))
+[0m[31m        (ERROR
+[0m[31m          (emphasis_open)))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_paren)
+[0m[31m          (text_segment))
+[0m[31m        (ERROR
+[0m[31m          (emphasis_open)))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_paren)
+[0m[31m          (text_segment)
+[0m[31m          (inline_element
+[0m[31m            (emphasis
+[0m[31m              (emphasis_open)
+[0m[31m              (emphasis_content)
+[0m[31m              (emphasis_close)))
+[0m[31m          (text_segment))
+[0m[31m        (ERROR
+[0m[31m          (emphasis_open)))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_paren)
+[0m[31m          (text_segment))
+[0m[31m        (ERROR
+[0m[31m          (emphasis_open)))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_paren)
+[0m[31m          (text_segment)
+[0m[31m          (inline_element
+[0m[31m            (emphasis
+[0m[31m              (emphasis_open)
+[0m[31m              (emphasis_content)
+[0m[31m              (emphasis_close)))
+[0m[31m          (text_segment))
+[0m[31m        (ERROR
+[0m[31m          (emphasis_open)))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_paren)
+[0m[31m          (text_segment)
+[0m[31m          (inline_element
+[0m[31m            (emphasis
+[0m[31m              (emphasis_open)
+[0m[31m              (emphasis_content)
+[0m[31m              (emphasis_close)))
+[0m[31m          (text_segment)))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_paren)
+[0m[31m          (text_segment)
+[0m[31m          (inline_element
+[0m[31m            (emphasis
+[0m[31m              (emphasis_open)
+[0m[31m              (emphasis_content)
+[0m[31m              (emphasis_close)))
+[0m[31m          (text_segment)
+[0m[31m          (text_paren)
+[0m[31m          (text_paren)
+[0m[31m          (text_paren)
+[0m[31m          (text_paren)))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_segment)
+[0m[31m          (text_segment)
+[0m[31m          (text_segment)
+[0m[31m          (text_segment)))
+[0m[31m      (paragraph
+[0m[31m        (text_with_inlines
+[0m[31m          (text_segment)))
+[0m      (sidebar_block
+        (sidebar_open
+          (SIDEBAR_FENCE_START))
+        (block_content
+          (content_line
+            (DELIMITED_BLOCK_CONTENT_LINE))
+          (content_line
+            (DELIMITED_BLOCK_CONTENT_LINE)))
+        (sidebar_close
+          (SIDEBAR_FENCE_END))))
+
+
+  4. Malformed cross-references should be plain text:
+
+    (source_file
+      (paragraph
+        content: (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_angle_bracket)
+          (text_angle_bracket)
+          (text_segment)
+[31m          (text_segment)))
+[0m[31m      (markdown_blockquote
+[0m[31m        (markdown_blockquote_line
+[0m[31m          marker: (markdown_blockquote_marker)
+[0m[31m          content: (text_with_inlines
+[0m[31m            (text_angle_bracket)
+[0m[31m            (text_segment)
+[0m[31m            (inline_element
+[0m[31m              (internal_xref)))
+[0m[31m          (MISSING "
+[0m[31m"))))[0m
+[32m          (text_segment)
+[0m[32m          (text_angle_bracket)
+[0m[32m          (text_angle_bracket)
+[0m[32m          (text_segment)
+[0m[32m          (text_angle_bracket)
+[0m[32m          (text_angle_bracket)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment))))[0m
+
+
+  5. Malformed footnotes should be plain text:
+
+    (source_file
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_colon)
+          (text_bracket)
+          (text_segment)
+[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_colon)
+[0m          (text_bracket)
+          (text_segment)
+[31m          (inline_element
+[0m[31m            (footnote_inline
+[0m[31m              (MISSING "]"))))))[0m
+[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment))))[0m
+
+
+  6. WARNING block with listing delimiters:
+
+    (source_file
+      (listing_block
+        (metadata
+          (block_attributes))
+        (listing_open
+          (LISTING_FENCE_START))
+        (block_content
+[31m          (content_line
+[0m[31m            (DELIMITED_BLOCK_CONTENT_LINE))
+[0m[31m          (content_line
+[0m[31m            (DELIMITED_BLOCK_CONTENT_LINE)))
+[0m[32m          (content_line)
+[0m[32m          (content_line))
+[0m        (listing_close
+          (MISSING LISTING_FENCE_END))))
+
+
+  7. TIP block with metadata:
+
+    (source_file
+[32m      (paragraph
+[0m[32m        (metadata
+[0m[32m          (block_attributes))
+[0m[32m        (text_with_inlines
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)))
+[0m      (listing_block
+        (metadata
+[31m          (block_attributes)
+[0m[31m          (block_title)
+[0m[31m          (block_attributes)
+[0m[32m          (id_and_roles)
+[0m          (block_attributes))
+        (listing_open
+          (LISTING_FENCE_START))
+        (block_content
+[31m          (content_line
+[0m[31m            (DELIMITED_BLOCK_CONTENT_LINE)))
+[0m[32m          (content_line))
+[0m        (listing_close
+          (MISSING LISTING_FENCE_END))))
+
+
+  8. Unclosed formatting should be plain text:
+
+    (source_file
+      (paragraph
+        content: (text_with_inlines
+          (text_segment)
+          (text_segment)
+[31m          (inline_element
+[0m[31m            (strong
+[0m[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close
+[0m[31m                (MISSING "*")))))))[0m
+[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_period))))[0m
+
+
+  9. Nested formatting edge cases:
+
+    (source_file
+      (paragraph
+        content: (text_with_inlines
+          (inline_element
+            (strong
+[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close)))
+[0m[32m              (strong_constrained
+[0m[32m                open: (strong_open)
+[0m[32m                content: (strong_text)
+[0m[32m                close: (strong_close))))
+[0m          (text_segment)
+          (text_segment)))
+      (paragraph
+        content: (text_with_inlines
+          (inline_element
+            (emphasis
+[31m              open: (emphasis_open)
+[0m[31m              content: (emphasis_content)
+[0m[31m              close: (emphasis_close)))
+[0m[31m          (text_period)))
+[0m[32m              (emphasis_constrained
+[0m[32m                open: (emphasis_open)
+[0m[32m                content: (emphasis_text)
+[0m[32m                close: (emphasis_close))))
+[0m[32m          (text_segment)))
+[0m      (paragraph
+        content: (text_with_inlines
+          (inline_element
+            (strong
+[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close)))
+[0m[32m              (strong_constrained
+[0m[32m                open: (strong_open)
+[0m[32m                close: (strong_close))))
+[0m          (inline_element
+            (strong
+[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close)))))
+[0m[31m      (unordered_list
+[0m[31m        (unordered_list_item
+[0m[31m          content: (text_with_inlines
+[0m[31m            (text_segment)
+[0m[31m            (inline_element
+[0m[31m              (strong
+[0m[32m              (strong_constrained
+[0m                open: (strong_open)
+[31m                content: (strong_content)
+[0m[31m                close: (strong_close
+[0m[31m                  (MISSING "*")))))))
+[0m[32m                content: (strong_text)
+[0m[32m                close: (strong_close))))
+[0m[32m          (inline_element
+[0m[32m            (strong
+[0m[32m              (strong_constrained
+[0m[32m                open: (strong_open)
+[0m[32m                close: (strong_close))))
+[0m[32m          (text_segment)))
+[0m      (paragraph
+        content: (text_with_inlines
+[31m          (text_segment)
+[0m          (inline_element
+[31m            (monospace
+[0m[31m              open: (monospace_open)
+[0m[31m              content: (monospace_content)
+[0m[31m              close: (monospace_close)))
+[0m[31m          (text_segment)
+[0m[31m          (text_segment)
+[0m[32m            (passthrough_triple_plus))
+[0m          (text_segment))))
+
+
+  10. Crossing styles (should fallback gracefully):
+
+    (source_file
+      (paragraph
+        content: (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (inline_element
+            (strong
+              open: (strong_open)
+              content: (strong_content)
+              close: (strong_close)))
+[31m          (text_segment))
+[0m[31m        (ERROR
+[0m[31m          (emphasis_open))))[0m
+[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment))))[0m
+
+
+  11. Escaped delimiters in emphasis:
+
+    (source_file
+      (paragraph
+        content: (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (inline_element
+            (emphasis
+              open: (emphasis_open)
+              content: (emphasis_content)
+              close: (emphasis_close)))
+[31m          (text_segment))
+[0m[31m        (ERROR
+[0m[31m          (emphasis_open))))[0m
+[32m          (text_segment)
+[0m[32m          (text_segment))))[0m
+
+
+  12. Escaped delimiters in monospace:
+
+    (source_file
+      (paragraph
+        content: (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (inline_element
+            (monospace
+              open: (monospace_open)
+              content: (monospace_content)
+              close: (monospace_close)))
+[31m          (text_segment))
+[0m[31m        (ERROR
+[0m[31m          (monospace_open))))[0m
+[32m          (text_segment)
+[0m[32m          (text_segment))))[0m
+
+
+  13. Empty inline constructs (edge case):
+
+    (source_file
+      (paragraph
+        content: (text_with_inlines
+          (text_segment)
+[31m          (text_segment)))
+[0m[31m      (unordered_list
+[0m[31m        (unordered_list_item
+[0m[31m          content: (text_with_inlines
+[0m[31m            (text_segment)
+[0m[31m            (inline_element
+[0m[31m              (emphasis
+[0m[31m                open: (emphasis_open)
+[0m[31m                content: (emphasis_content)
+[0m[31m                close: (emphasis_close
+[0m[31m                  (MISSING "_"))))))))[0m
+[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment)
+[0m[32m          (text_segment))))[0m
+

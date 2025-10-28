@@ -11,8 +11,6 @@ module.exports = grammar({
   name: "asciidoc",
 
   externals: $ => [
-    $.TABLE_FENCE_START,
-    $.TABLE_FENCE_END,
     $.EXAMPLE_FENCE_START,
     $.EXAMPLE_FENCE_END,
     $.LISTING_FENCE_START,
@@ -27,13 +25,10 @@ module.exports = grammar({
     $.PASSTHROUGH_FENCE_END,
     $.OPENBLOCK_FENCE_START,
     $.OPENBLOCK_FENCE_END,
-    $.MARKDOWN_FENCE_START,
-    $.MARKDOWN_FENCE_END,
-    $.MARKDOWN_FENCE_CONTENT_LINE,
+    $.LIST_CONTINUATION,
     $.AUTOLINK_BOUNDARY,
     $.ATTRIBUTE_LIST_START,
-    $.DELIMITED_BLOCK_CONTENT_LINE,
-    // List-related external tokens will be added here
+    $.DELIMITED_BLOCK_CONTENT_LINE
   ],
 
   extras: $ => [
@@ -41,14 +36,14 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$.asciidoc_unordered_list_item],
-    [$.markdown_unordered_list_item],
-    [$.ordered_list_item],
-    [$.asciidoc_checklist_item],
-    [$.markdown_checklist_item],
+    [$.unordered_list_item],
+    [$.ordered_list_item], 
     [$.description_item],
+    [$.callout_item],
     [$.inline_element, $.explicit_link],
-    [$.attribute_content, $.role_list]
+    [$.attribute_content, $.role_list],
+    [$.external_xref],
+    [$.paragraph_admonition]
   ],
 
   rules: {
@@ -56,18 +51,15 @@ module.exports = grammar({
 
     _element: $ => choice(
       $.section,
-      $.asciidoc_unordered_list,
-      $.markdown_unordered_list,
+      $.unordered_list,
       $.ordered_list,
-      $.asciidoc_checklist,
-      $.markdown_checklist,
       $.description_list,
-      $.quanda_description_list,
+      $.callout_list,
       $.attribute_entry,
       $.example_block,
       $.listing_block,
-      $.fenced_code_block,
-      $.quote_block,
+      $.asciidoc_blockquote,
+      $.markdown_blockquote,
       $.literal_block,
       $.sidebar_block,
       $.passthrough_block,
@@ -80,23 +72,32 @@ module.exports = grammar({
       $._blank_line,
     ),
 
-    // SECTIONS - hierarchical approach for test compatibility
-    section: $ => prec.right(seq(
+    // SECTIONS - level-based hierarchy for proper sibling relationships
+    section: $ => choice(
+      $.section_level_1,
+      $.section_level_2,
+      $.section_level_3,
+      $.section_level_4,
+      $.section_level_5,
+      $.section_level_6
+    ),
+    
+    section_level_1: $ => prec.right(seq(
       optional($.anchor),
-      $.section_title,
-      repeat(choice(
+      field('marker', $.section_marker_1),
+      field('title', $.title),
+      $._line_ending,
+      field('content', repeat(choice(
         $.attribute_entry,
         $.paragraph,
-        $.asciidoc_unordered_list,
-        $.markdown_unordered_list,
+        $.unordered_list,
         $.ordered_list,
-        $.asciidoc_checklist,
-        $.markdown_checklist,
         $.description_list,
+        $.callout_list,
         $.example_block,
         $.listing_block,
-        $.fenced_code_block,
-        $.quote_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
         $.literal_block,
         $.sidebar_block,
         $.passthrough_block,
@@ -105,23 +106,154 @@ module.exports = grammar({
         $.include_directive,
         $.block_comment,
         $.table_block,
-        prec.right($.section), // Allow nested sections
+        $.section_level_2,  // Only nested sections can be level_2+
         $._blank_line
-      ))
+      )))
     )),
     
-    section_title: $ => seq(
-      choice(
-        $.section_marker_1,
-        $.section_marker_2,
-        $.section_marker_3,
-        $.section_marker_4,
-        $.section_marker_5,
-        $.section_marker_6
-      ),
-      $.title,
-      $._line_ending
-    ),
+    section_level_2: $ => prec.right(seq(
+      optional($.anchor),
+      field('marker', $.section_marker_2),
+      field('title', $.title),
+      $._line_ending,
+      field('content', repeat(choice(
+        $.attribute_entry,
+        $.paragraph,
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list,
+        $.example_block,
+        $.listing_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.include_directive,
+        $.block_comment,
+        $.table_block,
+        $.section_level_3,
+        $._blank_line
+      )))
+    )),
+    
+    section_level_3: $ => prec.right(seq(
+      optional($.anchor),
+      field('marker', $.section_marker_3),
+      field('title', $.title),
+      $._line_ending,
+      field('content', repeat(choice(
+        $.attribute_entry,
+        $.paragraph,
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list,
+        $.example_block,
+        $.listing_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.include_directive,
+        $.block_comment,
+        $.table_block,
+        $.section_level_4,
+        $._blank_line
+      )))
+    )),
+    
+    section_level_4: $ => prec.right(seq(
+      optional($.anchor),
+      field('marker', $.section_marker_4),
+      field('title', $.title),
+      $._line_ending,
+      field('content', repeat(choice(
+        $.attribute_entry,
+        $.paragraph,
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list,
+        $.example_block,
+        $.listing_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.include_directive,
+        $.block_comment,
+        $.table_block,
+        $.section_level_5,
+        $._blank_line
+      )))
+    )),
+    
+    section_level_5: $ => prec.right(seq(
+      optional($.anchor),
+      field('marker', $.section_marker_5),
+      field('title', $.title),
+      $._line_ending,
+      field('content', repeat(choice(
+        $.attribute_entry,
+        $.paragraph,
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list,
+        $.example_block,
+        $.listing_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.include_directive,
+        $.block_comment,
+        $.table_block,
+        $.section_level_6,
+        $._blank_line
+      )))
+    )),
+    
+    section_level_6: $ => prec.right(seq(
+      optional($.anchor),
+      field('marker', $.section_marker_6),
+      field('title', $.title),
+      $._line_ending,
+      field('content', repeat(choice(
+        $.attribute_entry,
+        $.paragraph,
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list,
+        $.callout_list,
+        $.example_block,
+        $.listing_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.include_directive,
+        $.block_comment,
+        $.table_block,
+        $._blank_line
+      )))
+    )),
     
     title: $ => token.immediate(/[^\r\n]+/),
 
@@ -132,35 +264,27 @@ module.exports = grammar({
     section_marker_5: $ => token(prec(30, seq('=====', /[ \t]+/))),
     section_marker_6: $ => token(prec(25, seq('======', /[ \t]+/))),
 
-    // ATTRIBUTE ENTRIES  
+    // ATTRIBUTE ENTRIES - Support both :name: and :name: value forms
+    // Using token to make it atomic and prevent partial matches that cause segfaults
     attribute_entry: $ => choice(
-      prec(25, seq(
-        field('name', alias(
-          token(seq(':', /([a-zA-Z0-9_-]+)/, ':')),
-          $.name
-        )),
-        optional(seq(
-          /[ \t]+/,
-          field('value', $.value)
-        )),
+      // Standard form: :name: value or :name:
+      seq(
+        field('name', token(prec(25, seq(':', /[a-zA-Z0-9_-]+/, ':')))),
+        field('value', optional(seq(/[ \t]+/, $.attribute_value))),
         $._line_ending
-      )),
-      // Attribute unset syntax: :!name: or :name!:
-      prec(25, seq(
-        field('name', alias(
-          choice(
-            token(seq(':!', /([a-zA-Z0-9_-]+)/, ':')),
-            token(seq(':', /([a-zA-Z0-9_-]+)/, '!:'))
-          ),
-          $.name
-        )),
-        optional(/[ \t]+/), // Allow trailing spaces  
+      ),
+      // Unset form: :!name: or :name!:
+      seq(
+        field('name', token(prec(25, choice(
+          seq(':', '!', /[a-zA-Z0-9_-]+/, ':'),
+          seq(':', /[a-zA-Z0-9_-]+/, '!', ':')
+        )))),
+        optional(/[ \t]+/),
         $._line_ending
-      ))
+      )
     ),
     
-    name: $ => token(/[a-zA-Z0-9_-]+/),
-    value: $ => /[^\r\n]+/,
+    attribute_value: $ => /[^\r\n]+/,
 
     // DELIMITED BLOCKS
     example_block: $ => seq(
@@ -186,48 +310,36 @@ module.exports = grammar({
     
     listing_close: $ => $.LISTING_FENCE_END,
     
-    // Markdown fenced code blocks (```language)
-    fenced_code_block: $ => seq(
-      field('open', $.code_fence_open),
-      optional(field('content', $.code)),
-      field('close', $.code_fence_close)
-    ),
-    
-    code_fence_open: $ => seq(
-      $.MARKDOWN_FENCE_START,
-      optional($.info_string),
-      $._line_ending
-    ),
-    
-    info_string: $ => seq(
-      field('language', $.language),
-      optional(/[^\r\n]*/)
-    ),
-    
-    language: $ => /[a-zA-Z][a-zA-Z0-9_+-]*/,
-    
-    code: $ => repeat1($.code_line),
-    
-    code_line: $ => $.MARKDOWN_FENCE_CONTENT_LINE,
-    
-    code_fence_close: $ => seq(
-      $.MARKDOWN_FENCE_END,
-      $._line_ending
-    ),
-    
-    // Quote blocks
-    quote_block: $ => seq(
+    // AsciiDoc quote blocks (fenced with ____)
+    asciidoc_blockquote: $ => seq(
       optional($.metadata),
-      field('open', $.quote_open),
+      field('open', $.asciidoc_blockquote_open),
       field('content', $.block_content),
-      field('close', $.quote_close)
+      field('close', $.asciidoc_blockquote_close)
     ),
     
-    quote_open: $ => $.QUOTE_FENCE_START,
+    asciidoc_blockquote_open: $ => $.QUOTE_FENCE_START,
     
-    quote_close: $ => $.QUOTE_FENCE_END,
+    asciidoc_blockquote_close: $ => $.QUOTE_FENCE_END,
     
-    // Literal blocks  
+    // Markdown-style blockquotes (lines starting with >)
+    markdown_blockquote: $ => prec.right(seq(
+      optional($.metadata),
+      repeat1($.markdown_blockquote_line)
+    )),
+    
+    markdown_blockquote_line: $ => seq(
+      field('marker', $.markdown_blockquote_marker),
+      optional(field('content', $.text_with_inlines)),
+      $._line_ending
+    ),
+    
+    markdown_blockquote_marker: $ => token(prec(15, seq(
+      repeat1('>'),
+      optional(/[ \t]+/)
+    ))),
+    
+    // Literal blocks
     literal_block: $ => seq(
       optional($.metadata),
       field('open', $.literal_open),
@@ -242,9 +354,9 @@ module.exports = grammar({
     // Sidebar blocks
     sidebar_block: $ => seq(
       optional($.metadata),
-      field('open', $.sidebar_open),
-      field('content', $.block_content),
-      field('close', $.sidebar_close)
+      $.sidebar_open,
+      $.block_content,
+      $.sidebar_close
     ),
     
     sidebar_open: $ => $.SIDEBAR_FENCE_START,
@@ -254,9 +366,9 @@ module.exports = grammar({
     // Passthrough blocks
     passthrough_block: $ => seq(
       optional($.metadata),
-      field('open', $.passthrough_open),
-      field('content', $.block_content),
-      field('close', $.passthrough_close)
+      $.passthrough_open,
+      $.block_content,
+      $.passthrough_close
     ),
     
     passthrough_open: $ => $.PASSTHROUGH_FENCE_START,
@@ -275,164 +387,100 @@ module.exports = grammar({
     
     openblock_close: $ => $.OPENBLOCK_FENCE_END,
     
-    // CONDITIONAL BLOCKS - inline and block forms
-    conditional_block: $ => prec(2, choice(
-      $.ifdef_inline,
+    // CONDITIONAL BLOCKS - with higher precedence to resolve conflicts with description lists
+    conditional_block: $ => prec(10, choice(
       $.ifdef_block,
-      $.ifndef_inline,
       $.ifndef_block,
-      $.ifeval_inline,
       $.ifeval_block
     )),
     
-    // INLINE CONDITIONALS - self-contained, with content in brackets
-    ifdef_inline: $ => prec(10, seq(
-      'ifdef::',
-      /[^\[\r\n]+/,  // attribute name(s)
-      '[',
-      field('content', /[^\]\r\n]+/),  // non-empty content in brackets
-      ']',
-      $._line_ending
-    )),
-    
-    ifndef_inline: $ => prec(10, seq(
-      'ifndef::',
-      /[^\[\r\n]+/,  // attribute name(s)
-      '[',
-      field('content', /[^\]\r\n]+/),  // non-empty content in brackets
-      ']',
-      $._line_ending
-    )),
-    
-    ifeval_inline: $ => prec(10, seq(
-      'ifeval::',
-      '[',
-      field('expression', /[^\]\r\n]+/),  // expression in brackets
-      ']',
-      $._line_ending
-    )),
-    
-    // BLOCK CONDITIONALS - empty brackets, require endif
     ifdef_block: $ => prec.right(seq(
-      field('open', $.ifdef_block_open),
-      repeat(choice(
-        $.section,
-        $.asciidoc_unordered_list,
-        $.markdown_unordered_list,
-        $.ordered_list,
-        $.asciidoc_checklist,
-        $.markdown_checklist,
-        $.description_list,
-        $.quanda_description_list,
-        $.attribute_entry,
-        $.example_block,
-        $.listing_block,
-        $.fenced_code_block,
-        $.quote_block,
-        $.literal_block,
-        $.sidebar_block,
-        $.passthrough_block,
-        $.open_block,
-        $.conditional_block,
-        $.include_directive,
-        $.block_comment,
-        $.table_block,
-        $.paragraph,
-        $._blank_line
-      )),
-      field('close', $.endif_directive)
+      field('directive', $.ifdef_open),
+      field('content', repeat($._element)),
+      field('end', optional($.endif_directive))
     )),
     
     ifndef_block: $ => prec.right(seq(
-      field('open', $.ifndef_block_open),
-      repeat(choice(
-        $.section,
-        $.asciidoc_unordered_list,
-        $.markdown_unordered_list,
-        $.ordered_list,
-        $.asciidoc_checklist,
-        $.markdown_checklist,
-        $.description_list,
-        $.quanda_description_list,
-        $.attribute_entry,
-        $.example_block,
-        $.listing_block,
-        $.fenced_code_block,
-        $.quote_block,
-        $.literal_block,
-        $.sidebar_block,
-        $.passthrough_block,
-        $.open_block,
-        $.conditional_block,
-        $.include_directive,
-        $.block_comment,
-        $.table_block,
-        $.paragraph,
-        $._blank_line
-      )),
-      field('close', $.endif_directive)
+      field('directive', $.ifndef_open),
+      field('content', repeat($._element)),
+      field('end', optional($.endif_directive))
     )),
     
     ifeval_block: $ => prec.right(seq(
-      field('open', $.ifeval_block_open),
-      repeat(choice(
-        $.section,
-        $.asciidoc_unordered_list,
-        $.markdown_unordered_list,
-        $.ordered_list,
-        $.asciidoc_checklist,
-        $.markdown_checklist,
-        $.description_list,
-        $.quanda_description_list,
-        $.attribute_entry,
-        $.example_block,
-        $.listing_block,
-        $.fenced_code_block,
-        $.quote_block,
-        $.literal_block,
-        $.sidebar_block,
-        $.passthrough_block,
-        $.open_block,
-        $.conditional_block,
-        $.include_directive,
-        $.block_comment,
-        $.table_block,
-        $.paragraph,
-        $._blank_line
-      )),
-      field('close', $.endif_directive)
+      field('directive', $.ifeval_open),
+      field('content', repeat($._element)),
+      field('end', optional($.endif_directive))
     )),
     
-    // Block open directives with empty brackets only
-    ifdef_block_open: $ => seq(
-      'ifdef::',
-      /[^\[\r\n]+/,  // attribute name(s)
-      '[',
-      ']',  // empty brackets
-      $._line_ending
+    ifdef_open: $ => token(prec(75, /ifdef::[^\[\r\n]*\[[^\]\r\n]*\][ \t]*\r?\n/)),
+    
+    ifndef_open: $ => token(prec(75, /ifndef::[^\[\r\n]*\[[^\]\r\n]*\][ \t]*\r?\n/)),
+    
+    ifeval_open: $ => token(prec(75, /ifeval::\[[^\]\r\n]+\][ \t]*\r?\n/)),
+    
+    // EXPRESSIONS - for ifeval conditions (fixed to eliminate recursion)
+    // Use prec.left/right with explicit precedence levels to avoid recursion
+    expression: $ => $.logical_expression,
+    
+    // Precedence level 1: Logical operators (&&, ||, and, or) - lowest precedence, left-associative
+    logical_expression: $ => choice(
+      prec.left(1, seq($.logical_expression, choice('&&', '||', 'and', 'or'), $.comparison_expression)),
+      $.comparison_expression
     ),
     
-    ifndef_block_open: $ => seq(
-      'ifndef::',
-      /[^\[\r\n]+/,  // attribute name(s)
-      '[',
-      ']',  // empty brackets
-      $._line_ending
+    // Precedence level 2: Comparison operators (==, !=, <, >, <=, >=), left-associative
+    comparison_expression: $ => choice(
+      prec.left(2, seq($.comparison_expression, choice('==', '!=', '<', '>', '<=', '>='), $.additive_expression)),
+      $.additive_expression
     ),
     
-    ifeval_block_open: $ => seq(
-      'ifeval::',
-      '[',
-      ']',  // empty brackets
-      $._line_ending
+    // Precedence level 3: Additive operators (+, -), left-associative
+    additive_expression: $ => choice(
+      prec.left(3, seq($.additive_expression, choice('+', '-'), $.multiplicative_expression)),
+      $.multiplicative_expression
     ),
+    
+    // Precedence level 4: Multiplicative operators (*, /, %), left-associative
+    multiplicative_expression: $ => choice(
+      prec.left(4, seq($.multiplicative_expression, choice('*', '/', '%'), $.unary_expression)),
+      $.unary_expression
+    ),
+    
+    // Precedence level 5: Unary operators (!, -), right-associative
+    unary_expression: $ => choice(
+      prec.right(5, seq(choice('!', '-'), $.unary_expression)),
+      $.primary_expression
+    ),
+    
+    // Highest precedence: Primary and grouped expressions
+    primary_expression: $ => choice(
+      $.grouped_expression,
+      $.string_literal,
+      $.numeric_literal,
+      $.boolean_literal,
+      $.attribute_reference
+    ),
+    
+    grouped_expression: $ => seq('(', $.expression, ')'),
+    
+    string_literal: $ => choice(
+      seq('"', /[^"\r\n]*/, '"'),
+      seq("'", /[^'\r\n]*/, "'")
+    ),
+    
+    numeric_literal: $ => token(choice(
+      /\d+\.\d+/,  // float
+      /\d+/        // integer
+    )),
+    
+    boolean_literal: $ => choice('true', 'false'),
     
     endif_directive: $ => seq(
       'endif::',
       '[',
       optional(/[^\]\r\n]*/),  // optional content
       ']',
-      $._line_ending
+      optional($._line_ending)
     ),
     
     // METADATA
@@ -442,23 +490,9 @@ module.exports = grammar({
       $.block_title
     ))),
     
-    block_attributes: $ => prec(3, seq(
-      '[',
-      choice(
-        $.source_block_attributes,
-        field('content', $.attribute_content)
-      ),
-      ']',
-      $._line_ending
-    )),
+    // Treat block attributes as a single token to simplify AST and avoid duplicate nodes
+    block_attributes: $ => token(prec(3, /\[[^\]\r\n]+\][ \t]*\r?\n/)),
     
-    source_block_attributes: $ => prec(100, seq(
-      field('type', token('source')),
-      token(','),
-      field('language', $.language_identifier)
-    )),
-    
-    language_identifier: $ => /[a-zA-Z][a-zA-Z0-9_+-]*/,
     attribute_content: $ => /[^\]\r\n]+/,
     
     id_and_roles: $ => seq(
@@ -474,20 +508,8 @@ module.exports = grammar({
       $._line_ending
     )),
     
-    // INCLUDE DIRECTIVES
-    include_directive: $ => prec(1, seq(
-      'include::',
-      field('path', $.include_path),
-      optional(seq(
-        '[',
-        field('options', $.include_options),
-        ']'
-      )),
-      $._line_ending
-    )),
-    
-    include_path: $ => /[^\[\r\n]+/,
-    include_options: $ => /[^\]\r\n]*/,
+    // INCLUDE DIRECTIVES - require complete syntax
+    include_directive: $ => token(prec(5, /include::[^\[\r\n]+\[[^\]\r\n]*\][ \t]*\r?\n/)),
     
     block_content: $ => repeat1(choice(
       $.content_line,
@@ -496,187 +518,91 @@ module.exports = grammar({
     
     content_line: $ => $.DELIMITED_BLOCK_CONTENT_LINE,
 
-    // LISTS - New implementations
-    
-    // AsciiDoc unordered lists (1-10 asterisks)
-    asciidoc_unordered_list: $ => prec.right(10, seq(
-      $.asciidoc_unordered_list_item,
-      repeat($.asciidoc_unordered_list_item)
+    // LISTS
+    unordered_list: $ => prec.right(seq(
+      $.unordered_list_item,
+      repeat($.unordered_list_item)
     )),
     
-    asciidoc_unordered_list_item: $ => prec.right(seq(
-      field('marker', $.asciidoc_list_marker),
-      optional(field('content', $.text_with_inlines)),
+    unordered_list_item: $ => seq(
+      $._unordered_list_marker,
+      field('content', $.text_with_inlines),
       $._line_ending,
-      optional(field('list_item_continuation', $.list_item_continuation)),
-      optional(field('nested_list', $.asciidoc_unordered_list))
-    )),
+      repeat($.list_item_continuation)
+    ),
     
-    asciidoc_list_marker: $ => token(prec(10, seq(repeat1('*'), /[ \t]+/))),
+    _unordered_list_marker: $ => token(prec(10, /[ \t]*[*-][ \t]+/)),
     
-    // Markdown unordered lists (hyphen, indentation-based depth)
-    markdown_unordered_list: $ => prec.right(9, seq(
-      $.markdown_unordered_list_item,
-      repeat($.markdown_unordered_list_item)
-    )),
-    
-    markdown_unordered_list_item: $ => prec.right(seq(
-      field('marker', $.markdown_list_marker),
-      optional(field('content', $.text_with_inlines)),
-      $._line_ending,
-      optional(field('list_item_continuation', $.list_item_continuation)),
-      optional(field('nested_list', $.markdown_unordered_list))
-    )),
-    
-    markdown_list_marker: $ => token(prec(10, seq(/[ \t]*/, '-', /[ \t]+/))),
-    
-    // AsciiDoc checklists (* [ ] or * [x])
-    asciidoc_checklist: $ => prec.right(10, seq(
-      $.asciidoc_checklist_item,
-      repeat($.asciidoc_checklist_item)
-    )),
-    
-    asciidoc_checklist_item: $ => prec.right(seq(
-      field('marker', $.asciidoc_checklist_marker),
-      optional(field('content', $.text_with_inlines)),
-      $._line_ending,
-      optional(field('list_item_continuation', $.list_item_continuation)),
-      optional(field('nested_list', $.asciidoc_checklist))
-    )),
-    
-    asciidoc_checklist_marker: $ => token(prec(11, seq(
-      repeat1('*'),
-      /[ \t]+/,
-      '[',
-      choice(' ', 'x', 'X'),
-      ']',
-      /[ \t]+/
-    ))),
-    
-    // Markdown checklists (- [ ] or - [x])
-    markdown_checklist: $ => prec.right(9, seq(
-      $.markdown_checklist_item,
-      repeat($.markdown_checklist_item)
-    )),
-    
-    markdown_checklist_item: $ => prec.right(seq(
-      field('marker', $.markdown_checklist_marker),
-      optional(field('content', $.text_with_inlines)),
-      $._line_ending,
-      optional(field('list_item_continuation', $.list_item_continuation)),
-      optional(field('nested_list', $.markdown_checklist))
-    )),
-    
-    markdown_checklist_marker: $ => token(prec(11, seq(
-      /[ \t]*/,
-      '-',
-      /[ \t]+/,
-      '[',
-      choice(' ', 'x', 'X'),
-      ']',
-      /[ \t]+/
-    ))),
-    
-    // Ordered lists (sequential 1-10 with period depth)
-    ordered_list: $ => prec.right(8, seq(
+    ordered_list: $ => prec.right(seq(
       $.ordered_list_item,
       repeat($.ordered_list_item)
     )),
     
-    ordered_list_item: $ => prec.right(seq(
-      field('marker', $.ordered_list_marker),
-      optional(field('content', $.text_with_inlines)),
+    ordered_list_item: $ => seq(
+      $._ordered_list_marker,
+      field('content', $.text_with_inlines),
       $._line_ending,
-      optional(field('list_item_continuation', $.list_item_continuation)),
-      optional(field('nested_list', $.ordered_list))
-    )),
+      repeat($.list_item_continuation)
+    ),
     
-    ordered_list_marker: $ => token(prec(15, seq(
-      /[1-9][0-9]?/,  // 1-10 only
-      repeat1('.'),    // depth via period count
-      /[ \t]+/
-    ))),
-    
-    // Description lists (term:: with colon-based depth, 5 levels max)
+    _ordered_list_marker: $ => token(prec(15, seq(/[0-9]+/, '.', /[ \t]+/))),
+
+    // DESCRIPTION LISTS
     description_list: $ => prec.right(2, seq(
       $.description_item,
       repeat($.description_item)
     )),
     
-    description_item: $ => prec.right(seq(
-      field('marker', $.description_marker),
-      optional(field('content', $.description_content)),
+    description_item: $ => seq(
+      $._description_marker,
+      $.description_content,
       $._line_ending,
-      optional(field('nested_lists', choice(
-        $.asciidoc_unordered_list,
-        $.markdown_unordered_list,
-        $.ordered_list,
-        $.asciidoc_checklist,
-        $.markdown_checklist,
-        $.description_list
-      )))
-    )),
-    
-    // Description marker with 2-7 colons (depth levels 1-5)
-    description_marker: $ => token(prec(20, seq(
-      /[^\s\r\n:]+/,  // term
-      choice(
-        '::',      // depth 1
-        ':::',     // depth 2
-        '::::',    // depth 3
-        ':::::',   // depth 4
-        '::::::',  // depth 5
-        ':::::::'  // max depth (will be 6th level, should generate error if > 5)
-      ),
-      /[ \t]+/
-    ))),
-    description_content: $ => $.text_with_inlines,
-
-    // Quanda description lists: require [quanda], question?::, no inline content, answer below, no nesting
-    quanda_description_list: $ => prec.right(2, seq(
-      field('quanda', $.quanda_label),
-      $.quanda_description_item,
-      repeat($.quanda_description_item)
-    )),
-
-    quanda_label: $ => seq('[', 'quanda', ']', $._line_ending),
-
-    quanda_description_item: $ => prec.right(seq(
-      field('marker', $.quanda_description_marker),
-      $._line_ending,
-      field('answer', $.paragraph)
-    )),
-
-    quanda_description_marker: $ => token(prec(21, seq(
-      /[^:\r\n]+\?/, // term (can include spaces) ending with question mark
-      choice(
-        '::',      // depth 1
-        ':::',     // depth 2
-        '::::',    // depth 3
-        ':::::',   // depth 4
-        '::::::',  // depth 5
-        ':::::::'  // up to 7 colons allowed (depth rules apply)
-      ),
-      /[ \t]*/
-    ))),
-    
-    // List item continuation (+ followed by a block)
-    list_item_continuation: $ => seq(
-      field('continuation_marker', $.continuation_marker),
-      field('block', choice(
-        $.example_block,
-        $.listing_block,
-        $.quote_block,
-        $.sidebar_block,
-        $.literal_block,
-        $.open_block,
-        $.table_block,
-        $.paragraph,
-        $.fenced_code_block
-      ))
+      repeat($.list_item_continuation)
     ),
     
-    continuation_marker: $ => token(prec(5, seq(/[ \t]*/, '+', /[ \t]*/))),
+    _description_marker: $ => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
+    description_content: $ => $.text_with_inlines,
+
+    // CALLOUT LISTS
+    callout_list: $ => prec.right(seq(
+      $.callout_item,
+      repeat($.callout_item)
+    )),
+    
+    callout_item: $ => seq(
+      $.CALLOUT_MARKER,
+      field('content', $.text_with_inlines),
+      $._line_ending,
+      repeat($.list_item_continuation)
+    ),
+    
+    CALLOUT_MARKER: $ => token(prec(5, /<[0-9]+>[ \t]+/)),
+
+    // LIST CONTINUATIONS
+    list_item_continuation: $ => seq(
+      $.LIST_CONTINUATION,
+      choice(
+        $.paragraph,
+        $.open_block,
+        $.example_block,
+        $.listing_block,
+        $.asciidoc_blockquote,
+        $.markdown_blockquote,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.table_block,
+        $.block_comment,
+        $.conditional_block,
+        // Allow nested lists in continuations
+        $.unordered_list,
+        $.ordered_list,
+        $.description_list
+      )
+    ),
+
+    // LIST_CONTINUATION handled by external scanner
+    // LIST_CONTINUATION: $ => token(seq('+', /[ \t]*/, /\r?\n/)),
 
     // PARAGRAPHS
     paragraph: $ => prec.right(1, seq(
@@ -685,15 +611,26 @@ module.exports = grammar({
         $.paragraph_admonition,
         field('content', $.text_with_inlines)
       ),
-      $._line_ending
+      optional($._line_ending)
     )),
 
-    // PARAGRAPH ADMONITIONS
+    // PARAGRAPH ADMONITIONS - Handle both content and empty forms
     paragraph_admonition: $ => seq(
-      $.admonition_label,
-      $.text_with_inlines
+      field('type', $.admonition_type),
+      ':',
+      optional(/[ \t]+/),
+      field('content', optional($.text_with_inlines))
     ),
     
+    admonition_type: $ => choice(
+      'NOTE',
+      'TIP',
+      'IMPORTANT',
+      'WARNING',
+      'CAUTION'
+    ),
+    
+    // Legacy token-based admonition_label for backward compatibility
     admonition_label: $ => token(prec(1, choice(
       seq('NOTE', ':', /[ \t]+/),
       seq('TIP', ':', /[ \t]+/),
@@ -702,15 +639,60 @@ module.exports = grammar({
       seq('CAUTION', ':', /[ \t]+/)
     ))),
 
-    text_with_inlines: $ => prec.left(repeat1(choice(
-      $.inline_element,
-      $.text_segment
+    text_with_inlines: $ => prec.right(repeat1(choice(
+      seq(/[ \t\f]+/, $._text_element),    // Spaced elements
+      $._text_element                      // Direct elements
     ))),
     
-    // Greedy text segment that consumes everything except inline formatting markers
-    // and line breaks. This eliminates the exponential ambiguity from whitespace handling.
-    // Note: < and > are allowed since callouts like <1>NotACallout should be plain text
-    text_segment: $ => token(prec(-1, /[^\r\n*_`^~\[\]]+/)),
+    _text_element: $ => choice(
+      prec(2000, $.inline_element),
+      $.text_segment,
+      $.text_period,
+      $.text_colon,
+      $.text_angle_bracket,
+      $.text_brace,
+      $.text_hash,
+      $.text_bracket,
+      $.text_paren,
+      $.text_caret,
+      $.text_tilde,
+      // Error recovery: treat orphaned formatting chars as text
+      prec(1, '*'),
+      prec(1, '_'),
+      prec(1, '`')
+    ),
+    
+    text_segment: $ => token(prec(-1, /[^\s\r\n:*_\`^~\[\]<>\{}#()|]+/)),
+    
+    // Error recovery: fallback for any remaining characters
+    error_recovery: $ => prec(-1000, /./),
+    
+    // For periods after inline elements
+    text_period: $ => '.',
+    
+    // For colons in invalid attribute patterns
+    text_colon: $ => ':',
+    
+    // For angle brackets in invalid callout patterns
+    text_angle_bracket: $ => choice('<', '>'),
+    
+    // For curly braces in invalid attribute patterns
+    text_brace: $ => choice('{', '}'),
+    
+    // For hash symbols in invalid role span patterns
+    text_hash: $ => '#',
+    
+    // For brackets in invalid patterns
+    text_bracket: $ => choice('[', ']'),
+    
+    // For parentheses in invalid patterns
+    text_paren: $ => choice('(', ')'),
+    
+    // For carets in invalid superscript patterns
+    text_caret: $ => '^',
+    
+    // For tildes in invalid subscript patterns
+    text_tilde: $ => '~',
     
 
     // INLINE FORMATTING
@@ -724,6 +706,7 @@ module.exports = grammar({
       $.bibliography_entry,
       $.internal_xref,
       $.external_xref,
+      $.link_macro,
       $.footnote_inline,
       $.footnote_ref,
       $.footnoteref,
@@ -741,17 +724,16 @@ module.exports = grammar({
     ),
 
     // Strong formatting (*bold*)
-    strong: $ => $.strong_constrained,
-
-    strong_constrained: $ => prec(50, seq(
+    strong: $ => prec(50, seq(
       field('open', $.strong_open),
-      field('content', $.strong_text),
+      field('content', $.strong_content),
       field('close', $.strong_close)
     )),
 
     strong_open: $ => '*',
     strong_close: $ => '*',
-    strong_text: $ => repeat1(choice(
+    strong_content: $ => repeat1(choice(
+      $.text_segment,
       $.emphasis,
       $.monospace,
       $.superscript,
@@ -761,17 +743,16 @@ module.exports = grammar({
     )),
 
     // Emphasis formatting (_italic_)
-    emphasis: $ => $.emphasis_constrained,
-
-    emphasis_constrained: $ => prec(50, seq(
+    emphasis: $ => prec(50, seq(
       field('open', $.emphasis_open),
-      field('content', $.emphasis_text),
+      field('content', $.emphasis_content),
       field('close', $.emphasis_close)
     )),
 
     emphasis_open: $ => '_',
     emphasis_close: $ => '_',
-    emphasis_text: $ => repeat1(choice(
+    emphasis_content: $ => repeat1(choice(
+      $.text_segment,
       $.strong,
       $.monospace,
       $.superscript,
@@ -781,17 +762,15 @@ module.exports = grammar({
     )),
 
     // Monospace formatting (`code`)
-    monospace: $ => $.monospace_constrained,
-
-    monospace_constrained: $ => prec(50, seq(
+    monospace: $ => prec(50, seq(
       field('open', $.monospace_open),
-      field('content', $.monospace_text),
+      field('content', $.monospace_content),
       field('close', $.monospace_close)
     )),
 
     monospace_open: $ => '`',
     monospace_close: $ => '`',
-    monospace_text: $ => repeat1(choice(
+    monospace_content: $ => repeat1(choice(
       token.immediate(/\\[*_`^~]/),  // escaped formatting chars
       token.immediate(/[^`\r\n]+/)   // plain text (no nesting in monospace)
     )),
@@ -819,12 +798,10 @@ module.exports = grammar({
     subscript_text: $ => token.immediate(/(?:\\.|[^~\r\n])+/),
 
     // ANCHORS & CROSS-REFERENCES
-    inline_anchor: $ => seq(
-      '[[',
-      $.inline_anchor_id,  // anchor id
-      optional(seq(',', $.inline_anchor_text)),  // optional anchor text
-      ']]'
-    ),
+    inline_anchor: $ => token(prec(10, choice(
+      /\[\[[^\],\r\n]+\]\]/,  // [[id]]
+      /\[\[[^\],\r\n]+,[^\]\r\n]+\]\]/  // [[id,text]]
+    ))),
     
     // Bibliography entries [[[ref]]]
     bibliography_entry: $ => seq(
@@ -837,31 +814,33 @@ module.exports = grammar({
     bibliography_id: $ => /[^,\]\r\n]+/,
     bibliography_text: $ => /[^\]\r\n]+/,
     
-    inline_anchor_id: $ => /[^\]\r\n,]+/,
-    inline_anchor_text: $ => /[^\]\r\n]+/,
+    // Block anchors (stand-alone) - must be atomic to prevent partial matches
+    anchor: $ => token(prec(2, choice(
+      /\[\[[^\],\r\n]+\]\][ \t]*\r?\n/,  // [[id]]
+      /\[\[[^\],\r\n]+,[^\]\r\n]+\]\][ \t]*\r?\n/  // [[id,text]]
+    ))),
 
-    // Block anchors (stand-alone)
-    anchor: $ => prec(2, seq(
-      '[[',
-      field('id', $.inline_anchor_id),
-      optional(seq(',', field('text', $.inline_anchor_text))),
-      ']]',
-      $._line_ending
-    )),
-
-    internal_xref: $ => seq(
-      '<<',
-      /[^>,\r\n]+/,  // target id (don't allow > to prevent partial matches)
-      optional(seq(',', /[^>\r\n]+/)),  // optional link text
-      '>>'
+    internal_xref: $ => choice(
+      seq(
+        '<<',
+        field('target', /[^>,\r\n]+/),
+        optional(seq(',', field('text', /[^>\r\n]+/))),
+        '>>'
+      ),
+      // Fallback for incomplete xrefs
+      seq('<<', /[^>]+/)
     ),
 
-    external_xref: $ => seq(
-      'xref:',
-      /[^\[\r\n]+/,  // file path
-      '[',
-      optional(/[^\]\r\n]+/),  // optional link text
-      ']'
+    external_xref: $ => choice(
+      seq(
+        'xref:',
+        field('path', /[^\[\r\n]+/),
+        '[',
+        field('text', optional(/[^\]\r\n]+/)),
+        ']'
+      ),
+      // Fallback for malformed xrefs
+      seq('xref:', /[^\[\r\n]+/)
     ),
 
 
@@ -894,6 +873,15 @@ module.exports = grammar({
       field('text', optional($.link_text)),
       token(']')
     )),
+
+    // LINK MACRO - link:URL[text]
+    link_macro: $ => prec(10, seq(
+      'link:',
+      /[^\[\r\n]+/,
+      '[',
+      optional($.link_text),
+      ']'
+    )),
     
     // AUTO LINKS - standalone URLs as simple tokens
     auto_link: $ => token(prec(5, choice(
@@ -919,12 +907,20 @@ module.exports = grammar({
       '+++'
     ),
     
-    pass_macro: $ => seq(
-      'pass:',
-      optional(/[a-zA-Z,]+/),  // optional substitutions like 'quotes'
-      '[',
-      /[^\]\r\n]*/,  // content
-      ']'
+    pass_macro: $ => choice(
+      // With substitutions
+      seq(
+        token(prec(15, seq('pass:', /[a-zA-Z,]+/))),
+        '[',
+        /[^\]\r\n]*/,  // content
+        ']'
+      ),
+      // Without substitutions
+      seq(
+        'pass:[',
+        /[^\]\r\n]*/,  // content
+        ']'
+      )
     ),
 
     // ATTRIBUTE REFERENCES
@@ -944,7 +940,8 @@ module.exports = grammar({
       '#'
     )),
     
-    role_list: $ => /[^\]\r\n]+/,  // Roles like .class1.class2#id
+    // Must start with . or # to be valid role/ID syntax
+    role_list: $ => /[.#][^\]\r\n]+/,
     
     role_content: $ => repeat1(choice(
       prec(100, $.strong),
@@ -960,10 +957,15 @@ module.exports = grammar({
 
     // MATH MACROS
     math_macro: $ => choice(
-      token(seq('stem:[', /[^\]\r\n]+/, ']')),
-      token(seq('latexmath:[', /[^\]\r\n]+/, ']')),
-      token(seq('asciimath:[', /[^\]\r\n]+/, ']'))
+      $.stem_inline,
+      $.latexmath_inline,
+      $.asciimath_inline
     ),
+    
+    // Keep as tokens to avoid parsing conflicts but allow separate node types
+    stem_inline: $ => token(seq('stem:[', /[^\]\r\n]+/, ']')),
+    latexmath_inline: $ => token(seq('latexmath:[', /[^\]\r\n]+/, ']')),
+    asciimath_inline: $ => token(seq('asciimath:[', /[^\]\r\n]+/, ']')),
 
     // UI MACROS
     ui_macro: $ => choice(
@@ -985,29 +987,41 @@ module.exports = grammar({
 
     comment_line: $ => /[^\r\n]*\r?\n/,
 
-    // INDEX TERMS
+    // INDEX TERMS - with fallback for malformed constructs
     index_term: $ => choice(
       $.index_term_macro,
       $.index_term2_macro,
       $.concealed_index_term
     ),
 
-    index_term_macro: $ => seq(
-      'indexterm:[',
-      field('terms', $.index_text),
-      ']'
+    index_term_macro: $ => choice(
+      seq(
+        'indexterm:[',
+        field('terms', $.index_text),
+        ']'
+      ),
+      // Fallback for malformed (missing bracket)
+      seq('indexterm:', /[^\[\r\n]+/)
     ),
 
-    index_term2_macro: $ => seq(
-      'indexterm2:[',
-      field('terms', $.index_text),
-      ']'
+    index_term2_macro: $ => choice(
+      seq(
+        'indexterm2:[',
+        field('terms', $.index_text),
+        ']'
+      ),
+      // Fallback for malformed
+      seq('indexterm2:', /[^\[\r\n]+/)
     ),
 
-    concealed_index_term: $ => seq(
-      '(((',
-      field('terms', $.index_text),
-      ')))'
+    concealed_index_term: $ => choice(
+      seq(
+        '(((',
+        field('terms', $.index_text),
+        ')))'
+      ),
+      // Fallback for incomplete concealed term
+      seq('(((', /[^\)]+/)
     ),
 
     index_text: $ => choice(
@@ -1029,26 +1043,26 @@ module.exports = grammar({
     index_term_text: $ => /[^,\]\)\r\n]+/,
 
     // TABLES
-    table_block: $ => seq(
+    table_block: $ => prec.right(10, seq(
       optional($.metadata),
       field('open', $.table_open),
       optional(field('content', $.table_content)),
       field('close', $.table_close)
-    ),
+    )),
 
-    table_open: $ => seq(
-      alias('|===', $.TABLE_FENCE_START),
-      $._line_ending,
-    ),
+    // Recognize table fences in grammar (one or two pipes followed by === and optional spaces, then newline)
+    table_open: $ => alias(token(prec(200, /\|{1,2}={3}[ \t]*\r?\n/)), $.TABLE_FENCE_START),
 
-    table_close: $ => seq(
-      alias('|===', $.TABLE_FENCE_END),
-      $._line_ending,
-    ),
+    table_close: $ => alias(token(prec(200, /\|{1,2}={3}[ \t]*\r?\n/)), $.TABLE_FENCE_END),
+
+    // Table content does not admit metadata - only rows or blank lines;
+    // allow non-pipe lines as content lines for stability
+    table_free_line: $ => token(prec(1, /[^|\r\n].*\r?\n/)),
 
     table_content: $ => repeat1(
       choice(
         $.table_row,
+        alias($.table_free_line, $.content_line),
         alias($._blank_line, $.content_line)
       )
     ),
@@ -1058,47 +1072,52 @@ module.exports = grammar({
       $._line_ending
     )),
 
-    table_cell: $ => seq(
-      '|',
-      optional(seq($.cell_spec, '|')),
-      field('content', $.cell_content),
+    // Table cells - distinguish cells with specs from regular cells
+    table_cell: $ => choice(
+      // Cell with spec: | followed by cell_spec (which includes closing |) then content
+      prec.left(200, prec.dynamic(200, seq(
+        '|',
+        $.cell_spec,
+        field('content', $.cell_content)
+      ))),
+      // Header cell: || followed by content (not =)
+      prec(90, seq(token(prec(65, /\|\|[^=\r\n]/)), field('content', $.cell_content))),
+      // Regular cell: | followed by optional content  
+      prec(-100, seq(
+        token(prec(60, '|')),
+        field('content', $.cell_content)
+      ))
     ),
 
+    // Cell specifications for table cells - includes closing pipe
     cell_spec: $ => token(choice(
-      // Combined span + format specifications
-      seq(
-        choice(
-          seq(/\d+/, optional(seq('.', /\d+/))),  // column span with optional row span
-          seq('.', /\d+/)  // row span only
-        ),
-        '+',
-        choice('h', 'a', 'l', 'm', 'r', 's')  // format spec
-      ),
-      // Span-only specifications
-      seq(
-        choice(
-          seq(/\d+/, optional(seq('.', /\d+/))),  // column span with optional row span
-          seq('.', /\d+/)  // row span only
-        ),
-        '+'
-      ),
-      // Format-only specifications  
-      choice('h', 'a', 'l', 'm', 'r', 's')
+      // Span + format + closing pipe
+      seq(choice(
+        seq(/\d+/, '.', /\d+/, '+'),  // 2.3+
+        seq(/\d+/, '+'),                // 2+
+        seq('.', /\d+/, '+')            // .3+
+      ), /[halmrs]/, '|'),
+      // Span only + closing pipe
+      seq(choice(
+        seq(/\d+/, '.', /\d+/, '+'),
+        seq(/\d+/, '+'),
+        seq('.', /\d+/, '+')
+      ), '|'),
+      // Format only + closing pipe
+      seq(/[halmrs]/, '|')
     )),
 
-    cell_content: $ => choice(
-      $.cell_formatted_content,  // Rich content with formatting
-      $.cell_literal_text        // Plain text fallback
+    // Keep these for backward compatibility or future use
+    span_spec: $ => choice(
+      token(seq(/\d+/, '.', /\d+/, '+')),
+      token(seq(/\d+/, '+')),
+      token(seq('.', /\d+/, '+'))
     ),
-    
-    cell_formatted_content: $ => repeat1(choice(
-      prec(100, $.strong),
-      prec(100, $.emphasis),
-      prec(100, $.monospace),
-      prec(100, $.explicit_link),
-      prec(100, $.attribute_reference),
-      token.immediate(/[^|*_`\r\n]+/)  // Text excluding formatting delimiters
-    )),
+
+    format_spec: $ => /[halmrs]/,
+
+    // Disallow metadata inside table content by keeping cell_content strictly literal
+    cell_content: $ => $.cell_literal_text,
 
     cell_literal_text: $ => /[^|\r\n]*/,
 

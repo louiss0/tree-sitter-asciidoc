@@ -1,128 +1,47 @@
-; ============================================================================
-; AsciiDoc Indentation Queries
-; ============================================================================
-; Controls automatic indentation behavior in editors
+; AsciiDoc indentation patterns
 
-; ============================================================================
-; DELIMITED BLOCKS - Indent content between opening and closing delimiters
-; ============================================================================
+; Increase indent for content within blocks
+[
+  (example_block)
+  (listing_block) 
+  (literal_block)
+  (asciidoc_blockquote)
+  (markdown_blockquote)
+  (sidebar_block)
+  (passthrough_block)
+  (open_block)
+] @indent
 
-; Example blocks
-(example_block
-  open: (_) @indent.begin
-  close: (_) @indent.end)
-
-; Listing blocks
-(listing_block
-  open: (_) @indent.begin
-  close: (_) @indent.end)
-
-; Fenced code blocks
-(fenced_code_block
-  open: (_) @indent.begin
-  close: (_) @indent.end)
-
-; Literal blocks
-(literal_block
-  open: (_) @indent.begin
-  close: (_) @indent.end)
-
-; Quote blocks
-(quote_block
-  open: (_) @indent.begin
-  close: (_) @indent.end)
-
-; Sidebar blocks
-(sidebar_block
-  open: (_) @indent.begin
-  close: (_) @indent.end)
-
-; Passthrough blocks
-(passthrough_block
-  open: (_) @indent.begin
-  close: (_) @indent.end)
-
-; Open blocks
-(open_block
-  open: (_) @indent.begin
-  close: (_) @indent.end)
-
-; ============================================================================
-; CONDITIONAL BLOCKS
-; ============================================================================
-
-(ifdef_block
-  open: (_) @indent.begin
-  close: (_)? @indent.end)
-
-(ifndef_block
-  open: (_) @indent.begin
-  close: (_)? @indent.end)
-
-(ifeval_block
-  open: (_) @indent.begin
-  close: (_)? @indent.end)
-
-; ============================================================================
-; TABLES
-; ============================================================================
-
+; Increase indent for table content  
 (table_block
-  open: (_) @indent.begin
-  close: (_) @indent.end)
+  (table_content) @indent)
 
-; Indent table rows
-(table_row) @indent
+; Increase indent for list items
+[
+  (unordered_list_item)
+  (ordered_list_item)
+  (description_item)  
+  (callout_item)
+] @indent
 
-; ============================================================================
-; LISTS - Indent list item content
-; ============================================================================
-
-; AsciiDoc unordered list items
-(asciidoc_unordered_list_item
-  marker: (_)
-  content: (_) @indent)
-
-; Markdown unordered list items
-(markdown_unordered_list_item
-  marker: (_)
-  content: (_) @indent)
-
-; AsciiDoc checklist items
-(asciidoc_checklist_item
-  marker: (_)
-  content: (_) @indent)
-
-; Markdown checklist items
-(markdown_checklist_item
-  marker: (_)
-  content: (_) @indent)
-
-; Ordered list items
-(ordered_list_item
-  marker: (_)
-  content: (_) @indent)
-
-; Description list items
-(description_item
-  marker: (_)
-  (_) @indent)
-
-; List continuations (+ followed by attached block)
+; Increase indent for list continuations
 (list_item_continuation) @indent
 
-; ============================================================================
-; SECTIONS - Indent section content
-; ============================================================================
+; Increase indent for section content
+(section 
+  (_ (_)*) @indent)
 
-(section
-  (section_title)
-  (_)+ @indent)
+; Increase indent for conditional block content
+(conditional_block) @indent
 
-; ============================================================================
-; BLOCK METADATA - Maintain indent for metadata lines
-; ============================================================================
-
-(metadata) @indent.auto
-(block_attributes) @indent.auto
-(block_title) @indent.auto
+; Dedent at closing fences
+[
+  (example_close)
+  (listing_close)
+  (literal_close) 
+  (asciidoc_blockquote_close)
+  (sidebar_close)
+  (passthrough_close)
+  (openblock_close)
+  (table_close)
+] @outdent

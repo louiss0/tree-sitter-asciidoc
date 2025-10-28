@@ -1,0 +1,37 @@
+
+Check xref:guide.adoc[User Guide] for complete information.
+
+== Inline Anchors
+
+This paragraph has an [[inline-anchor]]inline anchor.
+
+You can reference the [[another-anchor,descriptive text]]anchor later.
+
+== Bibliography References
+
+[bibliography]
+== References
+
+- [[[ref1]]] Smith, John. _AsciiDoc Guide_. 2023.
+- [[[ref2, Smith 2023]]] Smith, John. _Advanced AsciiDoc_. Tech Publications. 2023.
+
+== Citations
+
+Citation example: See <<ref1>> for more details.
+
+Another citation: As noted in <<ref2>>, the syntax is flexible.
+
+== Complex Link Examples
+
+The link:++https://example.com/path?q=link%20text++[complex URL] needs encoding.
+
+Email link: mailto:support@example.com[Contact Support]
+
+== Mixed Content
+
+Visit the https://asciidoctor.org[Asciidoctor website] for the
+link:https://docs.asciidoctor.org/asciidoc/latest/[latest documentation].
+
+See <<section-one,First Section>> and <<custom-anchor>> for examples.
+
+You can also check [[[local-ref]]]local references and cite them <<local-ref>>.

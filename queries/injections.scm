@@ -1,221 +1,153 @@
-; ============================================================================
-; AsciiDoc Language Injection Queries
-; ============================================================================
-; Enables syntax highlighting for embedded code in various languages
+; AsciiDoc language injections for embedded syntax highlighting
 
-; ============================================================================
-; FENCED CODE BLOCKS - Markdown-style (```language)
-; ============================================================================
+; Language-specific code blocks - Now supported!
+; Extract language from [source,language] attributes
+; TODO: Fix this query - source_block_attributes structure changed
+;(listing_block
+;  (metadata
+;    (block_attributes
+;      (source_block_attributes
+;        language: (language_identifier) @injection.language)))
+;  content: (block_content) @injection.content)
 
-; Direct language specification via info_string
-((fenced_code_block
-  (code_fence_open
-    (info_string
-      language: (language) @injection.language))
-  content: (code) @injection.content)
- (#set! injection.combined))
-
-; ============================================================================
-; LISTING BLOCKS - AsciiDoc-style with [source,language]
-; ============================================================================
-
-; Extract language from source_block_attributes
-((listing_block
-  (metadata
-    (block_attributes
-      (source_block_attributes
-        language: (language_identifier) @injection.language)))
-  content: (block_content) @injection.content)
- (#set! injection.combined))
-
-; ============================================================================
-; FALLBACK PATTERNS - For blocks using generic attribute_content
-; ============================================================================
-
-; Python
+; Fallback: Generic source blocks with language detection from content
 ((listing_block
   (metadata 
     (block_attributes
       content: (attribute_content) @_lang
       (#match? @_lang "source,python")))
   content: (block_content) @injection.content)
- (#set! injection.language "python")
- (#set! injection.combined))
+ (#set! injection.language "python"))
 
-; JavaScript / TypeScript
 ((listing_block
   (metadata 
     (block_attributes
       content: (attribute_content) @_lang
-      (#match? @_lang "source,(javascript|js|typescript|ts)")))
+      (#match? @_lang "source,javascript")))
   content: (block_content) @injection.content)
- (#set! injection.language "javascript")
- (#set! injection.combined))
+ (#set! injection.language "javascript"))
 
-; Rust
 ((listing_block
   (metadata 
     (block_attributes
       content: (attribute_content) @_lang
       (#match? @_lang "source,rust")))
   content: (block_content) @injection.content)
- (#set! injection.language "rust")
- (#set! injection.combined))
+ (#set! injection.language "rust"))
 
-; Go
-((listing_block
-  (metadata 
-    (block_attributes
-      content: (attribute_content) @_lang
-      (#match? @_lang "source,go(lang)?")))
-  content: (block_content) @injection.content)
- (#set! injection.language "go")
- (#set! injection.combined))
-
-; C / C++
-((listing_block
-  (metadata 
-    (block_attributes
-      content: (attribute_content) @_lang
-      (#match? @_lang "source,c(\\+\\+)?")))
-  content: (block_content) @injection.content)
- (#set! injection.language "c")
- (#set! injection.combined))
-
-; Java
-((listing_block
-  (metadata 
-    (block_attributes
-      content: (attribute_content) @_lang
-      (#match? @_lang "source,java")))
-  content: (block_content) @injection.content)
- (#set! injection.language "java")
- (#set! injection.combined))
-
-; Ruby
-((listing_block
-  (metadata 
-    (block_attributes
-      content: (attribute_content) @_lang
-      (#match? @_lang "source,ruby")))
-  content: (block_content) @injection.content)
- (#set! injection.language "ruby")
- (#set! injection.combined))
-
-; PHP
-((listing_block
-  (metadata 
-    (block_attributes
-      content: (attribute_content) @_lang
-      (#match? @_lang "source,php")))
-  content: (block_content) @injection.content)
- (#set! injection.language "php")
- (#set! injection.combined))
-
-; Shell / Bash
-((listing_block
-  (metadata 
-    (block_attributes
-      content: (attribute_content) @_lang
-      (#match? @_lang "source,(bash|sh|shell)")))
-  content: (block_content) @injection.content)
- (#set! injection.language "bash")
- (#set! injection.combined))
-
-; JSON
 ((listing_block
   (metadata 
     (block_attributes
       content: (attribute_content) @_lang
       (#match? @_lang "source,json")))
   content: (block_content) @injection.content)
- (#set! injection.language "json")
- (#set! injection.combined))
+ (#set! injection.language "json"))
 
-; YAML
 ((listing_block
   (metadata 
     (block_attributes
       content: (attribute_content) @_lang
-      (#match? @_lang "source,ya?ml")))
+      (#match? @_lang "source,yaml")))
   content: (block_content) @injection.content)
- (#set! injection.language "yaml")
- (#set! injection.combined))
+ (#set! injection.language "yaml"))
 
-; TOML
-((listing_block
-  (metadata 
-    (block_attributes
-      content: (attribute_content) @_lang
-      (#match? @_lang "source,toml")))
-  content: (block_content) @injection.content)
- (#set! injection.language "toml")
- (#set! injection.combined))
-
-; XML
-((listing_block
-  (metadata 
-    (block_attributes
-      content: (attribute_content) @_lang
-      (#match? @_lang "source,xml")))
-  content: (block_content) @injection.content)
- (#set! injection.language "xml")
- (#set! injection.combined))
-
-; HTML
 ((listing_block
   (metadata 
     (block_attributes
       content: (attribute_content) @_lang
       (#match? @_lang "source,html")))
   content: (block_content) @injection.content)
- (#set! injection.language "html")
- (#set! injection.combined))
+ (#set! injection.language "html"))
 
-; CSS
 ((listing_block
   (metadata 
     (block_attributes
       content: (attribute_content) @_lang
       (#match? @_lang "source,css")))
   content: (block_content) @injection.content)
- (#set! injection.language "css")
- (#set! injection.combined))
+ (#set! injection.language "css"))
 
-; SQL
 ((listing_block
   (metadata 
     (block_attributes
       content: (attribute_content) @_lang
-      (#match? @_lang "source,sql")))
+      (#match? @_lang "source,go")))
   content: (block_content) @injection.content)
- (#set! injection.language "sql")
- (#set! injection.combined))
+ (#set! injection.language "go"))
 
-; Markdown
 ((listing_block
   (metadata 
     (block_attributes
       content: (attribute_content) @_lang
-      (#match? @_lang "source,(markdown|md)")))
+      (#match? @_lang "source,bash")))
   content: (block_content) @injection.content)
- (#set! injection.language "markdown")
- (#set! injection.combined))
+ (#set! injection.language "bash"))
 
-; ============================================================================
-; MATH MACROS - LaTeX/MathML
-; ============================================================================
+; Math content injection - specific language detection
+; Stem inline macro - default to asciimath
+(stem_inline) @injection.content
+(#set! injection.language "text")  ; fallback to text since asciimath isn't widely supported
 
-; Math macros inject LaTeX for rendering
-((math_macro) @injection.content
+; LaTeX math inline macro
+(latexmath_inline) @injection.content
+(#set! injection.language "latex")
+
+; AsciiMath inline macro  
+(asciimath_inline) @injection.content
+(#set! injection.language "text")  ; fallback to text since asciimath isn't widely supported
+
+; Math block detection via attributes and passthrough content
+; Stem blocks (default to asciimath but use text fallback)
+((passthrough_block
+  (metadata
+    (block_attributes
+      content: (attribute_content) @_attr))
+  content: (block_content) @injection.content)
+ (#match? @_attr "stem")
+ (#set! injection.language "text"))
+
+; LaTeX math blocks
+((passthrough_block
+  (metadata
+    (block_attributes
+      content: (attribute_content) @_attr))
+  content: (block_content) @injection.content)
+ (#match? @_attr "latexmath")
  (#set! injection.language "latex"))
 
-; ============================================================================
-; PASSTHROUGH BLOCKS - HTML content
-; ============================================================================
-
-; Passthrough blocks typically contain raw HTML
+; AsciiMath blocks
 ((passthrough_block
+  (metadata
+    (block_attributes
+      content: (attribute_content) @_attr))
   content: (block_content) @injection.content)
- (#set! injection.language "html")
- (#set! injection.combined))
+ (#match? @_attr "asciimath")
+ (#set! injection.language "text"))
+
+; Generic code blocks without language specification
+(listing_block
+  (block_content) @injection.content
+  (#set! injection.language "text"))
+
+; Literal blocks for configuration or data
+(literal_block
+  (block_content) @injection.content  
+  (#set! injection.language "text"))
+
+; Passthrough blocks may contain HTML or other markup
+(passthrough_block
+  (block_content) @injection.content
+  (#set! injection.language "html"))
+
+; Inline code spans - generic
+(monospace_content) @injection.content
+(#set! injection.language "text")
+
+; Attribute values that might contain code or paths
+(value) @injection.content
+(#match? @injection.content "^[a-zA-Z]+:")
+(#set! injection.language "text")
+
+; Include directive paths
+(include_path) @injection.content
+(#set! injection.language "text")
