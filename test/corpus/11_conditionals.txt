@@ -13,19 +13,19 @@ endif::[]
 
 (source_file
   (attribute_entry
-    (name)
-    (value))
+    (attribute_value))
   (conditional_block
     (ifdef_block
       (ifdef_open)
       (section
-        (section_title
-          (title))
-        (paragraph
-          (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment))))
+        (section_level_2
+          (section_marker_2)
+          (title)
+          (paragraph
+            (text_with_inlines
+              (text_segment)
+              (text_segment)
+              (text_segment)))))
       (endif_directive))))
 
 ================================================================================
@@ -64,22 +64,22 @@ endif::[]
 
 (source_file
   (attribute_entry
-    (name)
-    (value))
+    (attribute_value))
   (conditional_block
     (ifeval_block
       (ifeval_open)
       (section
-        (section_title
-          (title))
-        (paragraph
-          (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)
-            (text_segment)
-            (text_segment)
-            (text_segment))))
+        (section_level_2
+          (section_marker_2)
+          (title)
+          (paragraph
+            (text_with_inlines
+              (text_segment)
+              (text_segment)
+              (text_segment)
+              (text_segment)
+              (text_segment)
+              (text_segment)))))
       (endif_directive))))
 
 ================================================================================
@@ -124,7 +124,10 @@ Another:: item
 
 (source_file
   (description_list
-    (description_item))
+    (description_item
+      (description_content
+        (text_with_inlines
+          (text_segment)))))
   (conditional_block
     (ifdef_block
       (ifdef_open)
@@ -135,7 +138,10 @@ Another:: item
           (text_segment)))
       (endif_directive)))
   (description_list
-    (description_item)))
+    (description_item
+      (description_content
+        (text_with_inlines
+          (text_segment))))))
 
 ================================================================================
 Multiple attribute targets
@@ -181,33 +187,33 @@ endif::[]
     (ifdef_block
       (ifdef_open)
       (section
-        (section_title
-          (title)))
-      (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)))
-      (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)))
-      (ordered_list
-        (ordered_list_item
-          (text_with_inlines
-            (text_segment)
-            (text_segment)))
-        (ordered_list_item
-          (text_with_inlines
-            (text_segment)
-            (text_segment))))
-      (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)))
+        (section_level_2
+          (section_marker_2)
+          (title)
+          (unordered_list
+            (unordered_list_item
+              (text_with_inlines
+                (text_segment)
+                (text_segment)
+                (text_segment)))
+            (unordered_list_item
+              (text_with_inlines
+                (text_segment)
+                (text_segment)
+                (text_segment))))
+          (ordered_list
+            (ordered_list_item
+              (text_with_inlines
+                (text_segment)
+                (text_segment)))
+            (ordered_list_item
+              (text_with_inlines
+                (text_segment)
+                (text_segment))))
+          (paragraph
+            (text_with_inlines
+              (text_segment)
+              (text_segment)))))
       (endif_directive))))
 
 ================================================================================

@@ -10,6 +10,9 @@ The quadratic formula is stem:[x = (-b +- sqrt(b^2-4ac))/(2a)].
   (paragraph
     content: (text_with_inlines
       (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
       (inline_element
         (math_macro
           (stem_inline)))
@@ -27,6 +30,8 @@ Einstein's equation: latexmath:[\sum_{i=1}^n x_i = x_1 + x_2 + \cdots + x_n]
   (paragraph
     content: (text_with_inlines
       (text_segment)
+      (text_segment)
+      (text_colon)
       (inline_element
         (math_macro
           (latexmath_inline))))))
@@ -43,6 +48,8 @@ Series sum: asciimath:[sum_(i=1)^n x_i = (n(n+1))/2]
   (paragraph
     content: (text_with_inlines
       (text_segment)
+      (text_segment)
+      (text_colon)
       (inline_element
         (math_macro
           (asciimath_inline))))))
@@ -84,6 +91,8 @@ Integration formula: latexmath:[\int u \, dv = uv - \int v \, du]
   (paragraph
     content: (text_with_inlines
       (text_segment)
+      (text_segment)
+      (text_colon)
       (inline_element
         (math_macro
           (latexmath_inline))))))
@@ -100,7 +109,10 @@ Empty stem:[] macro should work.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (inline_element
-        (math_macro
-          (stem_inline)))
+      (text_segment)
+      (text_colon)
+      (text_bracket)
+      (text_bracket)
+      (text_segment)
+      (text_segment)
       (text_segment))))

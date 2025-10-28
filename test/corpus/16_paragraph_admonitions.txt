@@ -9,7 +9,7 @@ NOTE: This is a note paragraph with important information.
 (source_file
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -31,7 +31,7 @@ TIP: Here's a helpful tip for users.
 (source_file
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -51,7 +51,7 @@ IMPORTANT: This is crucial information to remember.
 (source_file
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -71,7 +71,7 @@ WARNING: Be careful with this operation.
 (source_file
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -90,7 +90,7 @@ CAUTION: Proceed with caution when making changes.
 (source_file
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -110,17 +110,16 @@ NOTE: This note contains *bold text* and other formatting.
 (source_file
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
         (text_segment)
         (inline_element
           (strong
-            (strong_constrained
-              open: (strong_open)
-              content: (strong_text)
-              close: (strong_close))))
+            open: (strong_open)
+            content: (strong_content)
+            close: (strong_close)))
         (text_segment)
         (text_segment)
         (text_segment)))))
@@ -136,10 +135,7 @@ NOTE:
 (source_file
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
-      content: (text_with_inlines
-        (inline_element
-          (MISSING external_xref))))))
+      type: (admonition_type))))
 
 ================================================================================
 Not an admonition - lowercase label
@@ -174,15 +170,15 @@ NOTE:This should be a regular paragraph.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_colon)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    (paragraph_admonition
+      type: (admonition_type)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Not an admonition - invalid label
@@ -220,21 +216,21 @@ TIP: Third admonition paragraph.
 (source_file
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
         (text_segment))))
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
         (text_segment))))
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -254,20 +250,21 @@ Regular paragraph text.
 
 (source_file
   (section
-    (section_title
-      title: (title)))
-  (paragraph
-    (paragraph_admonition
-      label: (admonition_label)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment))))
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        (paragraph_admonition
+          type: (admonition_type)
+          content: (text_with_inlines
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment))))
+      content: (paragraph
+        content: (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment))))))

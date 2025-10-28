@@ -10,13 +10,14 @@ Indented headings are treated as valid headings
 
 (source_file
   (section
-    (section_title
-      (title))
-    (section
-      (section_title
-        (title))
-      (section
-        (section_title
+    (section_level_1
+      (section_marker_1)
+      (title)
+      (section_level_2
+        (section_marker_2)
+        (title)
+        (section_level_3
+          (section_marker_3)
           (title))))))
 
 ================================================================================
@@ -69,13 +70,10 @@ Attributes with spaces in values and empty values
 
 (source_file
   (attribute_entry
-    (name)
-    (value))
+    (attribute_value))
+  (attribute_entry)
   (attribute_entry
-    (name))
-  (attribute_entry
-    (name)
-    (value)))
+    (attribute_value)))
 
 ================================================================================
 Multiple consecutive blank lines
@@ -124,11 +122,12 @@ Headings with trailing spaces
 
 (source_file
   (section
-    (section_title
-      (title))
-    (section
-      (section_title
-        (title))
-      (section
-        (section_title
+    (section_level_1
+      (section_marker_1)
+      (title)
+      (section_level_2
+        (section_marker_2)
+        (title)
+        (section_level_3
+          (section_marker_3)
           (title))))))

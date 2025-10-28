@@ -11,19 +11,15 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      open: (ifeval_open
-        expression: (expression
-          (binary_expression
-            (expression
-              (primary_expression
-                (string_literal)))
-            (expression
-              (primary_expression
-                (string_literal))))))
-      (paragraph
+      directive: (ifeval_open)
+      content: (paragraph
         content: (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
           (text_segment)))
-      close: (endif_directive))))
+      end: (endif_directive))))
 
 ================================================================================
 Numeric comparison
@@ -37,16 +33,8 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      open: (ifeval_open
-        expression: (expression
-          (binary_expression
-            (expression
-              (primary_expression
-                (attribute_reference)))
-            (expression
-              (primary_expression
-                (numeric_literal))))))
-      close: (endif_directive))))
+      directive: (ifeval_open)
+      end: (endif_directive))))
 
 ================================================================================
 Logical operators
@@ -60,16 +48,8 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      open: (ifeval_open
-        expression: (expression
-          (binary_expression
-            (expression
-              (primary_expression
-                (attribute_reference)))
-            (expression
-              (primary_expression
-                (attribute_reference))))))
-      close: (endif_directive))))
+      directive: (ifeval_open)
+      end: (endif_directive))))
 
 ================================================================================
 Logical NOT operator
@@ -83,13 +63,8 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      open: (ifeval_open
-        expression: (expression
-          (unary_expression
-            (expression
-              (primary_expression
-                (attribute_reference))))))
-      close: (endif_directive))))
+      directive: (ifeval_open)
+      end: (endif_directive))))
 
 ================================================================================
 Complex arithmetic expression
@@ -103,26 +78,8 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      open: (ifeval_open
-        expression: (expression
-          (binary_expression
-            (expression
-              (binary_expression
-                (expression
-                  (primary_expression
-                    (attribute_reference)))
-                (expression
-                  (binary_expression
-                    (expression
-                      (primary_expression
-                        (attribute_reference)))
-                    (expression
-                      (primary_expression
-                        (numeric_literal)))))))
-            (expression
-              (primary_expression
-                (numeric_literal))))))
-      close: (endif_directive))))
+      directive: (ifeval_open)
+      end: (endif_directive))))
 
 ================================================================================
 Grouped expressions with parentheses
@@ -136,28 +93,8 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      open: (ifeval_open
-        expression: (expression
-          (binary_expression
-            (expression
-              (binary_expression
-                (expression
-                  (grouped_expression
-                    (expression
-                      (binary_expression
-                        (expression
-                          (primary_expression
-                            (attribute_reference)))
-                        (expression
-                          (primary_expression
-                            (attribute_reference)))))))
-                (expression
-                  (primary_expression
-                    (numeric_literal)))))
-            (expression
-              (primary_expression
-                (attribute_reference))))))
-      close: (endif_directive))))
+      directive: (ifeval_open)
+      end: (endif_directive))))
 
 ================================================================================
 Boolean literals
@@ -171,13 +108,5 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      open: (ifeval_open
-        expression: (expression
-          (binary_expression
-            (expression
-              (primary_expression
-                (boolean_literal)))
-            (expression
-              (primary_expression
-                (boolean_literal))))))
-      close: (endif_directive))))
+      directive: (ifeval_open)
+      end: (endif_directive))))

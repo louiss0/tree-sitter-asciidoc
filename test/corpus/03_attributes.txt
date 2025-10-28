@@ -14,21 +14,19 @@ Some text.
 
 (source_file
   (attribute_entry
-    (name)
-    (value))
+    (attribute_value))
   (attribute_entry
-    (name)
-    (value))
+    (attribute_value))
   (section
-    (section_title
-      (title))
-    (attribute_entry
-      (name)
-      (value))
-    (paragraph
-      (text_with_inlines
-        (text_segment)
-        (text_segment)))))
+    (section_level_1
+      (section_marker_1)
+      (title)
+      (attribute_entry
+        (attribute_value))
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment))))))
 
 ================================================================================
 Attribute entries without values
@@ -44,17 +42,16 @@ Content here
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry
-    (name))
-  (attribute_entry
-    (name))
+  (attribute_entry)
+  (attribute_entry)
   (section
-    (section_title
-      (title))
-    (paragraph
-      (text_with_inlines
-        (text_segment)
-        (text_segment)))))
+    (section_level_1
+      (section_marker_1)
+      (title)
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment))))))
 
 ================================================================================
 Attribute entries with spaces in values
@@ -67,11 +64,9 @@ Attribute entries with spaces in values
 
 (source_file
   (attribute_entry
-    (name)
-    (value))
+    (attribute_value))
   (attribute_entry
-    (name)
-    (value)))
+    (attribute_value)))
 
 ================================================================================
 Invalid attribute patterns should be paragraphs
@@ -123,19 +118,18 @@ More content
 
 (source_file
   (attribute_entry
-    (name)
-    (value))
+    (attribute_value))
   (paragraph
     (text_with_inlines
       (text_segment)
       (text_segment)))
   (attribute_entry
-    (name)
-    (value))
+    (attribute_value))
   (section
-    (section_title
-      (title))
-    (paragraph
-      (text_with_inlines
-        (text_segment)
-        (text_segment)))))
+    (section_level_1
+      (section_marker_1)
+      (title)
+      (paragraph
+        (text_with_inlines
+          (text_segment)
+          (text_segment))))))

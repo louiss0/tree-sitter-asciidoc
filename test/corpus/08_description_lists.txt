@@ -23,7 +23,8 @@ AnotherTerm:: Another description
           (text_segment)
           (text_segment)
           (text_segment)
-          (text_segment))))
+          (text_segment)))))
+  (description_list
     (description_item
       (description_content
         (text_with_inlines

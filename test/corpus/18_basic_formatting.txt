@@ -13,10 +13,9 @@ This has *bold* text in it.
       (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            open: (strong_open)
-            content: (strong_text)
-            close: (strong_close))))
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -36,10 +35,9 @@ This has _italic_ text in it.
       (text_segment)
       (inline_element
         (emphasis
-          (emphasis_constrained
-            open: (emphasis_open)
-            content: (emphasis_text)
-            close: (emphasis_close))))
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -59,10 +57,9 @@ This has `code` text in it.
       (text_segment)
       (inline_element
         (monospace
-          (monospace_constrained
-            open: (monospace_open)
-            content: (monospace_text)
-            close: (monospace_close))))
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -82,11 +79,10 @@ This has *unclosed bold and _unclosed italic and `unclosed code.
       (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            open: (strong_open)
-            content: (strong_text)
-            close: (strong_close
-              (MISSING "*"))))))))
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close
+            (MISSING "*")))))))
 
 ================================================================================
 Mixed formatting elements
@@ -103,24 +99,21 @@ This has *bold* and _italic_ and `code` together.
       (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            open: (strong_open)
-            content: (strong_text)
-            close: (strong_close))))
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
       (text_segment)
       (inline_element
         (emphasis
-          (emphasis_constrained
-            open: (emphasis_open)
-            content: (emphasis_text)
-            close: (emphasis_close))))
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
       (text_segment)
       (inline_element
         (monospace
-          (monospace_constrained
-            open: (monospace_open)
-            content: (monospace_text)
-            close: (monospace_close))))
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
       (text_segment))))
 
 ================================================================================

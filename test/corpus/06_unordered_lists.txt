@@ -88,11 +88,10 @@ Not a list - missing space after marker
     content: (text_with_inlines
       (inline_element
         (strong
-          (strong_constrained
-            open: (strong_open)
-            content: (strong_text)
-            close: (strong_close
-              (MISSING "*")))))))
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close
+            (MISSING "*"))))))
   (paragraph
     content: (text_with_inlines
       (text_segment))))

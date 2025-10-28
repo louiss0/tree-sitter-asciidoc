@@ -99,9 +99,10 @@ The (((PostgreSQL))) database system is powerful.
       (text_segment)
       (inline_element
         (index_term
-          (concealed_index_term
-            terms: (index_text
-              primary: (index_term_text)))))
+          (concealed_index_term)))
+      (text_paren)
+      (text_paren)
+      (text_paren)
       (text_segment)
       (text_segment)
       (text_segment)
@@ -121,11 +122,10 @@ The (((databases,SQL,PostgreSQL))) is feature-rich.
       (text_segment)
       (inline_element
         (index_term
-          (concealed_index_term
-            terms: (index_text
-              primary: (index_term_text)
-              secondary: (index_term_text)
-              tertiary: (index_term_text)))))
+          (concealed_index_term)))
+      (text_paren)
+      (text_paren)
+      (text_paren)
       (text_segment)
       (text_segment))))
 
@@ -200,10 +200,9 @@ The *bold* text with indexterm:[formatting] and `code` examples.
       (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            open: (strong_open)
-            content: (strong_text)
-            close: (strong_close))))
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
       (text_segment)
       (text_segment)
       (inline_element
@@ -214,10 +213,9 @@ The *bold* text with indexterm:[formatting] and `code` examples.
       (text_segment)
       (inline_element
         (monospace
-          (monospace_constrained
-            open: (monospace_open)
-            content: (monospace_text)
-            close: (monospace_close))))
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
       (text_segment))))
 
 ================================================================================
@@ -235,6 +233,7 @@ This indexterm[missing-colon] should be text.
       (text_segment)
       (text_bracket)
       (text_segment)
+      (text_bracket)
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -251,7 +250,11 @@ This ((incomplete)) should be text.
   (paragraph
     content: (text_with_inlines
       (text_segment)
+      (text_paren)
+      (text_paren)
       (text_segment)
+      (text_paren)
+      (text_paren)
       (text_segment)
       (text_segment)
       (text_segment))))

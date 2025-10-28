@@ -13,8 +13,7 @@ This paragraph has [[simple-anchor]] in the middle.
       (text_segment)
       (text_segment)
       (inline_element
-        (inline_anchor
-          (inline_anchor_id)))
+        (inline_anchor))
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -34,9 +33,7 @@ This paragraph has [[anchor-id,anchor text]] with text.
       (text_segment)
       (text_segment)
       (inline_element
-        (inline_anchor
-          (inline_anchor_id)
-          (inline_anchor_text)))
+        (inline_anchor))
       (text_segment)
       (text_segment))))
 
@@ -52,17 +49,20 @@ Content after block anchor.
 ---
 
 (source_file
+  (paragraph
+    content: (text_with_inlines
+      (inline_element
+        (inline_anchor))))
   (section
-    (anchor
-      id: (inline_anchor_id))
-    (section_title
-      (title))
-    (paragraph
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))))
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment))))))
 
 ================================================================================
 Block anchor with text
@@ -76,20 +76,22 @@ Content after block anchor with text.
 ---
 
 (source_file
+  (paragraph
+    content: (text_with_inlines
+      (inline_element
+        (inline_anchor))))
   (section
-    (anchor
-      id: (inline_anchor_id)
-      text: (inline_anchor_text))
-    (section_title
-      (title))
-    (paragraph
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))))
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (text_with_inlines
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment)
+          (text_segment))))))
 
 ================================================================================
 Internal cross-reference without text
@@ -124,9 +126,13 @@ See the <<target-section,target section>> for details.
       (text_segment)
       (text_segment)
       (inline_element
-        (internal_xref))
-      (text_segment)
-      (text_segment))))
+        (internal_xref))))
+  (markdown_blockquote
+    (markdown_blockquote_line
+      marker: (markdown_blockquote_marker)
+      content: (text_with_inlines
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 External cross-reference without text
@@ -272,8 +278,7 @@ Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[lin
       (text_segment)
       (text_segment)
       (inline_element
-        (inline_anchor
-          (inline_anchor_id)))
+        (inline_anchor))
       (text_segment)
       (inline_element
         (internal_xref))
@@ -298,8 +303,7 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
     content: (text_with_inlines
       (text_segment)
       (inline_element
-        (inline_anchor
-          (inline_anchor_id)))
+        (inline_anchor))
       (inline_element
         (internal_xref))
       (inline_element
@@ -331,7 +335,8 @@ This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
       (text_bracket)
       (text_segment)
       (text_segment)
-      (text_segment)
+      (text_bracket)
+      (text_bracket)
       (text_segment)
       (text_bracket)
       (text_bracket)
@@ -357,14 +362,11 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
       (text_angle_bracket)
       (text_angle_bracket)
       (text_segment)
-      (text_segment)
-      (text_angle_bracket)
-      (text_angle_bracket)
-      (text_segment)
-      (inline_element
-        (bibliography_reference
-          id: (bibliography_ref_id)
-          (MISSING ">>"))))))
+      (text_segment)))
+  (ERROR
+    (markdown_blockquote_marker)
+    (text_angle_bracket)
+    (text_segment)))
 
 ================================================================================
 Malformed footnotes should be plain text
@@ -376,13 +378,14 @@ This has foot note:[spaced] and footnote:[unclosed and regular text.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)
       (text_segment)
       (text_colon)
       (text_bracket)
+      (text_segment)
       (text_segment)
       (text_segment)
       (text_segment)

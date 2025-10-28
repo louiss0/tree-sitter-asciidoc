@@ -13,26 +13,23 @@ This is *bold* text and _italic_ text and `monospace` text.
       (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            open: (strong_open)
-            content: (strong_text)
-            close: (strong_close))))
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
       (text_segment)
       (text_segment)
       (inline_element
         (emphasis
-          (emphasis_constrained
-            open: (emphasis_open)
-            content: (emphasis_text)
-            close: (emphasis_close))))
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
       (text_segment)
       (text_segment)
       (inline_element
         (monospace
-          (monospace_constrained
-            open: (monospace_open)
-            content: (monospace_text)
-            close: (monospace_close))))
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
       (text_segment))))
 
 ================================================================================
@@ -78,10 +75,9 @@ This is *bold _italic_ text* mixed.
       (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            open: (strong_open)
-            content: (strong_text)
-            close: (strong_close))))
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
       (text_segment))))
 
 ================================================================================
@@ -134,9 +130,9 @@ Visit https://example.com[Example Site] for more info.
     content: (text_with_inlines
       (text_segment)
       (inline_element
-        (link
+        (explicit_link
           url: (auto_link)
-          text: (bracketed_text)))
+          text: (link_text)))
       (text_segment)
       (text_segment)
       (text_segment))))

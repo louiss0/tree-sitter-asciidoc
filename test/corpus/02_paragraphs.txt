@@ -74,7 +74,8 @@ Fake headings without space should be paragraphs
     (text_with_inlines
       (text_segment)))
   (section
-    (section_title
+    (section_level_6
+      (section_marker_6)
       (title))))
 
 ================================================================================

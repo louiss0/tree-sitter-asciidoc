@@ -13,17 +13,24 @@ Section titles with different levels
 
 (source_file
   (section
-    (section_title (title))
-    (section
-      (section_title (title))
-      (section
-        (section_title (title))
-        (section
-          (section_title (title))
-          (section
-            (section_title (title))
-            (section
-              (section_title (title)))))))))
+    (section_level_1
+      (section_marker_1)
+      (title)
+      (section_level_2
+        (section_marker_2)
+        (title)
+        (section_level_3
+          (section_marker_3)
+          (title)
+          (section_level_4
+            (section_marker_4)
+            (title)
+            (section_level_5
+              (section_marker_5)
+              (title)
+              (section_level_6
+                (section_marker_6)
+                (title)))))))))
 
 ================================================================================
 Single section with title
@@ -35,7 +42,9 @@ Single section with title
 
 (source_file
   (section
-    (section_title (title))))
+    (section_level_1
+      (section_marker_1)
+      (title))))
 
 ================================================================================
 Section titles with varied spacing
@@ -49,8 +58,12 @@ Section titles with varied spacing
 
 (source_file
   (section
-    (section_title (title))
-    (section
-      (section_title (title))
-      (section
-        (section_title (title))))))
+    (section_level_1
+      (section_marker_1)
+      (title)
+      (section_level_2
+        (section_marker_2)
+        (title)
+        (section_level_3
+          (section_marker_3)
+          (title))))))

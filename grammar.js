@@ -42,7 +42,8 @@ module.exports = grammar({
     [$.callout_item],
     [$.inline_element, $.explicit_link],
     [$.attribute_content, $.role_list],
-    [$.external_xref]
+    [$.external_xref],
+    [$.paragraph_admonition]
   ],
 
   rules: {
@@ -111,6 +112,7 @@ module.exports = grammar({
     )),
     
     section_level_2: $ => prec.right(seq(
+      optional($.anchor),
       field('marker', $.section_marker_2),
       field('title', $.title),
       $._line_ending,
@@ -139,6 +141,7 @@ module.exports = grammar({
     )),
     
     section_level_3: $ => prec.right(seq(
+      optional($.anchor),
       field('marker', $.section_marker_3),
       field('title', $.title),
       $._line_ending,
@@ -167,6 +170,7 @@ module.exports = grammar({
     )),
     
     section_level_4: $ => prec.right(seq(
+      optional($.anchor),
       field('marker', $.section_marker_4),
       field('title', $.title),
       $._line_ending,
@@ -195,6 +199,7 @@ module.exports = grammar({
     )),
     
     section_level_5: $ => prec.right(seq(
+      optional($.anchor),
       field('marker', $.section_marker_5),
       field('title', $.title),
       $._line_ending,
@@ -223,6 +228,7 @@ module.exports = grammar({
     )),
     
     section_level_6: $ => prec.right(seq(
+      optional($.anchor),
       field('marker', $.section_marker_6),
       field('title', $.title),
       $._line_ending,
@@ -259,27 +265,25 @@ module.exports = grammar({
     section_marker_6: $ => token(prec(25, seq('======', /[ \t]+/))),
 
     // ATTRIBUTE ENTRIES - Support both :name: and :name: value forms
+    // Using token to make it atomic and prevent partial matches that cause segfaults
     attribute_entry: $ => choice(
       // Standard form: :name: value or :name:
-      prec(25, seq(
-        ':',
-        field('name', $.attribute_name),
-        ':',
+      seq(
+        field('name', token(prec(25, seq(':', /[a-zA-Z0-9_-]+/, ':')))),
         field('value', optional(seq(/[ \t]+/, $.attribute_value))),
         $._line_ending
-      )),
+      ),
       // Unset form: :!name: or :name!:
-      prec(25, seq(
-        choice(
-          seq(':', '!', field('name', $.attribute_name), ':'),
-          seq(':', field('name', $.attribute_name), '!', ':')
-        ),
+      seq(
+        field('name', token(prec(25, choice(
+          seq(':', '!', /[a-zA-Z0-9_-]+/, ':'),
+          seq(':', /[a-zA-Z0-9_-]+/, '!', ':')
+        )))),
         optional(/[ \t]+/),
         $._line_ending
-      ))
+      )
     ),
     
-    attribute_name: $ => /[a-zA-Z0-9_-]+/,
     attribute_value: $ => /[^\r\n]+/,
 
     // DELIMITED BLOCKS
@@ -408,31 +412,11 @@ module.exports = grammar({
       field('end', optional($.endif_directive))
     )),
     
-    ifdef_open: $ => prec(75, seq(
-      'ifdef::',
-      field('condition', /[^\[\r\n]+/),
-      '[',
-      field('args', optional(/[^\]\r\n]*/)),
-      ']',
-      $._line_ending
-    )),
+    ifdef_open: $ => token(prec(75, /ifdef::[^\[\r\n]*\[[^\]\r\n]*\][ \t]*\r?\n/)),
     
-    ifndef_open: $ => prec(75, seq(
-      'ifndef::',
-      field('condition', /[^\[\r\n]+/),
-      '[',
-      field('args', optional(/[^\]\r\n]*/)),
-      ']',
-      $._line_ending
-    )),
+    ifndef_open: $ => token(prec(75, /ifndef::[^\[\r\n]*\[[^\]\r\n]*\][ \t]*\r?\n/)),
     
-    ifeval_open: $ => prec(75, seq(
-      'ifeval::',
-      '[',
-      field('expression', $.expression),
-      ']',
-      $._line_ending
-    )),
+    ifeval_open: $ => token(prec(75, /ifeval::\[[^\]\r\n]+\][ \t]*\r?\n/)),
     
     // EXPRESSIONS - for ifeval conditions (fixed to eliminate recursion)
     // Use prec.left/right with explicit precedence levels to avoid recursion
@@ -479,13 +463,6 @@ module.exports = grammar({
     
     grouped_expression: $ => seq('(', $.expression, ')'),
     
-    primary_expression: $ => choice(
-      $.string_literal,
-      $.numeric_literal,
-      $.boolean_literal,
-      $.attribute_reference
-    ),
-    
     string_literal: $ => choice(
       seq('"', /[^"\r\n]*/, '"'),
       seq("'", /[^'\r\n]*/, "'")
@@ -531,29 +508,8 @@ module.exports = grammar({
       $._line_ending
     )),
     
-    // INCLUDE DIRECTIVES - with fallback for malformed includes
-    include_directive: $ => prec(5, choice(
-      // Proper form: include::path[options]
-      seq(
-        'include::',
-        field('path', $.include_path),
-        optional(seq(
-          '[',
-          field('options', $.include_options),
-          ']'
-        )),
-        $._line_ending
-      ),
-      // Fallback for malformed (no colon)
-      seq(
-        'include:',  // single colon - malformed
-        /[^\r\n]*/,
-        $._line_ending
-      )
-    )),
-    
-    include_path: $ => /[^\[\r\n]+/,
-    include_options: $ => /[^\]\r\n]*/,
+    // INCLUDE DIRECTIVES - require complete syntax
+    include_directive: $ => token(prec(5, /include::[^\[\r\n]+\[[^\]\r\n]*\][ \t]*\r?\n/)),
     
     block_content: $ => repeat1(choice(
       $.content_line,
@@ -662,7 +618,8 @@ module.exports = grammar({
     paragraph_admonition: $ => seq(
       field('type', $.admonition_type),
       ':',
-      field('content', optional(seq(/[ \t]+/, $.text_with_inlines)))
+      optional(/[ \t]+/),
+      field('content', optional($.text_with_inlines))
     ),
     
     admonition_type: $ => choice(
@@ -700,9 +657,9 @@ module.exports = grammar({
       $.text_caret,
       $.text_tilde,
       // Error recovery: treat orphaned formatting chars as text
-      prec(-100, '*'),
-      prec(-100, '_'),
-      prec(-100, '`')
+      prec(1, '*'),
+      prec(1, '_'),
+      prec(1, '`')
     ),
     
     text_segment: $ => token(prec(-1, /[^\s\r\n:*_\`^~\[\]<>\{}#()|]+/)),
@@ -841,47 +798,27 @@ module.exports = grammar({
     subscript_text: $ => token.immediate(/(?:\\.|[^~\r\n])+/),
 
     // ANCHORS & CROSS-REFERENCES
-    inline_anchor: $ => choice(
-      seq(
-        '[[',
-        field('id', $.inline_anchor_id),
-        optional(seq(',', field('text', $.inline_anchor_text))),
-        ']]'
-      ),
-      // Fallback for incomplete anchors
-      seq('[[', /[^\]]+/)
-    ),
+    inline_anchor: $ => token(prec(10, choice(
+      /\[\[[^\],\r\n]+\]\]/,  // [[id]]
+      /\[\[[^\],\r\n]+,[^\]\r\n]+\]\]/  // [[id,text]]
+    ))),
     
     // Bibliography entries [[[ref]]]
-    bibliography_entry: $ => choice(
-      seq(
-        '[[[',
-        field('id', $.bibliography_id),
-        optional(seq(',', field('description', $.bibliography_text))),
-        ']]]'
-      ),
-      // Fallback for incomplete bibliography entries
-      seq('[[[', /[^\]]+/)
+    bibliography_entry: $ => seq(
+      '[[[',
+      field('id', $.bibliography_id),
+      optional(seq(',', field('description', $.bibliography_text))),
+      ']]]'
     ),
     
     bibliography_id: $ => /[^,\]\r\n]+/,
     bibliography_text: $ => /[^\]\r\n]+/,
     
-    inline_anchor_id: $ => /[^\]\r\n,]+/,
-    inline_anchor_text: $ => /[^\]\r\n]+/,
-
-    // Block anchors (stand-alone)
-    anchor: $ => prec(2, choice(
-      seq(
-        '[[',
-        field('id', $.inline_anchor_id),
-        optional(seq(',', field('text', $.inline_anchor_text))),
-        ']]',
-        $._line_ending
-      ),
-      // Fallback for incomplete block anchors
-      seq('[[', /[^\r\n]*/, $._line_ending)
-    )),
+    // Block anchors (stand-alone) - must be atomic to prevent partial matches
+    anchor: $ => token(prec(2, choice(
+      /\[\[[^\],\r\n]+\]\][ \t]*\r?\n/,  // [[id]]
+      /\[\[[^\],\r\n]+,[^\]\r\n]+\]\][ \t]*\r?\n/  // [[id,text]]
+    ))),
 
     internal_xref: $ => choice(
       seq(
@@ -970,12 +907,20 @@ module.exports = grammar({
       '+++'
     ),
     
-    pass_macro: $ => seq(
-      'pass:',
-      optional(/[a-zA-Z,]+/),  // optional substitutions like 'quotes'
-      '[',
-      /[^\]\r\n]*/,  // content
-      ']'
+    pass_macro: $ => choice(
+      // With substitutions
+      seq(
+        token(prec(15, seq('pass:', /[a-zA-Z,]+/))),
+        '[',
+        /[^\]\r\n]*/,  // content
+        ']'
+      ),
+      // Without substitutions
+      seq(
+        'pass:[',
+        /[^\]\r\n]*/,  // content
+        ']'
+      )
     ),
 
     // ATTRIBUTE REFERENCES
@@ -995,7 +940,8 @@ module.exports = grammar({
       '#'
     )),
     
-    role_list: $ => /[^\]\r\n]+/,  // Roles like .class1.class2#id
+    // Must start with . or # to be valid role/ID syntax
+    role_list: $ => /[.#][^\]\r\n]+/,
     
     role_content: $ => repeat1(choice(
       prec(100, $.strong),

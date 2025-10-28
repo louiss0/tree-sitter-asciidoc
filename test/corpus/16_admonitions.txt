@@ -17,7 +17,7 @@ CAUTION: Proceed with extreme caution.
 (source_file
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -26,7 +26,7 @@ CAUTION: Proceed with extreme caution.
         (text_segment))))
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -36,7 +36,7 @@ CAUTION: Proceed with extreme caution.
         (text_segment))))
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -45,7 +45,7 @@ CAUTION: Proceed with extreme caution.
         (text_segment))))
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -53,7 +53,7 @@ CAUTION: Proceed with extreme caution.
         (text_segment))))
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -88,9 +88,12 @@ Pro tip: Always read the documentation first!
     open: (example_open
       (EXAMPLE_FENCE_START))
     content: (block_content
-      (content_line)
-      (content_line)
-      (content_line))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
     close: (example_close
       (EXAMPLE_FENCE_END)))
   (example_block
@@ -99,10 +102,14 @@ Pro tip: Always read the documentation first!
     open: (example_open
       (EXAMPLE_FENCE_START))
     content: (block_content
-      (content_line)
-      (content_line)
-      (content_line)
-      (content_line))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
     close: (example_close
       (EXAMPLE_FENCE_END))))
 
@@ -136,8 +143,10 @@ This is a sidebar admonition.
     open: (listing_open
       (LISTING_FENCE_START))
     content: (block_content
-      (content_line)
-      (content_line))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
     close: (listing_close
       (LISTING_FENCE_END)))
   (literal_block
@@ -146,18 +155,21 @@ This is a sidebar admonition.
     open: (literal_open
       (LITERAL_FENCE_START))
     content: (block_content
-      (content_line)
-      (content_line))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
     close: (literal_close
       (LITERAL_FENCE_END)))
   (sidebar_block
     (metadata
       (block_attributes))
-    open: (sidebar_open
+    (sidebar_open
       (SIDEBAR_FENCE_START))
-    content: (block_content
-      (content_line))
-    close: (sidebar_close
+    (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    (sidebar_close
       (SIDEBAR_FENCE_END))))
 
 ================================================================================
@@ -175,7 +187,7 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
 (source_file
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -189,7 +201,7 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
         (text_segment))))
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -203,7 +215,7 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
         (text_segment))))
   (paragraph
     (paragraph_admonition
-      label: (admonition_label)
+      type: (admonition_type)
       content: (text_with_inlines
         (text_segment)
         (text_segment)
@@ -224,7 +236,7 @@ Another paragraph after the admonition.
 
 (source_file
   (paragraph
-    (text_with_inlines
+    content: (text_with_inlines
       (text_segment)
       (text_segment)
       (text_segment)
@@ -242,8 +254,8 @@ NOTE: This is a valid admonition again.
 (source_file
   (paragraph
     (paragraph_admonition
-      (admonition_label)
-      (text_with_inlines
+      type: (admonition_type)
+      content: (text_with_inlines
         (text_segment)
         (text_segment)
         (text_segment)

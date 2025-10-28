@@ -26,6 +26,7 @@ Also check out http://test.org and ftp://files.com/download.
       (text_segment)
       (inline_element
         (auto_link)))))
+
 ================================================================================
 Links with text
 ================================================================================
@@ -39,9 +40,9 @@ Visit https://example.com[Example Site] for more info.
     content: (text_with_inlines
       (text_segment)
       (inline_element
-        (link
+        (explicit_link
           url: (auto_link)
-          text: (bracketed_text)))
+          text: (link_text)))
       (text_segment)
       (text_segment)
       (text_segment))))
@@ -59,9 +60,9 @@ Visit https://example.com[*Bold* _Link_ Text] here.
     content: (text_with_inlines
       (text_segment)
       (inline_element
-        (link
+        (explicit_link
           url: (auto_link)
-          text: (bracketed_text)))
+          text: (link_text)))
       (text_segment))))
 
 ================================================================================
