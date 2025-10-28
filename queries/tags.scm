@@ -9,52 +9,44 @@
 ; ============================================================================
 
 ; Level 1 sections (= Title) - Top-level classes
-(section
-  (section_title
-    (section_marker_1)
-    (title) @name) @definition.class)
+(section_level_1
+  marker: (section_marker_1)
+  title: (title) @name) @definition.class
 
 ; Level 2 sections (== Title) - Major sections
-(section
-  (section_title
-    (section_marker_2)
-    (title) @name) @definition.class)
+(section_level_2
+  marker: (section_marker_2)
+  title: (title) @name) @definition.class
 
 ; Level 3 sections (=== Title) - Subsections
-(section
-  (section_title
-    (section_marker_3)
-    (title) @name) @definition.method)
+(section_level_3
+  marker: (section_marker_3)
+  title: (title) @name) @definition.method
 
 ; Level 4 sections (==== Title) - Minor subsections
-(section
-  (section_title
-    (section_marker_4)
-    (title) @name) @definition.method)
+(section_level_4
+  marker: (section_marker_4)
+  title: (title) @name) @definition.method
 
 ; Level 5 sections (===== Title) - Deep subsections
-(section
-  (section_title
-    (section_marker_5)
-    (title) @name) @definition.function)
+(section_level_5
+  marker: (section_marker_5)
+  title: (title) @name) @definition.function
 
 ; Level 6 sections (====== Title) - Deepest subsections
-(section
-  (section_title
-    (section_marker_6)
-    (title) @name) @definition.function)
+(section_level_6
+  marker: (section_marker_6)
+  title: (title) @name) @definition.function
 
 ; ============================================================================
 ; ANCHORS - Labeled reference points
 ; ============================================================================
 
 ; Block-level anchors - [[id]]
-(anchor
-  id: (inline_anchor_id) @name) @definition.label
+(anchor) @definition.label
 
 ; Inline anchors - [[id,text]]
-(inline_anchor
-  (inline_anchor_id) @name) @definition.label
+(inline_anchor) @definition.label
 
 ; Bibliography entries - [[[id]]]
 (bibliography_entry
@@ -65,8 +57,7 @@
 ; ============================================================================
 
 ; Attribute definitions - :name: value
-(attribute_entry
-  name: (name) @name) @definition.constant
+(attribute_entry) @definition.constant
 
 ; ============================================================================
 ; CROSS-REFERENCES - Symbol references
@@ -86,8 +77,7 @@
 ; ============================================================================
 
 ; Include directives - include::path[]
-(include_directive
-  path: (include_path) @name) @definition.import
+(include_directive) @definition.import
 
 ; ============================================================================
 ; TABLES - Table definitions (for outline)
@@ -113,13 +103,10 @@
     (block_title) @name) @definition.struct)
 
 ; Fenced code blocks with titles
-(fenced_code_block
-  (code_fence_open
-    (info_string
-      language: (language) @name)) @definition.struct)
+(fenced_code_block) @definition.struct
 
 ; Quote blocks with titles
-(quote_block
+(asciidoc_blockquote
   (metadata
     (block_title) @name) @definition.struct)
 

@@ -9,23 +9,31 @@
 ; ============================================================================
 
 ; Sections as functions (outer includes title, inner is content only)
-(section) @function.outer
+[
+  (section_level_1)
+  (section_level_2)
+  (section_level_3)
+  (section_level_4)
+  (section_level_5)
+  (section_level_6)
+] @function.outer
 
-(section
-  (section_title)
-  (_)+ @function.inner)
+[
+  (section_level_1 content: (_) @function.inner)
+  (section_level_2 content: (_) @function.inner)
+  (section_level_3 content: (_) @function.inner)
+  (section_level_4 content: (_) @function.inner)
+  (section_level_5 content: (_) @function.inner)
+  (section_level_6 content: (_) @function.inner)
+]
 
 ; Top-level sections (levels 1-2) as classes
-(section
-  (section_title
-    [(section_marker_1) (section_marker_2)]
-    (title))) @class.outer
+[(section_level_1) (section_level_2)] @class.outer
 
-(section
-  (section_title
-    [(section_marker_1) (section_marker_2)]
-    (title))
-  (_)+ @class.inner)
+[
+  (section_level_1 content: (_) @class.inner)
+  (section_level_2 content: (_) @class.inner)
+]
 
 ; ============================================================================
 ; DELIMITED BLOCKS - Block text objects
@@ -34,42 +42,42 @@
 ; Example blocks
 (example_block) @block.outer
 (example_block
-  content: (block_content) @block.inner)
+  (block_content) @block.inner)
 
 ; Listing blocks
 (listing_block) @block.outer
 (listing_block
-  content: (block_content) @block.inner)
+  (block_content) @block.inner)
 
 ; Fenced code blocks
 (fenced_code_block) @block.outer
 (fenced_code_block
-  content: (code) @block.inner)
+  (block_content) @block.inner)
 
 ; Literal blocks
 (literal_block) @block.outer
 (literal_block
-  content: (block_content) @block.inner)
+  (block_content) @block.inner)
 
 ; Quote blocks
-(quote_block) @block.outer
-(quote_block
-  content: (block_content) @block.inner)
+(asciidoc_blockquote) @block.outer
+(asciidoc_blockquote
+  (block_content) @block.inner)
 
 ; Sidebar blocks
 (sidebar_block) @block.outer
 (sidebar_block
-  content: (block_content) @block.inner)
+  (block_content) @block.inner)
 
 ; Passthrough blocks
 (passthrough_block) @block.outer
 (passthrough_block
-  content: (block_content) @block.inner)
+  (block_content) @block.inner)
 
 ; Open blocks
 (open_block) @block.outer
 (open_block
-  content: (block_content) @block.inner)
+  (block_content) @block.inner)
 
 ; Conditional blocks
 (ifdef_block) @block.outer
@@ -88,24 +96,9 @@
 ; LISTS - Treat list items as parameters
 ; ============================================================================
 
-; AsciiDoc unordered list items
-(asciidoc_unordered_list_item) @parameter.outer
-(asciidoc_unordered_list_item
-  content: (_) @parameter.inner)
-
-; Markdown unordered list items
-(markdown_unordered_list_item) @parameter.outer
-(markdown_unordered_list_item
-  content: (_) @parameter.inner)
-
-; AsciiDoc checklist items
-(asciidoc_checklist_item) @parameter.outer
-(asciidoc_checklist_item
-  content: (_) @parameter.inner)
-
-; Markdown checklist items
-(markdown_checklist_item) @parameter.outer
-(markdown_checklist_item
+; Unordered list items
+(unordered_list_item) @parameter.outer
+(unordered_list_item
   content: (_) @parameter.inner)
 
 ; Ordered list items
@@ -171,7 +164,7 @@
 
 (attribute_entry) @attribute.outer
 (attribute_entry
-  value: (value) @attribute.inner)
+  value: (attribute_value) @attribute.inner)
 
 ; Attribute references
 (attribute_reference) @attribute.outer
@@ -212,15 +205,18 @@
 
 ; Strong (bold)
 (strong) @text.outer
-(strong_text) @text.inner
+(strong
+  content: (strong_content) @text.inner)
 
 ; Emphasis (italic)
 (emphasis) @text.outer
-(emphasis_text) @text.inner
+(emphasis
+  content: (emphasis_content) @text.inner)
 
 ; Monospace (code)
 (monospace) @text.outer
-(monospace_text) @text.inner
+(monospace
+  content: (monospace_content) @text.inner)
 
 ; Superscript
 (superscript) @text.outer

@@ -45,6 +45,7 @@
 ; Attributes and Expressions
 (attribute_reference) @variable
 (attribute_entry) @variable.builtin
+(attribute_value) @string
 
 ; Conditional Blocks
 (ifdef_open) @keyword

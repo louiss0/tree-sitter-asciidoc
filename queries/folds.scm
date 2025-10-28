@@ -1,9 +1,7 @@
 ; AsciiDoc code folding - enhanced patterns
 
 ; Fold sections with better precision
-(section 
-  (section_title)
-  (_ (_)*)? @fold)
+(section) @fold
 
 ; Fold delimited blocks - content only
 (example_block 
