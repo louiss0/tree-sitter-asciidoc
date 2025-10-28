@@ -1,1 +1,0 @@
-This has < <spaced xref> > and <<unclosed xref and regular text.

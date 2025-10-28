@@ -1,1 +1,0 @@
-The indexterm:[C++] and indexterm:[.NET Framework] platforms.

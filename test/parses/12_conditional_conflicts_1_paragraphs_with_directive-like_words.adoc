@@ -1,4 +1,0 @@
-This paragraph contains ifdef:: and ifndef:: words but
-they are in the middle of sentences, not at start of lines.
-
-The word endif:: can also appear here.

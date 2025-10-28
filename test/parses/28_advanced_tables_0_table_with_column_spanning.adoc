@@ -1,7 +1,0 @@
-|===
-|Name |Information
-
-|John Doe |2+|Engineer at Tech Corp, specializes in backend development
-
-|Jane Smith |Manager |Marketing Department
-|===

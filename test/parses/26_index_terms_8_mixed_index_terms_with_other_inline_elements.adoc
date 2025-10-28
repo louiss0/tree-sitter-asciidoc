@@ -1,1 +1,0 @@
-The *bold* text with indexterm:[formatting] and `code` examples.

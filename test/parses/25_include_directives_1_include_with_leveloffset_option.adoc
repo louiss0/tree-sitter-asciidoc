@@ -1,3 +1,0 @@
-include::intro.adoc[leveloffset=+1]
-
-Another paragraph.

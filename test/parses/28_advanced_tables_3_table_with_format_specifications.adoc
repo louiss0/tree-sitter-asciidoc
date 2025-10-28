@@ -1,7 +1,0 @@
-|===
-|Name |Code |Description
-
-|John |m|System.out.println() |a|This is *bold* and _italic_ text
-
-|Jane |l|raw literal text with <tags> |s|Strong formatted text
-|===

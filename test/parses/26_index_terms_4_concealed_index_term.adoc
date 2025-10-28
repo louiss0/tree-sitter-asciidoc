@@ -1,1 +1,0 @@
-The (((PostgreSQL))) database system is powerful.

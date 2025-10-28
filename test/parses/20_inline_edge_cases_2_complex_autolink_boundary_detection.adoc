@@ -1,7 +1,0 @@
-Visit https://example.com/path?query=value&other=test for more.
-
-Link with punctuation: https://docs.com/api#section.
-
-Multiple URLs: https://first.com, https://second.org! 
-
-Email addresses: contact@example.com.

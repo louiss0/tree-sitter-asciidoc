@@ -1,4 +1,0 @@
-[[block-anchor]]
-== Section Title
-
-Content after block anchor.

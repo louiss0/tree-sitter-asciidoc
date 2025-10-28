@@ -1,2 +1,0 @@
-Formula stem:[a^2 + b^2 = c^2] is famous.
-Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].

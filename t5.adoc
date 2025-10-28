@@ -1,3 +1,0 @@
-[bibliography]
-== References
-- [[[ref2, Smith 2023]]] Smith, John. _Advanced AsciiDoc_.

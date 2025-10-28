@@ -1,1 +1,0 @@
-This indexterm[missing-colon] should be text.

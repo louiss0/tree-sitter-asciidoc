@@ -1,1 +1,0 @@
-Both indexterm:[Java] and indexterm2:[Python] are indexterm:[programming,languages].

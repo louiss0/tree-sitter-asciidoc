@@ -1,1 +1,0 @@
-The indexterm:[database] is important in computing.

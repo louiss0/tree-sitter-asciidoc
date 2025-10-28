@@ -1,5 +1,0 @@
-Inline passthrough: pass:[<script>alert('test')</script>] content.
-
-Triple plus passthrough: +++<div class="raw">HTML content</div>+++ text.
-
-Nested pass: pass:c[{code-block}] with substitution.

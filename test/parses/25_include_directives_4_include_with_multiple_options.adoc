@@ -1,3 +1,0 @@
-include::document.adoc[leveloffset=+2,lines=1..50,opts=optional]
-
-Final paragraph.

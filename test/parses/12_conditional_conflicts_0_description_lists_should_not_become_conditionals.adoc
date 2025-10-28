@@ -1,6 +1,0 @@
-ifdef:: This should be a paragraph because space after colon
-Term:: definition
-
-ifdefnotablock:: another paragraph
-
-Another:: regular description item

@@ -1,5 +1,0 @@
-[.highlight]#Important text# with role.
-
-[.red.bold#special]#Custom styling# with multiple attributes.
-
-[%nowrap]#No wrap content# with options.

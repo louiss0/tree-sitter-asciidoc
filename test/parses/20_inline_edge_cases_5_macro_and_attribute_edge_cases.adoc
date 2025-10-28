@@ -1,7 +1,0 @@
-Multiple attributes: kbd:[Ctrl+Alt+Del] and btn:[Submit].
-
-Math notation: stem:[E = mc^2] and asciimath:[sum_(i=1)^n x_i].
-
-Footnote variations: footnote:[Simple note] and footnoteref:ref1[Referenced note].
-
-Complex image: image::path/file.png[Alt text,width=100,height=50].

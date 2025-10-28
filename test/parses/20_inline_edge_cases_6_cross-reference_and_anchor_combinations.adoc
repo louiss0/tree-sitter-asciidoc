@@ -1,5 +1,0 @@
-See <<introduction>> for basics and <<advanced,Advanced Topics>>.
-
-External references: xref:guide.adoc[User Guide] and xref:api.adoc#methods[API Methods].
-
-Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.

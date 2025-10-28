@@ -1,7 +1,0 @@
-|===
-|Name |Age |Notes
-
-|John |30 |
-| |25 |Has empty name
-|Jane | |Missing age
-|===

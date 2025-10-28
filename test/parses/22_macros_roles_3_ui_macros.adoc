@@ -1,2 +1,0 @@
-Press kbd:[Ctrl+Alt+T] or click btn:[Submit] button.
-Go to menu:File[Open] option.

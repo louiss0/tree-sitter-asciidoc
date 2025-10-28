@@ -1,9 +1,0 @@
-NOTE: This is a simple note.
-
-TIP: Here's a helpful tip for you.
-
-IMPORTANT: This information is very important.
-
-WARNING: Be careful with this!
-
-CAUTION: Proceed with extreme caution.

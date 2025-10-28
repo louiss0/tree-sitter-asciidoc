@@ -1,1 +1,0 @@
-This is [important]#*bold* and _italic_ text# here.

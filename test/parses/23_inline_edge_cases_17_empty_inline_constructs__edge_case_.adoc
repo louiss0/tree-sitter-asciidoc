@@ -1,1 +1,0 @@
-This has ** and __ and `` empty markers.

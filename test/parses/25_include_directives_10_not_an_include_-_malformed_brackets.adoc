@@ -1,3 +1,0 @@
-include::malformed.adoc[missing-end
-
-This should be a paragraph.

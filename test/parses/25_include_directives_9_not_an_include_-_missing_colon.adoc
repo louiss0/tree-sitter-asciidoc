@@ -1,3 +1,0 @@
-include:single-colon.adoc[]
-
-This should be a paragraph.

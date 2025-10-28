@@ -1,1 +1,0 @@
-[[[ref1]]] Smith, John. _AsciiDoc Guide_. 2023.

@@ -1,1 +1,0 @@
-This uses footnoteref:ref1[] to reference a footnote.

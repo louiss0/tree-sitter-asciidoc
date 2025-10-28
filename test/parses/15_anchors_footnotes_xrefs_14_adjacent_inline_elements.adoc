@@ -1,1 +1,0 @@
-Adjacent[[anchor]]<<xref>>footnote:[note]elements.
