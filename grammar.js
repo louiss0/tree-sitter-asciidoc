@@ -15,6 +15,8 @@ module.exports = grammar({
     $.EXAMPLE_FENCE_END,
     $.LISTING_FENCE_START,
     $.LISTING_FENCE_END,
+    $.BACKTICK_FENCE_START,
+    $.BACKTICK_FENCE_END,
     $.LITERAL_FENCE_START,
     $.LITERAL_FENCE_END,
     $.QUOTE_FENCE_START,
@@ -58,6 +60,7 @@ module.exports = grammar({
       $.attribute_entry,
       $.example_block,
       $.listing_block,
+      $.fenced_code_block,
       $.asciidoc_blockquote,
       $.markdown_blockquote,
       $.literal_block,
@@ -96,6 +99,12 @@ module.exports = grammar({
         $.callout_list,
         $.example_block,
         $.listing_block,
+        $.fenced_code_block,
+        $.fenced_code_block,
+        $.fenced_code_block,
+        $.fenced_code_block,
+        $.fenced_code_block,
+        $.fenced_code_block,
         $.asciidoc_blockquote,
         $.markdown_blockquote,
         $.literal_block,
@@ -309,6 +318,17 @@ module.exports = grammar({
     listing_open: $ => $.LISTING_FENCE_START,
     
     listing_close: $ => $.LISTING_FENCE_END,
+    
+    // Fenced code blocks (markdown-style with backticks)
+    fenced_code_block: $ => seq(
+      field('open', $.backtick_fence_open),
+      optional(field('content', $.block_content)),
+      field('close', $.backtick_fence_close)
+    ),
+    
+    backtick_fence_open: $ => $.BACKTICK_FENCE_START,
+    
+    backtick_fence_close: $ => $.BACKTICK_FENCE_END,
     
     // AsciiDoc quote blocks (fenced with ____)
     asciidoc_blockquote: $ => seq(

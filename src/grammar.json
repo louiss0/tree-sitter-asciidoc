@@ -46,6 +46,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "fenced_code_block"
+        },
+        {
+          "type": "SYMBOL",
           "name": "asciidoc_blockquote"
         },
         {
@@ -200,6 +204,30 @@
                   {
                     "type": "SYMBOL",
                     "name": "listing_block"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "fenced_code_block"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "fenced_code_block"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "fenced_code_block"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "fenced_code_block"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "fenced_code_block"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "fenced_code_block"
                   },
                   {
                     "type": "SYMBOL",
@@ -1307,6 +1335,51 @@
     "listing_close": {
       "type": "SYMBOL",
       "name": "LISTING_FENCE_END"
+    },
+    "fenced_code_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "open",
+          "content": {
+            "type": "SYMBOL",
+            "name": "backtick_fence_open"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "content",
+              "content": {
+                "type": "SYMBOL",
+                "name": "block_content"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "close",
+          "content": {
+            "type": "SYMBOL",
+            "name": "backtick_fence_close"
+          }
+        }
+      ]
+    },
+    "backtick_fence_open": {
+      "type": "SYMBOL",
+      "name": "BACKTICK_FENCE_START"
+    },
+    "backtick_fence_close": {
+      "type": "SYMBOL",
+      "name": "BACKTICK_FENCE_END"
     },
     "asciidoc_blockquote": {
       "type": "SEQ",
@@ -5160,6 +5233,14 @@
     {
       "type": "SYMBOL",
       "name": "LISTING_FENCE_END"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "BACKTICK_FENCE_START"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "BACKTICK_FENCE_END"
     },
     {
       "type": "SYMBOL",

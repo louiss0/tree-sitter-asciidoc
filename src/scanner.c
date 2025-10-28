@@ -11,6 +11,8 @@ enum {
     EXAMPLE_FENCE_END,
     LISTING_FENCE_START,    // ----
     LISTING_FENCE_END,
+    BACKTICK_FENCE_START,    // ```
+    BACKTICK_FENCE_END,
     LITERAL_FENCE_START,    // ....
     LITERAL_FENCE_END,
     QUOTE_FENCE_START,      // ____
@@ -81,6 +83,7 @@ static int get_fence_start_token(char fence_char, uint8_t count) {
         case '_': return QUOTE_FENCE_START;
         case '*': return SIDEBAR_FENCE_START;
         case '+': return PASSTHROUGH_FENCE_START;
+        case '`': return BACKTICK_FENCE_START;
         default: return -1;
     }
 }
@@ -96,11 +99,12 @@ static int get_fence_end_token(char fence_char, uint8_t count) {
         case '_': return QUOTE_FENCE_END;
         case '*': return SIDEBAR_FENCE_END;
         case '+': return PASSTHROUGH_FENCE_END;
+        case '`': return BACKTICK_FENCE_END;
         default: return -1;
     }
 }
 
-// Scan for delimited block fences (====, ----, ...., ____, ****, --, ++++)
+// Scan for delimited block fences (====, ----, ...., ____, ****, --, ++++, ```)
 static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
     DEBUG_LOG("scan_block_fence_start: checking at column %d, char='%c'", lexer->get_column ? lexer->get_column(lexer) : -1, lexer->lookahead);
     if (!at_line_start(lexer)) {
@@ -110,7 +114,7 @@ static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
     
     char fence_char = lexer->lookahead;
     if (fence_char != '=' && fence_char != '-' && fence_char != '.' && 
-        fence_char != '_' && fence_char != '*' && fence_char != '+') {
+        fence_char != '_' && fence_char != '*' && fence_char != '+' && fence_char != '`') {
         return false;
     }
     
@@ -133,14 +137,25 @@ static bool scan_block_fence_start(Scanner *scanner, TSLexer *lexer) {
         } else if (count < 4) {
             return false; // 3 dashes not valid (avoids tree-sitter test separators)
         }
+    } else if (fence_char == '`') {
+        // Backtick fences use 3+ chars (markdown style)
+        min_count = 3;
     }
     
     if (count < min_count || count > max_count) return false;
     
     // Must be followed by end of line or attributes (only spaces allowed)
-    skip_spaces(lexer);
-    if (!(lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer))) {
-        return false;
+    // For backtick fences, allow language identifier
+    if (fence_char == '`') {
+        // Skip optional language identifier (e.g., javascript, python, etc.)
+        while (lexer->lookahead != '\n' && lexer->lookahead != '\r' && !lexer->eof(lexer)) {
+            advance(lexer);
+        }
+    } else {
+        skip_spaces(lexer);
+        if (!(lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->eof(lexer))) {
+            return false;
+        }
     }
     
     // Store fence info for matching close

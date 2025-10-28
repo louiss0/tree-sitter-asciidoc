@@ -55,6 +55,8 @@
     "test:highlights": "pnpm run build:ts && bash test/highlight/tools/run.sh",
     "test:highlights:update": "pnpm run build:ts && bash test/highlight/tools/run.sh --update",
     "test:highlights:win": "pnpm run build:ts && powershell -ExecutionPolicy Bypass -File test/highlight/tools/run.ps1",
-    "test:highlights:update:win": "pnpm run build:ts && Remove-Item test/highlight/expected/*.captures -Force; pnpm run test:highlights:win"
+    "test:highlights:update:win": "pnpm run build:ts && Remove-Item test/highlight/expected/*.captures -Force; pnpm run test:highlights:win",
+    "test:hl": "node test-highlights.js",
+    "inspect:hl": "node inspect-highlights.js"
   }
 }
