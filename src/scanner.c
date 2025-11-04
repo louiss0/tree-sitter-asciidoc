@@ -57,8 +57,11 @@ static void skip_spaces(TSLexer *lexer) {
     }
 }
 
-// Check if at start of line (only whitespace before)
+// Check if at start of line; guard get_column for hosts that don't implement it
 static bool at_line_start(TSLexer *lexer) {
+    if (!lexer->get_column) {
+        return true;
+    }
     return lexer->get_column(lexer) == 0;
 }
 
