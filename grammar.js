@@ -38,40 +38,6 @@ const PREC = {
 module.exports = grammar({
   name: "asciidoc",
 
-  externals: $ => [
-    // Order must match scanner.c enum exactly!
-    $.TABLE_FENCE_START,
-    $.TABLE_FENCE_END,
-    $.EXAMPLE_FENCE_START,
-    $.EXAMPLE_FENCE_END,
-    $.LISTING_FENCE_START,
-    $.LISTING_FENCE_END,
-    $.LITERAL_FENCE_START,
-    $.LITERAL_FENCE_END,
-    $.QUOTE_FENCE_START,
-    $.QUOTE_FENCE_END,
-    $.SIDEBAR_FENCE_START,
-    $.SIDEBAR_FENCE_END,
-    $.PASSTHROUGH_FENCE_START,
-    $.PASSTHROUGH_FENCE_END,
-    $.OPENBLOCK_FENCE_START,
-    $.OPENBLOCK_FENCE_END,
-    $.LIST_CONTINUATION,
-    $.AUTOLINK_BOUNDARY,
-    $.ATTRIBUTE_LIST_START,
-    // Line-anchored block markers (non-section)
-    $._LIST_UNORDERED_MARKER, // "* " or "- " at start of line (hidden from AST)
-    $._LIST_ORDERED_MARKER,   // "N. " at start of line (hidden from AST)
-    $.DESCRIPTION_LIST_SEP,   // "::"
-    $._DESCRIPTION_LIST_ITEM, // "term:: description" pattern (hidden from AST)
-    $.CALLOUT_MARKER,        // "<N> " at start of line
-    // Conditional directives
-    $._ifdef_open_token,     // "ifdef::" at start of line
-    $._ifndef_open_token,    // "ifndef::" at start of line
-    $._ifeval_open_token,    // "ifeval::" at start of line
-    $._endif_directive_token // "endif::" at start of line
-  ],
-
   extras: $ => [
     /[ \t\f]+/,                // Horizontal whitespace only
     $.line_comment,            // Line comments
@@ -109,21 +75,8 @@ module.exports = grammar({
   
   _block_not_section: $ => choice(
     $.attribute_entry,
-    $.unordered_list,
-    $.ordered_list,
     $.paragraph,
-    $.admonition_block,
-    $.description_list,
-    $.callout_list,
-    $.conditional_block,
-    $.example_block,
-    $.listing_block,
-    $.literal_block,
-    $.quote_block,
-    $.sidebar_block,
-    $.passthrough_block,
-    $.open_block,
-    $.table_block
+    $.admonition_block
   ),
 
     // ========================================================================
@@ -399,105 +352,6 @@ module.exports = grammar({
     unconstrained_passthrough: $ => prec.left(token(/\+[^\s+].*?\+/)),
 
     // ========================================================================
-    // DELIMITED BLOCKS
-    // ========================================================================
-    
-    // Example block - ====
-    example_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
-      optional($.metadata),
-      field('open', $.example_open),
-      optional(field('content', $.block_content)),
-      field('close', $.example_close)
-    )),
-    
-    // Listing block - ----
-    listing_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
-      optional($.metadata),
-      field('open', $.listing_open),
-      optional(field('content', $.block_content)),
-      field('close', $.listing_close)
-    )),
-    
-    // Literal block - ....
-    literal_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
-      optional($.metadata),
-      field('open', $.literal_open),
-      optional(field('content', $.block_content)),
-      field('close', $.literal_close)
-    )),
-    
-    // Quote block - ____
-    quote_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
-      optional($.metadata),
-      field('open', $.quote_open),
-      optional(field('content', $.block_content)),
-      field('close', $.quote_close)
-    )),
-    
-    // Sidebar block - ****
-    sidebar_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
-      optional($.metadata),
-      field('open', $.sidebar_open),
-      optional(field('content', $.block_content)),
-      field('close', $.sidebar_close)
-    )),
-    
-    // Passthrough block - ++++
-    passthrough_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
-      optional($.metadata),
-      field('open', $.passthrough_open),
-      optional(field('content', $.block_content)),
-      field('close', $.passthrough_close)
-    )),
-    
-    // Open block - --
-    open_block: $ => prec(PREC.DELIMITED_BLOCK, seq(
-      optional($.metadata),
-      field('open', $.openblock_open),
-      optional(field('content', $.block_content)),
-      field('close', $.openblock_close)
-    )),
-    
-    // Block content - raw lines
-    block_content: $ => repeat1($.content_line),
-    content_line: $ => token(prec(-1, /[^\r\n]*\r?\n/)),
-    
-    // Specific stateful delimited block fence tokens using external scanner
-    // Each block type uses its own specific fence tokens for proper disambiguation
-    example_open: $ => $.EXAMPLE_FENCE_START,
-    example_close: $ => $.EXAMPLE_FENCE_END,
-    
-    listing_open: $ => $.LISTING_FENCE_START,
-    listing_close: $ => $.LISTING_FENCE_END,
-    
-    literal_open: $ => $.LITERAL_FENCE_START,
-    literal_close: $ => $.LITERAL_FENCE_END,
-    
-    quote_open: $ => $.QUOTE_FENCE_START,
-    quote_close: $ => $.QUOTE_FENCE_END,
-    
-    sidebar_open: $ => $.SIDEBAR_FENCE_START,
-    sidebar_close: $ => $.SIDEBAR_FENCE_END,
-    
-    passthrough_open: $ => $.PASSTHROUGH_FENCE_START,
-    passthrough_close: $ => $.PASSTHROUGH_FENCE_END,
-    
-    openblock_open: $ => $.OPENBLOCK_FENCE_START,
-    openblock_close: $ => $.OPENBLOCK_FENCE_END,
-    
-    // Block metadata
-    metadata: $ => prec.right(repeat1(choice(
-      $.anchor,
-      $.block_title,
-      $.id_and_roles,
-      $.block_attributes
-    ))),
-    
-    block_title: $ => token(/\.[^\r\n]+\r?\n/),
-    id_and_roles: $ => prec.right(token(/\[\s*(?:#[A-Za-z][\w:-]*)?(?:\s*\.[A-Za-z0-9_-]+)*\s*\]\s*\r?\n/)),
-    block_attributes: $ => prec.right(token(/\[[^\]\r\n]+\]\s*\r?\n/)),
-    
-    // ========================================================================
     // ATTRIBUTE ENTRIES
     // ========================================================================
     
@@ -518,15 +372,7 @@ module.exports = grammar({
     admonition_block: $ => prec(PREC.ADMONITION, seq(
       field('label', $.admonition_block_label),
       $._newline,
-      choice(
-        $.example_block,
-        $.listing_block,
-        $.literal_block,
-        $.quote_block,
-        $.sidebar_block,
-        $.passthrough_block,
-        $.open_block
-      )
+      repeat1($.paragraph)
     )),
     
     admonition_block_label: $ => alias(token(seq(
@@ -534,129 +380,17 @@ module.exports = grammar({
       choice('NOTE', 'TIP', 'IMPORTANT', 'WARNING', 'CAUTION'),
       ']'
     )), $.admonition_label),
+
+    metadata: $ => prec.right(repeat1(choice(
+      $.anchor,
+      $.block_title,
+      $.id_and_roles,
+      $.block_attributes
+    ))),
     
-    // ========================================================================
-    // LISTS
-    // ========================================================================
-    
-    // Unordered list - group consecutive list items using right associativity
-    unordered_list: $ => prec.right(repeat1($.unordered_list_item)),
-    
-    // Each list item consumes its own line ending
-    unordered_list_item: $ => prec(PREC.LIST, seq(
-      $._LIST_UNORDERED_MARKER,  // Hidden from AST (e.g., "*" or "-")
-      token.immediate(prec(1, /[ \t]+/)), // Consume required whitespace after marker
-      field('content', $._list_item_content),
-      $._newline
-    )),
-    
-    // List item content - just the inline text without newlines
-    _list_item_content: $ => $.text_with_inlines,
-    
-    // Ordered list - group consecutive list items using right associativity
-    ordered_list: $ => prec.right(repeat1($.ordered_list_item)),
-    
-    ordered_list_item: $ => prec(PREC.LIST, seq(
-      $._LIST_ORDERED_MARKER,    // Hidden from AST (e.g., "1.")
-      token.immediate(prec(1, /[ \t]+/)), // Consume required whitespace after marker
-      field('content', $._list_item_content),
-      $._newline
-    )),
-    
-    // Description list
-    description_list: $ => prec(PREC.LIST, repeat1($.description_item)),
-    
-    description_item: $ => prec(PREC.LIST, seq(
-      $._DESCRIPTION_LIST_ITEM   // Hidden scanner token that captures entire line
-    )),
-    
-    // Callout list
-    callout_list: $ => prec(PREC.LIST, repeat1($.callout_item)),
-    
-    callout_item: $ => seq(
-      field('marker', $.CALLOUT_MARKER), // e.g., "<1>"
-      token.immediate(prec(1, /[ \t]+/)), // Consume required whitespace after marker
-      field('content', $.text_with_inlines),
-      $._newline
-    ),
-    
-    // ========================================================================
-    // CONDITIONAL BLOCKS
-    // ========================================================================
-    
-    conditional_block: $ => prec(PREC.CONDITIONAL + 10, choice(
-      $.ifdef_block,
-      $.ifndef_block,
-      $.ifeval_block
-    )),
-    
-    ifdef_block: $ => prec.right(seq(
-      field('open', $.ifdef_open),
-      repeat($._block),
-      field('close', $.endif_directive)
-    )),
-    
-    ifndef_block: $ => prec.right(seq(
-      field('open', $.ifndef_open),
-      repeat($._block),
-      field('close', $.endif_directive)
-    )),
-    
-    ifeval_block: $ => prec.right(seq(
-      field('open', $.ifeval_open),
-      repeat($._block),
-      field('close', $.endif_directive)
-    )),
-    
-    // Strict regex-based conditional directives (avoid permissive matches)
-    // ifdef/ifndef require empty brackets [] and attribute list before '['
-    ifdef_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifdef::[A-Za-z0-9_,\-]*\[\][ \t]*\r?\n/)),
-    ifndef_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifndef::[A-Za-z0-9_,\-]*\[\][ \t]*\r?\n/)),
-    // ifeval allows an expression inside brackets
-    ifeval_open: $ => token(prec(PREC.CONDITIONAL + 20, /ifeval::\[[^\]\r\n]*\][ \t]*\r?\n/)),
-    // endif requires empty brackets []
-    endif_directive: $ => token(prec(PREC.CONDITIONAL + 20, /endif::\[\][ \t]*\r?\n/)),
-    
-    // ========================================================================
-    // TABLE BLOCKS
-    // ========================================================================
-    
-    table_block: $ => prec(PREC.PARAGRAPH - 20, seq(
-      optional($.metadata),
-      field('open', $.table_open),
-      optional(field('content', choice(
-        $.table_content,
-        repeat($.table_row)
-      ))),
-      field('close', $.table_close)
-    )),
-    
-    table_open: $ => $.TABLE_FENCE_START,
-    table_close: $ => $.TABLE_FENCE_END,
-    
-    table_content: $ => repeat1($.content_line),
-    
-    table_row: $ => seq(
-      repeat1($.table_cell),
-      $._newline
-    ),
-    
-    table_cell: $ => seq(
-      '|',
-      optional($.cell_spec),
-      optional(field('content', $.cell_content))
-    ),
-    
-    cell_spec: $ => choice(
-      $.span_spec,
-      $.format_spec,
-      seq($.span_spec, $.format_spec)
-    ),
-    
-    span_spec: $ => token(/[0-9]+\*[0-9]*|[0-9]*\+[0-9]*/),
-    format_spec: $ => token(/[aehlsmdv]/),
-    
-    cell_content: $ => token(/[^|\r\n]*/),
+    block_title: $ => token(/\.[^\r\n]+\r?\n/),
+    id_and_roles: $ => prec.right(token(/\[\s*(?:#[A-Za-z][\w:-]*)?(?:\s*\.[A-Za-z0-9_-]+)*\s*\]\s*\r?\n/)),
+    block_attributes: $ => prec.right(token(/\[[^\]\r\n]+\]\s*\r?\n/)),
     
     // ========================================================================
     // MISSING INLINE CONSTRUCTS

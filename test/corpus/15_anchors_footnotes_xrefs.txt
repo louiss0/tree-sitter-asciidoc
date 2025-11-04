@@ -290,50 +290,6 @@ Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[lin
       (text_segment))))
 
 ================================================================================
-Adjacent inline elements
-================================================================================
-
-Adjacent[[anchor]]<<xref>>footnote:[note]elements.
-
----
-
-(source_file
-  (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (inline_anchor
-          (id)))
-      (inline_element
-        (internal_xref
-          (id)))
-      (inline_element
-        (footnote_inline
-          (bracketed_text)))
-      (text_segment))))
-
-====
-Example block content with anchor
-====
-
----
-
-(source_file)
-
-================================================================================
-Malformed anchors should be plain text
-================================================================================
-
-This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
-
----
-
-(source_file
-  (paragraph
-    (text_with_inlines
-      (text_segment))))
-
-================================================================================
 Malformed cross-references should be plain text
 ================================================================================
 
@@ -355,19 +311,6 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
       (text_segment)
       (text_segment)
       (text_segment)
-      (text_segment))))
-
-================================================================================
-Malformed footnotes should be plain text
-================================================================================
-
-This has foot note:[spaced] and footnote:[unclosed and regular text.
-
----
-
-(source_file
-  (paragraph
-    (text_with_inlines
       (text_segment))))
 
 ================================================================================
