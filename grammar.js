@@ -963,9 +963,9 @@ module.exports = grammar({
     ),
     
     // Keep as tokens to avoid parsing conflicts but allow separate node types
-    stem_inline: $ => token(seq('stem:[', /[^\]\r\n]+/, ']')),
-    latexmath_inline: $ => token(seq('latexmath:[', /[^\]\r\n]+/, ']')),
-    asciimath_inline: $ => token(seq('asciimath:[', /[^\]\r\n]+/, ']')),
+    stem_inline: $ => seq('stem:[', /[^\]\r\n]+/, ']'),
+    latexmath_inline: $ => seq('latexmath:[', /[^\]\r\n]+/, ']'),
+    asciimath_inline: $ => seq('asciimath:[', /[^\]\r\n]+/, ']'),
 
     // UI MACROS
     ui_macro: $ => choice(
@@ -1121,8 +1121,9 @@ module.exports = grammar({
 
     cell_literal_text: $ => /[^|\r\n]*/,
 
-    // LINE BREAKS
+    // LINE BREAKS - hard line break: " +" at end of line
     line_break: $ => token(prec(2, seq(
+      ' ',
       '+',
       /\r?\n/
     ))),

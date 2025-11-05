@@ -81,6 +81,11 @@
     }
   },
   {
+    "type": "asciimath_inline",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "attribute_entry",
     "named": true,
     "fields": {
@@ -1068,6 +1073,11 @@
   },
   {
     "type": "internal_xref",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "latexmath_inline",
     "named": true,
     "fields": {}
   },
@@ -2650,6 +2660,11 @@
     }
   },
   {
+    "type": "stem_inline",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "strong",
     "named": true,
     "fields": {
@@ -3326,8 +3341,8 @@
     "named": true
   },
   {
-    "type": "asciimath_inline",
-    "named": true
+    "type": "asciimath:[",
+    "named": false
   },
   {
     "type": "attribute_reference",
@@ -3430,8 +3445,8 @@
     "named": false
   },
   {
-    "type": "latexmath_inline",
-    "named": true
+    "type": "latexmath:[",
+    "named": false
   },
   {
     "type": "line_break",
@@ -3482,8 +3497,8 @@
     "named": true
   },
   {
-    "type": "stem_inline",
-    "named": true
+    "type": "stem:[",
+    "named": false
   },
   {
     "type": "subscript_text",
