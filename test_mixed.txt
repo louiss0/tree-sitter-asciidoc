@@ -1,9 +1,0 @@
-:author: Bob
-
-First paragraph
-
-:version: 2.0
-
-= Section Title
-
-More content

@@ -1,7 +1,0 @@
-= Links and Anchors Test
-
-== Auto Links
-
-Visit https://asciidoctor.org for more information.
-
-Check out http://example.com/path?param=value for examples.

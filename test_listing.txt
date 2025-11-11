@@ -1,5 +1,0 @@
-----
-def hello():
-    print("Hello world")
-line with ---- not at beginning
-----

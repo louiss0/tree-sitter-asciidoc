@@ -1,6 +1,0 @@
-|===
-|h|Header
-|a|AsciiDoc content
-|Regular content
-|2+|Spanning content  
-|===

@@ -1,7 +1,0 @@
-:author: Alice
-:version: 1.2.3
-:imagesdir:
-
-= Document Title
-
-Some content here.

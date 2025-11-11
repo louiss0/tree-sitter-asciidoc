@@ -1,7 +1,0 @@
-Text with period.
-
-Another line.
-
-xref:file.adoc[] with period.
-
-*bold* with period.

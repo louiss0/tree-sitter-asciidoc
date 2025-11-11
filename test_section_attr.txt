@@ -1,4 +1,0 @@
-= Main Section
-:version: 1.0
-
-First paragraph
