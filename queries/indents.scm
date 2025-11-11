@@ -3,16 +3,15 @@
 ; Increase indent for content within blocks
 [
   (example_block)
-  (listing_block) 
+  (listing_block)
   (literal_block)
   (asciidoc_blockquote)
-  (markdown_blockquote)
   (sidebar_block)
   (passthrough_block)
   (open_block)
 ] @indent
 
-; Increase indent for table content  
+; Increase indent for table content
 (table_block
   (table_content) @indent)
 
@@ -20,7 +19,7 @@
 [
   (unordered_list_item)
   (ordered_list_item)
-  (description_item)  
+  (description_item)
   (callout_item)
 ] @indent
 
@@ -28,7 +27,7 @@
 (list_item_continuation) @indent
 
 ; Increase indent for section content
-(section 
+(section
   (_ (_)*) @indent)
 
 ; Increase indent for conditional block content
@@ -38,7 +37,7 @@
 [
   (example_close)
   (listing_close)
-  (literal_close) 
+  (literal_close)
   (asciidoc_blockquote_close)
   (sidebar_close)
   (passthrough_close)

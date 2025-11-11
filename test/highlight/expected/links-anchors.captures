@@ -1,176 +1,416 @@
-﻿C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\links-anchors.adoc
 C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\links-anchors.adoc
-    pattern:  0, capture: 0 - markup.heading, start: (0, 2), end: (0, 24), text: `Links and Anchors Test`
-    pattern: 116, capture: 29 - text.title, start: (0, 2), end: (0, 24), text: `Links and Anchors Test`
-    pattern:  0, capture: 0 - markup.heading, start: (2, 3), end: (2, 13), text: `Auto Links`
-    pattern: 116, capture: 29 - text.title, start: (2, 3), end: (2, 13), text: `Auto Links`
-    pattern: 108, capture: 25 - none, start: (4, 0), end: (4, 5), text: `Visit`
-    pattern: 31, capture: 10 - markup.link.url, start: (4, 5), end: (4, 29), text: ` https://asciidoctor.org`
-    pattern: 108, capture: 25 - none, start: (4, 29), end: (4, 33), text: ` for`
-    pattern: 108, capture: 25 - none, start: (4, 33), end: (4, 38), text: ` more`
-    pattern: 108, capture: 25 - none, start: (4, 38), end: (4, 51), text: ` information.`
-    pattern: 108, capture: 25 - none, start: (6, 0), end: (6, 5), text: `Check`
-    pattern: 108, capture: 25 - none, start: (6, 5), end: (6, 9), text: ` out`
-    pattern: 31, capture: 10 - markup.link.url, start: (6, 9), end: (6, 33), text: ` http://example.com/path`
-    pattern: 108, capture: 25 - none, start: (6, 33), end: (6, 45), text: `?param=value`
-    pattern: 108, capture: 25 - none, start: (6, 45), end: (6, 49), text: ` for`
-    pattern: 108, capture: 25 - none, start: (6, 49), end: (6, 59), text: ` examples.`
-    pattern:  0, capture: 0 - markup.heading, start: (8, 3), end: (8, 14), text: `Link Macros`
-    pattern: 116, capture: 29 - text.title, start: (8, 3), end: (8, 14), text: `Link Macros`
-    pattern: 108, capture: 25 - none, start: (10, 0), end: (10, 5), text: `Check`
-    pattern: 108, capture: 25 - none, start: (10, 5), end: (10, 9), text: ` out`
-    pattern: 35, capture: 12 - function.macro, start: (10, 9), end: (10, 67), text: ` link:https://docs.asciidoctor.org[AsciiDoc Documentation]`
-    pattern: 99, capture: 12 - function.macro, start: (10, 9), end: (10, 67), text: ` link:https://docs.asciidoctor.org[AsciiDoc Documentation]`
-    pattern: 36, capture: 12 - function.macro, start: (10, 9), end: (10, 67), text: ` link:https://docs.asciidoctor.org[AsciiDoc Documentation]`
-    pattern: 100, capture: 12 - function.macro, start: (10, 9), end: (10, 67), text: ` link:https://docs.asciidoctor.org[AsciiDoc Documentation]`
-    pattern: 108, capture: 25 - none, start: (10, 67), end: (10, 71), text: ` for`
-    pattern: 108, capture: 25 - none, start: (10, 71), end: (10, 80), text: ` details.`
-    pattern: 108, capture: 25 - none, start: (12, 0), end: (12, 8), text: `Download`
-    pattern: 108, capture: 25 - none, start: (12, 8), end: (12, 12), text: ` the`
-    pattern: 35, capture: 12 - function.macro, start: (12, 12), end: (12, 47), text: ` link:files/manual.pdf[User Manual]`
-    pattern: 99, capture: 12 - function.macro, start: (12, 12), end: (12, 47), text: ` link:files/manual.pdf[User Manual]`
-    pattern: 36, capture: 12 - function.macro, start: (12, 12), end: (12, 47), text: ` link:files/manual.pdf[User Manual]`
-    pattern: 100, capture: 12 - function.macro, start: (12, 12), end: (12, 47), text: ` link:files/manual.pdf[User Manual]`
-    pattern: 108, capture: 25 - none, start: (12, 47), end: (12, 54), text: ` (PDF).`
-    pattern:  0, capture: 0 - markup.heading, start: (14, 3), end: (14, 10), text: `Anchors`
-    pattern: 116, capture: 29 - text.title, start: (14, 3), end: (14, 10), text: `Anchors`
-    pattern: 37, capture: 13 - label, start: (16, 2), end: (16, 13), text: `section-one`
-    pattern:  0, capture: 0 - markup.heading, start: (17, 3), end: (17, 16), text: `First Section`
-    pattern: 116, capture: 29 - text.title, start: (17, 3), end: (17, 16), text: `First Section`
-    pattern: 108, capture: 25 - none, start: (19, 0), end: (19, 4), text: `This`
-    pattern: 108, capture: 25 - none, start: (19, 4), end: (19, 12), text: ` section`
-    pattern: 108, capture: 25 - none, start: (19, 12), end: (19, 16), text: ` has`
-    pattern: 108, capture: 25 - none, start: (19, 16), end: (19, 19), text: ` an`
-    pattern: 108, capture: 25 - none, start: (19, 19), end: (19, 27), text: ` anchor.`
-    pattern: 37, capture: 13 - label, start: (21, 2), end: (21, 15), text: `custom-anchor`
-    pattern: 38, capture: 14 - markup.link.label, start: (21, 16), end: (21, 34), text: `Custom Anchor Text`
-    pattern:  0, capture: 0 - markup.heading, start: (22, 3), end: (22, 29), text: `Section with Custom Anchor`
-    pattern: 116, capture: 29 - text.title, start: (22, 3), end: (22, 29), text: `Section with Custom Anchor`
-    pattern: 108, capture: 25 - none, start: (24, 0), end: (24, 4), text: `This`
-    pattern: 108, capture: 25 - none, start: (24, 4), end: (24, 12), text: ` section`
-    pattern: 108, capture: 25 - none, start: (24, 12), end: (24, 16), text: ` has`
-    pattern: 108, capture: 25 - none, start: (24, 16), end: (24, 19), text: ` an`
-    pattern: 108, capture: 25 - none, start: (24, 19), end: (24, 26), text: ` anchor`
-    pattern: 108, capture: 25 - none, start: (24, 26), end: (24, 31), text: ` with`
-    pattern: 108, capture: 25 - none, start: (24, 31), end: (24, 38), text: ` custom`
-    pattern: 108, capture: 25 - none, start: (24, 38), end: (24, 44), text: ` text.`
-    pattern:  0, capture: 0 - markup.heading, start: (26, 3), end: (26, 28), text: `Internal Cross References`
-    pattern: 116, capture: 29 - text.title, start: (26, 3), end: (26, 28), text: `Internal Cross References`
-    pattern: 108, capture: 25 - none, start: (28, 0), end: (28, 3), text: `See`
-    pattern: 32, capture: 11 - markup.link, start: (28, 3), end: (28, 19), text: ` <<section-one>>`
-    pattern: 108, capture: 25 - none, start: (28, 19), end: (28, 23), text: ` for`
-    pattern: 108, capture: 25 - none, start: (28, 23), end: (28, 28), text: ` more`
-    pattern: 108, capture: 25 - none, start: (28, 28), end: (28, 37), text: ` details.`
-    pattern: 108, capture: 25 - none, start: (30, 0), end: (30, 5), text: `Refer`
-    pattern: 108, capture: 25 - none, start: (30, 5), end: (30, 8), text: ` to`
-    pattern: 32, capture: 11 - markup.link, start: (30, 8), end: (30, 45), text: ` <<custom-anchor,the custom section>>`
-    pattern: 108, capture: 25 - none, start: (30, 45), end: (30, 46), text: `.`
-    pattern:  0, capture: 0 - markup.heading, start: (32, 3), end: (32, 28), text: `External Cross References`
-    pattern: 116, capture: 29 - text.title, start: (32, 3), end: (32, 28), text: `External Cross References`
-    pattern: 108, capture: 25 - none, start: (34, 0), end: (34, 3), text: `See`
-    pattern: 33, capture: 12 - function.macro, start: (34, 3), end: (34, 55), text: ` xref:other-doc.adoc#section[Other Document Section]`
-    pattern: 101, capture: 12 - function.macro, start: (34, 3), end: (34, 55), text: ` xref:other-doc.adoc#section[Other Document Section]`
-    pattern: 108, capture: 25 - none, start: (34, 55), end: (34, 56), text: `.`
-    pattern: 108, capture: 25 - none, start: (36, 0), end: (36, 5), text: `Check`
-    pattern: 33, capture: 12 - function.macro, start: (36, 5), end: (36, 33), text: ` xref:guide.adoc[User Guide]`
-    pattern: 101, capture: 12 - function.macro, start: (36, 5), end: (36, 33), text: ` xref:guide.adoc[User Guide]`
-    pattern: 108, capture: 25 - none, start: (36, 33), end: (36, 37), text: ` for`
-    pattern: 108, capture: 25 - none, start: (36, 37), end: (36, 46), text: ` complete`
-    pattern: 108, capture: 25 - none, start: (36, 46), end: (36, 59), text: ` information.`
-    pattern:  0, capture: 0 - markup.heading, start: (38, 3), end: (38, 17), text: `Inline Anchors`
-    pattern: 116, capture: 29 - text.title, start: (38, 3), end: (38, 17), text: `Inline Anchors`
-    pattern: 108, capture: 25 - none, start: (40, 0), end: (40, 4), text: `This`
-    pattern: 108, capture: 25 - none, start: (40, 4), end: (40, 14), text: ` paragraph`
-    pattern: 108, capture: 25 - none, start: (40, 14), end: (40, 18), text: ` has`
-    pattern: 108, capture: 25 - none, start: (40, 18), end: (40, 21), text: ` an`
-    pattern: 39, capture: 13 - label, start: (40, 21), end: (40, 39), text: ` [[inline-anchor]]`
-    pattern: 108, capture: 25 - none, start: (40, 39), end: (40, 45), text: `inline`
-    pattern: 108, capture: 25 - none, start: (40, 45), end: (40, 53), text: ` anchor.`
-    pattern: 108, capture: 25 - none, start: (42, 0), end: (42, 3), text: `You`
-    pattern: 108, capture: 25 - none, start: (42, 3), end: (42, 7), text: ` can`
-    pattern: 108, capture: 25 - none, start: (42, 7), end: (42, 17), text: ` reference`
-    pattern: 108, capture: 25 - none, start: (42, 17), end: (42, 21), text: ` the`
-    pattern: 39, capture: 13 - label, start: (42, 21), end: (42, 57), text: ` [[another-anchor,descriptive text]]`
-    pattern: 108, capture: 25 - none, start: (42, 57), end: (42, 63), text: `anchor`
-    pattern: 108, capture: 25 - none, start: (42, 63), end: (42, 70), text: ` later.`
-    pattern:  0, capture: 0 - markup.heading, start: (44, 3), end: (44, 26), text: `Bibliography References`
-    pattern: 116, capture: 29 - text.title, start: (44, 3), end: (44, 26), text: `Bibliography References`
-    pattern: 94, capture: 4 - attribute, start: (46, 0), end: (47, 0), text: `[bibliography]
-`
-    pattern: 108, capture: 25 - none, start: (47, 0), end: (47, 2), text: `==`
-    pattern: 108, capture: 25 - none, start: (47, 2), end: (47, 13), text: ` References`
-    pattern: 108, capture: 25 - none, start: (49, 0), end: (49, 1), text: `-`
-    pattern: 83, capture: 13 - label, start: (49, 5), end: (49, 9), text: `ref1`
-    pattern: 85, capture: 5 - string, start: (49, 13), end: (49, 49), text: `Smith, John. _AsciiDoc Guide_. 2023.`
-    pattern: 108, capture: 25 - none, start: (50, 0), end: (50, 1), text: `-`
-    pattern: 83, capture: 13 - label, start: (50, 5), end: (50, 9), text: `ref2`
-    pattern: 84, capture: 5 - string, start: (50, 10), end: (50, 21), text: ` Smith 2023`
-    pattern: 85, capture: 5 - string, start: (50, 25), end: (50, 83), text: `Smith, John. _Advanced AsciiDoc_. Tech Publications. 2023.`
-    pattern:  0, capture: 0 - markup.heading, start: (52, 3), end: (52, 12), text: `Citations`
-    pattern: 116, capture: 29 - text.title, start: (52, 3), end: (52, 12), text: `Citations`
-    pattern: 108, capture: 25 - none, start: (54, 0), end: (54, 8), text: `Citation`
-    pattern: 108, capture: 25 - none, start: (54, 8), end: (54, 16), text: ` example`
-    pattern: 109, capture: 25 - none, start: (54, 16), end: (54, 17), text: `:`
-    pattern: 108, capture: 25 - none, start: (54, 17), end: (54, 21), text: ` See`
-    pattern: 32, capture: 11 - markup.link, start: (54, 21), end: (54, 30), text: ` <<ref1>>`
-    pattern: 108, capture: 25 - none, start: (54, 30), end: (54, 34), text: ` for`
-    pattern: 108, capture: 25 - none, start: (54, 34), end: (54, 39), text: ` more`
-    pattern: 108, capture: 25 - none, start: (54, 39), end: (54, 48), text: ` details.`
-    pattern: 108, capture: 25 - none, start: (56, 0), end: (56, 7), text: `Another`
-    pattern: 108, capture: 25 - none, start: (56, 7), end: (56, 16), text: ` citation`
-    pattern: 109, capture: 25 - none, start: (56, 16), end: (56, 17), text: `:`
-    pattern: 108, capture: 25 - none, start: (56, 17), end: (56, 20), text: ` As`
-    pattern: 108, capture: 25 - none, start: (56, 20), end: (56, 26), text: ` noted`
-    pattern: 108, capture: 25 - none, start: (56, 26), end: (56, 29), text: ` in`
-    pattern: 32, capture: 11 - markup.link, start: (56, 29), end: (56, 38), text: ` <<ref2>>`
-    pattern: 108, capture: 25 - none, start: (56, 38), end: (56, 39), text: `,`
-    pattern: 108, capture: 25 - none, start: (56, 39), end: (56, 43), text: ` the`
-    pattern: 108, capture: 25 - none, start: (56, 43), end: (56, 50), text: ` syntax`
-    pattern: 108, capture: 25 - none, start: (56, 50), end: (56, 53), text: ` is`
-    pattern: 108, capture: 25 - none, start: (56, 53), end: (56, 63), text: ` flexible.`
-    pattern:  0, capture: 0 - markup.heading, start: (58, 3), end: (58, 24), text: `Complex Link Examples`
-    pattern: 116, capture: 29 - text.title, start: (58, 3), end: (58, 24), text: `Complex Link Examples`
-    pattern: 108, capture: 25 - none, start: (60, 0), end: (60, 3), text: `The`
-    pattern: 35, capture: 12 - function.macro, start: (60, 3), end: (60, 64), text: ` link:++https://example.com/path?q=link%20text++[complex URL]`
-    pattern: 99, capture: 12 - function.macro, start: (60, 3), end: (60, 64), text: ` link:++https://example.com/path?q=link%20text++[complex URL]`
-    pattern: 36, capture: 12 - function.macro, start: (60, 3), end: (60, 64), text: ` link:++https://example.com/path?q=link%20text++[complex URL]`
-    pattern: 100, capture: 12 - function.macro, start: (60, 3), end: (60, 64), text: ` link:++https://example.com/path?q=link%20text++[complex URL]`
-    pattern: 108, capture: 25 - none, start: (60, 64), end: (60, 70), text: ` needs`
-    pattern: 108, capture: 25 - none, start: (60, 70), end: (60, 80), text: ` encoding.`
-    pattern: 108, capture: 25 - none, start: (62, 0), end: (62, 5), text: `Email`
-    pattern: 35, capture: 12 - function.macro, start: (62, 5), end: (62, 55), text: ` link: mailto:support@example.com[Contact Support]`
-    pattern: 99, capture: 12 - function.macro, start: (62, 5), end: (62, 55), text: ` link: mailto:support@example.com[Contact Support]`
-    pattern: 36, capture: 12 - function.macro, start: (62, 5), end: (62, 55), text: ` link: mailto:support@example.com[Contact Support]`
-    pattern: 100, capture: 12 - function.macro, start: (62, 5), end: (62, 55), text: ` link: mailto:support@example.com[Contact Support]`
-    pattern:  0, capture: 0 - markup.heading, start: (64, 3), end: (64, 16), text: `Mixed Content`
-    pattern: 116, capture: 29 - text.title, start: (64, 3), end: (64, 16), text: `Mixed Content`
-    pattern: 108, capture: 25 - none, start: (66, 0), end: (66, 5), text: `Visit`
-    pattern: 108, capture: 25 - none, start: (66, 5), end: (66, 9), text: ` the`
-    pattern: 35, capture: 12 - function.macro, start: (66, 9), end: (66, 54), text: ` https://asciidoctor.org[Asciidoctor website]`
-    pattern: 99, capture: 12 - function.macro, start: (66, 9), end: (66, 54), text: ` https://asciidoctor.org[Asciidoctor website]`
-    pattern: 31, capture: 10 - markup.link.url, start: (66, 9), end: (66, 33), text: ` https://asciidoctor.org`
-    pattern: 108, capture: 25 - none, start: (66, 54), end: (66, 58), text: ` for`
-    pattern: 108, capture: 25 - none, start: (66, 58), end: (66, 62), text: ` the`
-    pattern: 35, capture: 12 - function.macro, start: (67, 0), end: (67, 72), text: `link:https://docs.asciidoctor.org/asciidoc/latest/[latest documentation]`
-    pattern: 99, capture: 12 - function.macro, start: (67, 0), end: (67, 72), text: `link:https://docs.asciidoctor.org/asciidoc/latest/[latest documentation]`
-    pattern: 36, capture: 12 - function.macro, start: (67, 0), end: (67, 72), text: `link:https://docs.asciidoctor.org/asciidoc/latest/[latest documentation]`
-    pattern: 100, capture: 12 - function.macro, start: (67, 0), end: (67, 72), text: `link:https://docs.asciidoctor.org/asciidoc/latest/[latest documentation]`
-    pattern: 108, capture: 25 - none, start: (67, 72), end: (67, 73), text: `.`
-    pattern: 108, capture: 25 - none, start: (69, 0), end: (69, 3), text: `See`
-    pattern: 32, capture: 11 - markup.link, start: (69, 3), end: (69, 33), text: ` <<section-one,First Section>>`
-    pattern: 108, capture: 25 - none, start: (69, 33), end: (69, 37), text: ` and`
-    pattern: 32, capture: 11 - markup.link, start: (69, 37), end: (69, 55), text: ` <<custom-anchor>>`
-    pattern: 108, capture: 25 - none, start: (69, 55), end: (69, 59), text: ` for`
-    pattern: 108, capture: 25 - none, start: (69, 59), end: (69, 69), text: ` examples.`
-    pattern: 108, capture: 25 - none, start: (71, 0), end: (71, 3), text: `You`
-    pattern: 108, capture: 25 - none, start: (71, 3), end: (71, 7), text: ` can`
-    pattern: 108, capture: 25 - none, start: (71, 7), end: (71, 12), text: ` also`
-    pattern: 108, capture: 25 - none, start: (71, 12), end: (71, 18), text: ` check`
-    pattern: 62, capture: 19 - operator, start: (71, 34), end: (71, 35), text: `l`
-    pattern: 108, capture: 25 - none, start: (71, 35), end: (71, 39), text: `ocal`
-    pattern: 108, capture: 25 - none, start: (71, 39), end: (71, 50), text: ` references`
-    pattern: 108, capture: 25 - none, start: (71, 50), end: (71, 54), text: ` and`
-    pattern: 108, capture: 25 - none, start: (71, 54), end: (71, 59), text: ` cite`
-    pattern: 108, capture: 25 - none, start: (71, 59), end: (71, 64), text: ` them`
-    pattern: 32, capture: 11 - markup.link, start: (71, 64), end: (71, 78), text: ` <<local-ref>>`
-    pattern: 108, capture: 25 - none, start: (71, 78), end: (71, 79), text: `.`
+pattern: 124, capture: 36 - none, start: (0, 0), end: (71, 79), text: `= Links and Anchors Test
+
+== Auto Links
+
+Visit https://asciidoctor.org for more information.
+
+Check out http://example.com/path?param=value for examples.
+
+== Link Macros
+
+Check out link:https://docs.asciidoctor.org[AsciiDoc Documentation] for details.
+
+Download the link:files/manual.pdf[User Manual] (PDF).
+
+== Anchors
+
+[[section-one]]
+== First Section
+
+This section has an anchor.
+
+[[custom-anchor,Custom Anchor Text]]
+== Section with Custom Anchor
+
+This section has an anchor with custom text.
+
+== Internal Cross References
+
+See <<section-one>> for more details.
+
+Refer to <<custom-anchor,the custom section>>.
+
+== External Cross References
+
+See xref:other-doc.adoc#section[Other Document Section].
+
+Check xref:guide.adoc[User Guide] for complete information.
+
+== Inline Anchors
+
+This paragraph has an [[inline-anchor]]inline anchor.
+
+You can reference the [[another-anchor,descriptive text]]anchor later.
+
+== Bibliography References
+
+[bibliography]
+== References
+
+- [[[ref1]]] Smith, John. _AsciiDoc Guide_. 2023.
+- [[[ref2, Smith 2023]]] Smith, John. _Advanced AsciiDoc_. Tech Publications. 2023.
+
+== Citations
+
+Citation example: See <<ref1>> for more details.
+
+nother citation: As noted in <<ref2>>, the syntax is flexible.
+
+== Complex Link Examples
+
+The link:++https://example.com/path?q=link%20text++[complex URL] needs encoding.
+
+Email link: mailto:support@example.com[Contact Support]
+
+== Mixed Content
+
+Visit the https://asciidoctor.org[Asciidoctor website] for the
+link:https://docs.asciidoctor.org/asciidoc/latest/[latest documentation].
+
+See <<section-one,First Section>> and <<custom-anchor>> for examples.
+
+You can also check [[[local-ref]]]local references and cite them <<local-ref>>.`
+pattern: 0, capture: 0 - markup.heading, start: (0, 0), end: (71, 79), text: `= Links and Anchors Test
+
+== Auto Links
+
+Visit https://asciidoctor.org for more information.
+
+Check out http://example.com/path?param=value for examples.
+
+== Link Macros
+
+Check out link:https://docs.asciidoctor.org[AsciiDoc Documentation] for details.
+
+Download the link:files/manual.pdf[User Manual] (PDF).
+
+== Anchors
+
+[[section-one]]
+== First Section
+
+This section has an anchor.
+
+[[custom-anchor,Custom Anchor Text]]
+== Section with Custom Anchor
+
+This section has an anchor with custom text.
+
+== Internal Cross References
+
+See <<section-one>> for more details.
+
+Refer to <<custom-anchor,the custom section>>.
+
+== External Cross References
+
+See xref:other-doc.adoc#section[Other Document Section].
+
+Check xref:guide.adoc[User Guide] for complete information.
+
+== Inline Anchors
+
+This paragraph has an [[inline-anchor]]inline anchor.
+
+You can reference the [[another-anchor,descriptive text]]anchor later.
+
+== Bibliography References
+
+[bibliography]
+== References
+
+- [[[ref1]]] Smith, John. _AsciiDoc Guide_. 2023.
+- [[[ref2, Smith 2023]]] Smith, John. _Advanced AsciiDoc_. Tech Publications. 2023.
+
+== Citations
+
+Citation example: See <<ref1>> for more details.
+
+nother citation: As noted in <<ref2>>, the syntax is flexible.
+
+== Complex Link Examples
+
+The link:++https://example.com/path?q=link%20text++[complex URL] needs encoding.
+
+Email link: mailto:support@example.com[Contact Support]
+
+== Mixed Content
+
+Visit the https://asciidoctor.org[Asciidoctor website] for the
+link:https://docs.asciidoctor.org/asciidoc/latest/[latest documentation].
+
+See <<section-one,First Section>> and <<custom-anchor>> for examples.
+
+You can also check [[[local-ref]]]local references and cite them <<local-ref>>.`
+pattern: 1, capture: 1 - markup.heading.1.marker, start: (0, 0), end: (0, 2), text: `= `
+pattern: 1, capture: 2 - markup.heading.1, start: (0, 2), end: (0, 24), text: `Links and Anchors Test`
+pattern: 7, capture: 0 - markup.heading, start: (0, 2), end: (0, 24), text: `Links and Anchors Test`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (2, 0), end: (2, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (2, 3), end: (2, 13), text: `Auto Links`
+pattern: 7, capture: 0 - markup.heading, start: (2, 3), end: (2, 13), text: `Auto Links`
+pattern: 126, capture: 30 - text, start: (4, 0), end: (5, 0), text: `Visit https://asciidoctor.org for more information.
+
+pattern: 128, capture: 30 - text, start: (4, 0), end: (4, 5), text: `Visit`
+pattern: 127, capture: 30 - text, start: (4, 5), end: (4, 29), text: ` https://asciidoctor.org`
+pattern: 28, capture: 17 - markup.link.url, start: (4, 5), end: (4, 29), text: ` https://asciidoctor.org`
+pattern: 128, capture: 30 - text, start: (4, 29), end: (4, 33), text: ` for`
+pattern: 128, capture: 30 - text, start: (4, 33), end: (4, 38), text: ` more`
+pattern: 128, capture: 30 - text, start: (4, 38), end: (4, 51), text: ` information.`
+pattern: 126, capture: 30 - text, start: (6, 0), end: (7, 0), text: `Check out http://example.com/path?param=value for examples.
+
+pattern: 128, capture: 30 - text, start: (6, 0), end: (6, 5), text: `Check`
+pattern: 128, capture: 30 - text, start: (6, 5), end: (6, 9), text: ` out`
+pattern: 127, capture: 30 - text, start: (6, 9), end: (6, 45), text: ` http://example.com/path?param=value`
+pattern: 28, capture: 17 - markup.link.url, start: (6, 9), end: (6, 45), text: ` http://example.com/path?param=value`
+pattern: 128, capture: 30 - text, start: (6, 45), end: (6, 49), text: ` for`
+pattern: 128, capture: 30 - text, start: (6, 49), end: (6, 59), text: ` examples.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (8, 0), end: (8, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (8, 3), end: (8, 14), text: `Link Macros`
+pattern: 7, capture: 0 - markup.heading, start: (8, 3), end: (8, 14), text: `Link Macros`
+pattern: 126, capture: 30 - text, start: (10, 0), end: (11, 0), text: `Check out link:https://docs.asciidoctor.org[AsciiDoc Documentation] for details.
+
+pattern: 128, capture: 30 - text, start: (10, 0), end: (10, 5), text: `Check`
+pattern: 128, capture: 30 - text, start: (10, 5), end: (10, 9), text: ` out`
+pattern: 127, capture: 30 - text, start: (10, 9), end: (10, 67), text: ` link:https://docs.asciidoctor.org[AsciiDoc Documentation]`
+pattern: 30, capture: 18 - markup.link, start: (10, 9), end: (10, 67), text: ` link:https://docs.asciidoctor.org[AsciiDoc Documentation]`
+pattern: 31, capture: 19 - markup.link.text, start: (10, 44), end: (10, 66), text: `AsciiDoc Documentation`
+pattern: 128, capture: 30 - text, start: (10, 67), end: (10, 71), text: ` for`
+pattern: 128, capture: 30 - text, start: (10, 71), end: (10, 80), text: ` details.`
+pattern: 126, capture: 30 - text, start: (12, 0), end: (13, 0), text: `Download the link:files/manual.pdf[User Manual] (PDF).
+
+pattern: 128, capture: 30 - text, start: (12, 0), end: (12, 8), text: `Download`
+pattern: 128, capture: 30 - text, start: (12, 8), end: (12, 12), text: ` the`
+pattern: 127, capture: 30 - text, start: (12, 12), end: (12, 47), text: ` link:files/manual.pdf[User Manual]`
+pattern: 30, capture: 18 - markup.link, start: (12, 12), end: (12, 47), text: ` link:files/manual.pdf[User Manual]`
+pattern: 31, capture: 19 - markup.link.text, start: (12, 35), end: (12, 46), text: `User Manual`
+pattern: 138, capture: 42 - punctuation.bracket, start: (12, 47), end: (12, 49), text: ` (`
+pattern: 128, capture: 30 - text, start: (12, 49), end: (12, 52), text: `PDF`
+pattern: 138, capture: 42 - punctuation.bracket, start: (12, 52), end: (12, 53), text: `)`
+pattern: 130, capture: 32 - punctuation, start: (12, 53), end: (12, 54), text: `.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (14, 0), end: (14, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (14, 3), end: (14, 10), text: `Anchors`
+pattern: 7, capture: 0 - markup.heading, start: (14, 3), end: (14, 10), text: `Anchors`
+pattern: 126, capture: 30 - text, start: (16, 0), end: (17, 0), text: `[[section-one]]
+
+pattern: 127, capture: 30 - text, start: (16, 0), end: (16, 15), text: `[[section-one]]`
+pattern: 34, capture: 20 - markup.link.label, start: (16, 0), end: (16, 15), text: `[[section-one]]`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (17, 0), end: (17, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (17, 3), end: (17, 16), text: `First Section`
+pattern: 7, capture: 0 - markup.heading, start: (17, 3), end: (17, 16), text: `First Section`
+pattern: 126, capture: 30 - text, start: (19, 0), end: (20, 0), text: `This section has an anchor.
+
+pattern: 128, capture: 30 - text, start: (19, 0), end: (19, 4), text: `This`
+pattern: 128, capture: 30 - text, start: (19, 4), end: (19, 12), text: ` section`
+pattern: 128, capture: 30 - text, start: (19, 12), end: (19, 16), text: ` has`
+pattern: 128, capture: 30 - text, start: (19, 16), end: (19, 19), text: ` an`
+pattern: 128, capture: 30 - text, start: (19, 19), end: (19, 27), text: ` anchor.`
+pattern: 126, capture: 30 - text, start: (21, 0), end: (22, 0), text: `[[custom-anchor,Custom Anchor Text]]
+
+pattern: 127, capture: 30 - text, start: (21, 0), end: (21, 36), text: `[[custom-anchor,Custom Anchor Text]]`
+pattern: 34, capture: 20 - markup.link.label, start: (21, 0), end: (21, 36), text: `[[custom-anchor,Custom Anchor Text]]`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (22, 0), end: (22, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (22, 3), end: (22, 29), text: `Section with Custom Anchor`
+pattern: 7, capture: 0 - markup.heading, start: (22, 3), end: (22, 29), text: `Section with Custom Anchor`
+pattern: 126, capture: 30 - text, start: (24, 0), end: (25, 0), text: `This section has an anchor with custom text.
+
+pattern: 128, capture: 30 - text, start: (24, 0), end: (24, 4), text: `This`
+pattern: 128, capture: 30 - text, start: (24, 4), end: (24, 12), text: ` section`
+pattern: 128, capture: 30 - text, start: (24, 12), end: (24, 16), text: ` has`
+pattern: 128, capture: 30 - text, start: (24, 16), end: (24, 19), text: ` an`
+pattern: 128, capture: 30 - text, start: (24, 19), end: (24, 26), text: ` anchor`
+pattern: 128, capture: 30 - text, start: (24, 26), end: (24, 31), text: ` with`
+pattern: 128, capture: 30 - text, start: (24, 31), end: (24, 38), text: ` custom`
+pattern: 128, capture: 30 - text, start: (24, 38), end: (24, 44), text: ` text.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (26, 0), end: (26, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (26, 3), end: (26, 28), text: `Internal Cross References`
+pattern: 7, capture: 0 - markup.heading, start: (26, 3), end: (26, 28), text: `Internal Cross References`
+pattern: 126, capture: 30 - text, start: (28, 0), end: (29, 0), text: `See <<section-one>> for more details.
+
+pattern: 128, capture: 30 - text, start: (28, 0), end: (28, 3), text: `See`
+pattern: 127, capture: 30 - text, start: (28, 3), end: (28, 19), text: ` <<section-one>>`
+pattern: 32, capture: 18 - markup.link, start: (28, 3), end: (28, 19), text: ` <<section-one>>`
+pattern: 128, capture: 30 - text, start: (28, 19), end: (28, 23), text: ` for`
+pattern: 128, capture: 30 - text, start: (28, 23), end: (28, 28), text: ` more`
+pattern: 128, capture: 30 - text, start: (28, 28), end: (28, 37), text: ` details.`
+pattern: 126, capture: 30 - text, start: (30, 0), end: (31, 0), text: `Refer to <<custom-anchor,the custom section>>.
+
+pattern: 128, capture: 30 - text, start: (30, 0), end: (30, 5), text: `Refer`
+pattern: 128, capture: 30 - text, start: (30, 5), end: (30, 8), text: ` to`
+pattern: 127, capture: 30 - text, start: (30, 8), end: (30, 46), text: ` <<custom-anchor,the custom section>>.`
+pattern: 32, capture: 18 - markup.link, start: (30, 8), end: (30, 46), text: ` <<custom-anchor,the custom section>>.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (32, 0), end: (32, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (32, 3), end: (32, 28), text: `External Cross References`
+pattern: 7, capture: 0 - markup.heading, start: (32, 3), end: (32, 28), text: `External Cross References`
+pattern: 126, capture: 30 - text, start: (34, 0), end: (35, 0), text: `See xref:other-doc.adoc#section[Other Document Section].
+
+pattern: 128, capture: 30 - text, start: (34, 0), end: (34, 3), text: `See`
+pattern: 127, capture: 30 - text, start: (34, 3), end: (34, 55), text: ` xref:other-doc.adoc#section[Other Document Section]`
+pattern: 33, capture: 18 - markup.link, start: (34, 3), end: (34, 55), text: ` xref:other-doc.adoc#section[Other Document Section]`
+pattern: 130, capture: 32 - punctuation, start: (34, 55), end: (34, 56), text: `.`
+pattern: 126, capture: 30 - text, start: (36, 0), end: (37, 0), text: `Check xref:guide.adoc[User Guide] for complete information.
+
+pattern: 128, capture: 30 - text, start: (36, 0), end: (36, 5), text: `Check`
+pattern: 127, capture: 30 - text, start: (36, 5), end: (36, 33), text: ` xref:guide.adoc[User Guide]`
+pattern: 33, capture: 18 - markup.link, start: (36, 5), end: (36, 33), text: ` xref:guide.adoc[User Guide]`
+pattern: 128, capture: 30 - text, start: (36, 33), end: (36, 37), text: ` for`
+pattern: 128, capture: 30 - text, start: (36, 37), end: (36, 46), text: ` complete`
+pattern: 128, capture: 30 - text, start: (36, 46), end: (36, 59), text: ` information.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (38, 0), end: (38, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (38, 3), end: (38, 17), text: `Inline Anchors`
+pattern: 7, capture: 0 - markup.heading, start: (38, 3), end: (38, 17), text: `Inline Anchors`
+pattern: 126, capture: 30 - text, start: (40, 0), end: (41, 0), text: `This paragraph has an [[inline-anchor]]inline anchor.
+
+pattern: 128, capture: 30 - text, start: (40, 0), end: (40, 4), text: `This`
+pattern: 128, capture: 30 - text, start: (40, 4), end: (40, 14), text: ` paragraph`
+pattern: 128, capture: 30 - text, start: (40, 14), end: (40, 18), text: ` has`
+pattern: 128, capture: 30 - text, start: (40, 18), end: (40, 21), text: ` an`
+pattern: 127, capture: 30 - text, start: (40, 21), end: (40, 39), text: ` [[inline-anchor]]`
+pattern: 34, capture: 20 - markup.link.label, start: (40, 21), end: (40, 39), text: ` [[inline-anchor]]`
+pattern: 128, capture: 30 - text, start: (40, 39), end: (40, 45), text: `inline`
+pattern: 128, capture: 30 - text, start: (40, 45), end: (40, 53), text: ` anchor.`
+pattern: 126, capture: 30 - text, start: (42, 0), end: (43, 0), text: `You can reference the [[another-anchor,descriptive text]]anchor later.
+
+pattern: 128, capture: 30 - text, start: (42, 0), end: (42, 3), text: `You`
+pattern: 128, capture: 30 - text, start: (42, 3), end: (42, 7), text: ` can`
+pattern: 128, capture: 30 - text, start: (42, 7), end: (42, 17), text: ` reference`
+pattern: 128, capture: 30 - text, start: (42, 17), end: (42, 21), text: ` the`
+pattern: 127, capture: 30 - text, start: (42, 21), end: (42, 57), text: ` [[another-anchor,descriptive text]]`
+pattern: 34, capture: 20 - markup.link.label, start: (42, 21), end: (42, 57), text: ` [[another-anchor,descriptive text]]`
+pattern: 128, capture: 30 - text, start: (42, 57), end: (42, 63), text: `anchor`
+pattern: 128, capture: 30 - text, start: (42, 63), end: (42, 70), text: ` later.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (44, 0), end: (44, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (44, 3), end: (44, 26), text: `Bibliography References`
+pattern: 7, capture: 0 - markup.heading, start: (44, 3), end: (44, 26), text: `Bibliography References`
+pattern: 126, capture: 30 - text, start: (46, 0), end: (48, 0), text: `[bibliography]
+== References
+
+pattern: 120, capture: 21 - attribute, start: (46, 0), end: (47, 0), text: `[bibliography]
+
+pattern: 121, capture: 21 - attribute, start: (46, 0), end: (47, 0), text: `[bibliography]
+
+pattern: 128, capture: 30 - text, start: (47, 0), end: (47, 2), text: `==`
+pattern: 128, capture: 30 - text, start: (47, 2), end: (47, 13), text: ` References`
+pattern: 43, capture: 24 - markup.list, start: (49, 0), end: (51, 0), text: `- [[[ref1]]] Smith, John. _AsciiDoc Guide_. 2023.
+- [[[ref2, Smith 2023]]] Smith, John. _Advanced AsciiDoc_. Tech Publications. 2023.
+
+pattern: 44, capture: 24 - markup.list, start: (49, 0), end: (50, 0), text: `- [[[ref1]]] Smith, John. _AsciiDoc Guide_. 2023.
+
+pattern: 127, capture: 30 - text, start: (49, 2), end: (49, 11), text: `[[[ref1]]`
+pattern: 34, capture: 20 - markup.link.label, start: (49, 2), end: (49, 11), text: `[[[ref1]]`
+pattern: 137, capture: 42 - punctuation.bracket, start: (49, 11), end: (49, 12), text: `]`
+pattern: 128, capture: 30 - text, start: (49, 13), end: (49, 19), text: `Smith,`
+pattern: 128, capture: 30 - text, start: (49, 20), end: (49, 25), text: `John.`
+pattern: 127, capture: 30 - text, start: (49, 25), end: (49, 42), text: ` _AsciiDoc Guide_`
+pattern: 12, capture: 14 - markup.italic, start: (49, 25), end: (49, 42), text: ` _AsciiDoc Guide_`
+pattern: 13, capture: 14 - markup.italic, start: (49, 25), end: (49, 27), text: ` _`
+pattern: 15, capture: 14 - markup.italic, start: (49, 27), end: (49, 41), text: `AsciiDoc Guide`
+pattern: 14, capture: 14 - markup.italic, start: (49, 41), end: (49, 42), text: `_`
+pattern: 130, capture: 32 - punctuation, start: (49, 42), end: (49, 43), text: `.`
+pattern: 128, capture: 30 - text, start: (49, 44), end: (49, 49), text: `2023.`
+pattern: 44, capture: 24 - markup.list, start: (50, 0), end: (51, 0), text: `- [[[ref2, Smith 2023]]] Smith, John. _Advanced AsciiDoc_. Tech Publications. 2023.
+
+pattern: 127, capture: 30 - text, start: (50, 2), end: (50, 23), text: `[[[ref2, Smith 2023]]`
+pattern: 34, capture: 20 - markup.link.label, start: (50, 2), end: (50, 23), text: `[[[ref2, Smith 2023]]`
+pattern: 137, capture: 42 - punctuation.bracket, start: (50, 23), end: (50, 24), text: `]`
+pattern: 128, capture: 30 - text, start: (50, 25), end: (50, 31), text: `Smith,`
+pattern: 128, capture: 30 - text, start: (50, 32), end: (50, 37), text: `John.`
+pattern: 127, capture: 30 - text, start: (50, 37), end: (50, 57), text: ` _Advanced AsciiDoc_`
+pattern: 12, capture: 14 - markup.italic, start: (50, 37), end: (50, 57), text: ` _Advanced AsciiDoc_`
+pattern: 13, capture: 14 - markup.italic, start: (50, 37), end: (50, 39), text: ` _`
+pattern: 15, capture: 14 - markup.italic, start: (50, 39), end: (50, 56), text: `Advanced AsciiDoc`
+pattern: 14, capture: 14 - markup.italic, start: (50, 56), end: (50, 57), text: `_`
+pattern: 130, capture: 32 - punctuation, start: (50, 57), end: (50, 58), text: `.`
+pattern: 128, capture: 30 - text, start: (50, 59), end: (50, 63), text: `Tech`
+pattern: 128, capture: 30 - text, start: (50, 64), end: (50, 77), text: `Publications.`
+pattern: 128, capture: 30 - text, start: (50, 78), end: (50, 83), text: `2023.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (52, 0), end: (52, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (52, 3), end: (52, 12), text: `Citations`
+pattern: 7, capture: 0 - markup.heading, start: (52, 3), end: (52, 12), text: `Citations`
+pattern: 126, capture: 30 - text, start: (54, 0), end: (55, 0), text: `Citation example: See <<ref1>> for more details.
+
+pattern: 128, capture: 30 - text, start: (54, 0), end: (54, 8), text: `Citation`
+pattern: 128, capture: 30 - text, start: (54, 8), end: (54, 16), text: ` example`
+pattern: 131, capture: 32 - punctuation, start: (54, 16), end: (54, 17), text: `:`
+pattern: 128, capture: 30 - text, start: (54, 17), end: (54, 21), text: ` See`
+pattern: 127, capture: 30 - text, start: (54, 21), end: (54, 30), text: ` <<ref1>>`
+pattern: 32, capture: 18 - markup.link, start: (54, 21), end: (54, 30), text: ` <<ref1>>`
+pattern: 128, capture: 30 - text, start: (54, 30), end: (54, 34), text: ` for`
+pattern: 128, capture: 30 - text, start: (54, 34), end: (54, 39), text: ` more`
+pattern: 128, capture: 30 - text, start: (54, 39), end: (54, 48), text: ` details.`
+pattern: 126, capture: 30 - text, start: (56, 0), end: (57, 0), text: `Another citation: As noted in <<ref2>>, the syntax is flexible.
+
+pattern: 128, capture: 30 - text, start: (56, 0), end: (56, 7), text: `Another`
+pattern: 128, capture: 30 - text, start: (56, 7), end: (56, 16), text: ` citation`
+pattern: 131, capture: 32 - punctuation, start: (56, 16), end: (56, 17), text: `:`
+pattern: 128, capture: 30 - text, start: (56, 17), end: (56, 20), text: ` As`
+pattern: 128, capture: 30 - text, start: (56, 20), end: (56, 26), text: ` noted`
+pattern: 128, capture: 30 - text, start: (56, 26), end: (56, 29), text: ` in`
+pattern: 127, capture: 30 - text, start: (56, 29), end: (56, 38), text: ` <<ref2>>`
+pattern: 32, capture: 18 - markup.link, start: (56, 29), end: (56, 38), text: ` <<ref2>>`
+pattern: 128, capture: 30 - text, start: (56, 38), end: (56, 39), text: `,`
+pattern: 128, capture: 30 - text, start: (56, 39), end: (56, 43), text: ` the`
+pattern: 128, capture: 30 - text, start: (56, 43), end: (56, 50), text: ` syntax`
+pattern: 128, capture: 30 - text, start: (56, 50), end: (56, 53), text: ` is`
+pattern: 128, capture: 30 - text, start: (56, 53), end: (56, 63), text: ` flexible.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (58, 0), end: (58, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (58, 3), end: (58, 24), text: `Complex Link Examples`
+pattern: 7, capture: 0 - markup.heading, start: (58, 3), end: (58, 24), text: `Complex Link Examples`
+pattern: 126, capture: 30 - text, start: (60, 0), end: (61, 0), text: `The link:++https://example.com/path?q=link%20text++[complex URL] needs encoding.
+
+pattern: 128, capture: 30 - text, start: (60, 0), end: (60, 3), text: `The`
+pattern: 127, capture: 30 - text, start: (60, 3), end: (60, 64), text: ` link:++https://example.com/path?q=link%20text++[complex URL]`
+pattern: 30, capture: 18 - markup.link, start: (60, 3), end: (60, 64), text: ` link:++https://example.com/path?q=link%20text++[complex URL]`
+pattern: 31, capture: 19 - markup.link.text, start: (60, 52), end: (60, 63), text: `complex URL`
+pattern: 128, capture: 30 - text, start: (60, 64), end: (60, 70), text: ` needs`
+pattern: 128, capture: 30 - text, start: (60, 70), end: (60, 80), text: ` encoding.`
+pattern: 126, capture: 30 - text, start: (62, 0), end: (63, 0), text: `Email link: mailto:support@example.com[Contact Support]
+
+pattern: 128, capture: 30 - text, start: (62, 0), end: (62, 5), text: `Email`
+pattern: 127, capture: 30 - text, start: (62, 5), end: (62, 55), text: ` link: mailto:support@example.com[Contact Support]`
+pattern: 30, capture: 18 - markup.link, start: (62, 5), end: (62, 55), text: ` link: mailto:support@example.com[Contact Support]`
+pattern: 31, capture: 19 - markup.link.text, start: (62, 39), end: (62, 54), text: `Contact Support`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (64, 0), end: (64, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (64, 3), end: (64, 16), text: `Mixed Content`
+pattern: 7, capture: 0 - markup.heading, start: (64, 3), end: (64, 16), text: `Mixed Content`
+pattern: 126, capture: 30 - text, start: (66, 0), end: (67, 0), text: `Visit the https://asciidoctor.org[Asciidoctor website] for the
+
+pattern: 128, capture: 30 - text, start: (66, 0), end: (66, 5), text: `Visit`
+pattern: 128, capture: 30 - text, start: (66, 5), end: (66, 9), text: ` the`
+pattern: 127, capture: 30 - text, start: (66, 9), end: (66, 54), text: ` https://asciidoctor.org[Asciidoctor website]`
+pattern: 29, capture: 18 - markup.link, start: (66, 9), end: (66, 54), text: ` https://asciidoctor.org[Asciidoctor website]`
+pattern: 28, capture: 17 - markup.link.url, start: (66, 9), end: (66, 33), text: ` https://asciidoctor.org`
+pattern: 31, capture: 19 - markup.link.text, start: (66, 34), end: (66, 53), text: `Asciidoctor website`
+pattern: 128, capture: 30 - text, start: (66, 54), end: (66, 58), text: ` for`
+pattern: 128, capture: 30 - text, start: (66, 58), end: (66, 62), text: ` the`
+pattern: 126, capture: 30 - text, start: (67, 0), end: (68, 0), text: `link:https://docs.asciidoctor.org/asciidoc/latest/[latest documentation].
+
+pattern: 127, capture: 30 - text, start: (67, 0), end: (67, 72), text: `link:https://docs.asciidoctor.org/asciidoc/latest/[latest documentation]`
+pattern: 30, capture: 18 - markup.link, start: (67, 0), end: (67, 72), text: `link:https://docs.asciidoctor.org/asciidoc/latest/[latest documentation]`
+pattern: 31, capture: 19 - markup.link.text, start: (67, 51), end: (67, 71), text: `latest documentation`
+pattern: 130, capture: 32 - punctuation, start: (67, 72), end: (67, 73), text: `.`
+pattern: 126, capture: 30 - text, start: (69, 0), end: (70, 0), text: `See <<section-one,First Section>> and <<custom-anchor>> for examples.
+
+pattern: 128, capture: 30 - text, start: (69, 0), end: (69, 3), text: `See`
+pattern: 127, capture: 30 - text, start: (69, 3), end: (69, 33), text: ` <<section-one,First Section>>`
+pattern: 32, capture: 18 - markup.link, start: (69, 3), end: (69, 33), text: ` <<section-one,First Section>>`
+pattern: 128, capture: 30 - text, start: (69, 33), end: (69, 37), text: ` and`
+pattern: 127, capture: 30 - text, start: (69, 37), end: (69, 55), text: ` <<custom-anchor>>`
+pattern: 32, capture: 18 - markup.link, start: (69, 37), end: (69, 55), text: ` <<custom-anchor>>`
+pattern: 128, capture: 30 - text, start: (69, 55), end: (69, 59), text: ` for`
+pattern: 128, capture: 30 - text, start: (69, 59), end: (69, 69), text: ` examples.`
+pattern: 126, capture: 30 - text, start: (71, 0), end: (71, 79), text: `You can also check [[[local-ref]]]local references and cite them <<local-ref>>.`
+pattern: 128, capture: 30 - text, start: (71, 0), end: (71, 3), text: `You`
+pattern: 128, capture: 30 - text, start: (71, 3), end: (71, 7), text: ` can`
+pattern: 128, capture: 30 - text, start: (71, 7), end: (71, 12), text: ` also`
+pattern: 128, capture: 30 - text, start: (71, 12), end: (71, 18), text: ` check`
+pattern: 127, capture: 30 - text, start: (71, 18), end: (71, 33), text: ` [[[local-ref]]`
+pattern: 34, capture: 20 - markup.link.label, start: (71, 18), end: (71, 33), text: ` [[[local-ref]]`
+pattern: 137, capture: 42 - punctuation.bracket, start: (71, 33), end: (71, 34), text: `]`
+pattern: 128, capture: 30 - text, start: (71, 34), end: (71, 39), text: `local`
+pattern: 128, capture: 30 - text, start: (71, 39), end: (71, 50), text: ` references`
+pattern: 128, capture: 30 - text, start: (71, 50), end: (71, 54), text: ` and`
+pattern: 128, capture: 30 - text, start: (71, 54), end: (71, 59), text: ` cite`
+pattern: 128, capture: 30 - text, start: (71, 59), end: (71, 64), text: ` them`
+pattern: 127, capture: 30 - text, start: (71, 64), end: (71, 79), text: ` <<local-ref>>.`
+pattern: 32, capture: 18 - markup.link, start: (71, 64), end: (71, 79), text: ` <<local-ref>>.`

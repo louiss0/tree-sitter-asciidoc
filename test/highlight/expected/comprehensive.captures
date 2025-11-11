@@ -1,199 +1,547 @@
-﻿C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\comprehensive.adoc
 C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\comprehensive.adoc
-    pattern:  0, capture: 0 - markup.heading, start: (0, 2), end: (0, 29), text: `Comprehensive AsciiDoc Test`
-    pattern: 116, capture: 29 - text.title, start: (0, 2), end: (0, 29), text: `Comprehensive AsciiDoc Test`
-    pattern: 21, capture: 4 - attribute, start: (1, 0), end: (1, 8), text: `:author:`
-    pattern: 21, capture: 5 - string, start: (1, 8), end: (1, 18), text: ` Test User`
-    pattern: 21, capture: 4 - attribute, start: (2, 0), end: (2, 9), text: `:version:`
-    pattern: 21, capture: 5 - string, start: (2, 9), end: (2, 15), text: ` 1.0.0`
-    pattern: 21, capture: 4 - attribute, start: (3, 0), end: (3, 13), text: `:description:`
-    pattern: 21, capture: 5 - string, start: (3, 13), end: (3, 47), text: ` Testing all highlighting features`
-    pattern:  0, capture: 0 - markup.heading, start: (5, 3), end: (5, 20), text: `Inline Formatting`
-    pattern: 116, capture: 29 - text.title, start: (5, 3), end: (5, 20), text: `Inline Formatting`
-    pattern: 108, capture: 25 - none, start: (7, 0), end: (7, 4), text: `This`
-    pattern: 108, capture: 25 - none, start: (7, 4), end: (7, 14), text: ` paragraph`
-    pattern: 108, capture: 25 - none, start: (7, 14), end: (7, 18), text: ` has`
-    pattern: 23, capture: 6 - markup.strong, start: (7, 18), end: (7, 32), text: ` *strong text*`
-    pattern: 112, capture: 26 - text.strong, start: (7, 18), end: (7, 32), text: ` *strong text*`
-    pattern: 108, capture: 25 - none, start: (7, 32), end: (7, 33), text: `,`
-    pattern: 25, capture: 7 - markup.italic, start: (7, 33), end: (7, 49), text: ` _emphasis text_`
-    pattern: 113, capture: 27 - text.emphasis, start: (7, 33), end: (7, 49), text: ` _emphasis text_`
-    pattern: 108, capture: 25 - none, start: (7, 49), end: (7, 50), text: `,`
-    pattern: 27, capture: 8 - markup.raw.inline, start: (7, 50), end: (7, 67), text: ` `monospace text``
-    pattern: 114, capture: 28 - text.literal, start: (7, 50), end: (7, 67), text: ` `monospace text``
-    pattern: 108, capture: 25 - none, start: (7, 67), end: (7, 68), text: `,`
-    pattern: 108, capture: 25 - none, start: (7, 82), end: (7, 83), text: `,`
-    pattern: 108, capture: 25 - none, start: (7, 83), end: (7, 87), text: ` and`
-    pattern: 108, capture: 25 - none, start: (7, 99), end: (7, 100), text: `.`
-    pattern: 108, capture: 25 - none, start: (9, 0), end: (9, 3), text: `You`
-    pattern: 108, capture: 25 - none, start: (9, 3), end: (9, 7), text: ` can`
-    pattern: 108, capture: 25 - none, start: (9, 7), end: (9, 12), text: ` also`
-    pattern: 108, capture: 25 - none, start: (9, 12), end: (9, 16), text: ` use`
-    pattern: 108, capture: 25 - none, start: (9, 16), end: (9, 29), text: ` passthroughs`
-    pattern: 108, capture: 25 - none, start: (9, 29), end: (9, 34), text: ` like`
-    pattern: 42, capture: 8 - markup.raw.inline, start: (9, 34), end: (9, 52), text: ` +++raw content+++`
-    pattern: 108, capture: 25 - none, start: (9, 52), end: (9, 55), text: ` to`
-    pattern: 108, capture: 25 - none, start: (9, 55), end: (9, 61), text: ` avoid`
-    pattern: 108, capture: 25 - none, start: (9, 61), end: (9, 73), text: ` processing.`
-    pattern:  0, capture: 0 - markup.heading, start: (11, 4), end: (11, 24), text: `Links and References`
-    pattern: 116, capture: 29 - text.title, start: (11, 4), end: (11, 24), text: `Links and References`
-    pattern: 108, capture: 25 - none, start: (13, 0), end: (13, 6), text: `Here's`
-    pattern: 108, capture: 25 - none, start: (13, 6), end: (13, 9), text: ` an`
-    pattern: 108, capture: 25 - none, start: (13, 9), end: (13, 14), text: ` auto`
-    pattern: 108, capture: 25 - none, start: (13, 14), end: (13, 19), text: ` link`
-    pattern: 109, capture: 25 - none, start: (13, 19), end: (13, 20), text: `:`
-    pattern: 31, capture: 10 - markup.link.url, start: (13, 20), end: (13, 40), text: ` https://example.com`
-    pattern: 108, capture: 25 - none, start: (15, 0), end: (15, 3), text: `And`
-    pattern: 108, capture: 25 - none, start: (15, 3), end: (15, 5), text: ` a`
-    pattern: 108, capture: 25 - none, start: (15, 5), end: (15, 10), text: ` link`
-    pattern: 108, capture: 25 - none, start: (15, 10), end: (15, 16), text: ` macro`
-    pattern: 109, capture: 25 - none, start: (15, 16), end: (15, 17), text: `:`
-    pattern: 35, capture: 12 - function.macro, start: (15, 17), end: (15, 56), text: ` link:https://example.com[Example Site]`
-    pattern: 99, capture: 12 - function.macro, start: (15, 17), end: (15, 56), text: ` link:https://example.com[Example Site]`
-    pattern: 36, capture: 12 - function.macro, start: (15, 17), end: (15, 56), text: ` link:https://example.com[Example Site]`
-    pattern: 100, capture: 12 - function.macro, start: (15, 17), end: (15, 56), text: ` link:https://example.com[Example Site]`
-    pattern: 108, capture: 25 - none, start: (17, 0), end: (17, 5), text: `Cross`
-    pattern: 108, capture: 25 - none, start: (17, 5), end: (17, 15), text: ` reference`
-    pattern: 109, capture: 25 - none, start: (17, 15), end: (17, 16), text: `:`
-    pattern: 32, capture: 11 - markup.link, start: (17, 16), end: (17, 31), text: ` <<my-section>>`
-    pattern: 108, capture: 25 - none, start: (19, 0), end: (19, 9), text: `Attribute`
-    pattern: 108, capture: 25 - none, start: (19, 9), end: (19, 19), text: ` reference`
-    pattern: 109, capture: 25 - none, start: (19, 19), end: (19, 20), text: `:`
-    pattern: 22, capture: 4 - attribute, start: (19, 20), end: (19, 29), text: ` {author}`
-    pattern: 108, capture: 25 - none, start: (19, 29), end: (19, 35), text: ` wrote`
-    pattern: 108, capture: 25 - none, start: (19, 35), end: (19, 43), text: ` version`
-    pattern: 22, capture: 4 - attribute, start: (19, 43), end: (19, 53), text: ` {version}`
-    pattern: 108, capture: 25 - none, start: (19, 53), end: (19, 54), text: `.`
-    pattern: 37, capture: 13 - label, start: (21, 2), end: (21, 12), text: `my-section`
-    pattern:  0, capture: 0 - markup.heading, start: (22, 4), end: (22, 22), text: `Referenced Section`
-    pattern: 116, capture: 29 - text.title, start: (22, 4), end: (22, 22), text: `Referenced Section`
-    pattern: 108, capture: 25 - none, start: (24, 0), end: (24, 4), text: `This`
-    pattern: 108, capture: 25 - none, start: (24, 4), end: (24, 12), text: ` section`
-    pattern: 108, capture: 25 - none, start: (24, 12), end: (24, 16), text: ` can`
-    pattern: 108, capture: 25 - none, start: (24, 16), end: (24, 19), text: ` be`
-    pattern: 108, capture: 25 - none, start: (24, 19), end: (24, 30), text: ` referenced`
-    pattern: 108, capture: 25 - none, start: (24, 30), end: (24, 37), text: ` above.`
-    pattern:  0, capture: 0 - markup.heading, start: (26, 3), end: (26, 14), text: `Admonitions`
-    pattern: 116, capture: 29 - text.title, start: (26, 3), end: (26, 14), text: `Admonitions`
-    pattern: 51, capture: 17 - keyword, start: (28, 0), end: (28, 6), text: `NOTE: `
-    pattern: 53, capture: 17 - keyword, start: (28, 0), end: (28, 6), text: `NOTE: `
-    pattern: 108, capture: 25 - none, start: (28, 6), end: (28, 10), text: `This`
-    pattern: 108, capture: 25 - none, start: (28, 10), end: (28, 13), text: ` is`
-    pattern: 108, capture: 25 - none, start: (28, 13), end: (28, 15), text: ` a`
-    pattern: 108, capture: 25 - none, start: (28, 15), end: (28, 20), text: ` note`
-    pattern: 108, capture: 25 - none, start: (28, 20), end: (28, 32), text: ` admonition.`
-    pattern: 51, capture: 17 - keyword, start: (30, 0), end: (30, 9), text: `WARNING: `
-    pattern: 53, capture: 17 - keyword, start: (30, 0), end: (30, 9), text: `WARNING: `
-    pattern: 108, capture: 25 - none, start: (30, 9), end: (30, 13), text: `This`
-    pattern: 108, capture: 25 - none, start: (30, 13), end: (30, 16), text: ` is`
-    pattern: 108, capture: 25 - none, start: (30, 16), end: (30, 18), text: ` a`
-    pattern: 108, capture: 25 - none, start: (30, 18), end: (30, 26), text: ` warning`
-    pattern: 108, capture: 25 - none, start: (30, 26), end: (30, 38), text: ` admonition.`
-    pattern:  0, capture: 0 - markup.heading, start: (32, 3), end: (32, 8), text: `Lists`
-    pattern: 116, capture: 29 - text.title, start: (32, 3), end: (32, 8), text: `Lists`
-    pattern: 108, capture: 25 - none, start: (34, 0), end: (34, 1), text: `.`
-    pattern: 108, capture: 25 - none, start: (34, 1), end: (34, 7), text: ` First`
-    pattern: 108, capture: 25 - none, start: (34, 7), end: (34, 15), text: ` ordered`
-    pattern: 108, capture: 25 - none, start: (34, 15), end: (34, 20), text: ` item`
-    pattern: 108, capture: 25 - none, start: (35, 0), end: (35, 1), text: `.`
-    pattern: 108, capture: 25 - none, start: (35, 1), end: (35, 8), text: ` Second`
-    pattern: 108, capture: 25 - none, start: (35, 8), end: (35, 16), text: ` ordered`
-    pattern: 108, capture: 25 - none, start: (35, 16), end: (35, 21), text: ` item`
-    pattern: 108, capture: 25 - none, start: (36, 0), end: (36, 2), text: `..`
-    pattern: 108, capture: 25 - none, start: (36, 2), end: (36, 9), text: ` Nested`
-    pattern: 108, capture: 25 - none, start: (36, 9), end: (36, 17), text: ` ordered`
-    pattern: 108, capture: 25 - none, start: (36, 17), end: (36, 22), text: ` item`
-    pattern: 23, capture: 6 - markup.strong, start: (38, 0), end: (38, 22), text: `* First unordered item`
-    pattern: 112, capture: 26 - text.strong, start: (38, 0), end: (38, 22), text: `* First unordered item`
-    pattern: 24, capture: 6 - markup.strong, start: (38, 1), end: (38, 22), text: ` First unordered item`
-    pattern: 23, capture: 6 - markup.strong, start: (39, 0), end: (39, 23), text: `* Second unordered item`
-    pattern: 112, capture: 26 - text.strong, start: (39, 0), end: (39, 23), text: `* Second unordered item`
-    pattern: 24, capture: 6 - markup.strong, start: (39, 1), end: (39, 23), text: ` Second unordered item`
-    pattern: 23, capture: 6 - markup.strong, start: (40, 0), end: (40, 2), text: `**`
-    pattern: 112, capture: 26 - text.strong, start: (40, 0), end: (40, 2), text: `**`
-    pattern: 108, capture: 25 - none, start: (40, 2), end: (40, 9), text: ` Nested`
-    pattern: 108, capture: 25 - none, start: (40, 9), end: (40, 19), text: ` unordered`
-    pattern: 108, capture: 25 - none, start: (40, 19), end: (40, 24), text: ` item`
-    pattern: 48, capture: 15 - markup.list, start: (42, 0), end: (42, 25), text: `Term:: Definition of term`
-    pattern: 48, capture: 15 - markup.list, start: (43, 0), end: (43, 33), text: `Another Term:: Another definition`
-    pattern: 49, capture: 15 - markup.list, start: (45, 0), end: (46, 0), text: `<1> First callout
-`
-    pattern: 50, capture: 16 - markup.list.marker, start: (45, 0), end: (45, 3), text: `<1>`
-    pattern: 108, capture: 25 - none, start: (45, 4), end: (45, 9), text: `First`
-    pattern: 108, capture: 25 - none, start: (45, 9), end: (45, 17), text: ` callout`
-    pattern: 49, capture: 15 - markup.list, start: (46, 0), end: (47, 0), text: `<2> Second callout
-`
-    pattern: 50, capture: 16 - markup.list.marker, start: (46, 0), end: (46, 3), text: `<2>`
-    pattern: 108, capture: 25 - none, start: (46, 4), end: (46, 10), text: `Second`
-    pattern: 108, capture: 25 - none, start: (46, 10), end: (46, 18), text: ` callout`
-    pattern:  0, capture: 0 - markup.heading, start: (48, 3), end: (48, 9), text: `Blocks`
-    pattern: 116, capture: 29 - text.title, start: (48, 3), end: (48, 9), text: `Blocks`
-    pattern:  3, capture: 1 - punctuation.special, start: (50, 0), end: (51, 0), text: `----
-`
-    pattern: 17, capture: 2 - markup.raw.block, start: (51, 0), end: (54, 0), text: `This is a listing block
+pattern: 124, capture: 36 - none, start: (0, 0), end: (87, 0), text: `= Comprehensive AsciiDoc Test
+:author: Test User
+:version: 1.0.0
+:description: Testing all highlighting features
+
+== Inline Formatting
+
+This paragraph has *strong text*, _emphasis text_, `monospace text`, ^superscript^, and ~subscript~.
+
+You can also use passthroughs like +++raw content+++ to avoid processing.
+
+=== Links and References
+
+Here's an auto link: https://example.com
+
+nd a link macro: link:https://example.com[Example Site]
+
+Cross reference: <<my-section>>
+
+ttribute reference: {author} wrote version {version}.
+
+[[my-section]]
+=== Referenced Section
+
+This section can be referenced above.
+
+== Admonitions
+
+NOTE: This is a note admonition.
+
+WARNING: This is a warning admonition.
+
+== Lists
+
+. First ordered item
+. Second ordered item
+.. Nested ordered item
+
+* First unordered item
+* Second unordered item
+** Nested unordered item
+
+Term:: Definition of term
+nother Term:: Another definition
+
+<1> First callout
+<2> Second callout
+
+== Blocks
+
+----
+This is a listing block
 def example():
-    return "code"
-`
-    pattern: 117, capture: 28 - text.literal, start: (51, 0), end: (54, 0), text: `This is a listing block
-def example():
-    return "code"
-`
-    pattern:  3, capture: 1 - punctuation.special, start: (54, 0), end: (55, 0), text: `----
-`
-    pattern:  1, capture: 1 - punctuation.special, start: (56, 0), end: (57, 0), text: `====
-`
-    pattern: 117, capture: 28 - text.literal, start: (57, 0), end: (59, 0), text: `This is an example block
+return "code"
+----
+
+====
+This is an example block
 with multiple lines.
-`
-    pattern:  1, capture: 1 - punctuation.special, start: (59, 0), end: (60, 0), text: `====
-`
-    pattern:  7, capture: 1 - punctuation.special, start: (61, 0), end: (62, 0), text: `____
-`
-    pattern: 19, capture: 3 - markup.quote, start: (62, 0), end: (64, 0), text: `This is a quote block.
+====
+
+____
+This is a quote block.
 -- Attribution
-`
-    pattern: 117, capture: 28 - text.literal, start: (62, 0), end: (64, 0), text: `This is a quote block.
--- Attribution
-`
-    pattern:  7, capture: 1 - punctuation.special, start: (64, 0), end: (65, 0), text: `____
-`
-    pattern:  0, capture: 0 - markup.heading, start: (66, 3), end: (66, 9), text: `Tables`
-    pattern: 116, capture: 29 - text.title, start: (66, 3), end: (66, 9), text: `Tables`
-    pattern: 15, capture: 1 - punctuation.special, start: (68, 0), end: (69, 0), text: `|===
-`
-    pattern: 59, capture: 5 - string, start: (69, 1), end: (69, 10), text: `Header 1 `
-    pattern: 59, capture: 5 - string, start: (69, 11), end: (69, 19), text: `Header 2`
-    pattern: 59, capture: 5 - string, start: (70, 1), end: (70, 10), text: `Cell 1   `
-    pattern: 59, capture: 5 - string, start: (70, 11), end: (70, 17), text: `Cell 2`
-    pattern: 59, capture: 5 - string, start: (71, 1), end: (71, 10), text: `Cell 3   `
-    pattern: 59, capture: 5 - string, start: (71, 11), end: (71, 17), text: `Cell 4`
-    pattern: 15, capture: 1 - punctuation.special, start: (72, 0), end: (73, 0), text: `|===
-`
-    pattern:  0, capture: 0 - markup.heading, start: (74, 3), end: (74, 11), text: `Comments`
-    pattern: 116, capture: 29 - text.title, start: (74, 3), end: (74, 11), text: `Comments`
-    pattern: 90, capture: 23 - comment, start: (76, 0), end: (77, 0), text: `// This is a line comment
-`
-    pattern: 91, capture: 23 - comment, start: (78, 0), end: (83, 0), text: `////
-This is a 
+____
+
+== Tables
+
+|===
+|Header 1 |Header 2
+|Cell 1 |Cell 2
+|Cell 3 |Cell 4
+|===
+
+== Comments
+
+// This is a line comment
+
+////
+This is a
 multi-line
 block comment
 ////
-`
-    pattern: 92, capture: 23 - comment, start: (79, 0), end: (80, 0), text: `This is a 
-`
-    pattern: 92, capture: 23 - comment, start: (80, 0), end: (81, 0), text: `multi-line
-`
-    pattern: 92, capture: 23 - comment, start: (81, 0), end: (82, 0), text: `block comment
-`
-    pattern: 54, capture: 18 - keyword.directive, start: (84, 0), end: (85, 0), text: `ifdef::debug[]
-`
-    pattern: 108, capture: 25 - none, start: (85, 0), end: (85, 4), text: `This`
-    pattern: 108, capture: 25 - none, start: (85, 4), end: (85, 12), text: ` content`
-    pattern: 108, capture: 25 - none, start: (85, 12), end: (85, 15), text: ` is`
-    pattern: 108, capture: 25 - none, start: (85, 15), end: (85, 27), text: ` conditional`
-    pattern: 108, capture: 25 - none, start: (86, 0), end: (86, 5), text: `endif`
-    pattern: 109, capture: 25 - none, start: (86, 5), end: (86, 6), text: `:`
-    pattern: 109, capture: 25 - none, start: (86, 6), end: (86, 7), text: `:`
-    pattern: 108, capture: 25 - none, start: (86, 7), end: (86, 12), text: `debug`
-    pattern: 95, capture: 4 - attribute, start: (86, 12), end: (87, 0), text: `[]
-`
+
+ifdef::debug[]
+This content is conditional
+endif::debug[]
+
+pattern: 0, capture: 0 - markup.heading, start: (0, 0), end: (87, 0), text: `= Comprehensive AsciiDoc Test
+:author: Test User
+:version: 1.0.0
+:description: Testing all highlighting features
+
+== Inline Formatting
+
+This paragraph has *strong text*, _emphasis text_, `monospace text`, ^superscript^, and ~subscript~.
+
+You can also use passthroughs like +++raw content+++ to avoid processing.
+
+=== Links and References
+
+Here's an auto link: https://example.com
+
+nd a link macro: link:https://example.com[Example Site]
+
+Cross reference: <<my-section>>
+
+ttribute reference: {author} wrote version {version}.
+
+[[my-section]]
+=== Referenced Section
+
+This section can be referenced above.
+
+== Admonitions
+
+NOTE: This is a note admonition.
+
+WARNING: This is a warning admonition.
+
+== Lists
+
+. First ordered item
+. Second ordered item
+.. Nested ordered item
+
+* First unordered item
+* Second unordered item
+** Nested unordered item
+
+Term:: Definition of term
+nother Term:: Another definition
+
+<1> First callout
+<2> Second callout
+
+== Blocks
+
+----
+This is a listing block
+def example():
+return "code"
+----
+
+====
+This is an example block
+with multiple lines.
+====
+
+____
+This is a quote block.
+-- Attribution
+____
+
+== Tables
+
+|===
+|Header 1 |Header 2
+|Cell 1 |Cell 2
+|Cell 3 |Cell 4
+|===
+
+== Comments
+
+// This is a line comment
+
+////
+This is a
+multi-line
+block comment
+////
+
+ifdef::debug[]
+This content is conditional
+endif::debug[]
+
+pattern: 1, capture: 1 - markup.heading.1.marker, start: (0, 0), end: (0, 2), text: `= `
+pattern: 1, capture: 2 - markup.heading.1, start: (0, 2), end: (0, 29), text: `Comprehensive AsciiDoc Test`
+pattern: 7, capture: 0 - markup.heading, start: (0, 2), end: (0, 29), text: `Comprehensive AsciiDoc Test`
+pattern: 36, capture: 21 - attribute, start: (1, 0), end: (2, 0), text: `:author: Test User
+
+pattern: 37, capture: 22 - string, start: (1, 9), end: (1, 18), text: `Test User`
+pattern: 36, capture: 21 - attribute, start: (2, 0), end: (3, 0), text: `:version: 1.0.0
+
+pattern: 37, capture: 22 - string, start: (2, 10), end: (2, 15), text: `1.0.0`
+pattern: 36, capture: 21 - attribute, start: (3, 0), end: (4, 0), text: `:description: Testing all highlighting features
+
+pattern: 37, capture: 22 - string, start: (3, 14), end: (3, 47), text: `Testing all highlighting features`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (5, 0), end: (5, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (5, 3), end: (5, 20), text: `Inline Formatting`
+pattern: 7, capture: 0 - markup.heading, start: (5, 3), end: (5, 20), text: `Inline Formatting`
+pattern: 126, capture: 30 - text, start: (7, 0), end: (8, 0), text: `This paragraph has *strong text*, _emphasis text_, `monospace text`, ^superscript^, and ~subscript~.
+
+pattern: 128, capture: 30 - text, start: (7, 0), end: (7, 4), text: `This`
+pattern: 128, capture: 30 - text, start: (7, 4), end: (7, 14), text: ` paragraph`
+pattern: 128, capture: 30 - text, start: (7, 14), end: (7, 18), text: ` has`
+pattern: 127, capture: 30 - text, start: (7, 18), end: (7, 32), text: ` *strong text*`
+pattern: 8, capture: 13 - markup.bold, start: (7, 18), end: (7, 32), text: ` *strong text*`
+pattern: 9, capture: 13 - markup.bold, start: (7, 18), end: (7, 20), text: ` *`
+pattern: 11, capture: 13 - markup.bold, start: (7, 20), end: (7, 31), text: `strong text`
+pattern: 10, capture: 13 - markup.bold, start: (7, 31), end: (7, 32), text: `*`
+pattern: 128, capture: 30 - text, start: (7, 32), end: (7, 33), text: `,`
+pattern: 127, capture: 30 - text, start: (7, 33), end: (7, 49), text: ` _emphasis text_`
+pattern: 12, capture: 14 - markup.italic, start: (7, 33), end: (7, 49), text: ` _emphasis text_`
+pattern: 13, capture: 14 - markup.italic, start: (7, 33), end: (7, 35), text: ` _`
+pattern: 15, capture: 14 - markup.italic, start: (7, 35), end: (7, 48), text: `emphasis text`
+pattern: 14, capture: 14 - markup.italic, start: (7, 48), end: (7, 49), text: `_`
+pattern: 128, capture: 30 - text, start: (7, 49), end: (7, 50), text: `,`
+pattern: 127, capture: 30 - text, start: (7, 50), end: (7, 67), text: ` `monospace text``
+pattern: 16, capture: 15 - markup.raw, start: (7, 50), end: (7, 67), text: ` `monospace text``
+pattern: 17, capture: 15 - markup.raw, start: (7, 50), end: (7, 52), text: ` ``
+pattern: 19, capture: 15 - markup.raw, start: (7, 52), end: (7, 66), text: `monospace text`
+pattern: 18, capture: 15 - markup.raw, start: (7, 66), end: (7, 67), text: ```
+pattern: 128, capture: 30 - text, start: (7, 67), end: (7, 68), text: `,`
+pattern: 127, capture: 30 - text, start: (7, 68), end: (7, 82), text: ` ^superscript^`
+pattern: 20, capture: 16 - markup.underline, start: (7, 68), end: (7, 82), text: ` ^superscript^`
+pattern: 21, capture: 16 - markup.underline, start: (7, 68), end: (7, 70), text: ` ^`
+pattern: 23, capture: 16 - markup.underline, start: (7, 70), end: (7, 81), text: `superscript`
+pattern: 22, capture: 16 - markup.underline, start: (7, 81), end: (7, 82), text: `^`
+pattern: 128, capture: 30 - text, start: (7, 82), end: (7, 83), text: `,`
+pattern: 128, capture: 30 - text, start: (7, 83), end: (7, 87), text: ` and`
+pattern: 127, capture: 30 - text, start: (7, 87), end: (7, 99), text: ` ~subscript~`
+pattern: 24, capture: 16 - markup.underline, start: (7, 87), end: (7, 99), text: ` ~subscript~`
+pattern: 25, capture: 16 - markup.underline, start: (7, 87), end: (7, 89), text: ` ~`
+pattern: 27, capture: 16 - markup.underline, start: (7, 89), end: (7, 98), text: `subscript`
+pattern: 26, capture: 16 - markup.underline, start: (7, 98), end: (7, 99), text: `~`
+pattern: 130, capture: 32 - punctuation, start: (7, 99), end: (7, 100), text: `.`
+pattern: 126, capture: 30 - text, start: (9, 0), end: (10, 0), text: `You can also use passthroughs like +++raw content+++ to avoid processing.
+
+pattern: 128, capture: 30 - text, start: (9, 0), end: (9, 3), text: `You`
+pattern: 128, capture: 30 - text, start: (9, 3), end: (9, 7), text: ` can`
+pattern: 128, capture: 30 - text, start: (9, 7), end: (9, 12), text: ` also`
+pattern: 128, capture: 30 - text, start: (9, 12), end: (9, 16), text: ` use`
+pattern: 128, capture: 30 - text, start: (9, 16), end: (9, 29), text: ` passthroughs`
+pattern: 128, capture: 30 - text, start: (9, 29), end: (9, 34), text: ` like`
+pattern: 128, capture: 30 - text, start: (9, 34), end: (9, 41), text: ` +++raw`
+pattern: 128, capture: 30 - text, start: (9, 41), end: (9, 52), text: ` content+++`
+pattern: 128, capture: 30 - text, start: (9, 52), end: (9, 55), text: ` to`
+pattern: 128, capture: 30 - text, start: (9, 55), end: (9, 61), text: ` avoid`
+pattern: 128, capture: 30 - text, start: (9, 61), end: (9, 73), text: ` processing.`
+pattern: 3, capture: 5 - markup.heading.3.marker, start: (11, 0), end: (11, 4), text: `=== `
+pattern: 3, capture: 6 - markup.heading.3, start: (11, 4), end: (11, 24), text: `Links and References`
+pattern: 7, capture: 0 - markup.heading, start: (11, 4), end: (11, 24), text: `Links and References`
+pattern: 126, capture: 30 - text, start: (13, 0), end: (14, 0), text: `Here's an auto link: https://example.com
+
+pattern: 128, capture: 30 - text, start: (13, 0), end: (13, 6), text: `Here's`
+pattern: 128, capture: 30 - text, start: (13, 6), end: (13, 9), text: ` an`
+pattern: 128, capture: 30 - text, start: (13, 9), end: (13, 14), text: ` auto`
+pattern: 126, capture: 30 - text, start: (15, 0), end: (16, 0), text: `And a link macro: link:https://example.com[Example Site]
+
+pattern: 128, capture: 30 - text, start: (15, 0), end: (15, 3), text: `And`
+pattern: 128, capture: 30 - text, start: (15, 3), end: (15, 5), text: ` a`
+pattern: 128, capture: 30 - text, start: (15, 5), end: (15, 10), text: ` link`
+pattern: 128, capture: 30 - text, start: (15, 10), end: (15, 16), text: ` macro`
+pattern: 131, capture: 32 - punctuation, start: (15, 16), end: (15, 17), text: `:`
+pattern: 127, capture: 30 - text, start: (15, 17), end: (15, 56), text: ` link:https://example.com[Example Site]`
+pattern: 30, capture: 18 - markup.link, start: (15, 17), end: (15, 56), text: ` link:https://example.com[Example Site]`
+pattern: 31, capture: 19 - markup.link.text, start: (15, 43), end: (15, 55), text: `Example Site`
+pattern: 126, capture: 30 - text, start: (17, 0), end: (18, 0), text: `Cross reference: <<my-section>>
+
+pattern: 128, capture: 30 - text, start: (17, 0), end: (17, 5), text: `Cross`
+pattern: 128, capture: 30 - text, start: (17, 5), end: (17, 15), text: ` reference`
+pattern: 131, capture: 32 - punctuation, start: (17, 15), end: (17, 16), text: `:`
+pattern: 127, capture: 30 - text, start: (17, 16), end: (17, 31), text: ` <<my-section>>`
+pattern: 32, capture: 18 - markup.link, start: (17, 16), end: (17, 31), text: ` <<my-section>>`
+pattern: 126, capture: 30 - text, start: (19, 0), end: (20, 0), text: `Attribute reference: {author} wrote version {version}.
+
+pattern: 128, capture: 30 - text, start: (19, 0), end: (19, 9), text: `Attribute`
+pattern: 128, capture: 30 - text, start: (19, 9), end: (19, 19), text: ` reference`
+pattern: 131, capture: 32 - punctuation, start: (19, 19), end: (19, 20), text: `:`
+pattern: 127, capture: 30 - text, start: (19, 20), end: (19, 29), text: ` {author}`
+pattern: 38, capture: 23 - variable.builtin, start: (19, 20), end: (19, 29), text: ` {author}`
+pattern: 128, capture: 30 - text, start: (19, 29), end: (19, 35), text: ` wrote`
+pattern: 128, capture: 30 - text, start: (19, 35), end: (19, 43), text: ` version`
+pattern: 127, capture: 30 - text, start: (19, 43), end: (19, 53), text: ` {version}`
+pattern: 38, capture: 23 - variable.builtin, start: (19, 43), end: (19, 53), text: ` {version}`
+pattern: 130, capture: 32 - punctuation, start: (19, 53), end: (19, 54), text: `.`
+pattern: 126, capture: 30 - text, start: (21, 0), end: (22, 0), text: `[[my-section]]
+
+pattern: 127, capture: 30 - text, start: (21, 0), end: (21, 14), text: `[[my-section]]`
+pattern: 34, capture: 20 - markup.link.label, start: (21, 0), end: (21, 14), text: `[[my-section]]`
+pattern: 3, capture: 5 - markup.heading.3.marker, start: (22, 0), end: (22, 4), text: `=== `
+pattern: 3, capture: 6 - markup.heading.3, start: (22, 4), end: (22, 22), text: `Referenced Section`
+pattern: 7, capture: 0 - markup.heading, start: (22, 4), end: (22, 22), text: `Referenced Section`
+pattern: 126, capture: 30 - text, start: (24, 0), end: (25, 0), text: `This section can be referenced above.
+
+pattern: 128, capture: 30 - text, start: (24, 0), end: (24, 4), text: `This`
+pattern: 128, capture: 30 - text, start: (24, 4), end: (24, 12), text: ` section`
+pattern: 128, capture: 30 - text, start: (24, 12), end: (24, 16), text: ` can`
+pattern: 128, capture: 30 - text, start: (24, 16), end: (24, 19), text: ` be`
+pattern: 128, capture: 30 - text, start: (24, 19), end: (24, 30), text: ` referenced`
+pattern: 128, capture: 30 - text, start: (24, 30), end: (24, 37), text: ` above.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (26, 0), end: (26, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (26, 3), end: (26, 14), text: `Admonitions`
+pattern: 7, capture: 0 - markup.heading, start: (26, 3), end: (26, 14), text: `Admonitions`
+pattern: 126, capture: 30 - text, start: (28, 0), end: (29, 0), text: `NOTE: This is a note admonition.
+
+pattern: 119, capture: 41 - keyword.directive, start: (28, 0), end: (28, 4), text: `NOTE`
+pattern: 119, capture: 26 - markup.quote, start: (28, 5), end: (28, 32), text: ` This is a note admonition.`
+pattern: 128, capture: 30 - text, start: (28, 5), end: (28, 10), text: ` This`
+pattern: 128, capture: 30 - text, start: (28, 10), end: (28, 13), text: ` is`
+pattern: 128, capture: 30 - text, start: (28, 13), end: (28, 15), text: ` a`
+pattern: 128, capture: 30 - text, start: (28, 15), end: (28, 20), text: ` note`
+pattern: 128, capture: 30 - text, start: (28, 20), end: (28, 32), text: ` admonition.`
+pattern: 126, capture: 30 - text, start: (30, 0), end: (31, 0), text: `WARNING: This is a warning admonition.
+
+pattern: 119, capture: 41 - keyword.directive, start: (30, 0), end: (30, 7), text: `WARNING`
+pattern: 119, capture: 26 - markup.quote, start: (30, 8), end: (30, 38), text: ` This is a warning admonition.`
+pattern: 128, capture: 30 - text, start: (30, 8), end: (30, 13), text: ` This`
+pattern: 128, capture: 30 - text, start: (30, 13), end: (30, 16), text: ` is`
+pattern: 128, capture: 30 - text, start: (30, 16), end: (30, 18), text: ` a`
+pattern: 128, capture: 30 - text, start: (30, 18), end: (30, 26), text: ` warning`
+pattern: 128, capture: 30 - text, start: (30, 26), end: (30, 38), text: ` admonition.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (32, 0), end: (32, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (32, 3), end: (32, 8), text: `Lists`
+pattern: 7, capture: 0 - markup.heading, start: (32, 3), end: (32, 8), text: `Lists`
+pattern: 126, capture: 30 - text, start: (34, 0), end: (38, 0), text: `. First ordered item
+. Second ordered item
+.. Nested ordered item
+
+
+pattern: 120, capture: 21 - attribute, start: (34, 0), end: (37, 0), text: `. First ordered item
+. Second ordered item
+.. Nested ordered item
+
+pattern: 123, capture: 21 - attribute, start: (34, 0), end: (35, 0), text: `. First ordered item
+
+pattern: 123, capture: 21 - attribute, start: (35, 0), end: (36, 0), text: `. Second ordered item
+
+pattern: 123, capture: 21 - attribute, start: (36, 0), end: (37, 0), text: `.. Nested ordered item
+
+pattern: 137, capture: 42 - punctuation.bracket, start: (37, 0), end: (37, 0), text: ``
+pattern: 43, capture: 24 - markup.list, start: (38, 0), end: (40, 0), text: `* First unordered item
+* Second unordered item
+
+pattern: 44, capture: 24 - markup.list, start: (38, 0), end: (39, 0), text: `* First unordered item
+
+pattern: 128, capture: 30 - text, start: (38, 2), end: (38, 7), text: `First`
+pattern: 128, capture: 30 - text, start: (38, 8), end: (38, 17), text: `unordered`
+pattern: 128, capture: 30 - text, start: (38, 18), end: (38, 22), text: `item`
+pattern: 44, capture: 24 - markup.list, start: (39, 0), end: (40, 0), text: `* Second unordered item
+
+pattern: 128, capture: 30 - text, start: (39, 2), end: (39, 8), text: `Second`
+pattern: 128, capture: 30 - text, start: (39, 9), end: (39, 18), text: `unordered`
+pattern: 128, capture: 30 - text, start: (39, 19), end: (39, 23), text: `item`
+pattern: 126, capture: 30 - text, start: (40, 0), end: (41, 0), text: `** Nested unordered item
+
+pattern: 127, capture: 30 - text, start: (40, 0), end: (40, 24), text: `** Nested unordered item`
+pattern: 8, capture: 13 - markup.bold, start: (40, 0), end: (40, 24), text: `** Nested unordered item`
+pattern: 9, capture: 13 - markup.bold, start: (40, 0), end: (40, 2), text: `**`
+pattern: 11, capture: 13 - markup.bold, start: (40, 2), end: (40, 24), text: ` Nested unordered item`
+pattern: 10, capture: 13 - markup.bold, start: (40, 24), end: (40, 24), text: ``
+pattern: 40, capture: 24 - markup.list, start: (42, 0), end: (43, 0), text: `Term:: Definition of term
+
+pattern: 46, capture: 24 - markup.list, start: (42, 0), end: (43, 0), text: `Term:: Definition of term
+
+pattern: 41, capture: 24 - markup.list, start: (42, 7), end: (42, 25), text: `Definition of term`
+pattern: 128, capture: 30 - text, start: (42, 7), end: (42, 17), text: `Definition`
+pattern: 128, capture: 30 - text, start: (42, 18), end: (42, 20), text: `of`
+pattern: 128, capture: 30 - text, start: (42, 21), end: (42, 25), text: `term`
+pattern: 126, capture: 30 - text, start: (43, 0), end: (43, 7), text: `Another`
+pattern: 128, capture: 30 - text, start: (43, 0), end: (43, 7), text: `Another`
+pattern: 40, capture: 24 - markup.list, start: (43, 7), end: (44, 0), text: ` Term:: Another definition
+
+pattern: 46, capture: 24 - markup.list, start: (43, 7), end: (44, 0), text: ` Term:: Another definition
+
+pattern: 41, capture: 24 - markup.list, start: (43, 15), end: (43, 33), text: `Another definition`
+pattern: 128, capture: 30 - text, start: (43, 15), end: (43, 22), text: `Another`
+pattern: 128, capture: 30 - text, start: (43, 23), end: (43, 33), text: `definition`
+pattern: 39, capture: 24 - markup.list, start: (45, 0), end: (47, 0), text: `<1> First callout
+<2> Second callout
+
+pattern: 47, capture: 24 - markup.list, start: (45, 0), end: (46, 0), text: `<1> First callout
+
+pattern: 92, capture: 31 - markup.strong, start: (45, 0), end: (45, 4), text: `<1> `
+pattern: 128, capture: 30 - text, start: (45, 4), end: (45, 9), text: `First`
+pattern: 128, capture: 30 - text, start: (45, 10), end: (45, 17), text: `callout`
+pattern: 47, capture: 24 - markup.list, start: (46, 0), end: (47, 0), text: `<2> Second callout
+
+pattern: 92, capture: 31 - markup.strong, start: (46, 0), end: (46, 4), text: `<2> `
+pattern: 128, capture: 30 - text, start: (46, 4), end: (46, 10), text: `Second`
+pattern: 128, capture: 30 - text, start: (46, 11), end: (46, 18), text: `callout`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (48, 0), end: (48, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (48, 3), end: (48, 9), text: `Blocks`
+pattern: 7, capture: 0 - markup.heading, start: (48, 3), end: (48, 9), text: `Blocks`
+pattern: 50, capture: 27 - markup.raw.block, start: (50, 0), end: (55, 0), text: `----
+This is a listing block
+def example():
+return "code"
+----
+
+pattern: 76, capture: 29 - punctuation.delimiter, start: (50, 0), end: (51, 0), text: `----
+
+pattern: 62, capture: 29 - punctuation.delimiter, start: (50, 0), end: (51, 0), text: `----
+
+pattern: 125, capture: 30 - text, start: (51, 0), end: (54, 0), text: `This is a listing block
+def example():
+return "code"
+
+pattern: 129, capture: 30 - text, start: (51, 0), end: (52, 0), text: `This is a listing block
+
+pattern: 90, capture: 30 - text, start: (51, 0), end: (52, 0), text: `This is a listing block
+
+pattern: 129, capture: 30 - text, start: (52, 0), end: (53, 0), text: `def example():
+
+pattern: 90, capture: 30 - text, start: (52, 0), end: (53, 0), text: `def example():
+
+pattern: 129, capture: 30 - text, start: (53, 0), end: (54, 0), text: ` return "code"
+
+pattern: 90, capture: 30 - text, start: (53, 0), end: (54, 0), text: ` return "code"
+
+pattern: 77, capture: 29 - punctuation.delimiter, start: (54, 0), end: (55, 0), text: `----
+
+pattern: 63, capture: 29 - punctuation.delimiter, start: (54, 0), end: (55, 0), text: `----
+
+pattern: 49, capture: 26 - markup.quote, start: (56, 0), end: (60, 0), text: `====
+This is an example block
+with multiple lines.
+====
+
+pattern: 74, capture: 29 - punctuation.delimiter, start: (56, 0), end: (57, 0), text: `====
+
+pattern: 60, capture: 29 - punctuation.delimiter, start: (56, 0), end: (57, 0), text: `====
+
+pattern: 125, capture: 30 - text, start: (57, 0), end: (59, 0), text: `This is an example block
+with multiple lines.
+
+pattern: 129, capture: 30 - text, start: (57, 0), end: (58, 0), text: `This is an example block
+
+pattern: 90, capture: 30 - text, start: (57, 0), end: (58, 0), text: `This is an example block
+
+pattern: 129, capture: 30 - text, start: (58, 0), end: (59, 0), text: `with multiple lines.
+
+pattern: 90, capture: 30 - text, start: (58, 0), end: (59, 0), text: `with multiple lines.
+
+pattern: 75, capture: 29 - punctuation.delimiter, start: (59, 0), end: (60, 0), text: `====
+
+pattern: 61, capture: 29 - punctuation.delimiter, start: (59, 0), end: (60, 0), text: `====
+
+pattern: 52, capture: 26 - markup.quote, start: (61, 0), end: (65, 0), text: `____
+This is a quote block.
+-- Attribution
+____
+
+pattern: 80, capture: 29 - punctuation.delimiter, start: (61, 0), end: (62, 0), text: `____
+
+pattern: 66, capture: 29 - punctuation.delimiter, start: (61, 0), end: (62, 0), text: `____
+
+pattern: 125, capture: 30 - text, start: (62, 0), end: (64, 0), text: `This is a quote block.
+-- Attribution
+
+pattern: 129, capture: 30 - text, start: (62, 0), end: (63, 0), text: `This is a quote block.
+
+pattern: 90, capture: 30 - text, start: (62, 0), end: (63, 0), text: `This is a quote block.
+
+pattern: 129, capture: 30 - text, start: (63, 0), end: (64, 0), text: `-- Attribution
+
+pattern: 90, capture: 30 - text, start: (63, 0), end: (64, 0), text: `-- Attribution
+
+pattern: 81, capture: 29 - punctuation.delimiter, start: (64, 0), end: (65, 0), text: `____
+
+pattern: 67, capture: 29 - punctuation.delimiter, start: (64, 0), end: (65, 0), text: `____
+
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (66, 0), end: (66, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (66, 3), end: (66, 9), text: `Tables`
+pattern: 7, capture: 0 - markup.heading, start: (66, 3), end: (66, 9), text: `Tables`
+pattern: 59, capture: 28 - markup.list.unnumbered, start: (68, 0), end: (73, 0), text: `|===
+|Header 1 |Header 2
+|Cell 1 |Cell 2
+|Cell 3 |Cell 4
+|===
+
+pattern: 94, capture: 29 - punctuation.delimiter, start: (68, 0), end: (69, 0), text: `|===
+
+pattern: 88, capture: 29 - punctuation.delimiter, start: (68, 0), end: (69, 0), text: `|===
+
+pattern: 145, capture: 24 - markup.list, start: (69, 0), end: (72, 0), text: `|Header 1 |Header 2
+|Cell 1 |Cell 2
+|Cell 3 |Cell 4
+
+pattern: 146, capture: 24 - markup.list, start: (69, 0), end: (70, 0), text: `|Header 1 |Header 2
+
+pattern: 96, capture: 24 - markup.list, start: (69, 0), end: (69, 10), text: `|Header 1 `
+pattern: 148, capture: 24 - markup.list, start: (69, 1), end: (69, 10), text: `Header 1 `
+pattern: 147, capture: 30 - text, start: (69, 1), end: (69, 10), text: `Header 1 `
+pattern: 96, capture: 24 - markup.list, start: (69, 10), end: (69, 19), text: `|Header 2`
+pattern: 148, capture: 24 - markup.list, start: (69, 11), end: (69, 19), text: `Header 2`
+pattern: 147, capture: 30 - text, start: (69, 11), end: (69, 19), text: `Header 2`
+pattern: 146, capture: 24 - markup.list, start: (70, 0), end: (71, 0), text: `|Cell 1 |Cell 2
+
+pattern: 96, capture: 24 - markup.list, start: (70, 0), end: (70, 10), text: `|Cell 1 `
+pattern: 148, capture: 24 - markup.list, start: (70, 1), end: (70, 10), text: `Cell 1 `
+pattern: 147, capture: 30 - text, start: (70, 1), end: (70, 10), text: `Cell 1 `
+pattern: 96, capture: 24 - markup.list, start: (70, 10), end: (70, 17), text: `|Cell 2`
+pattern: 148, capture: 24 - markup.list, start: (70, 11), end: (70, 17), text: `Cell 2`
+pattern: 147, capture: 30 - text, start: (70, 11), end: (70, 17), text: `Cell 2`
+pattern: 146, capture: 24 - markup.list, start: (71, 0), end: (72, 0), text: `|Cell 3 |Cell 4
+
+pattern: 96, capture: 24 - markup.list, start: (71, 0), end: (71, 10), text: `|Cell 3 `
+pattern: 148, capture: 24 - markup.list, start: (71, 1), end: (71, 10), text: `Cell 3 `
+pattern: 147, capture: 30 - text, start: (71, 1), end: (71, 10), text: `Cell 3 `
+pattern: 96, capture: 24 - markup.list, start: (71, 10), end: (71, 17), text: `|Cell 4`
+pattern: 148, capture: 24 - markup.list, start: (71, 11), end: (71, 17), text: `Cell 4`
+pattern: 147, capture: 30 - text, start: (71, 11), end: (71, 17), text: `Cell 4`
+pattern: 95, capture: 29 - punctuation.delimiter, start: (72, 0), end: (73, 0), text: `|===
+
+pattern: 89, capture: 29 - punctuation.delimiter, start: (72, 0), end: (73, 0), text: `|===
+
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (74, 0), end: (74, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (74, 3), end: (74, 11), text: `Comments`
+pattern: 7, capture: 0 - markup.heading, start: (74, 3), end: (74, 11), text: `Comments`
+pattern: 126, capture: 30 - text, start: (76, 0), end: (77, 0), text: `// This is a line comment
+
+pattern: 128, capture: 30 - text, start: (76, 0), end: (76, 2), text: `//`
+pattern: 128, capture: 30 - text, start: (76, 2), end: (76, 7), text: ` This`
+pattern: 128, capture: 30 - text, start: (76, 7), end: (76, 10), text: ` is`
+pattern: 128, capture: 30 - text, start: (76, 10), end: (76, 12), text: ` a`
+pattern: 128, capture: 30 - text, start: (76, 12), end: (76, 17), text: ` line`
+pattern: 128, capture: 30 - text, start: (76, 17), end: (76, 25), text: ` comment`
+pattern: 98, capture: 34 - comment.block, start: (78, 0), end: (83, 0), text: `////
+This is a
+multi-line
+block comment
+////
+
+pattern: 99, capture: 35 - comment, start: (79, 0), end: (80, 0), text: `This is a
+
+pattern: 99, capture: 35 - comment, start: (80, 0), end: (81, 0), text: `multi-line
+
+pattern: 99, capture: 35 - comment, start: (81, 0), end: (82, 0), text: `block comment
+
+pattern: 100, capture: 36 - none, start: (84, 0), end: (87, 0), text: `ifdef::debug[]
+This content is conditional
+endif::debug[]
+
+pattern: 101, capture: 37 - keyword.conditional, start: (84, 0), end: (85, 0), text: `ifdef::debug[]
+
+pattern: 126, capture: 30 - text, start: (85, 0), end: (86, 0), text: `This content is conditional
+
+pattern: 128, capture: 30 - text, start: (85, 0), end: (85, 4), text: `This`
+pattern: 128, capture: 30 - text, start: (85, 4), end: (85, 12), text: ` content`
+pattern: 128, capture: 30 - text, start: (85, 12), end: (85, 15), text: ` is`
+pattern: 128, capture: 30 - text, start: (85, 15), end: (85, 27), text: ` conditional`
+pattern: 101, capture: 37 - keyword.conditional, start: (86, 0), end: (87, 0), text: `endif::debug[]
+
+pattern: 128, capture: 30 - text, start: (86, 7), end: (86, 12), text: `debug`

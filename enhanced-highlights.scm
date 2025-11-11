@@ -14,42 +14,42 @@
 ;; =============================================================================
 
 ;; Block fences - highlighting the open/close delimiters
-(example_block 
+(example_block
   open: (example_open) @punctuation.special
   close: (example_close) @punctuation.special)
 (#set! "priority" 110)
 
-(listing_block 
+(listing_block
   open: (listing_open) @punctuation.special
   close: (listing_close) @punctuation.special)
 (#set! "priority" 110)
 
-(literal_block 
+(literal_block
   open: (literal_open) @punctuation.special
   close: (literal_close) @punctuation.special)
 (#set! "priority" 110)
 
-(quote_block 
+(quote_block
   open: (quote_open) @punctuation.special
   close: (quote_close) @punctuation.special)
 (#set! "priority" 110)
 
-(sidebar_block 
+(sidebar_block
   open: (sidebar_open) @punctuation.special
   close: (sidebar_close) @punctuation.special)
 (#set! "priority" 110)
 
-(passthrough_block 
+(passthrough_block
   open: (passthrough_open) @punctuation.special
   close: (passthrough_close) @punctuation.special)
 (#set! "priority" 110)
 
-(open_block 
+(open_block
   open: (openblock_open) @punctuation.special
   close: (openblock_close) @punctuation.special)
 (#set! "priority" 110)
 
-(table_block 
+(table_block
   open: (table_open) @punctuation.special
   close: (table_close) @punctuation.special)
 (#set! "priority" 110)
@@ -78,15 +78,14 @@
 
 ;; Strong/bold text (*text*)
 (strong) @markup.strong
-(strong_constrained content: (strong_text) @markup.strong)
+(strong content: (strong_content) @markup.strong)
 
 ;; Emphasis/italic text (_text_)
-(emphasis) @markup.italic  
-(emphasis_constrained content: (emphasis_text) @markup.italic)
+(emphasis) @markup.italic
+(emphasis content: (emphasis_content) @markup.italic)
 
 ;; Monospace/code text (`text`)
 (monospace) @markup.raw
-(monospace_constrained content: (monospace_text) @markup.raw)
 
 ;; Superscript (^text^) and subscript (~text~)
 (superscript content: (superscript_text) @markup.underline)
@@ -105,7 +104,7 @@
 ;; External cross-references (xref:target[text]) - treated as macros
 (external_xref) @function.macro
 
-;; Link macros (link:url[text]) - treated as macros 
+;; Link macros (link:url[text]) - treated as macros
 (link) @function.macro
 (link_macro) @function.macro
 
@@ -142,7 +141,7 @@
 
 ;; List items
 (unordered_list_item) @markup.list
-(ordered_list_item) @markup.list 
+(ordered_list_item) @markup.list
 (description_item) @markup.list
 
 ;; Callout lists
@@ -188,7 +187,7 @@
 
 ;; UI macros
 (ui_kbd) @function.macro
-(ui_btn) @function.macro 
+(ui_btn) @function.macro
 (ui_menu) @function.macro
 
 ;; Math macros
@@ -245,7 +244,7 @@
 ;; Regular text segments - lower priority
 (text_segment) @none
 (text_colon) @none
-(text_angle_bracket) @none  
+(text_angle_bracket) @none
 (text_bracket) @none
 
 ;; Text with inlines containers - don't highlight the container itself
