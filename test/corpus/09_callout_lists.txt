@@ -40,18 +40,12 @@ Not a callout list - missing space after marker
   (paragraph
     content: (text_with_inlines
       (text_angle_bracket)
+      (text_segment)
+      (text_angle_bracket)
       (text_segment)))
-  (markdown_blockquote
-    (markdown_blockquote_line
-      marker: (markdown_blockquote_marker)
-      content: (text_with_inlines
-        (text_segment))))
   (paragraph
     content: (text_with_inlines
       (text_angle_bracket)
-      (text_segment)))
-  (markdown_blockquote
-    (markdown_blockquote_line
-      marker: (markdown_blockquote_marker)
-      content: (text_with_inlines
-        (text_segment)))))
+      (text_segment)
+      (text_angle_bracket)
+      (text_segment))))

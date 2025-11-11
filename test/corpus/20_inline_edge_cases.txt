@@ -239,44 +239,43 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
     content: (text_with_inlines
       (inline_element
         (strong
-          (strong_constrained
-            open: (strong_open)
-            content: (strong_text)
-            close: (strong_close))))
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
       (text_segment)
       (text_segment)))
   (paragraph
     content: (text_with_inlines
       (inline_element
         (emphasis
-          (emphasis_constrained
-            open: (emphasis_open)
-            content: (emphasis_text)
-            close: (emphasis_close))))
-      (text_segment)))
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
+      (text_period)))
   (paragraph
     content: (text_with_inlines
       (inline_element
         (strong
-          (strong_constrained
-            open: (strong_open)
-            close: (strong_close))))
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (text_segment)
       (inline_element
         (strong
-          (strong_constrained
-            open: (strong_open)
-            content: (strong_text)
-            close: (strong_close))))
-      (inline_element
-        (strong
-          (strong_constrained
-            open: (strong_open)
-            close: (strong_close))))
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
       (text_segment)))
   (paragraph
     content: (text_with_inlines
+      (text_segment)
       (inline_element
-        (passthrough_triple_plus))
+        (monospace
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
+      (text_segment)
+      (text_segment)
       (text_segment))))
 
 ================================================================================
@@ -361,11 +360,6 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
       (text_segment)
       (inline_element
         (internal_xref))))
-  (markdown_blockquote
-    (markdown_blockquote_line
-      (markdown_blockquote_marker)
-      (text_with_inlines
-        (text_period))))
   (paragraph
     (text_with_inlines
       (text_segment)

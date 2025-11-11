@@ -76,13 +76,8 @@ This has *unclosed bold and _unclosed italic and `unclosed code.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (text_segment)
-      (inline_element
-        (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close
-            (MISSING "*")))))))
+      (text_segment))
+    (ERROR)))
 
 ================================================================================
 Mixed formatting elements

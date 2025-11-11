@@ -2,7 +2,7 @@
 This is a note block with example content.
 ====
 
----
+--------------------------------------------------------------------------------
 
 (source_file)
 
@@ -16,21 +16,21 @@ This is a tip block with sidebar content.
 Useful information here.
 ****
 
----
+--------------------------------------------------------------------------------
 
 (source_file
-  (sidebar_block
-    (metadata
-      (block_attributes))
-    (sidebar_open
-      (SIDEBAR_FENCE_START))
-    (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    (sidebar_close
-      (SIDEBAR_FENCE_END))))
+  (block_admonition
+    type: (admonition_attribute)
+    block: (sidebar_block
+      (sidebar_open
+        (SIDEBAR_FENCE_START))
+      (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      (sidebar_close
+        (SIDEBAR_FENCE_END)))))
 
 ================================================================================
 IMPORTANT block with quote delimiters
@@ -42,21 +42,21 @@ ____
 -- Author
 ____
 
----
+--------------------------------------------------------------------------------
 
 (source_file
-  (asciidoc_blockquote
-    (metadata
-      (block_attributes))
-    (asciidoc_blockquote_open
-      (QUOTE_FENCE_START))
-    (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    (asciidoc_blockquote_close
-      (QUOTE_FENCE_END))))
+  (block_admonition
+    type: (admonition_attribute)
+    block: (asciidoc_blockquote
+      open: (asciidoc_blockquote_open
+        (QUOTE_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (asciidoc_blockquote_close
+        (QUOTE_FENCE_END)))))
 
 ================================================================================
 WARNING block with listing delimiters
@@ -68,19 +68,21 @@ echo "This command can be dangerous"
 rm -rf /path/to/files
 ----
 
+--------------------------------------------------------------------------------
+
 (source_file
-  (listing_block
-    (metadata
-      (block_attributes))
-    open: (listing_open
-      (LISTING_FENCE_START))
-    content: (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (listing_close
-      (LISTING_FENCE_END))))
+  (block_admonition
+    type: (admonition_attribute)
+    block: (listing_block
+      open: (listing_open
+        (LISTING_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (listing_close
+        (LISTING_FENCE_END)))))
 
 ================================================================================
 CAUTION block with literal delimiters
@@ -93,23 +95,23 @@ CAUTION block with literal delimiters
     literal content
 ....
 
----
+--------------------------------------------------------------------------------
 
 (source_file
-  (literal_block
-    (metadata
-      (block_attributes))
-    (literal_open
-      (LITERAL_FENCE_START))
-    (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    (literal_close
-      (LITERAL_FENCE_END))))
+  (block_admonition
+    type: (admonition_attribute)
+    block: (literal_block
+      open: (literal_open
+        (LITERAL_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (literal_close
+        (LITERAL_FENCE_END)))))
 
 ================================================================================
 TIP block with metadata
@@ -123,26 +125,29 @@ TIP block with metadata
   echo "This tip has multiple metadata lines"
 ----
 
+--------------------------------------------------------------------------------
+
 (source_file
-  (listing_block
-    (metadata
-      (block_attributes)
-      (block_title)
-      (block_attributes)
-      (block_attributes))
-    open: (listing_open
-      (LISTING_FENCE_START))
-    content: (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (listing_close
-      (LISTING_FENCE_END))))
+  (block_admonition
+    type: (admonition_attribute)
+    block: (listing_block
+      (metadata
+        (block_title)
+        (block_attributes)
+        (block_attributes))
+      open: (listing_open
+        (LISTING_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (listing_close
+        (LISTING_FENCE_END)))))
 
 ====
 This warning block has an anchor.
 ====
 
----
+--------------------------------------------------------------------------------
 
 (source_file)
 
@@ -153,7 +158,7 @@ Not an admonition block - no delimited block following
 [NOTE]
 This should be parsed as a generic attribute list followed by paragraph.
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (paragraph

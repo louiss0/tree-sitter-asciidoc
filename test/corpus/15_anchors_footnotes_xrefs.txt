@@ -126,13 +126,9 @@ See the <<target-section,target section>> for details.
       (text_segment)
       (text_segment)
       (inline_element
-        (internal_xref))))
-  (markdown_blockquote
-    (markdown_blockquote_line
-      marker: (markdown_blockquote_marker)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)))))
+        (internal_xref))
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 External cross-reference without text
@@ -362,11 +358,17 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
       (text_angle_bracket)
       (text_angle_bracket)
       (text_segment)
-      (text_segment)))
-  (ERROR
-    (markdown_blockquote_marker)
-    (text_angle_bracket)
-    (text_segment)))
+      (text_segment)
+      (text_angle_bracket)
+      (text_angle_bracket)
+      (text_segment)
+      (text_angle_bracket)
+      (text_angle_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Malformed footnotes should be plain text
@@ -386,7 +388,7 @@ This has foot note:[spaced] and footnote:[unclosed and regular text.
       (text_colon)
       (text_bracket)
       (text_segment)
-      (text_segment)
+      (text_bracket)
       (text_segment)
       (text_segment)
       (text_colon)

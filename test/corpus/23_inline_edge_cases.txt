@@ -68,8 +68,7 @@ This is *bold _italic* text_ here.
           content: (strong_content)
           close: (strong_close)))
       (text_segment))
-    (ERROR
-      (emphasis_open))))
+    (ERROR)))
 
 ================================================================================
 Trailing plus without EOL (should not create line_break)
@@ -133,8 +132,7 @@ This is _italic with \_ underscore_ text.
           content: (emphasis_content)
           close: (emphasis_close)))
       (text_segment))
-    (ERROR
-      (emphasis_open))))
+    (ERROR)))
 
 ================================================================================
 Escaped delimiters in monospace
@@ -149,15 +147,12 @@ This is `code with \` backtick` text.
     content: (text_with_inlines
       (text_segment)
       (text_segment)
-      (text_segment)
       (inline_element
         (monospace
           open: (monospace_open)
           content: (monospace_content)
           close: (monospace_close)))
-      (text_segment))
-    (ERROR
-      (monospace_open))))
+      (text_segment))))
 
 ================================================================================
 Escaped delimiters in superscript
@@ -406,17 +401,12 @@ This has ** and __ and `` empty markers.
   (paragraph
     content: (text_with_inlines
       (text_segment)
-      (text_segment)))
-  (unordered_list
-    (unordered_list_item
-      content: (text_with_inlines
-        (text_segment)
-        (inline_element
-          (emphasis
-            open: (emphasis_open)
-            content: (emphasis_content)
-            close: (emphasis_close
-              (MISSING "_"))))))))
+      (text_segment)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (MISSING strong_close))))))
 
 ================================================================================
 Role span with dots in name

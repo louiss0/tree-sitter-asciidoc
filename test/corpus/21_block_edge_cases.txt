@@ -248,40 +248,40 @@ Final tip content.
         (text_segment)
         (text_segment)
         (text_segment))))
-  (example_block
-    (metadata
-      (block_attributes))
-    (example_open
-      (EXAMPLE_FENCE_START))
-    (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    (example_close
-      (EXAMPLE_FENCE_END)))
-  (open_block
-    (metadata
-      (block_attributes))
-    (openblock_open
-      (OPENBLOCK_FENCE_START))
-    (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    (openblock_close
-      (OPENBLOCK_FENCE_END))))
+  (block_admonition
+    (admonition_attribute)
+    (example_block
+      (example_open
+        (EXAMPLE_FENCE_START))
+      (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      (example_close
+        (EXAMPLE_FENCE_END))))
+  (block_admonition
+    (admonition_attribute)
+    (open_block
+      (openblock_open
+        (OPENBLOCK_FENCE_START))
+      (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      (openblock_close
+        (OPENBLOCK_FENCE_END)))))
 
 ================================================================================
 Section nesting with anchors

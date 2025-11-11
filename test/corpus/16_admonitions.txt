@@ -82,36 +82,36 @@ Pro tip: Always read the documentation first!
 --------------------------------------------------------------------------------
 
 (source_file
-  (example_block
-    (metadata
-      (block_attributes))
-    open: (example_open
-      (EXAMPLE_FENCE_START))
-    content: (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (example_close
-      (EXAMPLE_FENCE_END)))
-  (example_block
-    (metadata
-      (block_attributes))
-    open: (example_open
-      (EXAMPLE_FENCE_START))
-    content: (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (example_close
-      (EXAMPLE_FENCE_END))))
+  (block_admonition
+    type: (admonition_attribute)
+    block: (example_block
+      open: (example_open
+        (EXAMPLE_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (example_close
+        (EXAMPLE_FENCE_END))))
+  (block_admonition
+    type: (admonition_attribute)
+    block: (example_block
+      open: (example_open
+        (EXAMPLE_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (example_close
+        (EXAMPLE_FENCE_END)))))
 
 ================================================================================
 Admonition Blocks with Different Delimited Block Types
@@ -137,40 +137,40 @@ This is a sidebar admonition.
 --------------------------------------------------------------------------------
 
 (source_file
-  (listing_block
-    (metadata
-      (block_attributes))
-    open: (listing_open
-      (LISTING_FENCE_START))
-    content: (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (listing_close
-      (LISTING_FENCE_END)))
-  (literal_block
-    (metadata
-      (block_attributes))
-    open: (literal_open
-      (LITERAL_FENCE_START))
-    content: (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (literal_close
-      (LITERAL_FENCE_END)))
-  (sidebar_block
-    (metadata
-      (block_attributes))
-    (sidebar_open
-      (SIDEBAR_FENCE_START))
-    (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    (sidebar_close
-      (SIDEBAR_FENCE_END))))
+  (block_admonition
+    type: (admonition_attribute)
+    block: (listing_block
+      open: (listing_open
+        (LISTING_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (listing_close
+        (LISTING_FENCE_END))))
+  (block_admonition
+    type: (admonition_attribute)
+    block: (literal_block
+      open: (literal_open
+        (LITERAL_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (literal_close
+        (LITERAL_FENCE_END))))
+  (block_admonition
+    type: (admonition_attribute)
+    block: (sidebar_block
+      (sidebar_open
+        (SIDEBAR_FENCE_START))
+      (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      (sidebar_close
+        (SIDEBAR_FENCE_END)))))
 
 ================================================================================
 Complex Paragraph Admonitions with Inline Elements

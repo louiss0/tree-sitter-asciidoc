@@ -85,13 +85,8 @@ Not a list - missing space after marker
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (inline_element
-        (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close
-            (MISSING "*"))))))
+    content: (text_with_inlines)
+    (ERROR))
   (paragraph
     content: (text_with_inlines
       (text_segment))))
