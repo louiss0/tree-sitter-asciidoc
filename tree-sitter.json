@@ -3,24 +3,25 @@
   "grammars": [
     {
       "name": "asciidoc",
-      "camelcase": "Asciidoc",
-      "title": "Tree-Sitter-Asciidoc",
+      "camelcase": "AsciiDoc",
+      "title": "AsciiDoc",
       "scope": "source.asciidoc",
       "file-types": [
-        "asc",
         "adoc",
         "asciidoc"
       ],
       "injection-regex": "^asciidoc$",
       "class-name": "TreeSitterAsciidoc",
       "highlights": "queries/highlights.scm",
+      "indents": "queries/indents.scm",
+      "injections": "queries/injections.scm",
       "folds": "queries/folds.scm"
     }
   ],
   "metadata": {
     "version": "0.1.0",
     "license": "MIT",
-    "description": "This is my parser for Asciidoc",
+    "description": "Tree-sitter grammar for AsciiDoc",
     "authors": [
       {
         "name": "Shelton Louis",

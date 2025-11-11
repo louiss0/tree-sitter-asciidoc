@@ -1,5 +1,9 @@
 #include <tree_sitter/parser.h>
-#include <wctype.h>
+#include <string.h>
+
+static inline bool is_ascii_alpha(int32_t c) {
+    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+}
 
 // Debug logging completely disabled
 // For debugging, use tree-sitter's parse --debug flag instead
@@ -337,7 +341,7 @@ static bool scan_attribute_list_start(TSLexer *lexer) {
     }
     
     // For alphabetic characters, be very conservative
-    if (iswalpha(c)) {
+    if (is_ascii_alpha(c)) {
         // Only match if it's at line start and looks like block attributes
         return true;
     }
@@ -560,7 +564,7 @@ static bool scan_description_list_item(TSLexer *lexer) {
             // If we have too many spaces, this is probably a sentence, not a term
             if (space_count > 2) return false;  // Even more restrictive
             if (term_pos < 99) term_buffer[term_pos++] = ' ';
-        } else if (iswalpha(lexer->lookahead) || lexer->lookahead == '_' || 
+        } else if (is_ascii_alpha(lexer->lookahead) || lexer->lookahead == '_' ||
                    lexer->lookahead == '-' || is_digit(lexer->lookahead)) {
             has_alpha = true;
             // Convert to lowercase manually for comparison
