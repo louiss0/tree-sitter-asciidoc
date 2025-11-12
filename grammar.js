@@ -704,16 +704,6 @@ module.exports = grammar({
         ),
       ),
 
-    // PARAGRAPH ADMONITIONS - Handle both content and empty forms
-    paragraph_admonition: ($) =>
-      seq(
-        optional($.metadata),
-        field("type", $.admonition_type),
-        ":",
-        optional(/[ \\t]+/),
-        field("content", optional($._inline_text)),
-      ),
-
     admonition_type: ($) => choice("NOTE", "TIP", "IMPORTANT", "WARNING", "CAUTION"),
 
     // Legacy token-based admonition_label for backward compatibility
@@ -731,66 +721,7 @@ module.exports = grammar({
         ),
       ),
 
-    _inline_text: ($) =>
-      prec.right(
-        repeat1(
-          choice(
-            seq(/[ \t\f]+/, $._text_element), // Spaced elements
-            $._text_element, // Direct elements
-          ),
-        ),
-      ),
-
-    _text_element: ($) =>
-      choice(
-        prec(2000, $.inline_element),
-        $.text_segment,
-        $.text_period,
-        $.text_colon,
-        $.text_angle_bracket,
-        $.text_brace,
-        $.text_hash,
-        $.text_bracket,
-        $.text_paren,
-        $.text_caret,
-        $.text_tilde,
-        // Error recovery: treat orphaned formatting chars as text
-        prec(1, "*"),
-        prec(1, "_"),
-        prec(1, "`"),
-      ),
-
-    text_segment: ($) => token(prec(-1, /[^\s\r\n:*_\`^~\[\]<>\{}#()|]+/)),
-
-    // Error recovery: fallback for any remaining characters
     error_recovery: ($) => prec(-1000, /./),
-
-    // For periods after inline elements
-    text_period: ($) => ".",
-
-    // For colons in invalid attribute patterns
-    text_colon: ($) => ":",
-
-    // For angle brackets in invalid callout patterns
-    text_angle_bracket: ($) => choice("<", ">"),
-
-    // For curly braces in invalid attribute patterns
-    text_brace: ($) => choice("{", "}"),
-
-    // For hash symbols in invalid role span patterns
-    text_hash: ($) => "#",
-
-    // For brackets in invalid patterns
-    text_bracket: ($) => choice("[", "]"),
-
-    // For parentheses in invalid patterns
-    text_paren: ($) => choice("(", ")"),
-
-    // For carets in invalid superscript patterns
-    text_caret: ($) => "^",
-
-    // For tildes in invalid subscript patterns
-    text_tilde: ($) => "~",
 
     // INLINE FORMATTING
     inline_element: ($) =>
@@ -842,7 +773,6 @@ module.exports = grammar({
     strong_content: ($) =>
       repeat1(
         choice(
-          $.text_segment,
           $.emphasis,
           $.monospace,
           $.superscript,
@@ -873,7 +803,6 @@ module.exports = grammar({
     emphasis_content: ($) =>
       repeat1(
         choice(
-          $.text_segment,
           $.strong,
           $.monospace,
           $.superscript,
@@ -883,14 +812,21 @@ module.exports = grammar({
         ),
       ),
 
-    // Monospace formatting (`code`)
+    // Monospace formatting (`code` and ``intraword``)
     monospace: ($) =>
       prec(
         50,
-        seq(
-          field("open", $.monospace_open),
-          field("content", $.monospace_content),
-          field("close", $.monospace_close),
+        choice(
+          seq(
+            field("open", alias(token(prec(2, /``/)), $.monospace_open)),
+            field("content", $.monospace_content),
+            field("close", alias(token(prec(2, /``/)), $.monospace_close)),
+          ),
+          seq(
+            field("open", alias(token("`"), $.monospace_open)),
+            field("content", $.monospace_content),
+            field("close", alias(token("`"), $.monospace_close)),
+          ),
         ),
       ),
 
@@ -1085,10 +1021,10 @@ module.exports = grammar({
     // MATH MACROS
     math_macro: ($) => choice($.stem_inline, $.latexmath_inline, $.asciimath_inline),
 
-    // Keep as tokens to avoid parsing conflicts but allow separate node types
-    stem_inline: ($) => seq("stem:[", /[^\]\r\n]+/, "]"),
-    latexmath_inline: ($) => seq("latexmath:[", /[^\]\r\n]+/, "]"),
-    asciimath_inline: ($) => seq("asciimath:[", /[^\]\r\n]+/, "]"),
+    // Keep as tokens so incomplete macros fall back to plain text
+    stem_inline: ($) => token(prec(5, /stem:\[[^\]\r\n]+\]/)),
+    latexmath_inline: ($) => token(prec(5, /latexmath:\[[^\]\r\n]+\]/)),
+    asciimath_inline: ($) => token(prec(5, /asciimath:\[[^\]\r\n]+\]/)),
 
     // UI MACROS
     ui_macro: ($) => choice($.ui_kbd, $.ui_btn, $.ui_menu),

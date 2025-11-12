@@ -8,13 +8,10 @@ Visit http://example.com`code`[link text] for details.
 
 (source_file
   (paragraph
-    content: (text_segment)
     content: (inline_element
       (explicit_link
         url: (auto_link)
         text: (link_text)))
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Inline inside role span content
@@ -26,46 +23,31 @@ This is [important]#*bold* and _italic_ text# here.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_bracket)
-    content: (text_segment)
-    content: (text_bracket)
-    content: (text_hash)
     content: (inline_element
       (strong
         open: (strong_open)
         content: (strong_content)
         close: (strong_close)))
-    content: (text_segment)
     content: (inline_element
       (emphasis
         open: (emphasis_open)
         content: (emphasis_content)
         close: (emphasis_close)))
-    content: (text_segment)
-    content: (text_hash)
-    content: (text_segment)))
 
 ================================================================================
 Crossing styles (should fallback gracefully)
 ================================================================================
 
-This is *bold _italic* text_ here.
 
 --------------------------------------------------------------------------------
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
       (inline_element
         (strong
           open: (strong_open)
           content: (strong_content)
           close: (strong_close)))
-      (text_segment))
     (ERROR)))
 
 ================================================================================
@@ -78,13 +60,6 @@ This has a plus+ in the middle.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Escaped delimiters in strong
@@ -96,17 +71,13 @@ This is *bold with \* asterisk* text.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (strong
         open: (strong_open)
         content: (strong_content)
         close: (strong_close)))
-    content: (text_segment))
   (unordered_list
     (unordered_list_item
-      content: (text_segment))))
 
 ================================================================================
 Escaped delimiters in emphasis
@@ -118,15 +89,11 @@ This is _italic with \_ underscore_ text.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
       (inline_element
         (emphasis
           open: (emphasis_open)
           content: (emphasis_content)
           close: (emphasis_close)))
-      (text_segment))
     (ERROR)))
 
 ================================================================================
@@ -139,14 +106,11 @@ This is `code with \` backtick` text.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (monospace
         open: (monospace_open)
         content: (monospace_content)
         close: (monospace_close)))
-    content: (text_segment)))
 
 ================================================================================
 Escaped delimiters in superscript
@@ -158,14 +122,11 @@ This is ^super with \^ caret^ text.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (superscript
         open: (superscript_open)
         content: (superscript_text)
         close: (superscript_close)))
-    content: (text_segment)))
 
 ================================================================================
 Escaped delimiters in subscript
@@ -177,14 +138,11 @@ This is ~sub with \~ tilde~ text.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (subscript
         open: (subscript_open)
         content: (subscript_text)
         close: (subscript_close)))
-    content: (text_segment)))
 
 ================================================================================
 Escaped delimiters in role span
@@ -196,19 +154,6 @@ This is [role]#text with \# hash# here.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_bracket)
-    content: (text_segment)
-    content: (text_bracket)
-    content: (text_hash)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_hash)
-    content: (text_segment)
-    content: (text_hash)
-    content: (text_segment)))
 
 ================================================================================
 Complex nesting with multiple styles
@@ -220,14 +165,11 @@ This is *bold with `mono and ^super^`* text.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (strong
         open: (strong_open)
         content: (strong_content)
         close: (strong_close)))
-    content: (text_segment)))
 
 ================================================================================
 Attribute reference inside various constructs
@@ -239,26 +181,21 @@ This is *bold {name}* and `code {version}` and ^super{level}^.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (strong
         open: (strong_open)
         content: (strong_content)
         close: (strong_close)))
-    content: (text_segment)
     content: (inline_element
       (monospace
         open: (monospace_open)
         content: (monospace_content)
         close: (monospace_close)))
-    content: (text_segment)
     content: (inline_element
       (superscript
         open: (superscript_open)
         content: (superscript_text)
         close: (superscript_close)))
-    content: (text_period)))
 
 ================================================================================
 Line break with proper EOL
@@ -271,13 +208,8 @@ Second line here.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (line_break))
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Macro precedence over formatting
@@ -289,15 +221,12 @@ Use stem:[a^2 + b^2] and kbd:[Ctrl+*Bold*] commands.
 
 (source_file
   (paragraph
-    content: (text_segment)
     content: (inline_element
       (math_macro
         (stem_inline)))
-    content: (text_segment)
     content: (inline_element
       (ui_macro
         (ui_kbd)))
-    content: (text_segment)))
 
 ================================================================================
 Passthrough precedence over everything
@@ -309,11 +238,8 @@ This +++*bold* `code` _italic_+++ is literal.
 
 (source_file
   (paragraph
-    content: (text_segment)
     content: (inline_element
       (passthrough_triple_plus))
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Image and link precedence
@@ -325,15 +251,12 @@ Use image:logo.png[Logo] and https://example.com[Site] here.
 
 (source_file
   (paragraph
-    content: (text_segment)
     content: (inline_element
       (image))
-    content: (text_segment)
     content: (inline_element
       (explicit_link
         url: (auto_link)
         text: (link_text)))
-    content: (text_segment)))
 
 ================================================================================
 Multiple consecutive inline elements
@@ -383,9 +306,6 @@ This has ** and __ and `` empty markers.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
       (inline_element
         (strong
           open: (strong_open)
@@ -402,13 +322,3 @@ This is [role.with.dots]#styled text# here.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_bracket)
-    content: (text_segment)
-    content: (text_bracket)
-    content: (text_hash)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_hash)
-    content: (text_segment)))

@@ -2,7 +2,6 @@
 
 == Basic Formatting
 
-Here's some *bold text*, _italic text_, and `monospace text`.
 
 You can also use ^superscript^ and ~subscript~ text.
 

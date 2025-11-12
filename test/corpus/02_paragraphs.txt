@@ -15,38 +15,10 @@ Another paragraph after multiple blank lines
 
 (source_file
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)))
 
 ================================================================================
 Fake headings without space should be paragraphs
@@ -60,12 +32,7 @@ Fake headings without space should be paragraphs
 
 (source_file
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment))
   (paragraph
-    (text_segment))
   (section
     (section_level_6
       (section_marker_6)
@@ -86,18 +53,9 @@ continues here
 
 (source_file
   (paragraph
-    (text_segment)
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)))
 
 ================================================================================
 Single paragraph line
@@ -109,6 +67,3 @@ Just one line
 
 (source_file
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment)))

@@ -10,14 +10,6 @@ NOTE: This is a note paragraph with important information.
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment))))
 
 ================================================================================
 TIP paragraph admonition
@@ -31,12 +23,6 @@ TIP: Here's a helpful tip for users.
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment))))
 
 ================================================================================
 IMPORTANT paragraph admonition
@@ -50,12 +36,6 @@ IMPORTANT: This is crucial information to remember.
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment))))
 
 ================================================================================
 WARNING paragraph admonition
@@ -69,11 +49,6 @@ WARNING: Be careful with this operation.
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment))))
 
 ================================================================================
 CAUTION paragraph admonition
@@ -87,12 +62,6 @@ CAUTION: Proceed with caution when making changes.
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment))))
 
 ================================================================================
 NOTE paragraph with inline elements
@@ -106,17 +75,11 @@ NOTE: This note contains *bold text* and other formatting.
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
       content: (inline_element
         (strong
           open: (strong_open)
           content: (strong_content)
           close: (strong_close)))
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment))))
 
 ================================================================================
 Empty NOTE paragraph
@@ -141,17 +104,6 @@ note: This should be a regular paragraph, not an admonition.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_colon)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Not an admonition - missing space after colon
@@ -165,12 +117,6 @@ NOTE:This should be a regular paragraph.
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment))))
 
 ================================================================================
 Not an admonition - invalid label
@@ -182,15 +128,6 @@ INFO: This is not a valid admonition type.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_colon)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Multiple admonition paragraphs
@@ -208,21 +145,12 @@ TIP: Third admonition paragraph.
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)))
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)))
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment))))
 
 ================================================================================
 Admonition paragraph in section
@@ -244,13 +172,4 @@ Regular paragraph text.
       content: (paragraph
         (paragraph_admonition
           type: (admonition_type)
-          content: (text_segment)
-          content: (text_segment)
-          content: (text_segment)
-          content: (text_segment)
-          content: (text_segment)
-          content: (text_segment)))
       content: (paragraph
-        content: (text_segment)
-        content: (text_segment)
-        content: (text_segment)))))

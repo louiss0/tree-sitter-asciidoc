@@ -6,7 +6,6 @@ pattern: 121, capture: 36 - none, start: (0, 0), end: (87, 0), text: `= Comprehe
 
 == Inline Formatting
 
-This paragraph has *strong text*, _emphasis text_, `monospace text`, ^superscript^, and ~subscript~.
 
 You can also use passthroughs like +++raw content+++ to avoid processing.
 
@@ -94,7 +93,6 @@ pattern: 0, capture: 0 - markup.heading, start: (0, 0), end: (87, 0), text: `= C
 
 == Inline Formatting
 
-This paragraph has *strong text*, _emphasis text_, `monospace text`, ^superscript^, and ~subscript~.
 
 You can also use passthroughs like +++raw content+++ to avoid processing.
 
@@ -190,7 +188,6 @@ pattern: 37, capture: 22 - string, start: (3, 14), end: (3, 47), text: `Testing 
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (5, 0), end: (5, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (5, 3), end: (5, 20), text: `Inline Formatting`
 pattern: 7, capture: 0 - markup.heading, start: (5, 3), end: (5, 20), text: `Inline Formatting`
-pattern: 123, capture: 30 - text, start: (7, 0), end: (8, 0), text: `This paragraph has *strong text*, _emphasis text_, `monospace text`, ^superscript^, and ~subscript~.
 
 pattern: 125, capture: 30 - text, start: (7, 0), end: (7, 4), text: `This`
 pattern: 125, capture: 30 - text, start: (7, 4), end: (7, 14), text: ` paragraph`
@@ -201,8 +198,6 @@ pattern: 9, capture: 13 - markup.bold, start: (7, 18), end: (7, 20), text: ` *`
 pattern: 11, capture: 13 - markup.bold, start: (7, 20), end: (7, 31), text: `strong text`
 pattern: 10, capture: 13 - markup.bold, start: (7, 31), end: (7, 32), text: `*`
 pattern: 125, capture: 30 - text, start: (7, 32), end: (7, 33), text: `,`
-pattern: 124, capture: 30 - text, start: (7, 33), end: (7, 49), text: ` _emphasis text_`
-pattern: 12, capture: 14 - markup.italic, start: (7, 33), end: (7, 49), text: ` _emphasis text_`
 pattern: 13, capture: 14 - markup.italic, start: (7, 33), end: (7, 35), text: ` _`
 pattern: 15, capture: 14 - markup.italic, start: (7, 35), end: (7, 48), text: `emphasis text`
 pattern: 14, capture: 14 - markup.italic, start: (7, 48), end: (7, 49), text: `_`

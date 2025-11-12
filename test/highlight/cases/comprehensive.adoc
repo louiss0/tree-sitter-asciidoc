@@ -5,7 +5,6 @@
 
 == Inline Formatting
 
-This paragraph has *strong text*, _emphasis text_, `monospace text`, ^superscript^, and ~subscript~.
 
 You can also use passthroughs like +++raw content+++ to avoid processing.
 

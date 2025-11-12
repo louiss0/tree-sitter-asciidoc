@@ -12,53 +12,38 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
 
 (source_file
   (paragraph
-    (text_segment)
-    (text_segment)
     (inline_element
       (strong
         (strong_open)
         (strong_content)
         (strong_close)))
-    (text_segment)
     (inline_element
       (emphasis
         (emphasis_open)
         (emphasis_content)
         (emphasis_close)))
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment)
     (inline_element
       (strong
         (strong_open)
         (strong_content)
         (strong_close)))
-    (text_segment)
     (inline_element
       (emphasis
         (emphasis_open)
         (emphasis_content)
         (emphasis_close)))
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_colon)
     (inline_element
       (superscript
         (superscript_open)
         (superscript_text)
         (superscript_close)))
-    (text_segment)
     (inline_element
       (subscript
         (subscript_open)
         (subscript_text)
         (subscript_close)))
-    (text_segment)
-    (text_segment)))
 
 ================================================================================
 Delimiter adjacency and escape handling
@@ -76,53 +61,39 @@ Monospace with `code *not strong* here` content.
 
 (source_file
   (paragraph
-    (text_segment)
     (inline_element
       (strong
         (strong_open)
         (strong_content)
         (strong_close)))
-    (text_segment)
     (inline_element
       (emphasis
         (emphasis_open)
         (emphasis_content)
         (emphasis_close)))
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)
     (inline_element
       (strong
         (strong_open)
         (strong_content)
         (strong_close)))
-    (text_segment)
-    (text_segment)
     (inline_element
       (emphasis
         (emphasis_open)
         (emphasis_content)
         (emphasis_close)))
-    (text_period))
   (paragraph
-    (text_segment)
-    (text_colon)
     (inline_element
       (strong
         (strong_open)
         (strong_content)
         (strong_close)))
-    (text_period))
   (paragraph
-    (text_segment)
-    (text_segment)
     (inline_element
       (monospace
         (monospace_open)
         (monospace_content)
         (monospace_close)))
-    (text_segment)))
 
 ================================================================================
 Complex autolink boundary detection
@@ -140,31 +111,17 @@ Email addresses: contact@example.com.
 
 (source_file
   (paragraph
-    (text_segment)
     (inline_element
       (auto_link))
-    (text_segment)
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_colon)
     (inline_element
       (auto_link)))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_colon)
     (inline_element
       (auto_link))
     (inline_element
       (auto_link)))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_colon)
-    (text_segment)))
 
 ================================================================================
 Role spans with complex attributes
@@ -184,27 +141,12 @@ Role spans with complex attributes
       (role_span
         roles: (role_list)
         content: (role_content)))
-    content: (text_segment)
-    content: (text_segment))
   (paragraph
     content: (inline_element
       (role_span
         roles: (role_list)
         content: (role_content)))
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment))
   (paragraph
-    content: (text_bracket)
-    content: (text_segment)
-    content: (text_bracket)
-    content: (text_hash)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_hash)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Nested formatting edge cases
@@ -227,38 +169,29 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
         open: (strong_open)
         content: (strong_content)
         close: (strong_close)))
-    content: (text_segment)
-    content: (text_segment))
   (paragraph
     content: (inline_element
       (emphasis
         open: (emphasis_open)
         content: (emphasis_content)
         close: (emphasis_close)))
-    content: (text_period))
   (paragraph
     content: (inline_element
       (strong
         open: (strong_open)
         content: (strong_content)
         close: (strong_close)))
-    content: (text_segment)
     content: (inline_element
       (strong
         open: (strong_open)
         content: (strong_content)
         close: (strong_close)))
-    content: (text_segment))
   (paragraph
-    content: (text_segment)
     content: (inline_element
       (monospace
         open: (monospace_open)
         content: (monospace_content)
         close: (monospace_close)))
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Macro and attribute edge cases
@@ -276,44 +209,27 @@ Complex image: image::path/file.png[Alt text,width=100,height=50].
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_colon)
     content: (inline_element
       (ui_macro
         (ui_kbd)))
-    content: (text_segment)
     content: (inline_element
       (ui_macro
         (ui_btn)))
-    content: (text_period))
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_colon)
     content: (inline_element
       (math_macro
         (stem_inline)))
-    content: (text_segment)
     content: (inline_element
       (math_macro
         (asciimath_inline)))
-    content: (text_period))
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_colon)
     content: (inline_element
       (footnote_inline))
-    content: (text_segment)
     content: (inline_element
       (footnoteref))
-    content: (text_period))
   (paragraph
-    content: (text_segment)
     content: (inline_element
       (image))
-    content: (text_period)))
 
 ================================================================================
 Cross-reference and anchor combinations
@@ -329,34 +245,20 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
 
 (source_file
   (paragraph
-    (text_segment)
     (inline_element
       (internal_xref))
-    (text_segment)
-    (text_segment)
-    (text_segment)
     (inline_element
       (internal_xref)))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_colon)
     (inline_element
       (external_xref))
-    (text_segment)
     (inline_element
       (external_xref))
-    (text_period))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_colon)
     (inline_element
       (inline_anchor))
-    (text_segment)
     (inline_element
       (inline_anchor))
-    (text_segment)))
 
 ================================================================================
 Passthrough and raw content edge cases
@@ -372,25 +274,11 @@ Nested pass: pass:c[{code-block}] with substitution.
 
 (source_file
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_colon)
     (inline_element
       (pass_macro))
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_colon)
     (inline_element
       (passthrough_triple_plus))
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_colon)
     (inline_element
       (pass_macro))
-    (text_segment)
-    (text_segment)))

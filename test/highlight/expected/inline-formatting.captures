@@ -3,7 +3,6 @@ pattern: 121, capture: 36 - none, start: (0, 0), end: (70, 19), text: `= Inline 
 
 == Basic Formatting
 
-Here's some *bold text*, _italic text_, and `monospace text`.
 
 You can also use ^superscript^ and ~subscript~ text.
 
@@ -74,7 +73,6 @@ pattern: 0, capture: 0 - markup.heading, start: (0, 0), end: (70, 19), text: `= 
 
 == Basic Formatting
 
-Here's some *bold text*, _italic text_, and `monospace text`.
 
 You can also use ^superscript^ and ~subscript~ text.
 
@@ -147,7 +145,6 @@ pattern: 7, capture: 0 - markup.heading, start: (0, 2), end: (0, 24), text: `Inl
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (2, 0), end: (2, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (2, 3), end: (2, 19), text: `Basic Formatting`
 pattern: 7, capture: 0 - markup.heading, start: (2, 3), end: (2, 19), text: `Basic Formatting`
-pattern: 123, capture: 30 - text, start: (4, 0), end: (5, 0), text: `Here's some *bold text*, _italic text_, and `monospace text`.
 
 pattern: 125, capture: 30 - text, start: (4, 0), end: (4, 6), text: `Here's`
 pattern: 125, capture: 30 - text, start: (4, 6), end: (4, 11), text: ` some`
@@ -157,8 +154,6 @@ pattern: 9, capture: 13 - markup.bold, start: (4, 11), end: (4, 13), text: ` *`
 pattern: 11, capture: 13 - markup.bold, start: (4, 13), end: (4, 22), text: `bold text`
 pattern: 10, capture: 13 - markup.bold, start: (4, 22), end: (4, 23), text: `*`
 pattern: 125, capture: 30 - text, start: (4, 23), end: (4, 24), text: `,`
-pattern: 124, capture: 30 - text, start: (4, 24), end: (4, 38), text: ` _italic text_`
-pattern: 12, capture: 14 - markup.italic, start: (4, 24), end: (4, 38), text: ` _italic text_`
 pattern: 13, capture: 14 - markup.italic, start: (4, 24), end: (4, 26), text: ` _`
 pattern: 15, capture: 14 - markup.italic, start: (4, 26), end: (4, 37), text: `italic text`
 pattern: 14, capture: 14 - markup.italic, start: (4, 37), end: (4, 38), text: `_`

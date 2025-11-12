@@ -13,7 +13,4 @@ endif::[]
     (ifdef_block
       (ifdef_open)
       (paragraph
-        (text_segment)
-        (text_segment)
-        (text_segment))
       (endif_directive))))

@@ -81,11 +81,6 @@
     }
   },
   {
-    "type": "asciimath_inline",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "attribute_entry",
     "named": true,
     "fields": {
@@ -243,10 +238,6 @@
             "named": false
           },
           {
-            "type": "inline_element",
-            "named": true
-          },
-          {
             "type": "text_angle_bracket",
             "named": true
           },
@@ -284,6 +275,10 @@
           },
           {
             "type": "text_tilde",
+            "named": true
+          },
+          {
+            "type": "text_with_inlines",
             "named": true
           }
         ]
@@ -397,10 +392,6 @@
       "required": false,
       "types": [
         {
-          "type": "inline_element",
-          "named": true
-        },
-        {
           "type": "text_angle_bracket",
           "named": true
         },
@@ -438,6 +429,10 @@
         },
         {
           "type": "text_tilde",
+          "named": true
+        },
+        {
+          "type": "text_with_inlines",
           "named": true
         }
       ]
@@ -1184,11 +1179,6 @@
     }
   },
   {
-    "type": "latexmath_inline",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "link_macro",
     "named": true,
     "fields": {},
@@ -1518,16 +1508,6 @@
     }
   },
   {
-    "type": "monospace_close",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "monospace_open",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "open_block",
     "named": true,
     "fields": {
@@ -1639,10 +1619,6 @@
             "named": false
           },
           {
-            "type": "inline_element",
-            "named": true
-          },
-          {
             "type": "text_angle_bracket",
             "named": true
           },
@@ -1680,6 +1656,10 @@
           },
           {
             "type": "text_tilde",
+            "named": true
+          },
+          {
+            "type": "text_with_inlines",
             "named": true
           }
         ]
@@ -1717,10 +1697,6 @@
             "named": false
           },
           {
-            "type": "inline_element",
-            "named": true
-          },
-          {
             "type": "text_angle_bracket",
             "named": true
           },
@@ -1758,6 +1734,10 @@
           },
           {
             "type": "text_tilde",
+            "named": true
+          },
+          {
+            "type": "text_with_inlines",
             "named": true
           }
         ]
@@ -1799,10 +1779,6 @@
             "named": false
           },
           {
-            "type": "inline_element",
-            "named": true
-          },
-          {
             "type": "text_angle_bracket",
             "named": true
           },
@@ -1840,6 +1816,10 @@
           },
           {
             "type": "text_tilde",
+            "named": true
+          },
+          {
+            "type": "text_with_inlines",
             "named": true
           }
         ]
@@ -2883,11 +2863,6 @@
     }
   },
   {
-    "type": "stem_inline",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "strong",
     "named": true,
     "fields": {
@@ -3228,6 +3203,61 @@
     "fields": {}
   },
   {
+    "type": "text_with_inlines",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "inline_element",
+          "named": true
+        },
+        {
+          "type": "text_angle_bracket",
+          "named": true
+        },
+        {
+          "type": "text_brace",
+          "named": true
+        },
+        {
+          "type": "text_bracket",
+          "named": true
+        },
+        {
+          "type": "text_caret",
+          "named": true
+        },
+        {
+          "type": "text_colon",
+          "named": true
+        },
+        {
+          "type": "text_hash",
+          "named": true
+        },
+        {
+          "type": "text_paren",
+          "named": true
+        },
+        {
+          "type": "text_period",
+          "named": true
+        },
+        {
+          "type": "text_segment",
+          "named": true
+        },
+        {
+          "type": "text_tilde",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ui_btn",
     "named": true,
     "fields": {}
@@ -3301,10 +3331,6 @@
             "named": false
           },
           {
-            "type": "inline_element",
-            "named": true
-          },
-          {
             "type": "text_angle_bracket",
             "named": true
           },
@@ -3342,6 +3368,10 @@
           },
           {
             "type": "text_tilde",
+            "named": true
+          },
+          {
+            "type": "text_with_inlines",
             "named": true
           }
         ]
@@ -3551,8 +3581,8 @@
     "named": true
   },
   {
-    "type": "asciimath:[",
-    "named": false
+    "type": "asciimath_inline",
+    "named": true
   },
   {
     "type": "attribute_reference",
@@ -3671,8 +3701,8 @@
     "named": false
   },
   {
-    "type": "latexmath:[",
-    "named": false
+    "type": "latexmath_inline",
+    "named": true
   },
   {
     "type": "line_break",
@@ -3687,7 +3717,15 @@
     "named": false
   },
   {
+    "type": "monospace_close",
+    "named": true
+  },
+  {
     "type": "monospace_content",
+    "named": true
+  },
+  {
+    "type": "monospace_open",
     "named": true
   },
   {
@@ -3723,8 +3761,8 @@
     "named": true
   },
   {
-    "type": "stem:[",
-    "named": false
+    "type": "stem_inline",
+    "named": true
   },
   {
     "type": "strong_close",

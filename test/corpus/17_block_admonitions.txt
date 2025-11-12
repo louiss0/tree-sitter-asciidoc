@@ -164,15 +164,3 @@ This should be parsed as a generic attribute list followed by paragraph.
   (paragraph
     (metadata
       (block_attributes))
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)))

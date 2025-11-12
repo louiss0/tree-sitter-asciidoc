@@ -14,13 +14,9 @@ After comment.
 
 (source_file
   (paragraph
-    (text_segment)
-    (text_segment))
   (block_comment
     (comment_line))
   (paragraph
-    (text_segment)
-    (text_segment)))
 
 ================================================================================
 Multi-line block comment with special characters
@@ -42,8 +38,6 @@ Another paragraph.
 
 (source_file
   (paragraph
-    (text_segment)
-    (text_segment))
   (block_comment
     (comment_line)
     (comment_line)
@@ -51,8 +45,6 @@ Another paragraph.
     (comment_line)
     (comment_line))
   (paragraph
-    (text_segment)
-    (text_segment)))
 
 ================================================================================
 Single line block comment
@@ -70,11 +62,9 @@ After.
 
 (source_file
   (paragraph
-    (text_segment))
   (block_comment
     (comment_line))
   (paragraph
-    (text_segment)))
 
 ================================================================================
 Multiple block comments
@@ -99,19 +89,13 @@ Third paragraph.
 
 (source_file
   (paragraph
-    (text_segment)
-    (text_segment))
   (block_comment
     (comment_line))
   (paragraph
-    (text_segment)
-    (text_segment))
   (block_comment
     (comment_line)
     (comment_line))
   (paragraph
-    (text_segment)
-    (text_segment)))
 
 ================================================================================
 Block comments with sections
@@ -146,13 +130,9 @@ More content.
         (section_marker_2)
         (title)
         (paragraph
-          (text_segment)
-          (text_segment))
         (block_comment
           (comment_line))
         (paragraph
-          (text_segment)
-          (text_segment))))))
 
 ================================================================================
 Block comments with nested delimited block markers
@@ -176,5 +156,3 @@ Final paragraph.
     (comment_line)
     (comment_line))
   (paragraph
-    (text_segment)
-    (text_segment)))

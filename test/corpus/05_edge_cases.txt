@@ -33,26 +33,9 @@ Invalid attribute patterns should be paragraphs
 
 (source_file
   (paragraph
-    content: (text_colon)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment))
   (paragraph
-    content: (text_colon)
-    content: (text_segment))
   (paragraph
-    content: (text_colon)
-    content: (text_colon)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment))
   (paragraph
-    content: (text_colon)
-    content: (text_colon)
-    content: (text_colon)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Attributes with spaces in values and empty values
@@ -88,20 +71,8 @@ Third paragraph after three blanks
 
 (source_file
   (paragraph
-    (text_segment)
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment))
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)))
 
 ================================================================================
 Headings with trailing spaces

@@ -1,5 +1,23 @@
 # Agents Notes
 
+# Limitations
+
+- Tree Sitter doesn't support look ahead regex
+- Regex must be JS compatible
+- You can't use group regex
+- You can't use the same regex twice for nodes
+- Don't touch the bindings folder
+- Never remove `/[ \t]/` from extras
+
+## Things to do
+
+- If the grammar has a field use that for the query!
+- Remove all generated files after sucessful tests
+- Ask me about tests before implementing new features
+- When I allow you to write tests wait for me to approve them
+- If there are nodes that are only for a specific node make it private and use a field to expose it
+- Use the scanner to resolve conflicts related to charaters needing to exist in a specific sequence
+
 ## Highlight test command (no bash required)
 
 Run the snapshot-based highlighting tests directly via PowerShell using this one-liner:

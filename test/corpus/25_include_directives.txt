@@ -11,12 +11,6 @@ This is content after the include.
 (source_file
   (include_directive)
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Include with leveloffset option
@@ -31,8 +25,6 @@ Another paragraph.
 (source_file
   (include_directive)
   (paragraph
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Include with line ranges
@@ -47,9 +39,6 @@ Text after include.
 (source_file
   (include_directive)
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Include with tags
@@ -64,8 +53,6 @@ More content.
 (source_file
   (include_directive)
   (paragraph
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Include with multiple options
@@ -80,8 +67,6 @@ Final paragraph.
 (source_file
   (include_directive)
   (paragraph
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Include with path containing subdirectories
@@ -96,8 +81,6 @@ Following content.
 (source_file
   (include_directive)
   (paragraph
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Include in section
@@ -124,9 +107,6 @@ More text here.
       marker: (section_marker_2)
       title: (title)
       content: (paragraph
-        content: (text_segment)
-        content: (text_segment)
-        content: (text_segment)))))
 
 ================================================================================
 Multiple includes
@@ -158,8 +138,6 @@ Text after.
 (source_file
   (include_directive)
   (paragraph
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Not an include - missing colon
@@ -173,17 +151,7 @@ This should be a paragraph.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_colon)
-    content: (text_segment)
-    content: (text_bracket)
-    content: (text_bracket))
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Not an include - malformed brackets
@@ -197,15 +165,4 @@ This should be a paragraph.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_colon)
-    content: (text_colon)
-    content: (text_segment)
-    content: (text_bracket)
-    content: (text_segment))
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))

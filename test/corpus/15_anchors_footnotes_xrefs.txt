@@ -8,14 +8,8 @@ This paragraph has [[simple-anchor]] in the middle.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (inline_anchor))
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Inline anchor with text
@@ -27,13 +21,8 @@ This paragraph has [[anchor-id,anchor text]] with text.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (inline_anchor))
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Block anchor without text
@@ -55,10 +44,6 @@ Content after block anchor.
       marker: (section_marker_2)
       title: (title)
       content: (paragraph
-        content: (text_segment)
-        content: (text_segment)
-        content: (text_segment)
-        content: (text_segment)))))
 
 ================================================================================
 Block anchor with text
@@ -80,12 +65,6 @@ Content after block anchor with text.
       marker: (section_marker_2)
       title: (title)
       content: (paragraph
-        content: (text_segment)
-        content: (text_segment)
-        content: (text_segment)
-        content: (text_segment)
-        content: (text_segment)
-        content: (text_segment)))))
 
 ================================================================================
 Internal cross-reference without text
@@ -97,13 +76,8 @@ See the <<target-section>> for more information.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (internal_xref))
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Internal cross-reference with text
@@ -115,12 +89,8 @@ See the <<target-section,target section>> for details.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (internal_xref))
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 External cross-reference without text
@@ -132,11 +102,8 @@ Check out xref:other-file.adoc[].
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (external_xref))
-    content: (text_period)))
 
 ================================================================================
 External cross-reference with text
@@ -148,11 +115,8 @@ Check out xref:other-file.adoc[Other Document].
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (external_xref))
-    content: (text_period)))
 
 ================================================================================
 Inline footnote
@@ -164,14 +128,8 @@ This has a footnote footnote:[This is a footnote] in it.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (footnote_inline))
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Referenced footnote without text
@@ -183,13 +141,8 @@ This has a footnote footnote:ref1[] reference.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (footnote_ref))
-    content: (text_segment)))
 
 ================================================================================
 Referenced footnote with text
@@ -201,12 +154,8 @@ This has footnote:ref1[Referenced footnote text] in it.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (footnote_ref))
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Footnote reference without text
@@ -218,14 +167,8 @@ This uses footnoteref:ref1[] to reference a footnote.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (footnoteref))
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Footnote reference with text
@@ -237,12 +180,8 @@ This uses footnoteref:ref1[Footnote reference text] with text.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (footnoteref))
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Mixed inline elements in paragraph
@@ -254,21 +193,14 @@ Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[lin
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (inline_anchor))
-    content: (text_segment)
     content: (inline_element
       (internal_xref))
-    content: (text_segment)
     content: (inline_element
       (footnote_inline))
-    content: (text_segment)
     content: (inline_element
       (external_xref))
-    content: (text_period)))
 
 ================================================================================
 Adjacent inline elements
@@ -280,14 +212,12 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
 
 (source_file
   (paragraph
-    content: (text_segment)
     content: (inline_element
       (inline_anchor))
     content: (inline_element
       (internal_xref))
     content: (inline_element
       (footnote_inline))
-    content: (text_segment)))
 
 ====
 Example block content with anchor
@@ -307,22 +237,6 @@ This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
 
 (source_file
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_bracket)
-    (text_bracket)
-    (text_segment)
-    (text_segment)
-    (text_bracket)
-    (text_bracket)
-    (text_segment)
-    (text_bracket)
-    (text_bracket)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)
-    (text_segment)))
 
 ================================================================================
 Malformed cross-references should be plain text
@@ -334,22 +248,6 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_angle_bracket)
-    content: (text_angle_bracket)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_angle_bracket)
-    content: (text_angle_bracket)
-    content: (text_segment)
-    content: (text_angle_bracket)
-    content: (text_angle_bracket)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Malformed footnotes should be plain text
@@ -361,22 +259,6 @@ This has foot note:[spaced] and footnote:[unclosed and regular text.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_colon)
-    content: (text_bracket)
-    content: (text_segment)
-    content: (text_bracket)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_colon)
-    content: (text_bracket)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Complex cross-reference targets
@@ -388,8 +270,5 @@ See xref:../other/doc.adoc#section1[Complex target] for details.
 
 (source_file
   (paragraph
-    (text_segment)
     (inline_element
       (external_xref))
-    (text_segment)
-    (text_segment)))

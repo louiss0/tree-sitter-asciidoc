@@ -8,16 +8,11 @@ This has *bold* text in it.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (strong
         open: (strong_open)
         content: (strong_content)
         close: (strong_close)))
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Simple emphasis formatting
@@ -29,16 +24,11 @@ This has _italic_ text in it.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (emphasis
         open: (emphasis_open)
         content: (emphasis_content)
         close: (emphasis_close)))
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Simple monospace formatting
@@ -50,16 +40,11 @@ This has `code` text in it.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (monospace
         open: (monospace_open)
         content: (monospace_content)
         close: (monospace_close)))
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Unclosed formatting should be plain text
@@ -71,10 +56,6 @@ This has *unclosed bold and _unclosed italic and `unclosed code.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment))
-    (ERROR)))
 
 ================================================================================
 Mixed formatting elements
@@ -86,26 +67,21 @@ This has *bold* and _italic_ and `code` together.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (strong
         open: (strong_open)
         content: (strong_content)
         close: (strong_close)))
-    content: (text_segment)
     content: (inline_element
       (emphasis
         open: (emphasis_open)
         content: (emphasis_content)
         close: (emphasis_close)))
-    content: (text_segment)
     content: (inline_element
       (monospace
         open: (monospace_open)
         content: (monospace_content)
         close: (monospace_close)))
-    content: (text_segment)))
 
 ================================================================================
 Simple superscript and subscript
@@ -117,17 +93,13 @@ This has ^superscript^ and ~subscript~ text.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (superscript
         open: (superscript_open)
         content: (superscript_text)
         close: (superscript_close)))
-    content: (text_segment)
     content: (inline_element
       (subscript
         open: (subscript_open)
         content: (subscript_text)
         close: (subscript_close)))
-    content: (text_segment)))

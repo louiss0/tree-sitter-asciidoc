@@ -18,33 +18,14 @@ Final paragraph.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment))
   (unordered_list
     (unordered_list_item
-      content: (text_segment)
-      content: (text_segment))
     (unordered_list_item
-      content: (text_segment)
-      content: (text_segment)))
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment))
   (ordered_list
     (ordered_list_item
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment))
     (ordered_list_item
-      content: (text_segment)
-      content: (text_segment)
-      content: (text_segment)))
   (paragraph
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Lists mixed with sections and attributes
@@ -76,32 +57,13 @@ More content here.
       marker: (section_marker_1)
       title: (title)
       content: (paragraph
-        content: (text_segment)
-        content: (text_segment)
-        content: (text_segment)
-        content: (text_segment)
-        content: (text_segment)
-        content: (text_segment)
-        content: (text_segment))
       content: (unordered_list
         (unordered_list_item
-          content: (text_segment)
-          content: (text_segment))
         (unordered_list_item
-          content: (text_segment)
-          content: (text_segment)))
       content: (section_level_2
         marker: (section_marker_2)
         title: (title)
         content: (paragraph
-          content: (text_segment)
-          content: (text_segment)
-          content: (text_segment))
         content: (ordered_list
           (ordered_list_item
-            content: (text_segment)
-            content: (text_segment))
           (ordered_list_item
-            content: (text_segment)
-            content: (text_segment)
-            content: (text_segment)))))))

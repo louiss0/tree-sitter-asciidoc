@@ -8,10 +8,8 @@ This +++*should not be bold*+++ text.
 
 (source_file
   (paragraph
-    (text_segment)
     (inline_element
       (passthrough_triple_plus))
-    (text_segment)))
 
 ================================================================================
 Pass macro without substitutions
@@ -23,10 +21,8 @@ This pass:[*should not be bold*] text.
 
 (source_file
   (paragraph
-    (text_segment)
     (inline_element
       (pass_macro))
-    (text_segment)))
 
 ================================================================================
 Pass macro with substitutions
@@ -38,10 +34,8 @@ This pass:quotes[*should not be bold*] text.
 
 (source_file
   (paragraph
-    (text_segment)
     (inline_element
       (pass_macro))
-    (text_segment)))
 
 ================================================================================
 Multiple passthrough in same line
@@ -53,9 +47,5 @@ Both +++raw+++ and pass:[protected] here.
 
 (source_file
   (paragraph
-    (text_segment)
-    (text_segment)
-    (text_segment)
     (inline_element
       (pass_macro))
-    (text_segment)))

@@ -8,28 +8,21 @@ This is *bold* text and _italic_ text and `monospace` text.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (strong
         open: (strong_open)
         content: (strong_content)
         close: (strong_close)))
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (emphasis
         open: (emphasis_open)
         content: (emphasis_content)
         close: (emphasis_close)))
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (monospace
         open: (monospace_open)
         content: (monospace_content)
         close: (monospace_close)))
-    content: (text_segment)))
 
 ================================================================================
 Superscript and subscript
@@ -41,22 +34,16 @@ This is E=mc^2^ and H~2~O.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (superscript
         open: (superscript_open)
         content: (superscript_text)
         close: (superscript_close)))
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (subscript
         open: (subscript_open)
         content: (subscript_text)
         close: (subscript_close)))
-    content: (text_segment)))
 
 ================================================================================
 Nested formatting
@@ -68,14 +55,11 @@ This is *bold _italic_ text* mixed.
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment)
     content: (inline_element
       (strong
         open: (strong_open)
         content: (strong_content)
         close: (strong_close)))
-    content: (text_segment)))
 
 ================================================================================
 Attribute references
@@ -87,13 +71,10 @@ Hello {name} from {location}!
 
 (source_file
   (paragraph
-    (text_segment)
     (inline_element
       (attribute_reference))
-    (text_segment)
     (inline_element
       (attribute_reference))
-    (text_segment)))
 
 ================================================================================
 Auto links
@@ -105,12 +86,8 @@ Visit https://example.com for more info.
 
 (source_file
   (paragraph
-    (text_segment)
     (inline_element
       (auto_link))
-    (text_segment)
-    (text_segment)
-    (text_segment)))
 
 ================================================================================
 Links with text
@@ -122,14 +99,10 @@ Visit https://example.com[Example Site] for more info.
 
 (source_file
   (paragraph
-    content: (text_segment)
     content: (inline_element
       (explicit_link
         url: (auto_link)
         text: (link_text)))
-    content: (text_segment)
-    content: (text_segment)
-    content: (text_segment)))
 
 ================================================================================
 Passthrough
@@ -141,7 +114,5 @@ This +++*should not be bold*+++ text.
 
 (source_file
   (paragraph
-    (text_segment)
     (inline_element
       (passthrough_triple_plus))
-    (text_segment)))

@@ -19,23 +19,14 @@ Paragraph under C
       (section_marker_1)
       (title)
       (paragraph
-        (text_segment)
-        (text_segment)
-        (text_segment))
       (section_level_2
         (section_marker_2)
         (title)
         (paragraph
-          (text_segment)
-          (text_segment)
-          (text_segment))
         (section_level_3
           (section_marker_3)
           (title)
           (paragraph
-            (text_segment)
-            (text_segment)
-            (text_segment)))))))
 
 ================================================================================
 Multiple sections at same level
@@ -61,35 +52,20 @@ Content for section 3
       (section_marker_1)
       (title)
       (paragraph
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment))))
   (section
     (section_level_1
       (section_marker_1)
       (title)
       (paragraph
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment))
       (section_level_2
         (section_marker_2)
         (title)
         (paragraph
-          (text_segment)
-          (text_segment)
-          (text_segment)))))
   (section
     (section_level_1
       (section_marker_1)
       (title)
       (paragraph
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))))
 
 ================================================================================
 Deep nesting with all levels
@@ -121,50 +97,26 @@ Content at level 6
       (section_marker_1)
       (title)
       (paragraph
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment))
       (section_level_2
         (section_marker_2)
         (title)
         (paragraph
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment))
         (section_level_3
           (section_marker_3)
           (title)
           (paragraph
-            (text_segment)
-            (text_segment)
-            (text_segment)
-            (text_segment))
           (section_level_4
             (section_marker_4)
             (title)
             (paragraph
-              (text_segment)
-              (text_segment)
-              (text_segment)
-              (text_segment))
             (section_level_5
               (section_marker_5)
               (title)
               (paragraph
-                (text_segment)
-                (text_segment)
-                (text_segment)
-                (text_segment))
               (section_level_6
                 (section_marker_6)
                 (title)
                 (paragraph
-                  (text_segment)
-                  (text_segment)
-                  (text_segment)
-                  (text_segment))))))))))
 
 ================================================================================
 Sections with attributes
@@ -194,13 +146,9 @@ Subsection content
       (attribute_entry
         (attribute_value))
       (paragraph
-        (text_segment)
-        (text_segment))
       (section_level_2
         (section_marker_2)
         (title)
         (attribute_entry
           (attribute_value))
         (paragraph
-          (text_segment)
-          (text_segment))))))

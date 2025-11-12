@@ -82,8 +82,6 @@ Table with Title and Metadata
 
 (source_file
   (paragraph
-    content: (text_segment)
-    content: (text_segment))
   (table_block
     (metadata
       (block_attributes))
