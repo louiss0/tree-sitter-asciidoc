@@ -1,5 +1,5 @@
 C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\attributes.adoc
-pattern: 124, capture: 36 - none, start: (0, 0), end: (8, 0), text: `:author: John Doe
+pattern: 121, capture: 36 - none, start: (0, 0), end: (8, 0), text: `:author: John Doe
 :version: 1.0.0
 :email: john.doe@example.com
 :description: Sample AsciiDoc document with attributes

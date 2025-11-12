@@ -89,9 +89,6 @@
 (listing_block) @markup.raw.block
 (literal_block) @markup.raw.block
 (asciidoc_blockquote) @markup.quote
-(markdown_blockquote) @markup.quote
-(markdown_blockquote_line) @markup.quote
-(markdown_blockquote_marker) @punctuation.special
 (sidebar_block) @markup.quote
 (passthrough_block) @markup.raw.block
 (open_block) @markup.quote

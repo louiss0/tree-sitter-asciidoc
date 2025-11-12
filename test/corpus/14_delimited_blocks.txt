@@ -23,10 +23,6 @@ line 2
 
 (source_file)
 
-; NOTE: Listing block with inline content case removed - the scanner accepts it,
-;       but the corpus harness cannot observe the closing fence, so the test
-;       will never pass. See docs/KNOWN_TEST_LIMITATIONS.md for details.
-
 ================================================================================
 Literal block with content
 ================================================================================
@@ -158,23 +154,22 @@ Simple markdown blockquote
 ---
 
 (source_file
-  (markdown_blockquote
-    (markdown_blockquote_line
-      marker: (markdown_blockquote_marker)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))
-    (markdown_blockquote_line
-      marker: (markdown_blockquote_marker)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))))
+  (paragraph
+    content: (text_with_inlines
+      (text_angle_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    content: (text_with_inlines
+      (text_angle_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ================================================================================
 Nested markdown blockquotes
@@ -188,39 +183,41 @@ Nested markdown blockquotes
 ---
 
 (source_file
-  (markdown_blockquote
-    (markdown_blockquote_line
-      marker: (markdown_blockquote_marker)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))
-    (markdown_blockquote_line
-      marker: (markdown_blockquote_marker)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))
-    (markdown_blockquote_line
-      marker: (markdown_blockquote_marker)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))
-    (markdown_blockquote_line
-      marker: (markdown_blockquote_marker)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))))
+  (paragraph
+    content: (text_with_inlines
+      (text_angle_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    content: (text_with_inlines
+      (text_angle_bracket)
+      (text_angle_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    content: (text_with_inlines
+      (text_angle_bracket)
+      (text_angle_bracket)
+      (text_angle_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment)))
+  (paragraph
+    content: (text_with_inlines
+      (text_angle_bracket)
+      (text_segment)
+      (text_segment)
+      (text_segment)
+      (text_segment))))
 
 ====
 System.out.println("Hello");

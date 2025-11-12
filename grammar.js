@@ -43,7 +43,6 @@ module.exports = grammar({
     [$.inline_element, $.explicit_link],
     [$.attribute_content, $.role_list],
     [$.paragraph_admonition],
-    [$.markdown_blockquote],
   ],
 
   rules: {
@@ -61,7 +60,6 @@ module.exports = grammar({
         $.example_block,
         $.listing_block,
         $.asciidoc_blockquote,
-        $.markdown_blockquote,
         $.literal_block,
         $.sidebar_block,
         $.passthrough_block,
@@ -106,7 +104,6 @@ module.exports = grammar({
                 $.example_block,
                 $.listing_block,
                 $.asciidoc_blockquote,
-                $.markdown_blockquote,
                 $.literal_block,
                 $.sidebar_block,
                 $.passthrough_block,
@@ -144,7 +141,6 @@ module.exports = grammar({
                 $.example_block,
                 $.listing_block,
                 $.asciidoc_blockquote,
-                $.markdown_blockquote,
                 $.literal_block,
                 $.sidebar_block,
                 $.passthrough_block,
@@ -182,7 +178,6 @@ module.exports = grammar({
                 $.example_block,
                 $.listing_block,
                 $.asciidoc_blockquote,
-                $.markdown_blockquote,
                 $.literal_block,
                 $.sidebar_block,
                 $.passthrough_block,
@@ -220,7 +215,6 @@ module.exports = grammar({
                 $.example_block,
                 $.listing_block,
                 $.asciidoc_blockquote,
-                $.markdown_blockquote,
                 $.literal_block,
                 $.sidebar_block,
                 $.passthrough_block,
@@ -258,7 +252,6 @@ module.exports = grammar({
                 $.example_block,
                 $.listing_block,
                 $.asciidoc_blockquote,
-                $.markdown_blockquote,
                 $.literal_block,
                 $.sidebar_block,
                 $.passthrough_block,
@@ -296,7 +289,6 @@ module.exports = grammar({
                 $.example_block,
                 $.listing_block,
                 $.asciidoc_blockquote,
-                $.markdown_blockquote,
                 $.literal_block,
                 $.sidebar_block,
                 $.passthrough_block,
@@ -391,19 +383,6 @@ module.exports = grammar({
 
     asciidoc_blockquote_close: ($) => $.QUOTE_FENCE_END,
 
-    // Markdown-style blockquotes (lines beginning with '>')
-    markdown_blockquote: ($) =>
-      seq(optional($.metadata), $.markdown_blockquote_line, repeat($.markdown_blockquote_line)),
-
-    markdown_blockquote_line: ($) =>
-      seq(
-        field("marker", $.markdown_blockquote_marker),
-        field("content", optional($.text_with_inlines)),
-        $._line_ending,
-      ),
-
-    markdown_blockquote_marker: ($) => token(prec(5, seq(/[ \t]*/, /(?:>[ \t]*)+/, /[ \t]*/))),
-
     // Literal blocks
     literal_block: ($) =>
       seq(
@@ -464,7 +443,6 @@ module.exports = grammar({
               $.example_block,
               $.listing_block,
               $.asciidoc_blockquote,
-              $.markdown_blockquote,
               $.literal_block,
               $.sidebar_block,
               $.passthrough_block,
@@ -698,7 +676,6 @@ module.exports = grammar({
           $.example_block,
           $.listing_block,
           $.asciidoc_blockquote,
-          $.markdown_blockquote,
           $.literal_block,
           $.sidebar_block,
           $.passthrough_block,

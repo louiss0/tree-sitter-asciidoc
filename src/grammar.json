@@ -54,10 +54,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "markdown_blockquote"
-        },
-        {
-          "type": "SYMBOL",
           "name": "literal_block"
         },
         {
@@ -215,10 +211,6 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "markdown_blockquote"
-                  },
-                  {
-                    "type": "SYMBOL",
                     "name": "literal_block"
                   },
                   {
@@ -349,10 +341,6 @@
                   {
                     "type": "SYMBOL",
                     "name": "asciidoc_blockquote"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "markdown_blockquote"
                   },
                   {
                     "type": "SYMBOL",
@@ -489,10 +477,6 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "markdown_blockquote"
-                  },
-                  {
-                    "type": "SYMBOL",
                     "name": "literal_block"
                   },
                   {
@@ -623,10 +607,6 @@
                   {
                     "type": "SYMBOL",
                     "name": "asciidoc_blockquote"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "markdown_blockquote"
                   },
                   {
                     "type": "SYMBOL",
@@ -763,10 +743,6 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "markdown_blockquote"
-                  },
-                  {
-                    "type": "SYMBOL",
                     "name": "literal_block"
                   },
                   {
@@ -897,10 +873,6 @@
                   {
                     "type": "SYMBOL",
                     "name": "asciidoc_blockquote"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "markdown_blockquote"
                   },
                   {
                     "type": "SYMBOL",
@@ -1393,91 +1365,6 @@
       "type": "SYMBOL",
       "name": "QUOTE_FENCE_END"
     },
-    "markdown_blockquote": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "metadata"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "markdown_blockquote_line"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "markdown_blockquote_line"
-          }
-        }
-      ]
-    },
-    "markdown_blockquote_line": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "marker",
-          "content": {
-            "type": "SYMBOL",
-            "name": "markdown_blockquote_marker"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "content",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "text_with_inlines"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_line_ending"
-        }
-      ]
-    },
-    "markdown_blockquote_marker": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 5,
-        "content": {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "[ \\t]*"
-            },
-            {
-              "type": "PATTERN",
-              "value": "(?:>[ \\t]*)+"
-            },
-            {
-              "type": "PATTERN",
-              "value": "[ \\t]*"
-            }
-          ]
-        }
-      }
-    },
     "literal_block": {
       "type": "SEQ",
       "members": [
@@ -1725,10 +1612,6 @@
                 {
                   "type": "SYMBOL",
                   "name": "asciidoc_blockquote"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "markdown_blockquote"
                 },
                 {
                   "type": "SYMBOL",
@@ -2719,10 +2602,6 @@
             {
               "type": "SYMBOL",
               "name": "asciidoc_blockquote"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "markdown_blockquote"
             },
             {
               "type": "SYMBOL",
@@ -5397,9 +5276,6 @@
     ],
     [
       "paragraph_admonition"
-    ],
-    [
-      "markdown_blockquote"
     ]
   ],
   "precedences": [],
