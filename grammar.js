@@ -620,7 +620,7 @@ module.exports = grammar({
     unordered_list_item: ($) =>
       seq(
         $._unordered_list_marker,
-        field("content", $.text_with_inlines),
+        field("content", $._inline_text),
         $._line_ending,
         repeat($.list_item_continuation),
       ),
@@ -632,7 +632,7 @@ module.exports = grammar({
     ordered_list_item: ($) =>
       seq(
         $._ordered_list_marker,
-        field("content", $.text_with_inlines),
+        field("content", $._inline_text),
         $._line_ending,
         repeat($.list_item_continuation),
       ),
@@ -651,7 +651,7 @@ module.exports = grammar({
       ),
 
     _description_marker: ($) => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
-    description_content: ($) => $.text_with_inlines,
+    description_content: ($) => $._inline_text,
 
     // CALLOUT LISTS
     callout_list: ($) => prec.right(seq($.callout_item, repeat($.callout_item))),
@@ -659,7 +659,7 @@ module.exports = grammar({
     callout_item: ($) =>
       seq(
         $.CALLOUT_MARKER,
-        field("content", $.text_with_inlines),
+        field("content", $._inline_text),
         $._line_ending,
         repeat($.list_item_continuation),
       ),
@@ -699,7 +699,7 @@ module.exports = grammar({
         1,
         seq(
           optional($.metadata),
-          choice($.paragraph_admonition, field("content", $.text_with_inlines)),
+          choice($.paragraph_admonition, field("content", $._inline_text)),
           optional($._line_ending),
         ),
       ),
@@ -711,7 +711,7 @@ module.exports = grammar({
         field("type", $.admonition_type),
         ":",
         optional(/[ \\t]+/),
-        field("content", optional($.text_with_inlines)),
+        field("content", optional($._inline_text)),
       ),
 
     admonition_type: ($) => choice("NOTE", "TIP", "IMPORTANT", "WARNING", "CAUTION"),
@@ -731,7 +731,7 @@ module.exports = grammar({
         ),
       ),
 
-    text_with_inlines: ($) =>
+    _inline_text: ($) =>
       prec.right(
         repeat1(
           choice(

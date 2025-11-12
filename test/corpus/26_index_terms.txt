@@ -8,17 +8,16 @@ The indexterm:[database] is important in computing.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (index_term
-          (index_term_macro
-            terms: (index_text
-              primary: (index_term_text)))))
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    content: (text_segment)
+    content: (inline_element
+      (index_term
+        (index_term_macro
+          terms: (index_text
+            primary: (index_term_text)))))
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)))
 
 ================================================================================
 Hierarchical index term with secondary and tertiary
@@ -30,18 +29,17 @@ The indexterm:[databases,relational,PostgreSQL] system is robust.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (index_term
-          (index_term_macro
-            terms: (index_text
-              primary: (index_term_text)
-              secondary: (index_term_text)
-              tertiary: (index_term_text)))))
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    content: (text_segment)
+    content: (inline_element
+      (index_term
+        (index_term_macro
+          terms: (index_text
+            primary: (index_term_text)
+            secondary: (index_term_text)
+            tertiary: (index_term_text)))))
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)))
 
 ================================================================================
 Index term with secondary only
@@ -53,16 +51,15 @@ The indexterm:[programming,languages] are diverse.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (index_term
-          (index_term_macro
-            terms: (index_text
-              primary: (index_term_text)
-              secondary: (index_term_text)))))
-      (text_segment)
-      (text_segment))))
+    content: (text_segment)
+    content: (inline_element
+      (index_term
+        (index_term_macro
+          terms: (index_text
+            primary: (index_term_text)
+            secondary: (index_term_text)))))
+    content: (text_segment)
+    content: (text_segment)))
 
 ================================================================================
 Visible index term (indexterm2)
@@ -74,16 +71,15 @@ The indexterm2:[API] is well documented.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (index_term
-          (index_term2_macro
-            terms: (index_text
-              primary: (index_term_text)))))
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    content: (text_segment)
+    content: (inline_element
+      (index_term
+        (index_term2_macro
+          terms: (index_text
+            primary: (index_term_text)))))
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)))
 
 ================================================================================
 Concealed index term
@@ -95,18 +91,17 @@ The (((PostgreSQL))) database system is powerful.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (index_term
-          (concealed_index_term)))
-      (text_paren)
-      (text_paren)
-      (text_paren)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    content: (text_segment)
+    content: (inline_element
+      (index_term
+        (concealed_index_term)))
+    content: (text_paren)
+    content: (text_paren)
+    content: (text_paren)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)))
 
 ================================================================================
 Concealed index term with hierarchy
@@ -118,16 +113,15 @@ The (((databases,SQL,PostgreSQL))) is feature-rich.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (index_term
-          (concealed_index_term)))
-      (text_paren)
-      (text_paren)
-      (text_paren)
-      (text_segment)
-      (text_segment))))
+    content: (text_segment)
+    content: (inline_element
+      (index_term
+        (concealed_index_term)))
+    content: (text_paren)
+    content: (text_paren)
+    content: (text_paren)
+    content: (text_segment)
+    content: (text_segment)))
 
 ================================================================================
 Multiple index terms in paragraph
@@ -139,27 +133,26 @@ Both indexterm:[Java] and indexterm2:[Python] are indexterm:[programming,languag
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (index_term
-          (index_term_macro
-            terms: (index_text
-              primary: (index_term_text)))))
-      (text_segment)
-      (inline_element
-        (index_term
-          (index_term2_macro
-            terms: (index_text
-              primary: (index_term_text)))))
-      (text_segment)
-      (inline_element
-        (index_term
-          (index_term_macro
-            terms: (index_text
-              primary: (index_term_text)
-              secondary: (index_term_text)))))
-      (text_period))))
+    content: (text_segment)
+    content: (inline_element
+      (index_term
+        (index_term_macro
+          terms: (index_text
+            primary: (index_term_text)))))
+    content: (text_segment)
+    content: (inline_element
+      (index_term
+        (index_term2_macro
+          terms: (index_text
+            primary: (index_term_text)))))
+    content: (text_segment)
+    content: (inline_element
+      (index_term
+        (index_term_macro
+          terms: (index_text
+            primary: (index_term_text)
+            secondary: (index_term_text)))))
+    content: (text_period)))
 
 ================================================================================
 Index terms with special characters
@@ -171,20 +164,19 @@ The indexterm:[C++] and indexterm:[.NET Framework] platforms.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (index_term
-          (index_term_macro
-            terms: (index_text
-              primary: (index_term_text)))))
-      (text_segment)
-      (inline_element
-        (index_term
-          (index_term_macro
-            terms: (index_text
-              primary: (index_term_text)))))
-      (text_segment))))
+    content: (text_segment)
+    content: (inline_element
+      (index_term
+        (index_term_macro
+          terms: (index_text
+            primary: (index_term_text)))))
+    content: (text_segment)
+    content: (inline_element
+      (index_term
+        (index_term_macro
+          terms: (index_text
+            primary: (index_term_text)))))
+    content: (text_segment)))
 
 ================================================================================
 Mixed index terms with other inline elements
@@ -196,27 +188,26 @@ The *bold* text with indexterm:[formatting] and `code` examples.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close)))
-      (text_segment)
-      (text_segment)
-      (inline_element
-        (index_term
-          (index_term_macro
-            terms: (index_text
-              primary: (index_term_text)))))
-      (text_segment)
-      (inline_element
-        (monospace
-          open: (monospace_open)
-          content: (monospace_content)
-          close: (monospace_close)))
-      (text_segment))))
+    content: (text_segment)
+    content: (inline_element
+      (strong
+        open: (strong_open)
+        content: (strong_content)
+        close: (strong_close)))
+    content: (text_segment)
+    content: (text_segment)
+    content: (inline_element
+      (index_term
+        (index_term_macro
+          terms: (index_text
+            primary: (index_term_text)))))
+    content: (text_segment)
+    content: (inline_element
+      (monospace
+        open: (monospace_open)
+        content: (monospace_content)
+        close: (monospace_close)))
+    content: (text_segment)))
 
 ================================================================================
 Not an index term - malformed brackets
@@ -228,15 +219,14 @@ This indexterm[missing-colon] should be text.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_bracket)
-      (text_segment)
-      (text_bracket)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_bracket)
+    content: (text_segment)
+    content: (text_bracket)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)))
 
 ================================================================================
 Not an index term - incomplete concealed
@@ -248,13 +238,12 @@ This ((incomplete)) should be text.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_paren)
-      (text_paren)
-      (text_segment)
-      (text_paren)
-      (text_paren)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    content: (text_segment)
+    content: (text_paren)
+    content: (text_paren)
+    content: (text_segment)
+    content: (text_paren)
+    content: (text_paren)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)))

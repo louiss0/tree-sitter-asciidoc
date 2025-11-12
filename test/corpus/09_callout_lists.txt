@@ -12,19 +12,16 @@ Simple callout list
   (callout_list
     (callout_item
       (CALLOUT_MARKER)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)))
+      content: (text_segment)
+      content: (text_segment))
     (callout_item
       (CALLOUT_MARKER)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)))
+      content: (text_segment)
+      content: (text_segment))
     (callout_item
       (CALLOUT_MARKER)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)))))
+      content: (text_segment)
+      content: (text_segment))))
 
 ================================================================================
 Not a callout list - missing space after marker
@@ -38,14 +35,12 @@ Not a callout list - missing space after marker
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_angle_bracket)
-      (text_segment)
-      (text_angle_bracket)
-      (text_segment)))
+    content: (text_angle_bracket)
+    content: (text_segment)
+    content: (text_angle_bracket)
+    content: (text_segment))
   (paragraph
-    content: (text_with_inlines
-      (text_angle_bracket)
-      (text_segment)
-      (text_angle_bracket)
-      (text_segment))))
+    content: (text_angle_bracket)
+    content: (text_segment)
+    content: (text_angle_bracket)
+    content: (text_segment)))

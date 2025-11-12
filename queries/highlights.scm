@@ -3,28 +3,28 @@
 
 ; Section level markers and titles
 (section_level_1
-  (section_marker_1) @markup.heading.1.marker
-  (title) @markup.heading.1)
+  marker: (section_marker_1) @markup.heading.1.marker
+  title: (title) @markup.heading.1)
 
 (section_level_2
-  (section_marker_2) @markup.heading.2.marker
-  (title) @markup.heading.2)
+  marker: (section_marker_2) @markup.heading.2.marker
+  title: (title) @markup.heading.2)
 
 (section_level_3
-  (section_marker_3) @markup.heading.3.marker
-  (title) @markup.heading.3)
+  marker: (section_marker_3) @markup.heading.3.marker
+  title: (title) @markup.heading.3)
 
 (section_level_4
-  (section_marker_4) @markup.heading.4.marker
-  (title) @markup.heading.4)
+  marker: (section_marker_4) @markup.heading.4.marker
+  title: (title) @markup.heading.4)
 
 (section_level_5
-  (section_marker_5) @markup.heading.5.marker
-  (title) @markup.heading.5)
+  marker: (section_marker_5) @markup.heading.5.marker
+  title: (title) @markup.heading.5)
 
 (section_level_6
-  (section_marker_6) @markup.heading.6.marker
-  (title) @markup.heading.6)
+  marker: (section_marker_6) @markup.heading.6.marker
+  title: (title) @markup.heading.6)
 
 ; Generic title
 (title) @markup.heading
@@ -175,9 +175,8 @@
 ; Admonitions
 (block_admonition) @markup.quote
 (admonition_attribute) @keyword.directive
-(paragraph_admonition
-  (admonition_type) @keyword.directive
-  (text_with_inlines)? @markup.quote)
+((paragraph_admonition
+   (admonition_type) @keyword.directive) @markup.quote)
 
 ; Metadata
 (metadata) @attribute

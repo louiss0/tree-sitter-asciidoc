@@ -8,17 +8,16 @@ This is [big]#large text# here.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_bracket)
-      (text_segment)
-      (text_bracket)
-      (text_hash)
-      (text_segment)
-      (text_segment)
-      (text_hash)
-      (text_segment))))
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_bracket)
+    content: (text_segment)
+    content: (text_bracket)
+    content: (text_hash)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_hash)
+    content: (text_segment)))
 
 ================================================================================
 Role spans with nested formatting
@@ -30,26 +29,25 @@ This is [highlight]#*bold* and _italic_# text.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_bracket)
-      (text_segment)
-      (text_bracket)
-      (text_hash)
-      (inline_element
-        (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close)))
-      (text_segment)
-      (inline_element
-        (emphasis
-          open: (emphasis_open)
-          content: (emphasis_content)
-          close: (emphasis_close)))
-      (text_hash)
-      (text_segment))))
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_bracket)
+    content: (text_segment)
+    content: (text_bracket)
+    content: (text_hash)
+    content: (inline_element
+      (strong
+        open: (strong_open)
+        content: (strong_content)
+        close: (strong_close)))
+    content: (text_segment)
+    content: (inline_element
+      (emphasis
+        open: (emphasis_open)
+        content: (emphasis_content)
+        close: (emphasis_close)))
+    content: (text_hash)
+    content: (text_segment)))
 
 ================================================================================
 Math macros
@@ -62,24 +60,22 @@ Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (math_macro
-          (stem_inline)))
-      (text_segment)
-      (text_segment)))
+    content: (text_segment)
+    content: (inline_element
+      (math_macro
+        (stem_inline)))
+    content: (text_segment)
+    content: (text_segment))
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (math_macro
-          (latexmath_inline)))
-      (text_segment)
-      (inline_element
-        (math_macro
-          (asciimath_inline)))
-      (text_period))))
+    content: (text_segment)
+    content: (inline_element
+      (math_macro
+        (latexmath_inline)))
+    content: (text_segment)
+    content: (inline_element
+      (math_macro
+        (asciimath_inline)))
+    content: (text_period)))
 
 ================================================================================
 UI macros
@@ -92,25 +88,23 @@ Go to menu:File[Open] option.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (ui_macro
-          (ui_kbd)))
-      (text_segment)
-      (text_segment)
-      (inline_element
-        (ui_macro
-          (ui_btn)))
-      (text_segment)))
+    content: (text_segment)
+    content: (inline_element
+      (ui_macro
+        (ui_kbd)))
+    content: (text_segment)
+    content: (text_segment)
+    content: (inline_element
+      (ui_macro
+        (ui_btn)))
+    content: (text_segment))
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (inline_element
-        (ui_macro
-          (ui_menu)))
-      (text_segment))))
+    content: (text_segment)
+    content: (text_segment)
+    content: (inline_element
+      (ui_macro
+        (ui_menu)))
+    content: (text_segment)))
 
 ================================================================================
 Attribute references
@@ -122,11 +116,10 @@ Hello {name} from {location}!
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (inline_element
-        (attribute_reference))
-      (text_segment)
-      (inline_element
-        (attribute_reference))
-      (text_segment))))
+    (text_segment)
+    (inline_element
+      (attribute_reference))
+    (text_segment)
+    (inline_element
+      (attribute_reference))
+    (text_segment)))

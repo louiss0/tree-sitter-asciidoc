@@ -2356,7 +2356,7 @@
           "name": "content",
           "content": {
             "type": "SYMBOL",
-            "name": "text_with_inlines"
+            "name": "_inline_text"
           }
         },
         {
@@ -2415,7 +2415,7 @@
           "name": "content",
           "content": {
             "type": "SYMBOL",
-            "name": "text_with_inlines"
+            "name": "_inline_text"
           }
         },
         {
@@ -2512,7 +2512,7 @@
     },
     "description_content": {
       "type": "SYMBOL",
-      "name": "text_with_inlines"
+      "name": "_inline_text"
     },
     "callout_list": {
       "type": "PREC_RIGHT",
@@ -2546,7 +2546,7 @@
           "name": "content",
           "content": {
             "type": "SYMBOL",
-            "name": "text_with_inlines"
+            "name": "_inline_text"
           }
         },
         {
@@ -2677,7 +2677,7 @@
                 "name": "content",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "text_with_inlines"
+                  "name": "_inline_text"
                 }
               }
             ]
@@ -2744,7 +2744,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "text_with_inlines"
+                "name": "_inline_text"
               },
               {
                 "type": "BLANK"
@@ -2876,7 +2876,7 @@
         }
       }
     },
-    "text_with_inlines": {
+    "_inline_text": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {

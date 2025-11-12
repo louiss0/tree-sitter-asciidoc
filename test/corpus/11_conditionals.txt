@@ -22,10 +22,9 @@ endif::[]
           (section_marker_2)
           (title)
           (paragraph
-            (text_with_inlines
-              (text_segment)
-              (text_segment)
-              (text_segment)))))
+            (text_segment)
+            (text_segment)
+            (text_segment))))
       (endif_directive))))
 
 ================================================================================
@@ -43,10 +42,9 @@ endif::[]
     (ifndef_block
       (ifndef_open)
       (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+        (text_segment)
+        (text_segment)
+        (text_segment))
       (endif_directive))))
 
 ================================================================================
@@ -73,13 +71,12 @@ endif::[]
           (section_marker_2)
           (title)
           (paragraph
-            (text_with_inlines
-              (text_segment)
-              (text_segment)
-              (text_segment)
-              (text_segment)
-              (text_segment)
-              (text_segment)))))
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment)
+            (text_segment))))
       (endif_directive))))
 
 ================================================================================
@@ -102,9 +99,8 @@ endif::[]
         (ifdef_block
           (ifdef_open)
           (paragraph
-            (text_with_inlines
-              (text_segment)
-              (text_segment)))
+            (text_segment)
+            (text_segment))
           (endif_directive)))
       (endif_directive))))
 
@@ -126,22 +122,19 @@ Another:: item
   (description_list
     (description_item
       (description_content
-        (text_with_inlines
-          (text_segment)))))
+        (text_segment))))
   (conditional_block
     (ifdef_block
       (ifdef_open)
       (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+        (text_segment)
+        (text_segment)
+        (text_segment))
       (endif_directive)))
   (description_list
     (description_item
       (description_content
-        (text_with_inlines
-          (text_segment))))))
+        (text_segment)))))
 
 ================================================================================
 Multiple attribute targets
@@ -158,10 +151,9 @@ endif::[]
     (ifdef_block
       (ifdef_open)
       (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+        (text_segment)
+        (text_segment)
+        (text_segment))
       (endif_directive))))
 
 ================================================================================
@@ -192,28 +184,23 @@ endif::[]
           (title)
           (unordered_list
             (unordered_list_item
-              (text_with_inlines
-                (text_segment)
-                (text_segment)
-                (text_segment)))
+              (text_segment)
+              (text_segment)
+              (text_segment))
             (unordered_list_item
-              (text_with_inlines
-                (text_segment)
-                (text_segment)
-                (text_segment))))
+              (text_segment)
+              (text_segment)
+              (text_segment)))
           (ordered_list
             (ordered_list_item
-              (text_with_inlines
-                (text_segment)
-                (text_segment)))
-            (ordered_list_item
-              (text_with_inlines
-                (text_segment)
-                (text_segment))))
-          (paragraph
-            (text_with_inlines
               (text_segment)
-              (text_segment)))))
+              (text_segment))
+            (ordered_list_item
+              (text_segment)
+              (text_segment)))
+          (paragraph
+            (text_segment)
+            (text_segment))))
       (endif_directive))))
 
 ================================================================================
@@ -233,9 +220,8 @@ Normal content
       (ifdef_open)
       (endif_directive)))
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment))))
+    (text_segment)
+    (text_segment)))
 
 ================================================================================
 Complex ifeval expression
@@ -252,8 +238,7 @@ endif::[]
     (ifeval_block
       (ifeval_open)
       (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+        (text_segment)
+        (text_segment)
+        (text_segment))
       (endif_directive))))

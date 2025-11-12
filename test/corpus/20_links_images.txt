@@ -9,23 +9,21 @@ Also check out http://test.org and ftp://files.com/download.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (inline_element
-        (auto_link))
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+    (text_segment)
+    (inline_element
+      (auto_link))
+    (text_segment)
+    (text_segment)
+    (text_segment))
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (inline_element
-        (auto_link))
-      (text_segment)
-      (inline_element
-        (auto_link)))))
+    (text_segment)
+    (text_segment)
+    (text_segment)
+    (inline_element
+      (auto_link))
+    (text_segment)
+    (inline_element
+      (auto_link))))
 
 ================================================================================
 Links with text
@@ -37,15 +35,14 @@ Visit https://example.com[Example Site] for more info.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (explicit_link
-          url: (auto_link)
-          text: (link_text)))
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    content: (text_segment)
+    content: (inline_element
+      (explicit_link
+        url: (auto_link)
+        text: (link_text)))
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)))
 
 ================================================================================
 Links with formatted text
@@ -57,13 +54,12 @@ Visit https://example.com[*Bold* _Link_ Text] here.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (inline_element
-        (explicit_link
-          url: (auto_link)
-          text: (link_text)))
-      (text_segment))))
+    content: (text_segment)
+    content: (inline_element
+      (explicit_link
+        url: (auto_link)
+        text: (link_text)))
+    content: (text_segment)))
 
 ================================================================================
 Inline images
@@ -75,13 +71,12 @@ Here is image:logo.png[Company Logo] in text.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (inline_element
-        (image))
-      (text_segment)
-      (text_segment))))
+    (text_segment)
+    (text_segment)
+    (inline_element
+      (image))
+    (text_segment)
+    (text_segment)))
 
 ================================================================================
 Block images
@@ -93,8 +88,7 @@ See image::diagram.svg[System Architecture,width=500] below.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (inline_element
-        (image))
-      (text_segment))))
+    (text_segment)
+    (inline_element
+      (image))
+    (text_segment)))

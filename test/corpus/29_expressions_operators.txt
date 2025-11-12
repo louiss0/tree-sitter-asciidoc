@@ -13,12 +13,11 @@ endif::[]
     (ifeval_block
       directive: (ifeval_open)
       content: (paragraph
-        content: (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+        content: (text_segment)
+        content: (text_segment)
+        content: (text_segment)
+        content: (text_segment)
+        content: (text_segment))
       end: (endif_directive))))
 
 ================================================================================

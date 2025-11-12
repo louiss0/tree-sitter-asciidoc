@@ -126,17 +126,15 @@ Open block continuation.
 (source_file
   (ordered_list
     (ordered_list_item
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment))))
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)))
   (ordered_list
     (ordered_list_item
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment))
+      content: (text_segment)
+      content: (text_segment)
       (list_item_continuation
         (LIST_CONTINUATION)
         (open_block
@@ -177,43 +175,37 @@ Production content.
     (ifdef_block
       directive: (ifdef_open)
       content: (paragraph
-        content: (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+        content: (text_segment)
+        content: (text_segment)
+        content: (text_segment))
       content: (conditional_block
         (ifndef_block
           directive: (ifndef_open)
           content: (paragraph
-            content: (text_with_inlines
-              (text_segment)
-              (text_segment)))
+            content: (text_segment)
+            content: (text_segment))
           content: (conditional_block
             (ifeval_block
               directive: (ifeval_open)
               content: (paragraph
-                content: (text_with_inlines
-                  (text_segment)
-                  (text_segment)
-                  (text_segment)))
+                content: (text_segment)
+                content: (text_segment)
+                content: (text_segment))
               end: (endif_directive)))
           content: (paragraph
-            content: (text_with_inlines
-              (text_segment)
-              (text_segment)
-              (text_segment)
-              (text_segment)))
+            content: (text_segment)
+            content: (text_segment)
+            content: (text_segment)
+            content: (text_segment))
           end: (endif_directive)))
       content: (paragraph
-        content: (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+        content: (text_segment)
+        content: (text_segment)
+        content: (text_segment))
       end: (endif_directive)))
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment))))
+    content: (text_segment)
+    content: (text_segment)))
 
 ================================================================================
 Complex admonition combinations
@@ -244,10 +236,9 @@ Final tip content.
   (paragraph
     (paragraph_admonition
       (admonition_type)
-      (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment))))
+      (text_segment)
+      (text_segment)
+      (text_segment)))
   (block_admonition
     (admonition_attribute)
     (example_block
@@ -316,53 +307,46 @@ Back to level 2.
       marker: (section_marker_1)
       title: (title)
       content: (paragraph
-        content: (text_with_inlines
-          (inline_element
-            (inline_anchor))))
+        content: (inline_element
+          (inline_anchor)))
       content: (section_level_2
         marker: (section_marker_2)
         title: (title)
         content: (paragraph
-          content: (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)
-            (text_segment)))
+          content: (text_segment)
+          content: (text_segment)
+          content: (text_segment)
+          content: (text_segment))
         content: (paragraph
-          content: (text_with_inlines
-            (inline_element
-              (inline_anchor))))
+          content: (inline_element
+            (inline_anchor)))
         content: (section_level_3
           marker: (section_marker_3)
           title: (title)
           content: (paragraph
-            content: (text_with_inlines
-              (text_segment)
-              (text_segment)
-              (text_segment)))
+            content: (text_segment)
+            content: (text_segment)
+            content: (text_segment))
           content: (paragraph
-            content: (text_with_inlines
-              (inline_element
-                (inline_anchor))))
+            content: (inline_element
+              (inline_anchor)))
           content: (section_level_4
             marker: (section_marker_4)
             title: (title)
             content: (paragraph
-              content: (text_with_inlines
-                (text_segment)
-                (text_segment)
-                (text_segment)
-                (text_segment)
-                (text_segment))))))
+              content: (text_segment)
+              content: (text_segment)
+              content: (text_segment)
+              content: (text_segment)
+              content: (text_segment)))))
       content: (section_level_2
         marker: (section_marker_2)
         title: (title)
         content: (paragraph
-          content: (text_with_inlines
-            (text_segment)
-            (text_segment)
-            (text_segment)
-            (text_segment)))))))
+          content: (text_segment)
+          content: (text_segment)
+          content: (text_segment)
+          content: (text_segment))))))
 
 ================================================================================
 Attribute edge cases with references
@@ -393,40 +377,34 @@ Enabled: {enabled-attr}
   (attribute_entry
     (attribute_value))
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_colon)
-      (inline_element
-        (attribute_reference))))
+    (text_segment)
+    (text_colon)
+    (inline_element
+      (attribute_reference)))
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_colon)
-      (inline_element
-        (attribute_reference))))
+    (text_segment)
+    (text_colon)
+    (inline_element
+      (attribute_reference)))
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_colon)
-      (inline_element
-        (attribute_reference))))
+    (text_segment)
+    (text_colon)
+    (inline_element
+      (attribute_reference)))
   (attribute_entry)
   (attribute_entry)
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_colon)
-      (inline_element
-        (attribute_reference))))
+    (text_segment)
+    (text_colon)
+    (inline_element
+      (attribute_reference)))
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_colon)
-      (inline_element
-        (attribute_reference))))
+    (text_segment)
+    (text_colon)
+    (inline_element
+      (attribute_reference)))
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_colon)
-      (inline_element
-        (attribute_reference)))))
+    (text_segment)
+    (text_colon)
+    (inline_element
+      (attribute_reference))))

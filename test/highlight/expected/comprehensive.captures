@@ -296,8 +296,8 @@ pattern: 2, capture: 4 - markup.heading.2, start: (26, 3), end: (26, 14), text: 
 pattern: 7, capture: 0 - markup.heading, start: (26, 3), end: (26, 14), text: `Admonitions`
 pattern: 123, capture: 30 - text, start: (28, 0), end: (29, 0), text: `NOTE: This is a note admonition.
 
+pattern: 116, capture: 26 - markup.quote, start: (28, 0), end: (28, 32), text: `NOTE: This is a note admonition.`
 pattern: 116, capture: 41 - keyword.directive, start: (28, 0), end: (28, 4), text: `NOTE`
-pattern: 116, capture: 26 - markup.quote, start: (28, 5), end: (28, 32), text: ` This is a note admonition.`
 pattern: 125, capture: 30 - text, start: (28, 5), end: (28, 10), text: ` This`
 pattern: 125, capture: 30 - text, start: (28, 10), end: (28, 13), text: ` is`
 pattern: 125, capture: 30 - text, start: (28, 13), end: (28, 15), text: ` a`
@@ -305,8 +305,8 @@ pattern: 125, capture: 30 - text, start: (28, 15), end: (28, 20), text: ` note`
 pattern: 125, capture: 30 - text, start: (28, 20), end: (28, 32), text: ` admonition.`
 pattern: 123, capture: 30 - text, start: (30, 0), end: (31, 0), text: `WARNING: This is a warning admonition.
 
+pattern: 116, capture: 26 - markup.quote, start: (30, 0), end: (30, 38), text: `WARNING: This is a warning admonition.`
 pattern: 116, capture: 41 - keyword.directive, start: (30, 0), end: (30, 7), text: `WARNING`
-pattern: 116, capture: 26 - markup.quote, start: (30, 8), end: (30, 38), text: ` This is a warning admonition.`
 pattern: 125, capture: 30 - text, start: (30, 8), end: (30, 13), text: ` This`
 pattern: 125, capture: 30 - text, start: (30, 13), end: (30, 16), text: ` is`
 pattern: 125, capture: 30 - text, start: (30, 16), end: (30, 18), text: ` a`

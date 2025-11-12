@@ -18,47 +18,42 @@ CAUTION: Proceed with extreme caution.
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment))))
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)))
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment))))
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)))
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment))))
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)))
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment))))
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)))
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))))
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment))))
 
 ================================================================================
 Admonition Blocks with Example
@@ -188,43 +183,40 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (inline_element
-          (internal_xref))
-        (text_segment)
-        (text_segment)
-        (text_segment))))
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (inline_element
+        (internal_xref))
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)))
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (inline_element
-          (external_xref))
-        (text_segment)
-        (text_segment)
-        (text_segment))))
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (inline_element
+        (external_xref))
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)))
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (inline_element
-          (footnote_inline))
-        (text_segment)
-        (text_segment)))))
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (inline_element
+        (footnote_inline))
+      content: (text_segment)
+      content: (text_segment))))
 
 ====
 Block admonitions work in sections as well.
@@ -236,12 +228,11 @@ Another paragraph after the admonition.
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)))
 
 ====
 This should not be an admonition block.
@@ -255,10 +246,9 @@ NOTE: This is a valid admonition again.
   (paragraph
     (paragraph_admonition
       type: (admonition_type)
-      content: (text_with_inlines
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)
-        (text_segment)))))
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment)
+      content: (text_segment))))

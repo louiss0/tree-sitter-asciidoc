@@ -15,33 +15,29 @@ Another:: regular description item
   (description_list
     (description_item
       (description_content
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment))))
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))
     (description_item
       (description_content
-        (text_with_inlines
-          (text_segment)))))
+        (text_segment))))
   (description_list
     (description_item
       (description_content
-        (text_with_inlines
-          (text_segment)
-          (text_segment)))))
+        (text_segment)
+        (text_segment))))
   (description_list
     (description_item
       (description_content
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment))))))
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Paragraphs with directive-like words
@@ -56,46 +52,41 @@ The word endif:: can also appear here.
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+    (text_segment)
+    (text_segment)
+    (text_segment))
   (description_list
     (description_item
       (description_content
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_colon)
-          (text_colon)
-          (text_segment)
-          (text_segment)))))
+        (text_segment)
+        (text_segment)
+        (text_colon)
+        (text_colon)
+        (text_segment)
+        (text_segment))))
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+    (text_segment)
+    (text_segment)
+    (text_segment)
+    (text_segment)
+    (text_segment)
+    (text_segment)
+    (text_segment)
+    (text_segment)
+    (text_segment)
+    (text_segment)
+    (text_segment)
+    (text_segment))
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_segment)))
+    (text_segment)
+    (text_segment))
   (description_list
     (description_item
       (description_content
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment))))))
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Malformed conditionals should be paragraphs
@@ -114,26 +105,23 @@ These look like conditionals but are malformed.
     (ifdef_block
       (ifdef_open)
       (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_colon)
-          (text_colon)))
+        (text_segment)
+        (text_colon)
+        (text_colon))
       (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_colon)
-          (text_colon)
-          (text_bracket)
-          (text_segment)))
+        (text_segment)
+        (text_colon)
+        (text_colon)
+        (text_bracket)
+        (text_segment))
       (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment))))))
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)))))
 
 ================================================================================
 Mixing attributes and conditionals
@@ -160,12 +148,11 @@ endif::[]
     (ifdef_block
       (ifdef_open)
       (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment))
       (endif_directive)))
   (attribute_entry
     (attribute_value))
@@ -173,13 +160,12 @@ endif::[]
     (ifndef_block
       (ifndef_open)
       (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment))
       (endif_directive))))
 
 ================================================================================
@@ -193,24 +179,22 @@ another:::word paragraph
 
 (source_file
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_colon)
-      (text_colon)
-      (text_colon)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+    (text_segment)
+    (text_colon)
+    (text_colon)
+    (text_colon)
+    (text_segment)
+    (text_segment)
+    (text_segment)
+    (text_segment)
+    (text_segment))
   (paragraph
-    (text_with_inlines
-      (text_segment)
-      (text_colon)
-      (text_colon)
-      (text_colon)
-      (text_segment)
-      (text_segment))))
+    (text_segment)
+    (text_colon)
+    (text_colon)
+    (text_colon)
+    (text_segment)
+    (text_segment)))
 
 ================================================================================
 No targets in ifdef should still work
@@ -231,22 +215,20 @@ endif::[]
     (ifdef_block
       (ifdef_open)
       (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment))
       (endif_directive)))
   (conditional_block
     (ifndef_block
       (ifndef_open)
       (paragraph
-        (text_with_inlines
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)
-          (text_segment)))
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment)
+        (text_segment))
       (endif_directive))))
 
 ================================================================================
@@ -280,10 +262,9 @@ endif::[]
         (ifdef_block
           directive: (ifdef_open)
           content: (paragraph
-            content: (text_with_inlines
-              (text_segment)
-              (text_segment)
-              (text_segment)))
+            content: (text_segment)
+            content: (text_segment)
+            content: (text_segment))
           end: (endif_directive)))
       content: (section_level_3
         marker: (section_marker_3)
@@ -292,7 +273,6 @@ endif::[]
           (ifndef_block
             directive: (ifndef_open)
             content: (paragraph
-              content: (text_with_inlines
-                (text_segment)
-                (text_segment)))
+              content: (text_segment)
+              content: (text_segment))
             end: (endif_directive)))))))

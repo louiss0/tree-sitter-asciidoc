@@ -155,21 +155,19 @@ Simple markdown blockquote
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_angle_bracket)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+    content: (text_angle_bracket)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment))
   (paragraph
-    content: (text_with_inlines
-      (text_angle_bracket)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    content: (text_angle_bracket)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)))
 
 ================================================================================
 Nested markdown blockquotes
@@ -184,40 +182,36 @@ Nested markdown blockquotes
 
 (source_file
   (paragraph
-    content: (text_with_inlines
-      (text_angle_bracket)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+    content: (text_angle_bracket)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment))
   (paragraph
-    content: (text_with_inlines
-      (text_angle_bracket)
-      (text_angle_bracket)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+    content: (text_angle_bracket)
+    content: (text_angle_bracket)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment))
   (paragraph
-    content: (text_with_inlines
-      (text_angle_bracket)
-      (text_angle_bracket)
-      (text_angle_bracket)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment)))
+    content: (text_angle_bracket)
+    content: (text_angle_bracket)
+    content: (text_angle_bracket)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment))
   (paragraph
-    content: (text_with_inlines
-      (text_angle_bracket)
-      (text_segment)
-      (text_segment)
-      (text_segment)
-      (text_segment))))
+    content: (text_angle_bracket)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)
+    content: (text_segment)))
 
 ====
 System.out.println("Hello");
