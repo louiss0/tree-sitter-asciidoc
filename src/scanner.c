@@ -27,6 +27,8 @@ enum TokenType {
   PASSTHROUGH_FENCE_END,
   OPENBLOCK_FENCE_START,
   OPENBLOCK_FENCE_END,
+  BLOCK_COMMENT_START,
+  BLOCK_COMMENT_END,
   LIST_CONTINUATION,
   AUTOLINK_BOUNDARY,
   ATTRIBUTE_LIST_START,
@@ -330,6 +332,17 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
         lexer->result_symbol = SIDEBAR_FENCE_START;
       }
       note_block_transition(state, lexer->result_symbol);
+      return true;
+    }
+
+    if ((valid_symbols[BLOCK_COMMENT_START] || valid_symbols[BLOCK_COMMENT_END]) &&
+        lexer->lookahead == '/' &&
+        scan_repeated_fence(lexer, '/', 4)) {
+      if (valid_symbols[BLOCK_COMMENT_END]) {
+        lexer->result_symbol = BLOCK_COMMENT_END;
+      } else {
+        lexer->result_symbol = BLOCK_COMMENT_START;
+      }
       return true;
     }
 

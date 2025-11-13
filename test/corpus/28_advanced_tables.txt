@@ -443,10 +443,12 @@ Phone: *555-9012*
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
   (table_block
-    (metadata
-      (block_attributes))
+    title: (table_title
+      text: (table_title_text))
+    metadata: (metadata
+      (block_attributes
+        (ATTRIBUTE_LIST_START)))
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content

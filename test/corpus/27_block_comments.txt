@@ -14,9 +14,15 @@ After comment.
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)))
   (block_comment
-    (comment_line))
+    (BLOCK_COMMENT_START)
+    (comment_line)
+    (BLOCK_COMMENT_END))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Multi-line block comment with special characters
@@ -38,13 +44,19 @@ Another paragraph.
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)))
   (block_comment
+    (BLOCK_COMMENT_START)
     (comment_line)
     (comment_line)
     (comment_line)
     (comment_line)
-    (comment_line))
+    (comment_line)
+    (BLOCK_COMMENT_END))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Single line block comment
@@ -62,9 +74,15 @@ After.
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)))
   (block_comment
-    (comment_line))
+    (BLOCK_COMMENT_START)
+    (comment_line)
+    (BLOCK_COMMENT_END))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Multiple block comments
@@ -89,13 +107,23 @@ Third paragraph.
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)))
   (block_comment
-    (comment_line))
-  (paragraph
-  (block_comment
+    (BLOCK_COMMENT_START)
     (comment_line)
-    (comment_line))
+    (BLOCK_COMMENT_END))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)))
+  (block_comment
+    (BLOCK_COMMENT_START)
+    (comment_line)
+    (comment_line)
+    (BLOCK_COMMENT_END))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Block comments with sections
@@ -125,14 +153,22 @@ More content.
       (section_marker_1)
       (title)
       (block_comment
-        (comment_line))
+        (BLOCK_COMMENT_START)
+        (comment_line)
+        (BLOCK_COMMENT_END))
       (section_level_2
         (section_marker_2)
         (title)
         (paragraph
+          (inline_seq_nonempty
+            (plain_text)))
         (block_comment
-          (comment_line))
+          (BLOCK_COMMENT_START)
+          (comment_line)
+          (BLOCK_COMMENT_END))
         (paragraph
+          (inline_seq_nonempty
+            (plain_text)))))))
 
 ================================================================================
 Block comments with nested delimited block markers
@@ -151,8 +187,12 @@ Final paragraph.
 
 (source_file
   (block_comment
+    (BLOCK_COMMENT_START)
     (comment_line)
     (comment_line)
     (comment_line)
-    (comment_line))
+    (comment_line)
+    (BLOCK_COMMENT_END))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))

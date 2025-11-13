@@ -13,6 +13,8 @@ endif::[]
     (ifeval_block
       directive: (ifeval_open)
       content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)))
       end: (endif_directive))))
 
 ================================================================================

@@ -210,16 +210,37 @@
   {
     "type": "block_comment",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "comment_line",
-          "named": true
-        }
-      ]
+    "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "BLOCK_COMMENT_END",
+            "named": true
+          }
+        ]
+      },
+      "content": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "comment_line",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "BLOCK_COMMENT_START",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -250,14 +271,6 @@
         "multiple": true,
         "required": true,
         "types": [
-          {
-            "type": "\n",
-            "named": false
-          },
-          {
-            "type": "\r\n",
-            "named": false
-          },
           {
             "type": "inline_seq_nonempty",
             "named": true
@@ -1566,14 +1579,6 @@
         "required": true,
         "types": [
           {
-            "type": "\n",
-            "named": false
-          },
-          {
-            "type": "\r\n",
-            "named": false
-          },
-          {
             "type": "inline_seq_nonempty",
             "named": true
           }
@@ -1599,14 +1604,6 @@
         "multiple": true,
         "required": false,
         "types": [
-          {
-            "type": "\n",
-            "named": false
-          },
-          {
-            "type": "\r\n",
-            "named": false
-          },
           {
             "type": "inline_seq_nonempty",
             "named": true
@@ -1637,14 +1634,6 @@
         "multiple": true,
         "required": true,
         "types": [
-          {
-            "type": "\n",
-            "named": false
-          },
-          {
-            "type": "\r\n",
-            "named": false
-          },
           {
             "type": "inline_seq_nonempty",
             "named": true
@@ -2858,6 +2847,16 @@
           }
         ]
       },
+      "metadata": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "metadata",
+            "named": true
+          }
+        ]
+      },
       "open": {
         "multiple": false,
         "required": true,
@@ -2867,17 +2866,17 @@
             "named": true
           }
         ]
+      },
+      "title": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "table_title",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "metadata",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -2971,6 +2970,22 @@
     }
   },
   {
+    "type": "table_title",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "table_title_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "ui_btn",
     "named": true,
     "fields": {}
@@ -3032,14 +3047,6 @@
         "required": true,
         "types": [
           {
-            "type": "\n",
-            "named": false
-          },
-          {
-            "type": "\r\n",
-            "named": false
-          },
-          {
             "type": "inline_seq_nonempty",
             "named": true
           }
@@ -3056,14 +3063,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "\n",
-    "named": false
-  },
-  {
-    "type": "\r\n",
-    "named": false
   },
   {
     "type": "#",
@@ -3095,6 +3094,14 @@
   },
   {
     "type": "ATTRIBUTE_LIST_START",
+    "named": true
+  },
+  {
+    "type": "BLOCK_COMMENT_END",
+    "named": true
+  },
+  {
+    "type": "BLOCK_COMMENT_START",
     "named": true
   },
   {
@@ -3407,6 +3414,10 @@
   },
   {
     "type": "superscript_text",
+    "named": true
+  },
+  {
+    "type": "table_title_text",
     "named": true
   },
   {

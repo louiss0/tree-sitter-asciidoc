@@ -25,6 +25,8 @@ module.exports = grammar({
     $.PASSTHROUGH_FENCE_END,
     $.OPENBLOCK_FENCE_START,
     $.OPENBLOCK_FENCE_END,
+    $.BLOCK_COMMENT_START,
+    $.BLOCK_COMMENT_END,
     $.LIST_CONTINUATION,
     $.AUTOLINK_BOUNDARY,
     $.ATTRIBUTE_LIST_START,
@@ -42,12 +44,13 @@ module.exports = grammar({
     [$.callout_item],
     [$.inline_element, $.explicit_link],
     [$.attribute_content, $.role_list],
+    [$.table_block, $.paragraph],
   ],
 
   rules: {
-    source_file: ($) => repeat($._element),
+    source_file: ($) => repeat(choice($._blank_line, $._block_element)),
 
-    _element: ($) =>
+    _block_element: ($) =>
       choice(
         $.section,
         $.unordered_list,
@@ -66,9 +69,9 @@ module.exports = grammar({
         $.conditional_block,
         $.include_directive,
         $.block_comment,
+        alias($._titled_table_block, $.table_block),
         $.table_block,
         $.paragraph,
-        $._blank_line,
       ),
 
     // SECTIONS - level-based hierarchy for proper sibling relationships
@@ -458,7 +461,7 @@ module.exports = grammar({
       prec.right(
         seq(
           field("directive", $.ifdef_open),
-          field("content", repeat($._element)),
+          field("content", repeat(choice($._block_element, $._blank_line))),
           field("end", optional($.endif_directive)),
         ),
       ),
@@ -467,7 +470,7 @@ module.exports = grammar({
       prec.right(
         seq(
           field("directive", $.ifndef_open),
-          field("content", repeat($._element)),
+          field("content", repeat(choice($._block_element, $._blank_line))),
           field("end", optional($.endif_directive)),
         ),
       ),
@@ -476,7 +479,7 @@ module.exports = grammar({
       prec.right(
         seq(
           field("directive", $.ifeval_open),
-          field("content", repeat($._element)),
+          field("content", repeat(choice($._block_element, $._blank_line))),
           field("end", optional($.endif_directive)),
         ),
       ),
@@ -574,6 +577,10 @@ module.exports = grammar({
         ),
       ),
 
+    table_title: ($) => seq(field("text", $.table_title_text), $._line_ending),
+
+    table_title_text: ($) => token(prec(15, /\.[\w\d_]+(?:[ \t]+[\w\d_]+)*/)),
+
     // Treat block attributes as a single external token to avoid misparsing inline role spans.
     block_attributes: ($) => $.ATTRIBUTE_LIST_START,
 
@@ -589,7 +596,7 @@ module.exports = grammar({
 
     block_title: ($) =>
       prec(
-        -1,
+        10,
         seq(
           ".",
           /[^\r\n]+/, // title text
@@ -679,7 +686,7 @@ module.exports = grammar({
         seq(
           optional($.metadata),
           choice($.paragraph_admonition, field("content", $._inline_text)),
-          optional($._line_ending),
+          optional(repeat1($._blank_line)),
         ),
       ),
 
@@ -746,14 +753,14 @@ module.exports = grammar({
     inline_seq_nonempty: ($) => prec.right(seq($._inline_unit, repeat($._inline_unit))),
 
     _inline_unit: ($) =>
-      choice($.plain_text, $.escaped_char, $.inline_element, $.formatting_fallback),
+      choice($.inline_element, $.escaped_char, $.plain_text, $.formatting_fallback),
 
     plain_text: ($) =>
       token(
         prec(
-          1,
-          // Allow visible spaces/tabs now that they are not extras, but stop at structural chars.
-          /(?:[ \t]+|[^\r\n\\*_`^~+\[\]{}<>])+/,
+          -50,
+          // Allow visible spaces/tabs but stop before inline macro prefixes like indexterm/indexterm2 and concealed terms
+          /(?:[ \t]+|[^\r\n\\*_`^~+\[\]{}<>i(]|\([^(\r\n]|\(\([^(\r\n]|i(?:[^n]|n(?:[^d]|d(?:[^e]|e(?:[^x]|x(?:[^t]|t(?:[^e]|e(?:[^r]|r(?:[^m]|m(?:2[^:]|[^2:]))))))))))+/,
         ),
       ),
 
@@ -1046,33 +1053,33 @@ module.exports = grammar({
     // BLOCK COMMENTS
     block_comment: ($) =>
       seq(
-        token(seq("////", /[ \t]*/, /\r?\n/)), // opening delimiter (hidden)
-        repeat1($.comment_line),
-        token(seq("////", /[ \t]*/, optional(/\r?\n/))), // closing delimiter (hidden)
+        field("open", $.BLOCK_COMMENT_START),
+        repeat(field("content", $.comment_line)),
+        field("close", $.BLOCK_COMMENT_END),
       ),
 
-    comment_line: ($) => /[^\r\n]*\r?\n/,
+    comment_line: ($) => token(prec(-10, /[^\r\n]*\r?\n/)),
 
     // INDEX TERMS - with fallback for malformed constructs
     index_term: ($) => choice($.index_term_macro, $.index_term2_macro, $.concealed_index_term),
 
     index_term_macro: ($) =>
       choice(
-        seq("indexterm:[", field("terms", $.index_text), "]"),
+        seq(token(prec(100, "indexterm:[")), field("terms", $.index_text), "]"),
         // Fallback for malformed (missing bracket)
         seq("indexterm:", /[^\[\r\n]+/),
       ),
 
     index_term2_macro: ($) =>
       choice(
-        seq("indexterm2:[", field("terms", $.index_text), "]"),
+        seq(token(prec(100, "indexterm2:[")), field("terms", $.index_text), "]"),
         // Fallback for malformed
         seq("indexterm2:", /[^\[\r\n]+/),
       ),
 
     concealed_index_term: ($) =>
       choice(
-        seq("(((", field("terms", $.index_text), ")))"),
+        seq(token(prec(50, "(((")), field("terms", $.index_text), token(prec(50, ")))"))),
         // Fallback for incomplete concealed term
         seq("(((", /[^\)]+/),
       ),
@@ -1093,15 +1100,17 @@ module.exports = grammar({
     index_term_text: ($) => /[^,\]\)\r\n]+/,
 
     // TABLES
-    table_block: ($) =>
-      prec.right(
-        10,
-        seq(
-          optional($.metadata),
-          field("open", $.table_open),
-          optional(field("content", $.table_content)),
-          field("close", $.table_close),
-        ),
+    table_block: ($) => prec.right(10, $._table_block_body),
+
+    _titled_table_block: ($) =>
+      prec.right(10, seq(field("title", $.table_title), $._table_block_body)),
+
+    _table_block_body: ($) =>
+      seq(
+        optional(field("metadata", $.metadata)),
+        field("open", $.table_open),
+        optional(field("content", $.table_content)),
+        field("close", $.table_close),
       ),
 
     // Recognize table fences in grammar (one or two pipes followed by === and optional spaces, then newline)
@@ -1179,7 +1188,7 @@ module.exports = grammar({
     line_break: ($) => alias($.hard_break, $.line_break),
 
     // BASIC TOKENS
-    _line_ending: ($) => choice("\r\n", "\n"),
+    _line_ending: ($) => token(prec(-2, /\r?\n/)),
     _blank_line: ($) => token(prec(-1, /[ \t]*\r?\n/)),
   },
 });
