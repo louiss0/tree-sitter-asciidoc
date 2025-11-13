@@ -69,7 +69,6 @@
 
 ; Attributes
 (attribute_entry) @attribute
-(attribute_value) @string
 (attribute_reference) @variable.builtin
 
 ; Lists
@@ -131,7 +130,6 @@
 (DELIMITED_BLOCK_CONTENT_LINE) @text
 (LIST_CONTINUATION) @punctuation.special
 (CALLOUT_MARKER) @markup.strong
-(AUTOLINK_BOUNDARY) @punctuation
 
 ; Tables
 (table_open) @punctuation.delimiter
@@ -162,7 +160,6 @@
 (footnoteref) @markup.link
 (image) @markup.link
 (passthrough_triple_plus) @markup.raw.inline
-(pass_macro) @function.macro
 (math_macro) @function.macro
 (ui_macro) @function.macro
 (index_term) @markup.link.label
@@ -176,7 +173,7 @@
 (block_admonition) @markup.quote
 (admonition_attribute) @keyword.directive
 ((paragraph_admonition
-   (admonition_type) @keyword.directive) @markup.quote)
+   label: (admonition_label) @keyword.directive) @markup.quote)
 
 ; Metadata
 (metadata) @attribute
@@ -189,19 +186,8 @@
 (block_content) @text
 (paragraph) @text
 (inline_element) @text
-(text_segment) @text
+(plain_text) @text
 (content_line) @text
-
-; Punctuation
-(text_period) @punctuation
-(text_colon) @punctuation
-(text_caret) @punctuation.special
-(text_hash) @punctuation.special
-(text_tilde) @punctuation.special
-(text_angle_bracket) @punctuation.bracket
-(text_brace) @punctuation.bracket
-(text_bracket) @punctuation.bracket
-(text_paren) @punctuation.bracket
 
 ; Advanced Features
 (bibliography_entry) @markup.link.label
@@ -233,4 +219,4 @@
 ; Error recovery - handled by ERROR nodes automatically
 
 ; Line breaks
-(line_break) @punctuation.special
+(hard_break) @punctuation.special

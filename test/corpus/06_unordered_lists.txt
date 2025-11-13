@@ -11,8 +11,14 @@ Simple unordered list with asterisk
 (source_file
   (unordered_list
     (unordered_list_item
+      (inline_seq_nonempty
+        (plain_text)))
     (unordered_list_item
+      (inline_seq_nonempty
+        (plain_text)))
     (unordered_list_item
+      (inline_seq_nonempty
+        (plain_text)))))
 
 ================================================================================
 Simple unordered list with hyphen
@@ -27,8 +33,14 @@ Simple unordered list with hyphen
 (source_file
   (unordered_list
     (unordered_list_item
+      (inline_seq_nonempty
+        (plain_text)))
     (unordered_list_item
+      (inline_seq_nonempty
+        (plain_text)))
     (unordered_list_item
+      (inline_seq_nonempty
+        (plain_text)))))
 
 ================================================================================
 Mixed unordered list markers
@@ -43,14 +55,20 @@ Mixed unordered list markers
 (source_file
   (unordered_list
     (unordered_list_item
+      (inline_seq_nonempty
+        (plain_text)))
     (unordered_list_item
+      (inline_seq_nonempty
+        (plain_text)))
     (unordered_list_item
+      (inline_seq_nonempty
+        (plain_text)))))
 
 ================================================================================
 Not a list - missing space after marker
 ================================================================================
 
-*NotAList
+*NotAList*
 
 -NotAList
 
@@ -58,4 +76,12 @@ Not a list - missing space after marker
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (inline_element
+        (strong
+          (strong_open)
+          (strong_content)
+          (strong_close)))))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))

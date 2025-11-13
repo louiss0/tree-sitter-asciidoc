@@ -32,7 +32,7 @@ module.exports = grammar({
   ],
 
   extras: ($) => [
-    /[ \t]/, // Allow spaces and tabs but not newlines
+    // /[ \t]/, // Allow spaces and tabs but not newlines
   ],
 
   conflicts: ($) => [
@@ -42,7 +42,6 @@ module.exports = grammar({
     [$.callout_item],
     [$.inline_element, $.explicit_link],
     [$.attribute_content, $.role_list],
-    [$.paragraph_admonition],
   ],
 
   rules: {
@@ -561,14 +560,7 @@ module.exports = grammar({
 
     boolean_literal: ($) => choice("true", "false"),
 
-    endif_directive: ($) =>
-      seq(
-        "endif::",
-        "[",
-        optional(/[^\]\r\n]*/), // optional content
-        "]",
-        optional($._line_ending),
-      ),
+    endif_directive: ($) => token(prec(75, /endif::\[[^\]\r\n]*\][ \t]*\r?\n?/)),
 
     // METADATA
     metadata: ($) =>
@@ -582,9 +574,8 @@ module.exports = grammar({
         ),
       ),
 
-    // Treat block attributes as a single token to simplify AST and avoid duplicate nodes.
-    // Require a trailing newline so inline role spans like [.role] are not misparsed as metadata.
-    block_attributes: ($) => token(prec(3, /\[[^\]\r\n]+\][ \t]*\r?\n/)),
+    // Treat block attributes as a single external token to avoid misparsing inline role spans.
+    block_attributes: ($) => $.ATTRIBUTE_LIST_START,
 
     attribute_content: ($) => /[^\]\r\n]+/,
 
@@ -621,7 +612,6 @@ module.exports = grammar({
       seq(
         $._unordered_list_marker,
         field("content", $._inline_text),
-        $._line_ending,
         repeat($.list_item_continuation),
       ),
 
@@ -633,7 +623,6 @@ module.exports = grammar({
       seq(
         $._ordered_list_marker,
         field("content", $._inline_text),
-        $._line_ending,
         repeat($.list_item_continuation),
       ),
 
@@ -643,12 +632,7 @@ module.exports = grammar({
     description_list: ($) => prec.right(2, seq($.description_item, repeat($.description_item))),
 
     description_item: ($) =>
-      seq(
-        $._description_marker,
-        $.description_content,
-        $._line_ending,
-        repeat($.list_item_continuation),
-      ),
+      seq($._description_marker, $.description_content, repeat($.list_item_continuation)),
 
     _description_marker: ($) => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
     description_content: ($) => $._inline_text,
@@ -657,12 +641,7 @@ module.exports = grammar({
     callout_list: ($) => prec.right(seq($.callout_item, repeat($.callout_item))),
 
     callout_item: ($) =>
-      seq(
-        $.CALLOUT_MARKER,
-        field("content", $._inline_text),
-        $._line_ending,
-        repeat($.list_item_continuation),
-      ),
+      seq($.CALLOUT_MARKER, field("content", $._inline_text), repeat($.list_item_continuation)),
 
     CALLOUT_MARKER: ($) => token(prec(5, /<[0-9]+>[ \t]+/)),
 
@@ -705,6 +684,9 @@ module.exports = grammar({
       ),
 
     admonition_type: ($) => choice("NOTE", "TIP", "IMPORTANT", "WARNING", "CAUTION"),
+
+    paragraph_admonition: ($) =>
+      seq(field("label", $.admonition_label), field("content", $._inline_text)),
 
     // Legacy token-based admonition_label for backward compatibility
     admonition_label: ($) =>
@@ -749,8 +731,36 @@ module.exports = grammar({
         $.math_macro,
         $.ui_macro,
         $.index_term,
-        $.line_break,
+        $.hard_break,
       ),
+
+    _inline_text: ($) =>
+      prec.right(
+        choice(
+          $.inline_seq_nonempty,
+          seq($.inline_seq_nonempty, $._line_ending, $._inline_text),
+          seq($.inline_seq_nonempty, $._line_ending),
+        ),
+      ),
+
+    inline_seq_nonempty: ($) => prec.right(seq($._inline_unit, repeat($._inline_unit))),
+
+    _inline_unit: ($) =>
+      choice($.plain_text, $.escaped_char, $.inline_element, $.formatting_fallback),
+
+    plain_text: ($) =>
+      token(
+        prec(
+          1,
+          // Allow visible spaces/tabs now that they are not extras, but stop at structural chars.
+          /(?:[ \t]+|[^\r\n\\*_`^~+\[\]{}<>])+/,
+        ),
+      ),
+
+    escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
+
+    // Catch unmatched formatting markers so they become plain text instead of ERROR nodes.
+    formatting_fallback: ($) => token(prec(-1, /[*_`^~+\[\]{}<>]/)),
 
     // Strong formatting (*bold* or **bold**)
     strong: ($) =>
@@ -1164,8 +1174,9 @@ module.exports = grammar({
 
     cell_literal_text: ($) => /[^|\r\n]*/,
 
-    // LINE BREAKS - hard line break: " +" at end of line
-    line_break: ($) => token(prec(2, seq(" ", "+", /\r?\n/))),
+    // LINE BREAKS - hard line break: space-or-tab + "+" before newline
+    hard_break: ($) => token(prec(2, seq(/[ \t]+/, "+", /\r?\n/))),
+    line_break: ($) => alias($.hard_break, $.line_break),
 
     // BASIC TOKENS
     _line_ending: ($) => choice("\r\n", "\n"),

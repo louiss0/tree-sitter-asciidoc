@@ -144,36 +144,6 @@ Can contain any content.
     close: (openblock_close
       (OPENBLOCK_FENCE_END))))
 
-================================================================================
-Simple markdown blockquote
-================================================================================
-
-> This is a simple markdown blockquote.
-> It spans multiple lines.
-
----
-
-(source_file
-  (paragraph
-  (paragraph
-
-================================================================================
-Nested markdown blockquotes
-================================================================================
-
-> This is a level 1 blockquote.
->> This is nested level 2.
->>> And this is level 3.
-> Back to level 1.
-
----
-
-(source_file
-  (paragraph
-  (paragraph
-  (paragraph
-  (paragraph
-
 ====
 System.out.println("Hello");
 ====

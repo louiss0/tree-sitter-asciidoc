@@ -18,14 +18,28 @@ Final paragraph.
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)))
   (unordered_list
     (unordered_list_item
+      (inline_seq_nonempty
+        (plain_text)))
     (unordered_list_item
+      (inline_seq_nonempty
+        (plain_text))))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)))
   (ordered_list
     (ordered_list_item
+      (inline_seq_nonempty
+        (plain_text)))
     (ordered_list_item
+      (inline_seq_nonempty
+        (plain_text))))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Lists mixed with sections and attributes
@@ -57,13 +71,25 @@ More content here.
       marker: (section_marker_1)
       title: (title)
       content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)))
       content: (unordered_list
         (unordered_list_item
+          content: (inline_seq_nonempty
+            (plain_text)))
         (unordered_list_item
+          content: (inline_seq_nonempty
+            (plain_text))))
       content: (section_level_2
         marker: (section_marker_2)
         title: (title)
         content: (paragraph
+          content: (inline_seq_nonempty
+            (plain_text)))
         content: (ordered_list
           (ordered_list_item
+            content: (inline_seq_nonempty
+              (plain_text)))
           (ordered_list_item
+            content: (inline_seq_nonempty
+              (plain_text))))))))

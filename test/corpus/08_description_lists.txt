@@ -12,11 +12,17 @@ AnotherTerm:: Another description
   (description_list
     (description_item
       (description_content
+        (inline_seq_nonempty
+          (plain_text))))
     (description_item
       (description_content
+        (inline_seq_nonempty
+          (plain_text)))))
   (description_list
     (description_item
       (description_content
+        (inline_seq_nonempty
+          (plain_text))))))
 
 ================================================================================
 Not a description list - missing space after double colon
@@ -30,7 +36,11 @@ Another::Description
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Not a description list - triple colon
@@ -42,3 +52,5 @@ Term::: Description
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))

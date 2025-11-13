@@ -19,14 +19,20 @@ Paragraph under C
       (section_marker_1)
       (title)
       (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
       (section_level_2
         (section_marker_2)
         (title)
         (paragraph
+          (inline_seq_nonempty
+            (plain_text)))
         (section_level_3
           (section_marker_3)
           (title)
           (paragraph
+            (inline_seq_nonempty
+              (plain_text))))))))
 
 ================================================================================
 Multiple sections at same level
@@ -52,20 +58,28 @@ Content for section 3
       (section_marker_1)
       (title)
       (paragraph
+        (inline_seq_nonempty
+          (plain_text)))))
   (section
     (section_level_1
       (section_marker_1)
       (title)
       (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
       (section_level_2
         (section_marker_2)
         (title)
         (paragraph
+          (inline_seq_nonempty
+            (plain_text))))))
   (section
     (section_level_1
       (section_marker_1)
       (title)
       (paragraph
+        (inline_seq_nonempty
+          (plain_text))))))
 
 ================================================================================
 Deep nesting with all levels
@@ -97,26 +111,38 @@ Content at level 6
       (section_marker_1)
       (title)
       (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
       (section_level_2
         (section_marker_2)
         (title)
         (paragraph
+          (inline_seq_nonempty
+            (plain_text)))
         (section_level_3
           (section_marker_3)
           (title)
           (paragraph
+            (inline_seq_nonempty
+              (plain_text)))
           (section_level_4
             (section_marker_4)
             (title)
             (paragraph
+              (inline_seq_nonempty
+                (plain_text)))
             (section_level_5
               (section_marker_5)
               (title)
               (paragraph
+                (inline_seq_nonempty
+                  (plain_text)))
               (section_level_6
                 (section_marker_6)
                 (title)
                 (paragraph
+                  (inline_seq_nonempty
+                    (plain_text)))))))))))
 
 ================================================================================
 Sections with attributes
@@ -146,9 +172,13 @@ Subsection content
       (attribute_entry
         (attribute_value))
       (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
       (section_level_2
         (section_marker_2)
         (title)
         (attribute_entry
           (attribute_value))
         (paragraph
+          (inline_seq_nonempty
+            (plain_text)))))))

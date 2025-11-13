@@ -209,7 +209,7 @@ Second line here.
 (source_file
   (paragraph
     content: (inline_element
-      (line_break))
+      (hard_break))
 
 ================================================================================
 Macro precedence over formatting

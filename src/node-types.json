@@ -1,8 +1,18 @@
 [
   {
-    "type": "admonition_type",
+    "type": "admonition_attribute",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ATTRIBUTE_LIST_START",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "asciidoc_blockquote",
@@ -183,6 +193,21 @@
     }
   },
   {
+    "type": "block_attributes",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ATTRIBUTE_LIST_START",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "block_comment",
     "named": true,
     "fields": {},
@@ -226,59 +251,15 @@
         "required": true,
         "types": [
           {
-            "type": "*",
+            "type": "\n",
             "named": false
           },
           {
-            "type": "_",
+            "type": "\r\n",
             "named": false
           },
           {
-            "type": "`",
-            "named": false
-          },
-          {
-            "type": "text_angle_bracket",
-            "named": true
-          },
-          {
-            "type": "text_brace",
-            "named": true
-          },
-          {
-            "type": "text_bracket",
-            "named": true
-          },
-          {
-            "type": "text_caret",
-            "named": true
-          },
-          {
-            "type": "text_colon",
-            "named": true
-          },
-          {
-            "type": "text_hash",
-            "named": true
-          },
-          {
-            "type": "text_paren",
-            "named": true
-          },
-          {
-            "type": "text_period",
-            "named": true
-          },
-          {
-            "type": "text_segment",
-            "named": true
-          },
-          {
-            "type": "text_tilde",
-            "named": true
-          },
-          {
-            "type": "text_with_inlines",
+            "type": "inline_seq_nonempty",
             "named": true
           }
         ]
@@ -389,50 +370,10 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "text_angle_bracket",
-          "named": true
-        },
-        {
-          "type": "text_brace",
-          "named": true
-        },
-        {
-          "type": "text_bracket",
-          "named": true
-        },
-        {
-          "type": "text_caret",
-          "named": true
-        },
-        {
-          "type": "text_colon",
-          "named": true
-        },
-        {
-          "type": "text_hash",
-          "named": true
-        },
-        {
-          "type": "text_paren",
-          "named": true
-        },
-        {
-          "type": "text_period",
-          "named": true
-        },
-        {
-          "type": "text_segment",
-          "named": true
-        },
-        {
-          "type": "text_tilde",
-          "named": true
-        },
-        {
-          "type": "text_with_inlines",
+          "type": "inline_seq_nonempty",
           "named": true
         }
       ]
@@ -531,18 +472,9 @@
         {
           "type": "superscript",
           "named": true
-        },
-        {
-          "type": "text_segment",
-          "named": true
         }
       ]
     }
-  },
-  {
-    "type": "endif_directive",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "example_block",
@@ -1116,6 +1048,10 @@
           "named": true
         },
         {
+          "type": "hard_break",
+          "named": true
+        },
+        {
           "type": "image",
           "named": true
         },
@@ -1129,10 +1065,6 @@
         },
         {
           "type": "internal_xref",
-          "named": true
-        },
-        {
-          "type": "line_break",
           "named": true
         },
         {
@@ -1173,6 +1105,33 @@
         },
         {
           "type": "ui_macro",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "inline_seq_nonempty",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "escaped_char",
+          "named": true
+        },
+        {
+          "type": "formatting_fallback",
+          "named": true
+        },
+        {
+          "type": "inline_element",
+          "named": true
+        },
+        {
+          "type": "plain_text",
           "named": true
         }
       ]
@@ -1607,59 +1566,15 @@
         "required": true,
         "types": [
           {
-            "type": "*",
+            "type": "\n",
             "named": false
           },
           {
-            "type": "_",
+            "type": "\r\n",
             "named": false
           },
           {
-            "type": "`",
-            "named": false
-          },
-          {
-            "type": "text_angle_bracket",
-            "named": true
-          },
-          {
-            "type": "text_brace",
-            "named": true
-          },
-          {
-            "type": "text_bracket",
-            "named": true
-          },
-          {
-            "type": "text_caret",
-            "named": true
-          },
-          {
-            "type": "text_colon",
-            "named": true
-          },
-          {
-            "type": "text_hash",
-            "named": true
-          },
-          {
-            "type": "text_paren",
-            "named": true
-          },
-          {
-            "type": "text_period",
-            "named": true
-          },
-          {
-            "type": "text_segment",
-            "named": true
-          },
-          {
-            "type": "text_tilde",
-            "named": true
-          },
-          {
-            "type": "text_with_inlines",
+            "type": "inline_seq_nonempty",
             "named": true
           }
         ]
@@ -1685,59 +1600,15 @@
         "required": false,
         "types": [
           {
-            "type": "*",
+            "type": "\n",
             "named": false
           },
           {
-            "type": "_",
+            "type": "\r\n",
             "named": false
           },
           {
-            "type": "`",
-            "named": false
-          },
-          {
-            "type": "text_angle_bracket",
-            "named": true
-          },
-          {
-            "type": "text_brace",
-            "named": true
-          },
-          {
-            "type": "text_bracket",
-            "named": true
-          },
-          {
-            "type": "text_caret",
-            "named": true
-          },
-          {
-            "type": "text_colon",
-            "named": true
-          },
-          {
-            "type": "text_hash",
-            "named": true
-          },
-          {
-            "type": "text_paren",
-            "named": true
-          },
-          {
-            "type": "text_period",
-            "named": true
-          },
-          {
-            "type": "text_segment",
-            "named": true
-          },
-          {
-            "type": "text_tilde",
-            "named": true
-          },
-          {
-            "type": "text_with_inlines",
+            "type": "inline_seq_nonempty",
             "named": true
           }
         ]
@@ -1764,86 +1635,32 @@
     "fields": {
       "content": {
         "multiple": true,
-        "required": false,
+        "required": true,
         "types": [
           {
-            "type": "*",
+            "type": "\n",
             "named": false
           },
           {
-            "type": "_",
+            "type": "\r\n",
             "named": false
           },
           {
-            "type": "`",
-            "named": false
-          },
-          {
-            "type": "text_angle_bracket",
-            "named": true
-          },
-          {
-            "type": "text_brace",
-            "named": true
-          },
-          {
-            "type": "text_bracket",
-            "named": true
-          },
-          {
-            "type": "text_caret",
-            "named": true
-          },
-          {
-            "type": "text_colon",
-            "named": true
-          },
-          {
-            "type": "text_hash",
-            "named": true
-          },
-          {
-            "type": "text_paren",
-            "named": true
-          },
-          {
-            "type": "text_period",
-            "named": true
-          },
-          {
-            "type": "text_segment",
-            "named": true
-          },
-          {
-            "type": "text_tilde",
-            "named": true
-          },
-          {
-            "type": "text_with_inlines",
+            "type": "inline_seq_nonempty",
             "named": true
           }
         ]
       },
-      "type": {
+      "label": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "admonition_type",
+            "type": "admonition_label",
             "named": true
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "metadata",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -2921,10 +2738,6 @@
         {
           "type": "superscript",
           "named": true
-        },
-        {
-          "type": "text_segment",
-          "named": true
         }
       ]
     }
@@ -3158,106 +2971,6 @@
     }
   },
   {
-    "type": "text_angle_bracket",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_brace",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_bracket",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_caret",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_colon",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_hash",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_paren",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_period",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_tilde",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text_with_inlines",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "inline_element",
-          "named": true
-        },
-        {
-          "type": "text_angle_bracket",
-          "named": true
-        },
-        {
-          "type": "text_brace",
-          "named": true
-        },
-        {
-          "type": "text_bracket",
-          "named": true
-        },
-        {
-          "type": "text_caret",
-          "named": true
-        },
-        {
-          "type": "text_colon",
-          "named": true
-        },
-        {
-          "type": "text_hash",
-          "named": true
-        },
-        {
-          "type": "text_paren",
-          "named": true
-        },
-        {
-          "type": "text_period",
-          "named": true
-        },
-        {
-          "type": "text_segment",
-          "named": true
-        },
-        {
-          "type": "text_tilde",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "ui_btn",
     "named": true,
     "fields": {}
@@ -3319,59 +3032,15 @@
         "required": true,
         "types": [
           {
-            "type": "*",
+            "type": "\n",
             "named": false
           },
           {
-            "type": "_",
+            "type": "\r\n",
             "named": false
           },
           {
-            "type": "`",
-            "named": false
-          },
-          {
-            "type": "text_angle_bracket",
-            "named": true
-          },
-          {
-            "type": "text_brace",
-            "named": true
-          },
-          {
-            "type": "text_bracket",
-            "named": true
-          },
-          {
-            "type": "text_caret",
-            "named": true
-          },
-          {
-            "type": "text_colon",
-            "named": true
-          },
-          {
-            "type": "text_hash",
-            "named": true
-          },
-          {
-            "type": "text_paren",
-            "named": true
-          },
-          {
-            "type": "text_period",
-            "named": true
-          },
-          {
-            "type": "text_segment",
-            "named": true
-          },
-          {
-            "type": "text_tilde",
-            "named": true
-          },
-          {
-            "type": "text_with_inlines",
+            "type": "inline_seq_nonempty",
             "named": true
           }
         ]
@@ -3401,23 +3070,11 @@
     "named": false
   },
   {
-    "type": "(",
-    "named": false
-  },
-  {
     "type": "(((",
     "named": false
   },
   {
-    "type": ")",
-    "named": false
-  },
-  {
     "type": ")))",
-    "named": false
-  },
-  {
-    "type": "*",
     "named": false
   },
   {
@@ -3437,24 +3094,12 @@
     "named": false
   },
   {
-    "type": ":",
-    "named": false
-  },
-  {
-    "type": "<",
-    "named": false
-  },
-  {
-    "type": ">",
-    "named": false
+    "type": "ATTRIBUTE_LIST_START",
+    "named": true
   },
   {
     "type": "CALLOUT_MARKER",
     "named": true
-  },
-  {
-    "type": "CAUTION",
-    "named": false
   },
   {
     "type": "DELIMITED_BLOCK_CONTENT_LINE",
@@ -3467,10 +3112,6 @@
   {
     "type": "EXAMPLE_FENCE_START",
     "named": true
-  },
-  {
-    "type": "IMPORTANT",
-    "named": false
   },
   {
     "type": "LISTING_FENCE_END",
@@ -3491,10 +3132,6 @@
   {
     "type": "LITERAL_FENCE_START",
     "named": true
-  },
-  {
-    "type": "NOTE",
-    "named": false
   },
   {
     "type": "OPENBLOCK_FENCE_END",
@@ -3537,14 +3174,6 @@
     "named": true
   },
   {
-    "type": "TIP",
-    "named": false
-  },
-  {
-    "type": "WARNING",
-    "named": false
-  },
-  {
     "type": "[",
     "named": false
   },
@@ -3565,15 +3194,7 @@
     "named": false
   },
   {
-    "type": "_",
-    "named": false
-  },
-  {
-    "type": "`",
-    "named": false
-  },
-  {
-    "type": "admonition_attribute",
+    "type": "admonition_label",
     "named": true
   },
   {
@@ -3594,10 +3215,6 @@
   },
   {
     "type": "bibliography_id",
-    "named": true
-  },
-  {
-    "type": "block_attributes",
     "named": true
   },
   {
@@ -3625,8 +3242,12 @@
     "named": true
   },
   {
-    "type": "endif::",
-    "named": false
+    "type": "endif_directive",
+    "named": true
+  },
+  {
+    "type": "escaped_char",
+    "named": true
   },
   {
     "type": "external_xref",
@@ -3642,6 +3263,14 @@
   },
   {
     "type": "footnoteref",
+    "named": true
+  },
+  {
+    "type": "formatting_fallback",
+    "named": true
+  },
+  {
+    "type": "hard_break",
     "named": true
   },
   {
@@ -3705,10 +3334,6 @@
     "named": true
   },
   {
-    "type": "line_break",
-    "named": true
-  },
-  {
     "type": "link:",
     "named": false
   },
@@ -3731,6 +3356,10 @@
   {
     "type": "pass:[",
     "named": false
+  },
+  {
+    "type": "plain_text",
+    "named": true
   },
   {
     "type": "role_list",
@@ -3781,23 +3410,11 @@
     "named": true
   },
   {
-    "type": "text_segment",
-    "named": true
-  },
-  {
     "type": "title",
     "named": true
   },
   {
-    "type": "{",
-    "named": false
-  },
-  {
     "type": "|",
-    "named": false
-  },
-  {
-    "type": "}",
     "named": false
   },
   {

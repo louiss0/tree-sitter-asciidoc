@@ -130,8 +130,3 @@
 ; Inline code spans - generic
 (monospace_content) @injection.content
 (#set! injection.language "text")
-
-; Attribute values that might contain code or paths
-(attribute_value) @injection.content
-(#match? @injection.content "^[a-zA-Z]+:")
-(#set! injection.language "text")

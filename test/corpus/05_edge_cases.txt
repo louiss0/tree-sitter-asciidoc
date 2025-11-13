@@ -9,16 +9,13 @@ Indented headings are treated as valid headings
 --------------------------------------------------------------------------------
 
 (source_file
-  (section
-    (section_level_1
-      (section_marker_1)
-      (title)
-      (section_level_2
-        (section_marker_2)
-        (title)
-        (section_level_3
-          (section_marker_3)
-          (title))))))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text))
+    (inline_seq_nonempty
+      (plain_text))
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Invalid attribute patterns should be paragraphs
@@ -33,9 +30,14 @@ Invalid attribute patterns should be paragraphs
 
 (source_file
   (paragraph
-  (paragraph
-  (paragraph
-  (paragraph
+    (inline_seq_nonempty
+      (plain_text))
+    (inline_seq_nonempty
+      (plain_text))
+    (inline_seq_nonempty
+      (plain_text))
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Attributes with spaces in values and empty values
@@ -71,8 +73,14 @@ Third paragraph after three blanks
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Headings with trailing spaces

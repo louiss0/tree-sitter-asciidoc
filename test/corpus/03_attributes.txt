@@ -24,6 +24,8 @@ Some text.
       (attribute_entry
         (attribute_value))
       (paragraph
+        (inline_seq_nonempty
+          (plain_text))))))
 
 ================================================================================
 Attribute entries without values
@@ -46,6 +48,8 @@ Content here
       (section_marker_1)
       (title)
       (paragraph
+        (inline_seq_nonempty
+          (plain_text))))))
 
 ================================================================================
 Attribute entries with spaces in values
@@ -74,8 +78,12 @@ Invalid attribute patterns should be paragraphs
 
 (source_file
   (paragraph
-  (paragraph
-  (paragraph
+    (inline_seq_nonempty
+      (plain_text))
+    (inline_seq_nonempty
+      (plain_text))
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Mixed attributes and other content
@@ -97,6 +105,8 @@ More content
   (attribute_entry
     (attribute_value))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)))
   (attribute_entry
     (attribute_value))
   (section
@@ -104,3 +114,5 @@ More content
       (section_marker_1)
       (title)
       (paragraph
+        (inline_seq_nonempty
+          (plain_text))))))
