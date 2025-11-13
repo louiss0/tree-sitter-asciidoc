@@ -7,7 +7,6 @@
 - You can't use group regex
 - You can't use the same regex twice for nodes
 - Don't touch the bindings folder
-- Never remove `/[ \t]/` from extras
 
 ## Things to do
 
