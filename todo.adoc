@@ -1,0 +1,35 @@
+= TODO
+
+== Context
+
+The grammar and external scanner were just rewritten to restore inline parsing that consumes visible spaces/tabs, rework paragraph behavior, and reinstate the delimited-block/list infrastructure. Corpus fixtures 02–14 and 23 were updated to match the new parse trees, and `test/highlight/README.md` was renamed to `.adoc` so the CLI stops treating it as Markdown. Highlight snapshots have not been regenerated since the crash fixes, and several corpora after #23 are still failing or unverified.
+
+== Immediate Next Steps
+
+. **Finish corpus verification**
+* Run `npx tree-sitter test` starting at `test/corpus/24_tables.txt` through the end of the suite.
+* Investigate each failure:
+** If it is a genuine grammar bug (e.g., unterminated formatting, table parsing regressions), fix the grammar/scanner appropriately.
+** If the AST is intentionally different now, update the corresponding corpus with `npx tree-sitter test -u --file-name <file>`.
+
+. **Re-enable and validate passthrough macros**
+* `pass_macro` was previously commented out to isolate crashes; confirm whether it should return, then reintroduce its rule and highlight captures.
+* Verify `pass:[…]` cases in `test/highlight/cases/inline-formatting.adoc` parse without segmentation faults.
+
+. **Complete scanner coverage**
+* Double-check `src/scanner.c` still emits every external token referenced in `grammar.js` (list continuations, delimited block content, attribute list starts, fence open/close, etc.).
+* Add CRLF and EOF edge-case handling for block fences and `DELIMITED_BLOCK_CONTENT_LINE`.
+* Add unit/corpus coverage for attribute lists immediately following paragraphs to confirm no crashes.
+
+. **Highlight regression pass**
+* Restore `test/highlight` if any files were temporarily moved (only `.actual` output should remain transient).
+* Run the PowerShell highlight snapshot command from `AGENTS.md`.
+* Review `.actual` vs `.expected`; only update expectations with explicit approval.
+
+. **Generated artifacts cleanup**
+* After both corpus and highlight suites pass, delete `src/parser.c`, `src/grammar.json`, and `src/node-types.json` if repo policy requires removing generated files post-test, then regenerate right before shipping.
+
+== Follow-ups / Questions for User
+
+* Confirm desired behavior for `pass_macro` and any other inline passthrough constructs before updating tests.
+* Verify whether additional Markdown-like constructs (e.g., block quotes) should remain unsupported so we can prune their corpora permanently.
