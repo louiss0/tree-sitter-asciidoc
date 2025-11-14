@@ -7,6 +7,9 @@
 - You can't use group regex
 - You can't use the same regex twice for nodes
 - Don't touch the bindings folder
+- Tree-sitter does not support syntactic rules that match the empty string
+unless they are used only as the grammar's start rule.
+
 
 ## Things to do
 
