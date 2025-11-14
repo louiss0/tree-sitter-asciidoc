@@ -8,9 +8,16 @@ The quadratic formula is stem:[x = (-b +- sqrt(b^2-4ac))/(2a)].
 
 (source_file
   (paragraph
-    content: (inline_element
-      (math_macro
-        (stem_inline)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (math_macro
+          (stem_inline
+            expression: (math_macro_text))))
+      (plain_text))))
 
 ================================================================================
 LaTeX math inline macro
@@ -22,9 +29,13 @@ Einstein's equation: latexmath:[\sum_{i=1}^n x_i = x_1 + x_2 + \cdots + x_n]
 
 (source_file
   (paragraph
-    content: (inline_element
-      (math_macro
-        (latexmath_inline)))))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (math_macro
+          (latexmath_inline
+            expression: (math_macro_text)))))))
 
 ================================================================================
 AsciiMath inline macro
@@ -36,9 +47,13 @@ Series sum: asciimath:[sum_(i=1)^n x_i = (n(n+1))/2]
 
 (source_file
   (paragraph
-    content: (inline_element
-      (math_macro
-        (asciimath_inline)))))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (math_macro
+          (asciimath_inline
+            expression: (math_macro_text)))))))
 
 ================================================================================
 Multiple math macros in one paragraph
@@ -50,15 +65,23 @@ Compare stem:[a^2 + b^2] with latexmath:[c^2] and asciimath:[d^2].
 
 (source_file
   (paragraph
-    content: (inline_element
-      (math_macro
-        (stem_inline)))
-    content: (inline_element
-      (math_macro
-        (latexmath_inline)))
-    content: (inline_element
-      (math_macro
-        (asciimath_inline)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (math_macro
+          (stem_inline
+            expression: (math_macro_text))))
+      (plain_text)
+      (inline_element
+        (math_macro
+          (latexmath_inline
+            expression: (math_macro_text))))
+      (plain_text)
+      (inline_element
+        (math_macro
+          (asciimath_inline
+            expression: (math_macro_text))))
+      (plain_text))))
 
 ================================================================================
 Math macro with complex content
@@ -70,9 +93,13 @@ Integration formula: latexmath:[\int u \, dv = uv - \int v \, du]
 
 (source_file
   (paragraph
-    content: (inline_element
-      (math_macro
-        (latexmath_inline)))))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (math_macro
+          (latexmath_inline
+            expression: (math_macro_text)))))))
 
 ================================================================================
 Empty math macro
@@ -84,3 +111,11 @@ Empty stem:[] macro should work.
 
 (source_file
   (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (math_macro
+          (stem_inline)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))

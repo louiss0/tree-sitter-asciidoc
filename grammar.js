@@ -685,7 +685,6 @@ module.exports = grammar({
         seq(
           optional($.metadata),
           choice($.paragraph_admonition, field("content", $._inline_text)),
-          optional(repeat1($._blank_line)),
         ),
       ),
 
@@ -749,26 +748,29 @@ module.exports = grammar({
         ),
       ),
 
-    inline_seq_nonempty: ($) => prec.right(seq($._inline_unit, repeat($._inline_unit))),
-
-    _inline_unit: ($) =>
-      choice(
-        $.inline_element,
-        $.escaped_char,
-        $.plain_text,
-        $.formatting_fallback,
-        $._inline_space,
+    inline_seq_nonempty: ($) =>
+      prec.right(
+        seq(
+          optional($._inline_gap),
+          $._inline_core_unit,
+          repeat(seq(optional($._inline_gap), $._inline_core_unit)),
+        ),
       ),
+
+    _inline_core_unit: ($) =>
+      choice($.inline_element, $.escaped_char, $.plain_text, $.formatting_fallback),
 
     plain_text: ($) =>
       prec.left(
         -50,
-        seq($._plain_text_segment, repeat(seq($._inline_space, $._plain_text_segment))),
+        seq($._plain_text_segment, repeat(seq($._inline_text_space, $._plain_text_segment))),
       ),
 
     _plain_text_segment: ($) => token(prec(1, /[A-Za-z0-9_!$.,'"():+\-\/={}^%?#]+/)),
 
-    _inline_space: ($) => token(/[ \t]+/),
+    _inline_gap: ($) => token.immediate(prec(-1, /[ \t]+/)),
+
+    _inline_text_space: ($) => token.immediate(/[ \t]+/),
 
     escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
 
@@ -1222,7 +1224,7 @@ module.exports = grammar({
     line_break: ($) => alias($.hard_break, $.line_break),
 
     // BASIC TOKENS
-    _line_ending: ($) => token(prec(-2, /\r?\n/)),
-    _blank_line: ($) => token(prec(-1, /[ \t]*\r?\n/)),
+    _line_ending: ($) => token(prec(-1, /\r?\n/)),
+    _blank_line: ($) => token(prec(-2, /[ \t]*\r?\n/)),
   },
 });

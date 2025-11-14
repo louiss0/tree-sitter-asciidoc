@@ -11,6 +11,8 @@ This is content after the include.
 (source_file
   (include_directive)
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Include with leveloffset option
@@ -25,6 +27,8 @@ Another paragraph.
 (source_file
   (include_directive)
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Include with line ranges
@@ -39,6 +43,8 @@ Text after include.
 (source_file
   (include_directive)
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Include with tags
@@ -53,6 +59,8 @@ More content.
 (source_file
   (include_directive)
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Include with multiple options
@@ -67,6 +75,8 @@ Final paragraph.
 (source_file
   (include_directive)
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Include with path containing subdirectories
@@ -81,6 +91,8 @@ Following content.
 (source_file
   (include_directive)
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Include in section
@@ -101,12 +113,13 @@ More text here.
     (section_level_2
       marker: (section_marker_2)
       title: (title)
-      content: (include_directive)))
-  (section
-    (section_level_2
-      marker: (section_marker_2)
-      title: (title)
+      content: (include_directive)
       content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text))))))
 
 ================================================================================
 Multiple includes
@@ -138,6 +151,8 @@ Text after.
 (source_file
   (include_directive)
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Not an include - missing colon
@@ -151,7 +166,13 @@ This should be a paragraph.
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (ERROR)
+      (formatting_fallback)))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
 
 ================================================================================
 Not an include - malformed brackets
@@ -165,4 +186,10 @@ This should be a paragraph.
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (ERROR)
+      (plain_text)))
   (paragraph
+    (inline_seq_nonempty
+      (plain_text))))
