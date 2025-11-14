@@ -44,7 +44,6 @@ module.exports = grammar({
     [$.callout_item],
     [$.inline_element, $.explicit_link],
     [$.attribute_content, $.role_list],
-    [$.table_block, $.paragraph],
   ],
 
   rules: {
@@ -753,16 +752,23 @@ module.exports = grammar({
     inline_seq_nonempty: ($) => prec.right(seq($._inline_unit, repeat($._inline_unit))),
 
     _inline_unit: ($) =>
-      choice($.inline_element, $.escaped_char, $.plain_text, $.formatting_fallback),
+      choice(
+        $.inline_element,
+        $.escaped_char,
+        $.plain_text,
+        $.formatting_fallback,
+        $._inline_space,
+      ),
 
     plain_text: ($) =>
-      token(
-        prec(
-          -50,
-          // Allow visible spaces/tabs but stop before inline macro prefixes like indexterm/indexterm2 and concealed terms
-          /(?:[ \t]+|[^\r\n\\*_`^~+\[\]{}<>i(]|\([^(\r\n]|\(\([^(\r\n]|i(?:[^n]|n(?:[^d]|d(?:[^e]|e(?:[^x]|x(?:[^t]|t(?:[^e]|e(?:[^r]|r(?:[^m]|m(?:2[^:]|[^2:]))))))))))+/,
-        ),
+      prec.left(
+        -50,
+        seq($._plain_text_segment, repeat(seq($._inline_space, $._plain_text_segment))),
       ),
+
+    _plain_text_segment: ($) => token(prec(1, /[A-Za-z0-9_!$.,'"():+\-\/={}^%?#]+/)),
+
+    _inline_space: ($) => token(/[ \t]+/),
 
     escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
 
@@ -1038,10 +1044,38 @@ module.exports = grammar({
     // MATH MACROS
     math_macro: ($) => choice($.stem_inline, $.latexmath_inline, $.asciimath_inline),
 
-    // Keep as tokens so incomplete macros fall back to plain text
-    stem_inline: ($) => token(prec(5, /stem:\[[^\]\r\n]+\]/)),
-    latexmath_inline: ($) => token(prec(5, /latexmath:\[[^\]\r\n]+\]/)),
-    asciimath_inline: ($) => token(prec(5, /asciimath:\[[^\]\r\n]+\]/)),
+    stem_inline: ($) =>
+      choice(
+        seq(
+          token(prec(100, "stem:[")),
+          field("expression", alias(optional($.math_macro_text), $.math_macro_text)),
+          "]",
+        ),
+        seq("stem:", field("expression", $.math_macro_fallback)),
+      ),
+
+    latexmath_inline: ($) =>
+      choice(
+        seq(
+          token(prec(100, "latexmath:[")),
+          field("expression", alias(optional($.math_macro_text), $.math_macro_text)),
+          "]",
+        ),
+        seq("latexmath:", field("expression", $.math_macro_fallback)),
+      ),
+
+    asciimath_inline: ($) =>
+      choice(
+        seq(
+          token(prec(100, "asciimath:[")),
+          field("expression", alias(optional($.math_macro_text), $.math_macro_text)),
+          "]",
+        ),
+        seq("asciimath:", field("expression", $.math_macro_fallback)),
+      ),
+
+    math_macro_text: ($) => /[^\]\r\n]+/,
+    math_macro_fallback: ($) => /[^\[\r\n]+/,
 
     // UI MACROS
     ui_macro: ($) => choice($.ui_kbd, $.ui_btn, $.ui_menu),

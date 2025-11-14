@@ -2,34 +2,36 @@
 
 == Context
 
-The grammar and external scanner were just rewritten to restore inline parsing that consumes visible spaces/tabs, rework paragraph behavior, and reinstate the delimited-block/list infrastructure. Corpus fixtures 02–14 and 23 were updated to match the new parse trees, and `test/highlight/README.md` was renamed to `.adoc` so the CLI stops treating it as Markdown. Highlight snapshots have not been regenerated since the crash fixes, and several corpora after #23 are still failing or unverified.
+All whitespace experiments have been rolled back per user request, so `plain_text`, `_inline_unit`, and `_inline_text` now match the older grammar. This restores the previous behavior where inline math/index-term macros win over `plain_text`; `test/corpus/30_math_macros.txt` (and suites 25–26) pass cleanly again. The downside is that the newer corpus expectations (suites 02–15) no longer match the parser output: `_inline_space` is once again an `_inline_unit`, so blank lines and directive prefixes are swallowed as paragraph content instead of delimiting blocks. Highlight snapshots are still out-of-date, but we are deferring them until the corpus stabilizes.
 
 == Immediate Next Steps
 
-. **Finish corpus verification**
-* Run `npx tree-sitter test` starting at `test/corpus/24_tables.txt` through the end of the suite.
-* Investigate each failure:
-** If it is a genuine grammar bug (e.g., unterminated formatting, table parsing regressions), fix the grammar/scanner appropriately.
-** If the AST is intentionally different now, update the corresponding corpus with `npx tree-sitter test -u --file-name <file>`.
+. **Fix inline whitespace so block boundaries survive**
+* *Failing suites:* `02_paragraphs`, `03_attributes`, `04_hierarchy`, `05_edge_cases`, every list suite (`06`–`10`), conditionals (`11`–`13`), and the anchors/footnotes suite (`15`). They all expect multiple `inline_seq_nonempty` nodes per paragraph, but the reverted grammar collapses each paragraph into a single inline sequence because `_inline_space` appears in `_inline_unit`.
+* *Root cause:* When `_inline_space` is a standalone inline unit, blank lines never get tokenized as `_blank_line`, so paragraphs absorb intervening lines, list markers, and `ifdef`-like words. The tests were previously updated to the “new” behavior where whitespace lives inside `plain_text`, so rolling back puts the parser out of sync.
+* *Proposed fix:*
+** Introduce an `_inline_gap` token defined as `token.immediate(/[ \t]+/)` and consume it only *between* inline units (never at the start of a paragraph). Keep `_inline_gap` out of `_block_element`, so blank lines still win column-0 races.
+** Extract `_inline_core_unit` (inline elements, escaped chars, `plain_text`, `formatting_fallback`), then define `inline_seq_nonempty` as `seq($._inline_core_unit, repeat(seq(optional($._inline_gap), $._inline_core_unit)))`.
+** Within `plain_text`, stitch `_plain_text_segment` together using an internal `_inline_text_space` token so visible spaces remain part of the same token. This keeps prose readable while preventing `_inline_space` from appearing as its own AST node.
+** After implementing, regenerate the parser and re-run `npx tree-sitter test` for suites 02–15 plus spot-check math/index-term suites to ensure no regressions.
 
-. **Re-enable and validate passthrough macros**
-* `pass_macro` was previously commented out to isolate crashes; confirm whether it should return, then reintroduce its rule and highlight captures.
-* Verify `pass:[…]` cases in `test/highlight/cases/inline-formatting.adoc` parse without segmentation faults.
+. **Keep math/index-term suites green**
+* Math tests (`test/corpus/30_math_macros.txt`) and index-term files (`25`, `26`) pass with the reverted grammar. Re-run them after any whitespace change to be sure the new approach does not consume macro prefixes before their tokens fire.
 
-. **Complete scanner coverage**
-* Double-check `src/scanner.c` still emits every external token referenced in `grammar.js` (list continuations, delimited block content, attribute list starts, fence open/close, etc.).
-* Add CRLF and EOF edge-case handling for block fences and `DELIMITED_BLOCK_CONTENT_LINE`.
-* Add unit/corpus coverage for attribute lists immediately following paragraphs to confirm no crashes.
+. **Scanner/highlight backlog**
+* Once whitespace is stable, resume the scanner audit (CRLF fence handling, `DELIMITED_BLOCK_CONTENT_LINE` EOF behavior, attribute lists after paragraphs). No scanner changes were made during this session.
+* Highlight snapshots remain stale; run the PowerShell script from `AGENTS.md` only after the corpus is green and the user approves refreshing expectations.
 
-. **Highlight regression pass**
-* Restore `test/highlight` if any files were temporarily moved (only `.actual` output should remain transient).
-* Run the PowerShell highlight snapshot command from `AGENTS.md`.
-* Review `.actual` vs `.expected`; only update expectations with explicit approval.
+. **Generated artifacts policy**
+* `npx tree-sitter generate` has already been run for the rollback. Per AGENTS instructions, delete and regenerate the `src/` artifacts again once both corpus and highlight suites pass.
 
-. **Generated artifacts cleanup**
-* After both corpus and highlight suites pass, delete `src/parser.c`, `src/grammar.json`, and `src/node-types.json` if repo policy requires removing generated files post-test, then regenerate right before shipping.
+== Session Summary (current session)
+
+* Reverted all inline whitespace experiments so the grammar matches its pre-experiment state, then regenerated `src/grammar.json`, `src/node-types.json`, and `src/parser.c`.
+* Verified that math macros (suite 30) and index-term cases (25–26) still pass—math regressions are resolved.
+* Ran `npx tree-sitter test --overview-only` and confirmed that suites 02–15 now fail because their fixtures reflect the newer inline spacing model (multiple `inline_seq_nonempty` nodes per paragraph). The failures manifest as entire sections/lists parsing as paragraphs with duplicated inline sequences.
 
 == Follow-ups / Questions for User
 
-* Confirm desired behavior for `pass_macro` and any other inline passthrough constructs before updating tests.
-* Verify whether additional Markdown-like constructs (e.g., block quotes) should remain unsupported so we can prune their corpora permanently.
+* Confirm whether the `_inline_gap` approach (whitespace handled via `token.immediate` between inline units) aligns with expectations before the next implementation attempt.
+* Let me know when it’s acceptable to resume `pass_macro` work and to refresh highlight snapshots once the corpus suite is back to green.

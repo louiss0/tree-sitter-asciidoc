@@ -3049,18 +3049,58 @@
         {
           "type": "SYMBOL",
           "name": "formatting_fallback"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_inline_space"
         }
       ]
     },
     "plain_text": {
+      "type": "PREC_LEFT",
+      "value": -50,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_plain_text_segment"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_inline_space"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_plain_text_segment"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "_plain_text_segment": {
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": -50,
+        "value": 1,
         "content": {
           "type": "PATTERN",
-          "value": "(?:[ \\t]+|[^\\r\\n\\\\*_`^~+\\[\\]{}<>i(]|\\([^(\\r\\n]|\\(\\([^(\\r\\n]|i(?:[^n]|n(?:[^d]|d(?:[^e]|e(?:[^x]|x(?:[^t]|t(?:[^e]|e(?:[^r]|r(?:[^m]|m(?:2[^:]|[^2:]))))))))))+"
+          "value": "[A-Za-z0-9_!$.,'\"():+\\-\\/={}^%?#]+"
         }
+      }
+    },
+    "_inline_space": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[ \\t]+"
       }
     },
     "escaped_char": {
@@ -4309,37 +4349,201 @@
       ]
     },
     "stem_inline": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 5,
-        "content": {
-          "type": "PATTERN",
-          "value": "stem:\\[[^\\]\\r\\n]+\\]"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": 100,
+                "content": {
+                  "type": "STRING",
+                  "value": "stem:["
+                }
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "expression",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "math_macro_text"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                "named": true,
+                "value": "math_macro_text"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": "]"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "stem:"
+            },
+            {
+              "type": "FIELD",
+              "name": "expression",
+              "content": {
+                "type": "SYMBOL",
+                "name": "math_macro_fallback"
+              }
+            }
+          ]
         }
-      }
+      ]
     },
     "latexmath_inline": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 5,
-        "content": {
-          "type": "PATTERN",
-          "value": "latexmath:\\[[^\\]\\r\\n]+\\]"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": 100,
+                "content": {
+                  "type": "STRING",
+                  "value": "latexmath:["
+                }
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "expression",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "math_macro_text"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                "named": true,
+                "value": "math_macro_text"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": "]"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "latexmath:"
+            },
+            {
+              "type": "FIELD",
+              "name": "expression",
+              "content": {
+                "type": "SYMBOL",
+                "name": "math_macro_fallback"
+              }
+            }
+          ]
         }
-      }
+      ]
     },
     "asciimath_inline": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 5,
-        "content": {
-          "type": "PATTERN",
-          "value": "asciimath:\\[[^\\]\\r\\n]+\\]"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": 100,
+                "content": {
+                  "type": "STRING",
+                  "value": "asciimath:["
+                }
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "expression",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "math_macro_text"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                "named": true,
+                "value": "math_macro_text"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": "]"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "asciimath:"
+            },
+            {
+              "type": "FIELD",
+              "name": "expression",
+              "content": {
+                "type": "SYMBOL",
+                "name": "math_macro_fallback"
+              }
+            }
+          ]
         }
-      }
+      ]
+    },
+    "math_macro_text": {
+      "type": "PATTERN",
+      "value": "[^\\]\\r\\n]+"
+    },
+    "math_macro_fallback": {
+      "type": "PATTERN",
+      "value": "[^\\[\\r\\n]+"
     },
     "ui_macro": {
       "type": "CHOICE",
@@ -5275,10 +5479,6 @@
     [
       "attribute_content",
       "role_list"
-    ],
-    [
-      "table_block",
-      "paragraph"
     ]
   ],
   "precedences": [],

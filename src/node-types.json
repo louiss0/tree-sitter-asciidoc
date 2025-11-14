@@ -91,6 +91,26 @@
     }
   },
   {
+    "type": "asciimath_inline",
+    "named": true,
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "math_macro_fallback",
+            "named": true
+          },
+          {
+            "type": "math_macro_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "attribute_entry",
     "named": true,
     "fields": {
@@ -1129,7 +1149,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "escaped_char",
@@ -1148,6 +1168,26 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "latexmath_inline",
+    "named": true,
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "math_macro_fallback",
+            "named": true
+          },
+          {
+            "type": "math_macro_text",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1419,6 +1459,16 @@
         }
       ]
     }
+  },
+  {
+    "type": "math_macro_fallback",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "math_macro_text",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "metadata",
@@ -1716,6 +1766,11 @@
   },
   {
     "type": "passthrough_triple_plus",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "plain_text",
     "named": true,
     "fields": {}
   },
@@ -2669,6 +2724,26 @@
     }
   },
   {
+    "type": "stem_inline",
+    "named": true,
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "math_macro_fallback",
+            "named": true
+          },
+          {
+            "type": "math_macro_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "strong",
     "named": true,
     "fields": {
@@ -3209,8 +3284,12 @@
     "named": true
   },
   {
-    "type": "asciimath_inline",
-    "named": true
+    "type": "asciimath:",
+    "named": false
+  },
+  {
+    "type": "asciimath:[",
+    "named": false
   },
   {
     "type": "attribute_reference",
@@ -3337,8 +3416,12 @@
     "named": false
   },
   {
-    "type": "latexmath_inline",
-    "named": true
+    "type": "latexmath:",
+    "named": false
+  },
+  {
+    "type": "latexmath:[",
+    "named": false
   },
   {
     "type": "link:",
@@ -3363,10 +3446,6 @@
   {
     "type": "pass:[",
     "named": false
-  },
-  {
-    "type": "plain_text",
-    "named": true
   },
   {
     "type": "role_list",
@@ -3397,8 +3476,12 @@
     "named": true
   },
   {
-    "type": "stem_inline",
-    "named": true
+    "type": "stem:",
+    "named": false
+  },
+  {
+    "type": "stem:[",
+    "named": false
   },
   {
     "type": "strong_close",
