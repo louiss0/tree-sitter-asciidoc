@@ -35,3 +35,10 @@ All whitespace experiments have been rolled back per user request, so `plain_tex
 
 * Confirm whether the `_inline_gap` approach (whitespace handled via `token.immediate` between inline units) aligns with expectations before the next implementation attempt.
 * Let me know when it’s acceptable to resume `pass_macro` work and to refresh highlight snapshots once the corpus suite is back to green.
+
+== Advice (Session wrap-up)
+
+* Anchor/footnote/xref bugs all stem from `_plain_text_segment` grabbing the macro prefix first. Before touching the grammar again, decide whether to gate `plain_text` via a scanner-side boundary token so headings continue to parse but inline elements get precedence.
+* Use the generated logs in `notes/logs/` (and the CSV summary) to see exactly which symbols Tree-sitter marked as unexpected per test; the most common offenders are `plain_text`, `inline_seq_nonempty`, and `ERROR`.
+* When iterating, run `npx tree-sitter test --file-name <suite> --show-fields` for the smallest suite that exercises your change—full-corpus runs are slow and the overview output is enough to spot regressions early.
+* Leave highlight snapshots alone until the corpus is green; once inline parsing is stable, refresh both the corpus expectations (suites 21 and 25 in particular) and the highlight fixtures in one go to avoid churn.
