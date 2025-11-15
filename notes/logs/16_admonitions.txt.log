@@ -1,0 +1,203 @@
+  16_admonitions:
+     87. G£ù [31mBasic Paragraph Admonitions[0m
+     88. G£ù [31mAdmonition Blocks with Example[0m
+     89. G£ù [31mAdmonition Blocks with Different Delimited Block Types[0m
+     90. G£ù [31mComplex Paragraph Admonitions with Inline Elements[0m
+     91. G£ù [31mBlock admonitions work in sections as well.[0m
+     92. G£ù [31mThis should not be an admonition block.[0m
+
+6 failures:
+
+correct / [32mexpected[0m / [31munexpected[0m
+
+  1. Basic Paragraph Admonitions:
+
+    (source_file
+      (paragraph
+        (paragraph_admonition
+[31m          label: (admonition_label)
+[0m[31m          content: (inline_seq_nonempty
+[0m[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (paragraph_admonition
+[0m[31m          label: (admonition_label)
+[0m[31m          content: (inline_seq_nonempty
+[0m[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (paragraph_admonition
+[0m[31m          label: (admonition_label)
+[0m[31m          content: (inline_seq_nonempty
+[0m[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (paragraph_admonition
+[0m[31m          label: (admonition_label)
+[0m[31m          content: (inline_seq_nonempty
+[0m[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (paragraph_admonition
+[0m[31m          label: (admonition_label)
+[0m[31m          content: (inline_seq_nonempty
+[0m[31m            (plain_text)))))[0m
+[32m          type: (admonition_type)
+[0m[32m          (paragraph
+[0m[32m            (paragraph_admonition
+[0m[32m              type: (admonition_type)
+[0m[32m              (paragraph
+[0m[32m                (paragraph_admonition
+[0m[32m                  type: (admonition_type)
+[0m[32m                  (paragraph
+[0m[32m                    (paragraph_admonition
+[0m[32m                      type: (admonition_type)
+[0m[32m                      (paragraph
+[0m[32m                        (paragraph_admonition
+[0m[32m                          type: (admonition_type))[0m
+
+
+  2. Admonition Blocks with Example:
+
+    (source_file
+      (block_admonition
+[31m        type: (admonition_attribute
+[0m[31m          (ATTRIBUTE_LIST_START))
+[0m[32m        type: (admonition_attribute)
+[0m        block: (example_block
+          open: (example_open
+            (EXAMPLE_FENCE_START))
+          content: (block_content
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+[32m              (DELIMITED_BLOCK_CONTENT_LINE))
+[0m[32m            (content_line
+[0m              (DELIMITED_BLOCK_CONTENT_LINE)))
+          close: (example_close
+            (EXAMPLE_FENCE_END))))
+      (block_admonition
+[31m        type: (admonition_attribute
+[0m[31m          (ATTRIBUTE_LIST_START))
+[0m[32m        type: (admonition_attribute)
+[0m        block: (example_block
+          open: (example_open
+            (EXAMPLE_FENCE_START))
+          content: (block_content
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+[32m              (DELIMITED_BLOCK_CONTENT_LINE))
+[0m[32m            (content_line
+[0m              (DELIMITED_BLOCK_CONTENT_LINE)))
+          close: (example_close
+            (EXAMPLE_FENCE_END)))))
+
+
+  3. Admonition Blocks with Different Delimited Block Types:
+
+    (source_file
+      (block_admonition
+[31m        type: (admonition_attribute
+[0m[31m          (ATTRIBUTE_LIST_START))
+[0m[32m        type: (admonition_attribute)
+[0m        block: (listing_block
+          open: (listing_open
+            (LISTING_FENCE_START))
+          content: (block_content
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          close: (listing_close
+            (LISTING_FENCE_END))))
+      (block_admonition
+[31m        type: (admonition_attribute
+[0m[31m          (ATTRIBUTE_LIST_START))
+[0m[32m        type: (admonition_attribute)
+[0m        block: (literal_block
+          open: (literal_open
+            (LITERAL_FENCE_START))
+          content: (block_content
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          close: (literal_close
+            (LITERAL_FENCE_END))))
+      (block_admonition
+[31m        type: (admonition_attribute
+[0m[31m          (ATTRIBUTE_LIST_START))
+[0m[32m        type: (admonition_attribute)
+[0m        block: (sidebar_block
+          (sidebar_open
+            (SIDEBAR_FENCE_START))
+          (block_content
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (sidebar_close
+            (SIDEBAR_FENCE_END)))))
+
+
+  4. Complex Paragraph Admonitions with Inline Elements:
+
+    (source_file
+      (paragraph
+        (paragraph_admonition
+[31m          label: (admonition_label)
+[0m[31m          content: (inline_seq_nonempty
+[0m[31m            (plain_text)
+[0m[31m            (ERROR)
+[0m[31m            (inline_element
+[0m[31m              (internal_xref))
+[0m[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (paragraph_admonition
+[0m[31m          label: (admonition_label)
+[0m[31m          content: (inline_seq_nonempty
+[0m[31m            (plain_text)
+[0m[31m            (ERROR)
+[0m[31m            (plain_text)
+[0m[31m            (formatting_fallback)
+[0m[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (paragraph_admonition
+[0m[31m          label: (admonition_label)
+[0m[31m          content: (inline_seq_nonempty
+[0m[31m            (plain_text)
+[0m[31m            (ERROR)
+[0m[31m            (plain_text)
+[0m[31m            (formatting_fallback)
+[0m[31m            (plain_text)))))[0m
+[32m          type: (admonition_type)
+[0m[32m          content: (inline_element
+[0m[32m            (internal_xref))
+[0m[32m          (paragraph
+[0m[32m            (paragraph_admonition
+[0m[32m              type: (admonition_type)
+[0m[32m              content: (inline_element
+[0m[32m                (external_xref))
+[0m[32m              (paragraph
+[0m[32m                (paragraph_admonition
+[0m[32m                  type: (admonition_type)
+[0m[32m                  content: (inline_element
+[0m[32m                    (footnote_inline))[0m
+
+
+  5. Block admonitions work in sections as well.:
+
+    (source_file
+[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text))))[0m
+[32m      (paragraph)[0m
+
+
+  6. This should not be an admonition block.:
+
+    (source_file
+      (paragraph
+        (paragraph_admonition
+[31m          label: (admonition_label)
+[0m[31m          content: (inline_seq_nonempty
+[0m[31m            (plain_text)))))[0m
+[32m          type: (admonition_type))[0m
+

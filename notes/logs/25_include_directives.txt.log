@@ -1,0 +1,137 @@
+  25_include_directives:
+    180. G£ù [31mBasic include without options[0m
+    181. G£ù [31mInclude with leveloffset option[0m
+    182. G£ù [31mInclude with line ranges[0m
+    183. G£ù [31mInclude with tags[0m
+    184. G£ù [31mInclude with multiple options[0m
+    185. G£ù [31mInclude with path containing subdirectories[0m
+    186. G£ù [31mInclude in section[0m
+    187. G£ô [32mMultiple includes[0m
+    188. G£ù [31mInclude with empty options[0m
+    189. G£ù [31mNot an include - missing colon[0m
+    190. G£ù [31mNot an include - malformed brackets[0m
+
+10 failures:
+
+correct / [32mexpected[0m / [31munexpected[0m
+
+  1. Basic include without options:
+
+    (source_file
+      (include_directive)
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[32m        (inline_seq_nonempty
+[0m          (plain_text))))
+
+
+  2. Include with leveloffset option:
+
+    (source_file
+      (include_directive)
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[32m        (inline_seq_nonempty
+[0m          (plain_text))))
+
+
+  3. Include with line ranges:
+
+    (source_file
+      (include_directive)
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[32m        (inline_seq_nonempty
+[0m          (plain_text))))
+
+
+  4. Include with tags:
+
+    (source_file
+      (include_directive)
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[32m        (inline_seq_nonempty
+[0m          (plain_text))))
+
+
+  5. Include with multiple options:
+
+    (source_file
+      (include_directive)
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[32m        (inline_seq_nonempty
+[0m          (plain_text))))
+
+
+  6. Include with path containing subdirectories:
+
+    (source_file
+      (include_directive)
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[32m        (inline_seq_nonempty
+[0m          (plain_text))))
+
+
+  7. Include in section:
+
+    (source_file
+      (section
+        (section_level_2
+          marker: (section_marker_2)
+          title: (title)
+[31m          content: (include_directive)))
+[0m[31m      (section
+[0m[31m        (section_level_2
+[0m[31m          marker: (section_marker_2)
+[0m[31m          title: (title)
+[0m[32m          content: (include_directive)
+[0m[32m          content: (paragraph
+[0m[32m            content: (inline_seq_nonempty
+[0m[32m              (plain_text)))
+[0m          content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text))))))
+
+
+  8. Include with empty options:
+
+    (source_file
+      (include_directive)
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[32m        (inline_seq_nonempty
+[0m          (plain_text))))
+
+
+  9. Not an include - missing colon:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[32m        (inline_seq_nonempty
+[0m          (plain_text)
+          (ERROR)
+          (formatting_fallback)))
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[32m        (inline_seq_nonempty
+[0m          (plain_text))))
+
+
+  10. Not an include - malformed brackets:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[32m        (inline_seq_nonempty
+[0m          (plain_text)
+          (ERROR)
+          (plain_text)))
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[32m        (inline_seq_nonempty
+[0m          (plain_text))))
+

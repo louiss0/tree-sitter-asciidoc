@@ -1,0 +1,21 @@
+  13_inline_conditionals:
+     53. G£ù [31mBlock conditional with single line content[0m
+
+1 failure:
+
+correct / [32mexpected[0m / [31munexpected[0m
+
+  1. Block conditional with single line content:
+
+    (source_file
+      (conditional_block
+        (ifdef_block
+[31m          directive: (ifdef_open)
+[0m[31m          content: (paragraph
+[0m[31m            content: (inline_seq_nonempty
+[0m[31m              (plain_text)))
+[0m[31m          end: (endif_directive))))[0m
+[32m          (ifdef_open)
+[0m[32m          (paragraph
+[0m[32m            (endif_directive))))[0m
+

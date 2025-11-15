@@ -1,0 +1,75 @@
+  21_passthrough:
+    146. G£ù [31mTriple plus passthrough[0m
+    147. G£ù [31mPass macro without substitutions[0m
+    148. G£ù [31mPass macro with substitutions[0m
+    149. G£ù [31mMultiple passthrough in same line[0m
+
+4 failures:
+
+correct / [32mexpected[0m / [31munexpected[0m
+
+  1. Triple plus passthrough:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (inline_element
+[0m[31m            (strong
+[0m[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close)))
+[0m[31m          (plain_text))))[0m
+[32m        (inline_element
+[0m[32m          (passthrough_triple_plus))[0m
+
+
+  2. Pass macro without substitutions:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (inline_element
+[0m[31m            (strong
+[0m[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close)))
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text))))[0m
+[32m        (inline_element
+[0m[32m          (pass_macro))[0m
+
+
+  3. Pass macro with substitutions:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (inline_element
+[0m[31m            (strong
+[0m[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close)))
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text))))[0m
+[32m        (inline_element
+[0m[32m          (pass_macro))[0m
+
+
+  4. Multiple passthrough in same line:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text))))[0m
+[32m        (inline_element
+[0m[32m          (pass_macro))[0m
+

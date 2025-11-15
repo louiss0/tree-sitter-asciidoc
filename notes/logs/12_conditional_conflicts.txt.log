@@ -1,0 +1,196 @@
+  12_conditional_conflicts:
+     46. G£ù [31mDescription lists should not become conditionals[0m
+     47. G£ù [31mParagraphs with directive-like words[0m
+     48. G£ù [31mMalformed conditionals should be paragraphs[0m
+     49. G£ù [31mMixing attributes and conditionals[0m
+     50. G£ù [31mTriple colons are not conditionals[0m
+     51. G£ù [31mNo targets in ifdef should still work[0m
+     52. G£ù [31mConditionals with attributes inside sections[0m
+
+7 failures:
+
+correct / [32mexpected[0m / [31munexpected[0m
+
+  1. Description lists should not become conditionals:
+
+    (source_file
+      (description_list
+        (description_item
+          (description_content
+[31m            (inline_seq_nonempty
+[0m[31m              (plain_text))))
+[0m[31m        (description_item
+[0m[31m          (description_content
+[0m[31m            (inline_seq_nonempty
+[0m[31m              (plain_text)))))
+[0m[31m      (description_list
+[0m[31m        (description_item
+[0m[31m          (description_content
+[0m[31m            (inline_seq_nonempty
+[0m[31m              (plain_text)))))
+[0m[31m      (description_list
+[0m[31m        (description_item
+[0m[31m          (description_content
+[0m[31m            (inline_seq_nonempty
+[0m[31m              (plain_text))))))[0m
+[32m            (description_item
+[0m[32m              (description_content
+[0m[32m                (description_list
+[0m[32m                  (description_item
+[0m[32m                    (description_content
+[0m[32m                      (description_list
+[0m[32m                        (description_item
+[0m[32m                          (description_content)[0m
+
+
+  2. Paragraphs with directive-like words:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text))
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text))))[0m
+[32m        (description_list
+[0m[32m          (description_item
+[0m[32m            (description_content
+[0m[32m              (paragraph
+[0m[32m                (paragraph
+[0m[32m                  (description_list
+[0m[32m                    (description_item
+[0m[32m                      (description_content)[0m
+
+
+  3. Malformed conditionals should be paragraphs:
+
+    (source_file
+      (conditional_block
+        (ifdef_block
+[31m          directive: (ifdef_open)
+[0m[31m          content: (paragraph
+[0m[31m            content: (inline_seq_nonempty
+[0m[31m              (plain_text))
+[0m[31m            content: (inline_seq_nonempty
+[0m[31m              (plain_text)
+[0m[31m              (ERROR)
+[0m[31m              (plain_text)))
+[0m[31m          content: (paragraph
+[0m[31m            content: (inline_seq_nonempty
+[0m[31m              (plain_text))))))[0m
+[32m          (ifdef_open)
+[0m[32m          (paragraph
+[0m[32m            (paragraph
+[0m[32m              (paragraph))[0m
+
+
+  4. Mixing attributes and conditionals:
+
+    (source_file
+      (attribute_entry
+[31m        value: (attribute_value))
+[0m[32m        (attribute_value))
+[0m      (conditional_block
+        (ifdef_block
+[31m          directive: (ifdef_open)
+[0m[31m          content: (paragraph
+[0m[31m            content: (inline_seq_nonempty
+[0m[31m              (plain_text)))
+[0m[31m          end: (endif_directive)))
+[0m[31m      (attribute_entry
+[0m[31m        value: (attribute_value))
+[0m[31m      (conditional_block
+[0m[31m        (ifndef_block
+[0m[31m          directive: (ifndef_open)
+[0m[31m          content: (paragraph
+[0m[31m            content: (inline_seq_nonempty
+[0m[31m              (plain_text)))
+[0m[31m          end: (endif_directive))))[0m
+[32m          (ifdef_open)
+[0m[32m          (paragraph
+[0m[32m            (endif_directive)))
+[0m[32m        (attribute_entry
+[0m[32m          (attribute_value))
+[0m[32m        (conditional_block
+[0m[32m          (ifndef_block
+[0m[32m            (ifndef_open)
+[0m[32m            (paragraph
+[0m[32m              (endif_directive))))[0m
+
+
+  5. Triple colons are not conditionals:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text))
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text))))[0m
+[32m        (paragraph)[0m
+
+
+  6. No targets in ifdef should still work:
+
+    (source_file
+      (conditional_block
+        (ifdef_block
+[31m          directive: (ifdef_open)
+[0m[31m          content: (paragraph
+[0m[31m            content: (inline_seq_nonempty
+[0m[31m              (plain_text)))
+[0m[31m          end: (endif_directive)))
+[0m[31m      (conditional_block
+[0m[31m        (ifndef_block
+[0m[31m          directive: (ifndef_open)
+[0m[31m          content: (paragraph
+[0m[31m            content: (inline_seq_nonempty
+[0m[31m              (plain_text)))
+[0m[31m          end: (endif_directive))))[0m
+[32m          (ifdef_open)
+[0m[32m          (paragraph
+[0m[32m            (endif_directive)))
+[0m[32m        (conditional_block
+[0m[32m          (ifndef_block
+[0m[32m            (ifndef_open)
+[0m[32m            (paragraph
+[0m[32m              (endif_directive))))[0m
+
+
+  7. Conditionals with attributes inside sections:
+
+    (source_file
+      (section
+        (section_level_2
+          marker: (section_marker_2)
+          title: (title)
+          content: (attribute_entry
+            value: (attribute_value))
+          content: (conditional_block
+            (ifdef_block
+              directive: (ifdef_open)
+              content: (paragraph
+[31m                content: (inline_seq_nonempty
+[0m[31m                  (plain_text)))
+[0m[31m              end: (endif_directive)))
+[0m[31m          content: (section_level_3
+[0m[31m            marker: (section_marker_3)
+[0m[31m            title: (title)
+[0m[31m            content: (conditional_block
+[0m[31m              (ifndef_block
+[0m[31m                directive: (ifndef_open)
+[0m[31m                content: (paragraph
+[0m[31m                  content: (inline_seq_nonempty
+[0m[31m                    (plain_text)))
+[0m[31m                end: (endif_directive)))))))[0m
+[32m                end: (endif_directive)))
+[0m[32m            content: (section_level_3
+[0m[32m              marker: (section_marker_3)
+[0m[32m              title: (title)
+[0m[32m              content: (conditional_block
+[0m[32m                (ifndef_block
+[0m[32m                  directive: (ifndef_open)
+[0m[32m                  content: (paragraph
+[0m[32m                    end: (endif_directive)))))))[0m
+

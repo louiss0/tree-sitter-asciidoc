@@ -1,0 +1,435 @@
+  20_inline_edge_cases:
+    126. G£ù [31mUnicode word boundaries in formatting[0m
+    127. G£ù [31mDelimiter adjacency and escape handling[0m
+    128. G£ù [31mComplex autolink boundary detection[0m
+    129. G£ù [31mRole spans with complex attributes[0m
+    130. G£ù [31mNested formatting edge cases[0m
+    131. G£ù [31mMacro and attribute edge cases[0m
+    132. G£ù [31mCross-reference and anchor combinations[0m
+    133. G£ù [31mPassthrough and raw content edge cases[0m
+
+8 failures:
+
+correct / [32mexpected[0m / [31munexpected[0m
+
+  1. Unicode word boundaries in formatting:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[32m        (inline_element
+[0m[32m          (strong
+[0m[32m            (strong_open)
+[0m[32m            (strong_content)
+[0m[32m            (strong_close)))
+[0m[32m        (inline_element
+[0m[32m          (emphasis
+[0m[32m            (emphasis_open)
+[0m[32m            (emphasis_content)
+[0m[32m            (emphasis_close)))
+[0m[32m        (paragraph
+[0m          (inline_element
+            (strong
+[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close)))
+[0m[31m          (plain_text))
+[0m[31m        (ERROR
+[0m[31m          (comment_line))
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text))
+[0m[31m        (ERROR
+[0m[31m          (strong_open)
+[0m[31m          (comment_line))
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)))
+[0m[31m      (ERROR
+[0m[31m        (comment_line)))[0m
+[32m              (strong_open)
+[0m[32m              (strong_content)
+[0m[32m              (strong_close)))
+[0m[32m          (inline_element
+[0m[32m            (emphasis
+[0m[32m              (emphasis_open)
+[0m[32m              (emphasis_content)
+[0m[32m              (emphasis_close)))
+[0m[32m          (paragraph
+[0m[32m            (inline_element
+[0m[32m              (superscript
+[0m[32m                (superscript_open)
+[0m[32m                (superscript_text)
+[0m[32m                (superscript_close)))
+[0m[32m            (inline_element
+[0m[32m              (subscript
+[0m[32m                (subscript_open)
+[0m[32m                (subscript_text)
+[0m[32m                (subscript_close)))[0m
+
+
+  2. Delimiter adjacency and escape handling:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (inline_element
+[0m[31m            (strong
+[0m[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close)))
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text
+[0m[31m            (ERROR))
+[0m[31m          (escaped_char)
+[0m[31m          (plain_text
+[0m[31m            (ERROR))
+[0m[31m          (escaped_char)
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[32m        (inline_element
+[0m[32m          (strong
+[0m[32m            (strong_open)
+[0m[32m            (strong_content)
+[0m[32m            (strong_close)))
+[0m[32m        (inline_element
+[0m[32m          (emphasis
+[0m[32m            (emphasis_open)
+[0m[32m            (emphasis_content)
+[0m[32m            (emphasis_close)))
+[0m[32m        (paragraph
+[0m          (inline_element
+            (strong
+[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close)))
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[32m              (strong_open)
+[0m[32m              (strong_content)
+[0m[32m              (strong_close)))
+[0m          (inline_element
+[31m            (monospace
+[0m[31m              open: (monospace_open)
+[0m[31m              content: (monospace_content)
+[0m[31m              close: (monospace_close)))
+[0m[31m          (plain_text))))[0m
+[32m            (emphasis
+[0m[32m              (emphasis_open)
+[0m[32m              (emphasis_content)
+[0m[32m              (emphasis_close)))
+[0m[32m          (paragraph
+[0m[32m            (inline_element
+[0m[32m              (strong
+[0m[32m                (strong_open)
+[0m[32m                (strong_content)
+[0m[32m                (strong_close)))
+[0m[32m            (paragraph
+[0m[32m              (inline_element
+[0m[32m                (monospace
+[0m[32m                  (monospace_open)
+[0m[32m                  (monospace_content)
+[0m[32m                  (monospace_close)))[0m
+
+
+  3. Complex autolink boundary detection:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text))
+[0m[31m        (ERROR
+[0m[31m          (comment_line))
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)))
+[0m[31m      (ERROR
+[0m[31m        (comment_line)))[0m
+[32m        (inline_element
+[0m[32m          (auto_link))
+[0m[32m        (paragraph
+[0m[32m          (inline_element
+[0m[32m            (auto_link)))
+[0m[32m        (paragraph
+[0m[32m          (inline_element
+[0m[32m            (auto_link))
+[0m[32m          (inline_element
+[0m[32m            (auto_link)))
+[0m[32m        (paragraph))[0m
+
+
+  4. Role spans with complex attributes:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (inline_element
+[0m[31m            (role_span
+[0m[31m              roles: (role_list)
+[0m[31m              content: (role_content)))
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (inline_element
+[0m[32m        content: (inline_element
+[0m[32m          (role_span
+[0m[32m            roles: (role_list)
+[0m[32m            content: (role_content)))
+[0m[32m        (paragraph
+[0m[32m          content: (inline_element
+[0m            (role_span
+              roles: (role_list)
+              content: (role_content)))
+[31m          (plain_text)))
+[0m[31m      (ERROR)
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text))))[0m
+[32m          (paragraph))[0m
+
+
+  5. Nested formatting edge cases:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (inline_element
+[0m[31m            (strong
+[0m[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close)))
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (inline_element
+[0m[31m            (subscript
+[0m[31m              open: (subscript_open)
+[0m[31m              content: (subscript_text)
+[0m[31m              close: (subscript_close)))
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (inline_element
+[0m[31m            (strong
+[0m[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close)))
+[0m[31m          (plain_text)
+[0m[31m          (inline_element
+[0m[31m            (strong
+[0m[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close)))
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (inline_element
+[0m[31m            (monospace
+[0m[31m              open: (monospace_open)
+[0m[31m              content: (monospace_content)
+[0m[31m              close: (monospace_close)))
+[0m[31m          (plain_text))))[0m
+[32m        content: (inline_element
+[0m[32m          (strong
+[0m[32m            open: (strong_open)
+[0m[32m            content: (strong_content)
+[0m[32m            close: (strong_close)))
+[0m[32m        (paragraph
+[0m[32m          content: (inline_element
+[0m[32m            (emphasis
+[0m[32m              open: (emphasis_open)
+[0m[32m              content: (emphasis_content)
+[0m[32m              close: (emphasis_close)))
+[0m[32m          (paragraph
+[0m[32m            content: (inline_element
+[0m[32m              (strong
+[0m[32m                open: (strong_open)
+[0m[32m                content: (strong_content)
+[0m[32m                close: (strong_close)))
+[0m[32m            content: (inline_element
+[0m[32m              (strong
+[0m[32m                open: (strong_open)
+[0m[32m                content: (strong_content)
+[0m[32m                close: (strong_close)))
+[0m[32m            (paragraph
+[0m[32m              content: (inline_element
+[0m[32m                (monospace
+[0m[32m                  open: (monospace_open)
+[0m[32m                  content: (monospace_content)
+[0m[32m                  close: (monospace_close)))[0m
+
+
+  6. Macro and attribute edge cases:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)))
+[0m[31m      (ERROR)
+[0m[31m      (section
+[0m[31m        (section_level_1
+[0m[31m          marker: (section_marker_1)
+[0m[31m          title: (title)
+[0m[31m          content: (paragraph
+[0m[31m            content: (inline_seq_nonempty
+[0m[31m              (plain_text)
+[0m[31m              (ERROR)
+[0m[31m              (plain_text)
+[0m[31m              (formatting_fallback)
+[0m[31m              (plain_text)
+[0m[31m              (ERROR)
+[0m[31m              (plain_text)
+[0m[31m              (formatting_fallback)
+[0m[31m              (plain_text)))
+[0m[31m          content: (paragraph
+[0m[31m            content: (inline_seq_nonempty
+[0m[31m              (plain_text)
+[0m[31m              (ERROR)
+[0m[31m              (plain_text)
+[0m[31m              (formatting_fallback)
+[0m[31m              (plain_text))))))[0m
+[32m        content: (inline_element
+[0m[32m          (ui_macro
+[0m[32m            (ui_kbd)))
+[0m[32m        content: (inline_element
+[0m[32m          (ui_macro
+[0m[32m            (ui_btn)))
+[0m[32m        (paragraph
+[0m[32m          content: (inline_element
+[0m[32m            (math_macro
+[0m[32m              (stem_inline)))
+[0m[32m          content: (inline_element
+[0m[32m            (math_macro
+[0m[32m              (asciimath_inline)))
+[0m[32m          (paragraph
+[0m[32m            content: (inline_element
+[0m[32m              (footnote_inline))
+[0m[32m            content: (inline_element
+[0m[32m              (footnoteref))
+[0m[32m            (paragraph
+[0m[32m              content: (inline_element
+[0m[32m                (image))[0m
+
+
+  7. Cross-reference and anchor combinations:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (inline_element
+[0m[31m            (internal_xref))
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (inline_element
+[0m[31m            (internal_xref))))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text)))
+[0m[32m        (inline_element
+[0m[32m          (internal_xref))
+[0m[32m        (inline_element
+[0m[32m          (internal_xref)))
+[0m      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[32m        (inline_element
+[0m[32m          (external_xref))
+[0m[32m        (inline_element
+[0m[32m          (external_xref))
+[0m[32m        (paragraph
+[0m          (inline_element
+            (inline_anchor))
+[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m          (inline_element
+[31m            (inline_anchor))
+[0m[31m          (plain_text))))[0m
+[32m            (inline_anchor))[0m
+
+
+  8. Passthrough and raw content edge cases:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[32m        (inline_element
+[0m[32m          (pass_macro))
+[0m[32m        (paragraph
+[0m          (inline_element
+[31m            (attribute_reference))
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text))))[0m
+[32m            (passthrough_triple_plus))
+[0m[32m          (paragraph
+[0m[32m            (inline_element
+[0m[32m              (pass_macro))[0m
+

@@ -1,0 +1,92 @@
+  20_links_images:
+    134. G£ù [31mAuto links[0m
+    135. G£ù [31mLinks with text[0m
+    136. G£ù [31mLinks with formatted text[0m
+    137. G£ù [31mInline images[0m
+    138. G£ù [31mBlock images[0m
+
+5 failures:
+
+correct / [32mexpected[0m / [31munexpected[0m
+
+  1. Auto links:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text))
+[0m[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text))))[0m
+[32m        (inline_element
+[0m[32m          (auto_link))
+[0m[32m        (paragraph
+[0m[32m          (inline_element
+[0m[32m            (auto_link))
+[0m[32m          (inline_element
+[0m[32m            (auto_link))))[0m
+
+
+  2. Links with text:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text))))[0m
+[32m        content: (inline_element
+[0m[32m          (explicit_link
+[0m[32m            url: (auto_link)
+[0m[32m            text: (link_text)))[0m
+
+
+  3. Links with formatted text:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (inline_element
+[0m[31m            (strong
+[0m[31m              open: (strong_open)
+[0m[31m              content: (strong_content)
+[0m[31m              close: (strong_close)))
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text))))[0m
+[32m        content: (inline_element
+[0m[32m          (explicit_link
+[0m[32m            url: (auto_link)
+[0m[32m            text: (link_text)))[0m
+
+
+  4. Inline images:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text))))[0m
+[32m        (inline_element
+[0m[32m          (image))[0m
+
+
+  5. Block images:
+
+    (source_file
+      (paragraph
+[31m        content: (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (ERROR)
+[0m[31m          (plain_text)
+[0m[31m          (formatting_fallback)
+[0m[31m          (plain_text))))[0m
+[32m        (inline_element
+[0m[32m          (image))[0m
+
