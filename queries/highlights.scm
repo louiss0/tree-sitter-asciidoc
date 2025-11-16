@@ -129,7 +129,7 @@
 (TABLE_FENCE_END) @punctuation.delimiter
 (DELIMITED_BLOCK_CONTENT_LINE) @text
 (LIST_CONTINUATION) @punctuation.special
-(CALLOUT_MARKER) @markup.strong
+(callout_marker) @markup.strong
 
 ; Tables
 (table_open) @punctuation.delimiter
