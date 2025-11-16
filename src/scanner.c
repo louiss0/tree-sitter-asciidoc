@@ -32,6 +32,8 @@ enum TokenType {
   LIST_CONTINUATION,
   AUTOLINK_BOUNDARY,
   ATTRIBUTE_LIST_START,
+  INLINE_MACRO_MARKER,
+  BLOCK_MACRO_MARKER,
   DELIMITED_BLOCK_CONTENT_LINE,
 };
 
@@ -187,6 +189,44 @@ static bool scan_block_content_line(TSLexer *lexer) {
   return true;
 }
 
+static bool scan_inline_macro_marker(TSLexer *lexer) {
+  if (lexer->lookahead != ':') {
+    return false;
+  }
+
+  advance(lexer);
+
+  if (lexer->lookahead != '[') {
+    return false;
+  }
+
+  advance(lexer);
+  lexer->mark_end(lexer);
+  return true;
+}
+
+static bool scan_block_macro_marker(TSLexer *lexer) {
+  if (lexer->lookahead != ':') {
+    return false;
+  }
+
+  advance(lexer);
+
+  if (lexer->lookahead != ':') {
+    return false;
+  }
+
+  advance(lexer);
+
+  if (lexer->lookahead != '[') {
+    return false;
+  }
+
+  advance(lexer);
+  lexer->mark_end(lexer);
+  return true;
+}
+
 void *tree_sitter_asciidoc_external_scanner_create(void) {
   ScannerState *state = (ScannerState *)calloc(1, sizeof(ScannerState));
   return state;
@@ -243,6 +283,16 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
 
   if (lexer->eof(lexer)) {
     return false;
+  }
+
+  if (valid_symbols[BLOCK_MACRO_MARKER] && scan_block_macro_marker(lexer)) {
+    lexer->result_symbol = BLOCK_MACRO_MARKER;
+    return true;
+  }
+
+  if (valid_symbols[INLINE_MACRO_MARKER] && scan_inline_macro_marker(lexer)) {
+    lexer->result_symbol = INLINE_MACRO_MARKER;
+    return true;
   }
 
   // Fences that share the same marker should check the longer versions first.

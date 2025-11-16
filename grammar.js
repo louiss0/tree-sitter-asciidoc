@@ -32,6 +32,8 @@ module.exports = grammar({
     $.LIST_CONTINUATION,
     $.AUTOLINK_BOUNDARY,
     $.ATTRIBUTE_LIST_START,
+    $.INLINE_MACRO_MARKER,
+    $.BLOCK_MACRO_MARKER,
     $.DELIMITED_BLOCK_CONTENT_LINE,
   ],
 
@@ -69,6 +71,7 @@ module.exports = grammar({
         $.open_block,
         $.conditional_block,
         $.include_directive,
+        $.block_macro,
         $.block_comment,
         $.table_block,
         $.paragraph,
@@ -745,11 +748,11 @@ module.exports = grammar({
         $.image,
         $.passthrough_triple_plus,
         $.pass_macro,
+        $.inline_macro,
         $.attribute_reference,
         $.role_span,
-        $.math_macro,
-        $.ui_macro,
         $.index_term,
+        $.ui_menu,
         $.hard_break,
       ),
 
@@ -777,10 +780,14 @@ module.exports = grammar({
     plain_text: ($) =>
       prec.left(
         -50,
-        seq($._plain_text_segment, repeat(seq($._inline_text_space, $._plain_text_segment))),
+        seq($._plain_text_atom, repeat(choice($._plain_text_atom, $._inline_text_space))),
       ),
 
-    _plain_text_segment: ($) => token(prec(1, /[A-Za-z0-9_!$.,'"():+\-\/={}^%?#]+/)),
+    _plain_text_atom: ($) => choice($._plain_text_segment, $.plain_colon),
+
+    plain_colon: ($) => token(":"),
+
+    _plain_text_segment: ($) => token(prec(1, /[A-Za-z0-9_!$.,'"()+\-\/={}^%?#]+/)),
 
     _inline_gap: ($) => token.immediate(prec(-1, /[ \t]+/)),
 
@@ -1060,47 +1067,32 @@ module.exports = grammar({
         ),
       ),
 
-    // MATH MACROS
-    math_macro: ($) => choice($.stem_inline, $.latexmath_inline, $.asciimath_inline),
-
-    stem_inline: ($) =>
-      choice(
+    // INLINE MACROS
+    inline_macro: ($) =>
+      prec.right(
         seq(
-          token(prec(100, "stem:[")),
-          field("expression", alias(optional($.math_macro_text), $.math_macro_text)),
+          field("name", alias($._word, $.macro_name)),
+          field("open", $.INLINE_MACRO_MARKER),
+          field("body", optional($.macro_body)),
           "]",
         ),
-        seq("stem:", field("expression", $.math_macro_fallback)),
       ),
 
-    latexmath_inline: ($) =>
-      choice(
+    block_macro: ($) =>
+      prec.right(
         seq(
-          token(prec(100, "latexmath:[")),
-          field("expression", alias(optional($.math_macro_text), $.math_macro_text)),
+          field("name", alias($._word, $.macro_name)),
+          field("open", $.BLOCK_MACRO_MARKER),
+          field("body", optional($.macro_body)),
           "]",
+          optional(token(/[ \t]+/)),
+          optional($._line_ending),
         ),
-        seq("latexmath:", field("expression", $.math_macro_fallback)),
       ),
 
-    asciimath_inline: ($) =>
-      choice(
-        seq(
-          token(prec(100, "asciimath:[")),
-          field("expression", alias(optional($.math_macro_text), $.math_macro_text)),
-          "]",
-        ),
-        seq("asciimath:", field("expression", $.math_macro_fallback)),
-      ),
-
-    math_macro_text: ($) => /[^\]\r\n]+/,
-    math_macro_fallback: ($) => /[^\[\r\n]+/,
+    macro_body: ($) => token.immediate(/[^\]\r\n]+/),
 
     // UI MACROS
-    ui_macro: ($) => choice($.ui_kbd, $.ui_btn, $.ui_menu),
-
-    ui_kbd: ($) => seq("kbd:[", /[^\]\r\n]+/, "]"),
-    ui_btn: ($) => seq("btn:[", /[^\]\r\n]+/, "]"),
     ui_menu: ($) => seq("menu:", /[^\[\r\n]+/, "[", /[^\]\r\n]+/, "]"),
 
     // BLOCK COMMENTS

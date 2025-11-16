@@ -74,18 +74,24 @@
 (#match? @_attr "source,bash")
  (#set! injection.language "bash"))
 
-; Math content injection - specific language detection
-; Stem inline macro - default to asciimath
-(stem_inline) @injection.content
-(#set! injection.language "text")  ; fallback to text since asciimath isn't widely supported
+; Math content injection - specific language detection via inline macros
+((inline_macro
+   name: (macro_name) @math_macro_name
+   body: (macro_body) @injection.content)
+ (#match? @math_macro_name "^stem$")
+ (#set! injection.language "text"))  ; fallback to text since asciimath isn't widely supported
 
-; LaTeX math inline macro
-(latexmath_inline) @injection.content
-(#set! injection.language "latex")
+((inline_macro
+   name: (macro_name) @math_macro_name
+   body: (macro_body) @injection.content)
+ (#match? @math_macro_name "^latexmath$")
+ (#set! injection.language "latex"))
 
-; AsciiMath inline macro
-(asciimath_inline) @injection.content
-(#set! injection.language "text")  ; fallback to text since asciimath isn't widely supported
+((inline_macro
+   name: (macro_name) @math_macro_name
+   body: (macro_body) @injection.content)
+ (#match? @math_macro_name "^asciimath$")
+ (#set! injection.language "text"))  ; fallback to text since asciimath isn't widely supported
 
 ; Math block detection via attributes and passthrough content
 ; Stem blocks (default to asciimath but use text fallback)

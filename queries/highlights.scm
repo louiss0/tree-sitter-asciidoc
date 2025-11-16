@@ -160,14 +160,9 @@
 (footnoteref) @markup.link
 (image) @markup.link
 (passthrough_triple_plus) @markup.raw.inline
-(math_macro) @function.macro
-(ui_macro) @function.macro
+(inline_macro) @function.macro
+(block_macro) @function.macro
 (index_term) @markup.link.label
-
-; Specific math macro types
-(stem_inline) @function.macro
-(latexmath_inline) @function.macro
-(asciimath_inline) @function.macro
 
 ; Admonitions
 (block_admonition) @markup.quote
@@ -205,9 +200,11 @@
 (cell_content) @markup.list
 
 ; UI Macros
-(ui_kbd) @function.builtin
-(ui_btn) @function.builtin
 (ui_menu) @function.builtin
+
+((inline_macro
+   name: (macro_name) @macro_ui_name) @function.builtin
+ (#match? @macro_ui_name "^(kbd|btn)$"))
 
 ; Index terms
 (index_term_macro) @markup.link.label
