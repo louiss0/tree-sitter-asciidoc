@@ -10,6 +10,8 @@
 module.exports = grammar({
   name: "asciidoc",
 
+  word: ($) => $._word,
+
   externals: ($) => [
     $.EXAMPLE_FENCE_START,
     $.EXAMPLE_FENCE_END,
@@ -68,7 +70,6 @@ module.exports = grammar({
         $.conditional_block,
         $.include_directive,
         $.block_comment,
-        alias($._titled_table_block, $.table_block),
         $.table_block,
         $.paragraph,
       ),
@@ -348,7 +349,7 @@ module.exports = grammar({
     // DELIMITED BLOCKS
     example_block: ($) =>
       seq(
-        optional($.metadata),
+        optional(field("metadata", $.metadata)),
         field("open", $.example_open),
         optional(field("content", $.block_content)),
         field("close", $.example_close),
@@ -361,7 +362,7 @@ module.exports = grammar({
     // Listing blocks
     listing_block: ($) =>
       seq(
-        optional($.metadata),
+        optional(field("metadata", $.metadata)),
         field("open", $.listing_open),
         optional(field("content", $.block_content)),
         field("close", $.listing_close),
@@ -374,7 +375,7 @@ module.exports = grammar({
     // AsciiDoc quote blocks (fenced with ____)
     asciidoc_blockquote: ($) =>
       seq(
-        optional($.metadata),
+        optional(field("metadata", $.metadata)),
         field("open", $.asciidoc_blockquote_open),
         optional(field("content", $.block_content)),
         field("close", $.asciidoc_blockquote_close),
@@ -387,7 +388,7 @@ module.exports = grammar({
     // Literal blocks
     literal_block: ($) =>
       seq(
-        optional($.metadata),
+        optional(field("metadata", $.metadata)),
         field("open", $.literal_open),
         optional(field("content", $.block_content)),
         field("close", $.literal_close),
@@ -399,7 +400,12 @@ module.exports = grammar({
 
     // Sidebar blocks
     sidebar_block: ($) =>
-      seq(optional($.metadata), $.sidebar_open, optional($.block_content), $.sidebar_close),
+      seq(
+        optional(field("metadata", $.metadata)),
+        field("open", $.sidebar_open),
+        optional(field("content", $.block_content)),
+        field("close", $.sidebar_close),
+      ),
 
     sidebar_open: ($) => $.SIDEBAR_FENCE_START,
 
@@ -408,10 +414,10 @@ module.exports = grammar({
     // Passthrough blocks
     passthrough_block: ($) =>
       seq(
-        optional($.metadata),
-        $.passthrough_open,
-        optional($.block_content),
-        $.passthrough_close,
+        optional(field("metadata", $.metadata)),
+        field("open", $.passthrough_open),
+        optional(field("content", $.block_content)),
+        field("close", $.passthrough_close),
       ),
 
     passthrough_open: ($) => $.PASSTHROUGH_FENCE_START,
@@ -421,7 +427,7 @@ module.exports = grammar({
     // Open blocks
     open_block: ($) =>
       seq(
-        optional($.metadata),
+        optional(field("metadata", $.metadata)),
         field("open", $.openblock_open),
         optional(field("content", $.block_content)),
         field("close", $.openblock_close),
@@ -565,15 +571,13 @@ module.exports = grammar({
     endif_directive: ($) => token(prec(75, /endif::\[[^\]\r\n]*\][ \t]*\r?\n?/)),
 
     // METADATA
-    metadata: ($) =>
-      prec.right(
-        repeat1(
-          choice(
-            seq($.block_attributes, optional($._line_ending)),
-            $.id_and_roles,
-            $.block_title,
-          ),
-        ),
+    metadata: ($) => prec.right(field("entries", repeat1($._metadata_entry))),
+
+    _metadata_entry: ($) =>
+      choice(
+        field("attributes", seq($.block_attributes, optional($._line_ending))),
+        field("idRoles", $.id_and_roles),
+        field("title", $.block_title),
       ),
 
     table_title: ($) => seq(field("text", $.table_title_text), $._line_ending),
@@ -611,23 +615,22 @@ module.exports = grammar({
     content_line: ($) => $.DELIMITED_BLOCK_CONTENT_LINE,
 
     // LISTS
-    unordered_list: ($) =>
-      prec.right(seq($.unordered_list_item, repeat($.unordered_list_item))),
+    unordered_list: ($) => prec.right(field("items", repeat1($.unordered_list_item))),
 
     unordered_list_item: ($) =>
       seq(
-        $._unordered_list_marker,
+        field("marker", alias($._unordered_list_marker, $.unordered_list_marker)),
         field("content", $._inline_text),
         repeat($.list_item_continuation),
       ),
 
     _unordered_list_marker: ($) => token(prec(10, /[ \t]*[*-][ \t]+/)),
 
-    ordered_list: ($) => prec.right(seq($.ordered_list_item, repeat($.ordered_list_item))),
+    ordered_list: ($) => prec.right(field("items", repeat1($.ordered_list_item))),
 
     ordered_list_item: ($) =>
       seq(
-        $._ordered_list_marker,
+        field("marker", alias($._ordered_list_marker, $.ordered_list_marker)),
         field("content", $._inline_text),
         repeat($.list_item_continuation),
       ),
@@ -635,19 +638,27 @@ module.exports = grammar({
     _ordered_list_marker: ($) => token(prec(15, seq(/[0-9]+/, ".", /[ \t]+/))),
 
     // DESCRIPTION LISTS
-    description_list: ($) => prec.right(2, seq($.description_item, repeat($.description_item))),
+    description_list: ($) => prec.right(2, field("items", repeat1($.description_item))),
 
     description_item: ($) =>
-      seq($._description_marker, $.description_content, repeat($.list_item_continuation)),
+      seq(
+        field("term", alias($._description_marker, $.description_term)),
+        field("details", $.description_content),
+        repeat($.list_item_continuation),
+      ),
 
     _description_marker: ($) => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
     description_content: ($) => $._inline_text,
 
     // CALLOUT LISTS
-    callout_list: ($) => prec.right(seq($.callout_item, repeat($.callout_item))),
+    callout_list: ($) => prec.right(field("items", repeat1($.callout_item))),
 
     callout_item: ($) =>
-      seq($.CALLOUT_MARKER, field("content", $._inline_text), repeat($.list_item_continuation)),
+      seq(
+        field("marker", alias($.CALLOUT_MARKER, $.callout_marker)),
+        field("content", $._inline_text),
+        repeat($.list_item_continuation),
+      ),
 
     CALLOUT_MARKER: ($) => token(prec(5, /<[0-9]+>[ \t]+/)),
 
@@ -655,23 +666,26 @@ module.exports = grammar({
     list_item_continuation: ($) =>
       seq(
         $.LIST_CONTINUATION,
-        choice(
-          $.paragraph,
-          $.open_block,
-          $.example_block,
-          $.listing_block,
-          $.asciidoc_blockquote,
-          $.literal_block,
-          $.sidebar_block,
-          $.passthrough_block,
-          $.block_admonition,
-          $.table_block,
-          $.block_comment,
-          $.conditional_block,
-          // Allow nested lists in continuations
-          $.unordered_list,
-          $.ordered_list,
-          $.description_list,
+        field(
+          "block",
+          choice(
+            $.paragraph,
+            $.open_block,
+            $.example_block,
+            $.listing_block,
+            $.asciidoc_blockquote,
+            $.literal_block,
+            $.sidebar_block,
+            $.passthrough_block,
+            $.block_admonition,
+            $.table_block,
+            $.block_comment,
+            $.conditional_block,
+            // Allow nested lists in continuations
+            $.unordered_list,
+            $.ordered_list,
+            $.description_list,
+          ),
         ),
       ),
 
@@ -683,7 +697,7 @@ module.exports = grammar({
       prec.right(
         1,
         seq(
-          optional($.metadata),
+          optional(field("metadata", $.metadata)),
           choice($.paragraph_admonition, field("content", $._inline_text)),
         ),
       ),
@@ -771,6 +785,9 @@ module.exports = grammar({
     _inline_gap: ($) => token.immediate(prec(-1, /[ \t]+/)),
 
     _inline_text_space: ($) => token.immediate(/[ \t]+/),
+
+    // Bare words drive the grammar's `word` helper so keyword extraction remains consistent.
+    _word: ($) => token(prec(3, /[A-Za-z0-9_]+/)),
 
     escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
 
@@ -1136,10 +1153,8 @@ module.exports = grammar({
     index_term_text: ($) => /[^,\]\)\r\n]+/,
 
     // TABLES
-    table_block: ($) => prec.right(10, $._table_block_body),
-
-    _titled_table_block: ($) =>
-      prec.right(10, seq(field("title", $.table_title), $._table_block_body)),
+    table_block: ($) =>
+      prec.right(10, seq(optional(field("title", $.table_title)), $._table_block_body)),
 
     _table_block_body: ($) =>
       seq(
@@ -1161,13 +1176,13 @@ module.exports = grammar({
     table_content: ($) =>
       repeat1(
         choice(
-          $.table_row,
+          field("row", $.table_row),
           alias($.table_free_line, $.content_line),
           alias($._blank_line, $.content_line),
         ),
       ),
 
-    table_row: ($) => prec(4, seq(repeat1($.table_cell), $._line_ending)),
+    table_row: ($) => prec(4, seq(field("cells", repeat1($.table_cell)), $._line_ending)),
 
     // Table cells - distinguish cells with specs from regular cells
     table_cell: ($) =>
@@ -1175,7 +1190,10 @@ module.exports = grammar({
         // Cell with spec: | followed by cell_spec (which includes closing |) then content
         prec.left(
           200,
-          prec.dynamic(200, seq("|", $.cell_spec, field("content", $.cell_content))),
+          prec.dynamic(
+            200,
+            seq("|", field("spec", $.cell_spec), field("content", $.cell_content)),
+          ),
         ),
         // Header cell: || followed by content (not =)
         prec(90, seq(token(prec(65, /\|\|[^=\r\n]/)), field("content", $.cell_content))),
