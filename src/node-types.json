@@ -1150,10 +1150,6 @@
           "named": true
         },
         {
-          "type": "inline_macro",
-          "named": true
-        },
-        {
           "type": "internal_xref",
           "named": true
         },
@@ -1250,6 +1246,14 @@
         },
         {
           "type": "inline_element",
+          "named": true
+        },
+        {
+          "type": "inline_macro",
+          "named": true
+        },
+        {
+          "type": "plain_colon",
           "named": true
         },
         {
@@ -1880,19 +1884,24 @@
     "fields": {}
   },
   {
-    "type": "plain_text",
+    "type": "plain_colon",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
-          "type": "plain_colon",
+          "type": "PLAIN_COLON",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "plain_text",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "role_content",
@@ -3345,6 +3354,10 @@
     "named": true
   },
   {
+    "type": "PLAIN_COLON",
+    "named": true
+  },
+  {
     "type": "QUOTE_FENCE_END",
     "named": true
   },
@@ -3555,10 +3568,6 @@
   {
     "type": "pass:[",
     "named": false
-  },
-  {
-    "type": "plain_colon",
-    "named": true
   },
   {
     "type": "role_list",

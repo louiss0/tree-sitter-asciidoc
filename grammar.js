@@ -32,13 +32,14 @@ module.exports = grammar({
     $.LIST_CONTINUATION,
     $.AUTOLINK_BOUNDARY,
     $.ATTRIBUTE_LIST_START,
+    $.PLAIN_COLON,
     $.INLINE_MACRO_MARKER,
     $.BLOCK_MACRO_MARKER,
     $.DELIMITED_BLOCK_CONTENT_LINE,
   ],
 
   extras: ($) => [
-    // /[ \t]/, // Allow spaces and tabs but not newlines
+    /[ \t]+/, // Allow spaces and tabs but not newlines
   ],
 
   conflicts: ($) => [
@@ -748,7 +749,6 @@ module.exports = grammar({
         $.image,
         $.passthrough_triple_plus,
         $.pass_macro,
-        $.inline_macro,
         $.attribute_reference,
         $.role_span,
         $.index_term,
@@ -766,32 +766,23 @@ module.exports = grammar({
       ),
 
     inline_seq_nonempty: ($) =>
-      prec.right(
-        seq(
-          optional($._inline_gap),
-          $._inline_core_unit,
-          repeat(seq(optional($._inline_gap), $._inline_core_unit)),
-        ),
-      ),
+      prec.right(seq($._inline_core_unit, repeat($._inline_core_unit))),
 
     _inline_core_unit: ($) =>
-      choice($.inline_element, $.escaped_char, $.plain_text, $.formatting_fallback),
-
-    plain_text: ($) =>
-      prec.left(
-        -50,
-        seq($._plain_text_atom, repeat(choice($._plain_text_atom, $._inline_text_space))),
+      choice(
+        $.inline_macro,
+        $.inline_element,
+        $.escaped_char,
+        $.plain_colon,
+        $.plain_text,
+        $.formatting_fallback,
       ),
 
-    _plain_text_atom: ($) => choice($._plain_text_segment, $.plain_colon),
+    plain_text: ($) => prec.left(-50, $._plain_text_segment),
 
-    plain_colon: ($) => token(":"),
+    plain_colon: ($) => $.PLAIN_COLON,
 
     _plain_text_segment: ($) => token(prec(1, /[A-Za-z0-9_!$.,'"()+\-\/={}^%?#]+/)),
-
-    _inline_gap: ($) => token.immediate(prec(-1, /[ \t]+/)),
-
-    _inline_text_space: ($) => token.immediate(/[ \t]+/),
 
     // Bare words drive the grammar's `word` helper so keyword extraction remains consistent.
     _word: ($) => token(prec(3, /[A-Za-z0-9_]+/)),
@@ -1071,7 +1062,7 @@ module.exports = grammar({
     inline_macro: ($) =>
       prec.right(
         seq(
-          field("name", alias($._word, $.macro_name)),
+          field("name", alias($._plain_text_segment, $.macro_name)),
           field("open", $.INLINE_MACRO_MARKER),
           field("body", optional($.macro_body)),
           "]",
@@ -1081,11 +1072,10 @@ module.exports = grammar({
     block_macro: ($) =>
       prec.right(
         seq(
-          field("name", alias($._word, $.macro_name)),
+          field("name", alias($._plain_text_segment, $.macro_name)),
           field("open", $.BLOCK_MACRO_MARKER),
           field("body", optional($.macro_body)),
           "]",
-          optional(token(/[ \t]+/)),
           optional($._line_ending),
         ),
       ),

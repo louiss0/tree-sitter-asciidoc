@@ -32,6 +32,7 @@ enum TokenType {
   LIST_CONTINUATION,
   AUTOLINK_BOUNDARY,
   ATTRIBUTE_LIST_START,
+  PLAIN_COLON,
   INLINE_MACRO_MARKER,
   BLOCK_MACRO_MARKER,
   DELIMITED_BLOCK_CONTENT_LINE,
@@ -44,6 +45,10 @@ typedef struct {
 static inline bool is_newline(int32_t c) { return c == '\n' || c == '\r'; }
 
 static inline bool is_space(int32_t c) { return c == ' ' || c == '\t'; }
+
+static inline bool is_word_char(int32_t c) {
+  return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '_';
+}
 
 static inline void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
 
@@ -189,42 +194,58 @@ static bool scan_block_content_line(TSLexer *lexer) {
   return true;
 }
 
-static bool scan_inline_macro_marker(TSLexer *lexer) {
+static bool scan_macro_marker_or_colon(TSLexer *lexer, const bool *valid_symbols) {
   if (lexer->lookahead != ':') {
     return false;
   }
 
   advance(lexer);
+  bool is_block_macro = false;
 
-  if (lexer->lookahead != '[') {
-    return false;
+  if (lexer->lookahead == ':') {
+    is_block_macro = true;
+    advance(lexer);
   }
 
-  advance(lexer);
   lexer->mark_end(lexer);
-  return true;
-}
 
-static bool scan_block_macro_marker(TSLexer *lexer) {
-  if (lexer->lookahead != ':') {
-    return false;
+  const bool wants_inline = !is_block_macro && valid_symbols[INLINE_MACRO_MARKER];
+  const bool wants_block = is_block_macro && valid_symbols[BLOCK_MACRO_MARKER];
+
+#if SCANNER_DEBUG
+  DEBUG_LOG(
+    "macro scan: block=%d inline=%d plain=%d lookahead='%c'\n",
+    wants_block,
+    wants_inline,
+    valid_symbols[PLAIN_COLON],
+    lexer->lookahead ? (char)lexer->lookahead : '.');
+#endif
+
+  if (wants_inline || wants_block) {
+    while (lexer->lookahead && !is_newline(lexer->lookahead)) {
+      if (lexer->lookahead == '[') {
+#if SCANNER_DEBUG
+        DEBUG_LOG("macro marker -> %s\n", wants_block ? "BLOCK" : "INLINE");
+#endif
+        advance(lexer);
+        lexer->mark_end(lexer);
+        lexer->result_symbol = wants_block ? BLOCK_MACRO_MARKER : INLINE_MACRO_MARKER;
+        return true;
+      }
+
+      advance(lexer);
+    }
   }
 
-  advance(lexer);
-
-  if (lexer->lookahead != ':') {
-    return false;
+  if (valid_symbols[PLAIN_COLON]) {
+#if SCANNER_DEBUG
+    DEBUG_LOG("macro scan: plain colon fallback\n");
+#endif
+    lexer->result_symbol = PLAIN_COLON;
+    return true;
   }
 
-  advance(lexer);
-
-  if (lexer->lookahead != '[') {
-    return false;
-  }
-
-  advance(lexer);
-  lexer->mark_end(lexer);
-  return true;
+  return false;
 }
 
 void *tree_sitter_asciidoc_external_scanner_create(void) {
@@ -285,13 +306,8 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
     return false;
   }
 
-  if (valid_symbols[BLOCK_MACRO_MARKER] && scan_block_macro_marker(lexer)) {
-    lexer->result_symbol = BLOCK_MACRO_MARKER;
-    return true;
-  }
-
-  if (valid_symbols[INLINE_MACRO_MARKER] && scan_inline_macro_marker(lexer)) {
-    lexer->result_symbol = INLINE_MACRO_MARKER;
+  if ((valid_symbols[BLOCK_MACRO_MARKER] || valid_symbols[INLINE_MACRO_MARKER] || valid_symbols[PLAIN_COLON]) &&
+      scan_macro_marker_or_colon(lexer, valid_symbols)) {
     return true;
   }
 
