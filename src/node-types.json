@@ -94,6 +94,20 @@
     "type": "attribute_entry",
     "named": true,
     "fields": {
+      "name": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "attribute_identifier",
+            "named": true
+          },
+          {
+            "type": "attribute_name",
+            "named": true
+          }
+        ]
+      },
       "value": {
         "multiple": true,
         "required": false,
@@ -104,6 +118,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "attribute_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "PLAIN_COLON",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3397,6 +3426,10 @@
   },
   {
     "type": "anchor",
+    "named": true
+  },
+  {
+    "type": "attribute_identifier",
     "named": true
   },
   {

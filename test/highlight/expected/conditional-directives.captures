@@ -1,5 +1,5 @@
 C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\conditional-directives.adoc
-pattern: 115, capture: 34 - none, start: (0, 0), end: (38, 9), text: `= Conditional Directives Test
+pattern: 117, capture: 34 - none, start: (0, 0), end: (38, 9), text: `= Conditional Directives Test
 
 ifdef::debug[]
 This content only appears when debug is set.
@@ -80,58 +80,58 @@ endif::[]`
 pattern: 1, capture: 1 - markup.heading.1.marker, start: (0, 0), end: (0, 2), text: `= `
 pattern: 1, capture: 2 - markup.heading.1, start: (0, 2), end: (0, 29), text: `Conditional Directives Test`
 pattern: 7, capture: 0 - markup.heading, start: (0, 2), end: (0, 29), text: `Conditional Directives Test`
-pattern: 95, capture: 34 - none, start: (2, 0), end: (5, 0), text: `ifdef::debug[]
+pattern: 97, capture: 34 - none, start: (2, 0), end: (5, 0), text: `ifdef::debug[]
 This content only appears when debug is set.
 endif::[]
 
-pattern: 96, capture: 35 - keyword.conditional, start: (2, 0), end: (3, 0), text: `ifdef::debug[]
+pattern: 98, capture: 35 - keyword.conditional, start: (2, 0), end: (3, 0), text: `ifdef::debug[]
 
-pattern: 117, capture: 29 - text, start: (3, 0), end: (4, 0), text: `This content only appears when debug is set.
+pattern: 119, capture: 29 - text, start: (3, 0), end: (4, 0), text: `This content only appears when debug is set.
 
-pattern: 119, capture: 29 - text, start: (3, 0), end: (3, 4), text: `This`
-pattern: 119, capture: 29 - text, start: (3, 5), end: (3, 12), text: `content`
-pattern: 119, capture: 29 - text, start: (3, 13), end: (3, 17), text: `only`
-pattern: 119, capture: 29 - text, start: (3, 18), end: (3, 25), text: `appears`
-pattern: 119, capture: 29 - text, start: (3, 26), end: (3, 30), text: `when`
-pattern: 119, capture: 29 - text, start: (3, 31), end: (3, 36), text: `debug`
-pattern: 119, capture: 29 - text, start: (3, 37), end: (3, 39), text: `is`
-pattern: 119, capture: 29 - text, start: (3, 40), end: (3, 44), text: `set.`
-pattern: 96, capture: 35 - keyword.conditional, start: (4, 0), end: (5, 0), text: `endif::[]
+pattern: 121, capture: 29 - text, start: (3, 0), end: (3, 4), text: `This`
+pattern: 121, capture: 29 - text, start: (3, 4), end: (3, 12), text: ` content`
+pattern: 121, capture: 29 - text, start: (3, 12), end: (3, 17), text: ` only`
+pattern: 121, capture: 29 - text, start: (3, 17), end: (3, 25), text: ` appears`
+pattern: 121, capture: 29 - text, start: (3, 25), end: (3, 30), text: ` when`
+pattern: 121, capture: 29 - text, start: (3, 30), end: (3, 36), text: ` debug`
+pattern: 121, capture: 29 - text, start: (3, 36), end: (3, 39), text: ` is`
+pattern: 121, capture: 29 - text, start: (3, 39), end: (3, 44), text: ` set.`
+pattern: 98, capture: 35 - keyword.conditional, start: (4, 0), end: (5, 0), text: `endif::[]
 
-pattern: 95, capture: 34 - none, start: (6, 0), end: (9, 0), text: `ifndef::production[]
+pattern: 97, capture: 34 - none, start: (6, 0), end: (9, 0), text: `ifndef::production[]
 This is development-only content.
 endif::[]
 
-pattern: 97, capture: 35 - keyword.conditional, start: (6, 0), end: (7, 0), text: `ifndef::production[]
+pattern: 99, capture: 35 - keyword.conditional, start: (6, 0), end: (7, 0), text: `ifndef::production[]
 
-pattern: 117, capture: 29 - text, start: (7, 0), end: (8, 0), text: `This is development-only content.
+pattern: 119, capture: 29 - text, start: (7, 0), end: (8, 0), text: `This is development-only content.
 
-pattern: 119, capture: 29 - text, start: (7, 0), end: (7, 4), text: `This`
-pattern: 119, capture: 29 - text, start: (7, 5), end: (7, 7), text: `is`
-pattern: 119, capture: 29 - text, start: (7, 8), end: (7, 24), text: `development-only`
-pattern: 119, capture: 29 - text, start: (7, 25), end: (7, 33), text: `content.`
-pattern: 97, capture: 35 - keyword.conditional, start: (8, 0), end: (9, 0), text: `endif::[]
+pattern: 121, capture: 29 - text, start: (7, 0), end: (7, 4), text: `This`
+pattern: 121, capture: 29 - text, start: (7, 4), end: (7, 7), text: ` is`
+pattern: 121, capture: 29 - text, start: (7, 7), end: (7, 24), text: ` development-only`
+pattern: 121, capture: 29 - text, start: (7, 24), end: (7, 33), text: ` content.`
+pattern: 99, capture: 35 - keyword.conditional, start: (8, 0), end: (9, 0), text: `endif::[]
 
-pattern: 95, capture: 34 - none, start: (10, 0), end: (13, 0), text: `ifeval::["{version}" >= "2.0"]
+pattern: 97, capture: 34 - none, start: (10, 0), end: (13, 0), text: `ifeval::["{version}" >= "2.0"]
 This requires version 2.0 or higher.
 endif::[]
 
-pattern: 98, capture: 35 - keyword.conditional, start: (10, 0), end: (11, 0), text: `ifeval::["{version}" >= "2.0"]
+pattern: 100, capture: 35 - keyword.conditional, start: (10, 0), end: (11, 0), text: `ifeval::["{version}" >= "2.0"]
 
-pattern: 117, capture: 29 - text, start: (11, 0), end: (12, 0), text: `This requires version 2.0 or higher.
+pattern: 119, capture: 29 - text, start: (11, 0), end: (12, 0), text: `This requires version 2.0 or higher.
 
-pattern: 119, capture: 29 - text, start: (11, 0), end: (11, 4), text: `This`
-pattern: 119, capture: 29 - text, start: (11, 5), end: (11, 13), text: `requires`
-pattern: 119, capture: 29 - text, start: (11, 14), end: (11, 21), text: `version`
-pattern: 119, capture: 29 - text, start: (11, 22), end: (11, 25), text: `2.0`
-pattern: 119, capture: 29 - text, start: (11, 26), end: (11, 28), text: `or`
-pattern: 119, capture: 29 - text, start: (11, 29), end: (11, 36), text: `higher.`
-pattern: 98, capture: 35 - keyword.conditional, start: (12, 0), end: (13, 0), text: `endif::[]
+pattern: 121, capture: 29 - text, start: (11, 0), end: (11, 4), text: `This`
+pattern: 121, capture: 29 - text, start: (11, 4), end: (11, 13), text: ` requires`
+pattern: 121, capture: 29 - text, start: (11, 13), end: (11, 21), text: ` version`
+pattern: 121, capture: 29 - text, start: (11, 21), end: (11, 25), text: ` 2.0`
+pattern: 121, capture: 29 - text, start: (11, 25), end: (11, 28), text: ` or`
+pattern: 121, capture: 29 - text, start: (11, 28), end: (11, 36), text: ` higher.`
+pattern: 100, capture: 35 - keyword.conditional, start: (12, 0), end: (13, 0), text: `endif::[]
 
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (14, 0), end: (14, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (14, 3), end: (14, 22), text: `Nested Conditionals`
 pattern: 7, capture: 0 - markup.heading, start: (14, 3), end: (14, 22), text: `Nested Conditionals`
-pattern: 95, capture: 34 - none, start: (16, 0), end: (25, 0), text: `ifdef::feature-a[]
+pattern: 97, capture: 34 - none, start: (16, 0), end: (25, 0), text: `ifdef::feature-a[]
 
 This is feature A content.
 
@@ -141,74 +141,74 @@ endif::[]
 
 endif::[]
 
-pattern: 96, capture: 35 - keyword.conditional, start: (16, 0), end: (17, 0), text: `ifdef::feature-a[]
+pattern: 98, capture: 35 - keyword.conditional, start: (16, 0), end: (17, 0), text: `ifdef::feature-a[]
 
-pattern: 117, capture: 29 - text, start: (18, 0), end: (19, 0), text: `This is feature A content.
+pattern: 119, capture: 29 - text, start: (18, 0), end: (19, 0), text: `This is feature A content.
 
-pattern: 119, capture: 29 - text, start: (18, 0), end: (18, 4), text: `This`
-pattern: 119, capture: 29 - text, start: (18, 5), end: (18, 7), text: `is`
-pattern: 119, capture: 29 - text, start: (18, 8), end: (18, 15), text: `feature`
-pattern: 119, capture: 29 - text, start: (18, 16), end: (18, 17), text: `A`
-pattern: 119, capture: 29 - text, start: (18, 18), end: (18, 26), text: `content.`
-pattern: 95, capture: 34 - none, start: (20, 0), end: (23, 0), text: `ifndef::feature-b[]
+pattern: 121, capture: 29 - text, start: (18, 0), end: (18, 4), text: `This`
+pattern: 121, capture: 29 - text, start: (18, 4), end: (18, 7), text: ` is`
+pattern: 121, capture: 29 - text, start: (18, 7), end: (18, 15), text: ` feature`
+pattern: 121, capture: 29 - text, start: (18, 15), end: (18, 17), text: ` A`
+pattern: 121, capture: 29 - text, start: (18, 17), end: (18, 26), text: ` content.`
+pattern: 97, capture: 34 - none, start: (20, 0), end: (23, 0), text: `ifndef::feature-b[]
 Feature A is enabled but B is not.
 endif::[]
 
-pattern: 97, capture: 35 - keyword.conditional, start: (20, 0), end: (21, 0), text: `ifndef::feature-b[]
+pattern: 99, capture: 35 - keyword.conditional, start: (20, 0), end: (21, 0), text: `ifndef::feature-b[]
 
-pattern: 117, capture: 29 - text, start: (21, 0), end: (22, 0), text: `Feature A is enabled but B is not.
+pattern: 119, capture: 29 - text, start: (21, 0), end: (22, 0), text: `Feature A is enabled but B is not.
 
-pattern: 119, capture: 29 - text, start: (21, 0), end: (21, 7), text: `Feature`
-pattern: 119, capture: 29 - text, start: (21, 8), end: (21, 9), text: `A`
-pattern: 119, capture: 29 - text, start: (21, 10), end: (21, 12), text: `is`
-pattern: 119, capture: 29 - text, start: (21, 13), end: (21, 20), text: `enabled`
-pattern: 119, capture: 29 - text, start: (21, 21), end: (21, 24), text: `but`
-pattern: 119, capture: 29 - text, start: (21, 25), end: (21, 26), text: `B`
-pattern: 119, capture: 29 - text, start: (21, 27), end: (21, 29), text: `is`
-pattern: 119, capture: 29 - text, start: (21, 30), end: (21, 34), text: `not.`
-pattern: 97, capture: 35 - keyword.conditional, start: (22, 0), end: (23, 0), text: `endif::[]
+pattern: 121, capture: 29 - text, start: (21, 0), end: (21, 7), text: `Feature`
+pattern: 121, capture: 29 - text, start: (21, 7), end: (21, 9), text: ` A`
+pattern: 121, capture: 29 - text, start: (21, 9), end: (21, 12), text: ` is`
+pattern: 121, capture: 29 - text, start: (21, 12), end: (21, 20), text: ` enabled`
+pattern: 121, capture: 29 - text, start: (21, 20), end: (21, 24), text: ` but`
+pattern: 121, capture: 29 - text, start: (21, 24), end: (21, 26), text: ` B`
+pattern: 121, capture: 29 - text, start: (21, 26), end: (21, 29), text: ` is`
+pattern: 121, capture: 29 - text, start: (21, 29), end: (21, 34), text: ` not.`
+pattern: 99, capture: 35 - keyword.conditional, start: (22, 0), end: (23, 0), text: `endif::[]
 
-pattern: 96, capture: 35 - keyword.conditional, start: (24, 0), end: (25, 0), text: `endif::[]
+pattern: 98, capture: 35 - keyword.conditional, start: (24, 0), end: (25, 0), text: `endif::[]
 
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (26, 0), end: (26, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (26, 3), end: (26, 21), text: `Complex Conditions`
 pattern: 7, capture: 0 - markup.heading, start: (26, 3), end: (26, 21), text: `Complex Conditions`
-pattern: 95, capture: 34 - none, start: (28, 0), end: (31, 0), text: `ifeval::["{backend}" == "html5"]
+pattern: 97, capture: 34 - none, start: (28, 0), end: (31, 0), text: `ifeval::["{backend}" == "html5"]
 HTML5 specific content here.
 endif::[]
 
-pattern: 98, capture: 35 - keyword.conditional, start: (28, 0), end: (29, 0), text: `ifeval::["{backend}" == "html5"]
+pattern: 100, capture: 35 - keyword.conditional, start: (28, 0), end: (29, 0), text: `ifeval::["{backend}" == "html5"]
 
-pattern: 117, capture: 29 - text, start: (29, 0), end: (30, 0), text: `HTML5 specific content here.
+pattern: 119, capture: 29 - text, start: (29, 0), end: (30, 0), text: `HTML5 specific content here.
 
-pattern: 119, capture: 29 - text, start: (29, 0), end: (29, 5), text: `HTML5`
-pattern: 119, capture: 29 - text, start: (29, 6), end: (29, 14), text: `specific`
-pattern: 119, capture: 29 - text, start: (29, 15), end: (29, 22), text: `content`
-pattern: 119, capture: 29 - text, start: (29, 23), end: (29, 28), text: `here.`
-pattern: 98, capture: 35 - keyword.conditional, start: (30, 0), end: (31, 0), text: `endif::[]
+pattern: 121, capture: 29 - text, start: (29, 0), end: (29, 5), text: `HTML5`
+pattern: 121, capture: 29 - text, start: (29, 5), end: (29, 14), text: ` specific`
+pattern: 121, capture: 29 - text, start: (29, 14), end: (29, 22), text: ` content`
+pattern: 121, capture: 29 - text, start: (29, 22), end: (29, 28), text: ` here.`
+pattern: 100, capture: 35 - keyword.conditional, start: (30, 0), end: (31, 0), text: `endif::[]
 
-pattern: 95, capture: 34 - none, start: (32, 0), end: (35, 0), text: `ifdef::lang-en[]
+pattern: 97, capture: 34 - none, start: (32, 0), end: (35, 0), text: `ifdef::lang-en[]
 English language content.
 endif::[]
 
-pattern: 96, capture: 35 - keyword.conditional, start: (32, 0), end: (33, 0), text: `ifdef::lang-en[]
+pattern: 98, capture: 35 - keyword.conditional, start: (32, 0), end: (33, 0), text: `ifdef::lang-en[]
 
-pattern: 117, capture: 29 - text, start: (33, 0), end: (34, 0), text: `English language content.
+pattern: 119, capture: 29 - text, start: (33, 0), end: (34, 0), text: `English language content.
 
-pattern: 119, capture: 29 - text, start: (33, 0), end: (33, 7), text: `English`
-pattern: 119, capture: 29 - text, start: (33, 8), end: (33, 16), text: `language`
-pattern: 119, capture: 29 - text, start: (33, 17), end: (33, 25), text: `content.`
-pattern: 96, capture: 35 - keyword.conditional, start: (34, 0), end: (35, 0), text: `endif::[]
+pattern: 121, capture: 29 - text, start: (33, 0), end: (33, 7), text: `English`
+pattern: 121, capture: 29 - text, start: (33, 7), end: (33, 16), text: ` language`
+pattern: 121, capture: 29 - text, start: (33, 16), end: (33, 25), text: ` content.`
+pattern: 98, capture: 35 - keyword.conditional, start: (34, 0), end: (35, 0), text: `endif::[]
 
-pattern: 95, capture: 34 - none, start: (36, 0), end: (38, 9), text: `ifndef::draft[]
+pattern: 97, capture: 34 - none, start: (36, 0), end: (38, 9), text: `ifndef::draft[]
 This is production content.
 endif::[]`
-pattern: 97, capture: 35 - keyword.conditional, start: (36, 0), end: (37, 0), text: `ifndef::draft[]
+pattern: 99, capture: 35 - keyword.conditional, start: (36, 0), end: (37, 0), text: `ifndef::draft[]
 
-pattern: 117, capture: 29 - text, start: (37, 0), end: (38, 0), text: `This is production content.
+pattern: 119, capture: 29 - text, start: (37, 0), end: (38, 0), text: `This is production content.
 
-pattern: 119, capture: 29 - text, start: (37, 0), end: (37, 4), text: `This`
-pattern: 119, capture: 29 - text, start: (37, 5), end: (37, 7), text: `is`
-pattern: 119, capture: 29 - text, start: (37, 8), end: (37, 18), text: `production`
-pattern: 119, capture: 29 - text, start: (37, 19), end: (37, 27), text: `content.`
-pattern: 97, capture: 35 - keyword.conditional, start: (38, 0), end: (38, 9), text: `endif::[]`
+pattern: 121, capture: 29 - text, start: (37, 0), end: (37, 4), text: `This`
+pattern: 121, capture: 29 - text, start: (37, 4), end: (37, 7), text: ` is`
+pattern: 121, capture: 29 - text, start: (37, 7), end: (37, 18), text: ` production`
+pattern: 121, capture: 29 - text, start: (37, 18), end: (37, 27), text: ` content.`
+pattern: 99, capture: 35 - keyword.conditional, start: (38, 0), end: (38, 9), text: `endif::[]`

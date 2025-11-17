@@ -14,17 +14,33 @@ Some text.
 
 (source_file
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
   (section
     (section_level_1
       (section_marker_1)
       (title)
       (attribute_entry
+        (attribute_name
+          (PLAIN_COLON))
+        (attribute_identifier)
+        (attribute_name
+          (PLAIN_COLON))
         (attribute_value))
       (paragraph
         (inline_seq_nonempty
+          (plain_text)
           (plain_text))))))
 
 ================================================================================
@@ -41,14 +57,25 @@ Content here
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry)
-  (attribute_entry)
+  (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON)))
+  (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON)))
   (section
     (section_level_1
       (section_marker_1)
       (title)
       (paragraph
         (inline_seq_nonempty
+          (plain_text)
           (plain_text))))))
 
 ================================================================================
@@ -62,8 +89,18 @@ Attribute entries with spaces in values
 
 (source_file
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value)))
 
 ================================================================================
@@ -79,10 +116,26 @@ Invalid attribute patterns should be paragraphs
 (source_file
   (paragraph
     (inline_seq_nonempty
+      (plain_colon
+        (PLAIN_COLON)))
+    (ERROR
+      (attribute_identifier)
+      (attribute_identifier))
+    (inline_seq_nonempty
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)
+      (plain_text)
+      (plain_text)
       (plain_text))
     (inline_seq_nonempty
-      (plain_text))
-    (inline_seq_nonempty
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)
+      (plain_text)
+      (plain_text)
       (plain_text))))
 
 ================================================================================
@@ -103,11 +156,22 @@ More content
 
 (source_file
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
       (plain_text)))
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
   (section
     (section_level_1
@@ -115,4 +179,5 @@ More content
       (title)
       (paragraph
         (inline_seq_nonempty
+          (plain_text)
           (plain_text))))))

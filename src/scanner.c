@@ -199,6 +199,15 @@ static bool scan_macro_marker_or_colon(TSLexer *lexer, const bool *valid_symbols
     return false;
   }
 
+  if (lexer->get_column(lexer) == 0) {
+    if (valid_symbols[PLAIN_COLON]) {
+      advance(lexer);
+      lexer->result_symbol = PLAIN_COLON;
+      return true;
+    }
+    return false;
+  }
+
   advance(lexer);
   bool is_block_macro = false;
 

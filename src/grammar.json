@@ -1060,28 +1060,31 @@
               "type": "FIELD",
               "name": "name",
               "content": {
-                "type": "TOKEN",
+                "type": "ALIAS",
                 "content": {
-                  "type": "PREC",
-                  "value": 25,
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ":"
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "plain_colon"
+                    },
+                    {
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "_attribute_name_text"
                       },
-                      {
-                        "type": "PATTERN",
-                        "value": "[a-zA-Z0-9_-]+"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": ":"
-                      }
-                    ]
-                  }
-                }
+                      "named": true,
+                      "value": "attribute_identifier"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "plain_colon"
+                    }
+                  ]
+                },
+                "named": true,
+                "value": "attribute_name"
               }
             },
             {
@@ -1094,8 +1097,11 @@
                     "type": "SEQ",
                     "members": [
                       {
-                        "type": "PATTERN",
-                        "value": "[ \\t]+"
+                        "type": "IMMEDIATE_TOKEN",
+                        "content": {
+                          "type": "PATTERN",
+                          "value": "[ \\t]+"
+                        }
                       },
                       {
                         "type": "SYMBOL",
@@ -1122,66 +1128,77 @@
               "type": "FIELD",
               "name": "name",
               "content": {
-                "type": "TOKEN",
+                "type": "ALIAS",
                 "content": {
-                  "type": "PREC",
-                  "value": 25,
-                  "content": {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "STRING",
-                            "value": ":"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "plain_colon"
+                        },
+                        {
+                          "type": "STRING",
+                          "value": "!"
+                        },
+                        {
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "_attribute_name_text"
                           },
-                          {
-                            "type": "STRING",
-                            "value": "!"
+                          "named": true,
+                          "value": "attribute_identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "plain_colon"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "plain_colon"
+                        },
+                        {
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "_attribute_name_text"
                           },
-                          {
-                            "type": "PATTERN",
-                            "value": "[a-zA-Z0-9_-]+"
-                          },
-                          {
-                            "type": "STRING",
-                            "value": ":"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "STRING",
-                            "value": ":"
-                          },
-                          {
-                            "type": "PATTERN",
-                            "value": "[a-zA-Z0-9_-]+"
-                          },
-                          {
-                            "type": "STRING",
-                            "value": "!"
-                          },
-                          {
-                            "type": "STRING",
-                            "value": ":"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                }
+                          "named": true,
+                          "value": "attribute_identifier"
+                        },
+                        {
+                          "type": "STRING",
+                          "value": "!"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "plain_colon"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "named": true,
+                "value": "attribute_name"
               }
             },
             {
               "type": "CHOICE",
               "members": [
                 {
-                  "type": "PATTERN",
-                  "value": "[ \\t]+"
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[ \\t]+"
+                  }
                 },
                 {
                   "type": "BLANK"
@@ -1199,6 +1216,17 @@
     "attribute_value": {
       "type": "PATTERN",
       "value": "[^\\r\\n]+"
+    },
+    "_attribute_name_text": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 25,
+        "content": {
+          "type": "PATTERN",
+          "value": "[a-zA-Z0-9_-]+"
+        }
+      }
     },
     "example_block": {
       "type": "SEQ",

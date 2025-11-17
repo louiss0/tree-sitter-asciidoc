@@ -324,30 +324,50 @@ module.exports = grammar({
       choice(
         // Standard form: :name: value or :name:
         seq(
-          field("name", token(prec(25, seq(":", /[a-zA-Z0-9_-]+/, ":")))),
-          field("value", optional(seq(/[ \t]+/, $.attribute_value))),
+          field(
+            "name",
+            alias(
+              seq(
+                $.plain_colon,
+                alias($._attribute_name_text, $.attribute_identifier),
+                $.plain_colon,
+              ),
+              $.attribute_name,
+            ),
+          ),
+          field("value", optional(seq(token.immediate(/[ \t]+/), $.attribute_value))),
           $._line_ending,
         ),
         // Unset form: :!name: or :name!:
         seq(
           field(
             "name",
-            token(
-              prec(
-                25,
-                choice(
-                  seq(":", "!", /[a-zA-Z0-9_-]+/, ":"),
-                  seq(":", /[a-zA-Z0-9_-]+/, "!", ":"),
+            alias(
+              choice(
+                seq(
+                  $.plain_colon,
+                  "!",
+                  alias($._attribute_name_text, $.attribute_identifier),
+                  $.plain_colon,
+                ),
+                seq(
+                  $.plain_colon,
+                  alias($._attribute_name_text, $.attribute_identifier),
+                  "!",
+                  $.plain_colon,
                 ),
               ),
+              $.attribute_name,
             ),
           ),
-          optional(/[ \t]+/),
+          optional(token.immediate(/[ \t]+/)),
           $._line_ending,
         ),
       ),
 
     attribute_value: ($) => /[^\r\n]+/,
+
+    _attribute_name_text: ($) => token(prec(25, /[a-zA-Z0-9_-]+/)),
 
     // DELIMITED BLOCKS
     example_block: ($) =>

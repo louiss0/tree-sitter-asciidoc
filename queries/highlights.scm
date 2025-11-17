@@ -69,6 +69,8 @@
 
 ; Attributes
 (attribute_entry) @attribute
+(attribute_name) @attribute
+(attribute_identifier) @attribute
 (attribute_reference) @variable.builtin
 
 ; Lists

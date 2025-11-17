@@ -1,5 +1,5 @@
 C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\macros.adoc
-pattern: 115, capture: 34 - none, start: (0, 0), end: (12, 59), text: `= Macros Test
+pattern: 117, capture: 34 - none, start: (0, 0), end: (12, 59), text: `= Macros Test
 
 == UI Macros
 
@@ -31,37 +31,33 @@ pattern: 7, capture: 0 - markup.heading, start: (0, 2), end: (0, 13), text: `Mac
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (2, 0), end: (2, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (2, 3), end: (2, 12), text: `UI Macros`
 pattern: 7, capture: 0 - markup.heading, start: (2, 3), end: (2, 12), text: `UI Macros`
-pattern: 117, capture: 29 - text, start: (4, 0), end: (5, 0), text: `Press kbd:[Ctrl+C] to copy text.
+pattern: 119, capture: 29 - text, start: (4, 0), end: (5, 0), text: `Press kbd:[Ctrl+C] to copy text.
 
-pattern: 119, capture: 29 - text, start: (4, 0), end: (4, 5), text: `Press`
-pattern: 105, capture: 38 - function.macro, start: (4, 6), end: (4, 18), text: `kbd:[Ctrl+C]`
-pattern: 132, capture: 41 - function.builtin, start: (4, 6), end: (4, 18), text: `kbd:[Ctrl+C]`
-pattern: 132, capture: 42 - macro_ui_name, start: (4, 6), end: (4, 9), text: `kbd`
-pattern: 119, capture: 29 - text, start: (4, 19), end: (4, 21), text: `to`
-pattern: 119, capture: 29 - text, start: (4, 22), end: (4, 26), text: `copy`
-pattern: 119, capture: 29 - text, start: (4, 27), end: (4, 32), text: `text.`
-pattern: 117, capture: 29 - text, start: (6, 0), end: (7, 0), text: `Click the btn:[Save] button.
+pattern: 121, capture: 29 - text, start: (4, 0), end: (4, 5), text: `Press`
+pattern: 107, capture: 38 - function.macro, start: (4, 5), end: (4, 18), text: ` kbd:[Ctrl+C]`
+pattern: 121, capture: 29 - text, start: (4, 18), end: (4, 21), text: ` to`
+pattern: 121, capture: 29 - text, start: (4, 21), end: (4, 26), text: ` copy`
+pattern: 121, capture: 29 - text, start: (4, 26), end: (4, 32), text: ` text.`
+pattern: 119, capture: 29 - text, start: (6, 0), end: (7, 0), text: `Click the btn:[Save] button.
 
-pattern: 119, capture: 29 - text, start: (6, 0), end: (6, 5), text: `Click`
-pattern: 119, capture: 29 - text, start: (6, 6), end: (6, 9), text: `the`
-pattern: 105, capture: 38 - function.macro, start: (6, 10), end: (6, 20), text: `btn:[Save]`
-pattern: 132, capture: 41 - function.builtin, start: (6, 10), end: (6, 20), text: `btn:[Save]`
-pattern: 132, capture: 42 - macro_ui_name, start: (6, 10), end: (6, 13), text: `btn`
-pattern: 119, capture: 29 - text, start: (6, 21), end: (6, 28), text: `button.`
+pattern: 121, capture: 29 - text, start: (6, 0), end: (6, 5), text: `Click`
+pattern: 121, capture: 29 - text, start: (6, 5), end: (6, 9), text: ` the`
+pattern: 107, capture: 38 - function.macro, start: (6, 9), end: (6, 20), text: ` btn:[Save]`
+pattern: 121, capture: 29 - text, start: (6, 20), end: (6, 28), text: ` button.`
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (8, 0), end: (8, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (8, 3), end: (8, 14), text: `Link Macros`
 pattern: 7, capture: 0 - markup.heading, start: (8, 3), end: (8, 14), text: `Link Macros`
-pattern: 117, capture: 29 - text, start: (10, 0), end: (11, 0), text: `Visit https://asciidoctor.org for more.
+pattern: 119, capture: 29 - text, start: (10, 0), end: (11, 0), text: `Visit https://asciidoctor.org for more.
 
-pattern: 119, capture: 29 - text, start: (10, 0), end: (10, 5), text: `Visit`
-pattern: 118, capture: 29 - text, start: (10, 6), end: (10, 29), text: `https://asciidoctor.org`
-pattern: 28, capture: 17 - markup.link.url, start: (10, 6), end: (10, 29), text: `https://asciidoctor.org`
-pattern: 119, capture: 29 - text, start: (10, 30), end: (10, 33), text: `for`
-pattern: 119, capture: 29 - text, start: (10, 34), end: (10, 39), text: `more.`
-pattern: 117, capture: 29 - text, start: (12, 0), end: (12, 59), text: `Check out link:https://docs.asciidoctor.org[Documentation].`
-pattern: 119, capture: 29 - text, start: (12, 0), end: (12, 5), text: `Check`
-pattern: 119, capture: 29 - text, start: (12, 6), end: (12, 9), text: `out`
-pattern: 118, capture: 29 - text, start: (12, 10), end: (12, 58), text: `link:https://docs.asciidoctor.org[Documentation]`
-pattern: 30, capture: 18 - markup.link, start: (12, 10), end: (12, 58), text: `link:https://docs.asciidoctor.org[Documentation]`
+pattern: 121, capture: 29 - text, start: (10, 0), end: (10, 5), text: `Visit`
+pattern: 120, capture: 29 - text, start: (10, 5), end: (10, 29), text: ` https://asciidoctor.org`
+pattern: 28, capture: 17 - markup.link.url, start: (10, 5), end: (10, 29), text: ` https://asciidoctor.org`
+pattern: 121, capture: 29 - text, start: (10, 29), end: (10, 33), text: ` for`
+pattern: 121, capture: 29 - text, start: (10, 33), end: (10, 39), text: ` more.`
+pattern: 119, capture: 29 - text, start: (12, 0), end: (12, 59), text: `Check out link:https://docs.asciidoctor.org[Documentation].`
+pattern: 121, capture: 29 - text, start: (12, 0), end: (12, 5), text: `Check`
+pattern: 121, capture: 29 - text, start: (12, 5), end: (12, 9), text: ` out`
+pattern: 120, capture: 29 - text, start: (12, 9), end: (12, 58), text: ` link:https://docs.asciidoctor.org[Documentation]`
+pattern: 30, capture: 18 - markup.link, start: (12, 9), end: (12, 58), text: ` link:https://docs.asciidoctor.org[Documentation]`
 pattern: 31, capture: 19 - markup.link.text, start: (12, 44), end: (12, 57), text: `Documentation`
-pattern: 119, capture: 29 - text, start: (12, 58), end: (12, 59), text: `.`
+pattern: 121, capture: 29 - text, start: (12, 58), end: (12, 59), text: `.`
