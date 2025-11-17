@@ -1,5 +1,5 @@
 C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\conditionals.adoc
-pattern: 121, capture: 36 - none, start: (0, 0), end: (15, 0), text: `ifdef::debug[]
+pattern: 115, capture: 34 - none, start: (0, 0), end: (15, 0), text: `ifdef::debug[]
 This content appears when debug attribute is set.
 endif::debug[]
 
@@ -15,26 +15,11 @@ ifdef::backend-html5[]
 HTML5 specific content here.
 endif::backend-html5[]
 
-pattern: 97, capture: 36 - none, start: (0, 0), end: (3, 0), text: `ifdef::debug[]
+pattern: 95, capture: 34 - none, start: (0, 0), end: (15, 0), text: `ifdef::debug[]
 This content appears when debug attribute is set.
 endif::debug[]
 
-pattern: 98, capture: 37 - keyword.conditional, start: (0, 0), end: (1, 0), text: `ifdef::debug[]
-
-pattern: 123, capture: 30 - text, start: (1, 0), end: (2, 0), text: `This content appears when debug attribute is set.
-
-pattern: 125, capture: 30 - text, start: (1, 0), end: (1, 4), text: `This`
-pattern: 125, capture: 30 - text, start: (1, 4), end: (1, 12), text: ` content`
-pattern: 125, capture: 30 - text, start: (1, 12), end: (1, 20), text: ` appears`
-pattern: 125, capture: 30 - text, start: (1, 20), end: (1, 25), text: ` when`
-pattern: 125, capture: 30 - text, start: (1, 25), end: (1, 31), text: ` debug`
-pattern: 125, capture: 30 - text, start: (1, 31), end: (1, 41), text: ` attribute`
-pattern: 125, capture: 30 - text, start: (1, 41), end: (1, 44), text: ` is`
-pattern: 125, capture: 30 - text, start: (1, 44), end: (1, 49), text: ` set.`
-pattern: 98, capture: 37 - keyword.conditional, start: (2, 0), end: (3, 0), text: `endif::debug[]
-
-pattern: 125, capture: 30 - text, start: (2, 7), end: (2, 12), text: `debug`
-pattern: 97, capture: 36 - none, start: (4, 0), end: (15, 0), text: `ifndef::production[]
+ifndef::production[]
 This content appears when production attribute is NOT set.
 endif::production[]
 
@@ -46,57 +31,80 @@ ifdef::backend-html5[]
 HTML5 specific content here.
 endif::backend-html5[]
 
-pattern: 99, capture: 37 - keyword.conditional, start: (4, 0), end: (5, 0), text: `ifndef::production[]
+pattern: 96, capture: 35 - keyword.conditional, start: (0, 0), end: (1, 0), text: `ifdef::debug[]
 
-pattern: 123, capture: 30 - text, start: (5, 0), end: (6, 0), text: `This content appears when production attribute is NOT set.
+pattern: 117, capture: 29 - text, start: (1, 0), end: (3, 0), text: `This content appears when debug attribute is set.
+endif::debug[]
 
-pattern: 125, capture: 30 - text, start: (5, 0), end: (5, 4), text: `This`
-pattern: 125, capture: 30 - text, start: (5, 4), end: (5, 12), text: ` content`
-pattern: 125, capture: 30 - text, start: (5, 12), end: (5, 20), text: ` appears`
-pattern: 125, capture: 30 - text, start: (5, 20), end: (5, 25), text: ` when`
-pattern: 125, capture: 30 - text, start: (5, 25), end: (5, 36), text: ` production`
-pattern: 125, capture: 30 - text, start: (5, 36), end: (5, 46), text: ` attribute`
-pattern: 125, capture: 30 - text, start: (5, 46), end: (5, 49), text: ` is`
-pattern: 125, capture: 30 - text, start: (5, 49), end: (5, 53), text: ` NOT`
-pattern: 125, capture: 30 - text, start: (5, 53), end: (5, 58), text: ` set.`
-pattern: 123, capture: 30 - text, start: (6, 7), end: (7, 0), text: `production[]
+pattern: 119, capture: 29 - text, start: (1, 0), end: (1, 4), text: `This`
+pattern: 119, capture: 29 - text, start: (1, 5), end: (1, 12), text: `content`
+pattern: 119, capture: 29 - text, start: (1, 13), end: (1, 20), text: `appears`
+pattern: 119, capture: 29 - text, start: (1, 21), end: (1, 25), text: `when`
+pattern: 119, capture: 29 - text, start: (1, 26), end: (1, 31), text: `debug`
+pattern: 119, capture: 29 - text, start: (1, 32), end: (1, 41), text: `attribute`
+pattern: 119, capture: 29 - text, start: (1, 42), end: (1, 44), text: `is`
+pattern: 119, capture: 29 - text, start: (1, 45), end: (1, 49), text: `set.`
+pattern: 119, capture: 29 - text, start: (2, 0), end: (2, 5), text: `endif`
+pattern: 119, capture: 29 - text, start: (2, 7), end: (2, 12), text: `debug`
+pattern: 95, capture: 34 - none, start: (4, 0), end: (15, 0), text: `ifndef::production[]
+This content appears when production attribute is NOT set.
+endif::production[]
 
-pattern: 125, capture: 30 - text, start: (6, 7), end: (6, 17), text: `production`
-pattern: 134, capture: 42 - punctuation.bracket, start: (6, 17), end: (6, 18), text: `[`
-pattern: 134, capture: 42 - punctuation.bracket, start: (6, 18), end: (6, 19), text: `]`
-pattern: 97, capture: 36 - none, start: (8, 0), end: (11, 0), text: `ifeval::["{version}" >= "2.0"]
+ifeval::["{version}" >= "2.0"]
 This content appears when version is 2.0 or higher.
 endif::[]
 
-pattern: 100, capture: 37 - keyword.conditional, start: (8, 0), end: (9, 0), text: `ifeval::["{version}" >= "2.0"]
-
-pattern: 123, capture: 30 - text, start: (9, 0), end: (10, 0), text: `This content appears when version is 2.0 or higher.
-
-pattern: 125, capture: 30 - text, start: (9, 0), end: (9, 4), text: `This`
-pattern: 125, capture: 30 - text, start: (9, 4), end: (9, 12), text: ` content`
-pattern: 125, capture: 30 - text, start: (9, 12), end: (9, 20), text: ` appears`
-pattern: 125, capture: 30 - text, start: (9, 20), end: (9, 25), text: ` when`
-pattern: 125, capture: 30 - text, start: (9, 25), end: (9, 33), text: ` version`
-pattern: 125, capture: 30 - text, start: (9, 33), end: (9, 36), text: ` is`
-pattern: 125, capture: 30 - text, start: (9, 36), end: (9, 40), text: ` 2.0`
-pattern: 125, capture: 30 - text, start: (9, 40), end: (9, 43), text: ` or`
-pattern: 125, capture: 30 - text, start: (9, 43), end: (9, 51), text: ` higher.`
-pattern: 100, capture: 37 - keyword.conditional, start: (10, 0), end: (11, 0), text: `endif::[]
-
-pattern: 97, capture: 36 - none, start: (12, 0), end: (15, 0), text: `ifdef::backend-html5[]
+ifdef::backend-html5[]
 HTML5 specific content here.
 endif::backend-html5[]
 
-pattern: 98, capture: 37 - keyword.conditional, start: (12, 0), end: (13, 0), text: `ifdef::backend-html5[]
+pattern: 97, capture: 35 - keyword.conditional, start: (4, 0), end: (5, 0), text: `ifndef::production[]
 
-pattern: 123, capture: 30 - text, start: (13, 0), end: (14, 0), text: `HTML5 specific content here.
+pattern: 117, capture: 29 - text, start: (5, 0), end: (7, 0), text: `This content appears when production attribute is NOT set.
+endif::production[]
 
-pattern: 125, capture: 30 - text, start: (13, 0), end: (13, 5), text: `HTML5`
-pattern: 125, capture: 30 - text, start: (13, 5), end: (13, 14), text: ` specific`
-pattern: 125, capture: 30 - text, start: (13, 14), end: (13, 22), text: ` content`
-pattern: 125, capture: 30 - text, start: (13, 22), end: (13, 28), text: ` here.`
-pattern: 123, capture: 30 - text, start: (14, 7), end: (15, 0), text: `backend-html5[]
+pattern: 119, capture: 29 - text, start: (5, 0), end: (5, 4), text: `This`
+pattern: 119, capture: 29 - text, start: (5, 5), end: (5, 12), text: `content`
+pattern: 119, capture: 29 - text, start: (5, 13), end: (5, 20), text: `appears`
+pattern: 119, capture: 29 - text, start: (5, 21), end: (5, 25), text: `when`
+pattern: 119, capture: 29 - text, start: (5, 26), end: (5, 36), text: `production`
+pattern: 119, capture: 29 - text, start: (5, 37), end: (5, 46), text: `attribute`
+pattern: 119, capture: 29 - text, start: (5, 47), end: (5, 49), text: `is`
+pattern: 119, capture: 29 - text, start: (5, 50), end: (5, 53), text: `NOT`
+pattern: 119, capture: 29 - text, start: (5, 54), end: (5, 58), text: `set.`
+pattern: 119, capture: 29 - text, start: (6, 0), end: (6, 5), text: `endif`
+pattern: 119, capture: 29 - text, start: (6, 7), end: (6, 17), text: `production`
+pattern: 95, capture: 34 - none, start: (8, 0), end: (11, 0), text: `ifeval::["{version}" >= "2.0"]
+This content appears when version is 2.0 or higher.
+endif::[]
 
-pattern: 125, capture: 30 - text, start: (14, 7), end: (14, 20), text: `backend-html5`
-pattern: 134, capture: 42 - punctuation.bracket, start: (14, 20), end: (14, 21), text: `[`
-pattern: 134, capture: 42 - punctuation.bracket, start: (14, 21), end: (14, 22), text: `]`
+pattern: 98, capture: 35 - keyword.conditional, start: (8, 0), end: (9, 0), text: `ifeval::["{version}" >= "2.0"]
+
+pattern: 117, capture: 29 - text, start: (9, 0), end: (10, 0), text: `This content appears when version is 2.0 or higher.
+
+pattern: 119, capture: 29 - text, start: (9, 0), end: (9, 4), text: `This`
+pattern: 119, capture: 29 - text, start: (9, 5), end: (9, 12), text: `content`
+pattern: 119, capture: 29 - text, start: (9, 13), end: (9, 20), text: `appears`
+pattern: 119, capture: 29 - text, start: (9, 21), end: (9, 25), text: `when`
+pattern: 119, capture: 29 - text, start: (9, 26), end: (9, 33), text: `version`
+pattern: 119, capture: 29 - text, start: (9, 34), end: (9, 36), text: `is`
+pattern: 119, capture: 29 - text, start: (9, 37), end: (9, 40), text: `2.0`
+pattern: 119, capture: 29 - text, start: (9, 41), end: (9, 43), text: `or`
+pattern: 119, capture: 29 - text, start: (9, 44), end: (9, 51), text: `higher.`
+pattern: 98, capture: 35 - keyword.conditional, start: (10, 0), end: (11, 0), text: `endif::[]
+
+pattern: 95, capture: 34 - none, start: (12, 0), end: (15, 0), text: `ifdef::backend-html5[]
+HTML5 specific content here.
+endif::backend-html5[]
+
+pattern: 96, capture: 35 - keyword.conditional, start: (12, 0), end: (13, 0), text: `ifdef::backend-html5[]
+
+pattern: 117, capture: 29 - text, start: (13, 0), end: (15, 0), text: `HTML5 specific content here.
+endif::backend-html5[]
+
+pattern: 119, capture: 29 - text, start: (13, 0), end: (13, 5), text: `HTML5`
+pattern: 119, capture: 29 - text, start: (13, 6), end: (13, 14), text: `specific`
+pattern: 119, capture: 29 - text, start: (13, 15), end: (13, 22), text: `content`
+pattern: 119, capture: 29 - text, start: (13, 23), end: (13, 28), text: `here.`
+pattern: 119, capture: 29 - text, start: (14, 0), end: (14, 5), text: `endif`
+pattern: 119, capture: 29 - text, start: (14, 7), end: (14, 20), text: `backend-html5`

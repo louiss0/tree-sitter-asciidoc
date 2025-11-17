@@ -1,5 +1,5 @@
 C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\tables-advanced.adoc
-pattern: 121, capture: 36 - none, start: (0, 0), end: (55, 4), text: `= Advanced Tables Test
+pattern: 115, capture: 34 - none, start: (0, 0), end: (55, 4), text: `= Advanced Tables Test
 
 == Basic Table
 
@@ -108,7 +108,7 @@ pattern: 7, capture: 0 - markup.heading, start: (0, 2), end: (0, 22), text: `Adv
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (2, 0), end: (2, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (2, 3), end: (2, 14), text: `Basic Table`
 pattern: 7, capture: 0 - markup.heading, start: (2, 3), end: (2, 14), text: `Basic Table`
-pattern: 56, capture: 28 - markup.list.unnumbered, start: (4, 0), end: (11, 0), text: `|===
+pattern: 55, capture: 27 - markup.list.unnumbered, start: (4, 0), end: (11, 0), text: `|===
 |Name |Age |City
 
 |Alice |25 |New York
@@ -116,70 +116,70 @@ pattern: 56, capture: 28 - markup.list.unnumbered, start: (4, 0), end: (11, 0), 
 |Charlie |35 |Tokyo
 |===
 
-pattern: 91, capture: 29 - punctuation.delimiter, start: (4, 0), end: (5, 0), text: `|===
+pattern: 89, capture: 28 - punctuation.delimiter, start: (4, 0), end: (5, 0), text: `|===
 
-pattern: 85, capture: 29 - punctuation.delimiter, start: (4, 0), end: (5, 0), text: `|===
+pattern: 84, capture: 28 - punctuation.delimiter, start: (4, 0), end: (5, 0), text: `|===
 
-pattern: 142, capture: 24 - markup.list, start: (5, 0), end: (10, 0), text: `|Name |Age |City
+pattern: 127, capture: 23 - markup.list, start: (5, 0), end: (10, 0), text: `|Name |Age |City
 
 |Alice |25 |New York
 |Bob |30 |London
 |Charlie |35 |Tokyo
 
-pattern: 143, capture: 24 - markup.list, start: (5, 0), end: (6, 0), text: `|Name |Age |City
+pattern: 128, capture: 23 - markup.list, start: (5, 0), end: (6, 0), text: `|Name |Age |City
 
-pattern: 93, capture: 24 - markup.list, start: (5, 0), end: (5, 6), text: `|Name `
-pattern: 145, capture: 24 - markup.list, start: (5, 1), end: (5, 6), text: `Name `
-pattern: 144, capture: 30 - text, start: (5, 1), end: (5, 6), text: `Name `
-pattern: 93, capture: 24 - markup.list, start: (5, 6), end: (5, 11), text: `|Age `
-pattern: 145, capture: 24 - markup.list, start: (5, 7), end: (5, 11), text: `Age `
-pattern: 144, capture: 30 - text, start: (5, 7), end: (5, 11), text: `Age `
-pattern: 93, capture: 24 - markup.list, start: (5, 11), end: (5, 16), text: `|City`
-pattern: 145, capture: 24 - markup.list, start: (5, 12), end: (5, 16), text: `City`
-pattern: 144, capture: 30 - text, start: (5, 12), end: (5, 16), text: `City`
-pattern: 126, capture: 30 - text, start: (6, 0), end: (7, 0), text: `
+pattern: 91, capture: 23 - markup.list, start: (5, 0), end: (5, 6), text: `|Name `
+pattern: 130, capture: 23 - markup.list, start: (5, 1), end: (5, 6), text: `Name `
+pattern: 129, capture: 29 - text, start: (5, 1), end: (5, 6), text: `Name `
+pattern: 91, capture: 23 - markup.list, start: (5, 6), end: (5, 11), text: `|Age `
+pattern: 130, capture: 23 - markup.list, start: (5, 7), end: (5, 11), text: `Age `
+pattern: 129, capture: 29 - text, start: (5, 7), end: (5, 11), text: `Age `
+pattern: 91, capture: 23 - markup.list, start: (5, 11), end: (5, 16), text: `|City`
+pattern: 130, capture: 23 - markup.list, start: (5, 12), end: (5, 16), text: `City`
+pattern: 129, capture: 29 - text, start: (5, 12), end: (5, 16), text: `City`
+pattern: 120, capture: 29 - text, start: (6, 0), end: (7, 0), text: `
 
-pattern: 143, capture: 24 - markup.list, start: (7, 0), end: (8, 0), text: `|Alice |25 |New York
+pattern: 128, capture: 23 - markup.list, start: (7, 0), end: (8, 0), text: `|Alice |25 |New York
 
-pattern: 93, capture: 24 - markup.list, start: (7, 0), end: (7, 7), text: `|Alice `
-pattern: 145, capture: 24 - markup.list, start: (7, 1), end: (7, 7), text: `Alice `
-pattern: 144, capture: 30 - text, start: (7, 1), end: (7, 7), text: `Alice `
-pattern: 93, capture: 24 - markup.list, start: (7, 7), end: (7, 11), text: `|25 `
-pattern: 145, capture: 24 - markup.list, start: (7, 8), end: (7, 11), text: `25 `
-pattern: 144, capture: 30 - text, start: (7, 8), end: (7, 11), text: `25 `
-pattern: 93, capture: 24 - markup.list, start: (7, 11), end: (7, 20), text: `|New York`
-pattern: 145, capture: 24 - markup.list, start: (7, 12), end: (7, 20), text: `New York`
-pattern: 144, capture: 30 - text, start: (7, 12), end: (7, 20), text: `New York`
-pattern: 143, capture: 24 - markup.list, start: (8, 0), end: (9, 0), text: `|Bob |30 |London
+pattern: 91, capture: 23 - markup.list, start: (7, 0), end: (7, 7), text: `|Alice `
+pattern: 130, capture: 23 - markup.list, start: (7, 1), end: (7, 7), text: `Alice `
+pattern: 129, capture: 29 - text, start: (7, 1), end: (7, 7), text: `Alice `
+pattern: 91, capture: 23 - markup.list, start: (7, 7), end: (7, 11), text: `|25 `
+pattern: 130, capture: 23 - markup.list, start: (7, 8), end: (7, 11), text: `25 `
+pattern: 129, capture: 29 - text, start: (7, 8), end: (7, 11), text: `25 `
+pattern: 91, capture: 23 - markup.list, start: (7, 11), end: (7, 20), text: `|New York`
+pattern: 130, capture: 23 - markup.list, start: (7, 12), end: (7, 20), text: `New York`
+pattern: 129, capture: 29 - text, start: (7, 12), end: (7, 20), text: `New York`
+pattern: 128, capture: 23 - markup.list, start: (8, 0), end: (9, 0), text: `|Bob |30 |London
 
-pattern: 93, capture: 24 - markup.list, start: (8, 0), end: (8, 5), text: `|Bob `
-pattern: 145, capture: 24 - markup.list, start: (8, 1), end: (8, 5), text: `Bob `
-pattern: 144, capture: 30 - text, start: (8, 1), end: (8, 5), text: `Bob `
-pattern: 93, capture: 24 - markup.list, start: (8, 5), end: (8, 9), text: `|30 `
-pattern: 145, capture: 24 - markup.list, start: (8, 6), end: (8, 9), text: `30 `
-pattern: 144, capture: 30 - text, start: (8, 6), end: (8, 9), text: `30 `
-pattern: 93, capture: 24 - markup.list, start: (8, 9), end: (8, 18), text: `|London `
-pattern: 145, capture: 24 - markup.list, start: (8, 10), end: (8, 18), text: `London `
-pattern: 144, capture: 30 - text, start: (8, 10), end: (8, 18), text: `London `
-pattern: 143, capture: 24 - markup.list, start: (9, 0), end: (10, 0), text: `|Charlie |35 |Tokyo
+pattern: 91, capture: 23 - markup.list, start: (8, 0), end: (8, 5), text: `|Bob `
+pattern: 130, capture: 23 - markup.list, start: (8, 1), end: (8, 5), text: `Bob `
+pattern: 129, capture: 29 - text, start: (8, 1), end: (8, 5), text: `Bob `
+pattern: 91, capture: 23 - markup.list, start: (8, 5), end: (8, 9), text: `|30 `
+pattern: 130, capture: 23 - markup.list, start: (8, 6), end: (8, 9), text: `30 `
+pattern: 129, capture: 29 - text, start: (8, 6), end: (8, 9), text: `30 `
+pattern: 91, capture: 23 - markup.list, start: (8, 9), end: (8, 18), text: `|London `
+pattern: 130, capture: 23 - markup.list, start: (8, 10), end: (8, 18), text: `London `
+pattern: 129, capture: 29 - text, start: (8, 10), end: (8, 18), text: `London `
+pattern: 128, capture: 23 - markup.list, start: (9, 0), end: (10, 0), text: `|Charlie |35 |Tokyo
 
-pattern: 93, capture: 24 - markup.list, start: (9, 0), end: (9, 9), text: `|Charlie `
-pattern: 145, capture: 24 - markup.list, start: (9, 1), end: (9, 9), text: `Charlie `
-pattern: 144, capture: 30 - text, start: (9, 1), end: (9, 9), text: `Charlie `
-pattern: 93, capture: 24 - markup.list, start: (9, 9), end: (9, 13), text: `|35 `
-pattern: 145, capture: 24 - markup.list, start: (9, 10), end: (9, 13), text: `35 `
-pattern: 144, capture: 30 - text, start: (9, 10), end: (9, 13), text: `35 `
-pattern: 93, capture: 24 - markup.list, start: (9, 13), end: (9, 19), text: `|Tokyo`
-pattern: 145, capture: 24 - markup.list, start: (9, 14), end: (9, 19), text: `Tokyo`
-pattern: 144, capture: 30 - text, start: (9, 14), end: (9, 19), text: `Tokyo`
-pattern: 92, capture: 29 - punctuation.delimiter, start: (10, 0), end: (11, 0), text: `|===
+pattern: 91, capture: 23 - markup.list, start: (9, 0), end: (9, 9), text: `|Charlie `
+pattern: 130, capture: 23 - markup.list, start: (9, 1), end: (9, 9), text: `Charlie `
+pattern: 129, capture: 29 - text, start: (9, 1), end: (9, 9), text: `Charlie `
+pattern: 91, capture: 23 - markup.list, start: (9, 9), end: (9, 13), text: `|35 `
+pattern: 130, capture: 23 - markup.list, start: (9, 10), end: (9, 13), text: `35 `
+pattern: 129, capture: 29 - text, start: (9, 10), end: (9, 13), text: `35 `
+pattern: 91, capture: 23 - markup.list, start: (9, 13), end: (9, 19), text: `|Tokyo`
+pattern: 130, capture: 23 - markup.list, start: (9, 14), end: (9, 19), text: `Tokyo`
+pattern: 129, capture: 29 - text, start: (9, 14), end: (9, 19), text: `Tokyo`
+pattern: 90, capture: 28 - punctuation.delimiter, start: (10, 0), end: (11, 0), text: `|===
 
-pattern: 86, capture: 29 - punctuation.delimiter, start: (10, 0), end: (11, 0), text: `|===
+pattern: 85, capture: 28 - punctuation.delimiter, start: (10, 0), end: (11, 0), text: `|===
 
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (12, 0), end: (12, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (12, 3), end: (12, 21), text: `Table with Options`
 pattern: 7, capture: 0 - markup.heading, start: (12, 3), end: (12, 21), text: `Table with Options`
-pattern: 56, capture: 28 - markup.list.unnumbered, start: (14, 0), end: (21, 0), text: `[cols="1,2,3", options="header"]
+pattern: 55, capture: 27 - markup.list.unnumbered, start: (14, 0), end: (21, 0), text: `[cols="1,2,3", options="header"]
 |===
 |Short |Medium |Wide
 
@@ -187,62 +187,62 @@ pattern: 56, capture: 28 - markup.list.unnumbered, start: (14, 0), end: (21, 0),
 |1 |2 |3
 |===
 
-pattern: 117, capture: 21 - attribute, start: (14, 0), end: (15, 0), text: `[cols="1,2,3", options="header"]
+pattern: 111, capture: 21 - attribute, start: (14, 0), end: (15, 0), text: `[cols="1,2,3", options="header"]
 
-pattern: 118, capture: 21 - attribute, start: (14, 0), end: (15, 0), text: `[cols="1,2,3", options="header"]
+pattern: 112, capture: 21 - attribute, start: (14, 0), end: (15, 0), text: `[cols="1,2,3", options="header"]
 
-pattern: 91, capture: 29 - punctuation.delimiter, start: (15, 0), end: (16, 0), text: `|===
+pattern: 89, capture: 28 - punctuation.delimiter, start: (15, 0), end: (16, 0), text: `|===
 
-pattern: 85, capture: 29 - punctuation.delimiter, start: (15, 0), end: (16, 0), text: `|===
+pattern: 84, capture: 28 - punctuation.delimiter, start: (15, 0), end: (16, 0), text: `|===
 
-pattern: 142, capture: 24 - markup.list, start: (16, 0), end: (20, 0), text: `|Short |Medium |Wide
+pattern: 127, capture: 23 - markup.list, start: (16, 0), end: (20, 0), text: `|Short |Medium |Wide
 
 |A |B |C
 |1 |2 |3
 
-pattern: 143, capture: 24 - markup.list, start: (16, 0), end: (17, 0), text: `|Short |Medium |Wide
+pattern: 128, capture: 23 - markup.list, start: (16, 0), end: (17, 0), text: `|Short |Medium |Wide
 
-pattern: 93, capture: 24 - markup.list, start: (16, 0), end: (16, 7), text: `|Short `
-pattern: 145, capture: 24 - markup.list, start: (16, 1), end: (16, 7), text: `Short `
-pattern: 144, capture: 30 - text, start: (16, 1), end: (16, 7), text: `Short `
-pattern: 93, capture: 24 - markup.list, start: (16, 7), end: (16, 15), text: `|Medium `
-pattern: 145, capture: 24 - markup.list, start: (16, 8), end: (16, 15), text: `Medium `
-pattern: 144, capture: 30 - text, start: (16, 8), end: (16, 15), text: `Medium `
-pattern: 93, capture: 24 - markup.list, start: (16, 15), end: (16, 20), text: `|Wide`
-pattern: 145, capture: 24 - markup.list, start: (16, 16), end: (16, 20), text: `Wide`
-pattern: 144, capture: 30 - text, start: (16, 16), end: (16, 20), text: `Wide`
-pattern: 126, capture: 30 - text, start: (17, 0), end: (18, 0), text: `
+pattern: 91, capture: 23 - markup.list, start: (16, 0), end: (16, 7), text: `|Short `
+pattern: 130, capture: 23 - markup.list, start: (16, 1), end: (16, 7), text: `Short `
+pattern: 129, capture: 29 - text, start: (16, 1), end: (16, 7), text: `Short `
+pattern: 91, capture: 23 - markup.list, start: (16, 7), end: (16, 15), text: `|Medium `
+pattern: 130, capture: 23 - markup.list, start: (16, 8), end: (16, 15), text: `Medium `
+pattern: 129, capture: 29 - text, start: (16, 8), end: (16, 15), text: `Medium `
+pattern: 91, capture: 23 - markup.list, start: (16, 15), end: (16, 20), text: `|Wide`
+pattern: 130, capture: 23 - markup.list, start: (16, 16), end: (16, 20), text: `Wide`
+pattern: 129, capture: 29 - text, start: (16, 16), end: (16, 20), text: `Wide`
+pattern: 120, capture: 29 - text, start: (17, 0), end: (18, 0), text: `
 
-pattern: 143, capture: 24 - markup.list, start: (18, 0), end: (19, 0), text: `|A |B |C
+pattern: 128, capture: 23 - markup.list, start: (18, 0), end: (19, 0), text: `|A |B |C
 
-pattern: 93, capture: 24 - markup.list, start: (18, 0), end: (18, 3), text: `|A `
-pattern: 145, capture: 24 - markup.list, start: (18, 1), end: (18, 3), text: `A `
-pattern: 144, capture: 30 - text, start: (18, 1), end: (18, 3), text: `A `
-pattern: 93, capture: 24 - markup.list, start: (18, 3), end: (18, 6), text: `|B `
-pattern: 145, capture: 24 - markup.list, start: (18, 4), end: (18, 6), text: `B `
-pattern: 144, capture: 30 - text, start: (18, 4), end: (18, 6), text: `B `
-pattern: 93, capture: 24 - markup.list, start: (18, 6), end: (18, 8), text: `|C`
-pattern: 145, capture: 24 - markup.list, start: (18, 7), end: (18, 8), text: `C`
-pattern: 144, capture: 30 - text, start: (18, 7), end: (18, 8), text: `C`
-pattern: 143, capture: 24 - markup.list, start: (19, 0), end: (20, 0), text: `|1 |2 |3
+pattern: 91, capture: 23 - markup.list, start: (18, 0), end: (18, 3), text: `|A `
+pattern: 130, capture: 23 - markup.list, start: (18, 1), end: (18, 3), text: `A `
+pattern: 129, capture: 29 - text, start: (18, 1), end: (18, 3), text: `A `
+pattern: 91, capture: 23 - markup.list, start: (18, 3), end: (18, 6), text: `|B `
+pattern: 130, capture: 23 - markup.list, start: (18, 4), end: (18, 6), text: `B `
+pattern: 129, capture: 29 - text, start: (18, 4), end: (18, 6), text: `B `
+pattern: 91, capture: 23 - markup.list, start: (18, 6), end: (18, 8), text: `|C`
+pattern: 130, capture: 23 - markup.list, start: (18, 7), end: (18, 8), text: `C`
+pattern: 129, capture: 29 - text, start: (18, 7), end: (18, 8), text: `C`
+pattern: 128, capture: 23 - markup.list, start: (19, 0), end: (20, 0), text: `|1 |2 |3
 
-pattern: 93, capture: 24 - markup.list, start: (19, 0), end: (19, 3), text: `|1 `
-pattern: 145, capture: 24 - markup.list, start: (19, 1), end: (19, 3), text: `1 `
-pattern: 144, capture: 30 - text, start: (19, 1), end: (19, 3), text: `1 `
-pattern: 93, capture: 24 - markup.list, start: (19, 3), end: (19, 6), text: `|2 `
-pattern: 145, capture: 24 - markup.list, start: (19, 4), end: (19, 6), text: `2 `
-pattern: 144, capture: 30 - text, start: (19, 4), end: (19, 6), text: `2 `
-pattern: 93, capture: 24 - markup.list, start: (19, 6), end: (19, 8), text: `|3`
-pattern: 145, capture: 24 - markup.list, start: (19, 7), end: (19, 8), text: `3`
-pattern: 144, capture: 30 - text, start: (19, 7), end: (19, 8), text: `3`
-pattern: 92, capture: 29 - punctuation.delimiter, start: (20, 0), end: (21, 0), text: `|===
+pattern: 91, capture: 23 - markup.list, start: (19, 0), end: (19, 3), text: `|1 `
+pattern: 130, capture: 23 - markup.list, start: (19, 1), end: (19, 3), text: `1 `
+pattern: 129, capture: 29 - text, start: (19, 1), end: (19, 3), text: `1 `
+pattern: 91, capture: 23 - markup.list, start: (19, 3), end: (19, 6), text: `|2 `
+pattern: 130, capture: 23 - markup.list, start: (19, 4), end: (19, 6), text: `2 `
+pattern: 129, capture: 29 - text, start: (19, 4), end: (19, 6), text: `2 `
+pattern: 91, capture: 23 - markup.list, start: (19, 6), end: (19, 8), text: `|3`
+pattern: 130, capture: 23 - markup.list, start: (19, 7), end: (19, 8), text: `3`
+pattern: 129, capture: 29 - text, start: (19, 7), end: (19, 8), text: `3`
+pattern: 90, capture: 28 - punctuation.delimiter, start: (20, 0), end: (21, 0), text: `|===
 
-pattern: 86, capture: 29 - punctuation.delimiter, start: (20, 0), end: (21, 0), text: `|===
+pattern: 85, capture: 28 - punctuation.delimiter, start: (20, 0), end: (21, 0), text: `|===
 
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (22, 0), end: (22, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (22, 3), end: (22, 24), text: `Table with Cell Specs`
 pattern: 7, capture: 0 - markup.heading, start: (22, 3), end: (22, 24), text: `Table with Cell Specs`
-pattern: 56, capture: 28 - markup.list.unnumbered, start: (24, 0), end: (31, 0), text: `|===
+pattern: 55, capture: 27 - markup.list.unnumbered, start: (24, 0), end: (31, 0), text: `|===
 |Normal |2+|Spans two columns
 |Left aligned |^|Center aligned |>|Right aligned
 
@@ -250,91 +250,91 @@ pattern: 56, capture: 28 - markup.list.unnumbered, start: (24, 0), end: (31, 0),
 |m|Monospace |a|AsciiDoc content |l|Literal content
 |===
 
-pattern: 91, capture: 29 - punctuation.delimiter, start: (24, 0), end: (25, 0), text: `|===
+pattern: 89, capture: 28 - punctuation.delimiter, start: (24, 0), end: (25, 0), text: `|===
 
-pattern: 85, capture: 29 - punctuation.delimiter, start: (24, 0), end: (25, 0), text: `|===
+pattern: 84, capture: 28 - punctuation.delimiter, start: (24, 0), end: (25, 0), text: `|===
 
-pattern: 142, capture: 24 - markup.list, start: (25, 0), end: (30, 0), text: `|Normal |2+|Spans two columns
+pattern: 127, capture: 23 - markup.list, start: (25, 0), end: (30, 0), text: `|Normal |2+|Spans two columns
 |Left aligned |^|Center aligned |>|Right aligned
 
 |Regular cell |s|Strong cell |e|Emphasized cell
 |m|Monospace |a|AsciiDoc content |l|Literal content
 
-pattern: 143, capture: 24 - markup.list, start: (25, 0), end: (26, 0), text: `|Normal |2+|Spans two columns
+pattern: 128, capture: 23 - markup.list, start: (25, 0), end: (26, 0), text: `|Normal |2+|Spans two columns
 
-pattern: 93, capture: 24 - markup.list, start: (25, 0), end: (25, 8), text: `|Normal `
-pattern: 145, capture: 24 - markup.list, start: (25, 1), end: (25, 8), text: `Normal `
-pattern: 144, capture: 30 - text, start: (25, 1), end: (25, 8), text: `Normal `
-pattern: 93, capture: 24 - markup.list, start: (25, 8), end: (25, 11), text: `|2+`
-pattern: 145, capture: 24 - markup.list, start: (25, 9), end: (25, 11), text: `2+`
-pattern: 144, capture: 30 - text, start: (25, 9), end: (25, 11), text: `2+`
-pattern: 93, capture: 24 - markup.list, start: (25, 11), end: (25, 29), text: `|Spans two columns`
-pattern: 145, capture: 24 - markup.list, start: (25, 12), end: (25, 29), text: `Spans two columns`
-pattern: 144, capture: 30 - text, start: (25, 12), end: (25, 29), text: `Spans two columns`
-pattern: 143, capture: 24 - markup.list, start: (26, 0), end: (27, 0), text: `|Left aligned |^|Center aligned |>|Right aligned
+pattern: 91, capture: 23 - markup.list, start: (25, 0), end: (25, 8), text: `|Normal `
+pattern: 130, capture: 23 - markup.list, start: (25, 1), end: (25, 8), text: `Normal `
+pattern: 129, capture: 29 - text, start: (25, 1), end: (25, 8), text: `Normal `
+pattern: 91, capture: 23 - markup.list, start: (25, 8), end: (25, 11), text: `|2+`
+pattern: 130, capture: 23 - markup.list, start: (25, 9), end: (25, 11), text: `2+`
+pattern: 129, capture: 29 - text, start: (25, 9), end: (25, 11), text: `2+`
+pattern: 91, capture: 23 - markup.list, start: (25, 11), end: (25, 29), text: `|Spans two columns`
+pattern: 130, capture: 23 - markup.list, start: (25, 12), end: (25, 29), text: `Spans two columns`
+pattern: 129, capture: 29 - text, start: (25, 12), end: (25, 29), text: `Spans two columns`
+pattern: 128, capture: 23 - markup.list, start: (26, 0), end: (27, 0), text: `|Left aligned |^|Center aligned |>|Right aligned
 
-pattern: 93, capture: 24 - markup.list, start: (26, 0), end: (26, 14), text: `|Left aligned `
-pattern: 145, capture: 24 - markup.list, start: (26, 1), end: (26, 14), text: `Left aligned `
-pattern: 144, capture: 30 - text, start: (26, 1), end: (26, 14), text: `Left aligned `
-pattern: 93, capture: 24 - markup.list, start: (26, 14), end: (26, 16), text: `|^`
-pattern: 145, capture: 24 - markup.list, start: (26, 15), end: (26, 16), text: `^`
-pattern: 144, capture: 30 - text, start: (26, 15), end: (26, 16), text: `^`
-pattern: 93, capture: 24 - markup.list, start: (26, 16), end: (26, 32), text: `|Center aligned `
-pattern: 145, capture: 24 - markup.list, start: (26, 17), end: (26, 32), text: `Center aligned `
-pattern: 144, capture: 30 - text, start: (26, 17), end: (26, 32), text: `Center aligned `
-pattern: 93, capture: 24 - markup.list, start: (26, 32), end: (26, 34), text: `|>`
-pattern: 145, capture: 24 - markup.list, start: (26, 33), end: (26, 34), text: `>`
-pattern: 144, capture: 30 - text, start: (26, 33), end: (26, 34), text: `>`
-pattern: 93, capture: 24 - markup.list, start: (26, 34), end: (26, 48), text: `|Right aligned`
-pattern: 145, capture: 24 - markup.list, start: (26, 35), end: (26, 48), text: `Right aligned`
-pattern: 144, capture: 30 - text, start: (26, 35), end: (26, 48), text: `Right aligned`
-pattern: 126, capture: 30 - text, start: (27, 0), end: (28, 0), text: `
+pattern: 91, capture: 23 - markup.list, start: (26, 0), end: (26, 14), text: `|Left aligned `
+pattern: 130, capture: 23 - markup.list, start: (26, 1), end: (26, 14), text: `Left aligned `
+pattern: 129, capture: 29 - text, start: (26, 1), end: (26, 14), text: `Left aligned `
+pattern: 91, capture: 23 - markup.list, start: (26, 14), end: (26, 16), text: `|^`
+pattern: 130, capture: 23 - markup.list, start: (26, 15), end: (26, 16), text: `^`
+pattern: 129, capture: 29 - text, start: (26, 15), end: (26, 16), text: `^`
+pattern: 91, capture: 23 - markup.list, start: (26, 16), end: (26, 32), text: `|Center aligned `
+pattern: 130, capture: 23 - markup.list, start: (26, 17), end: (26, 32), text: `Center aligned `
+pattern: 129, capture: 29 - text, start: (26, 17), end: (26, 32), text: `Center aligned `
+pattern: 91, capture: 23 - markup.list, start: (26, 32), end: (26, 34), text: `|>`
+pattern: 130, capture: 23 - markup.list, start: (26, 33), end: (26, 34), text: `>`
+pattern: 129, capture: 29 - text, start: (26, 33), end: (26, 34), text: `>`
+pattern: 91, capture: 23 - markup.list, start: (26, 34), end: (26, 48), text: `|Right aligned`
+pattern: 130, capture: 23 - markup.list, start: (26, 35), end: (26, 48), text: `Right aligned`
+pattern: 129, capture: 29 - text, start: (26, 35), end: (26, 48), text: `Right aligned`
+pattern: 120, capture: 29 - text, start: (27, 0), end: (28, 0), text: `
 
-pattern: 143, capture: 24 - markup.list, start: (28, 0), end: (29, 0), text: `|Regular cell |s|Strong cell |e|Emphasized cell
+pattern: 128, capture: 23 - markup.list, start: (28, 0), end: (29, 0), text: `|Regular cell |s|Strong cell |e|Emphasized cell
 
-pattern: 93, capture: 24 - markup.list, start: (28, 0), end: (28, 14), text: `|Regular cell `
-pattern: 145, capture: 24 - markup.list, start: (28, 1), end: (28, 14), text: `Regular cell `
-pattern: 144, capture: 30 - text, start: (28, 1), end: (28, 14), text: `Regular cell `
-pattern: 93, capture: 24 - markup.list, start: (28, 14), end: (28, 16), text: `|s`
-pattern: 145, capture: 24 - markup.list, start: (28, 15), end: (28, 16), text: `s`
-pattern: 144, capture: 30 - text, start: (28, 15), end: (28, 16), text: `s`
-pattern: 93, capture: 24 - markup.list, start: (28, 16), end: (28, 29), text: `|Strong cell `
-pattern: 145, capture: 24 - markup.list, start: (28, 17), end: (28, 29), text: `Strong cell `
-pattern: 144, capture: 30 - text, start: (28, 17), end: (28, 29), text: `Strong cell `
-pattern: 93, capture: 24 - markup.list, start: (28, 29), end: (28, 31), text: `|e`
-pattern: 145, capture: 24 - markup.list, start: (28, 30), end: (28, 31), text: `e`
-pattern: 144, capture: 30 - text, start: (28, 30), end: (28, 31), text: `e`
-pattern: 93, capture: 24 - markup.list, start: (28, 31), end: (28, 47), text: `|Emphasized cell`
-pattern: 145, capture: 24 - markup.list, start: (28, 32), end: (28, 47), text: `Emphasized cell`
-pattern: 144, capture: 30 - text, start: (28, 32), end: (28, 47), text: `Emphasized cell`
-pattern: 143, capture: 24 - markup.list, start: (29, 0), end: (30, 0), text: `|m|Monospace |a|AsciiDoc content |l|Literal content
+pattern: 91, capture: 23 - markup.list, start: (28, 0), end: (28, 14), text: `|Regular cell `
+pattern: 130, capture: 23 - markup.list, start: (28, 1), end: (28, 14), text: `Regular cell `
+pattern: 129, capture: 29 - text, start: (28, 1), end: (28, 14), text: `Regular cell `
+pattern: 91, capture: 23 - markup.list, start: (28, 14), end: (28, 16), text: `|s`
+pattern: 130, capture: 23 - markup.list, start: (28, 15), end: (28, 16), text: `s`
+pattern: 129, capture: 29 - text, start: (28, 15), end: (28, 16), text: `s`
+pattern: 91, capture: 23 - markup.list, start: (28, 16), end: (28, 29), text: `|Strong cell `
+pattern: 130, capture: 23 - markup.list, start: (28, 17), end: (28, 29), text: `Strong cell `
+pattern: 129, capture: 29 - text, start: (28, 17), end: (28, 29), text: `Strong cell `
+pattern: 91, capture: 23 - markup.list, start: (28, 29), end: (28, 31), text: `|e`
+pattern: 130, capture: 23 - markup.list, start: (28, 30), end: (28, 31), text: `e`
+pattern: 129, capture: 29 - text, start: (28, 30), end: (28, 31), text: `e`
+pattern: 91, capture: 23 - markup.list, start: (28, 31), end: (28, 47), text: `|Emphasized cell`
+pattern: 130, capture: 23 - markup.list, start: (28, 32), end: (28, 47), text: `Emphasized cell`
+pattern: 129, capture: 29 - text, start: (28, 32), end: (28, 47), text: `Emphasized cell`
+pattern: 128, capture: 23 - markup.list, start: (29, 0), end: (30, 0), text: `|m|Monospace |a|AsciiDoc content |l|Literal content
 
-pattern: 93, capture: 24 - markup.list, start: (29, 0), end: (29, 2), text: `|m`
-pattern: 145, capture: 24 - markup.list, start: (29, 1), end: (29, 2), text: `m`
-pattern: 144, capture: 30 - text, start: (29, 1), end: (29, 2), text: `m`
-pattern: 93, capture: 24 - markup.list, start: (29, 2), end: (29, 13), text: `|Monospace `
-pattern: 145, capture: 24 - markup.list, start: (29, 3), end: (29, 13), text: `Monospace `
-pattern: 144, capture: 30 - text, start: (29, 3), end: (29, 13), text: `Monospace `
-pattern: 93, capture: 24 - markup.list, start: (29, 13), end: (29, 15), text: `|a`
-pattern: 145, capture: 24 - markup.list, start: (29, 14), end: (29, 15), text: `a`
-pattern: 144, capture: 30 - text, start: (29, 14), end: (29, 15), text: `a`
-pattern: 93, capture: 24 - markup.list, start: (29, 15), end: (29, 33), text: `|AsciiDoc content `
-pattern: 145, capture: 24 - markup.list, start: (29, 16), end: (29, 33), text: `AsciiDoc content `
-pattern: 144, capture: 30 - text, start: (29, 16), end: (29, 33), text: `AsciiDoc content `
-pattern: 93, capture: 24 - markup.list, start: (29, 33), end: (29, 35), text: `|l`
-pattern: 145, capture: 24 - markup.list, start: (29, 34), end: (29, 35), text: `l`
-pattern: 144, capture: 30 - text, start: (29, 34), end: (29, 35), text: `l`
-pattern: 93, capture: 24 - markup.list, start: (29, 35), end: (29, 51), text: `|Literal content`
-pattern: 145, capture: 24 - markup.list, start: (29, 36), end: (29, 51), text: `Literal content`
-pattern: 144, capture: 30 - text, start: (29, 36), end: (29, 51), text: `Literal content`
-pattern: 92, capture: 29 - punctuation.delimiter, start: (30, 0), end: (31, 0), text: `|===
+pattern: 91, capture: 23 - markup.list, start: (29, 0), end: (29, 2), text: `|m`
+pattern: 130, capture: 23 - markup.list, start: (29, 1), end: (29, 2), text: `m`
+pattern: 129, capture: 29 - text, start: (29, 1), end: (29, 2), text: `m`
+pattern: 91, capture: 23 - markup.list, start: (29, 2), end: (29, 13), text: `|Monospace `
+pattern: 130, capture: 23 - markup.list, start: (29, 3), end: (29, 13), text: `Monospace `
+pattern: 129, capture: 29 - text, start: (29, 3), end: (29, 13), text: `Monospace `
+pattern: 91, capture: 23 - markup.list, start: (29, 13), end: (29, 15), text: `|a`
+pattern: 130, capture: 23 - markup.list, start: (29, 14), end: (29, 15), text: `a`
+pattern: 129, capture: 29 - text, start: (29, 14), end: (29, 15), text: `a`
+pattern: 91, capture: 23 - markup.list, start: (29, 15), end: (29, 33), text: `|AsciiDoc content `
+pattern: 130, capture: 23 - markup.list, start: (29, 16), end: (29, 33), text: `AsciiDoc content `
+pattern: 129, capture: 29 - text, start: (29, 16), end: (29, 33), text: `AsciiDoc content `
+pattern: 91, capture: 23 - markup.list, start: (29, 33), end: (29, 35), text: `|l`
+pattern: 130, capture: 23 - markup.list, start: (29, 34), end: (29, 35), text: `l`
+pattern: 129, capture: 29 - text, start: (29, 34), end: (29, 35), text: `l`
+pattern: 91, capture: 23 - markup.list, start: (29, 35), end: (29, 51), text: `|Literal content`
+pattern: 130, capture: 23 - markup.list, start: (29, 36), end: (29, 51), text: `Literal content`
+pattern: 129, capture: 29 - text, start: (29, 36), end: (29, 51), text: `Literal content`
+pattern: 90, capture: 28 - punctuation.delimiter, start: (30, 0), end: (31, 0), text: `|===
 
-pattern: 86, capture: 29 - punctuation.delimiter, start: (30, 0), end: (31, 0), text: `|===
+pattern: 85, capture: 28 - punctuation.delimiter, start: (30, 0), end: (31, 0), text: `|===
 
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (32, 0), end: (32, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (32, 3), end: (32, 35), text: `Table with Format and Span Specs`
 pattern: 7, capture: 0 - markup.heading, start: (32, 3), end: (32, 35), text: `Table with Format and Span Specs`
-pattern: 56, capture: 28 - markup.list.unnumbered, start: (34, 0), end: (43, 0), text: `|===
+pattern: 55, capture: 27 - markup.list.unnumbered, start: (34, 0), end: (43, 0), text: `|===
 |Column 1 |Column 2 |Column 3
 
 |Regular |2*|Duplicated content
@@ -344,11 +344,11 @@ pattern: 56, capture: 28 - markup.list.unnumbered, start: (34, 0), end: (43, 0),
 |3+^|Spans 3 columns, centered
 |===
 
-pattern: 91, capture: 29 - punctuation.delimiter, start: (34, 0), end: (35, 0), text: `|===
+pattern: 89, capture: 28 - punctuation.delimiter, start: (34, 0), end: (35, 0), text: `|===
 
-pattern: 85, capture: 29 - punctuation.delimiter, start: (34, 0), end: (35, 0), text: `|===
+pattern: 84, capture: 28 - punctuation.delimiter, start: (34, 0), end: (35, 0), text: `|===
 
-pattern: 142, capture: 24 - markup.list, start: (35, 0), end: (42, 0), text: `|Column 1 |Column 2 |Column 3
+pattern: 127, capture: 23 - markup.list, start: (35, 0), end: (42, 0), text: `|Column 1 |Column 2 |Column 3
 
 |Regular |2*|Duplicated content
 |.2+|Spans 2 rows |Normal |Another normal
@@ -356,127 +356,127 @@ pattern: 142, capture: 24 - markup.list, start: (35, 0), end: (42, 0), text: `|C
 
 |3+^|Spans 3 columns, centered
 
-pattern: 143, capture: 24 - markup.list, start: (35, 0), end: (36, 0), text: `|Column 1 |Column 2 |Column 3
+pattern: 128, capture: 23 - markup.list, start: (35, 0), end: (36, 0), text: `|Column 1 |Column 2 |Column 3
 
-pattern: 93, capture: 24 - markup.list, start: (35, 0), end: (35, 10), text: `|Column 1 `
-pattern: 145, capture: 24 - markup.list, start: (35, 1), end: (35, 10), text: `Column 1 `
-pattern: 144, capture: 30 - text, start: (35, 1), end: (35, 10), text: `Column 1 `
-pattern: 93, capture: 24 - markup.list, start: (35, 10), end: (35, 20), text: `|Column 2 `
-pattern: 145, capture: 24 - markup.list, start: (35, 11), end: (35, 20), text: `Column 2 `
-pattern: 144, capture: 30 - text, start: (35, 11), end: (35, 20), text: `Column 2 `
-pattern: 93, capture: 24 - markup.list, start: (35, 20), end: (35, 29), text: `|Column 3`
-pattern: 145, capture: 24 - markup.list, start: (35, 21), end: (35, 29), text: `Column 3`
-pattern: 144, capture: 30 - text, start: (35, 21), end: (35, 29), text: `Column 3`
-pattern: 126, capture: 30 - text, start: (36, 0), end: (37, 0), text: `
+pattern: 91, capture: 23 - markup.list, start: (35, 0), end: (35, 10), text: `|Column 1 `
+pattern: 130, capture: 23 - markup.list, start: (35, 1), end: (35, 10), text: `Column 1 `
+pattern: 129, capture: 29 - text, start: (35, 1), end: (35, 10), text: `Column 1 `
+pattern: 91, capture: 23 - markup.list, start: (35, 10), end: (35, 20), text: `|Column 2 `
+pattern: 130, capture: 23 - markup.list, start: (35, 11), end: (35, 20), text: `Column 2 `
+pattern: 129, capture: 29 - text, start: (35, 11), end: (35, 20), text: `Column 2 `
+pattern: 91, capture: 23 - markup.list, start: (35, 20), end: (35, 29), text: `|Column 3`
+pattern: 130, capture: 23 - markup.list, start: (35, 21), end: (35, 29), text: `Column 3`
+pattern: 129, capture: 29 - text, start: (35, 21), end: (35, 29), text: `Column 3`
+pattern: 120, capture: 29 - text, start: (36, 0), end: (37, 0), text: `
 
-pattern: 143, capture: 24 - markup.list, start: (37, 0), end: (38, 0), text: `|Regular |2*|Duplicated content
+pattern: 128, capture: 23 - markup.list, start: (37, 0), end: (38, 0), text: `|Regular |2*|Duplicated content
 
-pattern: 93, capture: 24 - markup.list, start: (37, 0), end: (37, 9), text: `|Regular `
-pattern: 145, capture: 24 - markup.list, start: (37, 1), end: (37, 9), text: `Regular `
-pattern: 144, capture: 30 - text, start: (37, 1), end: (37, 9), text: `Regular `
-pattern: 93, capture: 24 - markup.list, start: (37, 9), end: (37, 12), text: `|2*`
-pattern: 145, capture: 24 - markup.list, start: (37, 10), end: (37, 12), text: `2*`
-pattern: 144, capture: 30 - text, start: (37, 10), end: (37, 12), text: `2*`
-pattern: 93, capture: 24 - markup.list, start: (37, 12), end: (37, 31), text: `|Duplicated content`
-pattern: 145, capture: 24 - markup.list, start: (37, 13), end: (37, 31), text: `Duplicated content`
-pattern: 144, capture: 30 - text, start: (37, 13), end: (37, 31), text: `Duplicated content`
-pattern: 143, capture: 24 - markup.list, start: (38, 0), end: (39, 0), text: `|.2+|Spans 2 rows |Normal |Another normal
+pattern: 91, capture: 23 - markup.list, start: (37, 0), end: (37, 9), text: `|Regular `
+pattern: 130, capture: 23 - markup.list, start: (37, 1), end: (37, 9), text: `Regular `
+pattern: 129, capture: 29 - text, start: (37, 1), end: (37, 9), text: `Regular `
+pattern: 91, capture: 23 - markup.list, start: (37, 9), end: (37, 12), text: `|2*`
+pattern: 130, capture: 23 - markup.list, start: (37, 10), end: (37, 12), text: `2*`
+pattern: 129, capture: 29 - text, start: (37, 10), end: (37, 12), text: `2*`
+pattern: 91, capture: 23 - markup.list, start: (37, 12), end: (37, 31), text: `|Duplicated content`
+pattern: 130, capture: 23 - markup.list, start: (37, 13), end: (37, 31), text: `Duplicated content`
+pattern: 129, capture: 29 - text, start: (37, 13), end: (37, 31), text: `Duplicated content`
+pattern: 128, capture: 23 - markup.list, start: (38, 0), end: (39, 0), text: `|.2+|Spans 2 rows |Normal |Another normal
 
-pattern: 93, capture: 24 - markup.list, start: (38, 0), end: (38, 4), text: `|.2+`
-pattern: 145, capture: 24 - markup.list, start: (38, 1), end: (38, 4), text: `.2+`
-pattern: 144, capture: 30 - text, start: (38, 1), end: (38, 4), text: `.2+`
-pattern: 93, capture: 24 - markup.list, start: (38, 4), end: (38, 18), text: `|Spans 2 rows `
-pattern: 145, capture: 24 - markup.list, start: (38, 5), end: (38, 18), text: `Spans 2 rows `
-pattern: 144, capture: 30 - text, start: (38, 5), end: (38, 18), text: `Spans 2 rows `
-pattern: 93, capture: 24 - markup.list, start: (38, 18), end: (38, 26), text: `|Normal `
-pattern: 145, capture: 24 - markup.list, start: (38, 19), end: (38, 26), text: `Normal `
-pattern: 144, capture: 30 - text, start: (38, 19), end: (38, 26), text: `Normal `
-pattern: 93, capture: 24 - markup.list, start: (38, 26), end: (38, 41), text: `|Another normal`
-pattern: 145, capture: 24 - markup.list, start: (38, 27), end: (38, 41), text: `Another normal`
-pattern: 144, capture: 30 - text, start: (38, 27), end: (38, 41), text: `Another normal`
-pattern: 143, capture: 24 - markup.list, start: (39, 0), end: (40, 0), text: `|Still spanning |Last cell
+pattern: 91, capture: 23 - markup.list, start: (38, 0), end: (38, 4), text: `|.2+`
+pattern: 130, capture: 23 - markup.list, start: (38, 1), end: (38, 4), text: `.2+`
+pattern: 129, capture: 29 - text, start: (38, 1), end: (38, 4), text: `.2+`
+pattern: 91, capture: 23 - markup.list, start: (38, 4), end: (38, 18), text: `|Spans 2 rows `
+pattern: 130, capture: 23 - markup.list, start: (38, 5), end: (38, 18), text: `Spans 2 rows `
+pattern: 129, capture: 29 - text, start: (38, 5), end: (38, 18), text: `Spans 2 rows `
+pattern: 91, capture: 23 - markup.list, start: (38, 18), end: (38, 26), text: `|Normal `
+pattern: 130, capture: 23 - markup.list, start: (38, 19), end: (38, 26), text: `Normal `
+pattern: 129, capture: 29 - text, start: (38, 19), end: (38, 26), text: `Normal `
+pattern: 91, capture: 23 - markup.list, start: (38, 26), end: (38, 41), text: `|Another normal`
+pattern: 130, capture: 23 - markup.list, start: (38, 27), end: (38, 41), text: `Another normal`
+pattern: 129, capture: 29 - text, start: (38, 27), end: (38, 41), text: `Another normal`
+pattern: 128, capture: 23 - markup.list, start: (39, 0), end: (40, 0), text: `|Still spanning |Last cell
 
-pattern: 93, capture: 24 - markup.list, start: (39, 0), end: (39, 16), text: `|Still spanning `
-pattern: 145, capture: 24 - markup.list, start: (39, 1), end: (39, 16), text: `Still spanning `
-pattern: 144, capture: 30 - text, start: (39, 1), end: (39, 16), text: `Still spanning `
-pattern: 93, capture: 24 - markup.list, start: (39, 16), end: (39, 26), text: `|Last cell`
-pattern: 145, capture: 24 - markup.list, start: (39, 17), end: (39, 26), text: `Last cell`
-pattern: 144, capture: 30 - text, start: (39, 17), end: (39, 26), text: `Last cell`
-pattern: 126, capture: 30 - text, start: (40, 0), end: (41, 0), text: `
+pattern: 91, capture: 23 - markup.list, start: (39, 0), end: (39, 16), text: `|Still spanning `
+pattern: 130, capture: 23 - markup.list, start: (39, 1), end: (39, 16), text: `Still spanning `
+pattern: 129, capture: 29 - text, start: (39, 1), end: (39, 16), text: `Still spanning `
+pattern: 91, capture: 23 - markup.list, start: (39, 16), end: (39, 26), text: `|Last cell`
+pattern: 130, capture: 23 - markup.list, start: (39, 17), end: (39, 26), text: `Last cell`
+pattern: 129, capture: 29 - text, start: (39, 17), end: (39, 26), text: `Last cell`
+pattern: 120, capture: 29 - text, start: (40, 0), end: (41, 0), text: `
 
-pattern: 143, capture: 24 - markup.list, start: (41, 0), end: (42, 0), text: `|3+^|Spans 3 columns, centered
+pattern: 128, capture: 23 - markup.list, start: (41, 0), end: (42, 0), text: `|3+^|Spans 3 columns, centered
 
-pattern: 93, capture: 24 - markup.list, start: (41, 0), end: (41, 4), text: `|3+^`
-pattern: 145, capture: 24 - markup.list, start: (41, 1), end: (41, 4), text: `3+^`
-pattern: 144, capture: 30 - text, start: (41, 1), end: (41, 4), text: `3+^`
-pattern: 93, capture: 24 - markup.list, start: (41, 4), end: (41, 30), text: `|Spans 3 columns, centered`
-pattern: 145, capture: 24 - markup.list, start: (41, 5), end: (41, 30), text: `Spans 3 columns, centered`
-pattern: 144, capture: 30 - text, start: (41, 5), end: (41, 30), text: `Spans 3 columns, centered`
-pattern: 92, capture: 29 - punctuation.delimiter, start: (42, 0), end: (43, 0), text: `|===
+pattern: 91, capture: 23 - markup.list, start: (41, 0), end: (41, 4), text: `|3+^`
+pattern: 130, capture: 23 - markup.list, start: (41, 1), end: (41, 4), text: `3+^`
+pattern: 129, capture: 29 - text, start: (41, 1), end: (41, 4), text: `3+^`
+pattern: 91, capture: 23 - markup.list, start: (41, 4), end: (41, 30), text: `|Spans 3 columns, centered`
+pattern: 130, capture: 23 - markup.list, start: (41, 5), end: (41, 30), text: `Spans 3 columns, centered`
+pattern: 129, capture: 29 - text, start: (41, 5), end: (41, 30), text: `Spans 3 columns, centered`
+pattern: 90, capture: 28 - punctuation.delimiter, start: (42, 0), end: (43, 0), text: `|===
 
-pattern: 86, capture: 29 - punctuation.delimiter, start: (42, 0), end: (43, 0), text: `|===
+pattern: 85, capture: 28 - punctuation.delimiter, start: (42, 0), end: (43, 0), text: `|===
 
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (44, 0), end: (44, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (44, 3), end: (44, 16), text: `Complex Table`
 pattern: 7, capture: 0 - markup.heading, start: (44, 3), end: (44, 16), text: `Complex Table`
-pattern: 117, capture: 21 - attribute, start: (46, 0), end: (47, 0), text: `[cols="1,1,2", options="header,footer"]
+pattern: 111, capture: 21 - attribute, start: (46, 0), end: (47, 0), text: `[cols="1,1,2", options="header,footer"]
 
-pattern: 118, capture: 21 - attribute, start: (46, 0), end: (47, 0), text: `[cols="1,1,2", options="header,footer"]
+pattern: 112, capture: 21 - attribute, start: (46, 0), end: (47, 0), text: `[cols="1,1,2", options="header,footer"]
 
-pattern: 91, capture: 29 - punctuation.delimiter, start: (47, 0), end: (48, 0), text: `|===
+pattern: 89, capture: 28 - punctuation.delimiter, start: (47, 0), end: (48, 0), text: `|===
 
-pattern: 85, capture: 29 - punctuation.delimiter, start: (47, 0), end: (48, 0), text: `|===
+pattern: 84, capture: 28 - punctuation.delimiter, start: (47, 0), end: (48, 0), text: `|===
 
-pattern: 143, capture: 24 - markup.list, start: (48, 0), end: (49, 0), text: `|ID |Name |Description
+pattern: 128, capture: 23 - markup.list, start: (48, 0), end: (49, 0), text: `|ID |Name |Description
 
-pattern: 93, capture: 24 - markup.list, start: (48, 0), end: (48, 4), text: `|ID `
-pattern: 145, capture: 24 - markup.list, start: (48, 1), end: (48, 4), text: `ID `
-pattern: 144, capture: 30 - text, start: (48, 1), end: (48, 4), text: `ID `
-pattern: 93, capture: 24 - markup.list, start: (48, 4), end: (48, 10), text: `|Name `
-pattern: 145, capture: 24 - markup.list, start: (48, 5), end: (48, 10), text: `Name `
-pattern: 144, capture: 30 - text, start: (48, 5), end: (48, 10), text: `Name `
-pattern: 93, capture: 24 - markup.list, start: (48, 10), end: (48, 22), text: `|Description`
-pattern: 145, capture: 24 - markup.list, start: (48, 11), end: (48, 22), text: `Description`
-pattern: 144, capture: 30 - text, start: (48, 11), end: (48, 22), text: `Description`
-pattern: 126, capture: 30 - text, start: (49, 0), end: (50, 0), text: `
+pattern: 91, capture: 23 - markup.list, start: (48, 0), end: (48, 4), text: `|ID `
+pattern: 130, capture: 23 - markup.list, start: (48, 1), end: (48, 4), text: `ID `
+pattern: 129, capture: 29 - text, start: (48, 1), end: (48, 4), text: `ID `
+pattern: 91, capture: 23 - markup.list, start: (48, 4), end: (48, 10), text: `|Name `
+pattern: 130, capture: 23 - markup.list, start: (48, 5), end: (48, 10), text: `Name `
+pattern: 129, capture: 29 - text, start: (48, 5), end: (48, 10), text: `Name `
+pattern: 91, capture: 23 - markup.list, start: (48, 10), end: (48, 22), text: `|Description`
+pattern: 130, capture: 23 - markup.list, start: (48, 11), end: (48, 22), text: `Description`
+pattern: 129, capture: 29 - text, start: (48, 11), end: (48, 22), text: `Description`
+pattern: 120, capture: 29 - text, start: (49, 0), end: (50, 0), text: `
 
-pattern: 143, capture: 24 - markup.list, start: (50, 0), end: (51, 0), text: `|1 |Item A |First item description
+pattern: 128, capture: 23 - markup.list, start: (50, 0), end: (51, 0), text: `|1 |Item A |First item description
 
-pattern: 93, capture: 24 - markup.list, start: (50, 0), end: (50, 3), text: `|1 `
-pattern: 145, capture: 24 - markup.list, start: (50, 1), end: (50, 3), text: `1 `
-pattern: 144, capture: 30 - text, start: (50, 1), end: (50, 3), text: `1 `
-pattern: 93, capture: 24 - markup.list, start: (50, 3), end: (50, 11), text: `|Item A `
-pattern: 145, capture: 24 - markup.list, start: (50, 4), end: (50, 11), text: `Item A `
-pattern: 144, capture: 30 - text, start: (50, 4), end: (50, 11), text: `Item A `
-pattern: 93, capture: 24 - markup.list, start: (50, 11), end: (50, 34), text: `|First item description`
-pattern: 145, capture: 24 - markup.list, start: (50, 12), end: (50, 34), text: `First item description`
-pattern: 144, capture: 30 - text, start: (50, 12), end: (50, 34), text: `First item description`
-pattern: 143, capture: 24 - markup.list, start: (51, 0), end: (52, 0), text: `|2 |Item B |Second item description
+pattern: 91, capture: 23 - markup.list, start: (50, 0), end: (50, 3), text: `|1 `
+pattern: 130, capture: 23 - markup.list, start: (50, 1), end: (50, 3), text: `1 `
+pattern: 129, capture: 29 - text, start: (50, 1), end: (50, 3), text: `1 `
+pattern: 91, capture: 23 - markup.list, start: (50, 3), end: (50, 11), text: `|Item A `
+pattern: 130, capture: 23 - markup.list, start: (50, 4), end: (50, 11), text: `Item A `
+pattern: 129, capture: 29 - text, start: (50, 4), end: (50, 11), text: `Item A `
+pattern: 91, capture: 23 - markup.list, start: (50, 11), end: (50, 34), text: `|First item description`
+pattern: 130, capture: 23 - markup.list, start: (50, 12), end: (50, 34), text: `First item description`
+pattern: 129, capture: 29 - text, start: (50, 12), end: (50, 34), text: `First item description`
+pattern: 128, capture: 23 - markup.list, start: (51, 0), end: (52, 0), text: `|2 |Item B |Second item description
 
-pattern: 93, capture: 24 - markup.list, start: (51, 0), end: (51, 3), text: `|2 `
-pattern: 145, capture: 24 - markup.list, start: (51, 1), end: (51, 3), text: `2 `
-pattern: 144, capture: 30 - text, start: (51, 1), end: (51, 3), text: `2 `
-pattern: 93, capture: 24 - markup.list, start: (51, 3), end: (51, 11), text: `|Item B `
-pattern: 145, capture: 24 - markup.list, start: (51, 4), end: (51, 11), text: `Item B `
-pattern: 144, capture: 30 - text, start: (51, 4), end: (51, 11), text: `Item B `
-pattern: 93, capture: 24 - markup.list, start: (51, 11), end: (51, 37), text: `|Second item description `
-pattern: 145, capture: 24 - markup.list, start: (51, 12), end: (51, 37), text: `Second item description `
-pattern: 144, capture: 30 - text, start: (51, 12), end: (51, 37), text: `Second item description `
-pattern: 143, capture: 24 - markup.list, start: (52, 0), end: (53, 0), text: `|3 |Item C |Third item description
+pattern: 91, capture: 23 - markup.list, start: (51, 0), end: (51, 3), text: `|2 `
+pattern: 130, capture: 23 - markup.list, start: (51, 1), end: (51, 3), text: `2 `
+pattern: 129, capture: 29 - text, start: (51, 1), end: (51, 3), text: `2 `
+pattern: 91, capture: 23 - markup.list, start: (51, 3), end: (51, 11), text: `|Item B `
+pattern: 130, capture: 23 - markup.list, start: (51, 4), end: (51, 11), text: `Item B `
+pattern: 129, capture: 29 - text, start: (51, 4), end: (51, 11), text: `Item B `
+pattern: 91, capture: 23 - markup.list, start: (51, 11), end: (51, 37), text: `|Second item description `
+pattern: 130, capture: 23 - markup.list, start: (51, 12), end: (51, 37), text: `Second item description `
+pattern: 129, capture: 29 - text, start: (51, 12), end: (51, 37), text: `Second item description `
+pattern: 128, capture: 23 - markup.list, start: (52, 0), end: (53, 0), text: `|3 |Item C |Third item description
 
-pattern: 93, capture: 24 - markup.list, start: (52, 0), end: (52, 3), text: `|3 `
-pattern: 145, capture: 24 - markup.list, start: (52, 1), end: (52, 3), text: `3 `
-pattern: 144, capture: 30 - text, start: (52, 1), end: (52, 3), text: `3 `
-pattern: 93, capture: 24 - markup.list, start: (52, 3), end: (52, 11), text: `|Item C `
-pattern: 145, capture: 24 - markup.list, start: (52, 4), end: (52, 11), text: `Item C `
-pattern: 144, capture: 30 - text, start: (52, 4), end: (52, 11), text: `Item C `
-pattern: 93, capture: 24 - markup.list, start: (52, 11), end: (52, 34), text: `|Third item description`
-pattern: 145, capture: 24 - markup.list, start: (52, 12), end: (52, 34), text: `Third item description`
-pattern: 144, capture: 30 - text, start: (52, 12), end: (52, 34), text: `Third item description`
-pattern: 126, capture: 30 - text, start: (53, 0), end: (54, 0), text: `
+pattern: 91, capture: 23 - markup.list, start: (52, 0), end: (52, 3), text: `|3 `
+pattern: 130, capture: 23 - markup.list, start: (52, 1), end: (52, 3), text: `3 `
+pattern: 129, capture: 29 - text, start: (52, 1), end: (52, 3), text: `3 `
+pattern: 91, capture: 23 - markup.list, start: (52, 3), end: (52, 11), text: `|Item C `
+pattern: 130, capture: 23 - markup.list, start: (52, 4), end: (52, 11), text: `Item C `
+pattern: 129, capture: 29 - text, start: (52, 4), end: (52, 11), text: `Item C `
+pattern: 91, capture: 23 - markup.list, start: (52, 11), end: (52, 34), text: `|Third item description`
+pattern: 130, capture: 23 - markup.list, start: (52, 12), end: (52, 34), text: `Third item description`
+pattern: 129, capture: 29 - text, start: (52, 12), end: (52, 34), text: `Third item description`
+pattern: 120, capture: 29 - text, start: (53, 0), end: (54, 0), text: `
 
-pattern: 126, capture: 30 - text, start: (54, 0), end: (55, 0), text: `3+|Total: 3 items
+pattern: 120, capture: 29 - text, start: (54, 0), end: (55, 0), text: `3+|Total: 3 items
 
-pattern: 93, capture: 24 - markup.list, start: (55, 0), end: (55, 4), text: `|===`
-pattern: 145, capture: 24 - markup.list, start: (55, 1), end: (55, 4), text: `===`
-pattern: 144, capture: 30 - text, start: (55, 1), end: (55, 4), text: `===`
+pattern: 91, capture: 23 - markup.list, start: (55, 0), end: (55, 4), text: `|===`
+pattern: 130, capture: 23 - markup.list, start: (55, 1), end: (55, 4), text: `===`
+pattern: 129, capture: 29 - text, start: (55, 1), end: (55, 4), text: `===`

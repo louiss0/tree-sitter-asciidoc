@@ -71,7 +71,6 @@ module.exports = grammar({
         $.passthrough_block,
         $.open_block,
         $.conditional_block,
-        $.include_directive,
         $.block_macro,
         $.block_comment,
         $.table_block,
@@ -115,7 +114,7 @@ module.exports = grammar({
                 $.passthrough_block,
                 $.open_block,
                 $.conditional_block,
-                $.include_directive,
+                $.block_macro,
                 $.block_comment,
                 $.table_block,
                 $.section_level_2, // Only nested sections can be level_2+
@@ -152,7 +151,7 @@ module.exports = grammar({
                 $.passthrough_block,
                 $.open_block,
                 $.conditional_block,
-                $.include_directive,
+                $.block_macro,
                 $.block_comment,
                 $.table_block,
                 $.section_level_3,
@@ -189,7 +188,7 @@ module.exports = grammar({
                 $.passthrough_block,
                 $.open_block,
                 $.conditional_block,
-                $.include_directive,
+                $.block_macro,
                 $.block_comment,
                 $.table_block,
                 $.section_level_4,
@@ -226,7 +225,7 @@ module.exports = grammar({
                 $.passthrough_block,
                 $.open_block,
                 $.conditional_block,
-                $.include_directive,
+                $.block_macro,
                 $.block_comment,
                 $.table_block,
                 $.section_level_5,
@@ -263,7 +262,7 @@ module.exports = grammar({
                 $.passthrough_block,
                 $.open_block,
                 $.conditional_block,
-                $.include_directive,
+                $.block_macro,
                 $.block_comment,
                 $.table_block,
                 $.section_level_6,
@@ -300,7 +299,7 @@ module.exports = grammar({
                 $.passthrough_block,
                 $.open_block,
                 $.conditional_block,
-                $.include_directive,
+                $.block_macro,
                 $.block_comment,
                 $.table_block,
                 $._blank_line,
@@ -611,9 +610,6 @@ module.exports = grammar({
         ),
       ),
 
-    // INCLUDE DIRECTIVES - require complete syntax
-    include_directive: ($) => token(prec(5, /include::[^\[\r\n]+\[[^\]\r\n]*\][ \t]*\r?\n/)),
-
     block_content: ($) => repeat1(choice($.content_line, $._blank_line)),
 
     content_line: ($) => $.DELIMITED_BLOCK_CONTENT_LINE,
@@ -769,28 +765,17 @@ module.exports = grammar({
       prec.right(seq($._inline_core_unit, repeat($._inline_core_unit))),
 
     _inline_core_unit: ($) =>
-      choice(
-        $.inline_macro,
-        $.inline_element,
-        $.escaped_char,
-        $.plain_colon,
-        $.plain_text,
-        $.formatting_fallback,
-      ),
+      choice($.inline_macro, $.inline_element, $.escaped_char, $.plain_colon, $.plain_text),
 
     plain_text: ($) => prec.left(-50, $._plain_text_segment),
 
     plain_colon: ($) => $.PLAIN_COLON,
 
-    _plain_text_segment: ($) => token(prec(1, /[A-Za-z0-9_!$.,'"()+\-\/={}^%?#]+/)),
+    _plain_text_segment: ($) => token(prec(1, /[A-Za-z0-9_!$.,'"()+\-\/=^%?#]+/)),
 
-    // Bare words drive the grammar's `word` helper so keyword extraction remains consistent.
-    _word: ($) => token(prec(3, /[A-Za-z0-9_]+/)),
+    _word: ($) => token(prec(1, /[A-Za-z0-9_]+/)),
 
     escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
-
-    // Catch unmatched formatting markers so they become plain text instead of ERROR nodes.
-    formatting_fallback: ($) => token(prec(-1, /[*_`^~+\[\]{}<>]/)),
 
     // Strong formatting (*bold* or **bold**)
     strong: ($) =>
@@ -1072,6 +1057,7 @@ module.exports = grammar({
     block_macro: ($) =>
       prec.right(
         seq(
+          optional(field("metadata", $.metadata)),
           field("name", alias($._plain_text_segment, $.macro_name)),
           field("open", $.BLOCK_MACRO_MARKER),
           field("body", optional($.macro_body)),

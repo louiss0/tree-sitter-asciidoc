@@ -221,12 +221,18 @@ Use stem:[a^2 + b^2] and kbd:[Ctrl+*Bold*] commands.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (math_macro
-        (stem_inline)))
-    content: (inline_element
-      (ui_macro
-        (ui_kbd)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text))))
 
 ================================================================================
 Passthrough precedence over everything

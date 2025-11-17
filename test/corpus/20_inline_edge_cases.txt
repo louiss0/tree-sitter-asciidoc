@@ -209,27 +209,48 @@ Complex image: image::path/file.png[Alt text,width=100,height=50].
 
 (source_file
   (paragraph
-    content: (inline_element
-      (ui_macro
-        (ui_kbd)))
-    content: (inline_element
-      (ui_macro
-        (ui_btn)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)))
   (paragraph
-    content: (inline_element
-      (math_macro
-        (stem_inline)))
-    content: (inline_element
-      (math_macro
-        (asciimath_inline)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)))
   (paragraph
-    content: (inline_element
-      (footnote_inline))
-    content: (inline_element
-      (footnoteref))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)
+      (inline_element
+        (footnoteref))
+      (plain_text)))
   (paragraph
-    content: (inline_element
-      (image))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (image))
+      (plain_text))))
 
 ================================================================================
 Cross-reference and anchor combinations

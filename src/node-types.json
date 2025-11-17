@@ -272,6 +272,16 @@
           }
         ]
       },
+      "metadata": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "metadata",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -702,10 +712,6 @@
             "named": true
           },
           {
-            "type": "include_directive",
-            "named": true
-          },
-          {
             "type": "listing_block",
             "named": true
           },
@@ -814,10 +820,6 @@
             "named": true
           },
           {
-            "type": "include_directive",
-            "named": true
-          },
-          {
             "type": "listing_block",
             "named": true
           },
@@ -923,10 +925,6 @@
           },
           {
             "type": "example_block",
-            "named": true
-          },
-          {
-            "type": "include_directive",
             "named": true
           },
           {
@@ -1238,10 +1236,6 @@
       "types": [
         {
           "type": "escaped_char",
-          "named": true
-        },
-        {
-          "type": "formatting_fallback",
           "named": true
         },
         {
@@ -2028,6 +2022,10 @@
             "named": true
           },
           {
+            "type": "block_macro",
+            "named": true
+          },
+          {
             "type": "callout_list",
             "named": true
           },
@@ -2041,10 +2039,6 @@
           },
           {
             "type": "example_block",
-            "named": true
-          },
-          {
-            "type": "include_directive",
             "named": true
           },
           {
@@ -2146,6 +2140,10 @@
             "named": true
           },
           {
+            "type": "block_macro",
+            "named": true
+          },
+          {
             "type": "callout_list",
             "named": true
           },
@@ -2159,10 +2157,6 @@
           },
           {
             "type": "example_block",
-            "named": true
-          },
-          {
-            "type": "include_directive",
             "named": true
           },
           {
@@ -2264,6 +2258,10 @@
             "named": true
           },
           {
+            "type": "block_macro",
+            "named": true
+          },
+          {
             "type": "callout_list",
             "named": true
           },
@@ -2277,10 +2275,6 @@
           },
           {
             "type": "example_block",
-            "named": true
-          },
-          {
-            "type": "include_directive",
             "named": true
           },
           {
@@ -2382,6 +2376,10 @@
             "named": true
           },
           {
+            "type": "block_macro",
+            "named": true
+          },
+          {
             "type": "callout_list",
             "named": true
           },
@@ -2395,10 +2393,6 @@
           },
           {
             "type": "example_block",
-            "named": true
-          },
-          {
-            "type": "include_directive",
             "named": true
           },
           {
@@ -2500,6 +2494,10 @@
             "named": true
           },
           {
+            "type": "block_macro",
+            "named": true
+          },
+          {
             "type": "callout_list",
             "named": true
           },
@@ -2513,10 +2511,6 @@
           },
           {
             "type": "example_block",
-            "named": true
-          },
-          {
-            "type": "include_directive",
             "named": true
           },
           {
@@ -2618,6 +2612,10 @@
             "named": true
           },
           {
+            "type": "block_macro",
+            "named": true
+          },
+          {
             "type": "callout_list",
             "named": true
           },
@@ -2631,10 +2629,6 @@
           },
           {
             "type": "example_block",
-            "named": true
-          },
-          {
-            "type": "include_directive",
             "named": true
           },
           {
@@ -2826,10 +2820,6 @@
         },
         {
           "type": "example_block",
-          "named": true
-        },
-        {
-          "type": "include_directive",
           "named": true
         },
         {
@@ -3474,10 +3464,6 @@
     "named": true
   },
   {
-    "type": "formatting_fallback",
-    "named": true
-  },
-  {
     "type": "hard_break",
     "named": true
   },
@@ -3500,10 +3486,6 @@
   {
     "type": "image::",
     "named": false
-  },
-  {
-    "type": "include_directive",
-    "named": true
   },
   {
     "type": "index_term_text",

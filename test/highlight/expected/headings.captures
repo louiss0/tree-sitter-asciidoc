@@ -1,5 +1,5 @@
 C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\headings.adoc
-pattern: 121, capture: 36 - none, start: (0, 0), end: (11, 0), text: `= Document Title
+pattern: 115, capture: 34 - none, start: (0, 0), end: (11, 0), text: `= Document Title
 
 == Level 2 Section
 

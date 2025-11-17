@@ -154,7 +154,9 @@
   (endif_directive)? @keyword.conditional)
 
 ; Macros and Functions
-(include_directive) @keyword.import
+((block_macro
+   name: (macro_name) @keyword.import)
+ (#match? @keyword.import "^include$"))
 (footnote_inline) @markup.link
 (footnote_ref) @markup.link
 (footnoteref) @markup.link

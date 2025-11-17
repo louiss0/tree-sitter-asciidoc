@@ -1,5 +1,5 @@
 C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\attributes-enhanced.adoc
-pattern: 121, capture: 36 - none, start: (0, 0), end: (90, 34), text: `= Enhanced Attributes Test
+pattern: 115, capture: 34 - none, start: (0, 0), end: (90, 34), text: `= Enhanced Attributes Test
 
 :my-attribute: This is a custom attribute
 :author-name: John Doe
@@ -184,317 +184,327 @@ Chapter {counter2}: Second chapter`
 pattern: 1, capture: 1 - markup.heading.1.marker, start: (0, 0), end: (0, 2), text: `= `
 pattern: 1, capture: 2 - markup.heading.1, start: (0, 2), end: (0, 26), text: `Enhanced Attributes Test`
 pattern: 7, capture: 0 - markup.heading, start: (0, 2), end: (0, 26), text: `Enhanced Attributes Test`
-pattern: 36, capture: 21 - attribute, start: (2, 0), end: (3, 0), text: `:my-attribute: This is a custom attribute
+pattern: 117, capture: 29 - text, start: (2, 0), end: (7, 0), text: `:my-attribute: This is a custom attribute
+:author-name: John Doe
+:version: 2.1.0
+:backend: html5
+:icons: font
 
-pattern: 37, capture: 22 - string, start: (2, 15), end: (2, 41), text: `This is a custom attribute`
-pattern: 36, capture: 21 - attribute, start: (3, 0), end: (4, 0), text: `:author-name: John Doe
-
-pattern: 37, capture: 22 - string, start: (3, 14), end: (3, 22), text: `John Doe`
-pattern: 36, capture: 21 - attribute, start: (4, 0), end: (5, 0), text: `:version: 2.1.0
-
-pattern: 37, capture: 22 - string, start: (4, 10), end: (4, 15), text: `2.1.0`
-pattern: 36, capture: 21 - attribute, start: (5, 0), end: (6, 0), text: `:backend: html5
-
-pattern: 37, capture: 22 - string, start: (5, 10), end: (5, 15), text: `html5`
-pattern: 36, capture: 21 - attribute, start: (6, 0), end: (7, 0), text: `:icons: font
-
-pattern: 37, capture: 22 - string, start: (6, 8), end: (6, 12), text: `font`
+pattern: 119, capture: 29 - text, start: (2, 1), end: (2, 13), text: `my-attribute`
+pattern: 119, capture: 29 - text, start: (2, 15), end: (2, 19), text: `This`
+pattern: 119, capture: 29 - text, start: (2, 20), end: (2, 22), text: `is`
+pattern: 119, capture: 29 - text, start: (2, 23), end: (2, 24), text: `a`
+pattern: 119, capture: 29 - text, start: (2, 25), end: (2, 31), text: `custom`
+pattern: 119, capture: 29 - text, start: (2, 32), end: (2, 41), text: `attribute`
+pattern: 119, capture: 29 - text, start: (3, 1), end: (3, 12), text: `author-name`
+pattern: 119, capture: 29 - text, start: (3, 14), end: (3, 18), text: `John`
+pattern: 119, capture: 29 - text, start: (3, 19), end: (3, 22), text: `Doe`
+pattern: 119, capture: 29 - text, start: (4, 1), end: (4, 8), text: `version`
+pattern: 119, capture: 29 - text, start: (4, 10), end: (4, 15), text: `2.1.0`
+pattern: 119, capture: 29 - text, start: (5, 1), end: (5, 8), text: `backend`
+pattern: 119, capture: 29 - text, start: (5, 10), end: (5, 15), text: `html5`
+pattern: 119, capture: 29 - text, start: (6, 1), end: (6, 6), text: `icons`
+pattern: 119, capture: 29 - text, start: (6, 8), end: (6, 12), text: `font`
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (8, 0), end: (8, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (8, 3), end: (8, 23), text: `Attribute References`
 pattern: 7, capture: 0 - markup.heading, start: (8, 3), end: (8, 23), text: `Attribute References`
-pattern: 123, capture: 30 - text, start: (10, 0), end: (11, 0), text: `The author is {author-name} and the version is {version}.
+pattern: 117, capture: 29 - text, start: (10, 0), end: (11, 0), text: `The author is {author-name} and the version is {version}.
 
-pattern: 125, capture: 30 - text, start: (10, 0), end: (10, 3), text: `The`
-pattern: 125, capture: 30 - text, start: (10, 3), end: (10, 10), text: ` author`
-pattern: 125, capture: 30 - text, start: (10, 10), end: (10, 13), text: ` is`
-pattern: 124, capture: 30 - text, start: (10, 13), end: (10, 27), text: ` {author-name}`
-pattern: 38, capture: 23 - variable.builtin, start: (10, 13), end: (10, 27), text: ` {author-name}`
-pattern: 125, capture: 30 - text, start: (10, 27), end: (10, 31), text: ` and`
-pattern: 125, capture: 30 - text, start: (10, 31), end: (10, 35), text: ` the`
-pattern: 125, capture: 30 - text, start: (10, 35), end: (10, 43), text: ` version`
-pattern: 125, capture: 30 - text, start: (10, 43), end: (10, 46), text: ` is`
-pattern: 124, capture: 30 - text, start: (10, 46), end: (10, 56), text: ` {version}`
-pattern: 38, capture: 23 - variable.builtin, start: (10, 46), end: (10, 56), text: ` {version}`
-pattern: 127, capture: 32 - punctuation, start: (10, 56), end: (10, 57), text: `.`
-pattern: 123, capture: 30 - text, start: (12, 0), end: (13, 0), text: `The custom value is {my-attribute}.
+pattern: 119, capture: 29 - text, start: (10, 0), end: (10, 3), text: `The`
+pattern: 119, capture: 29 - text, start: (10, 4), end: (10, 10), text: `author`
+pattern: 119, capture: 29 - text, start: (10, 11), end: (10, 13), text: `is`
+pattern: 118, capture: 29 - text, start: (10, 14), end: (10, 27), text: `{author-name}`
+pattern: 37, capture: 22 - variable.builtin, start: (10, 14), end: (10, 27), text: `{author-name}`
+pattern: 119, capture: 29 - text, start: (10, 28), end: (10, 31), text: `and`
+pattern: 119, capture: 29 - text, start: (10, 32), end: (10, 35), text: `the`
+pattern: 119, capture: 29 - text, start: (10, 36), end: (10, 43), text: `version`
+pattern: 119, capture: 29 - text, start: (10, 44), end: (10, 46), text: `is`
+pattern: 118, capture: 29 - text, start: (10, 47), end: (10, 56), text: `{version}`
+pattern: 37, capture: 22 - variable.builtin, start: (10, 47), end: (10, 56), text: `{version}`
+pattern: 119, capture: 29 - text, start: (10, 56), end: (10, 57), text: `.`
+pattern: 117, capture: 29 - text, start: (12, 0), end: (13, 0), text: `The custom value is {my-attribute}.
 
-pattern: 125, capture: 30 - text, start: (12, 0), end: (12, 3), text: `The`
-pattern: 125, capture: 30 - text, start: (12, 3), end: (12, 10), text: ` custom`
-pattern: 125, capture: 30 - text, start: (12, 10), end: (12, 16), text: ` value`
-pattern: 125, capture: 30 - text, start: (12, 16), end: (12, 19), text: ` is`
-pattern: 124, capture: 30 - text, start: (12, 19), end: (12, 34), text: ` {my-attribute}`
-pattern: 38, capture: 23 - variable.builtin, start: (12, 19), end: (12, 34), text: ` {my-attribute}`
-pattern: 127, capture: 32 - punctuation, start: (12, 34), end: (12, 35), text: `.`
+pattern: 119, capture: 29 - text, start: (12, 0), end: (12, 3), text: `The`
+pattern: 119, capture: 29 - text, start: (12, 4), end: (12, 10), text: `custom`
+pattern: 119, capture: 29 - text, start: (12, 11), end: (12, 16), text: `value`
+pattern: 119, capture: 29 - text, start: (12, 17), end: (12, 19), text: `is`
+pattern: 118, capture: 29 - text, start: (12, 20), end: (12, 34), text: `{my-attribute}`
+pattern: 37, capture: 22 - variable.builtin, start: (12, 20), end: (12, 34), text: `{my-attribute}`
+pattern: 119, capture: 29 - text, start: (12, 34), end: (12, 35), text: `.`
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (14, 0), end: (14, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (14, 3), end: (14, 19), text: `Attribute Unsets`
 pattern: 7, capture: 0 - markup.heading, start: (14, 3), end: (14, 19), text: `Attribute Unsets`
-pattern: 36, capture: 21 - attribute, start: (16, 0), end: (17, 0), text: `:!draft:
+pattern: 117, capture: 29 - text, start: (16, 0), end: (18, 0), text: `:!draft:
+:production!:
 
-pattern: 36, capture: 21 - attribute, start: (17, 0), end: (18, 0), text: `:production!:
-
+pattern: 119, capture: 29 - text, start: (16, 1), end: (16, 7), text: `!draft`
+pattern: 119, capture: 29 - text, start: (17, 1), end: (17, 12), text: `production!`
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (19, 0), end: (19, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (19, 3), end: (19, 25), text: `Conditional Attributes`
 pattern: 7, capture: 0 - markup.heading, start: (19, 3), end: (19, 25), text: `Conditional Attributes`
-pattern: 97, capture: 36 - none, start: (21, 0), end: (24, 0), text: `ifdef::production[]
+pattern: 95, capture: 34 - none, start: (21, 0), end: (24, 0), text: `ifdef::production[]
 This is production content using {backend} backend.
 endif::[]
 
-pattern: 98, capture: 37 - keyword.conditional, start: (21, 0), end: (22, 0), text: `ifdef::production[]
+pattern: 96, capture: 35 - keyword.conditional, start: (21, 0), end: (22, 0), text: `ifdef::production[]
 
-pattern: 123, capture: 30 - text, start: (22, 0), end: (23, 0), text: `This is production content using {backend} backend.
+pattern: 117, capture: 29 - text, start: (22, 0), end: (23, 0), text: `This is production content using {backend} backend.
 
-pattern: 125, capture: 30 - text, start: (22, 0), end: (22, 4), text: `This`
-pattern: 125, capture: 30 - text, start: (22, 4), end: (22, 7), text: ` is`
-pattern: 125, capture: 30 - text, start: (22, 7), end: (22, 18), text: ` production`
-pattern: 125, capture: 30 - text, start: (22, 18), end: (22, 26), text: ` content`
-pattern: 125, capture: 30 - text, start: (22, 26), end: (22, 32), text: ` using`
-pattern: 38, capture: 23 - variable.builtin, start: (22, 32), end: (22, 42), text: ` {backend}`
-pattern: 124, capture: 30 - text, start: (22, 32), end: (22, 42), text: ` {backend}`
-pattern: 125, capture: 30 - text, start: (22, 42), end: (22, 51), text: ` backend.`
-pattern: 98, capture: 37 - keyword.conditional, start: (23, 0), end: (24, 0), text: `endif::[]
+pattern: 119, capture: 29 - text, start: (22, 0), end: (22, 4), text: `This`
+pattern: 119, capture: 29 - text, start: (22, 5), end: (22, 7), text: `is`
+pattern: 119, capture: 29 - text, start: (22, 8), end: (22, 18), text: `production`
+pattern: 119, capture: 29 - text, start: (22, 19), end: (22, 26), text: `content`
+pattern: 119, capture: 29 - text, start: (22, 27), end: (22, 32), text: `using`
+pattern: 37, capture: 22 - variable.builtin, start: (22, 33), end: (22, 42), text: `{backend}`
+pattern: 118, capture: 29 - text, start: (22, 33), end: (22, 42), text: `{backend}`
+pattern: 119, capture: 29 - text, start: (22, 43), end: (22, 51), text: `backend.`
+pattern: 96, capture: 35 - keyword.conditional, start: (23, 0), end: (24, 0), text: `endif::[]
 
-pattern: 97, capture: 36 - none, start: (25, 0), end: (28, 0), text: `ifndef::draft[]
+pattern: 95, capture: 34 - none, start: (25, 0), end: (28, 0), text: `ifndef::draft[]
 Final version {version} by {author-name}.
 endif::[]
 
-pattern: 99, capture: 37 - keyword.conditional, start: (25, 0), end: (26, 0), text: `ifndef::draft[]
+pattern: 97, capture: 35 - keyword.conditional, start: (25, 0), end: (26, 0), text: `ifndef::draft[]
 
-pattern: 123, capture: 30 - text, start: (26, 0), end: (27, 0), text: `Final version {version} by {author-name}.
+pattern: 117, capture: 29 - text, start: (26, 0), end: (27, 0), text: `Final version {version} by {author-name}.
 
-pattern: 125, capture: 30 - text, start: (26, 0), end: (26, 5), text: `Final`
-pattern: 125, capture: 30 - text, start: (26, 5), end: (26, 13), text: ` version`
-pattern: 38, capture: 23 - variable.builtin, start: (26, 13), end: (26, 23), text: ` {version}`
-pattern: 124, capture: 30 - text, start: (26, 13), end: (26, 23), text: ` {version}`
-pattern: 125, capture: 30 - text, start: (26, 23), end: (26, 26), text: ` by`
-pattern: 38, capture: 23 - variable.builtin, start: (26, 26), end: (26, 40), text: ` {author-name}`
-pattern: 124, capture: 30 - text, start: (26, 26), end: (26, 40), text: ` {author-name}`
-pattern: 127, capture: 32 - punctuation, start: (26, 40), end: (26, 41), text: `.`
-pattern: 99, capture: 37 - keyword.conditional, start: (27, 0), end: (28, 0), text: `endif::[]
+pattern: 119, capture: 29 - text, start: (26, 0), end: (26, 5), text: `Final`
+pattern: 119, capture: 29 - text, start: (26, 6), end: (26, 13), text: `version`
+pattern: 37, capture: 22 - variable.builtin, start: (26, 14), end: (26, 23), text: `{version}`
+pattern: 118, capture: 29 - text, start: (26, 14), end: (26, 23), text: `{version}`
+pattern: 119, capture: 29 - text, start: (26, 24), end: (26, 26), text: `by`
+pattern: 37, capture: 22 - variable.builtin, start: (26, 27), end: (26, 40), text: `{author-name}`
+pattern: 118, capture: 29 - text, start: (26, 27), end: (26, 40), text: `{author-name}`
+pattern: 119, capture: 29 - text, start: (26, 40), end: (26, 41), text: `.`
+pattern: 97, capture: 35 - keyword.conditional, start: (27, 0), end: (28, 0), text: `endif::[]
 
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (29, 0), end: (29, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (29, 3), end: (29, 22), text: `Built-in Attributes`
 pattern: 7, capture: 0 - markup.heading, start: (29, 3), end: (29, 22), text: `Built-in Attributes`
-pattern: 123, capture: 30 - text, start: (31, 0), end: (32, 0), text: `Document title: {doctitle}
+pattern: 117, capture: 29 - text, start: (31, 0), end: (32, 0), text: `Document title: {doctitle}
 
-pattern: 125, capture: 30 - text, start: (31, 0), end: (31, 8), text: `Document`
-pattern: 125, capture: 30 - text, start: (31, 8), end: (31, 14), text: ` title`
-pattern: 128, capture: 32 - punctuation, start: (31, 14), end: (31, 15), text: `:`
-pattern: 124, capture: 30 - text, start: (31, 15), end: (31, 26), text: ` {doctitle}`
-pattern: 38, capture: 23 - variable.builtin, start: (31, 15), end: (31, 26), text: ` {doctitle}`
-pattern: 123, capture: 30 - text, start: (33, 0), end: (34, 0), text: `Last updated: {docdatetime}
+pattern: 119, capture: 29 - text, start: (31, 0), end: (31, 8), text: `Document`
+pattern: 119, capture: 29 - text, start: (31, 9), end: (31, 14), text: `title`
+pattern: 118, capture: 29 - text, start: (31, 16), end: (31, 26), text: `{doctitle}`
+pattern: 37, capture: 22 - variable.builtin, start: (31, 16), end: (31, 26), text: `{doctitle}`
+pattern: 117, capture: 29 - text, start: (33, 0), end: (34, 0), text: `Last updated: {docdatetime}
 
-pattern: 125, capture: 30 - text, start: (33, 0), end: (33, 4), text: `Last`
-pattern: 125, capture: 30 - text, start: (33, 4), end: (33, 12), text: ` updated`
-pattern: 128, capture: 32 - punctuation, start: (33, 12), end: (33, 13), text: `:`
-pattern: 124, capture: 30 - text, start: (33, 13), end: (33, 27), text: ` {docdatetime}`
-pattern: 38, capture: 23 - variable.builtin, start: (33, 13), end: (33, 27), text: ` {docdatetime}`
-pattern: 123, capture: 30 - text, start: (35, 0), end: (36, 0), text: `Backend: {backend}
+pattern: 119, capture: 29 - text, start: (33, 0), end: (33, 4), text: `Last`
+pattern: 119, capture: 29 - text, start: (33, 5), end: (33, 12), text: `updated`
+pattern: 118, capture: 29 - text, start: (33, 14), end: (33, 27), text: `{docdatetime}`
+pattern: 37, capture: 22 - variable.builtin, start: (33, 14), end: (33, 27), text: `{docdatetime}`
+pattern: 117, capture: 29 - text, start: (35, 0), end: (36, 0), text: `Backend: {backend}
 
-pattern: 125, capture: 30 - text, start: (35, 0), end: (35, 7), text: `Backend`
-pattern: 128, capture: 32 - punctuation, start: (35, 7), end: (35, 8), text: `:`
-pattern: 124, capture: 30 - text, start: (35, 8), end: (35, 18), text: ` {backend}`
-pattern: 38, capture: 23 - variable.builtin, start: (35, 8), end: (35, 18), text: ` {backend}`
+pattern: 119, capture: 29 - text, start: (35, 0), end: (35, 7), text: `Backend`
+pattern: 118, capture: 29 - text, start: (35, 9), end: (35, 18), text: `{backend}`
+pattern: 37, capture: 22 - variable.builtin, start: (35, 9), end: (35, 18), text: `{backend}`
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (37, 0), end: (37, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (37, 3), end: (37, 40), text: `Attribute Assignment with Expressions`
 pattern: 7, capture: 0 - markup.heading, start: (37, 3), end: (37, 40), text: `Attribute Assignment with Expressions`
-pattern: 36, capture: 21 - attribute, start: (39, 0), end: (40, 0), text: `:calculated: {version} Release
+pattern: 117, capture: 29 - text, start: (39, 0), end: (41, 0), text: `:calculated: {version} Release
+:full-title: {doctitle} v{version}
 
-pattern: 37, capture: 22 - string, start: (39, 13), end: (39, 30), text: `{version} Release`
-pattern: 36, capture: 21 - attribute, start: (40, 0), end: (41, 0), text: `:full-title: {doctitle} v{version}
+pattern: 119, capture: 29 - text, start: (39, 1), end: (39, 11), text: `calculated`
+pattern: 118, capture: 29 - text, start: (39, 13), end: (39, 22), text: `{version}`
+pattern: 37, capture: 22 - variable.builtin, start: (39, 13), end: (39, 22), text: `{version}`
+pattern: 119, capture: 29 - text, start: (39, 23), end: (39, 30), text: `Release`
+pattern: 119, capture: 29 - text, start: (40, 1), end: (40, 11), text: `full-title`
+pattern: 118, capture: 29 - text, start: (40, 13), end: (40, 23), text: `{doctitle}`
+pattern: 37, capture: 22 - variable.builtin, start: (40, 13), end: (40, 23), text: `{doctitle}`
+pattern: 119, capture: 29 - text, start: (40, 24), end: (40, 25), text: `v`
+pattern: 118, capture: 29 - text, start: (40, 25), end: (40, 34), text: `{version}`
+pattern: 37, capture: 22 - variable.builtin, start: (40, 25), end: (40, 34), text: `{version}`
+pattern: 117, capture: 29 - text, start: (42, 0), end: (43, 0), text: `The full title is: {full-title}
 
-pattern: 37, capture: 22 - string, start: (40, 13), end: (40, 34), text: `{doctitle} v{version}`
-pattern: 123, capture: 30 - text, start: (42, 0), end: (43, 0), text: `The full title is: {full-title}
-
-pattern: 125, capture: 30 - text, start: (42, 0), end: (42, 3), text: `The`
-pattern: 125, capture: 30 - text, start: (42, 3), end: (42, 8), text: ` full`
-pattern: 125, capture: 30 - text, start: (42, 8), end: (42, 14), text: ` title`
-pattern: 125, capture: 30 - text, start: (42, 14), end: (42, 17), text: ` is`
-pattern: 128, capture: 32 - punctuation, start: (42, 17), end: (42, 18), text: `:`
-pattern: 124, capture: 30 - text, start: (42, 18), end: (42, 31), text: ` {full-title}`
-pattern: 38, capture: 23 - variable.builtin, start: (42, 18), end: (42, 31), text: ` {full-title}`
+pattern: 119, capture: 29 - text, start: (42, 0), end: (42, 3), text: `The`
+pattern: 119, capture: 29 - text, start: (42, 4), end: (42, 8), text: `full`
+pattern: 119, capture: 29 - text, start: (42, 9), end: (42, 14), text: `title`
+pattern: 119, capture: 29 - text, start: (42, 15), end: (42, 17), text: `is`
+pattern: 118, capture: 29 - text, start: (42, 19), end: (42, 31), text: `{full-title}`
+pattern: 37, capture: 22 - variable.builtin, start: (42, 19), end: (42, 31), text: `{full-title}`
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (44, 0), end: (44, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (44, 3), end: (44, 27), text: `Empty and Default Values`
 pattern: 7, capture: 0 - markup.heading, start: (44, 3), end: (44, 27), text: `Empty and Default Values`
-pattern: 36, capture: 21 - attribute, start: (46, 0), end: (47, 0), text: `:empty-attr:
+pattern: 117, capture: 29 - text, start: (46, 0), end: (48, 0), text: `:empty-attr:
+:default-attr: default value
 
-pattern: 36, capture: 21 - attribute, start: (47, 0), end: (48, 0), text: `:default-attr: default value
+pattern: 119, capture: 29 - text, start: (46, 1), end: (46, 11), text: `empty-attr`
+pattern: 119, capture: 29 - text, start: (47, 1), end: (47, 13), text: `default-attr`
+pattern: 119, capture: 29 - text, start: (47, 15), end: (47, 22), text: `default`
+pattern: 119, capture: 29 - text, start: (47, 23), end: (47, 28), text: `value`
+pattern: 117, capture: 29 - text, start: (49, 0), end: (51, 0), text: `Empty: '{empty-attr}'
+Default: '{default-attr}'
 
-pattern: 37, capture: 22 - string, start: (47, 15), end: (47, 28), text: `default value`
-pattern: 123, capture: 30 - text, start: (49, 0), end: (50, 0), text: `Empty: '{empty-attr}'
-
-pattern: 125, capture: 30 - text, start: (49, 0), end: (49, 5), text: `Empty`
-pattern: 128, capture: 32 - punctuation, start: (49, 5), end: (49, 6), text: `:`
-pattern: 125, capture: 30 - text, start: (49, 6), end: (49, 8), text: ` '`
-pattern: 124, capture: 30 - text, start: (49, 8), end: (49, 20), text: `{empty-attr}`
-pattern: 38, capture: 23 - variable.builtin, start: (49, 8), end: (49, 20), text: `{empty-attr}`
-pattern: 125, capture: 30 - text, start: (49, 20), end: (49, 21), text: `'`
-pattern: 123, capture: 30 - text, start: (50, 0), end: (51, 0), text: `Default: '{default-attr}'
-
-pattern: 125, capture: 30 - text, start: (50, 0), end: (50, 7), text: `Default`
-pattern: 128, capture: 32 - punctuation, start: (50, 7), end: (50, 8), text: `:`
-pattern: 125, capture: 30 - text, start: (50, 8), end: (50, 10), text: ` '`
-pattern: 124, capture: 30 - text, start: (50, 10), end: (50, 24), text: `{default-attr}`
-pattern: 38, capture: 23 - variable.builtin, start: (50, 10), end: (50, 24), text: `{default-attr}`
-pattern: 125, capture: 30 - text, start: (50, 24), end: (50, 25), text: `'`
+pattern: 119, capture: 29 - text, start: (49, 0), end: (49, 5), text: `Empty`
+pattern: 119, capture: 29 - text, start: (49, 7), end: (49, 8), text: `'`
+pattern: 118, capture: 29 - text, start: (49, 8), end: (49, 20), text: `{empty-attr}`
+pattern: 37, capture: 22 - variable.builtin, start: (49, 8), end: (49, 20), text: `{empty-attr}`
+pattern: 119, capture: 29 - text, start: (49, 20), end: (49, 21), text: `'`
+pattern: 119, capture: 29 - text, start: (50, 0), end: (50, 7), text: `Default`
+pattern: 119, capture: 29 - text, start: (50, 9), end: (50, 10), text: `'`
+pattern: 118, capture: 29 - text, start: (50, 10), end: (50, 24), text: `{default-attr}`
+pattern: 37, capture: 22 - variable.builtin, start: (50, 10), end: (50, 24), text: `{default-attr}`
+pattern: 119, capture: 29 - text, start: (50, 24), end: (50, 25), text: `'`
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (52, 0), end: (52, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (52, 3), end: (52, 24), text: `Multi-line Attributes`
 pattern: 7, capture: 0 - markup.heading, start: (52, 3), end: (52, 24), text: `Multi-line Attributes`
-pattern: 36, capture: 21 - attribute, start: (54, 0), end: (55, 0), text: `:long-description: This is a very long attribute \
+pattern: 117, capture: 29 - text, start: (54, 0), end: (57, 0), text: `:long-description: This is a very long attribute \
+that spans multiple lines \
+for better readability.
 
-pattern: 37, capture: 22 - string, start: (54, 19), end: (54, 50), text: `This is a very long attribute \`
-pattern: 123, capture: 30 - text, start: (55, 0), end: (56, 0), text: `that spans multiple lines \
+pattern: 119, capture: 29 - text, start: (54, 1), end: (54, 17), text: `long-description`
+pattern: 119, capture: 29 - text, start: (54, 19), end: (54, 23), text: `This`
+pattern: 119, capture: 29 - text, start: (54, 24), end: (54, 26), text: `is`
+pattern: 119, capture: 29 - text, start: (54, 27), end: (54, 28), text: `a`
+pattern: 119, capture: 29 - text, start: (54, 29), end: (54, 33), text: `very`
+pattern: 119, capture: 29 - text, start: (54, 34), end: (54, 38), text: `long`
+pattern: 119, capture: 29 - text, start: (54, 39), end: (54, 48), text: `attribute`
+pattern: 94, capture: 33 - comment, start: (54, 49), end: (55, 0), text: `\
 
-pattern: 125, capture: 30 - text, start: (55, 0), end: (55, 4), text: `that`
-pattern: 125, capture: 30 - text, start: (55, 4), end: (55, 10), text: ` spans`
-pattern: 125, capture: 30 - text, start: (55, 10), end: (55, 19), text: ` multiple`
-pattern: 125, capture: 30 - text, start: (55, 19), end: (55, 25), text: ` lines`
-pattern: 125, capture: 30 - text, start: (55, 25), end: (55, 27), text: ` \`
-pattern: 123, capture: 30 - text, start: (56, 0), end: (57, 0), text: `for better readability.
+pattern: 119, capture: 29 - text, start: (55, 0), end: (55, 4), text: `that`
+pattern: 119, capture: 29 - text, start: (55, 5), end: (55, 10), text: `spans`
+pattern: 119, capture: 29 - text, start: (55, 11), end: (55, 19), text: `multiple`
+pattern: 119, capture: 29 - text, start: (55, 20), end: (55, 25), text: `lines`
+pattern: 94, capture: 33 - comment, start: (55, 26), end: (56, 0), text: `\
 
-pattern: 125, capture: 30 - text, start: (56, 0), end: (56, 3), text: `for`
-pattern: 125, capture: 30 - text, start: (56, 3), end: (56, 10), text: ` better`
-pattern: 125, capture: 30 - text, start: (56, 10), end: (56, 23), text: ` readability.`
-pattern: 123, capture: 30 - text, start: (58, 0), end: (59, 0), text: `Description: {long-description}
+pattern: 119, capture: 29 - text, start: (56, 0), end: (56, 3), text: `for`
+pattern: 119, capture: 29 - text, start: (56, 4), end: (56, 10), text: `better`
+pattern: 119, capture: 29 - text, start: (56, 11), end: (56, 23), text: `readability.`
+pattern: 117, capture: 29 - text, start: (58, 0), end: (59, 0), text: `Description: {long-description}
 
-pattern: 125, capture: 30 - text, start: (58, 0), end: (58, 11), text: `Description`
-pattern: 128, capture: 32 - punctuation, start: (58, 11), end: (58, 12), text: `:`
-pattern: 124, capture: 30 - text, start: (58, 12), end: (58, 31), text: ` {long-description}`
-pattern: 38, capture: 23 - variable.builtin, start: (58, 12), end: (58, 31), text: ` {long-description}`
+pattern: 119, capture: 29 - text, start: (58, 0), end: (58, 11), text: `Description`
+pattern: 118, capture: 29 - text, start: (58, 13), end: (58, 31), text: `{long-description}`
+pattern: 37, capture: 22 - variable.builtin, start: (58, 13), end: (58, 31), text: `{long-description}`
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (60, 0), end: (60, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (60, 3), end: (60, 35), text: `Special Characters in Attributes`
 pattern: 7, capture: 0 - markup.heading, start: (60, 3), end: (60, 35), text: `Special Characters in Attributes`
-pattern: 36, capture: 21 - attribute, start: (62, 0), end: (63, 0), text: `:special-chars: Value with "quotes" and 'apostrophes'
+pattern: 117, capture: 29 - text, start: (62, 0), end: (67, 0), text: `:special-chars: Value with "quotes" and 'apostrophes'
+:unicode-attr: Sp├½c├«├íl ch├úr├íct├½rs
 
-pattern: 37, capture: 22 - string, start: (62, 16), end: (62, 53), text: `Value with "quotes" and 'apostrophes'`
-pattern: 36, capture: 21 - attribute, start: (63, 0), end: (64, 0), text: `:unicode-attr: Sp├½c├«├íl ch├úr├íct├½rs
+Special: {special-chars}
+nicode: {unicode-attr}
 
-pattern: 37, capture: 22 - string, start: (63, 15), end: (63, 39), text: `Sp├½c├«├íl ch├úr├íct├½rs`
-pattern: 123, capture: 30 - text, start: (65, 0), end: (66, 0), text: `Special: {special-chars}
+pattern: 119, capture: 29 - text, start: (62, 1), end: (62, 14), text: `special-chars`
+pattern: 119, capture: 29 - text, start: (62, 16), end: (62, 21), text: `Value`
+pattern: 119, capture: 29 - text, start: (62, 22), end: (62, 26), text: `with`
+pattern: 119, capture: 29 - text, start: (62, 27), end: (62, 35), text: `"quotes"`
+pattern: 119, capture: 29 - text, start: (62, 36), end: (62, 39), text: `and`
+pattern: 119, capture: 29 - text, start: (62, 40), end: (62, 53), text: `'apostrophes'`
+pattern: 119, capture: 29 - text, start: (63, 1), end: (63, 13), text: `unicode-attr`
+pattern: 119, capture: 29 - text, start: (63, 15), end: (63, 17), text: `Sp`
+pattern: 94, capture: 33 - comment, start: (63, 17), end: (64, 0), text: `├½c├«├íl ch├úr├íct├½rs
 
-pattern: 125, capture: 30 - text, start: (65, 0), end: (65, 7), text: `Special`
-pattern: 128, capture: 32 - punctuation, start: (65, 7), end: (65, 8), text: `:`
-pattern: 124, capture: 30 - text, start: (65, 8), end: (65, 24), text: ` {special-chars}`
-pattern: 38, capture: 23 - variable.builtin, start: (65, 8), end: (65, 24), text: ` {special-chars}`
-pattern: 123, capture: 30 - text, start: (66, 0), end: (67, 0), text: `Unicode: {unicode-attr}
-
-pattern: 125, capture: 30 - text, start: (66, 0), end: (66, 7), text: `Unicode`
-pattern: 128, capture: 32 - punctuation, start: (66, 7), end: (66, 8), text: `:`
-pattern: 124, capture: 30 - text, start: (66, 8), end: (66, 23), text: ` {unicode-attr}`
-pattern: 38, capture: 23 - variable.builtin, start: (66, 8), end: (66, 23), text: ` {unicode-attr}`
+pattern: 119, capture: 29 - text, start: (65, 0), end: (65, 7), text: `Special`
+pattern: 118, capture: 29 - text, start: (65, 9), end: (65, 24), text: `{special-chars}`
+pattern: 37, capture: 22 - variable.builtin, start: (65, 9), end: (65, 24), text: `{special-chars}`
+pattern: 119, capture: 29 - text, start: (66, 0), end: (66, 7), text: `Unicode`
+pattern: 118, capture: 29 - text, start: (66, 9), end: (66, 23), text: `{unicode-attr}`
+pattern: 37, capture: 22 - variable.builtin, start: (66, 9), end: (66, 23), text: `{unicode-attr}`
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (68, 0), end: (68, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (68, 3), end: (68, 30), text: `Attribute Lists in Elements`
 pattern: 7, capture: 0 - markup.heading, start: (68, 3), end: (68, 30), text: `Attribute Lists in Elements`
-pattern: 114, capture: 26 - markup.quote, start: (70, 0), end: (75, 0), text: `[id="custom-id", role="highlight", options="header"]
+pattern: 117, capture: 29 - text, start: (70, 0), end: (72, 0), text: `[id="custom-id", role="highlight", options="header"]
 .Titled Block
-====
+
+pattern: 111, capture: 21 - attribute, start: (70, 0), end: (71, 0), text: `[id="custom-id", role="highlight", options="header"]
+
+pattern: 112, capture: 21 - attribute, start: (70, 0), end: (71, 0), text: `[id="custom-id", role="highlight", options="header"]
+
+pattern: 119, capture: 29 - text, start: (71, 0), end: (71, 7), text: `.Titled`
+pattern: 119, capture: 29 - text, start: (71, 8), end: (71, 13), text: `Block`
+pattern: 48, capture: 25 - markup.quote, start: (72, 0), end: (75, 0), text: `====
 Block content with attributes.
 ====
 
-pattern: 115, capture: 41 - keyword.directive, start: (70, 0), end: (71, 0), text: `[id="custom-id", role="highlight", options="header"]
+pattern: 70, capture: 28 - punctuation.delimiter, start: (72, 0), end: (73, 0), text: `====
 
-pattern: 49, capture: 26 - markup.quote, start: (71, 0), end: (75, 0), text: `.Titled Block
-====
-Block content with attributes.
-====
+pattern: 56, capture: 28 - punctuation.delimiter, start: (72, 0), end: (73, 0), text: `====
 
-pattern: 117, capture: 21 - attribute, start: (71, 0), end: (72, 0), text: `.Titled Block
+pattern: 116, capture: 29 - text, start: (73, 0), end: (74, 0), text: `Block content with attributes.
 
-pattern: 120, capture: 21 - attribute, start: (71, 0), end: (72, 0), text: `.Titled Block
+pattern: 120, capture: 29 - text, start: (73, 0), end: (74, 0), text: `Block content with attributes.
 
-pattern: 71, capture: 29 - punctuation.delimiter, start: (72, 0), end: (73, 0), text: `====
+pattern: 86, capture: 29 - text, start: (73, 0), end: (74, 0), text: `Block content with attributes.
 
-pattern: 57, capture: 29 - punctuation.delimiter, start: (72, 0), end: (73, 0), text: `====
+pattern: 71, capture: 28 - punctuation.delimiter, start: (74, 0), end: (75, 0), text: `====
 
-pattern: 122, capture: 30 - text, start: (73, 0), end: (74, 0), text: `Block content with attributes.
+pattern: 57, capture: 28 - punctuation.delimiter, start: (74, 0), end: (75, 0), text: `====
 
-pattern: 126, capture: 30 - text, start: (73, 0), end: (74, 0), text: `Block content with attributes.
-
-pattern: 87, capture: 30 - text, start: (73, 0), end: (74, 0), text: `Block content with attributes.
-
-pattern: 72, capture: 29 - punctuation.delimiter, start: (74, 0), end: (75, 0), text: `====
-
-pattern: 58, capture: 29 - punctuation.delimiter, start: (74, 0), end: (75, 0), text: `====
-
-pattern: 56, capture: 28 - markup.list.unnumbered, start: (76, 0), end: (81, 0), text: `[cols="1,2,1", options="header,footer"]
+pattern: 55, capture: 27 - markup.list.unnumbered, start: (76, 0), end: (81, 0), text: `[cols="1,2,1", options="header,footer"]
 |===
 |Column 1 |Column 2 |Column 3
 |Data 1 |Data 2 |Data 3
 |===
 
-pattern: 117, capture: 21 - attribute, start: (76, 0), end: (77, 0), text: `[cols="1,2,1", options="header,footer"]
+pattern: 111, capture: 21 - attribute, start: (76, 0), end: (77, 0), text: `[cols="1,2,1", options="header,footer"]
 
-pattern: 118, capture: 21 - attribute, start: (76, 0), end: (77, 0), text: `[cols="1,2,1", options="header,footer"]
+pattern: 112, capture: 21 - attribute, start: (76, 0), end: (77, 0), text: `[cols="1,2,1", options="header,footer"]
 
-pattern: 91, capture: 29 - punctuation.delimiter, start: (77, 0), end: (78, 0), text: `|===
+pattern: 89, capture: 28 - punctuation.delimiter, start: (77, 0), end: (78, 0), text: `|===
 
-pattern: 85, capture: 29 - punctuation.delimiter, start: (77, 0), end: (78, 0), text: `|===
+pattern: 84, capture: 28 - punctuation.delimiter, start: (77, 0), end: (78, 0), text: `|===
 
-pattern: 142, capture: 24 - markup.list, start: (78, 0), end: (80, 0), text: `|Column 1 |Column 2 |Column 3
+pattern: 127, capture: 23 - markup.list, start: (78, 0), end: (80, 0), text: `|Column 1 |Column 2 |Column 3
 |Data 1 |Data 2 |Data 3
 
-pattern: 143, capture: 24 - markup.list, start: (78, 0), end: (79, 0), text: `|Column 1 |Column 2 |Column 3
+pattern: 128, capture: 23 - markup.list, start: (78, 0), end: (79, 0), text: `|Column 1 |Column 2 |Column 3
 
-pattern: 93, capture: 24 - markup.list, start: (78, 0), end: (78, 10), text: `|Column 1 `
-pattern: 145, capture: 24 - markup.list, start: (78, 1), end: (78, 10), text: `Column 1 `
-pattern: 144, capture: 30 - text, start: (78, 1), end: (78, 10), text: `Column 1 `
-pattern: 93, capture: 24 - markup.list, start: (78, 10), end: (78, 20), text: `|Column 2 `
-pattern: 145, capture: 24 - markup.list, start: (78, 11), end: (78, 20), text: `Column 2 `
-pattern: 144, capture: 30 - text, start: (78, 11), end: (78, 20), text: `Column 2 `
-pattern: 93, capture: 24 - markup.list, start: (78, 20), end: (78, 29), text: `|Column 3`
-pattern: 145, capture: 24 - markup.list, start: (78, 21), end: (78, 29), text: `Column 3`
-pattern: 144, capture: 30 - text, start: (78, 21), end: (78, 29), text: `Column 3`
-pattern: 143, capture: 24 - markup.list, start: (79, 0), end: (80, 0), text: `|Data 1 |Data 2 |Data 3
+pattern: 91, capture: 23 - markup.list, start: (78, 0), end: (78, 10), text: `|Column 1 `
+pattern: 130, capture: 23 - markup.list, start: (78, 1), end: (78, 10), text: `Column 1 `
+pattern: 129, capture: 29 - text, start: (78, 1), end: (78, 10), text: `Column 1 `
+pattern: 91, capture: 23 - markup.list, start: (78, 10), end: (78, 20), text: `|Column 2 `
+pattern: 130, capture: 23 - markup.list, start: (78, 11), end: (78, 20), text: `Column 2 `
+pattern: 129, capture: 29 - text, start: (78, 11), end: (78, 20), text: `Column 2 `
+pattern: 91, capture: 23 - markup.list, start: (78, 20), end: (78, 29), text: `|Column 3`
+pattern: 130, capture: 23 - markup.list, start: (78, 21), end: (78, 29), text: `Column 3`
+pattern: 129, capture: 29 - text, start: (78, 21), end: (78, 29), text: `Column 3`
+pattern: 128, capture: 23 - markup.list, start: (79, 0), end: (80, 0), text: `|Data 1 |Data 2 |Data 3
 
-pattern: 93, capture: 24 - markup.list, start: (79, 0), end: (79, 10), text: `|Data 1 `
-pattern: 145, capture: 24 - markup.list, start: (79, 1), end: (79, 10), text: `Data 1 `
-pattern: 144, capture: 30 - text, start: (79, 1), end: (79, 10), text: `Data 1 `
-pattern: 93, capture: 24 - markup.list, start: (79, 10), end: (79, 20), text: `|Data 2 `
-pattern: 145, capture: 24 - markup.list, start: (79, 11), end: (79, 20), text: `Data 2 `
-pattern: 144, capture: 30 - text, start: (79, 11), end: (79, 20), text: `Data 2 `
-pattern: 93, capture: 24 - markup.list, start: (79, 20), end: (79, 27), text: `|Data 3`
-pattern: 145, capture: 24 - markup.list, start: (79, 21), end: (79, 27), text: `Data 3`
-pattern: 144, capture: 30 - text, start: (79, 21), end: (79, 27), text: `Data 3`
-pattern: 92, capture: 29 - punctuation.delimiter, start: (80, 0), end: (81, 0), text: `|===
+pattern: 91, capture: 23 - markup.list, start: (79, 0), end: (79, 10), text: `|Data 1 `
+pattern: 130, capture: 23 - markup.list, start: (79, 1), end: (79, 10), text: `Data 1 `
+pattern: 129, capture: 29 - text, start: (79, 1), end: (79, 10), text: `Data 1 `
+pattern: 91, capture: 23 - markup.list, start: (79, 10), end: (79, 20), text: `|Data 2 `
+pattern: 130, capture: 23 - markup.list, start: (79, 11), end: (79, 20), text: `Data 2 `
+pattern: 129, capture: 29 - text, start: (79, 11), end: (79, 20), text: `Data 2 `
+pattern: 91, capture: 23 - markup.list, start: (79, 20), end: (79, 27), text: `|Data 3`
+pattern: 130, capture: 23 - markup.list, start: (79, 21), end: (79, 27), text: `Data 3`
+pattern: 129, capture: 29 - text, start: (79, 21), end: (79, 27), text: `Data 3`
+pattern: 90, capture: 28 - punctuation.delimiter, start: (80, 0), end: (81, 0), text: `|===
 
-pattern: 86, capture: 29 - punctuation.delimiter, start: (80, 0), end: (81, 0), text: `|===
+pattern: 85, capture: 28 - punctuation.delimiter, start: (80, 0), end: (81, 0), text: `|===
 
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (82, 0), end: (82, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (82, 3), end: (82, 21), text: `Counter Attributes`
 pattern: 7, capture: 0 - markup.heading, start: (82, 3), end: (82, 21), text: `Counter Attributes`
-pattern: 36, capture: 21 - attribute, start: (84, 0), end: (85, 0), text: `:counter: step-counter
+pattern: 117, capture: 29 - text, start: (84, 0), end: (86, 0), text: `:counter: step-counter
+:counter2: chapter-counter:A
 
-pattern: 37, capture: 22 - string, start: (84, 10), end: (84, 22), text: `step-counter`
-pattern: 36, capture: 21 - attribute, start: (85, 0), end: (86, 0), text: `:counter2: chapter-counter:A
-
-pattern: 37, capture: 22 - string, start: (85, 11), end: (85, 28), text: `chapter-counter:A`
-pattern: 123, capture: 30 - text, start: (87, 0), end: (88, 0), text: `Step {counter}: First step
-
-pattern: 125, capture: 30 - text, start: (87, 0), end: (87, 4), text: `Step`
-pattern: 124, capture: 30 - text, start: (87, 4), end: (87, 14), text: ` {counter}`
-pattern: 38, capture: 23 - variable.builtin, start: (87, 4), end: (87, 14), text: ` {counter}`
-pattern: 128, capture: 32 - punctuation, start: (87, 14), end: (87, 15), text: `:`
-pattern: 125, capture: 30 - text, start: (87, 15), end: (87, 21), text: ` First`
-pattern: 125, capture: 30 - text, start: (87, 21), end: (87, 26), text: ` step`
-pattern: 123, capture: 30 - text, start: (88, 0), end: (89, 0), text: `Step {counter}: Second step
-
-pattern: 125, capture: 30 - text, start: (88, 0), end: (88, 4), text: `Step`
-pattern: 124, capture: 30 - text, start: (88, 4), end: (88, 14), text: ` {counter}`
-pattern: 38, capture: 23 - variable.builtin, start: (88, 4), end: (88, 14), text: ` {counter}`
-pattern: 128, capture: 32 - punctuation, start: (88, 14), end: (88, 15), text: `:`
-pattern: 125, capture: 30 - text, start: (88, 15), end: (88, 22), text: ` Second`
-pattern: 125, capture: 30 - text, start: (88, 22), end: (88, 27), text: ` step`
-pattern: 123, capture: 30 - text, start: (89, 0), end: (90, 0), text: `Chapter {counter2}: First chapter
-
-pattern: 125, capture: 30 - text, start: (89, 0), end: (89, 7), text: `Chapter`
-pattern: 124, capture: 30 - text, start: (89, 7), end: (89, 18), text: ` {counter2}`
-pattern: 38, capture: 23 - variable.builtin, start: (89, 7), end: (89, 18), text: ` {counter2}`
-pattern: 128, capture: 32 - punctuation, start: (89, 18), end: (89, 19), text: `:`
-pattern: 125, capture: 30 - text, start: (89, 19), end: (89, 25), text: ` First`
-pattern: 125, capture: 30 - text, start: (89, 25), end: (89, 33), text: ` chapter`
-pattern: 123, capture: 30 - text, start: (90, 0), end: (90, 34), text: `Chapter {counter2}: Second chapter`
-pattern: 125, capture: 30 - text, start: (90, 0), end: (90, 7), text: `Chapter`
-pattern: 124, capture: 30 - text, start: (90, 7), end: (90, 18), text: ` {counter2}`
-pattern: 38, capture: 23 - variable.builtin, start: (90, 7), end: (90, 18), text: ` {counter2}`
-pattern: 128, capture: 32 - punctuation, start: (90, 18), end: (90, 19), text: `:`
-pattern: 125, capture: 30 - text, start: (90, 19), end: (90, 26), text: ` Second`
-pattern: 125, capture: 30 - text, start: (90, 26), end: (90, 34), text: ` chapter`
+pattern: 119, capture: 29 - text, start: (84, 1), end: (84, 8), text: `counter`
+pattern: 119, capture: 29 - text, start: (84, 10), end: (84, 22), text: `step-counter`
+pattern: 119, capture: 29 - text, start: (85, 1), end: (85, 9), text: `counter2`
+pattern: 119, capture: 29 - text, start: (85, 11), end: (85, 26), text: `chapter-counter`
+pattern: 119, capture: 29 - text, start: (85, 27), end: (85, 28), text: `A`
+pattern: 117, capture: 29 - text, start: (87, 0), end: (90, 34), text: `Step {counter}: First step
+Step {counter}: Second step
+Chapter {counter2}: First chapter
+Chapter {counter2}: Second chapter`
+pattern: 119, capture: 29 - text, start: (87, 0), end: (87, 4), text: `Step`
+pattern: 118, capture: 29 - text, start: (87, 5), end: (87, 14), text: `{counter}`
+pattern: 37, capture: 22 - variable.builtin, start: (87, 5), end: (87, 14), text: `{counter}`
+pattern: 119, capture: 29 - text, start: (87, 16), end: (87, 21), text: `First`
+pattern: 119, capture: 29 - text, start: (87, 22), end: (87, 26), text: `step`
+pattern: 119, capture: 29 - text, start: (88, 0), end: (88, 4), text: `Step`
+pattern: 118, capture: 29 - text, start: (88, 5), end: (88, 14), text: `{counter}`
+pattern: 37, capture: 22 - variable.builtin, start: (88, 5), end: (88, 14), text: `{counter}`
+pattern: 119, capture: 29 - text, start: (88, 16), end: (88, 22), text: `Second`
+pattern: 119, capture: 29 - text, start: (88, 23), end: (88, 27), text: `step`
+pattern: 119, capture: 29 - text, start: (89, 0), end: (89, 7), text: `Chapter`
+pattern: 118, capture: 29 - text, start: (89, 8), end: (89, 18), text: `{counter2}`
+pattern: 37, capture: 22 - variable.builtin, start: (89, 8), end: (89, 18), text: `{counter2}`
+pattern: 119, capture: 29 - text, start: (89, 20), end: (89, 25), text: `First`
+pattern: 119, capture: 29 - text, start: (89, 26), end: (89, 33), text: `chapter`
+pattern: 119, capture: 29 - text, start: (90, 0), end: (90, 7), text: `Chapter`
+pattern: 118, capture: 29 - text, start: (90, 8), end: (90, 18), text: `{counter2}`
+pattern: 37, capture: 22 - variable.builtin, start: (90, 8), end: (90, 18), text: `{counter2}`
+pattern: 119, capture: 29 - text, start: (90, 20), end: (90, 26), text: `Second`
+pattern: 119, capture: 29 - text, start: (90, 27), end: (90, 34), text: `chapter`

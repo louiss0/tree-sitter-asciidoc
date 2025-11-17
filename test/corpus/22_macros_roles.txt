@@ -41,16 +41,26 @@ Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].
 
 (source_file
   (paragraph
-    content: (inline_element
-      (math_macro
-        (stem_inline)))
-  (paragraph
-    content: (inline_element
-      (math_macro
-        (latexmath_inline)))
-    content: (inline_element
-      (math_macro
-        (asciimath_inline)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)
+      (plain_text))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text))))
 
 ================================================================================
 UI macros

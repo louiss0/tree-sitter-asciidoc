@@ -1,5 +1,5 @@
 C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\inline-formatting.adoc
-pattern: 121, capture: 36 - none, start: (0, 0), end: (70, 19), text: `= Inline Formatting Test
+pattern: 115, capture: 34 - none, start: (0, 0), end: (70, 0), text: `= Inline Formatting Test
 
 == Basic Formatting
 
@@ -68,8 +68,9 @@ with another break.
 
 'Single quoted text.'
 
--- Attribution line`
-pattern: 0, capture: 0 - markup.heading, start: (0, 0), end: (70, 19), text: `= Inline Formatting Test
+-- Attribution line
+
+pattern: 0, capture: 0 - markup.heading, start: (0, 0), end: (70, 0), text: `= Inline Formatting Test
 
 == Basic Formatting
 
@@ -138,327 +139,273 @@ with another break.
 
 'Single quoted text.'
 
--- Attribution line`
+-- Attribution line
+
 pattern: 1, capture: 1 - markup.heading.1.marker, start: (0, 0), end: (0, 2), text: `= `
 pattern: 1, capture: 2 - markup.heading.1, start: (0, 2), end: (0, 24), text: `Inline Formatting Test`
 pattern: 7, capture: 0 - markup.heading, start: (0, 2), end: (0, 24), text: `Inline Formatting Test`
 pattern: 2, capture: 3 - markup.heading.2.marker, start: (2, 0), end: (2, 3), text: `== `
 pattern: 2, capture: 4 - markup.heading.2, start: (2, 3), end: (2, 19), text: `Basic Formatting`
 pattern: 7, capture: 0 - markup.heading, start: (2, 3), end: (2, 19), text: `Basic Formatting`
+pattern: 117, capture: 29 - text, start: (5, 0), end: (6, 0), text: `You can also use ^superscript^ and ~subscript~ text.
 
-pattern: 125, capture: 30 - text, start: (4, 0), end: (4, 6), text: `Here's`
-pattern: 125, capture: 30 - text, start: (4, 6), end: (4, 11), text: ` some`
-pattern: 124, capture: 30 - text, start: (4, 11), end: (4, 23), text: ` *bold text*`
-pattern: 8, capture: 13 - markup.bold, start: (4, 11), end: (4, 23), text: ` *bold text*`
-pattern: 9, capture: 13 - markup.bold, start: (4, 11), end: (4, 13), text: ` *`
-pattern: 11, capture: 13 - markup.bold, start: (4, 13), end: (4, 22), text: `bold text`
-pattern: 10, capture: 13 - markup.bold, start: (4, 22), end: (4, 23), text: `*`
-pattern: 125, capture: 30 - text, start: (4, 23), end: (4, 24), text: `,`
-pattern: 13, capture: 14 - markup.italic, start: (4, 24), end: (4, 26), text: ` _`
-pattern: 15, capture: 14 - markup.italic, start: (4, 26), end: (4, 37), text: `italic text`
-pattern: 14, capture: 14 - markup.italic, start: (4, 37), end: (4, 38), text: `_`
-pattern: 125, capture: 30 - text, start: (4, 38), end: (4, 39), text: `,`
-pattern: 125, capture: 30 - text, start: (4, 39), end: (4, 43), text: ` and`
-pattern: 124, capture: 30 - text, start: (4, 43), end: (4, 60), text: ` `monospace text``
-pattern: 16, capture: 15 - markup.raw, start: (4, 43), end: (4, 60), text: ` `monospace text``
-pattern: 17, capture: 15 - markup.raw, start: (4, 43), end: (4, 45), text: ` ``
-pattern: 19, capture: 15 - markup.raw, start: (4, 45), end: (4, 59), text: `monospace text`
-pattern: 18, capture: 15 - markup.raw, start: (4, 59), end: (4, 60), text: ```
-pattern: 127, capture: 32 - punctuation, start: (4, 60), end: (4, 61), text: `.`
-pattern: 123, capture: 30 - text, start: (6, 0), end: (7, 0), text: `You can also use ^superscript^ and ~subscript~ text.
+pattern: 119, capture: 29 - text, start: (5, 0), end: (5, 3), text: `You`
+pattern: 119, capture: 29 - text, start: (5, 4), end: (5, 7), text: `can`
+pattern: 119, capture: 29 - text, start: (5, 8), end: (5, 12), text: `also`
+pattern: 119, capture: 29 - text, start: (5, 13), end: (5, 16), text: `use`
+pattern: 119, capture: 29 - text, start: (5, 17), end: (5, 30), text: `^superscript^`
+pattern: 119, capture: 29 - text, start: (5, 31), end: (5, 34), text: `and`
+pattern: 118, capture: 29 - text, start: (5, 35), end: (5, 46), text: `~subscript~`
+pattern: 24, capture: 16 - markup.underline, start: (5, 35), end: (5, 46), text: `~subscript~`
+pattern: 25, capture: 16 - markup.underline, start: (5, 35), end: (5, 36), text: `~`
+pattern: 27, capture: 16 - markup.underline, start: (5, 36), end: (5, 45), text: `subscript`
+pattern: 26, capture: 16 - markup.underline, start: (5, 45), end: (5, 46), text: `~`
+pattern: 119, capture: 29 - text, start: (5, 47), end: (5, 52), text: `text.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (7, 0), end: (7, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (7, 3), end: (7, 25), text: `Constrained Formatting`
+pattern: 7, capture: 0 - markup.heading, start: (7, 3), end: (7, 25), text: `Constrained Formatting`
+pattern: 117, capture: 29 - text, start: (9, 0), end: (10, 0), text: `This is *constrained bold* and _constrained italic_ formatting.
 
-pattern: 125, capture: 30 - text, start: (6, 0), end: (6, 3), text: `You`
-pattern: 125, capture: 30 - text, start: (6, 3), end: (6, 7), text: ` can`
-pattern: 125, capture: 30 - text, start: (6, 7), end: (6, 12), text: ` also`
-pattern: 125, capture: 30 - text, start: (6, 12), end: (6, 16), text: ` use`
-pattern: 124, capture: 30 - text, start: (6, 16), end: (6, 30), text: ` ^superscript^`
-pattern: 20, capture: 16 - markup.underline, start: (6, 16), end: (6, 30), text: ` ^superscript^`
-pattern: 21, capture: 16 - markup.underline, start: (6, 16), end: (6, 18), text: ` ^`
-pattern: 23, capture: 16 - markup.underline, start: (6, 18), end: (6, 29), text: `superscript`
-pattern: 22, capture: 16 - markup.underline, start: (6, 29), end: (6, 30), text: `^`
-pattern: 125, capture: 30 - text, start: (6, 30), end: (6, 34), text: ` and`
-pattern: 124, capture: 30 - text, start: (6, 34), end: (6, 46), text: ` ~subscript~`
-pattern: 24, capture: 16 - markup.underline, start: (6, 34), end: (6, 46), text: ` ~subscript~`
-pattern: 25, capture: 16 - markup.underline, start: (6, 34), end: (6, 36), text: ` ~`
-pattern: 27, capture: 16 - markup.underline, start: (6, 36), end: (6, 45), text: `subscript`
-pattern: 26, capture: 16 - markup.underline, start: (6, 45), end: (6, 46), text: `~`
-pattern: 125, capture: 30 - text, start: (6, 46), end: (6, 52), text: ` text.`
-pattern: 2, capture: 3 - markup.heading.2.marker, start: (8, 0), end: (8, 3), text: `== `
-pattern: 2, capture: 4 - markup.heading.2, start: (8, 3), end: (8, 25), text: `Constrained Formatting`
-pattern: 7, capture: 0 - markup.heading, start: (8, 3), end: (8, 25), text: `Constrained Formatting`
-pattern: 123, capture: 30 - text, start: (10, 0), end: (11, 0), text: `This is *constrained bold* and _constrained italic_ formatting.
+pattern: 119, capture: 29 - text, start: (9, 0), end: (9, 4), text: `This`
+pattern: 119, capture: 29 - text, start: (9, 5), end: (9, 7), text: `is`
+pattern: 118, capture: 29 - text, start: (9, 8), end: (9, 26), text: `*constrained bold*`
+pattern: 8, capture: 13 - markup.bold, start: (9, 8), end: (9, 26), text: `*constrained bold*`
+pattern: 9, capture: 13 - markup.bold, start: (9, 8), end: (9, 9), text: `*`
+pattern: 11, capture: 13 - markup.bold, start: (9, 9), end: (9, 25), text: `constrained bold`
+pattern: 10, capture: 13 - markup.bold, start: (9, 25), end: (9, 26), text: `*`
+pattern: 119, capture: 29 - text, start: (9, 27), end: (9, 30), text: `and`
+pattern: 119, capture: 29 - text, start: (9, 31), end: (9, 43), text: `_constrained`
+pattern: 119, capture: 29 - text, start: (9, 44), end: (9, 51), text: `italic_`
+pattern: 119, capture: 29 - text, start: (9, 52), end: (9, 63), text: `formatting.`
+pattern: 117, capture: 29 - text, start: (11, 0), end: (12, 0), text: `Use `constrained monospace` for code within sentences.
 
-pattern: 125, capture: 30 - text, start: (10, 0), end: (10, 4), text: `This`
-pattern: 125, capture: 30 - text, start: (10, 4), end: (10, 7), text: ` is`
-pattern: 124, capture: 30 - text, start: (10, 7), end: (10, 26), text: ` *constrained bold*`
-pattern: 8, capture: 13 - markup.bold, start: (10, 7), end: (10, 26), text: ` *constrained bold*`
-pattern: 9, capture: 13 - markup.bold, start: (10, 7), end: (10, 9), text: ` *`
-pattern: 11, capture: 13 - markup.bold, start: (10, 9), end: (10, 25), text: `constrained bold`
-pattern: 10, capture: 13 - markup.bold, start: (10, 25), end: (10, 26), text: `*`
-pattern: 125, capture: 30 - text, start: (10, 26), end: (10, 30), text: ` and`
-pattern: 124, capture: 30 - text, start: (10, 30), end: (10, 51), text: ` _constrained italic_`
-pattern: 12, capture: 14 - markup.italic, start: (10, 30), end: (10, 51), text: ` _constrained italic_`
-pattern: 13, capture: 14 - markup.italic, start: (10, 30), end: (10, 32), text: ` _`
-pattern: 15, capture: 14 - markup.italic, start: (10, 32), end: (10, 50), text: `constrained italic`
-pattern: 14, capture: 14 - markup.italic, start: (10, 50), end: (10, 51), text: `_`
-pattern: 125, capture: 30 - text, start: (10, 51), end: (10, 63), text: ` formatting.`
-pattern: 123, capture: 30 - text, start: (12, 0), end: (13, 0), text: `Use `constrained monospace` for code within sentences.
+pattern: 119, capture: 29 - text, start: (11, 0), end: (11, 3), text: `Use`
+pattern: 118, capture: 29 - text, start: (11, 4), end: (11, 27), text: ``constrained monospace``
+pattern: 16, capture: 15 - markup.raw, start: (11, 4), end: (11, 27), text: ``constrained monospace``
+pattern: 17, capture: 15 - markup.raw, start: (11, 4), end: (11, 5), text: ```
+pattern: 19, capture: 15 - markup.raw, start: (11, 5), end: (11, 26), text: `constrained monospace`
+pattern: 18, capture: 15 - markup.raw, start: (11, 26), end: (11, 27), text: ```
+pattern: 119, capture: 29 - text, start: (11, 28), end: (11, 31), text: `for`
+pattern: 119, capture: 29 - text, start: (11, 32), end: (11, 36), text: `code`
+pattern: 119, capture: 29 - text, start: (11, 37), end: (11, 43), text: `within`
+pattern: 119, capture: 29 - text, start: (11, 44), end: (11, 54), text: `sentences.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (13, 0), end: (13, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (13, 3), end: (13, 27), text: `Unconstrained Formatting`
+pattern: 7, capture: 0 - markup.heading, start: (13, 3), end: (13, 27), text: `Unconstrained Formatting`
+pattern: 117, capture: 29 - text, start: (15, 0), end: (16, 0), text: `**Un**constrained bold works within words.
 
-pattern: 125, capture: 30 - text, start: (12, 0), end: (12, 3), text: `Use`
-pattern: 124, capture: 30 - text, start: (12, 3), end: (12, 27), text: ` `constrained monospace``
-pattern: 16, capture: 15 - markup.raw, start: (12, 3), end: (12, 27), text: ` `constrained monospace``
-pattern: 17, capture: 15 - markup.raw, start: (12, 3), end: (12, 5), text: ` ``
-pattern: 19, capture: 15 - markup.raw, start: (12, 5), end: (12, 26), text: `constrained monospace`
-pattern: 18, capture: 15 - markup.raw, start: (12, 26), end: (12, 27), text: ```
-pattern: 125, capture: 30 - text, start: (12, 27), end: (12, 31), text: ` for`
-pattern: 125, capture: 30 - text, start: (12, 31), end: (12, 36), text: ` code`
-pattern: 125, capture: 30 - text, start: (12, 36), end: (12, 43), text: ` within`
-pattern: 125, capture: 30 - text, start: (12, 43), end: (12, 54), text: ` sentences.`
-pattern: 2, capture: 3 - markup.heading.2.marker, start: (14, 0), end: (14, 3), text: `== `
-pattern: 2, capture: 4 - markup.heading.2, start: (14, 3), end: (14, 27), text: `Unconstrained Formatting`
-pattern: 7, capture: 0 - markup.heading, start: (14, 3), end: (14, 27), text: `Unconstrained Formatting`
-pattern: 123, capture: 30 - text, start: (16, 0), end: (17, 0), text: `**Un**constrained bold works within words.
+pattern: 118, capture: 29 - text, start: (15, 0), end: (15, 6), text: `**Un**`
+pattern: 8, capture: 13 - markup.bold, start: (15, 0), end: (15, 6), text: `**Un**`
+pattern: 9, capture: 13 - markup.bold, start: (15, 0), end: (15, 2), text: `**`
+pattern: 11, capture: 13 - markup.bold, start: (15, 2), end: (15, 4), text: `Un`
+pattern: 10, capture: 13 - markup.bold, start: (15, 4), end: (15, 6), text: `**`
+pattern: 119, capture: 29 - text, start: (15, 6), end: (15, 17), text: `constrained`
+pattern: 119, capture: 29 - text, start: (15, 18), end: (15, 22), text: `bold`
+pattern: 119, capture: 29 - text, start: (15, 23), end: (15, 28), text: `works`
+pattern: 119, capture: 29 - text, start: (15, 29), end: (15, 35), text: `within`
+pattern: 119, capture: 29 - text, start: (15, 36), end: (15, 42), text: `words.`
+pattern: 117, capture: 29 - text, start: (17, 0), end: (18, 0), text: `__Un__constrained italic also works within words.
 
-pattern: 124, capture: 30 - text, start: (16, 0), end: (16, 6), text: `**Un**`
-pattern: 8, capture: 13 - markup.bold, start: (16, 0), end: (16, 6), text: `**Un**`
-pattern: 9, capture: 13 - markup.bold, start: (16, 0), end: (16, 2), text: `**`
-pattern: 11, capture: 13 - markup.bold, start: (16, 2), end: (16, 4), text: `Un`
-pattern: 10, capture: 13 - markup.bold, start: (16, 4), end: (16, 6), text: `**`
-pattern: 125, capture: 30 - text, start: (16, 6), end: (16, 17), text: `constrained`
-pattern: 125, capture: 30 - text, start: (16, 17), end: (16, 22), text: ` bold`
-pattern: 125, capture: 30 - text, start: (16, 22), end: (16, 28), text: ` works`
-pattern: 125, capture: 30 - text, start: (16, 28), end: (16, 35), text: ` within`
-pattern: 125, capture: 30 - text, start: (16, 35), end: (16, 42), text: ` words.`
-pattern: 123, capture: 30 - text, start: (18, 0), end: (19, 0), text: `__Un__constrained italic also works within words.
+pattern: 119, capture: 29 - text, start: (17, 0), end: (17, 17), text: `__Un__constrained`
+pattern: 119, capture: 29 - text, start: (17, 18), end: (17, 24), text: `italic`
+pattern: 119, capture: 29 - text, start: (17, 25), end: (17, 29), text: `also`
+pattern: 119, capture: 29 - text, start: (17, 30), end: (17, 35), text: `works`
+pattern: 119, capture: 29 - text, start: (17, 36), end: (17, 42), text: `within`
+pattern: 119, capture: 29 - text, start: (17, 43), end: (17, 49), text: `words.`
+pattern: 117, capture: 29 - text, start: (19, 0), end: (20, 0), text: ```Un``constrained monospace within words too.
 
-pattern: 124, capture: 30 - text, start: (18, 0), end: (18, 6), text: `__Un__`
-pattern: 12, capture: 14 - markup.italic, start: (18, 0), end: (18, 6), text: `__Un__`
-pattern: 13, capture: 14 - markup.italic, start: (18, 0), end: (18, 2), text: `__`
-pattern: 15, capture: 14 - markup.italic, start: (18, 2), end: (18, 4), text: `Un`
-pattern: 14, capture: 14 - markup.italic, start: (18, 4), end: (18, 6), text: `__`
-pattern: 125, capture: 30 - text, start: (18, 6), end: (18, 17), text: `constrained`
-pattern: 125, capture: 30 - text, start: (18, 17), end: (18, 24), text: ` italic`
-pattern: 125, capture: 30 - text, start: (18, 24), end: (18, 29), text: ` also`
-pattern: 125, capture: 30 - text, start: (18, 29), end: (18, 35), text: ` works`
-pattern: 125, capture: 30 - text, start: (18, 35), end: (18, 42), text: ` within`
-pattern: 125, capture: 30 - text, start: (18, 42), end: (18, 49), text: ` words.`
-pattern: 123, capture: 30 - text, start: (20, 0), end: (21, 0), text: ```Un``constrained monospace within words too.
+pattern: 118, capture: 29 - text, start: (19, 0), end: (19, 6), text: ```Un```
+pattern: 16, capture: 15 - markup.raw, start: (19, 0), end: (19, 6), text: ```Un```
+pattern: 17, capture: 15 - markup.raw, start: (19, 0), end: (19, 2), text: ````
+pattern: 19, capture: 15 - markup.raw, start: (19, 2), end: (19, 4), text: `Un`
+pattern: 18, capture: 15 - markup.raw, start: (19, 4), end: (19, 6), text: ````
+pattern: 119, capture: 29 - text, start: (19, 6), end: (19, 17), text: `constrained`
+pattern: 119, capture: 29 - text, start: (19, 18), end: (19, 27), text: `monospace`
+pattern: 119, capture: 29 - text, start: (19, 28), end: (19, 34), text: `within`
+pattern: 119, capture: 29 - text, start: (19, 35), end: (19, 40), text: `words`
+pattern: 119, capture: 29 - text, start: (19, 41), end: (19, 45), text: `too.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (21, 0), end: (21, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (21, 3), end: (21, 21), text: `Complex Formatting`
+pattern: 7, capture: 0 - markup.heading, start: (21, 3), end: (21, 21), text: `Complex Formatting`
+pattern: 117, capture: 29 - text, start: (23, 0), end: (24, 0), text: `You can combine *_bold and italic_* text.
 
-pattern: 124, capture: 30 - text, start: (20, 1), end: (20, 5), text: ``Un``
-pattern: 16, capture: 15 - markup.raw, start: (20, 1), end: (20, 5), text: ``Un``
-pattern: 17, capture: 15 - markup.raw, start: (20, 1), end: (20, 2), text: ```
-pattern: 19, capture: 15 - markup.raw, start: (20, 2), end: (20, 4), text: `Un`
-pattern: 18, capture: 15 - markup.raw, start: (20, 4), end: (20, 5), text: ```
-pattern: 124, capture: 30 - text, start: (20, 5), end: (20, 45), text: ``constrained monospace within words too.`
-pattern: 16, capture: 15 - markup.raw, start: (20, 5), end: (20, 45), text: ``constrained monospace within words too.`
-pattern: 17, capture: 15 - markup.raw, start: (20, 5), end: (20, 6), text: ```
-pattern: 19, capture: 15 - markup.raw, start: (20, 6), end: (20, 45), text: `constrained monospace within words too.`
-pattern: 18, capture: 15 - markup.raw, start: (20, 45), end: (20, 45), text: ``
-pattern: 2, capture: 3 - markup.heading.2.marker, start: (22, 0), end: (22, 3), text: `== `
-pattern: 2, capture: 4 - markup.heading.2, start: (22, 3), end: (22, 21), text: `Complex Formatting`
-pattern: 7, capture: 0 - markup.heading, start: (22, 3), end: (22, 21), text: `Complex Formatting`
-pattern: 123, capture: 30 - text, start: (24, 0), end: (25, 0), text: `You can combine *_bold and italic_* text.
+pattern: 119, capture: 29 - text, start: (23, 0), end: (23, 3), text: `You`
+pattern: 119, capture: 29 - text, start: (23, 4), end: (23, 7), text: `can`
+pattern: 119, capture: 29 - text, start: (23, 8), end: (23, 15), text: `combine`
+pattern: 118, capture: 29 - text, start: (23, 16), end: (23, 35), text: `*_bold and italic_*`
+pattern: 8, capture: 13 - markup.bold, start: (23, 16), end: (23, 35), text: `*_bold and italic_*`
+pattern: 9, capture: 13 - markup.bold, start: (23, 16), end: (23, 17), text: `*`
+pattern: 11, capture: 13 - markup.bold, start: (23, 17), end: (23, 34), text: `_bold and italic_`
+pattern: 10, capture: 13 - markup.bold, start: (23, 34), end: (23, 35), text: `*`
+pattern: 119, capture: 29 - text, start: (23, 36), end: (23, 41), text: `text.`
+pattern: 117, capture: 29 - text, start: (25, 0), end: (26, 0), text: `Or use `*monospace and bold*` combinations.
 
-pattern: 125, capture: 30 - text, start: (24, 0), end: (24, 3), text: `You`
-pattern: 125, capture: 30 - text, start: (24, 3), end: (24, 7), text: ` can`
-pattern: 125, capture: 30 - text, start: (24, 7), end: (24, 15), text: ` combine`
-pattern: 124, capture: 30 - text, start: (24, 15), end: (24, 35), text: ` *_bold and italic_*`
-pattern: 8, capture: 13 - markup.bold, start: (24, 15), end: (24, 35), text: ` *_bold and italic_*`
-pattern: 9, capture: 13 - markup.bold, start: (24, 15), end: (24, 17), text: ` *`
-pattern: 11, capture: 13 - markup.bold, start: (24, 17), end: (24, 34), text: `_bold and italic_`
-pattern: 10, capture: 13 - markup.bold, start: (24, 34), end: (24, 35), text: `*`
-pattern: 125, capture: 30 - text, start: (24, 35), end: (24, 41), text: ` text.`
-pattern: 123, capture: 30 - text, start: (26, 0), end: (27, 0), text: `Or use `*monospace and bold*` combinations.
+pattern: 119, capture: 29 - text, start: (25, 0), end: (25, 2), text: `Or`
+pattern: 119, capture: 29 - text, start: (25, 3), end: (25, 6), text: `use`
+pattern: 118, capture: 29 - text, start: (25, 7), end: (25, 29), text: ``*monospace and bold*``
+pattern: 16, capture: 15 - markup.raw, start: (25, 7), end: (25, 29), text: ``*monospace and bold*``
+pattern: 17, capture: 15 - markup.raw, start: (25, 7), end: (25, 8), text: ```
+pattern: 19, capture: 15 - markup.raw, start: (25, 8), end: (25, 28), text: `*monospace and bold*`
+pattern: 18, capture: 15 - markup.raw, start: (25, 28), end: (25, 29), text: ```
+pattern: 119, capture: 29 - text, start: (25, 30), end: (25, 43), text: `combinations.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (27, 0), end: (27, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (27, 3), end: (27, 19), text: `Passthrough Text`
+pattern: 7, capture: 0 - markup.heading, start: (27, 3), end: (27, 19), text: `Passthrough Text`
+pattern: 117, capture: 29 - text, start: (29, 0), end: (32, 0), text: `Use +++<strong>raw HTML</strong>+++ for direct markup.
 
-pattern: 125, capture: 30 - text, start: (26, 0), end: (26, 2), text: `Or`
-pattern: 125, capture: 30 - text, start: (26, 2), end: (26, 6), text: ` use`
-pattern: 124, capture: 30 - text, start: (26, 6), end: (26, 29), text: ` `*monospace and bold*``
-pattern: 16, capture: 15 - markup.raw, start: (26, 6), end: (26, 29), text: ` `*monospace and bold*``
-pattern: 17, capture: 15 - markup.raw, start: (26, 6), end: (26, 8), text: ` ``
-pattern: 19, capture: 15 - markup.raw, start: (26, 8), end: (26, 28), text: `*monospace and bold*`
-pattern: 18, capture: 15 - markup.raw, start: (26, 28), end: (26, 29), text: ```
-pattern: 125, capture: 30 - text, start: (26, 29), end: (26, 43), text: ` combinations.`
-pattern: 2, capture: 3 - markup.heading.2.marker, start: (28, 0), end: (28, 3), text: `== `
-pattern: 2, capture: 4 - markup.heading.2, start: (28, 3), end: (28, 19), text: `Passthrough Text`
-pattern: 7, capture: 0 - markup.heading, start: (28, 3), end: (28, 19), text: `Passthrough Text`
-pattern: 123, capture: 30 - text, start: (30, 0), end: (31, 0), text: `Use +++<strong>raw HTML</strong>+++ for direct markup.
+The pass:[<em>pass macro</em>] allows selective processing.
 
-pattern: 125, capture: 30 - text, start: (30, 0), end: (30, 3), text: `Use`
-pattern: 124, capture: 30 - text, start: (30, 3), end: (30, 35), text: ` +++<strong>raw HTML</strong>+++`
-pattern: 106, capture: 39 - markup.raw.inline, start: (30, 3), end: (30, 35), text: ` +++<strong>raw HTML</strong>+++`
-pattern: 125, capture: 30 - text, start: (30, 35), end: (30, 39), text: ` for`
-pattern: 125, capture: 30 - text, start: (30, 39), end: (30, 46), text: ` direct`
-pattern: 125, capture: 30 - text, start: (30, 46), end: (30, 54), text: ` markup.`
-pattern: 123, capture: 30 - text, start: (32, 0), end: (33, 0), text: `The pass:[<em>pass macro</em>] allows selective processing.
+pattern: 119, capture: 29 - text, start: (29, 0), end: (29, 3), text: `Use`
+pattern: 119, capture: 29 - text, start: (29, 4), end: (29, 7), text: `+++`
+pattern: 94, capture: 33 - comment, start: (29, 7), end: (30, 0), text: `<strong>raw HTML</strong>+++ for direct markup.
 
-pattern: 125, capture: 30 - text, start: (32, 0), end: (32, 3), text: `The`
-pattern: 124, capture: 30 - text, start: (32, 3), end: (32, 30), text: ` pass:[<em>pass macro</em>]`
-pattern: 107, capture: 40 - function.macro, start: (32, 3), end: (32, 30), text: ` pass:[<em>pass macro</em>]`
-pattern: 125, capture: 30 - text, start: (32, 30), end: (32, 37), text: ` allows`
-pattern: 125, capture: 30 - text, start: (32, 37), end: (32, 47), text: ` selective`
-pattern: 125, capture: 30 - text, start: (32, 47), end: (32, 59), text: ` processing.`
-pattern: 2, capture: 3 - markup.heading.2.marker, start: (34, 0), end: (34, 3), text: `== `
-pattern: 2, capture: 4 - markup.heading.2, start: (34, 3), end: (34, 21), text: `Special Characters`
-pattern: 7, capture: 0 - markup.heading, start: (34, 3), end: (34, 21), text: `Special Characters`
-pattern: 123, capture: 30 - text, start: (36, 0), end: (37, 0), text: `Text with \*escaped asterisks\* and \_escaped underscores\_.
+pattern: 119, capture: 29 - text, start: (31, 0), end: (31, 3), text: `The`
+pattern: 118, capture: 29 - text, start: (31, 4), end: (31, 30), text: `pass:[<em>pass macro</em>]`
+pattern: 119, capture: 29 - text, start: (31, 31), end: (31, 37), text: `allows`
+pattern: 119, capture: 29 - text, start: (31, 38), end: (31, 47), text: `selective`
+pattern: 119, capture: 29 - text, start: (31, 48), end: (31, 59), text: `processing.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (33, 0), end: (33, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (33, 3), end: (33, 21), text: `Special Characters`
+pattern: 7, capture: 0 - markup.heading, start: (33, 3), end: (33, 21), text: `Special Characters`
+pattern: 117, capture: 29 - text, start: (35, 0), end: (36, 0), text: `Text with \*escaped asterisks\* and \_escaped underscores\_.
 
-pattern: 125, capture: 30 - text, start: (36, 0), end: (36, 4), text: `Text`
-pattern: 125, capture: 30 - text, start: (36, 4), end: (36, 9), text: ` with`
-pattern: 125, capture: 30 - text, start: (36, 9), end: (36, 11), text: ` \`
-pattern: 124, capture: 30 - text, start: (36, 11), end: (36, 31), text: `*escaped asterisks\*`
-pattern: 8, capture: 13 - markup.bold, start: (36, 11), end: (36, 31), text: `*escaped asterisks\*`
-pattern: 9, capture: 13 - markup.bold, start: (36, 11), end: (36, 12), text: `*`
-pattern: 11, capture: 13 - markup.bold, start: (36, 12), end: (36, 30), text: `escaped asterisks\`
-pattern: 10, capture: 13 - markup.bold, start: (36, 30), end: (36, 31), text: `*`
-pattern: 125, capture: 30 - text, start: (36, 31), end: (36, 35), text: ` and`
-pattern: 125, capture: 30 - text, start: (36, 35), end: (36, 37), text: ` \`
-pattern: 124, capture: 30 - text, start: (36, 37), end: (36, 59), text: `_escaped underscores\_`
-pattern: 12, capture: 14 - markup.italic, start: (36, 37), end: (36, 59), text: `_escaped underscores\_`
-pattern: 13, capture: 14 - markup.italic, start: (36, 37), end: (36, 38), text: `_`
-pattern: 15, capture: 14 - markup.italic, start: (36, 38), end: (36, 58), text: `escaped underscores\`
-pattern: 14, capture: 14 - markup.italic, start: (36, 58), end: (36, 59), text: `_`
-pattern: 127, capture: 32 - punctuation, start: (36, 59), end: (36, 60), text: `.`
-pattern: 123, capture: 30 - text, start: (38, 0), end: (39, 0), text: `Regular punctuation: Hello, world! How are you?
+pattern: 119, capture: 29 - text, start: (35, 0), end: (35, 4), text: `Text`
+pattern: 119, capture: 29 - text, start: (35, 5), end: (35, 9), text: `with`
+pattern: 119, capture: 29 - text, start: (35, 12), end: (35, 19), text: `escaped`
+pattern: 119, capture: 29 - text, start: (35, 20), end: (35, 29), text: `asterisks`
+pattern: 119, capture: 29 - text, start: (35, 32), end: (35, 35), text: `and`
+pattern: 119, capture: 29 - text, start: (35, 38), end: (35, 45), text: `escaped`
+pattern: 119, capture: 29 - text, start: (35, 46), end: (35, 57), text: `underscores`
+pattern: 119, capture: 29 - text, start: (35, 59), end: (35, 60), text: `.`
+pattern: 117, capture: 29 - text, start: (37, 0), end: (38, 0), text: `Regular punctuation: Hello, world! How are you?
 
-pattern: 125, capture: 30 - text, start: (38, 0), end: (38, 7), text: `Regular`
-pattern: 125, capture: 30 - text, start: (38, 7), end: (38, 19), text: ` punctuation`
-pattern: 128, capture: 32 - punctuation, start: (38, 19), end: (38, 20), text: `:`
-pattern: 125, capture: 30 - text, start: (38, 20), end: (38, 27), text: ` Hello,`
-pattern: 125, capture: 30 - text, start: (38, 27), end: (38, 34), text: ` world!`
-pattern: 125, capture: 30 - text, start: (38, 34), end: (38, 38), text: ` How`
-pattern: 125, capture: 30 - text, start: (38, 38), end: (38, 42), text: ` are`
-pattern: 125, capture: 30 - text, start: (38, 42), end: (38, 47), text: ` you?`
-pattern: 2, capture: 3 - markup.heading.2.marker, start: (40, 0), end: (40, 3), text: `== `
-pattern: 2, capture: 4 - markup.heading.2, start: (40, 3), end: (40, 16), text: `Mixed Content`
-pattern: 7, capture: 0 - markup.heading, start: (40, 3), end: (40, 16), text: `Mixed Content`
-pattern: 123, capture: 30 - text, start: (42, 0), end: (43, 0), text: `This paragraph contains *bold*, _italic_, `monospace`,
+pattern: 119, capture: 29 - text, start: (37, 0), end: (37, 7), text: `Regular`
+pattern: 119, capture: 29 - text, start: (37, 8), end: (37, 19), text: `punctuation`
+pattern: 119, capture: 29 - text, start: (37, 21), end: (37, 27), text: `Hello,`
+pattern: 119, capture: 29 - text, start: (37, 28), end: (37, 34), text: `world!`
+pattern: 119, capture: 29 - text, start: (37, 35), end: (37, 38), text: `How`
+pattern: 119, capture: 29 - text, start: (37, 39), end: (37, 42), text: `are`
+pattern: 119, capture: 29 - text, start: (37, 43), end: (37, 47), text: `you?`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (39, 0), end: (39, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (39, 3), end: (39, 16), text: `Mixed Content`
+pattern: 7, capture: 0 - markup.heading, start: (39, 3), end: (39, 16), text: `Mixed Content`
+pattern: 117, capture: 29 - text, start: (41, 0), end: (46, 0), text: `This paragraph contains *bold*, _italic_, `monospace`,
+^superscript^, ~subscript~, and +++<u>passthrough</u>+++ text.
 
-pattern: 125, capture: 30 - text, start: (42, 0), end: (42, 4), text: `This`
-pattern: 125, capture: 30 - text, start: (42, 4), end: (42, 14), text: ` paragraph`
-pattern: 125, capture: 30 - text, start: (42, 14), end: (42, 23), text: ` contains`
-pattern: 124, capture: 30 - text, start: (42, 23), end: (42, 30), text: ` *bold*`
-pattern: 8, capture: 13 - markup.bold, start: (42, 23), end: (42, 30), text: ` *bold*`
-pattern: 9, capture: 13 - markup.bold, start: (42, 23), end: (42, 25), text: ` *`
-pattern: 11, capture: 13 - markup.bold, start: (42, 25), end: (42, 29), text: `bold`
-pattern: 10, capture: 13 - markup.bold, start: (42, 29), end: (42, 30), text: `*`
-pattern: 125, capture: 30 - text, start: (42, 30), end: (42, 31), text: `,`
-pattern: 124, capture: 30 - text, start: (42, 31), end: (42, 40), text: ` _italic_`
-pattern: 12, capture: 14 - markup.italic, start: (42, 31), end: (42, 40), text: ` _italic_`
-pattern: 13, capture: 14 - markup.italic, start: (42, 31), end: (42, 33), text: ` _`
-pattern: 15, capture: 14 - markup.italic, start: (42, 33), end: (42, 39), text: `italic`
-pattern: 14, capture: 14 - markup.italic, start: (42, 39), end: (42, 40), text: `_`
-pattern: 125, capture: 30 - text, start: (42, 40), end: (42, 41), text: `,`
-pattern: 124, capture: 30 - text, start: (42, 41), end: (42, 53), text: ` `monospace``
-pattern: 16, capture: 15 - markup.raw, start: (42, 41), end: (42, 53), text: ` `monospace``
-pattern: 17, capture: 15 - markup.raw, start: (42, 41), end: (42, 43), text: ` ``
-pattern: 19, capture: 15 - markup.raw, start: (42, 43), end: (42, 52), text: `monospace`
-pattern: 18, capture: 15 - markup.raw, start: (42, 52), end: (42, 53), text: ```
-pattern: 125, capture: 30 - text, start: (42, 53), end: (42, 54), text: `,`
-pattern: 123, capture: 30 - text, start: (43, 0), end: (44, 0), text: `^superscript^, ~subscript~, and +++<u>passthrough</u>+++ text.
+You can also have https://example.com[links] and
+footnote:[This is a footnote] references.
 
-pattern: 124, capture: 30 - text, start: (43, 0), end: (43, 13), text: `^superscript^`
-pattern: 20, capture: 16 - markup.underline, start: (43, 0), end: (43, 13), text: `^superscript^`
-pattern: 21, capture: 16 - markup.underline, start: (43, 0), end: (43, 1), text: `^`
-pattern: 23, capture: 16 - markup.underline, start: (43, 1), end: (43, 12), text: `superscript`
-pattern: 22, capture: 16 - markup.underline, start: (43, 12), end: (43, 13), text: `^`
-pattern: 125, capture: 30 - text, start: (43, 13), end: (43, 14), text: `,`
-pattern: 124, capture: 30 - text, start: (43, 14), end: (43, 26), text: ` ~subscript~`
-pattern: 24, capture: 16 - markup.underline, start: (43, 14), end: (43, 26), text: ` ~subscript~`
-pattern: 25, capture: 16 - markup.underline, start: (43, 14), end: (43, 16), text: ` ~`
-pattern: 27, capture: 16 - markup.underline, start: (43, 16), end: (43, 25), text: `subscript`
-pattern: 26, capture: 16 - markup.underline, start: (43, 25), end: (43, 26), text: `~`
-pattern: 125, capture: 30 - text, start: (43, 26), end: (43, 27), text: `,`
-pattern: 125, capture: 30 - text, start: (43, 27), end: (43, 31), text: ` and`
-pattern: 124, capture: 30 - text, start: (43, 31), end: (43, 56), text: ` +++<u>passthrough</u>+++`
-pattern: 106, capture: 39 - markup.raw.inline, start: (43, 31), end: (43, 56), text: ` +++<u>passthrough</u>+++`
-pattern: 125, capture: 30 - text, start: (43, 56), end: (43, 62), text: ` text.`
-pattern: 123, capture: 30 - text, start: (45, 0), end: (46, 0), text: `You can also have https://example.com[links] and
+pattern: 119, capture: 29 - text, start: (41, 0), end: (41, 4), text: `This`
+pattern: 119, capture: 29 - text, start: (41, 5), end: (41, 14), text: `paragraph`
+pattern: 119, capture: 29 - text, start: (41, 15), end: (41, 23), text: `contains`
+pattern: 118, capture: 29 - text, start: (41, 24), end: (41, 30), text: `*bold*`
+pattern: 8, capture: 13 - markup.bold, start: (41, 24), end: (41, 30), text: `*bold*`
+pattern: 9, capture: 13 - markup.bold, start: (41, 24), end: (41, 25), text: `*`
+pattern: 11, capture: 13 - markup.bold, start: (41, 25), end: (41, 29), text: `bold`
+pattern: 10, capture: 13 - markup.bold, start: (41, 29), end: (41, 30), text: `*`
+pattern: 119, capture: 29 - text, start: (41, 30), end: (41, 31), text: `,`
+pattern: 119, capture: 29 - text, start: (41, 32), end: (41, 41), text: `_italic_,`
+pattern: 118, capture: 29 - text, start: (41, 42), end: (41, 53), text: ``monospace``
+pattern: 16, capture: 15 - markup.raw, start: (41, 42), end: (41, 53), text: ``monospace``
+pattern: 17, capture: 15 - markup.raw, start: (41, 42), end: (41, 43), text: ```
+pattern: 19, capture: 15 - markup.raw, start: (41, 43), end: (41, 52), text: `monospace`
+pattern: 18, capture: 15 - markup.raw, start: (41, 52), end: (41, 53), text: ```
+pattern: 119, capture: 29 - text, start: (41, 53), end: (41, 54), text: `,`
+pattern: 119, capture: 29 - text, start: (42, 0), end: (42, 14), text: `^superscript^,`
+pattern: 118, capture: 29 - text, start: (42, 15), end: (42, 26), text: `~subscript~`
+pattern: 24, capture: 16 - markup.underline, start: (42, 15), end: (42, 26), text: `~subscript~`
+pattern: 25, capture: 16 - markup.underline, start: (42, 15), end: (42, 16), text: `~`
+pattern: 27, capture: 16 - markup.underline, start: (42, 16), end: (42, 25), text: `subscript`
+pattern: 26, capture: 16 - markup.underline, start: (42, 25), end: (42, 26), text: `~`
+pattern: 119, capture: 29 - text, start: (42, 26), end: (42, 27), text: `,`
+pattern: 119, capture: 29 - text, start: (42, 28), end: (42, 31), text: `and`
+pattern: 119, capture: 29 - text, start: (42, 32), end: (42, 35), text: `+++`
+pattern: 94, capture: 33 - comment, start: (42, 35), end: (43, 0), text: `<u>passthrough</u>+++ text.
 
-pattern: 125, capture: 30 - text, start: (45, 0), end: (45, 3), text: `You`
-pattern: 125, capture: 30 - text, start: (45, 3), end: (45, 7), text: ` can`
-pattern: 125, capture: 30 - text, start: (45, 7), end: (45, 12), text: ` also`
-pattern: 125, capture: 30 - text, start: (45, 12), end: (45, 17), text: ` have`
-pattern: 124, capture: 30 - text, start: (45, 17), end: (45, 44), text: ` https://example.com[links]`
-pattern: 29, capture: 18 - markup.link, start: (45, 17), end: (45, 44), text: ` https://example.com[links]`
-pattern: 28, capture: 17 - markup.link.url, start: (45, 17), end: (45, 37), text: ` https://example.com`
-pattern: 31, capture: 19 - markup.link.text, start: (45, 38), end: (45, 43), text: `links`
-pattern: 125, capture: 30 - text, start: (45, 44), end: (45, 48), text: ` and`
-pattern: 123, capture: 30 - text, start: (46, 0), end: (47, 0), text: `footnote:[This is a footnote] references.
+pattern: 119, capture: 29 - text, start: (44, 0), end: (44, 3), text: `You`
+pattern: 119, capture: 29 - text, start: (44, 4), end: (44, 7), text: `can`
+pattern: 119, capture: 29 - text, start: (44, 8), end: (44, 12), text: `also`
+pattern: 119, capture: 29 - text, start: (44, 13), end: (44, 17), text: `have`
+pattern: 118, capture: 29 - text, start: (44, 18), end: (44, 44), text: `https://example.com[links]`
+pattern: 29, capture: 18 - markup.link, start: (44, 18), end: (44, 44), text: `https://example.com[links]`
+pattern: 28, capture: 17 - markup.link.url, start: (44, 18), end: (44, 37), text: `https://example.com`
+pattern: 31, capture: 19 - markup.link.text, start: (44, 38), end: (44, 43), text: `links`
+pattern: 119, capture: 29 - text, start: (44, 45), end: (44, 48), text: `and`
+pattern: 118, capture: 29 - text, start: (45, 0), end: (45, 29), text: `footnote:[This is a footnote]`
+pattern: 100, capture: 18 - markup.link, start: (45, 0), end: (45, 29), text: `footnote:[This is a footnote]`
+pattern: 119, capture: 29 - text, start: (45, 30), end: (45, 41), text: `references.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (47, 0), end: (47, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (47, 3), end: (47, 13), text: `Role Spans`
+pattern: 7, capture: 0 - markup.heading, start: (47, 3), end: (47, 13), text: `Role Spans`
+pattern: 117, capture: 29 - text, start: (49, 0), end: (50, 0), text: `[.highlight]#This text has a highlight role#
 
-pattern: 124, capture: 30 - text, start: (46, 0), end: (46, 29), text: `footnote:[This is a footnote]`
-pattern: 102, capture: 18 - markup.link, start: (46, 0), end: (46, 29), text: `footnote:[This is a footnote]`
-pattern: 125, capture: 30 - text, start: (46, 29), end: (46, 41), text: ` references.`
-pattern: 2, capture: 3 - markup.heading.2.marker, start: (48, 0), end: (48, 3), text: `== `
-pattern: 2, capture: 4 - markup.heading.2, start: (48, 3), end: (48, 13), text: `Role Spans`
-pattern: 7, capture: 0 - markup.heading, start: (48, 3), end: (48, 13), text: `Role Spans`
-pattern: 123, capture: 30 - text, start: (50, 0), end: (51, 0), text: `[.highlight]#This text has a highlight role#
+pattern: 118, capture: 29 - text, start: (49, 0), end: (49, 44), text: `[.highlight]#This text has a highlight role#`
+pattern: 124, capture: 25 - markup.quote, start: (49, 0), end: (49, 44), text: `[.highlight]#This text has a highlight role#`
+pattern: 125, capture: 21 - attribute, start: (49, 1), end: (49, 11), text: `.highlight`
+pattern: 126, capture: 25 - markup.quote, start: (49, 13), end: (49, 43), text: `This text has a highlight role`
+pattern: 117, capture: 29 - text, start: (51, 0), end: (52, 0), text: `[.big.red]#Multiple roles applied#
 
-pattern: 124, capture: 30 - text, start: (50, 0), end: (50, 44), text: `[.highlight]#This text has a highlight role#`
-pattern: 139, capture: 26 - markup.quote, start: (50, 0), end: (50, 44), text: `[.highlight]#This text has a highlight role#`
-pattern: 140, capture: 21 - attribute, start: (50, 1), end: (50, 11), text: `.highlight`
-pattern: 141, capture: 26 - markup.quote, start: (50, 13), end: (50, 43), text: `This text has a highlight role`
-pattern: 123, capture: 30 - text, start: (52, 0), end: (53, 0), text: `[.big.red]#Multiple roles applied#
+pattern: 118, capture: 29 - text, start: (51, 0), end: (51, 34), text: `[.big.red]#Multiple roles applied#`
+pattern: 124, capture: 25 - markup.quote, start: (51, 0), end: (51, 34), text: `[.big.red]#Multiple roles applied#`
+pattern: 125, capture: 21 - attribute, start: (51, 1), end: (51, 9), text: `.big.red`
+pattern: 126, capture: 25 - markup.quote, start: (51, 11), end: (51, 33), text: `Multiple roles applied`
+pattern: 117, capture: 29 - text, start: (53, 0), end: (54, 0), text: `Normal text with [.underline]#inline role# applied.
 
-pattern: 124, capture: 30 - text, start: (52, 0), end: (52, 34), text: `[.big.red]#Multiple roles applied#`
-pattern: 139, capture: 26 - markup.quote, start: (52, 0), end: (52, 34), text: `[.big.red]#Multiple roles applied#`
-pattern: 140, capture: 21 - attribute, start: (52, 1), end: (52, 9), text: `.big.red`
-pattern: 141, capture: 26 - markup.quote, start: (52, 11), end: (52, 33), text: `Multiple roles applied`
-pattern: 123, capture: 30 - text, start: (54, 0), end: (55, 0), text: `Normal text with [.underline]#inline role# applied.
-
-pattern: 125, capture: 30 - text, start: (54, 0), end: (54, 6), text: `Normal`
-pattern: 125, capture: 30 - text, start: (54, 6), end: (54, 11), text: ` text`
-pattern: 125, capture: 30 - text, start: (54, 11), end: (54, 16), text: ` with`
-pattern: 124, capture: 30 - text, start: (54, 16), end: (54, 42), text: ` [.underline]#inline role#`
-pattern: 139, capture: 26 - markup.quote, start: (54, 16), end: (54, 42), text: ` [.underline]#inline role#`
-pattern: 140, capture: 21 - attribute, start: (54, 18), end: (54, 28), text: `.underline`
-pattern: 141, capture: 26 - markup.quote, start: (54, 30), end: (54, 41), text: `inline role`
-pattern: 125, capture: 30 - text, start: (54, 42), end: (54, 51), text: ` applied.`
-pattern: 2, capture: 3 - markup.heading.2.marker, start: (56, 0), end: (56, 3), text: `== `
-pattern: 2, capture: 4 - markup.heading.2, start: (56, 3), end: (56, 14), text: `Line Breaks`
-pattern: 7, capture: 0 - markup.heading, start: (56, 3), end: (56, 14), text: `Line Breaks`
-pattern: 123, capture: 30 - text, start: (58, 0), end: (60, 0), text: `This line has a forced +
+pattern: 119, capture: 29 - text, start: (53, 0), end: (53, 6), text: `Normal`
+pattern: 119, capture: 29 - text, start: (53, 7), end: (53, 11), text: `text`
+pattern: 119, capture: 29 - text, start: (53, 12), end: (53, 16), text: `with`
+pattern: 118, capture: 29 - text, start: (53, 17), end: (53, 42), text: `[.underline]#inline role#`
+pattern: 124, capture: 25 - markup.quote, start: (53, 17), end: (53, 42), text: `[.underline]#inline role#`
+pattern: 125, capture: 21 - attribute, start: (53, 18), end: (53, 28), text: `.underline`
+pattern: 126, capture: 25 - markup.quote, start: (53, 30), end: (53, 41), text: `inline role`
+pattern: 119, capture: 29 - text, start: (53, 43), end: (53, 51), text: `applied.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (55, 0), end: (55, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (55, 3), end: (55, 14), text: `Line Breaks`
+pattern: 7, capture: 0 - markup.heading, start: (55, 3), end: (55, 14), text: `Line Breaks`
+pattern: 117, capture: 29 - text, start: (57, 0), end: (59, 0), text: `This line has a forced +
 line break here.
 
-pattern: 125, capture: 30 - text, start: (58, 0), end: (58, 4), text: `This`
-pattern: 125, capture: 30 - text, start: (58, 4), end: (58, 9), text: ` line`
-pattern: 125, capture: 30 - text, start: (58, 9), end: (58, 13), text: ` has`
-pattern: 125, capture: 30 - text, start: (58, 13), end: (58, 15), text: ` a`
-pattern: 125, capture: 30 - text, start: (58, 15), end: (58, 22), text: ` forced`
-pattern: 124, capture: 30 - text, start: (58, 22), end: (59, 0), text: ` +
+pattern: 119, capture: 29 - text, start: (57, 0), end: (57, 4), text: `This`
+pattern: 119, capture: 29 - text, start: (57, 5), end: (57, 9), text: `line`
+pattern: 119, capture: 29 - text, start: (57, 10), end: (57, 13), text: `has`
+pattern: 119, capture: 29 - text, start: (57, 14), end: (57, 15), text: `a`
+pattern: 119, capture: 29 - text, start: (57, 16), end: (57, 22), text: `forced`
+pattern: 118, capture: 29 - text, start: (57, 22), end: (58, 0), text: ` +
 
-pattern: 154, capture: 25 - punctuation.special, start: (58, 22), end: (59, 0), text: ` +
+pattern: 138, capture: 24 - punctuation.special, start: (57, 22), end: (58, 0), text: ` +
 
-pattern: 125, capture: 30 - text, start: (59, 0), end: (59, 4), text: `line`
-pattern: 125, capture: 30 - text, start: (59, 4), end: (59, 10), text: ` break`
-pattern: 125, capture: 30 - text, start: (59, 10), end: (59, 16), text: ` here.`
-pattern: 123, capture: 30 - text, start: (61, 0), end: (63, 0), text: `Another line +
+pattern: 119, capture: 29 - text, start: (58, 0), end: (58, 4), text: `line`
+pattern: 119, capture: 29 - text, start: (58, 5), end: (58, 10), text: `break`
+pattern: 119, capture: 29 - text, start: (58, 11), end: (58, 16), text: `here.`
+pattern: 117, capture: 29 - text, start: (60, 0), end: (62, 0), text: `Another line +
 with another break.
 
-pattern: 125, capture: 30 - text, start: (61, 0), end: (61, 7), text: `Another`
-pattern: 125, capture: 30 - text, start: (61, 7), end: (61, 12), text: ` line`
-pattern: 124, capture: 30 - text, start: (61, 12), end: (62, 0), text: ` +
+pattern: 119, capture: 29 - text, start: (60, 0), end: (60, 7), text: `Another`
+pattern: 119, capture: 29 - text, start: (60, 8), end: (60, 12), text: `line`
+pattern: 118, capture: 29 - text, start: (60, 12), end: (61, 0), text: ` +
 
-pattern: 154, capture: 25 - punctuation.special, start: (61, 12), end: (62, 0), text: ` +
+pattern: 138, capture: 24 - punctuation.special, start: (60, 12), end: (61, 0), text: ` +
 
-pattern: 125, capture: 30 - text, start: (62, 0), end: (62, 4), text: `with`
-pattern: 125, capture: 30 - text, start: (62, 4), end: (62, 12), text: ` another`
-pattern: 125, capture: 30 - text, start: (62, 12), end: (62, 19), text: ` break.`
-pattern: 2, capture: 3 - markup.heading.2.marker, start: (64, 0), end: (64, 3), text: `== `
-pattern: 2, capture: 4 - markup.heading.2, start: (64, 3), end: (64, 25), text: `Quotes and Attribution`
-pattern: 7, capture: 0 - markup.heading, start: (64, 3), end: (64, 25), text: `Quotes and Attribution`
-pattern: 123, capture: 30 - text, start: (66, 0), end: (67, 0), text: `"This is a quoted phrase."
+pattern: 119, capture: 29 - text, start: (61, 0), end: (61, 4), text: `with`
+pattern: 119, capture: 29 - text, start: (61, 5), end: (61, 12), text: `another`
+pattern: 119, capture: 29 - text, start: (61, 13), end: (61, 19), text: `break.`
+pattern: 2, capture: 3 - markup.heading.2.marker, start: (63, 0), end: (63, 3), text: `== `
+pattern: 2, capture: 4 - markup.heading.2, start: (63, 3), end: (63, 25), text: `Quotes and Attribution`
+pattern: 7, capture: 0 - markup.heading, start: (63, 3), end: (63, 25), text: `Quotes and Attribution`
+pattern: 117, capture: 29 - text, start: (65, 0), end: (66, 0), text: `"This is a quoted phrase."
 
-pattern: 125, capture: 30 - text, start: (66, 0), end: (66, 5), text: `"This`
-pattern: 125, capture: 30 - text, start: (66, 5), end: (66, 8), text: ` is`
-pattern: 125, capture: 30 - text, start: (66, 8), end: (66, 10), text: ` a`
-pattern: 125, capture: 30 - text, start: (66, 10), end: (66, 17), text: ` quoted`
-pattern: 125, capture: 30 - text, start: (66, 17), end: (66, 26), text: ` phrase."`
-pattern: 123, capture: 30 - text, start: (68, 0), end: (69, 0), text: `'Single quoted text.'
+pattern: 119, capture: 29 - text, start: (65, 0), end: (65, 5), text: `"This`
+pattern: 119, capture: 29 - text, start: (65, 6), end: (65, 8), text: `is`
+pattern: 119, capture: 29 - text, start: (65, 9), end: (65, 10), text: `a`
+pattern: 119, capture: 29 - text, start: (65, 11), end: (65, 17), text: `quoted`
+pattern: 119, capture: 29 - text, start: (65, 18), end: (65, 26), text: `phrase."`
+pattern: 117, capture: 29 - text, start: (67, 0), end: (68, 0), text: `'Single quoted text.'
 
-pattern: 125, capture: 30 - text, start: (68, 0), end: (68, 7), text: `'Single`
-pattern: 125, capture: 30 - text, start: (68, 7), end: (68, 14), text: ` quoted`
-pattern: 125, capture: 30 - text, start: (68, 14), end: (68, 21), text: ` text.'`
-pattern: 123, capture: 30 - text, start: (70, 0), end: (70, 19), text: `-- Attribution line`
-pattern: 125, capture: 30 - text, start: (70, 0), end: (70, 2), text: `--`
-pattern: 125, capture: 30 - text, start: (70, 2), end: (70, 14), text: ` Attribution`
-pattern: 125, capture: 30 - text, start: (70, 14), end: (70, 19), text: ` line`
+pattern: 119, capture: 29 - text, start: (67, 0), end: (67, 7), text: `'Single`
+pattern: 119, capture: 29 - text, start: (67, 8), end: (67, 14), text: `quoted`
+pattern: 119, capture: 29 - text, start: (67, 15), end: (67, 21), text: `text.'`
+pattern: 117, capture: 29 - text, start: (69, 0), end: (70, 0), text: `-- Attribution line
+
+pattern: 119, capture: 29 - text, start: (69, 0), end: (69, 2), text: `--`
+pattern: 119, capture: 29 - text, start: (69, 3), end: (69, 14), text: `Attribution`
+pattern: 119, capture: 29 - text, start: (69, 15), end: (69, 19), text: `line`
