@@ -48,7 +48,6 @@ module.exports = grammar({
     [$.description_item],
     [$.callout_item],
     [$.inline_element, $.explicit_link],
-    [$.attribute_content, $.role_list],
   ],
 
   rules: {
@@ -574,8 +573,6 @@ module.exports = grammar({
     // Treat block attributes as a single external token to avoid misparsing inline role spans.
     block_attributes: ($) => $.ATTRIBUTE_LIST_START,
 
-    attribute_content: ($) => /[^\]\r\n]+/,
-
     id_and_roles: ($) =>
       seq(
         "[",
@@ -953,8 +950,6 @@ module.exports = grammar({
 
     link_text: ($) => /[^\]\r\n]+/,
 
-    bracketed_text: ($) => /[^\]\r\n]+/,
-
     // IMAGES
     image: ($) =>
       choice(
@@ -1170,16 +1165,6 @@ module.exports = grammar({
           seq(/[halmrs]/, "|"),
         ),
       ),
-
-    // Keep these for backward compatibility or future use
-    span_spec: ($) =>
-      choice(
-        token(seq(/\d+/, ".", /\d+/, "+")),
-        token(seq(/\d+/, "+")),
-        token(seq(".", /\d+/, "+")),
-      ),
-
-    format_spec: ($) => /[halmrs]/,
 
     // Disallow metadata inside table content by keeping cell_content strictly literal
     cell_content: ($) => $.cell_literal_text,

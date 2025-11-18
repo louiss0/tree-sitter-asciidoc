@@ -178,8 +178,6 @@
 
 ;; Cell specifications (colspan, rowspan, format)
 (cell_spec) @property
-(span_spec) @number
-(format_spec) @type
 
 ;; =============================================================================
 ;; MACROS AND SPECIAL CONSTRUCTS

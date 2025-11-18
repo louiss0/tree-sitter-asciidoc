@@ -45,8 +45,6 @@ This document maps grammar nodes from `grammar.js` to proposed highlight capture
 |-------------|----------------|----------------|------------------|----------|---------|
 | `table_cell` | `content` field | `@string` | `@string` | default | ✅ |
 | `cell_spec` | *all* | `@property` | `@property` | default | ✅ |
-| `span_spec` | *all* | `@number` | `@number` | default | ✅ |
-| `format_spec` | *all* | `@type` | `@type` | default | ✅ |
 | Table fences | `table_open`, `table_close` | *none* | `@punctuation.special` | 110 | 🆕 |
 
 ## 5. Lists
