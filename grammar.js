@@ -10,8 +10,6 @@
 module.exports = grammar({
   name: "asciidoc",
 
-  word: ($) => $._word,
-
   externals: ($) => [
     $.EXAMPLE_FENCE_START,
     $.EXAMPLE_FENCE_END,
@@ -683,8 +681,6 @@ module.exports = grammar({
         ),
       ),
 
-    admonition_type: ($) => choice("NOTE", "TIP", "IMPORTANT", "WARNING", "CAUTION"),
-
     paragraph_admonition: ($) =>
       seq(field("label", $.admonition_label), field("content", $._inline_text)),
 
@@ -694,11 +690,11 @@ module.exports = grammar({
         prec(
           1,
           choice(
-            seq("NOTE", ":", /[ \t]+/),
-            seq("TIP", ":", /[ \t]+/),
-            seq("IMPORTANT", ":", /[ \t]+/),
-            seq("WARNING", ":", /[ \t]+/),
-            seq("CAUTION", ":", /[ \t]+/),
+            seq("NOTE", ":"),
+            seq("TIP", ":"),
+            seq("IMPORTANT", ":"),
+            seq("WARNING", ":"),
+            seq("CAUTION", ":"),
           ),
         ),
       ),
@@ -751,8 +747,6 @@ module.exports = grammar({
     plain_colon: ($) => $.PLAIN_COLON,
 
     _plain_text_segment: ($) => token(prec(1, /[A-Za-z0-9_!$.,'"()+\-\/=^%?#<>\{\}]+/)),
-
-    _word: ($) => token(prec(1, /[A-Za-z0-9_]+/)),
 
     escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
 
@@ -1172,7 +1166,7 @@ module.exports = grammar({
     cell_literal_text: ($) => /[^|\r\n]*/,
 
     // LINE BREAKS - hard line break: space-or-tab + "+" before newline
-    hard_break: ($) => token(prec(2, seq(/[ \t]+/, "+", /\r?\n/))),
+    hard_break: ($) => token(prec(2, seq("+", /\r?\n/))),
     line_break: ($) => alias($.hard_break, $.line_break),
 
     // BASIC TOKENS
