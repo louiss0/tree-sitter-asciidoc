@@ -15,6 +15,9 @@ The indexterm:[database] is important in computing.
           (index_term_macro
             terms: (index_text
               primary: (index_term_text)))))
+      (plain_text)
+      (plain_text)
+      (plain_text)
       (plain_text))))
 
 ================================================================================
@@ -36,6 +39,8 @@ The indexterm:[databases,relational,PostgreSQL] system is robust.
               primary: (index_term_text)
               secondary: (index_term_text)
               tertiary: (index_term_text)))))
+      (plain_text)
+      (plain_text)
       (plain_text))))
 
 ================================================================================
@@ -56,6 +61,7 @@ The indexterm:[programming,languages] are diverse.
             terms: (index_text
               primary: (index_term_text)
               secondary: (index_term_text)))))
+      (plain_text)
       (plain_text))))
 
 ================================================================================
@@ -75,6 +81,8 @@ The indexterm2:[API] is well documented.
           (index_term2_macro
             terms: (index_text
               primary: (index_term_text)))))
+      (plain_text)
+      (plain_text)
       (plain_text))))
 
 ================================================================================
@@ -94,6 +102,9 @@ The (((PostgreSQL))) database system is powerful.
           (concealed_index_term
             terms: (index_text
               primary: (index_term_text)))))
+      (plain_text)
+      (plain_text)
+      (plain_text)
       (plain_text))))
 
 ================================================================================
@@ -115,6 +126,7 @@ The (((databases,SQL,PostgreSQL))) is feature-rich.
               primary: (index_term_text)
               secondary: (index_term_text)
               tertiary: (index_term_text)))))
+      (plain_text)
       (plain_text))))
 
 ================================================================================
@@ -192,6 +204,7 @@ The *bold* text with indexterm:[formatting] and `code` examples.
           content: (strong_content)
           close: (strong_close)))
       (plain_text)
+      (plain_text)
       (inline_element
         (index_term
           (index_term_macro
@@ -217,7 +230,12 @@ This indexterm[missing-colon] should be text.
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (formatting_fallback)
+      (plain_text)
+      (ERROR
+        (role_list)
+        (attribute_identifier)
+        (attribute_identifier)
+        (attribute_identifier))
       (plain_text))))
 
 ================================================================================
@@ -231,4 +249,8 @@ This ((incomplete)) should be text.
 (source_file
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
       (plain_text))))
