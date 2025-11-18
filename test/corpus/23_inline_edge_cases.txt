@@ -246,6 +246,95 @@ This is *bold {name}* and `code {version}` and ^super{level}^.
       (plain_text))))
 
 ================================================================================
+Attribute reference fallback - close then open braces
+================================================================================
+
+This } { should stay text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Attribute reference fallback - spaced stray closing braces
+================================================================================
+
+Stray } foo } braces remain literal.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Attribute reference fallback - dangling opening brace
+================================================================================
+
+Open {name reference stays literal.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Attribute reference fallback - spaced dangling brace
+================================================================================
+
+Spaces { name reference lacks brace.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Attribute reference fallback - interleaved braces
+================================================================================
+
+Weird }{ combos stay literal.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
 Line break with proper EOL
 ================================================================================
 

@@ -791,7 +791,7 @@ module.exports = grammar({
 
     plain_colon: ($) => $.PLAIN_COLON,
 
-    _plain_text_segment: ($) => token(prec(1, /[A-Za-z0-9_!$.,'"()+\-\/=^%?#<>]+/)),
+    _plain_text_segment: ($) => token(prec(1, /[A-Za-z0-9_!$.,'"()+\-\/=^%?#<>\{\}]+/)),
 
     _word: ($) => token(prec(1, /[A-Za-z0-9_]+/)),
 
