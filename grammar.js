@@ -1045,8 +1045,8 @@ module.exports = grammar({
         ),
       ),
 
-    // Must start with . or # to be valid role/ID syntax
-    role_list: ($) => /[.#][^\]\r\n]+/,
+    // Allow bare role names plus optional .role or #id style segments
+    role_list: ($) => token(prec(5, /[^\]\r\n]+/)),
 
     role_content: ($) =>
       repeat1(

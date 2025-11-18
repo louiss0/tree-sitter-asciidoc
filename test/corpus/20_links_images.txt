@@ -9,13 +9,22 @@ Also check out http://test.org and ftp://files.com/download.
 
 (source_file
   (paragraph
-    (inline_element
-      (auto_link))
-  (paragraph
-    (inline_element
-      (auto_link))
-    (inline_element
-      (auto_link))))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (auto_link))
+      (plain_text)
+      (plain_text)
+      (plain_text))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (auto_link))
+      (plain_text)
+      (inline_element
+        (auto_link)))))
 
 ================================================================================
 Links with text
@@ -27,10 +36,15 @@ Visit https://example.com[Example Site] for more info.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (explicit_link
-        url: (auto_link)
-        text: (link_text)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (explicit_link
+          url: (auto_link)
+          text: (link_text)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Links with formatted text
@@ -42,10 +56,13 @@ Visit https://example.com[*Bold* _Link_ Text] here.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (explicit_link
-        url: (auto_link)
-        text: (link_text)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (explicit_link
+          url: (auto_link)
+          text: (link_text)))
+      (plain_text))))
 
 ================================================================================
 Inline images
@@ -57,8 +74,13 @@ Here is image:logo.png[Company Logo] in text.
 
 (source_file
   (paragraph
-    (inline_element
-      (image))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (image))
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Block images
@@ -70,5 +92,8 @@ See image::diagram.svg[System Architecture,width=500] below.
 
 (source_file
   (paragraph
-    (inline_element
-      (image))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (image))
+      (plain_text))))

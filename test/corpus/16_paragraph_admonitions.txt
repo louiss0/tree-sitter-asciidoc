@@ -9,7 +9,16 @@ NOTE: This is a note paragraph with important information.
 (source_file
   (paragraph
     (paragraph_admonition
-      type: (admonition_type)
+      label: (admonition_label)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)))))
 
 ================================================================================
 TIP paragraph admonition
@@ -22,7 +31,14 @@ TIP: Here's a helpful tip for users.
 (source_file
   (paragraph
     (paragraph_admonition
-      type: (admonition_type)
+      label: (admonition_label)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)))))
 
 ================================================================================
 IMPORTANT paragraph admonition
@@ -35,7 +51,14 @@ IMPORTANT: This is crucial information to remember.
 (source_file
   (paragraph
     (paragraph_admonition
-      type: (admonition_type)
+      label: (admonition_label)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)))))
 
 ================================================================================
 WARNING paragraph admonition
@@ -48,7 +71,13 @@ WARNING: Be careful with this operation.
 (source_file
   (paragraph
     (paragraph_admonition
-      type: (admonition_type)
+      label: (admonition_label)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)))))
 
 ================================================================================
 CAUTION paragraph admonition
@@ -61,7 +90,14 @@ CAUTION: Proceed with caution when making changes.
 (source_file
   (paragraph
     (paragraph_admonition
-      type: (admonition_type)
+      label: (admonition_label)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)))))
 
 ================================================================================
 NOTE paragraph with inline elements
@@ -74,25 +110,34 @@ NOTE: This note contains *bold text* and other formatting.
 (source_file
   (paragraph
     (paragraph_admonition
-      type: (admonition_type)
-      content: (inline_element
-        (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close)))
+      label: (admonition_label)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (inline_element
+          (strong
+            open: (strong_open)
+            content: (strong_content)
+            close: (strong_close)))
+        (plain_text)
+        (plain_text)
+        (plain_text)))))
 
 ================================================================================
 Empty NOTE paragraph
 ================================================================================
 
-NOTE: 
+NOTE:
 
 ---
 
 (source_file
   (paragraph
-    (paragraph_admonition
-      type: (admonition_type))))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON)))))
 
 ================================================================================
 Not an admonition - lowercase label
@@ -104,6 +149,19 @@ note: This should be a regular paragraph, not an admonition.
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Not an admonition - missing space after colon
@@ -115,8 +173,16 @@ NOTE:This should be a regular paragraph.
 
 (source_file
   (paragraph
-    (paragraph_admonition
-      type: (admonition_type)
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Not an admonition - invalid label
@@ -128,6 +194,17 @@ INFO: This is not a valid admonition type.
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Multiple admonition paragraphs
@@ -144,13 +221,25 @@ TIP: Third admonition paragraph.
 (source_file
   (paragraph
     (paragraph_admonition
-      type: (admonition_type)
+      label: (admonition_label)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text))))
   (paragraph
     (paragraph_admonition
-      type: (admonition_type)
+      label: (admonition_label)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text))))
   (paragraph
     (paragraph_admonition
-      type: (admonition_type)
+      label: (admonition_label)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)))))
 
 ================================================================================
 Admonition paragraph in section
@@ -171,5 +260,16 @@ Regular paragraph text.
       title: (title)
       content: (paragraph
         (paragraph_admonition
-          type: (admonition_type)
+          label: (admonition_label)
+          content: (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text))))
       content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text))))))

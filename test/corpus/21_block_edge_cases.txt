@@ -31,10 +31,6 @@ More example content.
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE))
       (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
     (example_close
       (EXAMPLE_FENCE_END))))
@@ -61,49 +57,50 @@ Complex table structures
 
 (source_file
   (table_block
-    (metadata
-      (block_attributes))
+    metadata: (metadata
+      attributes: (block_attributes
+        (ATTRIBUTE_LIST_START)))
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
-          content: (cell_content
-            (cell_literal_text))))
-      (content_line)
-      (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
@@ -125,19 +122,30 @@ Open block continuation.
 
 (source_file
   (ordered_list
-    (ordered_list_item
+    items: (ordered_list_item
+      marker: (ordered_list_marker)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text))))
   (ordered_list
-    (ordered_list_item
-      (list_item_continuation
-        (LIST_CONTINUATION)
-        (open_block
-          open: (openblock_open
-            (OPENBLOCK_FENCE_START))
-          content: (block_content
-            (content_line
-              (DELIMITED_BLOCK_CONTENT_LINE)))
-          close: (openblock_close
-            (OPENBLOCK_FENCE_END)))))))
+    items: (ordered_list_item
+      marker: (ordered_list_marker)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text))
+      content: (inline_seq_nonempty
+        (plain_text))))
+  (open_block
+    open: (openblock_open
+      (OPENBLOCK_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (openblock_close
+      (OPENBLOCK_FENCE_END))))
 
 ================================================================================
 Conditional blocks with nesting
@@ -168,20 +176,43 @@ Production content.
     (ifdef_block
       directive: (ifdef_open)
       content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
       content: (conditional_block
         (ifndef_block
           directive: (ifndef_open)
           content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)))
           content: (conditional_block
             (ifeval_block
               directive: (ifeval_open)
               content: (paragraph
+                content: (inline_seq_nonempty
+                  (plain_text)
+                  (plain_text)
+                  (plain_text)))
               end: (endif_directive)))
           content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)))
           end: (endif_directive)))
       content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
       end: (endif_directive)))
   (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Complex admonition combinations
@@ -211,9 +242,14 @@ Final tip content.
 (source_file
   (paragraph
     (paragraph_admonition
-      (admonition_type)
+      (admonition_label)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text))))
   (block_admonition
-    (admonition_attribute)
+    (admonition_attribute
+      (ATTRIBUTE_LIST_START))
     (example_block
       (example_open
         (EXAMPLE_FENCE_START))
@@ -221,21 +257,16 @@ Final tip content.
         (content_line
           (DELIMITED_BLOCK_CONTENT_LINE))
         (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE))
-        (content_line
           (DELIMITED_BLOCK_CONTENT_LINE)))
       (example_close
         (EXAMPLE_FENCE_END))))
   (block_admonition
-    (admonition_attribute)
+    (admonition_attribute
+      (ATTRIBUTE_LIST_START))
     (open_block
       (openblock_open
         (OPENBLOCK_FENCE_START))
       (block_content
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE))
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE))
         (content_line
           (DELIMITED_BLOCK_CONTENT_LINE))
         (content_line
@@ -280,30 +311,53 @@ Back to level 2.
       marker: (section_marker_1)
       title: (title)
       content: (paragraph
-        content: (inline_element
-          (inline_anchor)))
+        content: (inline_seq_nonempty
+          (inline_element
+            (inline_anchor))))
       content: (section_level_2
         marker: (section_marker_2)
         title: (title)
         content: (paragraph
+          content: (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text)))
         content: (paragraph
-          content: (inline_element
-            (inline_anchor)))
+          content: (inline_seq_nonempty
+            (inline_element
+              (inline_anchor))))
         content: (section_level_3
           marker: (section_marker_3)
           title: (title)
           content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)))
           content: (paragraph
-            content: (inline_element
-              (inline_anchor)))
+            content: (inline_seq_nonempty
+              (inline_element
+                (inline_anchor))))
           content: (section_level_4
             marker: (section_marker_4)
             title: (title)
             content: (paragraph
+              content: (inline_seq_nonempty
+                (plain_text)
+                (plain_text)
+                (plain_text)
+                (plain_text)
+                (plain_text))))))
       content: (section_level_2
         marker: (section_marker_2)
         title: (title)
         content: (paragraph
+          content: (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text)))))))
 
 ================================================================================
 Attribute edge cases with references
@@ -328,28 +382,74 @@ Enabled: {enabled-attr}
 
 (source_file
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
   (paragraph
-    (inline_element
-      (attribute_reference)))
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (inline_element
+        (attribute_reference)))
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (inline_element
+        (attribute_reference)))
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (inline_element
+        (attribute_reference))))
   (paragraph
-    (inline_element
-      (attribute_reference)))
+    (inline_seq_nonempty
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON)))
+    (inline_seq_nonempty
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))))
   (paragraph
-    (inline_element
-      (attribute_reference)))
-  (attribute_entry)
-  (attribute_entry)
-  (paragraph
-    (inline_element
-      (attribute_reference)))
-  (paragraph
-    (inline_element
-      (attribute_reference)))
-  (paragraph
-    (inline_element
-      (attribute_reference))))
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (inline_element
+        (attribute_reference)))
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (inline_element
+        (attribute_reference)))
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (inline_element
+        (attribute_reference)))))

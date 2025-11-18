@@ -12,38 +12,39 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
 
 (source_file
   (paragraph
-    (inline_element
-      (strong
-        (strong_open)
-        (strong_content)
-        (strong_close)))
-    (inline_element
-      (emphasis
-        (emphasis_open)
-        (emphasis_content)
-        (emphasis_close)))
-  (paragraph
-    (inline_element
-      (strong
-        (strong_open)
-        (strong_content)
-        (strong_close)))
-    (inline_element
-      (emphasis
-        (emphasis_open)
-        (emphasis_content)
-        (emphasis_close)))
-  (paragraph
-    (inline_element
-      (superscript
-        (superscript_open)
-        (superscript_text)
-        (superscript_close)))
-    (inline_element
-      (subscript
-        (subscript_open)
-        (subscript_text)
-        (subscript_close)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)
+      (plain_text))
+    (ERROR
+      (comment_line))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)
+      (plain_text))
+    (ERROR
+      (comment_line))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)))
+  (ERROR
+    (comment_line)))
 
 ================================================================================
 Delimiter adjacency and escape handling
@@ -61,39 +62,50 @@ Monospace with `code *not strong* here` content.
 
 (source_file
   (paragraph
-    (inline_element
-      (strong
-        (strong_open)
-        (strong_content)
-        (strong_close)))
-    (inline_element
-      (emphasis
-        (emphasis_open)
-        (emphasis_content)
-        (emphasis_close)))
+    (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (strong
+          (strong_open)
+          (strong_content)
+          (strong_close)))
+      (plain_text)
+      (plain_text)
+      (plain_text)))
   (paragraph
-    (inline_element
-      (strong
-        (strong_open)
-        (strong_content)
-        (strong_close)))
-    (inline_element
-      (emphasis
-        (emphasis_open)
-        (emphasis_content)
-        (emphasis_close)))
+    (inline_seq_nonempty
+      (plain_text)
+      (escaped_char)
+      (plain_text)
+      (plain_text)
+      (escaped_char)
+      (plain_text)
+      (escaped_char)
+      (plain_text)
+      (plain_text)
+      (escaped_char)
+      (plain_text)))
   (paragraph
-    (inline_element
-      (strong
-        (strong_open)
-        (strong_content)
-        (strong_close)))
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (inline_element
+        (strong
+          (strong_open)
+          (strong_content)
+          (strong_close)))
+      (plain_text)))
   (paragraph
-    (inline_element
-      (monospace
-        (monospace_open)
-        (monospace_content)
-        (monospace_close)))
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (monospace
+          (monospace_open)
+          (monospace_content)
+          (monospace_close)))
+      (plain_text))))
 
 ================================================================================
 Complex autolink boundary detection
@@ -111,17 +123,40 @@ Email addresses: contact@example.com.
 
 (source_file
   (paragraph
-    (inline_element
-      (auto_link))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (auto_link))
+      (plain_text)
+      (plain_text)))
   (paragraph
-    (inline_element
-      (auto_link)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (inline_element
+        (auto_link))))
   (paragraph
-    (inline_element
-      (auto_link))
-    (inline_element
-      (auto_link)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (inline_element
+        (auto_link))
+      (inline_element
+        (auto_link))))
   (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)))
+  (ERROR
+    (comment_line)))
 
 ================================================================================
 Role spans with complex attributes
@@ -137,16 +172,30 @@ Role spans with complex attributes
 
 (source_file
   (paragraph
-    content: (inline_element
-      (role_span
-        roles: (role_list)
-        content: (role_content)))
+    content: (inline_seq_nonempty
+      (inline_element
+        (role_span
+          roles: (role_list)
+          content: (role_content)))
+      (plain_text)
+      (plain_text)))
   (paragraph
-    content: (inline_element
-      (role_span
-        roles: (role_list)
-        content: (role_content)))
+    content: (inline_seq_nonempty
+      (inline_element
+        (role_span
+          roles: (role_list)
+          content: (role_content)))
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (ERROR)
   (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Nested formatting edge cases
@@ -164,34 +213,51 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (strong
-        open: (strong_open)
-        content: (strong_content)
-        close: (strong_close)))
+    content: (inline_seq_nonempty
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)
+      (plain_text)))
   (paragraph
-    content: (inline_element
-      (emphasis
-        open: (emphasis_open)
-        content: (emphasis_content)
-        close: (emphasis_close)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (subscript
+          open: (subscript_open)
+          content: (subscript_text)
+          close: (subscript_close)))
+      (plain_text)))
   (paragraph
-    content: (inline_element
-      (strong
-        open: (strong_open)
-        content: (strong_content)
-        close: (strong_close)))
-    content: (inline_element
-      (strong
-        open: (strong_open)
-        content: (strong_content)
-        close: (strong_close)))
+    content: (inline_seq_nonempty
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)))
   (paragraph
-    content: (inline_element
-      (monospace
-        open: (monospace_open)
-        content: (monospace_content)
-        close: (monospace_close)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (monospace
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Macro and attribute edge cases
@@ -266,20 +332,38 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
 
 (source_file
   (paragraph
-    (inline_element
-      (internal_xref))
-    (inline_element
-      (internal_xref)))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (internal_xref))
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (internal_xref))))
   (paragraph
-    (inline_element
-      (external_xref))
-    (inline_element
-      (external_xref))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)
+      (inline_element
+        (external_xref))
+      (plain_text)))
   (paragraph
-    (inline_element
-      (inline_anchor))
-    (inline_element
-      (inline_anchor))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (ERROR
+        (attribute_identifier))
+      (inline_element
+        (inline_anchor))
+      (plain_text))))
 
 ================================================================================
 Passthrough and raw content edge cases
@@ -295,11 +379,30 @@ Nested pass: pass:c[{code-block}] with substitution.
 
 (source_file
   (paragraph
-    (inline_element
-      (pass_macro))
+    (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        (macro_name)
+        (INLINE_MACRO_MARKER)
+        (macro_body))
+      (plain_text)))
   (paragraph
-    (inline_element
-      (passthrough_triple_plus))
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
   (paragraph
-    (inline_element
-      (pass_macro))
+    (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        (macro_name)
+        (INLINE_MACRO_MARKER)
+        (macro_body))
+      (plain_text)
+      (plain_text))))

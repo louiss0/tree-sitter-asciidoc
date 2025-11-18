@@ -4316,8 +4316,15 @@
       }
     },
     "role_list": {
-      "type": "PATTERN",
-      "value": "[.#][^\\]\\r\\n]+"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 5,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\\]\\r\\n]+"
+        }
+      }
     },
     "role_content": {
       "type": "REPEAT1",
