@@ -1,5 +1,10 @@
 # Agents Notes
 
+
+## Rules 
+
+When committing changes, ensure that the commit message follows the angular conventional commit format.
+
 ## Limitations
 
 - Tree Sitter doesn't support look ahead regex
