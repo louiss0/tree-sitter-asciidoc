@@ -19,26 +19,42 @@ Final paragraph.
 (source_file
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
       (plain_text)))
   (unordered_list
     (unordered_list_item
+      (unordered_list_marker)
       (inline_seq_nonempty
+        (plain_text)
         (plain_text)))
     (unordered_list_item
+      (unordered_list_marker)
       (inline_seq_nonempty
+        (plain_text)
         (plain_text))))
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
       (plain_text)))
   (ordered_list
     (ordered_list_item
+      (ordered_list_marker)
       (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
         (plain_text)))
     (ordered_list_item
+      (ordered_list_marker)
       (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
         (plain_text))))
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
       (plain_text))))
 
 ================================================================================
@@ -65,6 +81,11 @@ More content here.
 
 (source_file
   (attribute_entry
+    name: (attribute_name
+      (PLAIN_COLON))
+    name: (attribute_identifier)
+    name: (attribute_name
+      (PLAIN_COLON))
     value: (attribute_value))
   (section
     (section_level_1
@@ -72,24 +93,41 @@ More content here.
       title: (title)
       content: (paragraph
         content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
           (plain_text)))
       content: (unordered_list
-        (unordered_list_item
+        items: (unordered_list_item
+          marker: (unordered_list_marker)
           content: (inline_seq_nonempty
+            (plain_text)
             (plain_text)))
-        (unordered_list_item
+        items: (unordered_list_item
+          marker: (unordered_list_marker)
           content: (inline_seq_nonempty
+            (plain_text)
             (plain_text))))
       content: (section_level_2
         marker: (section_marker_2)
         title: (title)
         content: (paragraph
           content: (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
             (plain_text)))
         content: (ordered_list
-          (ordered_list_item
+          items: (ordered_list_item
+            marker: (ordered_list_marker)
             content: (inline_seq_nonempty
+              (plain_text)
               (plain_text)))
-          (ordered_list_item
+          items: (ordered_list_item
+            marker: (ordered_list_marker)
             content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
               (plain_text))))))))

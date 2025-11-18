@@ -9,13 +9,16 @@ Indented headings are treated as valid headings
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text))
-    (inline_seq_nonempty
-      (plain_text))
-    (inline_seq_nonempty
-      (plain_text))))
+  (section
+    (section_level_1
+      (section_marker_1)
+      (title)
+      (section_level_2
+        (section_marker_2)
+        (title)
+        (section_level_3
+          (section_marker_3)
+          (title))))))
 
 ================================================================================
 Invalid attribute patterns should be paragraphs
@@ -31,12 +34,31 @@ Invalid attribute patterns should be paragraphs
 (source_file
   (paragraph
     (inline_seq_nonempty
+      (plain_colon
+        (PLAIN_COLON)))
+    (ERROR
+      (attribute_identifier)
+      (attribute_identifier)
+      (attribute_identifier)
+      (attribute_identifier))
+    (inline_seq_nonempty
+      (plain_colon
+        (PLAIN_COLON))
       (plain_text))
     (inline_seq_nonempty
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)
+      (plain_text)
       (plain_text))
     (inline_seq_nonempty
-      (plain_text))
-    (inline_seq_nonempty
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)
       (plain_text))))
 
 ================================================================================
@@ -51,9 +73,24 @@ Attributes with spaces in values and empty values
 
 (source_file
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
-  (attribute_entry)
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON)))
+  (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value)))
 
 ================================================================================
@@ -74,20 +111,29 @@ Third paragraph after three blanks
 (source_file
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
       (plain_text)))
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
       (plain_text)))
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
       (plain_text))))
 
 ================================================================================
 Headings with trailing spaces
 ================================================================================
 
-= Title with trailing spaces   
-== Another with tabs	
+= Title with trailing spaces
+== Another with tabs
 === Mix of spaces and content   text here
 
 --------------------------------------------------------------------------------

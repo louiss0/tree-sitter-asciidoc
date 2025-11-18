@@ -11,13 +11,19 @@ Simple unordered list with asterisk
 (source_file
   (unordered_list
     (unordered_list_item
+      (unordered_list_marker)
       (inline_seq_nonempty
+        (plain_text)
         (plain_text)))
     (unordered_list_item
+      (unordered_list_marker)
       (inline_seq_nonempty
+        (plain_text)
         (plain_text)))
     (unordered_list_item
+      (unordered_list_marker)
       (inline_seq_nonempty
+        (plain_text)
         (plain_text)))))
 
 ================================================================================
@@ -33,13 +39,19 @@ Simple unordered list with hyphen
 (source_file
   (unordered_list
     (unordered_list_item
+      (unordered_list_marker)
       (inline_seq_nonempty
+        (plain_text)
         (plain_text)))
     (unordered_list_item
+      (unordered_list_marker)
       (inline_seq_nonempty
+        (plain_text)
         (plain_text)))
     (unordered_list_item
+      (unordered_list_marker)
       (inline_seq_nonempty
+        (plain_text)
         (plain_text)))))
 
 ================================================================================
@@ -55,13 +67,19 @@ Mixed unordered list markers
 (source_file
   (unordered_list
     (unordered_list_item
+      (unordered_list_marker)
       (inline_seq_nonempty
+        (plain_text)
         (plain_text)))
     (unordered_list_item
+      (unordered_list_marker)
       (inline_seq_nonempty
+        (plain_text)
         (plain_text)))
     (unordered_list_item
+      (unordered_list_marker)
       (inline_seq_nonempty
+        (plain_text)
         (plain_text)))))
 
 ================================================================================

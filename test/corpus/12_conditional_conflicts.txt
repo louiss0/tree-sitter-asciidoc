@@ -1,30 +1,4 @@
 ================================================================================
-Description lists should not become conditionals
-================================================================================
-
-ifdef:: This should be a paragraph because space after colon
-Term:: definition
-
-ifdefnotablock:: another paragraph
-
-Another:: regular description item
-
---------------------------------------------------------------------------------
-
-(source_file
-  (description_list
-    (description_item
-      (description_content
-    (description_item
-      (description_content
-  (description_list
-    (description_item
-      (description_content
-  (description_list
-    (description_item
-      (description_content
-
-================================================================================
 Paragraphs with directive-like words
 ================================================================================
 
@@ -37,14 +11,49 @@ The word endif:: can also appear here.
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)))
   (description_list
     (description_item
+      (description_term)
       (description_content
-  (paragraph
-  (paragraph
+        (inline_seq_nonempty
+          (plain_text)))))
   (description_list
     (description_item
+      (description_term)
       (description_content
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)))
+  (description_list
+    (description_item
+      (description_term)
+      (description_content
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text))))))
 
 ================================================================================
 Malformed conditionals should be paragraphs
@@ -61,10 +70,27 @@ These look like conditionals but are malformed.
 (source_file
   (conditional_block
     (ifdef_block
-      (ifdef_open)
-      (paragraph
-      (paragraph
-      (paragraph
+      directive: (ifdef_open)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        (ERROR
+          (attribute_identifier)))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text))))))
 
 ================================================================================
 Mixing attributes and conditionals
@@ -86,18 +112,41 @@ endif::[]
 
 (source_file
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
   (conditional_block
     (ifdef_block
       (ifdef_open)
       (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
       (endif_directive)))
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
   (conditional_block
     (ifndef_block
       (ifndef_open)
       (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
       (endif_directive))))
 
 ================================================================================
@@ -111,7 +160,25 @@ another:::word paragraph
 
 (source_file
   (paragraph
-  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 No targets in ifdef should still work
@@ -132,11 +199,22 @@ endif::[]
     (ifdef_block
       (ifdef_open)
       (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
       (endif_directive)))
   (conditional_block
     (ifndef_block
       (ifndef_open)
       (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
       (endif_directive))))
 
 ================================================================================
@@ -165,11 +243,20 @@ endif::[]
       marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
+        name: (attribute_name
+          (PLAIN_COLON))
+        name: (attribute_identifier)
+        name: (attribute_name
+          (PLAIN_COLON))
         value: (attribute_value))
       content: (conditional_block
         (ifdef_block
           directive: (ifdef_open)
           content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)))
           end: (endif_directive)))
       content: (section_level_3
         marker: (section_marker_3)
@@ -178,4 +265,7 @@ endif::[]
           (ifndef_block
             directive: (ifndef_open)
             content: (paragraph
+              content: (inline_seq_nonempty
+                (plain_text)
+                (plain_text)))
             end: (endif_directive)))))))

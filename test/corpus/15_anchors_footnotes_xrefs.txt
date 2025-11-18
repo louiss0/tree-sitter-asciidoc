@@ -1,4 +1,4 @@
-================================================================================
+﻿================================================================================
 Inline anchor without text
 ================================================================================
 
@@ -8,8 +8,15 @@ This paragraph has [[simple-anchor]] in the middle.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (inline_anchor))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (inline_anchor))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Inline anchor with text
@@ -21,8 +28,14 @@ This paragraph has [[anchor-id,anchor text]] with text.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (inline_anchor))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (inline_anchor))
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Block anchor without text
@@ -37,13 +50,19 @@ Content after block anchor.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (inline_anchor)))
+    content: (inline_seq_nonempty
+      (inline_element
+        (inline_anchor))))
   (section
     (section_level_2
       marker: (section_marker_2)
       title: (title)
       content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text))))))
 
 ================================================================================
 Block anchor with text
@@ -58,13 +77,21 @@ Content after block anchor with text.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (inline_anchor)))
+    content: (inline_seq_nonempty
+      (inline_element
+        (inline_anchor))))
   (section
     (section_level_2
       marker: (section_marker_2)
       title: (title)
       content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text))))))
 
 ================================================================================
 Internal cross-reference without text
@@ -76,8 +103,14 @@ See the <<target-section>> for more information.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (internal_xref))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (internal_xref))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Internal cross-reference with text
@@ -89,8 +122,13 @@ See the <<target-section,target section>> for details.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (internal_xref))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (internal_xref))
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 External cross-reference without text
@@ -102,8 +140,12 @@ Check out xref:other-file.adoc[].
 
 (source_file
   (paragraph
-    content: (inline_element
-      (external_xref))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (external_xref))
+      (plain_text))))
 
 ================================================================================
 External cross-reference with text
@@ -115,8 +157,12 @@ Check out xref:other-file.adoc[Other Document].
 
 (source_file
   (paragraph
-    content: (inline_element
-      (external_xref))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (external_xref))
+      (plain_text))))
 
 ================================================================================
 Inline footnote
@@ -128,8 +174,15 @@ This has a footnote footnote:[This is a footnote] in it.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (footnote_inline))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (footnote_inline))
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Referenced footnote without text
@@ -141,8 +194,14 @@ This has a footnote footnote:ref1[] reference.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (footnote_ref))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (footnote_ref))
+      (plain_text))))
 
 ================================================================================
 Referenced footnote with text
@@ -154,8 +213,13 @@ This has footnote:ref1[Referenced footnote text] in it.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (footnote_ref))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (footnote_ref))
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Footnote reference without text
@@ -167,8 +231,15 @@ This uses footnoteref:ref1[] to reference a footnote.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (footnoteref))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (footnoteref))
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Footnote reference with text
@@ -180,8 +251,13 @@ This uses footnoteref:ref1[Footnote reference text] with text.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (footnoteref))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (footnoteref))
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Mixed inline elements in paragraph
@@ -193,14 +269,22 @@ Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[lin
 
 (source_file
   (paragraph
-    content: (inline_element
-      (inline_anchor))
-    content: (inline_element
-      (internal_xref))
-    content: (inline_element
-      (footnote_inline))
-    content: (inline_element
-      (external_xref))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (inline_anchor))
+      (plain_text)
+      (inline_element
+        (internal_xref))
+      (plain_text)
+      (inline_element
+        (footnote_inline))
+      (plain_text)
+      (inline_element
+        (external_xref))
+      (plain_text))))
 
 ================================================================================
 Adjacent inline elements
@@ -212,12 +296,15 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
 
 (source_file
   (paragraph
-    content: (inline_element
-      (inline_anchor))
-    content: (inline_element
-      (internal_xref))
-    content: (inline_element
-      (footnote_inline))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (inline_anchor))
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text))))
 
 ====
 Example block content with anchor
@@ -237,6 +324,19 @@ This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
 
 (source_file
   (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (ERROR
+        (attribute_identifier)
+        (attribute_identifier)
+        (attribute_identifier)
+        (attribute_identifier)
+        (attribute_identifier)
+        (attribute_identifier)
+        (attribute_identifier)
+        (attribute_identifier))
+      (plain_text))))
 
 ================================================================================
 Malformed cross-references should be plain text
@@ -248,6 +348,19 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
 
 (source_file
   (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Malformed footnotes should be plain text
@@ -259,6 +372,20 @@ This has foot note:[spaced] and footnote:[unclosed and regular text.
 
 (source_file
   (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body)
+        (MISSING "]")))))
 
 ================================================================================
 Complex cross-reference targets
@@ -270,5 +397,16 @@ See xref:../other/doc.adoc#section1[Complex target] for details.
 
 (source_file
   (paragraph
-    (inline_element
-      (external_xref))
+    (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (external_xref))
+      (plain_text)
+      (plain_text))))
+
+
+
+
+
+
+

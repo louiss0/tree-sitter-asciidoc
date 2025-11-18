@@ -11,17 +11,28 @@ AnotherTerm:: Another description
 (source_file
   (description_list
     (description_item
+      (description_term)
       (description_content
         (inline_seq_nonempty
-          (plain_text))))
-    (description_item
-      (description_content
-        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
           (plain_text)))))
   (description_list
     (description_item
+      (description_term)
       (description_content
         (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))))
+  (description_list
+    (description_item
+      (description_term)
+      (description_content
+        (inline_seq_nonempty
+          (plain_text)
           (plain_text))))))
 
 ================================================================================
@@ -37,9 +48,15 @@ Another::Description
 (source_file
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
       (plain_text)))
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
       (plain_text))))
 
 ================================================================================
@@ -53,4 +70,9 @@ Term::: Description
 (source_file
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_colon
+        (PLAIN_COLON))
       (plain_text))))

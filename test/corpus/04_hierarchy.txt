@@ -20,18 +20,24 @@ Paragraph under C
       (title)
       (paragraph
         (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
           (plain_text)))
       (section_level_2
         (section_marker_2)
         (title)
         (paragraph
           (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
             (plain_text)))
         (section_level_3
           (section_marker_3)
           (title)
           (paragraph
             (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
               (plain_text))))))))
 
 ================================================================================
@@ -59,6 +65,9 @@ Content for section 3
       (title)
       (paragraph
         (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
           (plain_text)))))
   (section
     (section_level_1
@@ -66,12 +75,17 @@ Content for section 3
       (title)
       (paragraph
         (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
           (plain_text)))
       (section_level_2
         (section_marker_2)
         (title)
         (paragraph
           (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
             (plain_text))))))
   (section
     (section_level_1
@@ -79,6 +93,9 @@ Content for section 3
       (title)
       (paragraph
         (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
           (plain_text))))))
 
 ================================================================================
@@ -112,36 +129,54 @@ Content at level 6
       (title)
       (paragraph
         (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
           (plain_text)))
       (section_level_2
         (section_marker_2)
         (title)
         (paragraph
           (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
+            (plain_text)
             (plain_text)))
         (section_level_3
           (section_marker_3)
           (title)
           (paragraph
             (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)
               (plain_text)))
           (section_level_4
             (section_marker_4)
             (title)
             (paragraph
               (inline_seq_nonempty
+                (plain_text)
+                (plain_text)
+                (plain_text)
                 (plain_text)))
             (section_level_5
               (section_marker_5)
               (title)
               (paragraph
                 (inline_seq_nonempty
+                  (plain_text)
+                  (plain_text)
+                  (plain_text)
                   (plain_text)))
               (section_level_6
                 (section_marker_6)
                 (title)
                 (paragraph
                   (inline_seq_nonempty
+                    (plain_text)
+                    (plain_text)
+                    (plain_text)
                     (plain_text)))))))))))
 
 ================================================================================
@@ -164,21 +199,38 @@ Subsection content
 
 (source_file
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
   (section
     (section_level_1
       (section_marker_1)
       (title)
       (attribute_entry
+        (attribute_name
+          (PLAIN_COLON))
+        (attribute_identifier)
+        (attribute_name
+          (PLAIN_COLON))
         (attribute_value))
       (paragraph
         (inline_seq_nonempty
+          (plain_text)
           (plain_text)))
       (section_level_2
         (section_marker_2)
         (title)
         (attribute_entry
+          (attribute_name
+            (PLAIN_COLON))
+          (attribute_identifier)
+          (attribute_name
+            (PLAIN_COLON))
           (attribute_value))
         (paragraph
           (inline_seq_nonempty
+            (plain_text)
             (plain_text)))))))

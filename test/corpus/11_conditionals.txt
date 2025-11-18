@@ -13,6 +13,11 @@ endif::[]
 
 (source_file
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
   (conditional_block
     (ifdef_block
@@ -23,6 +28,8 @@ endif::[]
           (title)
           (paragraph
             (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
               (plain_text)))))
       (endif_directive))))
 
@@ -42,6 +49,8 @@ endif::[]
       (ifndef_open)
       (paragraph
         (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
           (plain_text)))
       (endif_directive))))
 
@@ -60,6 +69,11 @@ endif::[]
 
 (source_file
   (attribute_entry
+    (attribute_name
+      (PLAIN_COLON))
+    (attribute_identifier)
+    (attribute_name
+      (PLAIN_COLON))
     (attribute_value))
   (conditional_block
     (ifeval_block
@@ -70,6 +84,11 @@ endif::[]
           (title)
           (paragraph
             (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)
               (plain_text)))))
       (endif_directive))))
 
@@ -94,6 +113,7 @@ endif::[]
           (ifdef_open)
           (paragraph
             (inline_seq_nonempty
+              (plain_text)
               (plain_text)))
           (endif_directive)))
       (endif_directive))))
@@ -115,6 +135,7 @@ Another:: item
 (source_file
   (description_list
     (description_item
+      (description_term)
       (description_content
         (inline_seq_nonempty
           (plain_text)))))
@@ -123,10 +144,13 @@ Another:: item
       (ifdef_open)
       (paragraph
         (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
           (plain_text)))
       (endif_directive)))
   (description_list
     (description_item
+      (description_term)
       (description_content
         (inline_seq_nonempty
           (plain_text))))))
@@ -147,6 +171,8 @@ endif::[]
       (ifdef_open)
       (paragraph
         (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
           (plain_text)))
       (endif_directive))))
 
@@ -178,20 +204,31 @@ endif::[]
           (title)
           (unordered_list
             (unordered_list_item
+              (unordered_list_marker)
               (inline_seq_nonempty
+                (plain_text)
+                (plain_text)
                 (plain_text)))
             (unordered_list_item
+              (unordered_list_marker)
               (inline_seq_nonempty
+                (plain_text)
+                (plain_text)
                 (plain_text))))
           (ordered_list
             (ordered_list_item
+              (ordered_list_marker)
               (inline_seq_nonempty
+                (plain_text)
                 (plain_text)))
             (ordered_list_item
+              (ordered_list_marker)
               (inline_seq_nonempty
+                (plain_text)
                 (plain_text))))
           (paragraph
             (inline_seq_nonempty
+              (plain_text)
               (plain_text)))))
       (endif_directive))))
 
@@ -213,6 +250,7 @@ Normal content
       (endif_directive)))
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
       (plain_text))))
 
 ================================================================================
@@ -231,5 +269,7 @@ endif::[]
       (ifeval_open)
       (paragraph
         (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
           (plain_text)))
       (endif_directive))))

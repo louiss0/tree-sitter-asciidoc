@@ -11,6 +11,10 @@ endif::[]
 (source_file
   (conditional_block
     (ifdef_block
-      (ifdef_open)
-      (paragraph
-      (endif_directive))))
+      directive: (ifdef_open)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      end: (endif_directive))))
