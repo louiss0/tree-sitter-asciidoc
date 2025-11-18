@@ -6,10 +6,7 @@
       "camelcase": "AsciiDoc",
       "title": "AsciiDoc",
       "scope": "source.asciidoc",
-      "file-types": [
-        "adoc",
-        "asciidoc"
-      ],
+      "file-types": ["adoc", "asciidoc", "asc"],
       "injection-regex": "^asciidoc$",
       "class-name": "TreeSitterAsciidoc",
       "highlights": "queries/highlights.scm",
