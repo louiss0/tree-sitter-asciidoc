@@ -2,41 +2,49 @@
 
 == Context
 
-Highlight coverage now includes a dedicated block-macro case (`test/highlight/cases/block-macros.adoc`), and all snapshots in `test/highlight/expected/` were regenerated so the suite passes cleanly. A new corpus sample (`test/corpus/31_block_macros.txt`) asserts the current `block_macro` nodes for plain `diagram::`, `customblock::`, and `video::` constructs without preceding attribute lists.
+Grammar and parser sources were rolled back to the last known-good state after the inline/metadata experiments, leaving only corpus updates in place. While that reset stabilized most suites, attribute-related tests are now failing again in downstream branches (the failure reproduces intermittently depending on cached parser artifacts).
 
-Key discoveries while adding that coverage:
+Current symptoms:
 
-* `diagram::…[]` and other custom macros emit `block_macro` nodes only when no attribute list precedes them. If a block attribute list (e.g., `[.float-right]`) appears immediately before the macro line, the parser downgrades the macro into a `paragraph` containing `plain_text`/`ERROR` nodes because the metadata currently feeds exclusively into `paragraph`. This means block macros cannot inherit attributes today.
-* `image::` macros still use the dedicated inline `image` rule, so they never create `block_macro` nodes. Includes continue to rely on `include_directive`.
-* Running `npx tree-sitter test` (per the Next Steps) now fails broadly: suites 02–13, 15–23, 25–29, and 30 all report mismatches. A representative diff from `30_math_macros.txt` shows raw `inline_macro` nodes being produced where the corpus expects structured `math_macro` nodes, and earlier suites complain that paragraphs/lists are no longer recognized correctly. These failures likely stem from the recent whitespace + scanner adjustments and need investigation before the next parser release.
+* Attribute entries that include stray spaces around the key/colon (e.g., `: attr:`) are being tokenized as paragraphs instead of `attribute_entry` nodes.
+* Dangling `{attr}` references inside inline styles sometimes split into separate `plain_text` nodes, which causes `03_attributes`, `19_inline_formatting`, and `22_macros_roles` to flip between pass/fail.
+* Our external scanner still short-circuits `:` at column 0 into `PLAIN_COLON`, so attribute lines beginning with whitespace can never become attributes even if the colon alignment is correct.
 
 == Immediate Next Tasks
 
-1. **Unify block macro parsing with metadata**
-   * Allow block attribute lists to precede `block_macro` nodes without forcing them into `paragraph` fallback. Today `paragraph` is the only construct that accepts `metadata`, so `[role]` lines swallow the macro; refactor so block macros can consume optional `metadata` similarly to other block elements.
-   * Once attributes work, expand `test/highlight/cases/block-macros.adoc` to cover `[.float-right]macro::[]` and refresh the snapshot, plus extend `test/corpus/31_block_macros.txt` with an attributed variant to lock the behavior down.
-   * Decide how `image::` should be treated: if these should become `block_macro` nodes for consistency, either adjust the grammar or add explicit documentation/tests capturing the current intent.
+1. **Reproduce and capture the attribute failures**
+   * Run `npx tree-sitter test --file-name 03_attributes.txt --show-fields` plus the attribute sections of suites 19 and 22 while toggling a `tree-sitter generate` to ensure the parser artifacts match the current grammar.
+   * Save the diffs from `tree-sitter test --update` (but do not check them in) so we can compare the parserâ€™s tree against our intended AST.
 
-2. **Triage the `npx tree-sitter test` failures**
-   * Start with the earliest suites (02_paragraphs, 03_attributes, 04_hierarchy) since later ones cascade. Capture the current parse for each failing example (e.g., `npx tree-sitter parse test/corpus/02_paragraphs.txt --stat`) and diff it against the expected tree to pinpoint whether whitespace-in-`extras` or macro tokenization caused the divergence.
-   * Inline macro suites (e.g., `30_math_macros.txt`) show `inline_macro` nodes preceding the specialized math nodes. Determine whether the scanner is now emitting `INLINE_MACRO_MARKER` before math macros fire, and either update the grammar to short-circuit math macros earlier or adjust the corpus expectations if this is intentional.
-   * Keep `tree-sitter test` output handy; re-run after each fix and delete any intermediate artifacts it produces.
+2. **Retool the attribute tokens**
+   * Reintroduce a grammar-level token for attribute names that tolerates optional whitespace before/after the colon while still matching `:name:` exactly; reuse the `_attribute_name_text` helper so we avoid duplicated regexes.
+   * Adjust the external scanner so `PLAIN_COLON` only triggers when the colon is isolated (e.g., a loose `:` at column 0). When the lexer sees `:` followed immediately by a valid attribute name pattern, emit the dedicated attribute token instead.
+   * Ensure malformed lines (extra spaces or missing closing colon) fall back to `paragraph` content instead of producing `ERROR` nodes.
+
+3. **Restore attribute-reference stability**
+   * Keep `{attr}` parsing strict, but when braces do not balance (`} foo` or ` {name`), force them into `_plain_text_segment` so inline styles around them continue parsing.
+   * Update the corpus cases under `23_inline_edge_cases` to cover these permutations once the grammar produces stable output again.
+
+4. **Verification**
+   * Regenerate the parser (`npx tree-sitter generate`) and rerun `npx tree-sitter test` across all suites, focusing on 03, 19, 22, and 23 first.
+   * If any grammar node names changed, refresh the highlight snapshots via the PowerShell runner and delete `test/highlight/.actual` afterward.
 
 == Notes for Next Agent
 
-* `bindings/` remains off-limits. Keep `source_file` first in `rules`, avoid lookahead/grouped regexes, and rely on the scanner for adjacency-sensitive tokens.
-* Highlight/corpus updates should be synchronized: whenever a new node/field is introduced, update `queries/highlights.scm` plus the relevant snapshots in the same change.
-* The macro scanner still emits exactly one token per colon cluster. If you adjust how `BLOCK_MACRO_MARKER` is consumed, double-check `src/scanner.c` so `INLINE_MACRO_MARKER` / `PLAIN_COLON` behavior stays intact.
-* Parser artifacts (`src/parser.c`, `src/scanner.c`, `binding.gyp` outputs) are current; regenerate with `npx tree-sitter generate` only after grammar edits.
+* Keep following `AGENTS.md`: no lookahead/grouped regexes, no edits under `bindings/`, keep `source_file` first, and model adjacency via the scanner when necessary.
+* Math macros must stay as generic `inline_macro` nodes; we already aligned the corpora accordingly.
+* Plenty of highlight snapshots are dirty locallyâ€”do not revert them. Only rerun the highlight suite when grammar behavior changes in a way that affects captures.
 
-== Open Questions for the User
+== Open Questions
 
-1. Should `image::` always remain an inline `image` node, or do we want it treated as a `block_macro` when it stands alone?
-2. Is it acceptable to change the corpus expectations for math/UI macros to account for the new `inline_macro` nodes, or should the grammar be adjusted to keep the previous AST shape?
-3. Can block macros inherit block attributes (IDs, roles, options), or should they ignore preceding attribute lists?
+1. Should attribute entries that start with a tab or spaces still be considered valid, or must the colon begin in column 0 per AsciiDoc spec?
+2. Do we need to capture malformed `{attr}` references explicitly (e.g., a dedicated `attribute_reference_error` node), or is falling back to plain text sufficient?
 
 == Verification Checklist
 
-* `pwsh -NoLogo -NoProfile -Command "…"` highlight runner — currently passing and should stay green after any grammar update.
-* `npx tree-sitter test` — currently failing; re-run after each fix until all suites pass.
-* Remove `test/highlight/.actual` after every highlight run (already handled during this session).
+* `npx tree-sitter generate`
+* `npx tree-sitter test --file-name 03_attributes.txt`
+* `npx tree-sitter test --file-name 19_inline_formatting.txt --include "Attribute references"`
+* `npx tree-sitter test --file-name 22_macros_roles.txt --include "Attribute references"`
+* Full `npx tree-sitter test` sweep before requesting review
+* Highlight runner (PowerShell script in `AGENTS.md`) if node names/fields change

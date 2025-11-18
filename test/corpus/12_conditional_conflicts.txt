@@ -56,7 +56,7 @@ The word endif:: can also appear here.
           (plain_text))))))
 
 ================================================================================
-Malformed conditionals should be paragraphs
+Malformed conditional directives stay as blocks
 ================================================================================
 
 ifdef::attr[extra content after bracket]
@@ -81,7 +81,7 @@ These look like conditionals but are malformed.
           (plain_colon
             (PLAIN_COLON)))
         (ERROR
-          (attribute_identifier)))
+          (role_list)))
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)

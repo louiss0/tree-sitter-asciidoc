@@ -188,12 +188,12 @@ Role spans with complex attributes
       (plain_text)
       (plain_text)
       (plain_text)))
-  (ERROR)
   (paragraph
     content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (plain_text)
+      (inline_element
+        (role_span
+          roles: (role_list)
+          content: (role_content)))
       (plain_text)
       (plain_text))))
 
