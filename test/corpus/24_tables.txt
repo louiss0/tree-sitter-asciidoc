@@ -21,40 +21,40 @@ Basic Table
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
@@ -85,45 +85,45 @@ Table with Title and Metadata
     title: (table_title
       text: (table_title_text))
     metadata: (metadata
-      (block_attributes
+      attributes: (block_attributes
         (ATTRIBUTE_LIST_START)))
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
@@ -153,65 +153,65 @@ Table with Cell Specifications - Spans and Formats
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
-          content: (cell_content
-            (cell_literal_text))))
-      (content_line)
-      (table_row
-        (table_cell
-          content: (cell_content
-            (cell_literal_text)))
-        (table_cell
-          content: (cell_content
-            (cell_literal_text))))
-      (table_row
-        (table_cell
-          content: (cell_content
-            (cell_literal_text)))
-        (table_cell
-          content: (cell_content
-            (cell_literal_text))))
-      (table_row
-        (table_cell
-          content: (cell_content
-            (cell_literal_text)))
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
@@ -235,23 +235,23 @@ Table with AsciiDoc Content in Cells
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
@@ -292,27 +292,27 @@ Table with Empty Cells
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
