@@ -37,7 +37,7 @@ Empty lines are preserved in comments:
 
 Even with multiple empty lines
 
-And special characters: //, ===, **bold**, `code`, {attr}
+And special characters: //, ===, **bold**, `code`, {commentAttr}
 ////
 
 Another paragraph.

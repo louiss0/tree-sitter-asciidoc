@@ -286,14 +286,6 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
         body: (macro_body))
       (plain_text))))
 
-====
-Example block content with anchor
-====
-
----
-
-(source_file)
-
 ================================================================================
 Malformed anchors produce errors
 ================================================================================
@@ -309,7 +301,7 @@ This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
       (plain_text))
     (ERROR
       (role_list)
-      (attribute_identifier)
+      (plain_text)
       (role_list))))
 
 ================================================================================
@@ -322,7 +314,7 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (plain_text)
@@ -371,7 +363,7 @@ See xref:../other/doc.adoc#section1[Complex target] for details.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (inline_element
         (external_xref))

@@ -2,9 +2,10 @@
 Basic ifdef block
 ================================================================================
 
-:backend: pdf
+= Conditional Document
+:backendMode: pdf
 
-ifdef::backend[]
+ifdef::backendMode[]
 == PDF Content
 Paragraph under conditional.
 endif::[]
@@ -12,26 +13,31 @@ endif::[]
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value))
-  (conditional_block
-    (ifdef_block
-      (ifdef_open)
-      (section
-        (section_level_2
-          (section_marker_2)
-          (title)
-          (paragraph
-            (inline_seq_nonempty
-              (plain_text)
-              (plain_text)
-              (plain_text)))))
-      (endif_directive))))
+  (section
+    (section_level_1
+      marker: (section_marker_1)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (conditional_block
+        (ifdef_block
+          directive: (ifdef_open)
+          content: (section
+            (section_level_2
+              marker: (section_marker_2)
+              title: (title)
+              content: (paragraph
+                content: (inline_seq_nonempty
+                  (plain_text)
+                  (plain_text)
+                  (plain_text)))))
+          end: (endif_directive))))))
 
 ================================================================================
 Basic ifndef block
@@ -46,21 +52,22 @@ endif::[]
 (source_file
   (conditional_block
     (ifndef_block
-      (ifndef_open)
-      (paragraph
-        (inline_seq_nonempty
+      directive: (ifndef_open)
+      content: (paragraph
+        content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
           (plain_text)))
-      (endif_directive))))
+      end: (endif_directive))))
 
 ================================================================================
 Basic ifeval block
 ================================================================================
 
-:level: 2
+= Evaluation Document
+:levelThreshold: 2
 
-ifeval::[{level} > 1]
+ifeval::[{levelThreshold} > 1]
 == Title
 Content for level greater than 1.
 endif::[]
@@ -68,29 +75,34 @@ endif::[]
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value))
-  (conditional_block
-    (ifeval_block
-      (ifeval_open)
-      (section
-        (section_level_2
-          (section_marker_2)
-          (title)
-          (paragraph
-            (inline_seq_nonempty
-              (plain_text)
-              (plain_text)
-              (plain_text)
-              (plain_text)
-              (plain_text)
-              (plain_text)))))
-      (endif_directive))))
+  (section
+    (section_level_1
+      marker: (section_marker_1)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (conditional_block
+        (ifeval_block
+          directive: (ifeval_open)
+          content: (section
+            (section_level_2
+              marker: (section_marker_2)
+              title: (title)
+              content: (paragraph
+                content: (inline_seq_nonempty
+                  (plain_text)
+                  (plain_text)
+                  (plain_text)
+                  (plain_text)
+                  (plain_text)
+                  (plain_text)))))
+          end: (endif_directive))))))
 
 ================================================================================
 Nested conditionals
@@ -107,16 +119,16 @@ endif::[]
 (source_file
   (conditional_block
     (ifdef_block
-      (ifdef_open)
-      (conditional_block
+      directive: (ifdef_open)
+      content: (conditional_block
         (ifdef_block
-          (ifdef_open)
-          (paragraph
-            (inline_seq_nonempty
+          directive: (ifdef_open)
+          content: (paragraph
+            content: (inline_seq_nonempty
               (plain_text)
               (plain_text)))
-          (endif_directive)))
-      (endif_directive))))
+          end: (endif_directive)))
+      end: (endif_directive))))
 
 ================================================================================
 Mixed conditional and description list
@@ -134,24 +146,24 @@ Another:: item
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
-      (description_content
+    items: (description_item
+      term: (description_term)
+      details: (description_content
         (inline_seq_nonempty
           (plain_text)))))
   (conditional_block
     (ifdef_block
-      (ifdef_open)
-      (paragraph
-        (inline_seq_nonempty
+      directive: (ifdef_open)
+      content: (paragraph
+        content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
           (plain_text)))
-      (endif_directive)))
+      end: (endif_directive)))
   (description_list
-    (description_item
-      (description_term)
-      (description_content
+    items: (description_item
+      term: (description_term)
+      details: (description_content
         (inline_seq_nonempty
           (plain_text))))))
 
@@ -168,13 +180,13 @@ endif::[]
 (source_file
   (conditional_block
     (ifdef_block
-      (ifdef_open)
-      (paragraph
-        (inline_seq_nonempty
+      directive: (ifdef_open)
+      content: (paragraph
+        content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
           (plain_text)))
-      (endif_directive))))
+      end: (endif_directive))))
 
 ================================================================================
 Conditional with lists and sections
@@ -197,40 +209,40 @@ endif::[]
 (source_file
   (conditional_block
     (ifdef_block
-      (ifdef_open)
-      (section
+      directive: (ifdef_open)
+      content: (section
         (section_level_2
-          (section_marker_2)
-          (title)
-          (unordered_list
-            (unordered_list_item
-              (unordered_list_marker)
-              (inline_seq_nonempty
+          marker: (section_marker_2)
+          title: (title)
+          content: (unordered_list
+            items: (unordered_list_item
+              marker: (unordered_list_marker)
+              content: (inline_seq_nonempty
                 (plain_text)
                 (plain_text)
                 (plain_text)))
-            (unordered_list_item
-              (unordered_list_marker)
-              (inline_seq_nonempty
+            items: (unordered_list_item
+              marker: (unordered_list_marker)
+              content: (inline_seq_nonempty
                 (plain_text)
                 (plain_text)
                 (plain_text))))
-          (ordered_list
-            (ordered_list_item
-              (ordered_list_marker)
-              (inline_seq_nonempty
+          content: (ordered_list
+            items: (ordered_list_item
+              marker: (ordered_list_marker)
+              content: (inline_seq_nonempty
                 (plain_text)
                 (plain_text)))
-            (ordered_list_item
-              (ordered_list_marker)
-              (inline_seq_nonempty
+            items: (ordered_list_item
+              marker: (ordered_list_marker)
+              content: (inline_seq_nonempty
                 (plain_text)
                 (plain_text))))
-          (paragraph
-            (inline_seq_nonempty
+          content: (paragraph
+            content: (inline_seq_nonempty
               (plain_text)
               (plain_text)))))
-      (endif_directive))))
+      end: (endif_directive))))
 
 ================================================================================
 Empty conditional block
@@ -246,10 +258,10 @@ Normal content
 (source_file
   (conditional_block
     (ifdef_block
-      (ifdef_open)
-      (endif_directive)))
+      directive: (ifdef_open)
+      end: (endif_directive)))
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text))))
 
@@ -257,7 +269,7 @@ Normal content
 Complex ifeval expression
 ================================================================================
 
-ifeval::["{version}" >= "2.0"]
+ifeval::["{versionNumber}" >= "2.0"]
 New feature content
 endif::[]
 
@@ -266,10 +278,10 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      (ifeval_open)
-      (paragraph
-        (inline_seq_nonempty
+      directive: (ifeval_open)
+      content: (paragraph
+        content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
           (plain_text)))
-      (endif_directive))))
+      end: (endif_directive))))

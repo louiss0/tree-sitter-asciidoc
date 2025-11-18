@@ -1,9 +1,0 @@
-This is a paragraph with a footnote:[This is a footnote].
-
-This has a referenced footnote:ref1[This is referenced footnote].
-
-And this references footnote:ref1[].
-
-You can also use footnoteref:ref2[Another referenced footnote].
-
-And reference it again with footnoteref:ref2[].

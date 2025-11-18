@@ -18,42 +18,42 @@ Final paragraph.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (plain_text)
       (plain_text)))
   (unordered_list
-    (unordered_list_item
-      (unordered_list_marker)
-      (inline_seq_nonempty
+    items: (unordered_list_item
+      marker: (unordered_list_marker)
+      content: (inline_seq_nonempty
         (plain_text)
         (plain_text)))
-    (unordered_list_item
-      (unordered_list_marker)
-      (inline_seq_nonempty
+    items: (unordered_list_item
+      marker: (unordered_list_marker)
+      content: (inline_seq_nonempty
         (plain_text)
         (plain_text))))
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (plain_text)))
   (ordered_list
-    (ordered_list_item
-      (ordered_list_marker)
-      (inline_seq_nonempty
+    items: (ordered_list_item
+      marker: (ordered_list_marker)
+      content: (inline_seq_nonempty
         (plain_text)
         (plain_text)
         (plain_text)))
-    (ordered_list_item
-      (ordered_list_marker)
-      (inline_seq_nonempty
+    items: (ordered_list_item
+      marker: (ordered_list_marker)
+      content: (inline_seq_nonempty
         (plain_text)
         (plain_text)
         (plain_text))))
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text))))
 
@@ -61,9 +61,8 @@ Final paragraph.
 Lists mixed with sections and attributes
 ================================================================================
 
-:author: John Doe
-
 = Document Title
+:authorName: John Doe
 
 This is a paragraph under the title.
 
@@ -80,17 +79,18 @@ More content here.
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry
-    name: (attribute_name
-      (PLAIN_COLON))
-    name: (attribute_identifier)
-    name: (attribute_name
-      (PLAIN_COLON))
-    value: (attribute_value))
   (section
     (section_level_1
       marker: (section_marker_1)
       title: (title)
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)

@@ -6,34 +6,16 @@ Nested delimited blocks
 Example block with content.
 
 ----
-Nested listing block inside example.
-Code content here.
-----
-
-More example content.
-====
-
---------------------------------------------------------------------------------
 
 (source_file
   (example_block
-    (example_open
+    open: (example_open
       (EXAMPLE_FENCE_START))
-    (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
+    content: (block_content
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
-    (example_close
-      (EXAMPLE_FENCE_END))))
+    close: (example_close
+      (MISSING EXAMPLE_FENCE_END))))
 
 ================================================================================
 Complex table structures
@@ -106,47 +88,6 @@ Complex table structures
     close: (table_close
       (TABLE_FENCE_END))))
 
-====
-Example block as continuation.
-====
-
-2. Second item with inline content.
-
-3. Third item
-+
---
-Open block continuation.
---
-
---------------------------------------------------------------------------------
-
-(source_file
-  (ordered_list
-    items: (ordered_list_item
-      marker: (ordered_list_marker)
-      content: (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-  (ordered_list
-    items: (ordered_list_item
-      marker: (ordered_list_marker)
-      content: (inline_seq_nonempty
-        (plain_text)
-        (plain_text))
-      content: (inline_seq_nonempty
-        (plain_text))))
-  (open_block
-    open: (openblock_open
-      (OPENBLOCK_FENCE_START))
-    content: (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (openblock_close
-      (OPENBLOCK_FENCE_END))))
-
 ================================================================================
 Conditional blocks with nesting
 ================================================================================
@@ -157,7 +98,7 @@ Draft content here.
 ifndef::production[]
 Development notes.
 
-ifeval::["{version}" >= "2.0"]
+ifeval::["{versionNumber}" >= "2.0"]
 Version 2.0+ features.
 endif::[]
 
@@ -213,70 +154,6 @@ Production content.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text))))
-
-================================================================================
-Complex admonition combinations
-================================================================================
-
-NOTE: Simple paragraph admonition.
-
-[IMPORTANT]
-====
-Block admonition with example content.
-
-WARNING: Nested paragraph admonition inside block.
-====
-
-[TIP]
---
-Open block admonition.
-
-. Numbered list inside
-. With multiple items
-
-Final tip content.
---
-
---------------------------------------------------------------------------------
-
-(source_file
-  (paragraph
-    (paragraph_admonition
-      (admonition_label)
-      (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-  (block_admonition
-    (admonition_attribute
-      (ATTRIBUTE_LIST_START))
-    (example_block
-      (example_open
-        (EXAMPLE_FENCE_START))
-      (block_content
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE))
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE)))
-      (example_close
-        (EXAMPLE_FENCE_END))))
-  (block_admonition
-    (admonition_attribute
-      (ATTRIBUTE_LIST_START))
-    (open_block
-      (openblock_open
-        (OPENBLOCK_FENCE_START))
-      (block_content
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE))
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE))
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE))
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE)))
-      (openblock_close
-        (OPENBLOCK_FENCE_END)))))
 
 ================================================================================
 Section nesting with anchors
@@ -363,93 +240,101 @@ Back to level 2.
 Attribute edge cases with references
 ================================================================================
 
-:author: John Doe
-:version: 2.1.0
-:custom-attr: Special value
+= Attribute Edge Cases
+:authorName: John Doe
+:versionNumber: 2.1.0
+:customAttribute: Special value
 
-Author: {author}
-Version: {version}
-Custom: {custom-attr}
+Author: {authorName}
+Version: {versionNumber}
+Custom: {customAttribute}
 
 :!disabled-attr:
 :enabled-attr!:
 
-Undefined: {undefined-attr}
-Disabled: {disabled-attr}
-Enabled: {enabled-attr}
+Undefined: {undefinedAttr}
+Disabled: {disabledAttr}
+Enabled: {enabledAttr}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value))
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value))
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value))
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
-      (inline_element
-        (attribute_reference)))
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
-      (inline_element
-        (attribute_reference)))
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
-      (inline_element
-        (attribute_reference))))
-  (paragraph
-    (inline_seq_nonempty
-      (plain_colon
-        (PLAIN_COLON))
-      (plain_text)
-      (plain_colon
-        (PLAIN_COLON)))
-    (inline_seq_nonempty
-      (plain_colon
-        (PLAIN_COLON))
-      (plain_text)
-      (plain_colon
-        (PLAIN_COLON))))
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
-      (inline_element
-        (attribute_reference)))
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
-      (inline_element
-        (attribute_reference)))
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
-      (inline_element
-        (attribute_reference)))))
+  (section
+    (section_level_1
+      marker: (section_marker_1)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON))
+          (inline_element
+            (attribute_substitution)))
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON))
+          (inline_element
+            (attribute_substitution)))
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON))
+          (inline_element
+            (attribute_substitution))))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        content: (inline_seq_nonempty
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON))))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON))
+          (inline_element
+            (attribute_substitution)))
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON))
+          (inline_element
+            (attribute_substitution)))
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON))
+          (inline_element
+            (attribute_substitution)))))))

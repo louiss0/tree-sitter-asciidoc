@@ -2,79 +2,93 @@
 Basic attribute entries
 ================================================================================
 
-:revnumber: 1.2.3
-:author: Alice
-
 = Title
-:role: admin
+:revNumber: 1.2.3
+:authorName: Alice
 
 Some text.
+
+== Subsection
+:roleAdmin: admin
+
+More text.
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value))
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value))
   (section
     (section_level_1
-      (section_marker_1)
-      (title)
-      (attribute_entry
-        (attribute_name
-          (PLAIN_COLON))
-        (attribute_identifier)
-        (attribute_name
-          (PLAIN_COLON))
-        (attribute_value))
-      (paragraph
-        (inline_seq_nonempty
+      marker: (section_marker_1)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
           (plain_text)
-          (plain_text))))))
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)))
+      content: (section_level_2
+        marker: (section_marker_2)
+        title: (title)
+        content: (attribute_entry
+          name: (attribute_name
+            (plain_colon
+              (PLAIN_COLON))
+            (plain_text)
+            (plain_colon
+              (PLAIN_COLON)))
+          value: (attribute_value))
+        content: (paragraph
+          content: (inline_seq_nonempty
+            (plain_text)
+            (plain_text)))))))
 
 ================================================================================
 Attribute entries without values
 ================================================================================
 
-:imagesdir:
-:source-highlighter:
-
 = Document
+:imagesDir:
+:sourceHighlighter:
 
 Content here
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON)))
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON)))
   (section
     (section_level_1
-      (section_marker_1)
-      (title)
-      (paragraph
-        (inline_seq_nonempty
+      marker: (section_marker_1)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON))))
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON))))
+      content: (paragraph
+        content: (inline_seq_nonempty
           (plain_text)
           (plain_text))))))
 
@@ -82,102 +96,112 @@ Content here
 Attribute entries with spaces in values
 ================================================================================
 
-:title: My Great Document
-:description: This is a long description with spaces
+= Info
+:titleText: My Great Document
+:longDescription: This is a long description with spaces
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value))
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value)))
-
-================================================================================
-Invalid attribute patterns should be paragraphs
-================================================================================
-
-: missing name
-:incomplete because no colon
-:: starts with double colon
-
---------------------------------------------------------------------------------
-
-(source_file
-  (paragraph
-    (inline_seq_nonempty
-      (plain_colon
-        (PLAIN_COLON)))
-    (ERROR
-      (attribute_identifier)
-      (attribute_identifier))
-    (inline_seq_nonempty
-      (plain_colon
-        (PLAIN_COLON))
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text))
-    (inline_seq_nonempty
-      (plain_colon
-        (PLAIN_COLON))
-      (plain_colon
-        (PLAIN_COLON))
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+  (section
+    (section_level_1
+      marker: (section_marker_1)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value)))))
 
 ================================================================================
 Mixed attributes and other content
 ================================================================================
 
-:author: Bob
+= Section Title
+:authorName: Bob
 
 First paragraph
 
-:version: 2.0
-
-= Section Title
+:versionValue: 2.0
 
 More content
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value))
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_text)))
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value))
   (section
     (section_level_1
-      (section_marker_1)
-      (title)
-      (paragraph
-        (inline_seq_nonempty
+      marker: (section_marker_1)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
           (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)))
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Snake and dashed attribute names
+================================================================================
+
+= Variants
+:snake_case_name: value
+:dash-case-name: other
+
+Body
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_1
+      marker: (section_marker_1)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (paragraph
+        content: (inline_seq_nonempty
           (plain_text))))))

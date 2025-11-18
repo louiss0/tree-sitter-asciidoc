@@ -62,18 +62,18 @@ Monospace with `code *not strong* here` content.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (inline_element
         (strong
-          (strong_open)
-          (strong_content)
-          (strong_close)))
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
       (plain_text)
       (plain_text)
       (plain_text)))
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (escaped_char)
       (plain_text)
@@ -86,25 +86,25 @@ Monospace with `code *not strong* here` content.
       (escaped_char)
       (plain_text)))
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_colon
         (PLAIN_COLON))
       (inline_element
         (strong
-          (strong_open)
-          (strong_content)
-          (strong_close)))
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
       (plain_text)))
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (inline_element
         (monospace
-          (monospace_open)
-          (monospace_content)
-          (monospace_close)))
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
       (plain_text))))
 
 ================================================================================
@@ -360,7 +360,7 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
         open: (INLINE_MACRO_MARKER)
         body: (macro_body))
       (ERROR
-        (attribute_identifier))
+        (plain_text))
       (inline_element
         (inline_anchor))
       (plain_text))))
@@ -379,15 +379,15 @@ Nested pass: pass:c[{code-block}] with substitution.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (inline_macro
-        (macro_name)
-        (INLINE_MACRO_MARKER)
-        (macro_body))
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
       (plain_text)))
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (plain_text)
@@ -398,11 +398,11 @@ Nested pass: pass:c[{code-block}] with substitution.
       (plain_text)
       (plain_text)))
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (inline_macro
-        (macro_name)
-        (INLINE_MACRO_MARKER)
-        (macro_body))
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
       (plain_text)
       (plain_text))))

@@ -22,7 +22,7 @@
   value: (value) @string)
 
 ; Attribute references ({name})
-(attribute_reference) @variable
+(attribute_substitution) @variable
 
 ; =============================================================================
 ; INLINE FORMATTING
@@ -33,7 +33,7 @@
 (strong_constrained content: (strong_text) @markup.strong)
 
 ; Emphasis/italic text (_text_)
-(emphasis) @markup.italic  
+(emphasis) @markup.italic
 (emphasis_constrained content: (emphasis_text) @markup.italic)
 
 ; Monospace/code text (`text`)
@@ -57,7 +57,7 @@
 ; External cross-references (xref:target[text]) - treated as macros
 (external_xref) @function.macro
 
-; Link macros (link:url[text]) - treated as macros 
+; Link macros (link:url[text]) - treated as macros
 (link) @function.macro
 (link_macro) @function.macro
 
@@ -94,7 +94,7 @@
 
 ; List items
 (unordered_list_item) @markup.list
-(ordered_list_item) @markup.list 
+(ordered_list_item) @markup.list
 (description_item) @markup.list
 
 ; Callout lists
@@ -159,7 +159,7 @@
 
 ; UI macros
 (ui_kbd) @function.macro
-(ui_btn) @function.macro 
+(ui_btn) @function.macro
 (ui_menu) @function.macro
 
 ; Math macros
@@ -216,7 +216,7 @@
 ; Regular text segments - lower priority
 (text_segment) @none
 (text_colon) @none
-(text_angle_bracket) @none  
+(text_angle_bracket) @none
 (text_bracket) @none
 
 ; Text with inlines containers - don't highlight the container itself

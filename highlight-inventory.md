@@ -78,7 +78,7 @@ This document maps grammar nodes from `grammar.js` to proposed highlight capture
 |-------------|----------------|----------------|------------------|----------|---------|
 | `attribute_entry` | `name` field | `@property` | `@attribute` | default | ⭐ |
 | `attribute_entry` | `value` field | `@string` | `@string` | default | ✅ |
-| `attribute_reference` | *all* | `@variable` | `@attribute` with `@punctuation.bracket` for braces | default | ⭐ |
+| `attribute_substitution` | *all* | `@variable` | `@attribute` with `@punctuation.bracket` for braces | default | ⭐ |
 | `block_attributes` | *all* | `@property` | Parse into keys `@attribute`, values `@string`, brackets `@punctuation.bracket` | default | ⭐ |
 | `id_and_roles` | *all* | `@property` | Parse IDs `@label`, roles `@type`, punctuation `@punctuation.delimiter` | default | ⭐ |
 | `block_title` | *all* | `@property` | `@markup.heading.marker` for dot, `@string` for title | default | ⭐ |

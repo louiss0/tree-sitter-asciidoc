@@ -38,7 +38,7 @@ Current symptoms:
 == Open Questions
 
 1. Should attribute entries that start with a tab or spaces still be considered valid, or must the colon begin in column 0 per AsciiDoc spec?
-2. Do we need to capture malformed `{attr}` references explicitly (e.g., a dedicated `attribute_reference_error` node), or is falling back to plain text sufficient?
+2. Do we need to capture malformed `{attr}` references explicitly (e.g., a dedicated `attribute_substitution_error` node), or is falling back to plain text sufficient?
 
 == Verification Checklist
 

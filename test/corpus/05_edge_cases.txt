@@ -11,14 +11,14 @@ Indented headings are treated as valid headings
 (source_file
   (section
     (section_level_1
-      (section_marker_1)
-      (title)
-      (section_level_2
-        (section_marker_2)
-        (title)
-        (section_level_3
-          (section_marker_3)
-          (title))))))
+      marker: (section_marker_1)
+      title: (title)
+      content: (section_level_2
+        marker: (section_marker_2)
+        title: (title)
+        content: (section_level_3
+          marker: (section_marker_3)
+          title: (title))))))
 
 ================================================================================
 Invalid attribute patterns should be paragraphs
@@ -33,19 +33,18 @@ Invalid attribute patterns should be paragraphs
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_colon
-        (PLAIN_COLON)))
-    (ERROR
-      (attribute_identifier)
-      (attribute_identifier)
-      (attribute_identifier)
-      (attribute_identifier))
-    (inline_seq_nonempty
+        (PLAIN_COLON))
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))
+    content: (inline_seq_nonempty
       (plain_colon
         (PLAIN_COLON))
       (plain_text))
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_colon
         (PLAIN_COLON))
       (plain_colon
@@ -53,7 +52,7 @@ Invalid attribute patterns should be paragraphs
       (plain_text)
       (plain_text)
       (plain_text))
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_colon
         (PLAIN_COLON))
       (plain_colon
@@ -65,33 +64,41 @@ Invalid attribute patterns should be paragraphs
 Attributes with spaces in values and empty values
 ================================================================================
 
-:name:    value with spaces
-:empty:
-:spaced: 	tabbed value
+= Attribute Cases
+:nameValue:    value with spaces
+:emptyCase:
+:spacedValue: 	tabbed value
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value))
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON)))
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value)))
+  (section
+    (section_level_1
+      marker: (section_marker_1)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON))))
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value)))))
 
 ================================================================================
 Multiple consecutive blank lines
@@ -110,18 +117,18 @@ Third paragraph after three blanks
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)))
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (plain_text)
       (plain_text)
       (plain_text)))
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (plain_text)
@@ -141,11 +148,11 @@ Headings with trailing spaces
 (source_file
   (section
     (section_level_1
-      (section_marker_1)
-      (title)
-      (section_level_2
-        (section_marker_2)
-        (title)
-        (section_level_3
-          (section_marker_3)
-          (title))))))
+      marker: (section_marker_1)
+      title: (title)
+      content: (section_level_2
+        marker: (section_marker_2)
+        title: (title)
+        content: (section_level_3
+          marker: (section_marker_3)
+          title: (title))))))

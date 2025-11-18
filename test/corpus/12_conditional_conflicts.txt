@@ -11,20 +11,20 @@ The word endif:: can also appear here.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (plain_text)))
   (description_list
-    (description_item
-      (description_term)
-      (description_content
+    items: (description_item
+      term: (description_term)
+      details: (description_content
         (inline_seq_nonempty
           (plain_text)))))
   (description_list
-    (description_item
-      (description_term)
-      (description_content
+    items: (description_item
+      term: (description_term)
+      details: (description_content
         (inline_seq_nonempty
           (plain_text)
           (plain_text))
@@ -42,13 +42,13 @@ The word endif:: can also appear here.
           (plain_text)
           (plain_text)))))
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)))
   (description_list
-    (description_item
-      (description_term)
-      (description_content
+    items: (description_item
+      term: (description_term)
+      details: (description_content
         (inline_seq_nonempty
           (plain_text)
           (plain_text)
@@ -93,63 +93,6 @@ These look like conditionals but are malformed.
           (plain_text))))))
 
 ================================================================================
-Mixing attributes and conditionals
-================================================================================
-
-:attr1: value1
-
-ifdef::attr1[]
-Content when attr1 is set
-endif::[]
-
-:attr2: value2
-
-ifndef::missing[]
-Content when missing is not set
-endif::[]
-
---------------------------------------------------------------------------------
-
-(source_file
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value))
-  (conditional_block
-    (ifdef_block
-      (ifdef_open)
-      (paragraph
-        (inline_seq_nonempty
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)))
-      (endif_directive)))
-  (attribute_entry
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_identifier)
-    (attribute_name
-      (PLAIN_COLON))
-    (attribute_value))
-  (conditional_block
-    (ifndef_block
-      (ifndef_open)
-      (paragraph
-        (inline_seq_nonempty
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)))
-      (endif_directive))))
-
-================================================================================
 Triple colons are not conditionals
 ================================================================================
 
@@ -160,7 +103,7 @@ another:::word paragraph
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_colon
         (PLAIN_COLON))
@@ -171,7 +114,7 @@ another:::word paragraph
       (plain_text)
       (plain_text)
       (plain_text))
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_colon
         (PLAIN_COLON))
@@ -197,25 +140,25 @@ endif::[]
 (source_file
   (conditional_block
     (ifdef_block
-      (ifdef_open)
-      (paragraph
-        (inline_seq_nonempty
+      directive: (ifdef_open)
+      content: (paragraph
+        content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
           (plain_text)
           (plain_text)))
-      (endif_directive)))
+      end: (endif_directive)))
   (conditional_block
     (ifndef_block
-      (ifndef_open)
-      (paragraph
-        (inline_seq_nonempty
+      directive: (ifndef_open)
+      content: (paragraph
+        content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
           (plain_text)
           (plain_text)
           (plain_text)))
-      (endif_directive))))
+      end: (endif_directive))))
 
 ================================================================================
 Conditionals with attributes inside sections
@@ -223,15 +166,15 @@ Conditionals with attributes inside sections
 
 == Main Section
 
-:debug: true
+:debugMode: true
 
-ifdef::debug[]
+ifdef::debugMode[]
 Debug information here
 endif::[]
 
 === Subsection
 
-ifndef::production[]
+ifndef::productionBuild[]
 Development content
 endif::[]
 
@@ -244,10 +187,11 @@ endif::[]
       title: (title)
       content: (attribute_entry
         name: (attribute_name
-          (PLAIN_COLON))
-        name: (attribute_identifier)
-        name: (attribute_name
-          (PLAIN_COLON))
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
         value: (attribute_value))
       content: (conditional_block
         (ifdef_block
@@ -269,3 +213,67 @@ endif::[]
                 (plain_text)
                 (plain_text)))
             end: (endif_directive)))))))
+
+================================================================================
+Mixing attributes and conditionals
+================================================================================
+
+= Attribute Conditional Mix
+:attrOneValue: value1
+
+ifdef::attrOneValue[]
+Content when attrOneValue is set
+endif::[]
+
+:attrTwoValue: value2
+
+ifndef::missing[]
+Content when missing is not set
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_1
+      marker: (section_marker_1)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (conditional_block
+        (ifdef_block
+          directive: (ifdef_open)
+          content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)))
+          end: (endif_directive)))
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (conditional_block
+        (ifndef_block
+          directive: (ifndef_open)
+          content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)))
+          end: (endif_directive))))))

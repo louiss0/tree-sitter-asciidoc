@@ -228,14 +228,14 @@ This indexterm[missing-colon] should be text.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (ERROR
         (role_list)
-        (attribute_identifier)
-        (attribute_identifier)
-        (attribute_identifier))
+        (plain_text)
+        (plain_text)
+        (plain_text))
       (plain_text))))
 
 ================================================================================
@@ -248,7 +248,7 @@ This ((incomplete)) should be text.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (plain_text)

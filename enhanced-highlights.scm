@@ -66,11 +66,11 @@
 
 ;; Attribute declarations (:name: value)
 (attribute_entry
-  name: (name) @property
-  value: (value) @string)
+  name: (attribute_name) @property
+  value: (attribute_value) @string)
 
 ;; Attribute references ({name})
-(attribute_reference) @variable
+(attribute_substitution) @variable
 
 ;; =============================================================================
 ;; INLINE FORMATTING

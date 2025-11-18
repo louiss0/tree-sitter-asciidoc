@@ -6,27 +6,28 @@ This is *bold* text and _italic_ text and `monospace` text.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (inline_element
-        (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close)))
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (inline_element
-        (monospace
-          open: (monospace_open)
-          content: (monospace_content)
-          close: (monospace_close)))
-      (plain_text))))
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (monospace
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
+      (plain_text))))
+
 
 ================================================================================
 Superscript and subscript
@@ -36,20 +37,21 @@ This is E=mc^2^ and H~2~O.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (inline_element
-        (subscript
-          open: (subscript_open)
-          content: (subscript_text)
-          close: (subscript_close)))
-      (plain_text))))
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (subscript
+          open: (subscript_open)
+          content: (subscript_text)
+          close: (subscript_close)))
+      (plain_text))))
+
 
 ================================================================================
 Nested formatting
@@ -59,36 +61,36 @@ This is *bold _italic_ text* mixed.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (inline_element
-        (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close)))
-      (plain_text))))
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text))))
+
 
 ================================================================================
 Attribute references
 ================================================================================
 
-Hello {name} from {location}!
+Hello {userName} from {homeLocation}!
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text)
-      (inline_element
-        (attribute_reference))
-      (plain_text)
-      (inline_element
-        (attribute_reference))
-      (plain_text))))
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (attribute_substitution))
+      (plain_text)
+      (plain_text))))
+
 
 ================================================================================
 Auto links
@@ -98,15 +100,16 @@ Visit https://example.com for more info.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text)
-      (inline_element
-        (auto_link))
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (auto_link))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
 
 ================================================================================
 Links with text
@@ -116,17 +119,18 @@ Visit https://example.com[Example Site] for more info.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (inline_element
-        (explicit_link
-          url: (auto_link)
-          text: (link_text)))
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (explicit_link
+          url: (auto_link)
+          text: (link_text)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
 
 ================================================================================
 Passthrough
@@ -136,15 +140,16 @@ This +++*should not be bold*+++ text.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (inline_element
-        (strong
-          (strong_open)
-          (strong_content)
-          (strong_close)))
-      (plain_text)
-      (plain_text))))
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)
+      (plain_text))))
+

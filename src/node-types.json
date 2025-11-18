@@ -95,13 +95,9 @@
     "named": true,
     "fields": {
       "name": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "attribute_identifier",
-            "named": true
-          },
           {
             "type": "attribute_name",
             "named": true
@@ -125,11 +121,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": false,
+      "multiple": true,
+      "required": true,
       "types": [
         {
-          "type": "PLAIN_COLON",
+          "type": "plain_colon",
+          "named": true
+        },
+        {
+          "type": "plain_text",
           "named": true
         }
       ]
@@ -709,10 +709,6 @@
             "named": true
           },
           {
-            "type": "attribute_entry",
-            "named": true
-          },
-          {
             "type": "block_admonition",
             "named": true
           },
@@ -817,10 +813,6 @@
             "named": true
           },
           {
-            "type": "attribute_entry",
-            "named": true
-          },
-          {
             "type": "block_admonition",
             "named": true
           },
@@ -922,10 +914,6 @@
         "types": [
           {
             "type": "asciidoc_blockquote",
-            "named": true
-          },
-          {
-            "type": "attribute_entry",
             "named": true
           },
           {
@@ -1125,7 +1113,7 @@
       "required": true,
       "types": [
         {
-          "type": "attribute_reference",
+          "type": "attribute_substitution",
           "named": true
         },
         {
@@ -1935,7 +1923,7 @@
       "required": false,
       "types": [
         {
-          "type": "attribute_reference",
+          "type": "attribute_substitution",
           "named": true
         },
         {
@@ -2820,10 +2808,6 @@
           "named": true
         },
         {
-          "type": "attribute_entry",
-          "named": true
-        },
-        {
           "type": "block_admonition",
           "named": true
         },
@@ -3429,11 +3413,7 @@
     "named": true
   },
   {
-    "type": "attribute_identifier",
-    "named": true
-  },
-  {
-    "type": "attribute_reference",
+    "type": "attribute_substitution",
     "named": true
   },
   {

@@ -61,7 +61,6 @@ module.exports = grammar({
         $.ordered_list,
         $.description_list,
         $.callout_list,
-        $.attribute_entry,
         $.block_admonition,
         $.example_block,
         $.listing_block,
@@ -319,55 +318,20 @@ module.exports = grammar({
     section_marker_6: ($) => token(prec(25, seq("======", /[ \t]+/))),
 
     // ATTRIBUTE ENTRIES - Support both :name: and :name: value forms
-    // Using token to make it atomic and prevent partial matches that cause segfaults
+    // Keep the delimiters explicit so highlight queries can capture the identifier directly.
     attribute_entry: ($) =>
-      choice(
-        // Standard form: :name: value or :name:
-        seq(
-          field(
-            "name",
-            alias(
-              seq(
-                $.plain_colon,
-                alias($._attribute_name_text, $.attribute_identifier),
-                $.plain_colon,
-              ),
-              $.attribute_name,
-            ),
-          ),
-          field("value", optional(seq(token.immediate(/[ \t]+/), $.attribute_value))),
-          $._line_ending,
-        ),
-        // Unset form: :!name: or :name!:
-        seq(
-          field(
-            "name",
-            alias(
-              choice(
-                seq(
-                  $.plain_colon,
-                  "!",
-                  alias($._attribute_name_text, $.attribute_identifier),
-                  $.plain_colon,
-                ),
-                seq(
-                  $.plain_colon,
-                  alias($._attribute_name_text, $.attribute_identifier),
-                  "!",
-                  $.plain_colon,
-                ),
-              ),
-              $.attribute_name,
-            ),
-          ),
-          optional(token.immediate(/[ \t]+/)),
-          $._line_ending,
-        ),
+      seq(
+        field("name", $.attribute_name),
+        optional(field("value", seq(token.immediate(/[ \t]+/), $.attribute_value))),
+        $._line_ending,
       ),
 
     attribute_value: ($) => /[^\r\n]+/,
 
-    _attribute_name_text: ($) => token(prec(25, /[a-zA-Z0-9_-]+/)),
+    attribute_name: ($) =>
+      prec(110, seq($.plain_colon, alias($._attribute_name_text, $.plain_text), $.plain_colon)),
+
+    _attribute_name_text: ($) => token(prec(25, /[\w-]+/)),
 
     // DELIMITED BLOCKS
     example_block: ($) =>
@@ -574,7 +538,7 @@ module.exports = grammar({
         $.string_literal,
         $.numeric_literal,
         $.boolean_literal,
-        $.attribute_reference,
+        $.attribute_substitution,
       ),
 
     grouped_expression: ($) => seq("(", $.expression, ")"),
@@ -742,8 +706,6 @@ module.exports = grammar({
         ),
       ),
 
-    error_recovery: ($) => prec(-1000, /./),
-
     // INLINE FORMATTING
     inline_element: ($) =>
       choice(
@@ -765,7 +727,7 @@ module.exports = grammar({
         $.image,
         $.passthrough_triple_plus,
         $.pass_macro,
-        $.attribute_reference,
+        $.attribute_substitution,
         $.role_span,
         $.index_term,
         $.ui_menu,
@@ -1028,8 +990,7 @@ module.exports = grammar({
         ),
       ),
 
-    // ATTRIBUTE REFERENCES
-    attribute_reference: ($) => token(prec(10, seq("{", /[^}\r\n]+/, "}"))),
+    attribute_substitution: ($) => token(prec(10, /\{[a-z]+(?:[A-Z][a-z0-9]+)+\}/)),
 
     // ROLE SPANS
     role_span: ($) =>
@@ -1057,7 +1018,7 @@ module.exports = grammar({
           prec(100, $.superscript),
           prec(100, $.subscript),
           prec(100, $.explicit_link),
-          prec(100, $.attribute_reference),
+          prec(100, $.attribute_substitution),
           token.immediate(/[^#\r\n*_`^~\[\{]+/), // Plain text, avoiding formatting chars
           token.immediate(/[*_`^~\[\{]/), // Individual formatting chars when not part of patterns
         ),

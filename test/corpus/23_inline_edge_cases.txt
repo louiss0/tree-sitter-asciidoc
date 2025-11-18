@@ -63,7 +63,7 @@ This has a plus+ in the middle.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (plain_text)
@@ -185,13 +185,13 @@ This is [role]#text with \# hash# here.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (inline_element
         (role_span
-          (role_list)
-          (role_content)))
+          roles: (role_list)
+          content: (role_content)))
       (plain_text)
       (plain_text))))
 
@@ -219,7 +219,7 @@ This is *bold with `mono and ^super^`* text.
 Attribute reference inside various constructs
 ================================================================================
 
-This is *bold {name}* and `code {version}` and ^super{level}^.
+This is *bold {userName}* and `code {currentVersion}` and ^super{levelCount}^.
 
 --------------------------------------------------------------------------------
 
@@ -240,9 +240,6 @@ This is *bold {name}* and `code {version}` and ^super{level}^.
           content: (monospace_content)
           close: (monospace_close)))
       (plain_text)
-      (plain_text)
-      (inline_element
-        (attribute_reference))
       (plain_text))))
 
 ================================================================================
@@ -286,7 +283,7 @@ Stray } foo } braces remain literal.
 Attribute reference fallback - dangling opening brace
 ================================================================================
 
-Open {name reference stays literal.
+Open {userName reference stays literal.
 
 --------------------------------------------------------------------------------
 
@@ -429,7 +426,7 @@ Use image:logo.png[Logo] and https://example.com[Site] here.
 Multiple consecutive inline elements
 ================================================================================
 
-*Bold*_italic_`code`^super^~sub~{attr}
+*Bold*_italic_`code`^super^~sub~{customAttr}
 
 --------------------------------------------------------------------------------
 
@@ -454,7 +451,7 @@ Multiple consecutive inline elements
           content: (subscript_text)
           close: (subscript_close)))
       (inline_element
-        (attribute_reference)))))
+        (attribute_substitution)))))
 
 ================================================================================
 Empty inline constructs (edge case)
@@ -485,11 +482,11 @@ This is [role.with.dots]#styled text# here.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (inline_element
         (role_span
-          (role_list)
-          (role_content)))
+          roles: (role_list)
+          content: (role_content)))
       (plain_text))))

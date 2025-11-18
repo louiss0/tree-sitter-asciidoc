@@ -70,8 +70,9 @@
 ; Attributes
 (attribute_entry) @attribute
 (attribute_name) @attribute
-(attribute_identifier) @attribute
-(attribute_reference) @variable.builtin
+(attribute_name
+  (plain_text) @attribute)
+(attribute_substitution) @variable.builtin
 
 ; Lists
 (callout_list) @markup.list

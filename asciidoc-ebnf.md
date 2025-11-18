@@ -148,7 +148,7 @@ attribute_entry = ':', attr_name, ':', [ ' ', attr_value ], newline ;
 attr_name = id_start, { id_char } ;
 attr_value = { non_newline_char } ;
 
-attribute_reference = '{', attr_name, '}' ;
+attribute_substitution = '{', attr_name, '}' ;
 
 block_attributes = '[', attributes_text, ']', newline ;
 attributes_text = { non_newline_char - ']' } ;
@@ -376,7 +376,7 @@ inline_content = { inline_element } ;
 
 inline_element = inline_passthrough
                | passthrough_macro
-               | attribute_reference
+               | attribute_substitution
                | cross_reference
                | external_reference
                | link

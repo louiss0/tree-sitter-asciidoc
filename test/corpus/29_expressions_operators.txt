@@ -2,7 +2,7 @@
 Basic comparison operators
 ================================================================================
 
-ifeval::['{foo}' == 'bar']
+ifeval::['{fooValue}' == 'bar']
 Content when condition is true
 endif::[]
 
@@ -25,7 +25,7 @@ endif::[]
 Numeric comparison
 ================================================================================
 
-ifeval::[{count} > 5]
+ifeval::[{countTotal} > 5]
 endif::[]
 
 ---
@@ -40,7 +40,7 @@ endif::[]
 Logical operators
 ================================================================================
 
-ifeval::[{a} && {b}]
+ifeval::[{aValue} && {bValue}]
 endif::[]
 
 ---
@@ -55,7 +55,7 @@ endif::[]
 Logical NOT operator
 ================================================================================
 
-ifeval::[!{flag}]
+ifeval::[!{flagState}]
 endif::[]
 
 ---
@@ -70,7 +70,7 @@ endif::[]
 Complex arithmetic expression
 ================================================================================
 
-ifeval::[{x} + {y} * 2 > 10]
+ifeval::[{xValue} + {yValue} * 2 > 10]
 endif::[]
 
 ---
@@ -85,7 +85,7 @@ endif::[]
 Grouped expressions with parentheses
 ================================================================================
 
-ifeval::[({x} + {y}) * 2 == {result}]
+ifeval::[({xValue} + {yValue}) * 2 == {resultValue}]
 endif::[]
 
 ---
