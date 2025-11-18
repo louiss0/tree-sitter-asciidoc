@@ -52,3 +52,4 @@ zig-out/
 # Test artifacts
 .tmp/
 test/highlight/.actual/
+tmp*.adoc
