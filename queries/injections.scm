@@ -29,43 +29,8 @@
   (metadata
     (block_attributes) @_attr)
   (block_content) @injection.content)
-(#match? @_attr "source,rust")
- (#set! injection.language "rust"))
-
-((listing_block
-  (metadata
-    (block_attributes) @_attr)
-  (block_content) @injection.content)
-(#match? @_attr "source,json")
- (#set! injection.language "json"))
-
-((listing_block
-  (metadata
-    (block_attributes) @_attr)
-  (block_content) @injection.content)
 (#match? @_attr "source,yaml")
  (#set! injection.language "yaml"))
-
-((listing_block
-  (metadata
-    (block_attributes) @_attr)
-  (block_content) @injection.content)
-(#match? @_attr "source,html")
- (#set! injection.language "html"))
-
-((listing_block
-  (metadata
-    (block_attributes) @_attr)
-  (block_content) @injection.content)
-(#match? @_attr "source,css")
- (#set! injection.language "css"))
-
-((listing_block
-  (metadata
-    (block_attributes) @_attr)
-  (block_content) @injection.content)
-(#match? @_attr "source,go")
- (#set! injection.language "go"))
 
 ((listing_block
   (metadata
