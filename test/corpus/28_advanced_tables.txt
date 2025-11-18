@@ -17,33 +17,33 @@ Table with column spanning
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
@@ -69,43 +69,43 @@ Table with row spanning
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
@@ -131,31 +131,31 @@ Table with both column and row spanning
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
@@ -180,48 +180,48 @@ Table with format specifications
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
@@ -245,44 +245,44 @@ Table with header format
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
@@ -311,43 +311,43 @@ Table with combined span and format specifications
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
@@ -372,45 +372,45 @@ Table with empty cells and edge cases
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
     close: (table_close
@@ -447,61 +447,61 @@ Phone: *555-9012*
     title: (table_title
       text: (table_title_text))
     metadata: (metadata
-      (block_attributes
+      attributes: (block_attributes
         (ATTRIBUTE_LIST_START)))
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text)))
-        (table_cell
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
-          content: (cell_content
-            (cell_literal_text))))
-      (content_line)
-      (content_line)
-      (table_row
-        (table_cell
-          content: (cell_content
-            (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
-      (table_row
-        (table_cell
+      (content_line)
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
-      (table_row
-        (table_cell
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
           content: (cell_content
             (cell_literal_text))))
       (content_line)
