@@ -231,11 +231,12 @@ This should be a paragraph.
 --------------------------------------------------------------------------------
 
 (source_file
-  (block_macro
-    name: (macro_name)
-    open: (BLOCK_MACRO_MARKER)
-    body: (macro_body)
-    (MISSING "]"))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text))
+    (ERROR
+      (BLOCK_MACRO_MARKER)
+      (macro_body)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
