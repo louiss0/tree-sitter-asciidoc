@@ -53,7 +53,7 @@ module.exports = grammar({
     source_file: ($) =>
       seq(
         optional(field("header", $.document_header)),
-        repeat(choice($._blank_line, $._block_element)),
+        repeat($._block_element),
       ),
 
     _block_element: ($) =>
