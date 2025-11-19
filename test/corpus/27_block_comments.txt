@@ -136,7 +136,7 @@ Third paragraph.
 Block comments with sections
 ================================================================================
 
-= Document Title
+== Document Title
 
 ////
 Comment before section
@@ -156,28 +156,29 @@ More content.
 
 (source_file
   (section
-    (section_level_1
-      (section_marker_1)
+    (section_level_2
+      (section_marker_2)
       (title)
       (block_comment
         (BLOCK_COMMENT_START)
         (comment_line)
+        (BLOCK_COMMENT_END))))
+  (section
+    (section_level_2
+      (section_marker_2)
+      (title)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)))
+      (block_comment
+        (BLOCK_COMMENT_START)
+        (comment_line)
         (BLOCK_COMMENT_END))
-      (section_level_2
-        (section_marker_2)
-        (title)
-        (paragraph
-          (inline_seq_nonempty
-            (plain_text)
-            (plain_text)))
-        (block_comment
-          (BLOCK_COMMENT_START)
-          (comment_line)
-          (BLOCK_COMMENT_END))
-        (paragraph
-          (inline_seq_nonempty
-            (plain_text)
-            (plain_text)))))))
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))))
 
 ================================================================================
 Block comments with nested delimited block markers

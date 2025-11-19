@@ -2,9 +2,6 @@
 
 ; Fold sections (all heading levels)
 (section
-  (section_level_1
-    content: (_)+ @fold))
-(section
   (section_level_2
     content: (_)+ @fold))
 (section

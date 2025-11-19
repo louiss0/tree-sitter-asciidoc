@@ -218,7 +218,7 @@ endif::[]
 Mixing attributes and conditionals
 ================================================================================
 
-= Attribute Conditional Mix
+== Attribute Conditional Mix
 :attrOneValue: value1
 
 ifdef::attrOneValue[]
@@ -235,8 +235,8 @@ endif::[]
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
         name: (attribute_name

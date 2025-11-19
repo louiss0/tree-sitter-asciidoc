@@ -2,7 +2,7 @@
 Section hierarchy nesting
 ================================================================================
 
-= Section A
+== Section A
 Paragraph under A
 
 == Section B
@@ -15,53 +15,54 @@ Paragraph under C
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
           (plain_text)))
-      content: (section_level_2
-        marker: (section_marker_2)
+      content: (section_level_3
+        marker: (section_marker_3)
         title: (title)
         content: (paragraph
           content: (inline_seq_nonempty
             (plain_text)
             (plain_text)
-            (plain_text)))
-        content: (section_level_3
-          marker: (section_marker_3)
-          title: (title)
-          content: (paragraph
-            content: (inline_seq_nonempty
-              (plain_text)
-              (plain_text)
-              (plain_text))))))))
+            (plain_text)))))))
 
 ================================================================================
 Multiple sections at same level
 ================================================================================
 
-= Section 1
+== Section 1
 Content for section 1
 
-= Section 2
+== Section 2
 Content for section 2
 
 == Subsection 2.1
 Content for subsection
 
-= Section 3
+== Section 3
 Content for section 3
 
 --------------------------------------------------------------------------------
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (paragraph
         content: (inline_seq_nonempty
@@ -70,26 +71,27 @@ Content for section 3
           (plain_text)
           (plain_text)))))
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_text)))
-      content: (section_level_2
-        marker: (section_marker_2)
-        title: (title)
-        content: (paragraph
-          content: (inline_seq_nonempty
-            (plain_text)
-            (plain_text)
-            (plain_text))))))
+          (plain_text)))))
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (paragraph
         content: (inline_seq_nonempty
@@ -102,7 +104,7 @@ Content for section 3
 Deep nesting with all levels
 ================================================================================
 
-= Level 1
+== Level 1
 Content at level 1
 
 == Level 2
@@ -124,8 +126,18 @@ Content at level 6
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (paragraph
         content: (inline_seq_nonempty
@@ -133,8 +145,8 @@ Content at level 6
           (plain_text)
           (plain_text)
           (plain_text)))
-      content: (section_level_2
-        marker: (section_marker_2)
+      content: (section_level_3
+        marker: (section_marker_3)
         title: (title)
         content: (paragraph
           content: (inline_seq_nonempty
@@ -142,8 +154,8 @@ Content at level 6
             (plain_text)
             (plain_text)
             (plain_text)))
-        content: (section_level_3
-          marker: (section_marker_3)
+        content: (section_level_4
+          marker: (section_marker_4)
           title: (title)
           content: (paragraph
             content: (inline_seq_nonempty
@@ -151,8 +163,8 @@ Content at level 6
               (plain_text)
               (plain_text)
               (plain_text)))
-          content: (section_level_4
-            marker: (section_marker_4)
+          content: (section_level_5
+            marker: (section_marker_5)
             title: (title)
             content: (paragraph
               content: (inline_seq_nonempty
@@ -160,30 +172,21 @@ Content at level 6
                 (plain_text)
                 (plain_text)
                 (plain_text)))
-            content: (section_level_5
-              marker: (section_marker_5)
+            content: (section_level_6
+              marker: (section_marker_6)
               title: (title)
               content: (paragraph
                 content: (inline_seq_nonempty
                   (plain_text)
                   (plain_text)
                   (plain_text)
-                  (plain_text)))
-              content: (section_level_6
-                marker: (section_marker_6)
-                title: (title)
-                content: (paragraph
-                  content: (inline_seq_nonempty
-                    (plain_text)
-                    (plain_text)
-                    (plain_text)
-                    (plain_text)))))))))))
+                  (plain_text))))))))))
 
 ================================================================================
 Sections with attributes
 ================================================================================
 
-= Main Section
+== Main Section
 :authorName: John Doe
 :versionNumber: 1.0
 
@@ -198,8 +201,8 @@ Subsection content
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
         name: (attribute_name
@@ -220,19 +223,20 @@ Subsection content
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
-          (plain_text)))
-      content: (section_level_2
-        marker: (section_marker_2)
-        title: (title)
-        content: (attribute_entry
-          name: (attribute_name
-            (plain_colon
-              (PLAIN_COLON))
-            (plain_text)
-            (plain_colon
-              (PLAIN_COLON)))
-          value: (attribute_value))
-        content: (paragraph
-          content: (inline_seq_nonempty
-            (plain_text)
-            (plain_text)))))))
+          (plain_text)))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))))

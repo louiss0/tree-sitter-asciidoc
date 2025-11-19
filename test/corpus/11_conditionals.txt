@@ -2,7 +2,7 @@
 Basic ifdef block
 ================================================================================
 
-= Conditional Document
+== Conditional Document
 :backendMode: pdf
 
 ifdef::backendMode[]
@@ -14,8 +14,8 @@ endif::[]
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
         name: (attribute_name
@@ -64,7 +64,7 @@ endif::[]
 Basic ifeval block
 ================================================================================
 
-= Evaluation Document
+== Evaluation Document
 :levelThreshold: 2
 
 ifeval::[{levelThreshold} > 1]
@@ -76,8 +76,8 @@ endif::[]
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
         name: (attribute_name

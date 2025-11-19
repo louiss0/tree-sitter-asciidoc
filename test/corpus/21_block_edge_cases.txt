@@ -159,7 +159,7 @@ Production content.
 Section nesting with anchors
 ================================================================================
 
-= Document Title
+== Document Title
 
 [[section1]]
 == First Section
@@ -184,19 +184,32 @@ Back to level 2.
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (paragraph
         content: (inline_seq_nonempty
           (inline_element
+            (inline_anchor))))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (inline_element
             (inline_anchor))))
-      content: (section_level_2
-        marker: (section_marker_2)
+      content: (section_level_3
+        marker: (section_marker_3)
         title: (title)
         content: (paragraph
           content: (inline_seq_nonempty
-            (plain_text)
             (plain_text)
             (plain_text)
             (plain_text)))
@@ -204,43 +217,32 @@ Back to level 2.
           content: (inline_seq_nonempty
             (inline_element
               (inline_anchor))))
-        content: (section_level_3
-          marker: (section_marker_3)
+        content: (section_level_4
+          marker: (section_marker_4)
           title: (title)
           content: (paragraph
             content: (inline_seq_nonempty
               (plain_text)
               (plain_text)
-              (plain_text)))
-          content: (paragraph
-            content: (inline_seq_nonempty
-              (inline_element
-                (inline_anchor))))
-          content: (section_level_4
-            marker: (section_marker_4)
-            title: (title)
-            content: (paragraph
-              content: (inline_seq_nonempty
-                (plain_text)
-                (plain_text)
-                (plain_text)
-                (plain_text)
-                (plain_text))))))
-      content: (section_level_2
-        marker: (section_marker_2)
-        title: (title)
-        content: (paragraph
-          content: (inline_seq_nonempty
-            (plain_text)
-            (plain_text)
-            (plain_text)
-            (plain_text)))))))
+              (plain_text)
+              (plain_text)
+              (plain_text)))))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text))))))
 
 ================================================================================
 Attribute edge cases with references
 ================================================================================
 
-= Attribute Edge Cases
+== Attribute Edge Cases
 :authorName: John Doe
 :versionNumber: 2.1.0
 :customAttribute: Special value
@@ -260,8 +262,8 @@ Enabled: {enabledAttr}
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
         name: (attribute_name

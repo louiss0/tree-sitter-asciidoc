@@ -141,6 +141,48 @@
     "fields": {}
   },
   {
+    "type": "author_line",
+    "named": true,
+    "fields": {
+      "authors": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "author_list",
+            "named": true
+          }
+        ]
+      },
+      "email": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "author_email",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "author_list",
+    "named": true,
+    "fields": {
+      "author": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "author_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "bibliography_entry",
     "named": true,
     "fields": {
@@ -520,6 +562,68 @@
         "types": [
           {
             "type": "description_item",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "document_header",
+    "named": true,
+    "fields": {
+      "author": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "author_line",
+            "named": true
+          }
+        ]
+      },
+      "revision": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "revision_line",
+            "named": true
+          }
+        ]
+      },
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "document_title",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "document_title",
+    "named": true,
+    "fields": {
+      "marker": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "document_title_marker",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "document_title_text",
             "named": true
           }
         ]
@@ -1915,6 +2019,52 @@
     "fields": {}
   },
   {
+    "type": "revision_line",
+    "named": true,
+    "fields": {
+      "date": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "revision_date",
+            "named": true
+          }
+        ]
+      },
+      "remark": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "revision_remark",
+            "named": true
+          }
+        ]
+      },
+      "separator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "header_break",
+            "named": true
+          }
+        ]
+      },
+      "version": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "revision_version",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "role_content",
     "named": true,
     "fields": {},
@@ -1988,10 +2138,6 @@
       "required": true,
       "types": [
         {
-          "type": "section_level_1",
-          "named": true
-        },
-        {
           "type": "section_level_2",
           "named": true
         },
@@ -2009,124 +2155,6 @@
         },
         {
           "type": "section_level_6",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "section_level_1",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "asciidoc_blockquote",
-            "named": true
-          },
-          {
-            "type": "attribute_entry",
-            "named": true
-          },
-          {
-            "type": "block_admonition",
-            "named": true
-          },
-          {
-            "type": "block_comment",
-            "named": true
-          },
-          {
-            "type": "block_macro",
-            "named": true
-          },
-          {
-            "type": "callout_list",
-            "named": true
-          },
-          {
-            "type": "conditional_block",
-            "named": true
-          },
-          {
-            "type": "description_list",
-            "named": true
-          },
-          {
-            "type": "example_block",
-            "named": true
-          },
-          {
-            "type": "listing_block",
-            "named": true
-          },
-          {
-            "type": "literal_block",
-            "named": true
-          },
-          {
-            "type": "open_block",
-            "named": true
-          },
-          {
-            "type": "ordered_list",
-            "named": true
-          },
-          {
-            "type": "paragraph",
-            "named": true
-          },
-          {
-            "type": "passthrough_block",
-            "named": true
-          },
-          {
-            "type": "section_level_2",
-            "named": true
-          },
-          {
-            "type": "sidebar_block",
-            "named": true
-          },
-          {
-            "type": "table_block",
-            "named": true
-          },
-          {
-            "type": "unordered_list",
-            "named": true
-          }
-        ]
-      },
-      "marker": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "section_marker_1",
-            "named": true
-          }
-        ]
-      },
-      "title": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "title",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "anchor",
           "named": true
         }
       ]
@@ -2798,7 +2826,18 @@
     "type": "source_file",
     "named": true,
     "root": true,
-    "fields": {},
+    "fields": {
+      "header": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "document_header",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -3289,6 +3328,10 @@
     "named": false
   },
   {
+    "type": ":",
+    "named": false
+  },
+  {
     "type": "ATTRIBUTE_LIST_START",
     "named": true
   },
@@ -3417,6 +3460,14 @@
     "named": true
   },
   {
+    "type": "author_email",
+    "named": true
+  },
+  {
+    "type": "author_name",
+    "named": true
+  },
+  {
     "type": "auto_link",
     "named": true
   },
@@ -3442,6 +3493,14 @@
   },
   {
     "type": "description_term",
+    "named": true
+  },
+  {
+    "type": "document_title_marker",
+    "named": true
+  },
+  {
+    "type": "document_title_text",
     "named": true
   },
   {
@@ -3478,6 +3537,10 @@
   },
   {
     "type": "hard_break",
+    "named": true
+  },
+  {
+    "type": "header_break",
     "named": true
   },
   {
@@ -3565,11 +3628,19 @@
     "named": false
   },
   {
-    "type": "role_list",
+    "type": "revision_date",
     "named": true
   },
   {
-    "type": "section_marker_1",
+    "type": "revision_remark",
+    "named": true
+  },
+  {
+    "type": "revision_version",
+    "named": true
+  },
+  {
+    "type": "role_list",
     "named": true
   },
   {

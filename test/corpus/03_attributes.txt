@@ -2,7 +2,7 @@
 Basic attribute entries
 ================================================================================
 
-= Title
+== Title
 :revNumber: 1.2.3
 :authorName: Alice
 
@@ -17,8 +17,8 @@ More text.
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
         name: (attribute_name
@@ -39,28 +39,29 @@ More text.
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
-          (plain_text)))
-      content: (section_level_2
-        marker: (section_marker_2)
-        title: (title)
-        content: (attribute_entry
-          name: (attribute_name
-            (plain_colon
-              (PLAIN_COLON))
-            (plain_text)
-            (plain_colon
-              (PLAIN_COLON)))
-          value: (attribute_value))
-        content: (paragraph
-          content: (inline_seq_nonempty
-            (plain_text)
-            (plain_text)))))))
+          (plain_text)))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name
+          (plain_colon
+            (PLAIN_COLON))
+          (plain_text)
+          (plain_colon
+            (PLAIN_COLON)))
+        value: (attribute_value))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))))
 
 ================================================================================
 Attribute entries without values
 ================================================================================
 
-= Document
+== Document
 :imagesDir:
 :sourceHighlighter:
 
@@ -70,8 +71,8 @@ Content here
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
         name: (attribute_name
@@ -96,7 +97,7 @@ Content here
 Attribute entries with spaces in values
 ================================================================================
 
-= Info
+== Info
 :titleText: My Great Document
 :longDescription: This is a long description with spaces
 
@@ -104,8 +105,8 @@ Attribute entries with spaces in values
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
         name: (attribute_name
@@ -128,7 +129,7 @@ Attribute entries with spaces in values
 Mixed attributes and other content
 ================================================================================
 
-= Section Title
+== Section Title
 :authorName: Bob
 
 First paragraph
@@ -141,8 +142,8 @@ More content
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
         name: (attribute_name
@@ -173,7 +174,7 @@ More content
 Snake and dashed attribute names
 ================================================================================
 
-= Variants
+== Variants
 :snake_case_name: value
 :dash-case-name: other
 
@@ -183,8 +184,8 @@ Body
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
         name: (attribute_name

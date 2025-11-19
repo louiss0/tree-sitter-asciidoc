@@ -2,7 +2,7 @@
 Indented headings are treated as valid headings
 ================================================================================
 
-  = Indented level 1
+  == Indented level 1
    == Indented level 2
 	=== Indented with tab
 
@@ -10,15 +10,16 @@ Indented headings are treated as valid headings
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
-      content: (section_level_2
-        marker: (section_marker_2)
-        title: (title)
-        content: (section_level_3
-          marker: (section_marker_3)
-          title: (title))))))
+      content: (section_level_3
+        marker: (section_marker_3)
+        title: (title)))))
 
 ================================================================================
 Invalid attribute patterns should be paragraphs
@@ -64,7 +65,7 @@ Invalid attribute patterns should be paragraphs
 Attributes with spaces in values and empty values
 ================================================================================
 
-= Attribute Cases
+== Attribute Cases
 :nameValue:    value with spaces
 :emptyCase:
 :spacedValue: 	tabbed value
@@ -73,8 +74,8 @@ Attributes with spaces in values and empty values
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
         name: (attribute_name
@@ -139,7 +140,7 @@ Third paragraph after three blanks
 Headings with trailing spaces
 ================================================================================
 
-= Title with trailing spaces
+== Title with trailing spaces
 == Another with tabs
 === Mix of spaces and content   text here
 
@@ -147,12 +148,13 @@ Headings with trailing spaces
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
-      content: (section_level_2
-        marker: (section_marker_2)
-        title: (title)
-        content: (section_level_3
-          marker: (section_marker_3)
-          title: (title))))))
+      content: (section_level_3
+        marker: (section_marker_3)
+        title: (title)))))

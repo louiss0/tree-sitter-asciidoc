@@ -31,43 +31,14 @@ Markdown thematic breaks are supported by AsciiDoc:
 
 They only allowed in sections!
 
-### Add Header Line
+### ~~Add Header Line~~ ✅
 
-The header line is a series of lines that must be written before section 2.
-The first line is the author line! It must:
-- Allow the user to write multiple names 
-- An email address must exist at the end of the line
-- A full name must be separated by a comma
-
-Fulfill these requirements: 
-1. The header must contain a document title.
-2. The author information must be entered on the line directly beneath the document title.
-3. The author line must start with an author name.
-
-The content in the author line must be placed in a specific order and separated with the correct syntax.
-
-```adoc
-= Document Title
-firstname middlename lastname <email>
-```
-
-The second line is called the revision line. It must be written under the folowing examples:
-
-- v7.5 When the revision line only contains a revision number, prefix the number with a v.
-
-- 7.5, 1-29-2020 When the revision line contains a version and a date, separate the version number from the date with a comma (,). A v prefix before the version number is optional.
-
-- 7.5: A new analysis When the revision line contains a version and a remark, separate the version number from the remark with a colon (:). A v prefix before the version number is optional.
-
-- 7.5, 1-29-2020: A new analysis When the revision line contains a version, date, and a remark, separate the version number from the date with a comma (,) and separate the date from the remark with a colon (:). A v prefix before the version number is optional.
-
-The revision line must be followed by a blank line. It
-
-```adoc
-= Document Title
-author <email>
-revision number, revision date: revision remark
-```
+Completed: document headers now mirror the old `section_level_1` structure.
+- Optional leading blank lines are consumed inside `document_header`.
+- Author lines enforce multiple names plus a trailing `<email>` with strict ordering.
+- Revision lines support the v-prefixed version/date/remark permutations and require the blank separator afterward.
+- Added 15+ corpus tests in `test/corpus/00_document_header.txt` covering titles, author variants, revisions, and leading blank-line edge cases; existing corpora were refreshed to remove residual level-1 sections.
+- Highlights and folds capture the new nodes, and `npx tree-sitter test` currently passes.
 
 ### Normalize attribute Lists
 

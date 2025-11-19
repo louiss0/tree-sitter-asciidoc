@@ -46,10 +46,15 @@ module.exports = grammar({
     [$.description_item],
     [$.callout_item],
     [$.inline_element, $.explicit_link],
+    [$.document_header, $.source_file],
   ],
 
   rules: {
-    source_file: ($) => repeat(choice($._blank_line, $._block_element)),
+    source_file: ($) =>
+      seq(
+        optional(field("header", $.document_header)),
+        repeat(choice($._blank_line, $._block_element)),
+      ),
 
     _block_element: ($) =>
       choice(
@@ -73,52 +78,82 @@ module.exports = grammar({
         $.paragraph,
       ),
 
+    document_header: ($) =>
+      prec.right(
+        seq(
+          repeat($._blank_line),
+          field("title", $.document_title),
+          field("author", $.author_line),
+          field("revision", $.revision_line),
+        ),
+      ),
+
+    document_title: ($) =>
+      seq(
+        field("marker", $.document_title_marker),
+        field("text", $.document_title_text),
+        $._line_ending,
+      ),
+
+    document_title_marker: ($) => token(prec(60, seq("=", /[ \t]+/))),
+
+    document_title_text: ($) => token(prec(55, /[^\r\n]+/)),
+
+    author_line: ($) =>
+      seq(
+        field("authors", $.author_list),
+        token.immediate(/[ \t]+/),
+        field("email", $.author_email),
+        $._line_ending,
+      ),
+
+    author_list: ($) =>
+      seq(
+        field("author", $.author_name),
+        repeat(seq($._author_separator, field("author", $.author_name))),
+      ),
+
+    _author_separator: ($) => ",",
+
+    author_name: ($) => token(prec(5, seq(/[\w'.-]+/, repeat(seq(/[ \t]+/, /[\w'.-]+/))))),
+
+    author_email: ($) =>
+      token(
+        prec(
+          5,
+          seq(
+            "<",
+            /[A-Za-z0-9._%+\-]+/, // local part
+            "@",
+            /[A-Za-z0-9.\-]+/,
+            ">",
+          ),
+        ),
+      ),
+
+    revision_line: ($) =>
+      seq(
+        field("version", $.revision_version),
+        optional(seq(",", field("date", $.revision_date))),
+        optional(seq(":", field("remark", $.revision_remark))),
+        $._line_ending,
+        field("separator", alias($._blank_line, $.header_break)),
+      ),
+
+    revision_version: ($) => token(prec(5, seq(optional("v"), /[0-9]+(?:\.[0-9]+)*/))),
+
+    revision_date: ($) => token(prec(5, /[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}/)),
+
+    revision_remark: ($) => token(prec(5, /[^\r\n]+/)),
+
     // SECTIONS - level-based hierarchy for proper sibling relationships
     section: ($) =>
       choice(
-        $.section_level_1,
         $.section_level_2,
         $.section_level_3,
         $.section_level_4,
         $.section_level_5,
         $.section_level_6,
-      ),
-
-    section_level_1: ($) =>
-      prec.right(
-        seq(
-          optional($.anchor),
-          field("marker", $.section_marker_1),
-          field("title", $.title),
-          $._line_ending,
-          field(
-            "content",
-            repeat(
-              choice(
-                $.attribute_entry,
-                $.paragraph,
-                $.unordered_list,
-                $.ordered_list,
-                $.description_list,
-                $.callout_list,
-                $.block_admonition,
-                $.example_block,
-                $.listing_block,
-                $.asciidoc_blockquote,
-                $.literal_block,
-                $.sidebar_block,
-                $.passthrough_block,
-                $.open_block,
-                $.conditional_block,
-                $.block_macro,
-                $.block_comment,
-                $.table_block,
-                $.section_level_2, // Only nested sections can be level_2+
-                $._blank_line,
-              ),
-            ),
-          ),
-        ),
       ),
 
     section_level_2: ($) =>
@@ -307,7 +342,6 @@ module.exports = grammar({
 
     title: ($) => token.immediate(/[^\r\n]+/),
 
-    section_marker_1: ($) => token(prec(50, seq("=", /[ \t]+/))),
     section_marker_2: ($) => token(prec(45, seq("==", /[ \t]+/))),
     section_marker_3: ($) => token(prec(40, seq("===", /[ \t]+/))),
     section_marker_4: ($) => token(prec(35, seq("====", /[ \t]+/))),

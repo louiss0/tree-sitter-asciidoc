@@ -61,7 +61,7 @@ Final paragraph.
 Lists mixed with sections and attributes
 ================================================================================
 
-= Document Title
+== Document Title
 :authorName: John Doe
 
 This is a paragraph under the title.
@@ -80,8 +80,8 @@ More content here.
 
 (source_file
   (section
-    (section_level_1
-      marker: (section_marker_1)
+    (section_level_2
+      marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
         name: (attribute_name
@@ -110,24 +110,25 @@ More content here.
           marker: (unordered_list_marker)
           content: (inline_seq_nonempty
             (plain_text)
-            (plain_text))))
-      content: (section_level_2
-        marker: (section_marker_2)
-        title: (title)
-        content: (paragraph
+            (plain_text))))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      content: (ordered_list
+        items: (ordered_list_item
+          marker: (ordered_list_marker)
+          content: (inline_seq_nonempty
+            (plain_text)
+            (plain_text)))
+        items: (ordered_list_item
+          marker: (ordered_list_marker)
           content: (inline_seq_nonempty
             (plain_text)
             (plain_text)
-            (plain_text)))
-        content: (ordered_list
-          items: (ordered_list_item
-            marker: (ordered_list_marker)
-            content: (inline_seq_nonempty
-              (plain_text)
-              (plain_text)))
-          items: (ordered_list_item
-            marker: (ordered_list_marker)
-            content: (inline_seq_nonempty
-              (plain_text)
-              (plain_text)
-              (plain_text))))))))
+            (plain_text)))))))

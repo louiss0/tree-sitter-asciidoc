@@ -2,7 +2,7 @@
 Section titles with different levels
 ================================================================================
 
-= Level 1 Section
+== Level 1 Section
 == Level 2 Section
 === Level 3 Section
 ==== Level 4 Section
@@ -13,44 +13,45 @@ Section titles with different levels
 
 (source_file
   (section
-    (section_level_1
-      (section_marker_1)
+    (section_level_2
+      (section_marker_2)
+      (title)))
+  (section
+    (section_level_2
+      (section_marker_2)
       (title)
-      (section_level_2
-        (section_marker_2)
+      (section_level_3
+        (section_marker_3)
         (title)
-        (section_level_3
-          (section_marker_3)
+        (section_level_4
+          (section_marker_4)
           (title)
-          (section_level_4
-            (section_marker_4)
+          (section_level_5
+            (section_marker_5)
             (title)
-            (section_level_5
-              (section_marker_5)
-              (title)
-              (section_level_6
-                (section_marker_6)
-                (title)))))))))
+            (section_level_6
+              (section_marker_6)
+              (title))))))))
 
 ================================================================================
 Single section with title
 ================================================================================
 
-= Document Title
+== Document Title
 
 --------------------------------------------------------------------------------
 
 (source_file
   (section
-    (section_level_1
-      (section_marker_1)
+    (section_level_2
+      (section_marker_2)
       (title))))
 
 ================================================================================
 Section titles with varied spacing
 ================================================================================
 
-=  Title with two spaces
+==  Title with two spaces
 ==   Title with three spaces
 ===	Title with tab
 
@@ -58,12 +59,13 @@ Section titles with varied spacing
 
 (source_file
   (section
-    (section_level_1
-      (section_marker_1)
+    (section_level_2
+      (section_marker_2)
+      (title)))
+  (section
+    (section_level_2
+      (section_marker_2)
       (title)
-      (section_level_2
-        (section_marker_2)
-        (title)
-        (section_level_3
-          (section_marker_3)
-          (title))))))
+      (section_level_3
+        (section_marker_3)
+        (title)))))

@@ -1,0 +1,645 @@
+================================================================================
+Document title - level 2 section start
+================================================================================
+= Sample Document
+Alice Example <alice@example.com>
+v1.0, 1-15-2024: First release
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+(section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Document header after single blank line
+================================================================================
+
+
+= Delayed Header
+Alice Example <alice@example.com>
+v2.0, 2-20-2024: Delayed blank start
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Document header after two blank lines
+================================================================================
+
+
+
+= Double Delayed Header
+Alice Example <alice@example.com>
+v3.0, 3-21-2024: Two blanks
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Document header with whitespace-only blank line
+================================================================================
+
+
+= Spaced Blank Header
+Alice Example <alice@example.com>
+v4.0, 4-22-2024: Leading spaces
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Document header with tab-only blank line
+================================================================================
+
+
+= Tabbed Blank Header
+Alice Example <alice@example.com>
+v5.0, 5-22-2024: Leading tab
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Document header after blank lines before subsequent sections
+================================================================================
+
+
+= Header With Blank Padding
+Alice Example <alice@example.com>
+v6.0, 6-22-2024: Leading blank with padding
+
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Document title - level 1 body section
+================================================================================
+= Manual With Level1
+Alice Example <alice@example.com>
+v1.0, 1-15-2024: First release
+
+= Background
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Document title - nested level 3 section
+================================================================================
+= Deep Hierarchy
+Alice Example <alice@example.com>
+v1.0, 1-15-2024: First release
+
+== Overview
+=== Details
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (section_level_3
+        marker: (section_marker_3)
+        title: (title)))))
+
+================================================================================
+Document title - multiple level 2 sections
+================================================================================
+= Multi Section Document
+Alice Example <alice@example.com>
+v1.0, 1-15-2024: First release
+
+== Overview
+
+== Summary
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Document title - depth through level 4 sections
+================================================================================
+= Extended Depth Document
+Alice Example <alice@example.com>
+v1.0, 1-15-2024: First release
+
+== Overview
+=== Details
+==== Deep Dive
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (section_level_3
+        marker: (section_marker_3)
+        title: (title)
+        content: (section_level_4
+          marker: (section_marker_4)
+          title: (title))))))
+
+================================================================================
+Author line - single author with middle name
+================================================================================
+= Author Variation Single
+Alice B. Example <alice@example.com>
+v1.0, 1-15-2024: First release
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Author line - two authors separated by comma
+================================================================================
+= Author Variation Multiple
+Alice Example, Bob Writer <team@example.com>
+v1.0, 1-15-2024: First release
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name)
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Author line - three authors listed
+================================================================================
+= Author Variation Trio
+Alice Example, Bob Writer, Carol Creator <crew@example.com>
+v1.0, 1-15-2024: First release
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name)
+        author: (author_name)
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Author line - four authors listed
+================================================================================
+= Author Variation Quartet
+Alice Example, Bob Writer, Carol Creator, Dave Editor <group@example.com>
+v1.0, 1-15-2024: First release
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name)
+        author: (author_name)
+        author: (author_name)
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Author line - compact separators without spaces
+================================================================================
+= Author Variation Compact
+Alice Example,Bob Writer,Carol Creator <compact@example.com>
+v1.0, 1-15-2024: First release
+
+== Overview
+
+== Summary
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name)
+        author: (author_name)
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Revision line - version only with v prefix
+================================================================================
+= Revision Version Only
+Alice Example <alice@example.com>
+v7.5
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Revision line - version and date
+================================================================================
+= Revision Version Date
+Alice Example <alice@example.com>
+7.5, 1-29-2020
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Revision line - version and remark
+================================================================================
+= Revision Version Remark
+Alice Example <alice@example.com>
+7.5: Maintenance window
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Revision line - version, date, and remark
+================================================================================
+= Revision Full Line
+Alice Example <alice@example.com>
+v7.5, 1-29-2020: A new analysis
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))
+
+================================================================================
+Revision line - patch series with multiple sections after header
+================================================================================
+= Revision Patch Series
+Alice Example <alice@example.com>
+1.2.3, 12-31-2024: Final build
+
+== Overview
+
+== Summary
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name))
+      email: (author_email))
+    revision: (revision_line
+      version: (revision_version)
+      date: (revision_date)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))

@@ -2,10 +2,6 @@
 (section) @markup.heading
 
 ; Section level markers and titles
-(section_level_1
-  marker: (section_marker_1) @markup.heading.1.marker
-  title: (title) @markup.heading.1)
-
 (section_level_2
   marker: (section_marker_2) @markup.heading.2.marker
   title: (title) @markup.heading.2)
@@ -25,6 +21,23 @@
 (section_level_6
   marker: (section_marker_6) @markup.heading.6.marker
   title: (title) @markup.heading.6)
+
+(document_header) @markup.heading
+
+(document_title
+  marker: (document_title_marker) @markup.heading.1.marker
+  text: (document_title_text) @markup.heading.1)
+
+(author_line
+  authors: (author_list
+    author: (author_name) @string)
+  email: (author_email) @markup.link)
+
+(revision_line
+  version: (revision_version) @number
+  date: (revision_date) @number
+  remark: (revision_remark) @string
+  separator: (header_break) @punctuation.special)
 
 ; Generic title
 (title) @markup.heading
