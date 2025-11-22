@@ -109,13 +109,13 @@ module.exports = grammar({
 
     author_list: ($) =>
       seq(
-        field("author", $.author_name),
+        field("author", prec(5, $.author_name)),
         repeat(seq($._author_separator, field("author", $.author_name))),
       ),
 
     _author_separator: ($) => ",",
 
-    author_name: ($) => token(prec(5, seq(/[\w'.-]+/, repeat(seq(/[ \t]+/, /[\w'.-]+/))))),
+    author_name: ($) => token(seq(/[\w'.-]+/, repeat(seq(/[ \t]+/, /[\w'.-]+/)))),
 
     author_email: ($) =>
       token(
@@ -721,15 +721,12 @@ module.exports = grammar({
     // Legacy token-based admonition_label for backward compatibility
     admonition_label: ($) =>
       token(
-        prec(
-          1,
-          choice(
-            seq("NOTE", ":"),
-            seq("TIP", ":"),
-            seq("IMPORTANT", ":"),
-            seq("WARNING", ":"),
-            seq("CAUTION", ":"),
-          ),
+        choice(
+          /NOTE:[^\r\n]/,
+          /TIP:[^\r\n]/,
+          /IMPORTANT:[^\r\n]/,
+          /WARNING:[^\r\n]/,
+          /CAUTION:[^\r\n]/,
         ),
       ),
 
