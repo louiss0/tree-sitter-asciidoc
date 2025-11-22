@@ -173,16 +173,15 @@ NOTE:This should be a regular paragraph.
 
 (source_file
   (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+    (paragraph_admonition
+      label: (admonition_label)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)))))
 
 ================================================================================
 Not an admonition - invalid label
