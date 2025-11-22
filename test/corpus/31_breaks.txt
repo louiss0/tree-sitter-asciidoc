@@ -10,10 +10,10 @@ Three quotes should be used as a thematic break.
   (thematic_break))
 
 =========
-Three backticks should be used as a thematic break.
+Three underscores should be used as a thematic break.
 =========
 
-```
+___
 
 ---
 
@@ -35,11 +35,9 @@ Three asterisks should be used as a thematic break.
 Three less than signs should be used as a page break.
 =========
 
-'''
+<<<
 
 ---
 
 (source_file
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text))))
+  (page_break))
