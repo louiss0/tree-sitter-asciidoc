@@ -31,14 +31,6 @@ Markdown thematic breaks are supported by AsciiDoc:
 
 They only allowed in sections!
 
-### ~~Add Header Line~~ ✅
-
-Completed: document headers now mirror the old `section_level_1` structure.
-- Optional leading blank lines are consumed inside `document_header`.
-- Author lines enforce multiple names plus a trailing `<email>` with strict ordering.
-- Revision lines support the v-prefixed version/date/remark permutations and require the blank separator afterward.
-- Added 15+ corpus tests in `test/corpus/00_document_header.txt` covering titles, author variants, revisions, and leading blank-line edge cases; existing corpora were refreshed to remove residual level-1 sections.
-- Highlights and folds capture the new nodes, and `npx tree-sitter test` currently passes.
 
 ### Normalize attribute Lists
 
