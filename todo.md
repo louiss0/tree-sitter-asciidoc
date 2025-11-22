@@ -14,7 +14,7 @@ This list is a handoff for the next agent—please pick up from here.
 A page break is a way to separate content into different sections or pages.
 It's a grammar that is written like this:
 
-```
+```adoc
 <<<
 ```
 
@@ -25,7 +25,7 @@ Markdown thematic breaks are supported by AsciiDoc:
 ```
 ---
 
-*** 
+***
 
 ```
 
