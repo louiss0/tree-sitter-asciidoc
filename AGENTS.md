@@ -161,3 +161,53 @@ Write-Host 'Saved highlight preview to ' + $html;
 ```
 
 Edit `$source`/`$html` to point at any document you want to inspect, then open the generated HTML in a browser to see the captures visually.
+
+## Commands 
+
+*Testing* 
+
+```sh
+npx tree-sitter test 
+```
+
+*Auto Update Expectations*
+
+```sh
+npx tree-sitter test --update
+```
+
+*Rebuild during testing*
+
+```sh
+npx tree-sitter test --rebuild
+```
+
+*Test single file*
+
+```sh
+npx tree-sitter test --test 
+```
+
+*Test single file*
+
+```sh
+npx tree-sitter test --file-name <single-file>
+```
+
+*Show parsing debug log*
+
+```sh
+npx tree-sitter test --debug
+```
+
+*Show parsing debug log*
+
+```sh
+npx tree-sitter test --debug
+```
+
+*Show parsing debug log with single file*
+
+```sh
+npx tree-sitter test --debug --file-name <single-file>
+```
