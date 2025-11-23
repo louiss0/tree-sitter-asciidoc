@@ -1,54 +1,18 @@
 # TODO
 
-## Context
+## Tests that are failing
 
-Most of the tests are in the `tests` directory. Are passing?
-Grammar's that weren't being used are now removed.
-Now we need to add new grammars!
-This list is a handoff for the next agentâ€”please pick up from here.
+- Not re-run this session; prior 
+px tree-sitter test runs still fail broadly because _plain_text_segment greedily consumes inline construct markers (macros, formatting, includes, etc.).
 
-## Immediate Next Tasks
+## What bugs are present
 
-### Add Breaks
+- Plain text lexing still swallows inline construct openers, so inline nodes fail to form and many corpus expectations break.
+- Attribute/role lists are inconsistent across blocks, paragraphs, and lists; %collapsible flags and combined id/role syntax are not modeled yet.
+- Description lists cannot yet nest other lists (depth-limited to zero) and still disallow the required structure.
 
-A page break is a way to separate content into different sections or pages.
-It's a grammar that is written like this:
+## What to do next
 
-```adoc
-<<<
-```
-
-A thematic break is supported like this `'''`
-
-Markdown thematic breaks are supported by AsciiDoc:
-
-```
----
-
-***
-
-```
-
-They only allowed in sections!
-
-
-### Normalize attribute Lists
-
-A attribute list can exist on top of blocks, paragraphs and lists! 
-Blocks can have titles and attribute lists but lists can only have attribute lists.
-It's best to conbline id_roles and attribute lists. They are the same thing.
-
-If a block has the %collapsible, it can be expanded or collapsed.
-
-```adoc
-[%collapsible]
-====
-This content is only revealed when the user clicks the block title.
-====
-```
-
-## Empower Description Lists 
-
-A description list can contain other lists.
-They can be nested. But we'll only allow 5 levels deep.
-They can't use list continuation.
+1. **Add Breaks** – Implement grammar for page breaks (<<<) and thematic breaks (''', ---, ***) restricted to section contexts; update queries/tests.
+2. **Normalize Attribute Lists** – Unify attribute/role list parsing across blocks, lists, and paragraphs (merge id_roles + attribute list logic) and support %collapsible metadata.
+3. **Empower Description Lists** – Allow description list items to nest other lists (up to five levels) without list continuations, adapting the grammar and corpus tests.
