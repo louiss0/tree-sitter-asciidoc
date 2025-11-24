@@ -108,6 +108,8 @@
 (passthrough_block) @markup.raw.block
 (open_block) @markup.quote
 (table_block) @markup.list.unnumbered
+(thematic_break) @markup.quote
+(page_break) @markup.quote
 
 ; Block fences and external tokens
 (EXAMPLE_FENCE_START) @punctuation.delimiter
@@ -200,6 +202,15 @@
 (paragraph) @text
 (inline_element) @text
 (plain_text) @text
+(plain_colon) @text
+(plain_asterisk) @text
+(plain_underscore) @text
+(plain_dash) @text
+(plain_quote) @text
+(plain_double_quote) @text
+(plain_caret) @text
+(plain_less_than) @text
+(plain_greater_than) @text
 (content_line) @text
 
 ; Advanced Features

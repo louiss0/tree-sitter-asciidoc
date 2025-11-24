@@ -36,6 +36,16 @@ enum TokenType {
   INLINE_MACRO_MARKER,
   BLOCK_MACRO_MARKER,
   DELIMITED_BLOCK_CONTENT_LINE,
+  THEMATIC_BREAK,
+  PAGE_BREAK,
+  PLAIN_ASTERISK,
+  PLAIN_UNDERSCORE,
+  PLAIN_DASH,
+  PLAIN_QUOTE,
+  PLAIN_CARET,
+  PLAIN_LESS_THAN,
+  PLAIN_GREATER_THAN,
+  PLAIN_DOUBLE_QUOTE,
 };
 
 typedef struct {
@@ -194,6 +204,87 @@ static bool scan_block_content_line(TSLexer *lexer) {
   return true;
 }
 
+static bool scan_thematic_break(TSLexer *lexer, const bool *valid_symbols) {
+  if (!valid_symbols[THEMATIC_BREAK] || lexer->get_column(lexer) != 0) {
+    return false;
+  }
+
+  const int32_t marker = lexer->lookahead;
+  if (marker != '\'' && marker != '_' && marker != '*') {
+    return false;
+  }
+
+  unsigned count = 0;
+  while (lexer->lookahead == marker) {
+    advance(lexer);
+    count++;
+  }
+
+  if (count < 3) {
+    return false;
+  }
+
+  while (is_space(lexer->lookahead)) {
+    advance(lexer);
+  }
+
+  if (!consume_line_break(lexer)) {
+    return false;
+  }
+
+  lexer->result_symbol = THEMATIC_BREAK;
+  return true;
+}
+
+static bool scan_page_break(TSLexer *lexer, const bool *valid_symbols) {
+  if (!valid_symbols[PAGE_BREAK] || lexer->get_column(lexer) != 0 || lexer->lookahead != '<') {
+    return false;
+  }
+
+  unsigned count = 0;
+  while (lexer->lookahead == '<') {
+    advance(lexer);
+    count++;
+  }
+
+  if (count < 3) {
+    return false;
+  }
+
+  while (is_space(lexer->lookahead)) {
+    advance(lexer);
+  }
+
+  if (!consume_line_break(lexer)) {
+    return false;
+  }
+
+  lexer->result_symbol = PAGE_BREAK;
+  return true;
+}
+
+static bool scan_for_closing_delimiter(TSLexer *lexer, int32_t delimiter) {
+  bool escaped = false;
+
+  while (lexer->lookahead) {
+    if (lexer->lookahead == delimiter && !escaped) {
+      return true;
+    }
+    if (is_newline(lexer->lookahead)) {
+      return false;
+    }
+    if (!escaped && lexer->lookahead == '\\') {
+      escaped = true;
+      advance(lexer);
+      continue;
+    }
+    escaped = false;
+    advance(lexer);
+  }
+
+  return false;
+}
+
 static bool scan_macro_marker_or_colon(TSLexer *lexer, const bool *valid_symbols) {
   if (lexer->lookahead != ':') {
     return false;
@@ -255,6 +346,72 @@ static bool scan_macro_marker_or_colon(TSLexer *lexer, const bool *valid_symbols
   }
 
   return false;
+}
+
+static inline bool emit_plain_punctuation(
+  TSLexer *lexer,
+  const bool *valid_symbols,
+  enum TokenType token,
+  int32_t punct) {
+  if (!valid_symbols[token] || lexer->lookahead != punct) {
+    return false;
+  }
+
+  advance(lexer);
+  lexer->result_symbol = token;
+  return true;
+}
+
+static bool scan_plain_caret(TSLexer *lexer, const bool *valid_symbols) {
+  if (!valid_symbols[PLAIN_CARET] || lexer->lookahead != '^') {
+    return false;
+  }
+
+  advance(lexer);
+  lexer->mark_end(lexer);
+
+  int32_t next = lexer->lookahead;
+  if (next == 0 || is_newline(next) || is_space(next) || next == '^') {
+    lexer->result_symbol = PLAIN_CARET;
+    return true;
+  }
+
+  if (scan_for_closing_delimiter(lexer, '^')) {
+    return false;
+  }
+
+  lexer->result_symbol = PLAIN_CARET;
+  return true;
+}
+
+static bool scan_plain_angle_bracket(TSLexer *lexer, const bool *valid_symbols, bool is_less_than) {
+  enum TokenType token = is_less_than ? PLAIN_LESS_THAN : PLAIN_GREATER_THAN;
+  int32_t punct = is_less_than ? '<' : '>';
+
+  if (!valid_symbols[token] || lexer->lookahead != punct) {
+    return false;
+  }
+
+  advance(lexer);
+  const int32_t next = lexer->lookahead;
+  if ((is_less_than && (next == '<' || (next >= '0' && next <= '9'))) ||
+      (!is_less_than && next == '>')) {
+    return false;
+  }
+
+  lexer->result_symbol = token;
+  return true;
+}
+
+static bool scan_plain_inline_punctuation(TSLexer *lexer, const bool *valid_symbols) {
+  return scan_plain_caret(lexer, valid_symbols) ||
+         emit_plain_punctuation(lexer, valid_symbols, PLAIN_ASTERISK, '*') ||
+         emit_plain_punctuation(lexer, valid_symbols, PLAIN_UNDERSCORE, '_') ||
+         emit_plain_punctuation(lexer, valid_symbols, PLAIN_DASH, '-') ||
+         emit_plain_punctuation(lexer, valid_symbols, PLAIN_QUOTE, '\'') ||
+         emit_plain_punctuation(lexer, valid_symbols, PLAIN_DOUBLE_QUOTE, '"') ||
+         scan_plain_angle_bracket(lexer, valid_symbols, true) ||
+         scan_plain_angle_bracket(lexer, valid_symbols, false);
 }
 
 void *tree_sitter_asciidoc_external_scanner_create(void) {
@@ -324,6 +481,14 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
   if (lexer->get_column(lexer) == 0) {
     if (valid_symbols[ATTRIBUTE_LIST_START] && scan_attribute_list(lexer)) {
       lexer->result_symbol = ATTRIBUTE_LIST_START;
+      return true;
+    }
+
+    if (scan_thematic_break(lexer, valid_symbols)) {
+      return true;
+    }
+
+    if (scan_page_break(lexer, valid_symbols)) {
       return true;
     }
 
@@ -444,6 +609,10 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
       !is_newline(lexer->lookahead) &&
       scan_block_content_line(lexer)) {
     lexer->result_symbol = DELIMITED_BLOCK_CONTENT_LINE;
+    return true;
+  }
+
+  if (scan_plain_inline_punctuation(lexer, valid_symbols)) {
     return true;
   }
 

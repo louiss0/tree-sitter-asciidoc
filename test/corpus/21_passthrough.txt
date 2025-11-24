@@ -10,13 +10,8 @@ This +++*should not be bold*+++ text.
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_text)
       (inline_element
-        (strong
-          (strong_open)
-          (strong_content)
-          (strong_close)))
-      (plain_text)
+        (passthrough_triple_plus))
       (plain_text))))
 
 ================================================================================

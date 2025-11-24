@@ -33,7 +33,11 @@ This has _italic_ text in it.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text)
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
       (plain_text)
       (plain_text)
       (plain_text))))
@@ -98,7 +102,11 @@ This has *bold* and _italic_ and `code` together.
           content: (strong_content)
           close: (strong_close)))
       (plain_text)
-      (plain_text)
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
       (plain_text)
       (inline_element
         (monospace
@@ -120,7 +128,11 @@ This has ^superscript^ and ~subscript~ text.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text)
+      (inline_element
+        (superscript
+          open: (superscript_open)
+          content: (superscript_text)
+          close: (superscript_close)))
       (plain_text)
       (inline_element
         (subscript

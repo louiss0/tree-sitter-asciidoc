@@ -34,6 +34,16 @@ module.exports = grammar({
     $.INLINE_MACRO_MARKER,
     $.BLOCK_MACRO_MARKER,
     $.DELIMITED_BLOCK_CONTENT_LINE,
+    $.THEMATIC_BREAK,
+    $.PAGE_BREAK,
+    $.PLAIN_ASTERISK,
+    $.PLAIN_UNDERSCORE,
+    $.PLAIN_DASH,
+    $.PLAIN_QUOTE,
+    $.PLAIN_CARET,
+    $.PLAIN_LESS_THAN,
+    $.PLAIN_GREATER_THAN,
+    $.PLAIN_DOUBLE_QUOTE,
   ],
 
   extras: ($) => [
@@ -75,6 +85,8 @@ module.exports = grammar({
         $.block_macro,
         $.block_comment,
         $.table_block,
+        $.thematic_break,
+        $.page_break,
         $.paragraph,
       ),
 
@@ -442,6 +454,10 @@ module.exports = grammar({
 
     passthrough_close: ($) => $.PASSTHROUGH_FENCE_END,
 
+    thematic_break: ($) => field("marker", $.THEMATIC_BREAK),
+
+    page_break: ($) => field("marker", $.PAGE_BREAK),
+
     // Open blocks
     open_block: ($) =>
       seq(
@@ -663,7 +679,7 @@ module.exports = grammar({
     _description_marker: ($) => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
     description_content: ($) => $._inline_text,
 
-    // CALLOUT LISTS
+    // CALLOUT LISTSp
     callout_list: ($) => prec.right(field("items", repeat1($.callout_item))),
 
     callout_item: ($) =>
@@ -760,10 +776,11 @@ module.exports = grammar({
 
     _inline_text: ($) =>
       prec.right(
-        choice(
+        seq(
           $.inline_seq_nonempty,
-          seq($.inline_seq_nonempty, $._line_ending, $._inline_text),
-          seq($.inline_seq_nonempty, $._line_ending),
+          repeat(seq($._line_ending, $.inline_seq_nonempty)),
+          optional($._line_ending),
+          repeat($._blank_line),
         ),
       ),
 
@@ -771,13 +788,35 @@ module.exports = grammar({
       prec.right(seq($._inline_core_unit, repeat($._inline_core_unit))),
 
     _inline_core_unit: ($) =>
-      choice($.inline_macro, $.inline_element, $.escaped_char, $.plain_colon, $.plain_text),
+      choice(
+        $.inline_macro,
+        $.inline_element,
+        $.escaped_char,
+        $.plain_colon,
+        $.plain_asterisk,
+        $.plain_underscore,
+        $.plain_dash,
+        $.plain_quote,
+        $.plain_double_quote,
+        $.plain_caret,
+        $.plain_less_than,
+        $.plain_greater_than,
+        $.plain_text,
+      ),
 
     plain_text: ($) => prec.left(-50, $._plain_text_segment),
 
-    plain_colon: ($) => $.PLAIN_COLON,
+    plain_colon: ($) => $.PLAIN_COLON, // :
+    plain_asterisk: ($) => $.PLAIN_ASTERISK, // *
+    plain_underscore: ($) => $.PLAIN_UNDERSCORE, // _
+    plain_dash: ($) => $.PLAIN_DASH, // -
+    plain_quote: ($) => $.PLAIN_QUOTE, // '
+    plain_double_quote: ($) => $.PLAIN_DOUBLE_QUOTE, // "
+    plain_caret: ($) => $.PLAIN_CARET, // ^
+    plain_less_than: ($) => $.PLAIN_LESS_THAN, // <
+    plain_greater_than: ($) => $.PLAIN_GREATER_THAN, // >
 
-    _plain_text_segment: ($) => token(prec(1, /[A-Za-z0-9_!$.,'"()+\-\/=^%?#<>\{\}]+/)),
+    _plain_text_segment: ($) => token(prec(-1, /[A-Za-z0-9!$.,'"()+\/=%?#\{\}]+/)),
 
     escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
 
@@ -1201,7 +1240,7 @@ module.exports = grammar({
     line_break: ($) => alias($.hard_break, $.line_break),
 
     // BASIC TOKENS
-    _line_ending: ($) => token(prec(-1, /\r?\n/)),
-    _blank_line: ($) => token(prec(-2, /[ \t]*\r?\n/)),
+    _line_ending: ($) => token(prec(-2, /\r?\n/)),
+    _blank_line: ($) => token(prec(-1, /[ \t]*\r?\n/)),
   },
 });

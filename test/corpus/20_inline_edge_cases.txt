@@ -21,9 +21,13 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
           content: (strong_content)
           close: (strong_close)))
       (plain_text)
-      (plain_text))
-    (ERROR
-      (comment_line))
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
+      (plain_text)))
+  (paragraph
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
@@ -34,17 +38,31 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
           content: (strong_content)
           close: (strong_close)))
       (plain_text)
-      (plain_text))
-    (ERROR
-      (comment_line))
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
+      (plain_text)))
+  (paragraph
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (plain_colon
         (PLAIN_COLON))
-      (plain_text)))
-  (ERROR
-    (comment_line)))
+      (inline_element
+        (superscript
+          open: (superscript_open)
+          content: (superscript_text)
+          close: (superscript_close)))
+      (plain_text)
+      (inline_element
+        (subscript
+          open: (subscript_open)
+          content: (subscript_text)
+          close: (subscript_close)))
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Delimiter adjacency and escape handling
@@ -393,9 +411,8 @@ Nested pass: pass:c[{code-block}] with substitution.
       (plain_text)
       (plain_colon
         (PLAIN_COLON))
-      (plain_text)
-      (plain_text)
-      (plain_text)
+      (inline_element
+        (passthrough_triple_plus))
       (plain_text)))
   (paragraph
     content: (inline_seq_nonempty

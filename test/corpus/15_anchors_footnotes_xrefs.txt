@@ -280,10 +280,10 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
       (plain_text)
       (inline_element
         (inline_anchor))
-      (inline_macro
-        name: (macro_name)
-        open: (INLINE_MACRO_MARKER)
-        body: (macro_body))
+      (inline_element
+        (internal_xref))
+      (inline_element
+        (footnote_inline))
       (plain_text))))
 
 ================================================================================
