@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file Ultra-minimal AsciiDoc parser for debugging paragraph parsing
  * @author Shelton Louis <louisshelton0@gmail.com>
  * @license MIT
@@ -44,6 +44,8 @@ module.exports = grammar({
     $.PLAIN_LESS_THAN,
     $.PLAIN_GREATER_THAN,
     $.PLAIN_DOUBLE_QUOTE,
+    $.INTERNAL_XREF_OPEN,
+    $.INTERNAL_XREF_CLOSE,
   ],
 
   extras: ($) => [
@@ -816,7 +818,7 @@ module.exports = grammar({
     plain_less_than: ($) => $.PLAIN_LESS_THAN, // <
     plain_greater_than: ($) => $.PLAIN_GREATER_THAN, // >
 
-    _plain_text_segment: ($) => token(prec(-1, /[A-Za-z0-9!$.,'"()+\/=%?#\{\}]+/)),
+    _plain_text_segment: ($) => token(prec(-1, /[A-Za-z0-9!$\.,'"()+\/=%?#\{\}]+/)),
 
     escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
 
@@ -969,12 +971,19 @@ module.exports = grammar({
       ),
 
     internal_xref: ($) =>
-      token(
-        prec(
-          5,
-          seq("<<", /[^>,\r\n]+/, optional(seq(",", /[^>\r\n]+/)), ">>", optional(/[.!?]/)),
-        ),
+      seq(
+        field("open", $.INTERNAL_XREF_OPEN),
+        field("target", $.xref_target),
+        optional(seq(",", field("text", $.xref_text))),
+        field("close", $.INTERNAL_XREF_CLOSE),
+        optional(field("trailing", $.xref_trailing_punctuation)),
       ),
+
+    xref_target: ($) => token.immediate(/[^>,\r\n]+/),
+
+    xref_text: ($) => token.immediate(/[^>\r\n]+/),
+
+    xref_trailing_punctuation: ($) => token.immediate(/[.!?]/),
 
     external_xref: ($) => token(seq("xref:", /[^\[\r\n]+/, "[", /[^\]\r\n]*/, "]")),
 

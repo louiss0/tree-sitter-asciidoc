@@ -1435,6 +1435,62 @@
     }
   },
   {
+    "type": "internal_xref",
+    "named": true,
+    "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "INTERNAL_XREF_CLOSE",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "INTERNAL_XREF_OPEN",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "xref_target",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "xref_text",
+            "named": true
+          }
+        ]
+      },
+      "trailing": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "xref_trailing_punctuation",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "link_macro",
     "named": true,
     "fields": {},
@@ -3580,6 +3636,14 @@
     "named": true
   },
   {
+    "type": "INTERNAL_XREF_CLOSE",
+    "named": true
+  },
+  {
+    "type": "INTERNAL_XREF_OPEN",
+    "named": true
+  },
+  {
     "type": "LISTING_FENCE_END",
     "named": true
   },
@@ -3844,10 +3908,6 @@
     "named": true
   },
   {
-    "type": "internal_xref",
-    "named": true
-  },
-  {
     "type": "link:",
     "named": false
   },
@@ -3945,6 +4005,18 @@
   },
   {
     "type": "unordered_list_marker",
+    "named": true
+  },
+  {
+    "type": "xref_target",
+    "named": true
+  },
+  {
+    "type": "xref_text",
+    "named": true
+  },
+  {
+    "type": "xref_trailing_punctuation",
     "named": true
   },
   {

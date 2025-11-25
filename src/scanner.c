@@ -1,4 +1,4 @@
-#include "tree_sitter/parser.h"
+﻿#include "tree_sitter/parser.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -46,6 +46,8 @@ enum TokenType {
   PLAIN_LESS_THAN,
   PLAIN_GREATER_THAN,
   PLAIN_DOUBLE_QUOTE,
+  INTERNAL_XREF_OPEN,
+  INTERNAL_XREF_CLOSE,
 };
 
 typedef struct {
@@ -61,6 +63,8 @@ static inline bool is_word_char(int32_t c) {
 }
 
 static inline void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
+
+static inline void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 
 static inline void push_block(ScannerState *state) {
   if (state && state->block_depth < UINT8_MAX) {
@@ -403,6 +407,113 @@ static bool scan_plain_angle_bracket(TSLexer *lexer, const bool *valid_symbols, 
   return true;
 }
 
+static bool scan_internal_xref_open(TSLexer *lexer, const bool *valid_symbols) {
+  if (!valid_symbols[INTERNAL_XREF_OPEN]) {
+    return false;
+  }
+
+  while (is_space(lexer->lookahead)) {
+    skip(lexer);
+  }
+
+#if SCANNER_DEBUG
+  DEBUG_LOG(
+    "scan_internal_xref_open? char='%c' col=%d\n",
+    lexer->lookahead ? (char)lexer->lookahead : '.',
+    lexer->get_column(lexer));
+#endif
+
+  if (lexer->lookahead != '<') {
+    return false;
+  }
+
+  lexer->mark_end(lexer);
+  advance(lexer);
+  if (lexer->lookahead != '<') {
+    return false;
+  }
+  advance(lexer);
+  lexer->mark_end(lexer);
+
+  bool has_target = false;
+  bool has_text = false;
+  bool saw_comma = false;
+
+  while (lexer->lookahead) {
+    int32_t c = lexer->lookahead;
+
+    if (is_newline(c)) {
+      return false;
+    }
+
+    if (c == '>') {
+      advance(lexer);
+      if (lexer->lookahead == '>') {
+        if (!has_target) {
+          return false;
+        }
+        if (saw_comma && !has_text) {
+          return false;
+        }
+        lexer->result_symbol = INTERNAL_XREF_OPEN;
+        return true;
+      }
+      return false;
+    }
+
+    if (c == '<') {
+      return false;
+    }
+
+    if (c == ',' && !saw_comma) {
+      if (!has_target) {
+        return false;
+      }
+      saw_comma = true;
+      advance(lexer);
+      continue;
+    }
+
+    if (c == ',' && saw_comma) {
+      return false;
+    }
+
+    if (saw_comma) {
+      has_text = true;
+    } else {
+      has_target = true;
+    }
+
+    advance(lexer);
+  }
+
+  return false;
+}
+
+static bool scan_internal_xref_close(TSLexer *lexer, const bool *valid_symbols) {
+#if SCANNER_DEBUG
+  if (valid_symbols[INTERNAL_XREF_CLOSE]) {
+    DEBUG_LOG(
+      "scan_internal_xref_close? char='%c' col=%d\n",
+      lexer->lookahead ? (char)lexer->lookahead : '.',
+      lexer->get_column(lexer));
+  }
+#endif
+  if (!valid_symbols[INTERNAL_XREF_CLOSE] || lexer->lookahead != '>') {
+    return false;
+  }
+
+  lexer->mark_end(lexer);
+  advance(lexer);
+  if (lexer->lookahead != '>') {
+    return false;
+  }
+  advance(lexer);
+  lexer->mark_end(lexer);
+  lexer->result_symbol = INTERNAL_XREF_CLOSE;
+  return true;
+}
+
 static bool scan_plain_inline_punctuation(TSLexer *lexer, const bool *valid_symbols) {
   return scan_plain_caret(lexer, valid_symbols) ||
          emit_plain_punctuation(lexer, valid_symbols, PLAIN_ASTERISK, '*') ||
@@ -609,6 +720,14 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
       !is_newline(lexer->lookahead) &&
       scan_block_content_line(lexer)) {
     lexer->result_symbol = DELIMITED_BLOCK_CONTENT_LINE;
+    return true;
+  }
+
+  if (scan_internal_xref_open(lexer, valid_symbols)) {
+    return true;
+  }
+
+  if (scan_internal_xref_close(lexer, valid_symbols)) {
     return true;
   }
 

@@ -73,7 +73,12 @@
 (explicit_link) @markup.link
 (link_macro) @markup.link
 (link_text) @markup.link.text
-(internal_xref) @markup.link
+(internal_xref
+  open: (INTERNAL_XREF_OPEN) @punctuation.delimiter
+  target: (xref_target) @markup.link
+  text: (xref_text)? @string
+  close: (INTERNAL_XREF_CLOSE) @punctuation.delimiter
+  trailing: (xref_trailing_punctuation)? @punctuation.delimiter)
 (external_xref) @markup.link
 
 ; Anchors
