@@ -267,76 +267,61 @@ Enabled: {enabledAttr}
       title: (title)
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (inline_element
             (attribute_substitution)))
         content: (inline_seq_nonempty
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (inline_element
             (attribute_substitution)))
         content: (inline_seq_nonempty
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (inline_element
             (attribute_substitution))))
       content: (paragraph
         content: (inline_seq_nonempty
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         content: (inline_seq_nonempty
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON))))
+          (plain_colon)))
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (inline_element
             (attribute_substitution)))
         content: (inline_seq_nonempty
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (inline_element
             (attribute_substitution)))
         content: (inline_seq_nonempty
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (inline_element
             (attribute_substitution)))))))
+

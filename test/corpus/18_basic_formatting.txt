@@ -14,7 +14,8 @@ This has *bold* text in it.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
       (plain_text)
       (plain_text)
@@ -36,7 +37,8 @@ This has _italic_ text in it.
       (inline_element
         (emphasis
           open: (emphasis_open)
-          content: (emphasis_content)
+          content: (emphasis_content
+            (plain_text))
           close: (emphasis_close)))
       (plain_text)
       (plain_text)
@@ -57,9 +59,10 @@ This has `code` text in it.
       (plain_text)
       (inline_element
         (monospace
-          open: (monospace_open)
-          content: (monospace_content)
-          close: (monospace_close)))
+          open: (monospace_tick_open)
+          content: (monospace_tick_content
+            (plain_text))
+          close: (monospace_tick_close)))
       (plain_text)
       (plain_text)
       (plain_text))))
@@ -74,14 +77,21 @@ This has *unclosed bold and _unclosed italic and `unclosed code.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (inline_element
-        (strong
-          (strong_open)
-          (strong_content)
-          (MISSING strong_close))))))
+      (plain_asterisk)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_underscore)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_backtick)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Mixed formatting elements
@@ -99,20 +109,23 @@ This has *bold* and _italic_ and `code` together.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
       (plain_text)
       (inline_element
         (emphasis
           open: (emphasis_open)
-          content: (emphasis_content)
+          content: (emphasis_content
+            (plain_text))
           close: (emphasis_close)))
       (plain_text)
       (inline_element
         (monospace
-          open: (monospace_open)
-          content: (monospace_content)
-          close: (monospace_close)))
+          open: (monospace_tick_open)
+          content: (monospace_tick_content
+            (plain_text))
+          close: (monospace_tick_close)))
       (plain_text))))
 
 ================================================================================

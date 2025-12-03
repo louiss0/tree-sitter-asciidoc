@@ -49,14 +49,14 @@ Another::Description
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
+      (plain_colon)
+      (plain_colon)
       (plain_text)))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
+      (plain_colon)
+      (plain_colon)
       (plain_text))))
 
 ================================================================================
@@ -71,8 +71,7 @@ Term::: Description
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
-      (plain_colon
-        (PLAIN_COLON))
+      (plain_colon)
+      (plain_colon)
+      (plain_colon)
       (plain_text))))

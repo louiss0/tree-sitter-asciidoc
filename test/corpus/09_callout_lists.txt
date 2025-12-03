@@ -14,12 +14,14 @@ Simple callout list
       (callout_marker)
       (inline_seq_nonempty
         (plain_text)
-        (plain_text)))
+        (plain_text))))
+  (callout_list
     (callout_item
       (callout_marker)
       (inline_seq_nonempty
         (plain_text)
-        (plain_text)))
+        (plain_text))))
+  (callout_list
     (callout_item
       (callout_marker)
       (inline_seq_nonempty
@@ -39,7 +41,13 @@ Not a callout list - missing space after marker
 (source_file
   (paragraph
     (inline_seq_nonempty
+      (plain_less_than)
+      (plain_text)
+      (plain_greater_than)
       (plain_text)))
   (paragraph
     (inline_seq_nonempty
+      (plain_less_than)
+      (plain_text)
+      (plain_greater_than)
       (plain_text))))

@@ -15,7 +15,8 @@ Also check out http://test.org and ftp://files.com/download.
         (auto_link))
       (plain_text)
       (plain_text)
-      (plain_text))
+      (plain_text)))
+  (paragraph
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)

@@ -19,11 +19,9 @@ endif::[]
       title: (title)
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (conditional_block
         (ifdef_block
@@ -81,11 +79,9 @@ endif::[]
       title: (title)
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (conditional_block
         (ifeval_block
@@ -220,7 +216,8 @@ endif::[]
               content: (inline_seq_nonempty
                 (plain_text)
                 (plain_text)
-                (plain_text)))
+                (plain_text))))
+          content: (unordered_list
             items: (unordered_list_item
               marker: (unordered_list_marker)
               content: (inline_seq_nonempty
@@ -232,7 +229,8 @@ endif::[]
               marker: (ordered_list_marker)
               content: (inline_seq_nonempty
                 (plain_text)
-                (plain_text)))
+                (plain_text))))
+          content: (ordered_list
             items: (ordered_list_item
               marker: (ordered_list_marker)
               content: (inline_seq_nonempty

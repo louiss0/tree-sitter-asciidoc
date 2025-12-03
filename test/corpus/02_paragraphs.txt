@@ -21,7 +21,8 @@ Another paragraph after multiple blank lines
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))
+      (plain_text)))
+  (paragraph
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
@@ -37,7 +38,8 @@ Another paragraph after multiple blank lines
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))
+      (plain_text)))
+  (paragraph
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
@@ -67,7 +69,8 @@ Fake headings without space should be paragraphs
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))
+      (plain_text)))
+  (paragraph
     (inline_seq_nonempty
       (plain_text)))
   (section
@@ -101,7 +104,8 @@ continues here
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_text))
+      (plain_text)))
+  (paragraph
     (inline_seq_nonempty
       (plain_text)
       (plain_text))))
@@ -119,6 +123,7 @@ Just one line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
+      (plain_caret)
       (plain_text))))
 
 ================================================================================
@@ -134,7 +139,8 @@ Just one line*
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_asterisk))))
 
 ================================================================================
 Paragraph with underscore
@@ -149,8 +155,8 @@ Just one line_
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text))))
-
+      (plain_text)
+      (plain_underscore))))
 
 ================================================================================
 Paragraph with single quote
@@ -165,8 +171,8 @@ Just one 'line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
+      (plain_quote)
       (plain_text))))
-
 
 ================================================================================
 Paragraph with double quote
@@ -181,8 +187,8 @@ Just one "line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
+      (plain_double_quote)
       (plain_text))))
-
 
 ================================================================================
 Paragraph with dash
@@ -197,8 +203,8 @@ Just one -line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
+      (plain_dash)
       (plain_text))))
-
 
 ================================================================================
 Paragraph with Caret
@@ -213,6 +219,7 @@ Just one ^line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
+      (plain_caret)
       (plain_text))))
 
 ================================================================================
@@ -228,6 +235,7 @@ Just one <line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
+      (plain_less_than)
       (plain_text))))
 
 ================================================================================
@@ -257,9 +265,9 @@ Just <one line
   (paragraph
     (inline_seq_nonempty
       (plain_text)
+      (plain_less_than)
       (plain_text)
       (plain_text))))
-
 
 ================================================================================
 Paragraph with Comma
@@ -274,8 +282,8 @@ Mary, James, John, Suku
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
+      (plain_text)
       (plain_text))))
-
 
 ================================================================================
 Paragraph with left brace
@@ -303,11 +311,11 @@ Just one [line
 --------------------------------------------------------------------------------
 
 (source_file
-(paragraph
+  (paragraph
     (inline_seq_nonempty
-    (plain_text)
-    (plain_text)
-    (plain_text))))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Paragraph with right bracket
@@ -318,12 +326,11 @@ Just one ]line
 --------------------------------------------------------------------------------
 
 (source_file
-(paragraph
+  (paragraph
     (inline_seq_nonempty
-    (plain_text)
-    (plain_text)
-    (plain_text))))
-
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Paragraph with left parenthesis
@@ -334,12 +341,11 @@ Just one (line
 --------------------------------------------------------------------------------
 
 (source_file
-    (paragraph
+  (paragraph
     (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Paragraph with right parenthesis
@@ -350,12 +356,11 @@ Just one )line
 --------------------------------------------------------------------------------
 
 (source_file
-    (paragraph
+  (paragraph
     (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Paragraph with percent
@@ -366,12 +371,11 @@ Just one %line
 --------------------------------------------------------------------------------
 
 (source_file
-    (paragraph
+  (paragraph
     (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Paragraph with dollar
@@ -382,12 +386,11 @@ Just one $line
 --------------------------------------------------------------------------------
 
 (source_file
-    (paragraph
+  (paragraph
     (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Paragraph with at sign
@@ -398,12 +401,11 @@ Just one @line
 --------------------------------------------------------------------------------
 
 (source_file
-    (paragraph
+  (paragraph
     (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Paragraph with exclamation
@@ -414,12 +416,11 @@ Just one !line
 --------------------------------------------------------------------------------
 
 (source_file
-    (paragraph
+  (paragraph
     (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Paragraph with hash
@@ -430,11 +431,11 @@ Just one #line
 --------------------------------------------------------------------------------
 
 (source_file
-    (paragraph
+  (paragraph
     (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text))))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Paragraph with equals
@@ -445,12 +446,11 @@ Just one =line
 --------------------------------------------------------------------------------
 
 (source_file
-    (paragraph
+  (paragraph
     (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Paragraph with ampersand
@@ -461,11 +461,11 @@ Just one &line
 --------------------------------------------------------------------------------
 
 (source_file
-    (paragraph
+  (paragraph
     (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text))))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Paragraph with question mark
@@ -476,12 +476,11 @@ Just one line?
 --------------------------------------------------------------------------------
 
 (source_file
-    (paragraph
+  (paragraph
     (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Paragraph with period
@@ -492,8 +491,8 @@ Just one line.
 --------------------------------------------------------------------------------
 
 (source_file
-    (paragraph
+  (paragraph
     (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text))))
+      (plain_text)
+      (plain_text)
+      (plain_text))))

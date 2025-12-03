@@ -29,6 +29,8 @@ CAUTION: Proceed with extreme caution.
       label: (admonition_label)
       content: (inline_seq_nonempty
         (plain_text)
+        (plain_quote)
+        (plain_text)
         (plain_text)
         (plain_text)
         (plain_text)
@@ -83,7 +85,7 @@ Pro tip: Always read the documentation first!
 
 (source_file
   (block_admonition
-    type: (admonition_attribute
+    label: (admonition_attribute
       (ATTRIBUTE_LIST_START))
     block: (example_block
       open: (example_open
@@ -96,7 +98,7 @@ Pro tip: Always read the documentation first!
       close: (example_close
         (EXAMPLE_FENCE_END))))
   (block_admonition
-    type: (admonition_attribute
+    label: (admonition_attribute
       (ATTRIBUTE_LIST_START))
     block: (example_block
       open: (example_open
@@ -136,7 +138,7 @@ This is a sidebar admonition.
 
 (source_file
   (block_admonition
-    type: (admonition_attribute
+    label: (admonition_attribute
       (ATTRIBUTE_LIST_START))
     block: (listing_block
       open: (listing_open
@@ -149,7 +151,7 @@ This is a sidebar admonition.
       close: (listing_close
         (LISTING_FENCE_END))))
   (block_admonition
-    type: (admonition_attribute
+    label: (admonition_attribute
       (ATTRIBUTE_LIST_START))
     block: (literal_block
       open: (literal_open
@@ -162,7 +164,7 @@ This is a sidebar admonition.
       close: (literal_close
         (LITERAL_FENCE_END))))
   (block_admonition
-    type: (admonition_attribute
+    label: (admonition_attribute
       (ATTRIBUTE_LIST_START))
     block: (sidebar_block
       open: (sidebar_open
@@ -195,8 +197,11 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
         (plain_text)
         (plain_text)
         (plain_text)
+        (plain_dash)
+        (plain_text)
         (inline_element
-          (internal_xref))
+          (internal_xref
+            target: (xref_target)))
         (plain_text)
         (plain_text)
         (plain_text))))
@@ -263,3 +268,4 @@ NOTE: This is a valid admonition again.
         (plain_text)
         (plain_text)
         (plain_text)))))
+

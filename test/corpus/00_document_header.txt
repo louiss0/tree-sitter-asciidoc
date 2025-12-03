@@ -23,7 +23,7 @@ v1.0, 1-15-2024: First release
       date: (revision_date)
       remark: (revision_remark)
       separator: (header_break)))
-(section
+  (section
     (section_level_2
       marker: (section_marker_2)
       title: (title))))
@@ -42,19 +42,30 @@ v2.0, 2-20-2024: Delayed blank start
 --------------------------------------------------------------------------------
 
 (source_file
-  header: (document_header
-    title: (document_title
-      marker: (document_title_marker)
-      text: (document_title_text))
-    author: (author_line
-      authors: (author_list
-        author: (author_name))
-      email: (author_email))
-    revision: (revision_line
-      version: (revision_version)
-      date: (revision_date)
-      remark: (revision_remark)
-      separator: (header_break)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_less_than)
+      (plain_text)
+      (plain_greater_than)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (plain_colon)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -75,19 +86,30 @@ v3.0, 3-21-2024: Two blanks
 --------------------------------------------------------------------------------
 
 (source_file
-  header: (document_header
-    title: (document_title
-      marker: (document_title_marker)
-      text: (document_title_text))
-    author: (author_line
-      authors: (author_list
-        author: (author_name))
-      email: (author_email))
-    revision: (revision_line
-      version: (revision_version)
-      date: (revision_date)
-      remark: (revision_remark)
-      separator: (header_break)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_less_than)
+      (plain_text)
+      (plain_greater_than)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (plain_colon)
+      (plain_text)
+      (plain_text)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -107,19 +129,30 @@ v4.0, 4-22-2024: Leading spaces
 --------------------------------------------------------------------------------
 
 (source_file
-  header: (document_header
-    title: (document_title
-      marker: (document_title_marker)
-      text: (document_title_text))
-    author: (author_line
-      authors: (author_list
-        author: (author_name))
-      email: (author_email))
-    revision: (revision_line
-      version: (revision_version)
-      date: (revision_date)
-      remark: (revision_remark)
-      separator: (header_break)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_less_than)
+      (plain_text)
+      (plain_greater_than)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (plain_colon)
+      (plain_text)
+      (plain_text)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -139,19 +172,30 @@ v5.0, 5-22-2024: Leading tab
 --------------------------------------------------------------------------------
 
 (source_file
-  header: (document_header
-    title: (document_title
-      marker: (document_title_marker)
-      text: (document_title_text))
-    author: (author_line
-      authors: (author_list
-        author: (author_name))
-      email: (author_email))
-    revision: (revision_line
-      version: (revision_version)
-      date: (revision_date)
-      remark: (revision_remark)
-      separator: (header_break)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_less_than)
+      (plain_text)
+      (plain_greater_than)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (plain_colon)
+      (plain_text)
+      (plain_text)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -172,19 +216,33 @@ v6.0, 6-22-2024: Leading blank with padding
 --------------------------------------------------------------------------------
 
 (source_file
-  header: (document_header
-    title: (document_title
-      marker: (document_title_marker)
-      text: (document_title_text))
-    author: (author_line
-      authors: (author_list
-        author: (author_name))
-      email: (author_email))
-    revision: (revision_line
-      version: (revision_version)
-      date: (revision_date)
-      remark: (revision_remark)
-      separator: (header_break)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_less_than)
+      (plain_text)
+      (plain_greater_than)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (plain_colon)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
   (section
     (section_level_2
       marker: (section_marker_2)

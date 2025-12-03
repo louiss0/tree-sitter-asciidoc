@@ -6,17 +6,16 @@ This is [big]#large text# here.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (inline_element
-        (role_span
-          roles: (role_list)
-          content: (role_content)))
-      (plain_text))))
-
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (role_span
+          roles: (role_list)
+          content: (role_content)))
+      (plain_text))))
 
 ================================================================================
 Role spans with nested formatting
@@ -26,25 +25,26 @@ This is [highlight]#*bold* and _italic_# text.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (inline_element
-        (role_span
-          roles: (role_list)
-          content: (role_content
-            (strong
-              open: (strong_open)
-              content: (strong_content)
-              close: (strong_close))
-            (emphasis
-              open: (emphasis_open)
-              content: (emphasis_content)
-              close: (emphasis_close)))))
-      (plain_text))))
-
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (role_span
+          roles: (role_list)
+          content: (role_content
+            (strong
+              open: (strong_open)
+              content: (strong_content
+            (plain_text))
+              close: (strong_close))
+            (emphasis
+              open: (emphasis_open)
+              content: (emphasis_content
+            (plain_text))
+              close: (emphasis_close)))))
+      (plain_text))))
 
 ================================================================================
 Math macros
@@ -55,29 +55,28 @@ Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (inline_macro
-        name: (macro_name)
-        open: (INLINE_MACRO_MARKER)
-        body: (macro_body))
-      (plain_text)
-      (plain_text))
-    content: (inline_seq_nonempty
-      (plain_text)
-      (inline_macro
-        name: (macro_name)
-        open: (INLINE_MACRO_MARKER)
-        body: (macro_body))
-      (plain_text)
-      (inline_macro
-        name: (macro_name)
-        open: (INLINE_MACRO_MARKER)
-        body: (macro_body))
-      (plain_text))))
-
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)
+      (plain_text))
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text))))
 
 ================================================================================
 UI macros
@@ -88,43 +87,27 @@ Go to menu:File[Open] option.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (inline_macro
-        name: (macro_name)
-        open: (INLINE_MACRO_MARKER)
-        body: (macro_body))
-      (plain_text)
-      (plain_text)
-      (inline_macro
-        name: (macro_name)
-        open: (INLINE_MACRO_MARKER)
-        body: (macro_body))
-      (plain_text))
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (inline_element
-        (ui_menu))
-      (plain_text))))
-
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        name: (macro_name)
+        open: (INLINE_MACRO_MARKER)
+        body: (macro_body))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (ui_menu))
+      (plain_text))))
 
-================================================================================
-Attribute references
-================================================================================
 
-Hello {userName} from {homeLocation}!
-
---------------------------------------------------------------------------------
-
-(source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (inline_element
-        (attribute_substitution))
-      (plain_text)
-      (plain_text))))
-

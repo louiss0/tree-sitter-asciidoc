@@ -22,19 +22,15 @@ More text.
       title: (title)
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (paragraph
         content: (inline_seq_nonempty
@@ -46,11 +42,9 @@ More text.
       title: (title)
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (paragraph
         content: (inline_seq_nonempty
@@ -76,18 +70,14 @@ Content here
       title: (title)
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON))))
+          (plain_colon)))
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON))))
+          (plain_colon)))
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
@@ -110,19 +100,15 @@ Attribute entries with spaces in values
       title: (title)
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value)))))
 
 ================================================================================
@@ -147,11 +133,9 @@ More content
       title: (title)
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (paragraph
         content: (inline_seq_nonempty
@@ -159,11 +143,9 @@ More content
           (plain_text)))
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (paragraph
         content: (inline_seq_nonempty
@@ -189,19 +171,15 @@ Body
       title: (title)
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (paragraph
         content: (inline_seq_nonempty

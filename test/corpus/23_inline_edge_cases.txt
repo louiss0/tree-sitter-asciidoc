@@ -36,11 +36,13 @@ This is [important]#*bold* and _italic_ text# here.
           content: (role_content
             (strong
               open: (strong_open)
-              content: (strong_content)
+              content: (strong_content
+            (plain_text))
               close: (strong_close))
             (emphasis
               open: (emphasis_open)
-              content: (emphasis_content)
+              content: (emphasis_content
+            (plain_text))
               close: (emphasis_close)))))
       (plain_text))))
 
@@ -88,14 +90,11 @@ This is *bold with \* asterisk* text.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
-      (plain_text)))
-  (unordered_list
-    items: (unordered_list_item
-      marker: (unordered_list_marker)
-      content: (inline_seq_nonempty
-        (plain_text)))))
+      (plain_text))))
+
 
 ================================================================================
 Escaped delimiters in emphasis
@@ -110,10 +109,12 @@ This is _italic with \_ underscore_ text.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text)
-      (plain_text)
-      (escaped_char)
-      (plain_text)
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content
+            (plain_text))
+          close: (emphasis_close)))
       (plain_text))))
 
 ================================================================================
@@ -131,9 +132,10 @@ This is `code with \` backtick` text.
       (plain_text)
       (inline_element
         (monospace
-          open: (monospace_open)
-          content: (monospace_content)
-          close: (monospace_close)))
+          open: (monospace_tick_open)
+          content: (monospace_tick_content
+            (plain_text))
+          close: (monospace_tick_close)))
       (plain_text))))
 
 ================================================================================
@@ -149,11 +151,14 @@ This is ^super with \^ caret^ text.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text)
-      (plain_text)
-      (escaped_char)
-      (plain_text)
+      (inline_element
+        (superscript
+          open: (superscript_open)
+          content: (superscript_content
+            (plain_text))
+          close: (superscript_close)))
       (plain_text))))
+
 
 ================================================================================
 Escaped delimiters in subscript
@@ -171,7 +176,8 @@ This is ~sub with \~ tilde~ text.
       (inline_element
         (subscript
           open: (subscript_open)
-          content: (subscript_text)
+          content: (subscript_content
+            (plain_text))
           close: (subscript_close)))
       (plain_text))))
 
@@ -211,7 +217,8 @@ This is *bold with `mono and ^super^`* text.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
       (plain_text))))
 
@@ -231,15 +238,23 @@ This is *bold {userName}* and `code {currentVersion}` and ^super{levelCount}^.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
       (plain_text)
       (inline_element
         (monospace
-          open: (monospace_open)
-          content: (monospace_content)
-          close: (monospace_close)))
+          open: (monospace_tick_open)
+          content: (monospace_tick_content
+            (plain_text))
+          close: (monospace_tick_close)))
       (plain_text)
+      (inline_element
+            (superscript
+              open: (superscript_open)
+              content: (superscript_content
+            (plain_text))
+              close: (superscript_close)))))
       (plain_text))))
 
 ================================================================================
@@ -386,18 +401,8 @@ This +++*bold* `code` _italic_+++ is literal.
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
-      (plain_text)
       (inline_element
-        (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close)))
-      (inline_element
-        (monospace
-          open: (monospace_open)
-          content: (monospace_content)
-          close: (monospace_close)))
-      (plain_text)
+        (passthrough_triple_plus))
       (plain_text)
       (plain_text))))
 
@@ -436,19 +441,32 @@ Multiple consecutive inline elements
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
-      (plain_text)
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content
+            (plain_text))
+          close: (emphasis_close)))
       (inline_element
         (monospace
-          open: (monospace_open)
-          content: (monospace_content)
-          close: (monospace_close)))
-      (plain_text)
+          open: (monospace_tick_open)
+          content: (monospace_tick_content
+            (plain_text))
+          close: (monospace_tick_close)))
+      (inline_element
+        (superscript
+          open: (superscript_open)
+          content: (superscript_content
+            (plain_text))
+          close: (superscript_close)))
       (inline_element
         (subscript
           open: (subscript_open)
-          content: (subscript_text)
+          content: (subscript_content
+            (plain_text))
           close: (subscript_close)))
       (inline_element
         (attribute_substitution)))))
@@ -469,7 +487,8 @@ This has ** and __ and `` empty markers.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (MISSING strong_close))))))
 
 ================================================================================
@@ -490,3 +509,10 @@ This is [role.with.dots]#styled text# here.
           roles: (role_list)
           content: (role_content)))
       (plain_text))))
+
+
+
+
+
+
+

@@ -34,6 +34,8 @@ TIP: Here's a helpful tip for users.
       label: (admonition_label)
       content: (inline_seq_nonempty
         (plain_text)
+        (plain_quote)
+        (plain_text)
         (plain_text)
         (plain_text)
         (plain_text)
@@ -118,7 +120,8 @@ NOTE: This note contains *bold text* and other formatting.
         (inline_element
           (strong
             open: (strong_open)
-            content: (strong_content)
+            content: (strong_content
+            (plain_text))
             close: (strong_close)))
         (plain_text)
         (plain_text)
@@ -136,8 +139,7 @@ NOTE:
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON)))))
+      (plain_colon))))
 
 ================================================================================
 Not an admonition - lowercase label
@@ -151,8 +153,7 @@ note: This should be a regular paragraph, not an admonition.
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
+      (plain_colon)
       (plain_text)
       (plain_text)
       (plain_text)
@@ -195,8 +196,7 @@ INFO: This is not a valid admonition type.
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
+      (plain_colon)
       (plain_text)
       (plain_text)
       (plain_text)
@@ -272,3 +272,4 @@ Regular paragraph text.
           (plain_text)
           (plain_text)
           (plain_text))))))
+

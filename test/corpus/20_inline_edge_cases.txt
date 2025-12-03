@@ -18,13 +18,15 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
       (plain_text)
       (inline_element
         (emphasis
           open: (emphasis_open)
-          content: (emphasis_content)
+          content: (emphasis_content
+            (plain_text))
           close: (emphasis_close)))
       (plain_text)))
   (paragraph
@@ -35,31 +37,34 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
       (plain_text)
       (inline_element
         (emphasis
           open: (emphasis_open)
-          content: (emphasis_content)
+          content: (emphasis_content
+            (plain_text))
           close: (emphasis_close)))
       (plain_text)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
+      (plain_colon)
       (inline_element
         (superscript
           open: (superscript_open)
-          content: (superscript_text)
+          content: (superscript_content
+            (plain_text))
           close: (superscript_close)))
       (plain_text)
       (inline_element
         (subscript
           open: (subscript_open)
-          content: (subscript_text)
+          content: (subscript_content
+            (plain_text))
           close: (subscript_close)))
       (plain_text)
       (plain_text))))
@@ -85,7 +90,8 @@ Monospace with `code *not strong* here` content.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
       (plain_text)
       (plain_text)
@@ -106,12 +112,12 @@ Monospace with `code *not strong* here` content.
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
+      (plain_colon)
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
       (plain_text)))
   (paragraph
@@ -120,9 +126,10 @@ Monospace with `code *not strong* here` content.
       (plain_text)
       (inline_element
         (monospace
-          open: (monospace_open)
-          content: (monospace_content)
-          close: (monospace_close)))
+          open: (monospace_tick_open)
+          content: (monospace_tick_content
+            (plain_text))
+          close: (monospace_tick_close)))
       (plain_text))))
 
 ================================================================================
@@ -152,16 +159,14 @@ Email addresses: contact@example.com.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
+      (plain_colon)
       (inline_element
         (auto_link))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
+      (plain_colon)
       (inline_element
         (auto_link))
       (inline_element
@@ -170,11 +175,8 @@ Email addresses: contact@example.com.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
-      (plain_text)))
-  (ERROR
-    (comment_line)))
+      (plain_colon)
+      (plain_text))))
 
 ================================================================================
 Role spans with complex attributes
@@ -235,7 +237,8 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
       (plain_text)
       (plain_text)))
@@ -248,7 +251,8 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
       (inline_element
         (subscript
           open: (subscript_open)
-          content: (subscript_text)
+          content: (subscript_content
+            (plain_text))
           close: (subscript_close)))
       (plain_text)))
   (paragraph
@@ -256,13 +260,15 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
       (plain_text)
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
       (plain_text)))
   (paragraph
@@ -270,9 +276,10 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
       (plain_text)
       (inline_element
         (monospace
-          open: (monospace_open)
-          content: (monospace_content)
-          close: (monospace_close)))
+          open: (monospace_tick_open)
+          content: (monospace_tick_content
+            (plain_text))
+          close: (monospace_tick_close)))
       (plain_text)
       (plain_text)
       (plain_text))))
@@ -409,8 +416,7 @@ Nested pass: pass:c[{code-block}] with substitution.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
+      (plain_colon)
       (inline_element
         (passthrough_triple_plus))
       (plain_text)))
@@ -423,3 +429,11 @@ Nested pass: pass:c[{code-block}] with substitution.
         body: (macro_body))
       (plain_text)
       (plain_text))))
+
+
+
+
+
+
+
+

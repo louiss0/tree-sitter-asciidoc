@@ -87,7 +87,8 @@ See the <<target-section>> for more information.
       (plain_text)
       (plain_text)
       (inline_element
-        (internal_xref))
+        (internal_xref
+          target: (xref_target)))
       (plain_text)
       (plain_text)
       (plain_text))))
@@ -106,7 +107,9 @@ See the <<target-section,target section>> for details.
       (plain_text)
       (plain_text)
       (inline_element
-        (internal_xref))
+        (internal_xref
+          target: (xref_target)
+          text: (xref_text)))
       (plain_text)
       (plain_text))))
 
@@ -281,7 +284,8 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
       (inline_element
         (inline_anchor))
       (inline_element
-        (internal_xref))
+        (internal_xref
+          target: (xref_target)))
       (inline_element
         (footnote_inline))
       (plain_text))))
@@ -298,11 +302,21 @@ This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
-      (plain_text))
-    (ERROR
-      (role_list)
       (plain_text)
-      (role_list))))
+      (plain_left_bracket)
+      (plain_left_bracket)
+      (plain_text)
+      (plain_text)
+      (plain_right_bracket)
+      (plain_right_bracket)
+      (plain_text)
+      (plain_left_bracket)
+      (plain_left_bracket)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))))
 
 ================================================================================
 Malformed cross-references should be plain text

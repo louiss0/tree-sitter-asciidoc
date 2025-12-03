@@ -27,20 +27,21 @@ The word endif:: can also appear here.
       details: (description_content
         (inline_seq_nonempty
           (plain_text)
-          (plain_text))
-        (inline_seq_nonempty
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
           (plain_text)))))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -74,12 +75,10 @@ These look like conditionals but are malformed.
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         content: (inline_seq_nonempty
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         (ERROR
           (role_list)))
       content: (paragraph
@@ -105,21 +104,20 @@ another:::word paragraph
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
-      (plain_colon
-        (PLAIN_COLON))
+      (plain_colon)
+      (plain_colon)
+      (plain_colon)
       (plain_text)
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))
+      (plain_text)))
+  (paragraph
     content: (inline_seq_nonempty
       (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
-      (plain_colon
-        (PLAIN_COLON))
+      (plain_colon)
+      (plain_colon)
+      (plain_colon)
       (plain_text)
       (plain_text))))
 
@@ -187,11 +185,9 @@ endif::[]
       title: (title)
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (conditional_block
         (ifdef_block
@@ -240,11 +236,9 @@ endif::[]
       title: (title)
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (conditional_block
         (ifdef_block
@@ -259,11 +253,9 @@ endif::[]
           end: (endif_directive)))
       content: (attribute_entry
         name: (attribute_name
-          (plain_colon
-            (PLAIN_COLON))
+          (plain_colon)
           (plain_text)
-          (plain_colon
-            (PLAIN_COLON)))
+          (plain_colon))
         value: (attribute_value))
       content: (conditional_block
         (ifndef_block
@@ -277,3 +269,4 @@ endif::[]
               (plain_text)
               (plain_text)))
           end: (endif_directive))))))
+

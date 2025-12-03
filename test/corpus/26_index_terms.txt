@@ -12,7 +12,7 @@ The indexterm:[database] is important in computing.
       (plain_text)
       (inline_element
         (index_term
-          (index_term_macro
+          (concealed_index_term
             terms: (index_text
               primary: (index_term_text)))))
       (plain_text)
@@ -34,7 +34,7 @@ The indexterm:[databases,relational,PostgreSQL] system is robust.
       (plain_text)
       (inline_element
         (index_term
-          (index_term_macro
+          (concealed_index_term
             terms: (index_text
               primary: (index_term_text)
               secondary: (index_term_text)
@@ -57,7 +57,7 @@ The indexterm:[programming,languages] are diverse.
       (plain_text)
       (inline_element
         (index_term
-          (index_term_macro
+          (concealed_index_term
             terms: (index_text
               primary: (index_term_text)
               secondary: (index_term_text)))))
@@ -78,7 +78,7 @@ The indexterm2:[API] is well documented.
       (plain_text)
       (inline_element
         (index_term
-          (index_term2_macro
+          (flow_index_term
             terms: (index_text
               primary: (index_term_text)))))
       (plain_text)
@@ -127,6 +127,8 @@ The (((databases,SQL,PostgreSQL))) is feature-rich.
               secondary: (index_term_text)
               tertiary: (index_term_text)))))
       (plain_text)
+      (plain_text)
+      (plain_dash)
       (plain_text))))
 
 ================================================================================
@@ -143,19 +145,19 @@ Both indexterm:[Java] and indexterm2:[Python] are indexterm:[programming,languag
       (plain_text)
       (inline_element
         (index_term
-          (index_term_macro
+          (concealed_index_term
             terms: (index_text
               primary: (index_term_text)))))
       (plain_text)
       (inline_element
         (index_term
-          (index_term2_macro
+          (flow_index_term
             terms: (index_text
               primary: (index_term_text)))))
       (plain_text)
       (inline_element
         (index_term
-          (index_term_macro
+          (concealed_index_term
             terms: (index_text
               primary: (index_term_text)
               secondary: (index_term_text)))))
@@ -175,13 +177,13 @@ The indexterm:[C++] and indexterm:[.NET Framework] platforms.
       (plain_text)
       (inline_element
         (index_term
-          (index_term_macro
+          (concealed_index_term
             terms: (index_text
               primary: (index_term_text)))))
       (plain_text)
       (inline_element
         (index_term
-          (index_term_macro
+          (concealed_index_term
             terms: (index_text
               primary: (index_term_text)))))
       (plain_text))))
@@ -201,21 +203,23 @@ The *bold* text with indexterm:[formatting] and `code` examples.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
       (plain_text)
       (plain_text)
       (inline_element
         (index_term
-          (index_term_macro
+          (concealed_index_term
             terms: (index_text
               primary: (index_term_text)))))
       (plain_text)
       (inline_element
         (monospace
-          open: (monospace_open)
-          content: (monospace_content)
-          close: (monospace_close)))
+          open: (monospace_tick_open)
+          content: (monospace_tick_content
+            (plain_text))
+          close: (monospace_tick_close)))
       (plain_text))))
 
 ================================================================================
@@ -231,11 +235,8 @@ This indexterm[missing-colon] should be text.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (ERROR
-        (role_list)
-        (plain_text)
-        (plain_text)
-        (plain_text))
+      (plain_text)
+      (plain_text)
       (plain_text))))
 
 ================================================================================
@@ -254,3 +255,6 @@ This ((incomplete)) should be text.
       (plain_text)
       (plain_text)
       (plain_text))))
+
+
+

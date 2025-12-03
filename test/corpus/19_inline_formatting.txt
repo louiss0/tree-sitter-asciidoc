@@ -14,22 +14,25 @@ This is *bold* text and _italic_ text and `monospace` text.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text))
           close: (strong_close)))
       (plain_text)
       (plain_text)
       (inline_element
         (emphasis
           open: (emphasis_open)
-          content: (emphasis_content)
+          content: (emphasis_content
+            (plain_text))
           close: (emphasis_close)))
       (plain_text)
       (plain_text)
       (inline_element
         (monospace
-          open: (monospace_open)
-          content: (monospace_content)
-          close: (monospace_close)))
+          open: (monospace_tick_open)
+          content: (monospace_tick_content
+            (plain_text))
+          close: (monospace_tick_close)))
       (plain_text))))
 
 ================================================================================
@@ -49,14 +52,16 @@ This is E=mc^2^ and H~2~O.
       (inline_element
         (superscript
           open: (superscript_open)
-          content: (superscript_text)
+          content: (superscript_content
+            (plain_text))
           close: (superscript_close)))
       (plain_text)
       (plain_text)
       (inline_element
         (subscript
           open: (subscript_open)
-          content: (subscript_text)
+          content: (subscript_content
+            (plain_text))
           close: (subscript_close)))
       (plain_text))))
 
@@ -76,7 +81,15 @@ This is *bold _italic_ text* mixed.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (plain_text)
+            (inline_element
+              (emphasis
+                open: (emphasis_open)
+                content: (emphasis_content
+                  (plain_text))
+                close: (emphasis_close)))
+            (plain_text))
           close: (strong_close)))
       (plain_text))))
 
@@ -95,6 +108,8 @@ Hello {userName} from {homeLocation}!
       (inline_element
         (attribute_substitution))
       (plain_text)
+      (inline_element
+        (attribute_substitution))
       (plain_text))))
 
 ================================================================================

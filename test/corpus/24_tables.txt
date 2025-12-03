@@ -85,8 +85,7 @@ Table with Title and Metadata
     title: (table_title
       text: (table_title_text))
     metadata: (metadata
-      attributes: (block_attributes
-        (ATTRIBUTE_LIST_START)))
+      id_roles: (id_and_roles))
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content

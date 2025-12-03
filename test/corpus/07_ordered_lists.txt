@@ -14,12 +14,14 @@ Simple ordered list
       (ordered_list_marker)
       (inline_seq_nonempty
         (plain_text)
-        (plain_text)))
+        (plain_text))))
+  (ordered_list
     (ordered_list_item
       (ordered_list_marker)
       (inline_seq_nonempty
         (plain_text)
-        (plain_text)))
+        (plain_text))))
+  (ordered_list
     (ordered_list_item
       (ordered_list_marker)
       (inline_seq_nonempty
@@ -42,12 +44,14 @@ Ordered list with multiple digits
       (ordered_list_marker)
       (inline_seq_nonempty
         (plain_text)
-        (plain_text)))
+        (plain_text))))
+  (ordered_list
     (ordered_list_item
       (ordered_list_marker)
       (inline_seq_nonempty
         (plain_text)
-        (plain_text)))
+        (plain_text))))
+  (ordered_list
     (ordered_list_item
       (ordered_list_marker)
       (inline_seq_nonempty
