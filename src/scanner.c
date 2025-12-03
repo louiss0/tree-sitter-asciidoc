@@ -33,6 +33,8 @@ enum TokenType {
   AUTOLINK_BOUNDARY,
   ATTRIBUTE_LIST_START,
   PLAIN_COLON,
+  INLINE_MACRO_NAME,
+  BLOCK_MACRO_NAME,
   INLINE_MACRO_MARKER,
   BLOCK_MACRO_MARKER,
   DELIMITED_BLOCK_CONTENT_LINE,
@@ -46,6 +48,8 @@ enum TokenType {
   PLAIN_LESS_THAN,
   PLAIN_GREATER_THAN,
   PLAIN_DOUBLE_QUOTE,
+  PLAIN_LEFT_BRACKET,
+  PLAIN_RIGHT_BRACKET,
   INTERNAL_XREF_OPEN,
   INTERNAL_XREF_CLOSE,
 };
@@ -60,6 +64,33 @@ static inline bool is_space(int32_t c) { return c == ' ' || c == '\t'; }
 
 static inline bool is_word_char(int32_t c) {
   return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '_';
+}
+
+static inline bool is_macro_name_char(int32_t c) {
+  if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9')) {
+    return true;
+  }
+  switch (c) {
+    case '!':
+    case '$':
+    case '.':
+    case ',':
+    case '\'':
+    case '"':
+    case '(':
+    case ')':
+    case '+':
+    case '/':
+    case '=':
+    case '%':
+    case '?':
+    case '#':
+    case '{':
+    case '}':
+      return true;
+    default:
+      return false;
+  }
 }
 
 static inline void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
@@ -289,6 +320,137 @@ static bool scan_for_closing_delimiter(TSLexer *lexer, int32_t delimiter) {
   return false;
 }
 
+static bool validate_block_macro_tail(TSLexer *lexer) {
+  while (true) {
+    int32_t c = lexer->lookahead;
+
+    if (c == '\\') {
+      advance(lexer);
+      if (lexer->lookahead == 0 || is_newline(lexer->lookahead)) {
+        return false;
+      }
+      advance(lexer);
+      continue;
+    }
+
+    if (c == ']') {
+      advance(lexer);
+      break;
+    }
+
+    if (c == 0 || is_newline(c)) {
+      return false;
+    }
+
+    advance(lexer);
+  }
+
+  while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+    advance(lexer);
+  }
+
+  if (lexer->lookahead == '\r' || lexer->lookahead == '\n' || lexer->eof(lexer)) {
+    return true;
+  }
+
+  return false;
+}
+
+static bool validate_inline_macro_tail(TSLexer *lexer) {
+  while (true) {
+    int32_t c = lexer->lookahead;
+
+    if (c == '\\') {
+      advance(lexer);
+      if (lexer->lookahead == 0 || is_newline(lexer->lookahead)) {
+        return false;
+      }
+      advance(lexer);
+      continue;
+    }
+
+    if (c == ']') {
+      return true;
+    }
+
+    if (c == 0 || is_newline(c)) {
+      return false;
+    }
+
+    advance(lexer);
+  }
+}
+
+static bool scan_macro_name(TSLexer *lexer, const bool *valid_symbols) {
+  const bool wants_block = valid_symbols[BLOCK_MACRO_NAME];
+  const bool wants_inline = valid_symbols[INLINE_MACRO_NAME];
+
+  if (!wants_block && !wants_inline) {
+    return false;
+  }
+
+  if (!is_macro_name_char(lexer->lookahead)) {
+    return false;
+  }
+
+  advance(lexer);
+  lexer->mark_end(lexer);
+
+  while (is_macro_name_char(lexer->lookahead)) {
+    advance(lexer);
+    lexer->mark_end(lexer);
+  }
+
+  if (lexer->lookahead != ':') {
+    return false;
+  }
+
+  advance(lexer);
+
+  bool is_block_macro = false;
+  if (lexer->lookahead == ':') {
+    is_block_macro = true;
+    advance(lexer);
+  }
+
+  if (is_block_macro && !wants_block) {
+    return false;
+  }
+
+  if (!is_block_macro && !wants_inline) {
+    return false;
+  }
+
+  while (true) {
+    if (lexer->lookahead == '\\') {
+      advance(lexer);
+      if (lexer->lookahead == 0 || is_newline(lexer->lookahead)) {
+        return false;
+      }
+      advance(lexer);
+      continue;
+    }
+
+    if (lexer->lookahead == '[') {
+      advance(lexer);
+      bool ok = is_block_macro ? validate_block_macro_tail(lexer) : validate_inline_macro_tail(lexer);
+      if (!ok) {
+        return false;
+      }
+      break;
+    }
+
+    if (lexer->lookahead == 0 || is_newline(lexer->lookahead)) {
+      return false;
+    }
+
+    advance(lexer);
+  }
+
+  lexer->result_symbol = is_block_macro ? BLOCK_MACRO_NAME : INLINE_MACRO_NAME;
+  return true;
+}
+
 static bool scan_macro_marker_or_colon(TSLexer *lexer, const bool *valid_symbols) {
   if (lexer->lookahead != ':') {
     return false;
@@ -328,11 +490,20 @@ static bool scan_macro_marker_or_colon(TSLexer *lexer, const bool *valid_symbols
   if (wants_inline || wants_block) {
     while (lexer->lookahead && !is_newline(lexer->lookahead)) {
       if (lexer->lookahead == '[') {
+        advance(lexer);
+        lexer->mark_end(lexer);
+
+        if (wants_block && !validate_block_macro_tail(lexer)) {
+          return false;
+        }
+
+        if (wants_inline && !validate_inline_macro_tail(lexer)) {
+          return false;
+        }
+
 #if SCANNER_DEBUG
         DEBUG_LOG("macro marker -> %s\n", wants_block ? "BLOCK" : "INLINE");
 #endif
-        advance(lexer);
-        lexer->mark_end(lexer);
         lexer->result_symbol = wants_block ? BLOCK_MACRO_MARKER : INLINE_MACRO_MARKER;
         return true;
       }
@@ -521,6 +692,8 @@ static bool scan_plain_inline_punctuation(TSLexer *lexer, const bool *valid_symb
          emit_plain_punctuation(lexer, valid_symbols, PLAIN_DASH, '-') ||
          emit_plain_punctuation(lexer, valid_symbols, PLAIN_QUOTE, '\'') ||
          emit_plain_punctuation(lexer, valid_symbols, PLAIN_DOUBLE_QUOTE, '"') ||
+         emit_plain_punctuation(lexer, valid_symbols, PLAIN_LEFT_BRACKET, '[') ||
+         emit_plain_punctuation(lexer, valid_symbols, PLAIN_RIGHT_BRACKET, ']') ||
          scan_plain_angle_bracket(lexer, valid_symbols, true) ||
          scan_plain_angle_bracket(lexer, valid_symbols, false);
 }
@@ -581,6 +754,11 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
 
   if (lexer->eof(lexer)) {
     return false;
+  }
+
+  if ((valid_symbols[BLOCK_MACRO_NAME] || valid_symbols[INLINE_MACRO_NAME]) &&
+      scan_macro_name(lexer, valid_symbols)) {
+    return true;
   }
 
   if ((valid_symbols[BLOCK_MACRO_MARKER] || valid_symbols[INLINE_MACRO_MARKER] || valid_symbols[PLAIN_COLON]) &&

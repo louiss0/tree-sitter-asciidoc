@@ -131,13 +131,6 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "REPEAT",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_blank_line"
-            }
-          },
-          {
             "type": "FIELD",
             "name": "title",
             "content": {
@@ -327,29 +320,8 @@
         "type": "PREC",
         "value": 5,
         "content": {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "<"
-            },
-            {
-              "type": "PATTERN",
-              "value": "[A-Za-z0-9._%+\\-]+"
-            },
-            {
-              "type": "STRING",
-              "value": "@"
-            },
-            {
-              "type": "PATTERN",
-              "value": "[A-Za-z0-9.\\-]+"
-            },
-            {
-              "type": "STRING",
-              "value": ">"
-            }
-          ]
+          "type": "PATTERN",
+          "value": "<[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+>"
         }
       }
     },
@@ -3223,6 +3195,14 @@
         },
         {
           "type": "SYMBOL",
+          "name": "plain_left_bracket"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "plain_right_bracket"
+        },
+        {
+          "type": "SYMBOL",
           "name": "plain_text"
         }
       ]
@@ -3236,40 +3216,103 @@
       }
     },
     "plain_colon": {
-      "type": "SYMBOL",
-      "name": "PLAIN_COLON"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "PLAIN_COLON"
+      },
+      "named": true,
+      "value": "plain_colon"
     },
     "plain_asterisk": {
-      "type": "SYMBOL",
-      "name": "PLAIN_ASTERISK"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "PLAIN_ASTERISK"
+      },
+      "named": true,
+      "value": "plain_asterisk"
     },
     "plain_underscore": {
-      "type": "SYMBOL",
-      "name": "PLAIN_UNDERSCORE"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "PLAIN_UNDERSCORE"
+      },
+      "named": true,
+      "value": "plain_underscore"
     },
     "plain_dash": {
-      "type": "SYMBOL",
-      "name": "PLAIN_DASH"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "PLAIN_DASH"
+      },
+      "named": true,
+      "value": "plain_dash"
     },
     "plain_quote": {
-      "type": "SYMBOL",
-      "name": "PLAIN_QUOTE"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "PLAIN_QUOTE"
+      },
+      "named": true,
+      "value": "plain_quote"
     },
     "plain_double_quote": {
-      "type": "SYMBOL",
-      "name": "PLAIN_DOUBLE_QUOTE"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "PLAIN_DOUBLE_QUOTE"
+      },
+      "named": true,
+      "value": "plain_double_quote"
     },
     "plain_caret": {
-      "type": "SYMBOL",
-      "name": "PLAIN_CARET"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "PLAIN_CARET"
+      },
+      "named": true,
+      "value": "plain_caret"
     },
     "plain_less_than": {
-      "type": "SYMBOL",
-      "name": "PLAIN_LESS_THAN"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "PLAIN_LESS_THAN"
+      },
+      "named": true,
+      "value": "plain_less_than"
     },
     "plain_greater_than": {
-      "type": "SYMBOL",
-      "name": "PLAIN_GREATER_THAN"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "PLAIN_GREATER_THAN"
+      },
+      "named": true,
+      "value": "plain_greater_than"
+    },
+    "plain_left_bracket": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "PLAIN_LEFT_BRACKET"
+      },
+      "named": true,
+      "value": "plain_left_bracket"
+    },
+    "plain_right_bracket": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "PLAIN_RIGHT_BRACKET"
+      },
+      "named": true,
+      "value": "plain_right_bracket"
     },
     "_plain_text_segment": {
       "type": "TOKEN",
@@ -3278,7 +3321,7 @@
         "value": -1,
         "content": {
           "type": "PATTERN",
-          "value": "[A-Za-z0-9!$.,'\"()+\\/=%?#\\{\\}]+"
+          "value": "[A-Za-z0-9!$&@\\.,'\"()+\\/=%?#\\{\\}]+"
         }
       }
     },
@@ -4536,7 +4579,7 @@
               "type": "ALIAS",
               "content": {
                 "type": "SYMBOL",
-                "name": "_plain_text_segment"
+                "name": "INLINE_MACRO_NAME"
               },
               "named": true,
               "value": "macro_name"
@@ -4602,7 +4645,7 @@
               "type": "ALIAS",
               "content": {
                 "type": "SYMBOL",
-                "name": "_plain_text_segment"
+                "name": "BLOCK_MACRO_NAME"
               },
               "named": true,
               "value": "macro_name"
@@ -4610,10 +4653,15 @@
           },
           {
             "type": "FIELD",
-            "name": "open",
+            "name": "target",
             "content": {
-              "type": "SYMBOL",
-              "name": "BLOCK_MACRO_MARKER"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "BLOCK_MACRO_MARKER"
+              },
+              "named": true,
+              "value": "macro_target"
             }
           },
           {
@@ -5481,10 +5529,6 @@
     [
       "inline_element",
       "explicit_link"
-    ],
-    [
-      "document_header",
-      "source_file"
     ]
   ],
   "precedences": [],
@@ -5571,6 +5615,14 @@
     },
     {
       "type": "SYMBOL",
+      "name": "INLINE_MACRO_NAME"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "BLOCK_MACRO_NAME"
+    },
+    {
+      "type": "SYMBOL",
       "name": "INLINE_MACRO_MARKER"
     },
     {
@@ -5623,6 +5675,14 @@
     },
     {
       "type": "SYMBOL",
+      "name": "PLAIN_LEFT_BRACKET"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "PLAIN_RIGHT_BRACKET"
+    },
+    {
+      "type": "SYMBOL",
       "name": "INTERNAL_XREF_OPEN"
     },
     {
@@ -5630,7 +5690,19 @@
       "name": "INTERNAL_XREF_CLOSE"
     }
   ],
-  "inline": [],
+  "inline": [
+    "plain_colon",
+    "plain_asterisk",
+    "plain_underscore",
+    "plain_dash",
+    "plain_quote",
+    "plain_double_quote",
+    "plain_caret",
+    "plain_less_than",
+    "plain_greater_than",
+    "plain_left_bracket",
+    "plain_right_bracket"
+  ],
   "supertypes": [],
   "reserved": {}
 }

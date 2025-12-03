@@ -59,9 +59,6 @@
   (ordered_list_item)
   (ordered_list_item)+ @fold)
 
-(description_list
-  (description_item)
-  (description_item)+ @fold)
 
 ; Fold list continuations
 (list_item_continuation) @fold

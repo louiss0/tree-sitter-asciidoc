@@ -1,5 +1,5 @@
-C:\Users\bvlou\projects\tree-sitter-asciidoc\test\highlight\cases\math.adoc
-pattern: 117, capture: 34 - none, start: (0, 0), end: (63, 4), text: `= Math Test
+test\highlight\cases\math.adoc
+    pattern: 122, capture: 36 - none, start: (0, 0), end: (63, 4), text: `= Math Test
 
 == Inline Math
 
@@ -7,7 +7,7 @@ The quadratic formula is stem:[x = (-b +- sqrt(b^2-4ac))/(2a)].
 
 LaTeX inline: latexmath:[\sum_{i=1}^n x_i = x_1 + x_2 + \cdots + x_n]
 
-sciiMath inline: asciimath:[sum_(i=1)^n x_i = (n(n+1))/2]
+AsciiMath inline: asciimath:[sum_(i=1)^n x_i = (n(n+1))/2]
 
 == Math Blocks
 
@@ -22,8 +22,8 @@ sum_(i=1)^n i = (n(n+1))/2
 ++++
 \begin{align}
 f(x) &= ax^2 + bx + c \\
-&= a(x^2 + \frac{b}{a}x) + c \\
-&= a(x + \frac{b}{2a})^2 - \frac{b^2}{4a} + c
+     &= a(x^2 + \frac{b}{a}x) + c \\
+     &= a(x + \frac{b}{2a})^2 - \frac{b^2}{4a} + c
 \end{align}
 ++++
 
@@ -63,17 +63,84 @@ Matrix multiplication: asciimath:[[[a,b],[c,d]] * [[x],[y]] = [[ax+by],[cx+dy]]]
 \nabla \times \mathbf{F} = \left(\frac{\partial F_z}{\partial y} - \frac{\partial F_y}{\partial z}\right)\mathbf{i}
 \end{matrix}
 ++++`
-pattern: 0, capture: 0 - markup.heading, start: (0, 0), end: (54, 55), text: `= Math Test
-
-== Inline Math
+    pattern:  7, capture: 11 - markup.heading.1.marker, start: (0, 0), end: (0, 2), text: `= `
+    pattern:  7, capture: 12 - markup.heading.1, start: (0, 2), end: (0, 11), text: `Math Test`
+    pattern:  0, capture: 0 - markup.heading, start: (2, 0), end: (10, 0), text: `== Inline Math
 
 The quadratic formula is stem:[x = (-b +- sqrt(b^2-4ac))/(2a)].
 
 LaTeX inline: latexmath:[\sum_{i=1}^n x_i = x_1 + x_2 + \cdots + x_n]
 
-sciiMath inline: asciimath:[sum_(i=1)^n x_i = (n(n+1))/2]
+AsciiMath inline: asciimath:[sum_(i=1)^n x_i = (n(n+1))/2]
 
-== Math Blocks
+`
+    pattern:  1, capture: 1 - markup.heading.2.marker, start: (2, 0), end: (2, 3), text: `== `
+    pattern:  1, capture: 2 - markup.heading.2, start: (2, 3), end: (2, 14), text: `Inline Math`
+    pattern: 10, capture: 0 - markup.heading, start: (2, 3), end: (2, 14), text: `Inline Math`
+    pattern: 124, capture: 31 - text, start: (4, 0), end: (4, 62), text: `The quadratic formula is stem:[x = (-b +- sqrt(b^2-4ac))/(2a)]`
+    pattern: 126, capture: 31 - text, start: (4, 0), end: (4, 3), text: `The`
+    pattern: 126, capture: 31 - text, start: (4, 3), end: (4, 13), text: ` quadratic`
+    pattern: 126, capture: 31 - text, start: (4, 13), end: (4, 21), text: ` formula`
+    pattern: 126, capture: 31 - text, start: (4, 21), end: (4, 24), text: ` is`
+    pattern: 126, capture: 31 - text, start: (4, 24), end: (4, 29), text: ` stem`
+    pattern: 127, capture: 31 - text, start: (4, 29), end: (4, 30), text: `:`
+    pattern: 126, capture: 31 - text, start: (4, 31), end: (4, 32), text: `x`
+    pattern: 126, capture: 31 - text, start: (4, 32), end: (4, 34), text: ` =`
+    pattern: 126, capture: 31 - text, start: (4, 34), end: (4, 36), text: ` (`
+    pattern: 130, capture: 31 - text, start: (4, 36), end: (4, 37), text: `-`
+    pattern: 126, capture: 31 - text, start: (4, 37), end: (4, 38), text: `b`
+    pattern: 126, capture: 31 - text, start: (4, 38), end: (4, 40), text: ` +`
+    pattern: 130, capture: 31 - text, start: (4, 40), end: (4, 41), text: `-`
+    pattern: 126, capture: 31 - text, start: (4, 41), end: (4, 48), text: ` sqrt(b`
+    pattern: 133, capture: 31 - text, start: (4, 48), end: (4, 49), text: `^`
+    pattern: 130, capture: 31 - text, start: (4, 49), end: (4, 50), text: `2`
+    pattern: 130, capture: 31 - text, start: (4, 50), end: (4, 51), text: `-`
+    pattern: 124, capture: 31 - text, start: (6, 0), end: (8, 0), text: `LaTeX inline: latexmath:[\sum_{i=1}^n x_i = x_1 + x_2 + \cdots + x_n]
+
+`
+    pattern: 126, capture: 31 - text, start: (6, 0), end: (6, 5), text: `LaTeX`
+    pattern: 126, capture: 31 - text, start: (6, 5), end: (6, 12), text: ` inline`
+    pattern: 127, capture: 31 - text, start: (6, 12), end: (6, 13), text: `:`
+    pattern: 126, capture: 31 - text, start: (6, 13), end: (6, 23), text: ` latexmath`
+    pattern: 127, capture: 31 - text, start: (6, 23), end: (6, 24), text: `:`
+    pattern: 129, capture: 31 - text, start: (6, 27), end: (6, 29), text: `um`
+    pattern: 129, capture: 31 - text, start: (6, 29), end: (6, 30), text: `_`
+    pattern: 133, capture: 31 - text, start: (6, 30), end: (6, 36), text: `{i=1}^`
+    pattern: 126, capture: 31 - text, start: (6, 36), end: (6, 37), text: `n`
+    pattern: 126, capture: 31 - text, start: (6, 37), end: (6, 39), text: ` x`
+    pattern: 129, capture: 31 - text, start: (6, 39), end: (6, 40), text: `_`
+    pattern: 126, capture: 31 - text, start: (6, 40), end: (6, 41), text: `i`
+    pattern: 126, capture: 31 - text, start: (6, 41), end: (6, 43), text: ` =`
+    pattern: 126, capture: 31 - text, start: (6, 43), end: (6, 45), text: ` x`
+    pattern: 129, capture: 31 - text, start: (6, 45), end: (6, 46), text: `_`
+    pattern: 126, capture: 31 - text, start: (6, 46), end: (6, 47), text: `1`
+    pattern: 126, capture: 31 - text, start: (6, 47), end: (6, 49), text: ` +`
+    pattern: 126, capture: 31 - text, start: (6, 49), end: (6, 51), text: ` x`
+    pattern: 129, capture: 31 - text, start: (6, 51), end: (6, 52), text: `_`
+    pattern: 126, capture: 31 - text, start: (6, 52), end: (6, 53), text: `2`
+    pattern: 126, capture: 31 - text, start: (6, 53), end: (6, 55), text: ` +`
+    pattern: 126, capture: 31 - text, start: (6, 58), end: (6, 62), text: `dots`
+    pattern: 126, capture: 31 - text, start: (6, 62), end: (6, 64), text: ` +`
+    pattern: 126, capture: 31 - text, start: (6, 64), end: (6, 66), text: ` x`
+    pattern: 129, capture: 31 - text, start: (6, 66), end: (6, 67), text: `_`
+    pattern: 124, capture: 31 - text, start: (8, 0), end: (10, 0), text: `AsciiMath inline: asciimath:[sum_(i=1)^n x_i = (n(n+1))/2]
+
+`
+    pattern: 126, capture: 31 - text, start: (8, 0), end: (8, 9), text: `AsciiMath`
+    pattern: 126, capture: 31 - text, start: (8, 9), end: (8, 16), text: ` inline`
+    pattern: 127, capture: 31 - text, start: (8, 16), end: (8, 17), text: `:`
+    pattern: 126, capture: 31 - text, start: (8, 17), end: (8, 27), text: ` asciimath`
+    pattern: 127, capture: 31 - text, start: (8, 27), end: (8, 28), text: `:`
+    pattern: 129, capture: 31 - text, start: (8, 29), end: (8, 32), text: `sum`
+    pattern: 129, capture: 31 - text, start: (8, 32), end: (8, 33), text: `_`
+    pattern: 133, capture: 31 - text, start: (8, 33), end: (8, 39), text: `(i=1)^`
+    pattern: 126, capture: 31 - text, start: (8, 39), end: (8, 40), text: `n`
+    pattern: 126, capture: 31 - text, start: (8, 40), end: (8, 42), text: ` x`
+    pattern: 129, capture: 31 - text, start: (8, 42), end: (8, 43), text: `_`
+    pattern: 126, capture: 31 - text, start: (8, 43), end: (8, 44), text: `i`
+    pattern: 126, capture: 31 - text, start: (8, 44), end: (8, 46), text: ` =`
+    pattern: 126, capture: 31 - text, start: (8, 46), end: (8, 57), text: ` (n(n+1))/2`
+    pattern:  0, capture: 0 - markup.heading, start: (10, 0), end: (35, 0), text: `== Math Blocks
 
 [stem]
 ++++
@@ -86,8 +153,8 @@ sum_(i=1)^n i = (n(n+1))/2
 ++++
 \begin{align}
 f(x) &= ax^2 + bx + c \\
-&= a(x^2 + \frac{b}{a}x) + c \\
-&= a(x + \frac{b}{2a})^2 - \frac{b^2}{4a} + c
+     &= a(x^2 + \frac{b}{a}x) + c \\
+     &= a(x + \frac{b}{2a})^2 - \frac{b^2}{4a} + c
 \end{align}
 ++++
 
@@ -98,7 +165,115 @@ int_0^oo e^(-x^2) dx = sqrt(pi)/2
 sum_(k=1)^n k^2 = (n(n+1)(2n+1))/6
 ++++
 
-== Mixed Math Content
+`
+    pattern:  1, capture: 1 - markup.heading.2.marker, start: (10, 0), end: (10, 3), text: `== `
+    pattern:  1, capture: 2 - markup.heading.2, start: (10, 3), end: (10, 14), text: `Math Blocks`
+    pattern: 10, capture: 0 - markup.heading, start: (10, 3), end: (10, 14), text: `Math Blocks`
+    pattern: 124, capture: 31 - text, start: (12, 0), end: (16, 0), text: `[stem]
+++++
+sqrt(4) = 2
+
+`
+    pattern: 118, capture: 25 - attribute, start: (12, 0), end: (13, 0), text: `[stem]
+`
+    pattern: 119, capture: 25 - attribute, start: (12, 0), end: (13, 0), text: `[stem]
+`
+    pattern: 125, capture: 31 - text, start: (13, 3), end: (14, 0), text: `+
+`
+    pattern: 154, capture: 16 - punctuation.special, start: (13, 3), end: (14, 0), text: `+
+`
+    pattern: 126, capture: 31 - text, start: (14, 0), end: (14, 7), text: `sqrt(4)`
+    pattern: 126, capture: 31 - text, start: (14, 7), end: (14, 9), text: ` =`
+    pattern: 126, capture: 31 - text, start: (14, 9), end: (14, 11), text: ` 2`
+    pattern: 124, capture: 31 - text, start: (16, 0), end: (17, 0), text: `sum_(i=1)^n i = (n(n+1))/2
+`
+    pattern: 129, capture: 31 - text, start: (16, 0), end: (16, 3), text: `sum`
+    pattern: 129, capture: 31 - text, start: (16, 3), end: (16, 4), text: `_`
+    pattern: 133, capture: 31 - text, start: (16, 4), end: (16, 10), text: `(i=1)^`
+    pattern: 126, capture: 31 - text, start: (16, 10), end: (16, 11), text: `n`
+    pattern: 126, capture: 31 - text, start: (16, 11), end: (16, 13), text: ` i`
+    pattern: 126, capture: 31 - text, start: (16, 13), end: (16, 15), text: ` =`
+    pattern: 126, capture: 31 - text, start: (16, 15), end: (16, 26), text: ` (n(n+1))/2`
+    pattern: 124, capture: 31 - text, start: (17, 0), end: (19, 0), text: `++++
+
+`
+    pattern: 126, capture: 31 - text, start: (17, 0), end: (17, 4), text: `++++`
+    pattern: 124, capture: 31 - text, start: (19, 0), end: (22, 0), text: `[latexmath]
+++++
+\begin{align}
+`
+    pattern: 118, capture: 25 - attribute, start: (19, 0), end: (20, 0), text: `[latexmath]
+`
+    pattern: 119, capture: 25 - attribute, start: (19, 0), end: (20, 0), text: `[latexmath]
+`
+    pattern: 125, capture: 31 - text, start: (20, 3), end: (21, 0), text: `+
+`
+    pattern: 154, capture: 16 - punctuation.special, start: (20, 3), end: (21, 0), text: `+
+`
+    pattern: 126, capture: 31 - text, start: (21, 2), end: (21, 13), text: `egin{align}`
+    pattern: 124, capture: 31 - text, start: (22, 0), end: (26, 0), text: `f(x) &= ax^2 + bx + c \\
+     &= a(x^2 + \frac{b}{a}x) + c \\
+     &= a(x + \frac{b}{2a})^2 - \frac{b^2}{4a} + c
+\end{align}
+`
+    pattern: 126, capture: 31 - text, start: (22, 0), end: (22, 4), text: `f(x)`
+    pattern: 101, capture: 35 - comment, start: (22, 4), end: (23, 0), text: ` &= ax^2 + bx + c \\
+`
+    pattern: 101, capture: 35 - comment, start: (23, 0), end: (24, 0), text: `     &= a(x^2 + \frac{b}{a}x) + c \\
+`
+    pattern: 101, capture: 35 - comment, start: (24, 0), end: (25, 0), text: `     &= a(x + \frac{b}{2a})^2 - \frac{b^2}{4a} + c
+`
+    pattern: 126, capture: 31 - text, start: (25, 2), end: (25, 11), text: `nd{align}`
+    pattern: 124, capture: 31 - text, start: (26, 0), end: (28, 0), text: `++++
+
+`
+    pattern: 126, capture: 31 - text, start: (26, 0), end: (26, 4), text: `++++`
+    pattern: 124, capture: 31 - text, start: (28, 0), end: (32, 0), text: `[asciimath]
+++++
+int_0^oo e^(-x^2) dx = sqrt(pi)/2
+
+`
+    pattern: 118, capture: 25 - attribute, start: (28, 0), end: (29, 0), text: `[asciimath]
+`
+    pattern: 119, capture: 25 - attribute, start: (28, 0), end: (29, 0), text: `[asciimath]
+`
+    pattern: 125, capture: 31 - text, start: (29, 3), end: (30, 0), text: `+
+`
+    pattern: 154, capture: 16 - punctuation.special, start: (29, 3), end: (30, 0), text: `+
+`
+    pattern: 129, capture: 31 - text, start: (30, 0), end: (30, 3), text: `int`
+    pattern: 129, capture: 31 - text, start: (30, 3), end: (30, 4), text: `_`
+    pattern: 126, capture: 31 - text, start: (30, 4), end: (30, 5), text: `0`
+    pattern: 125, capture: 31 - text, start: (30, 5), end: (30, 11), text: `^oo e^`
+    pattern: 23, capture: 20 - markup.underline, start: (30, 5), end: (30, 11), text: `^oo e^`
+    pattern: 24, capture: 20 - markup.underline, start: (30, 5), end: (30, 6), text: `^`
+    pattern: 26, capture: 20 - markup.underline, start: (30, 6), end: (30, 10), text: `oo e`
+    pattern: 25, capture: 20 - markup.underline, start: (30, 10), end: (30, 11), text: `^`
+    pattern: 130, capture: 31 - text, start: (30, 11), end: (30, 12), text: `(`
+    pattern: 130, capture: 31 - text, start: (30, 12), end: (30, 13), text: `-`
+    pattern: 133, capture: 31 - text, start: (30, 13), end: (30, 15), text: `x^`
+    pattern: 126, capture: 31 - text, start: (30, 15), end: (30, 17), text: `2)`
+    pattern: 126, capture: 31 - text, start: (30, 17), end: (30, 20), text: ` dx`
+    pattern: 126, capture: 31 - text, start: (30, 20), end: (30, 22), text: ` =`
+    pattern: 126, capture: 31 - text, start: (30, 22), end: (30, 33), text: ` sqrt(pi)/2`
+    pattern: 124, capture: 31 - text, start: (32, 0), end: (33, 0), text: `sum_(k=1)^n k^2 = (n(n+1)(2n+1))/6
+`
+    pattern: 129, capture: 31 - text, start: (32, 0), end: (32, 3), text: `sum`
+    pattern: 129, capture: 31 - text, start: (32, 3), end: (32, 4), text: `_`
+    pattern: 126, capture: 31 - text, start: (32, 4), end: (32, 9), text: `(k=1)`
+    pattern: 125, capture: 31 - text, start: (32, 9), end: (32, 14), text: `^n k^`
+    pattern: 23, capture: 20 - markup.underline, start: (32, 9), end: (32, 14), text: `^n k^`
+    pattern: 24, capture: 20 - markup.underline, start: (32, 9), end: (32, 10), text: `^`
+    pattern: 26, capture: 20 - markup.underline, start: (32, 10), end: (32, 13), text: `n k`
+    pattern: 25, capture: 20 - markup.underline, start: (32, 13), end: (32, 14), text: `^`
+    pattern: 126, capture: 31 - text, start: (32, 14), end: (32, 15), text: `2`
+    pattern: 126, capture: 31 - text, start: (32, 15), end: (32, 17), text: ` =`
+    pattern: 126, capture: 31 - text, start: (32, 17), end: (32, 34), text: ` (n(n+1)(2n+1))/6`
+    pattern: 124, capture: 31 - text, start: (33, 0), end: (35, 0), text: `++++
+
+`
+    pattern: 126, capture: 31 - text, start: (33, 0), end: (33, 4), text: `++++`
+    pattern:  0, capture: 0 - markup.heading, start: (35, 0), end: (50, 0), text: `== Mixed Math Content
 
 Einstein's famous equation: stem:[E = mc^2]
 
@@ -113,234 +288,104 @@ d/dx[x^n] = nx^(n-1)
 int x^n dx = x^(n+1)/(n+1) + C
 ++++
 
-== Complex Mathematical Expressions
+`
+    pattern:  1, capture: 1 - markup.heading.2.marker, start: (35, 0), end: (35, 3), text: `== `
+    pattern:  1, capture: 2 - markup.heading.2, start: (35, 3), end: (35, 21), text: `Mixed Math Content`
+    pattern: 10, capture: 0 - markup.heading, start: (35, 3), end: (35, 21), text: `Mixed Math Content`
+    pattern: 124, capture: 31 - text, start: (37, 0), end: (39, 0), text: `Einstein's famous equation: stem:[E = mc^2]
+
+`
+    pattern: 126, capture: 31 - text, start: (37, 0), end: (37, 10), text: `Einstein's`
+    pattern: 126, capture: 31 - text, start: (37, 10), end: (37, 17), text: ` famous`
+    pattern: 126, capture: 31 - text, start: (37, 17), end: (37, 26), text: ` equation`
+    pattern: 127, capture: 31 - text, start: (37, 26), end: (37, 27), text: `:`
+    pattern: 126, capture: 31 - text, start: (37, 27), end: (37, 32), text: ` stem`
+    pattern: 127, capture: 31 - text, start: (37, 32), end: (37, 33), text: `:`
+    pattern: 126, capture: 31 - text, start: (37, 34), end: (37, 35), text: `E`
+    pattern: 126, capture: 31 - text, start: (37, 35), end: (37, 37), text: ` =`
+    pattern: 126, capture: 31 - text, start: (37, 37), end: (37, 40), text: ` mc`
+    pattern: 133, capture: 31 - text, start: (37, 40), end: (37, 41), text: `^`
+    pattern: 124, capture: 31 - text, start: (39, 0), end: (39, 63), text: `The Pythagorean theorem states that latexmath:[a^2 + b^2 = c^2]`
+    pattern: 126, capture: 31 - text, start: (39, 0), end: (39, 3), text: `The`
+    pattern: 126, capture: 31 - text, start: (39, 3), end: (39, 15), text: ` Pythagorean`
+    pattern: 126, capture: 31 - text, start: (39, 15), end: (39, 23), text: ` theorem`
+    pattern: 126, capture: 31 - text, start: (39, 23), end: (39, 30), text: ` states`
+    pattern: 126, capture: 31 - text, start: (39, 30), end: (39, 35), text: ` that`
+    pattern: 126, capture: 31 - text, start: (39, 35), end: (39, 45), text: ` latexmath`
+    pattern: 127, capture: 31 - text, start: (39, 45), end: (39, 46), text: `:`
+    pattern: 126, capture: 31 - text, start: (39, 47), end: (39, 48), text: `a`
+    pattern: 125, capture: 31 - text, start: (39, 48), end: (39, 55), text: `^2 + b^`
+    pattern: 23, capture: 20 - markup.underline, start: (39, 48), end: (39, 55), text: `^2 + b^`
+    pattern: 24, capture: 20 - markup.underline, start: (39, 48), end: (39, 49), text: `^`
+    pattern: 26, capture: 20 - markup.underline, start: (39, 49), end: (39, 54), text: `2 + b`
+    pattern: 25, capture: 20 - markup.underline, start: (39, 54), end: (39, 55), text: `^`
+    pattern: 126, capture: 31 - text, start: (39, 55), end: (39, 56), text: `2`
+    pattern: 126, capture: 31 - text, start: (39, 56), end: (39, 58), text: ` =`
+    pattern: 126, capture: 31 - text, start: (39, 58), end: (39, 60), text: ` c`
+    pattern: 133, capture: 31 - text, start: (39, 60), end: (39, 61), text: `^`
+    pattern: 124, capture: 31 - text, start: (41, 0), end: (43, 0), text: `For series: asciimath:[sum_(n=1)^oo 1/n^2 = pi^2/6]
+
+`
+    pattern: 126, capture: 31 - text, start: (41, 0), end: (41, 3), text: `For`
+    pattern: 126, capture: 31 - text, start: (41, 3), end: (41, 10), text: ` series`
+    pattern: 127, capture: 31 - text, start: (41, 10), end: (41, 11), text: `:`
+    pattern: 126, capture: 31 - text, start: (41, 11), end: (41, 21), text: ` asciimath`
+    pattern: 127, capture: 31 - text, start: (41, 21), end: (41, 22), text: `:`
+    pattern: 129, capture: 31 - text, start: (41, 23), end: (41, 26), text: `sum`
+    pattern: 129, capture: 31 - text, start: (41, 26), end: (41, 27), text: `_`
+    pattern: 126, capture: 31 - text, start: (41, 27), end: (41, 32), text: `(n=1)`
+    pattern: 125, capture: 31 - text, start: (41, 32), end: (41, 40), text: `^oo 1/n^`
+    pattern: 23, capture: 20 - markup.underline, start: (41, 32), end: (41, 40), text: `^oo 1/n^`
+    pattern: 24, capture: 20 - markup.underline, start: (41, 32), end: (41, 33), text: `^`
+    pattern: 26, capture: 20 - markup.underline, start: (41, 33), end: (41, 39), text: `oo 1/n`
+    pattern: 25, capture: 20 - markup.underline, start: (41, 39), end: (41, 40), text: `^`
+    pattern: 126, capture: 31 - text, start: (41, 40), end: (41, 41), text: `2`
+    pattern: 126, capture: 31 - text, start: (41, 41), end: (41, 43), text: ` =`
+    pattern: 126, capture: 31 - text, start: (41, 43), end: (41, 46), text: ` pi`
+    pattern: 133, capture: 31 - text, start: (41, 46), end: (41, 47), text: `^`
+    pattern: 124, capture: 31 - text, start: (43, 0), end: (47, 0), text: `[stem]
+++++
+d/dx[x^n] = nx^(n-1)
+
+`
+    pattern: 118, capture: 25 - attribute, start: (43, 0), end: (44, 0), text: `[stem]
+`
+    pattern: 119, capture: 25 - attribute, start: (43, 0), end: (44, 0), text: `[stem]
+`
+    pattern: 125, capture: 31 - text, start: (44, 3), end: (45, 0), text: `+
+`
+    pattern: 154, capture: 16 - punctuation.special, start: (44, 3), end: (45, 0), text: `+
+`
+    pattern: 126, capture: 31 - text, start: (45, 5), end: (45, 6), text: `x`
+    pattern: 125, capture: 31 - text, start: (45, 6), end: (45, 15), text: `^n] = nx^`
+    pattern: 23, capture: 20 - markup.underline, start: (45, 6), end: (45, 15), text: `^n] = nx^`
+    pattern: 24, capture: 20 - markup.underline, start: (45, 6), end: (45, 7), text: `^`
+    pattern: 26, capture: 20 - markup.underline, start: (45, 7), end: (45, 14), text: `n] = nx`
+    pattern: 25, capture: 20 - markup.underline, start: (45, 14), end: (45, 15), text: `^`
+    pattern: 130, capture: 31 - text, start: (45, 15), end: (45, 17), text: `(n`
+    pattern: 130, capture: 31 - text, start: (45, 17), end: (45, 18), text: `-`
+    pattern: 126, capture: 31 - text, start: (45, 18), end: (45, 20), text: `1)`
+    pattern: 124, capture: 31 - text, start: (47, 0), end: (48, 0), text: `int x^n dx = x^(n+1)/(n+1) + C
+`
+    pattern: 126, capture: 31 - text, start: (47, 0), end: (47, 3), text: `int`
+    pattern: 126, capture: 31 - text, start: (47, 3), end: (47, 5), text: ` x`
+    pattern: 125, capture: 31 - text, start: (47, 5), end: (47, 15), text: `^n dx = x^`
+    pattern: 23, capture: 20 - markup.underline, start: (47, 5), end: (47, 15), text: `^n dx = x^`
+    pattern: 24, capture: 20 - markup.underline, start: (47, 5), end: (47, 6), text: `^`
+    pattern: 26, capture: 20 - markup.underline, start: (47, 6), end: (47, 14), text: `n dx = x`
+    pattern: 25, capture: 20 - markup.underline, start: (47, 14), end: (47, 15), text: `^`
+    pattern: 126, capture: 31 - text, start: (47, 15), end: (47, 26), text: `(n+1)/(n+1)`
+    pattern: 126, capture: 31 - text, start: (47, 26), end: (47, 28), text: ` +`
+    pattern: 126, capture: 31 - text, start: (47, 28), end: (47, 30), text: ` C`
+    pattern: 124, capture: 31 - text, start: (48, 0), end: (50, 0), text: `++++
+
+`
+    pattern: 126, capture: 31 - text, start: (48, 0), end: (48, 4), text: `++++`
+    pattern:  0, capture: 0 - markup.heading, start: (50, 0), end: (63, 4), text: `== Complex Mathematical Expressions
 
 Integration by parts: latexmath:[\int u \, dv = uv - \int v \, du]
 
-Matrix multiplication: asciimath:[[[a,b],[c,d]] * [[x],`
-pattern: 1, capture: 1 - markup.heading.1.marker, start: (0, 0), end: (0, 2), text: `= `
-pattern: 1, capture: 2 - markup.heading.1, start: (0, 2), end: (0, 11), text: `Math Test`
-pattern: 7, capture: 0 - markup.heading, start: (0, 2), end: (0, 11), text: `Math Test`
-pattern: 2, capture: 3 - markup.heading.2.marker, start: (2, 0), end: (2, 3), text: `== `
-pattern: 2, capture: 4 - markup.heading.2, start: (2, 3), end: (2, 14), text: `Inline Math`
-pattern: 7, capture: 0 - markup.heading, start: (2, 3), end: (2, 14), text: `Inline Math`
-pattern: 119, capture: 29 - text, start: (4, 0), end: (5, 0), text: `The quadratic formula is stem:[x = (-b +- sqrt(b^2-4ac))/(2a)].
-
-pattern: 121, capture: 29 - text, start: (4, 0), end: (4, 3), text: `The`
-pattern: 121, capture: 29 - text, start: (4, 3), end: (4, 13), text: ` quadratic`
-pattern: 121, capture: 29 - text, start: (4, 13), end: (4, 21), text: ` formula`
-pattern: 121, capture: 29 - text, start: (4, 21), end: (4, 24), text: ` is`
-pattern: 107, capture: 38 - function.macro, start: (4, 24), end: (4, 62), text: ` stem:[x = (-b +- sqrt(b^2-4ac))/(2a)]`
-pattern: 121, capture: 29 - text, start: (4, 62), end: (4, 63), text: `.`
-pattern: 119, capture: 29 - text, start: (6, 0), end: (7, 0), text: `LaTeX inline: latexmath:[\sum_{i=1}^n x_i = x_1 + x_2 + \cdots + x_n]
-
-pattern: 121, capture: 29 - text, start: (6, 0), end: (6, 5), text: `LaTeX`
-pattern: 107, capture: 38 - function.macro, start: (6, 5), end: (6, 69), text: ` inline: latexmath:[\sum_{i=1}^n x_i = x_1 + x_2 + \cdots + x_n]`
-pattern: 119, capture: 29 - text, start: (8, 0), end: (9, 0), text: `AsciiMath inline: asciimath:[sum_(i=1)^n x_i = (n(n+1))/2]
-
-pattern: 121, capture: 29 - text, start: (8, 0), end: (8, 9), text: `AsciiMath`
-pattern: 107, capture: 38 - function.macro, start: (8, 9), end: (8, 58), text: ` inline: asciimath:[sum_(i=1)^n x_i = (n(n+1))/2]`
-pattern: 2, capture: 3 - markup.heading.2.marker, start: (10, 0), end: (10, 3), text: `== `
-pattern: 2, capture: 4 - markup.heading.2, start: (10, 3), end: (10, 14), text: `Math Blocks`
-pattern: 7, capture: 0 - markup.heading, start: (10, 3), end: (10, 14), text: `Math Blocks`
-pattern: 110, capture: 25 - markup.quote, start: (12, 0), end: (18, 0), text: `[stem]
-++++
-sqrt(4) = 2
-
-sum_(i=1)^n i = (n(n+1))/2
-++++
-
-pattern: 111, capture: 39 - keyword.directive, start: (12, 0), end: (13, 0), text: `[stem]
-
-pattern: 55, capture: 26 - markup.raw.block, start: (13, 0), end: (18, 0), text: `++++
-sqrt(4) = 2
-
-sum_(i=1)^n i = (n(n+1))/2
-++++
-
-pattern: 82, capture: 28 - punctuation.delimiter, start: (13, 0), end: (14, 0), text: `++++
-
-pattern: 68, capture: 28 - punctuation.delimiter, start: (13, 0), end: (14, 0), text: `++++
-
-pattern: 118, capture: 29 - text, start: (14, 0), end: (17, 0), text: `sqrt(4) = 2
-
-sum_(i=1)^n i = (n(n+1))/2
-
-pattern: 122, capture: 29 - text, start: (14, 0), end: (15, 0), text: `sqrt(4) = 2
-
-pattern: 88, capture: 29 - text, start: (14, 0), end: (15, 0), text: `sqrt(4) = 2
-
-pattern: 122, capture: 29 - text, start: (16, 0), end: (17, 0), text: `sum_(i=1)^n i = (n(n+1))/2
-
-pattern: 88, capture: 29 - text, start: (16, 0), end: (17, 0), text: `sum_(i=1)^n i = (n(n+1))/2
-
-pattern: 83, capture: 28 - punctuation.delimiter, start: (17, 0), end: (18, 0), text: `++++
-
-pattern: 69, capture: 28 - punctuation.delimiter, start: (17, 0), end: (18, 0), text: `++++
-
-pattern: 110, capture: 25 - markup.quote, start: (19, 0), end: (27, 0), text: `[latexmath]
-++++
-\begin{align}
-f(x) &= ax^2 + bx + c \\
-&= a(x^2 + \frac{b}{a}x) + c \\
-&= a(x + \frac{b}{2a})^2 - \frac{b^2}{4a} + c
-\end{align}
-++++
-
-pattern: 111, capture: 39 - keyword.directive, start: (19, 0), end: (20, 0), text: `[latexmath]
-
-pattern: 55, capture: 26 - markup.raw.block, start: (20, 0), end: (27, 0), text: `++++
-\begin{align}
-f(x) &= ax^2 + bx + c \\
-&= a(x^2 + \frac{b}{a}x) + c \\
-&= a(x + \frac{b}{2a})^2 - \frac{b^2}{4a} + c
-\end{align}
-++++
-
-pattern: 82, capture: 28 - punctuation.delimiter, start: (20, 0), end: (21, 0), text: `++++
-
-pattern: 68, capture: 28 - punctuation.delimiter, start: (20, 0), end: (21, 0), text: `++++
-
-pattern: 118, capture: 29 - text, start: (21, 0), end: (26, 0), text: `\begin{align}
-f(x) &= ax^2 + bx + c \\
-&= a(x^2 + \frac{b}{a}x) + c \\
-&= a(x + \frac{b}{2a})^2 - \frac{b^2}{4a} + c
-\end{align}
-
-pattern: 122, capture: 29 - text, start: (21, 0), end: (22, 0), text: `\begin{align}
-
-pattern: 88, capture: 29 - text, start: (21, 0), end: (22, 0), text: `\begin{align}
-
-pattern: 122, capture: 29 - text, start: (22, 0), end: (23, 0), text: `f(x) &= ax^2 + bx + c \\
-
-pattern: 88, capture: 29 - text, start: (22, 0), end: (23, 0), text: `f(x) &= ax^2 + bx + c \\
-
-pattern: 122, capture: 29 - text, start: (23, 0), end: (24, 0), text: ` &= a(x^2 + \frac{b}{a}x) + c \\
-
-pattern: 88, capture: 29 - text, start: (23, 0), end: (24, 0), text: ` &= a(x^2 + \frac{b}{a}x) + c \\
-
-pattern: 122, capture: 29 - text, start: (24, 0), end: (25, 0), text: ` &= a(x + \frac{b}{2a})^2 - \frac{b^2}{4a} + c
-
-pattern: 88, capture: 29 - text, start: (24, 0), end: (25, 0), text: ` &= a(x + \frac{b}{2a})^2 - \frac{b^2}{4a} + c
-
-pattern: 122, capture: 29 - text, start: (25, 0), end: (26, 0), text: `\end{align}
-
-pattern: 88, capture: 29 - text, start: (25, 0), end: (26, 0), text: `\end{align}
-
-pattern: 83, capture: 28 - punctuation.delimiter, start: (26, 0), end: (27, 0), text: `++++
-
-pattern: 69, capture: 28 - punctuation.delimiter, start: (26, 0), end: (27, 0), text: `++++
-
-pattern: 110, capture: 25 - markup.quote, start: (28, 0), end: (34, 0), text: `[asciimath]
-++++
-int_0^oo e^(-x^2) dx = sqrt(pi)/2
-
-sum_(k=1)^n k^2 = (n(n+1)(2n+1))/6
-++++
-
-pattern: 111, capture: 39 - keyword.directive, start: (28, 0), end: (29, 0), text: `[asciimath]
-
-pattern: 55, capture: 26 - markup.raw.block, start: (29, 0), end: (34, 0), text: `++++
-int_0^oo e^(-x^2) dx = sqrt(pi)/2
-
-sum_(k=1)^n k^2 = (n(n+1)(2n+1))/6
-++++
-
-pattern: 82, capture: 28 - punctuation.delimiter, start: (29, 0), end: (30, 0), text: `++++
-
-pattern: 68, capture: 28 - punctuation.delimiter, start: (29, 0), end: (30, 0), text: `++++
-
-pattern: 118, capture: 29 - text, start: (30, 0), end: (33, 0), text: `int_0^oo e^(-x^2) dx = sqrt(pi)/2
-
-sum_(k=1)^n k^2 = (n(n+1)(2n+1))/6
-
-pattern: 122, capture: 29 - text, start: (30, 0), end: (31, 0), text: `int_0^oo e^(-x^2) dx = sqrt(pi)/2
-
-pattern: 88, capture: 29 - text, start: (30, 0), end: (31, 0), text: `int_0^oo e^(-x^2) dx = sqrt(pi)/2
-
-pattern: 122, capture: 29 - text, start: (32, 0), end: (33, 0), text: `sum_(k=1)^n k^2 = (n(n+1)(2n+1))/6
-
-pattern: 88, capture: 29 - text, start: (32, 0), end: (33, 0), text: `sum_(k=1)^n k^2 = (n(n+1)(2n+1))/6
-
-pattern: 83, capture: 28 - punctuation.delimiter, start: (33, 0), end: (34, 0), text: `++++
-
-pattern: 69, capture: 28 - punctuation.delimiter, start: (33, 0), end: (34, 0), text: `++++
-
-pattern: 2, capture: 3 - markup.heading.2.marker, start: (35, 0), end: (35, 3), text: `== `
-pattern: 2, capture: 4 - markup.heading.2, start: (35, 3), end: (35, 21), text: `Mixed Math Content`
-pattern: 7, capture: 0 - markup.heading, start: (35, 3), end: (35, 21), text: `Mixed Math Content`
-pattern: 119, capture: 29 - text, start: (37, 0), end: (38, 0), text: `Einstein's famous equation: stem:[E = mc^2]
-
-pattern: 121, capture: 29 - text, start: (37, 0), end: (37, 10), text: `Einstein's`
-pattern: 121, capture: 29 - text, start: (37, 10), end: (37, 17), text: ` famous`
-pattern: 107, capture: 38 - function.macro, start: (37, 17), end: (37, 43), text: ` equation: stem:[E = mc^2]`
-pattern: 119, capture: 29 - text, start: (39, 0), end: (40, 0), text: `The Pythagorean theorem states that latexmath:[a^2 + b^2 = c^2].
-
-pattern: 121, capture: 29 - text, start: (39, 0), end: (39, 3), text: `The`
-pattern: 121, capture: 29 - text, start: (39, 3), end: (39, 15), text: ` Pythagorean`
-pattern: 121, capture: 29 - text, start: (39, 15), end: (39, 23), text: ` theorem`
-pattern: 121, capture: 29 - text, start: (39, 23), end: (39, 30), text: ` states`
-pattern: 121, capture: 29 - text, start: (39, 30), end: (39, 35), text: ` that`
-pattern: 107, capture: 38 - function.macro, start: (39, 35), end: (39, 63), text: ` latexmath:[a^2 + b^2 = c^2]`
-pattern: 121, capture: 29 - text, start: (39, 63), end: (39, 64), text: `.`
-pattern: 119, capture: 29 - text, start: (41, 0), end: (42, 0), text: `For series: asciimath:[sum_(n=1)^oo 1/n^2 = pi^2/6]
-
-pattern: 121, capture: 29 - text, start: (41, 0), end: (41, 3), text: `For`
-pattern: 107, capture: 38 - function.macro, start: (41, 3), end: (41, 51), text: ` series: asciimath:[sum_(n=1)^oo 1/n^2 = pi^2/6]`
-pattern: 110, capture: 25 - markup.quote, start: (43, 0), end: (49, 0), text: `[stem]
-++++
-d/dx[x^n] = nx^(n-1)
-
-int x^n dx = x^(n+1)/(n+1) + C
-++++
-
-pattern: 111, capture: 39 - keyword.directive, start: (43, 0), end: (44, 0), text: `[stem]
-
-pattern: 55, capture: 26 - markup.raw.block, start: (44, 0), end: (49, 0), text: `++++
-d/dx[x^n] = nx^(n-1)
-
-int x^n dx = x^(n+1)/(n+1) + C
-++++
-
-pattern: 82, capture: 28 - punctuation.delimiter, start: (44, 0), end: (45, 0), text: `++++
-
-pattern: 68, capture: 28 - punctuation.delimiter, start: (44, 0), end: (45, 0), text: `++++
-
-pattern: 118, capture: 29 - text, start: (45, 0), end: (48, 0), text: `d/dx[x^n] = nx^(n-1)
-
-int x^n dx = x^(n+1)/(n+1) + C
-
-pattern: 122, capture: 29 - text, start: (45, 0), end: (46, 0), text: `d/dx[x^n] = nx^(n-1)
-
-pattern: 88, capture: 29 - text, start: (45, 0), end: (46, 0), text: `d/dx[x^n] = nx^(n-1)
-
-pattern: 122, capture: 29 - text, start: (47, 0), end: (48, 0), text: `int x^n dx = x^(n+1)/(n+1) + C
-
-pattern: 88, capture: 29 - text, start: (47, 0), end: (48, 0), text: `int x^n dx = x^(n+1)/(n+1) + C
-
-pattern: 83, capture: 28 - punctuation.delimiter, start: (48, 0), end: (49, 0), text: `++++
-
-pattern: 69, capture: 28 - punctuation.delimiter, start: (48, 0), end: (49, 0), text: `++++
-
-pattern: 2, capture: 3 - markup.heading.2.marker, start: (50, 0), end: (50, 3), text: `== `
-pattern: 2, capture: 4 - markup.heading.2, start: (50, 3), end: (50, 35), text: `Complex Mathematical Expressions`
-pattern: 7, capture: 0 - markup.heading, start: (50, 3), end: (50, 35), text: `Complex Mathematical Expressions`
-pattern: 119, capture: 29 - text, start: (52, 0), end: (53, 0), text: `Integration by parts: latexmath:[\int u \, dv = uv - \int v \, du]
-
-pattern: 121, capture: 29 - text, start: (52, 0), end: (52, 11), text: `Integration`
-pattern: 121, capture: 29 - text, start: (52, 11), end: (52, 14), text: ` by`
-pattern: 107, capture: 38 - function.macro, start: (52, 14), end: (52, 66), text: ` parts: latexmath:[\int u \, dv = uv - \int v \, du]`
-pattern: 119, capture: 29 - text, start: (54, 0), end: (54, 41), text: `Matrix multiplication: asciimath:[[[a,b],`
-pattern: 121, capture: 29 - text, start: (54, 0), end: (54, 6), text: `Matrix`
-pattern: 107, capture: 38 - function.macro, start: (54, 6), end: (54, 40), text: ` multiplication: asciimath:[[[a,b]`
-pattern: 121, capture: 29 - text, start: (54, 40), end: (54, 41), text: `,`
-pattern: 38, capture: 21 - attribute, start: (54, 42), end: (54, 43), text: `c`
-pattern: 44, capture: 23 - markup.list, start: (54, 47), end: (54, 55), text: ` * [[x],`
-pattern: 45, capture: 23 - markup.list, start: (54, 47), end: (54, 55), text: ` * [[x],`
-pattern: 38, capture: 21 - attribute, start: (54, 52), end: (54, 53), text: `x`
-pattern: 121, capture: 29 - text, start: (54, 54), end: (54, 55), text: `,`
-pattern: 38, capture: 21 - attribute, start: (54, 56), end: (54, 57), text: `y`
-pattern: 0, capture: 0 - markup.heading, start: (54, 59), end: (63, 4), text: ` = [[ax+by],[cx+dy]]]
+Matrix multiplication: asciimath:[[[a,b],[c,d]] * [[x],[y]] = [[ax+by],[cx+dy]]]
 
 [latexmath]
 ++++
@@ -350,55 +395,103 @@ pattern: 0, capture: 0 - markup.heading, start: (54, 59), end: (63, 4), text: ` 
 \nabla \times \mathbf{F} = \left(\frac{\partial F_z}{\partial y} - \frac{\partial F_y}{\partial z}\right)\mathbf{i}
 \end{matrix}
 ++++`
-pattern: 1, capture: 1 - markup.heading.1.marker, start: (54, 59), end: (54, 62), text: ` = `
-pattern: 1, capture: 2 - markup.heading.1, start: (54, 62), end: (54, 80), text: `[[ax+by],[cx+dy]]]`
-pattern: 7, capture: 0 - markup.heading, start: (54, 62), end: (54, 80), text: `[[ax+by],[cx+dy]]]`
-pattern: 110, capture: 25 - markup.quote, start: (56, 0), end: (63, 4), text: `[latexmath]
+    pattern:  1, capture: 1 - markup.heading.2.marker, start: (50, 0), end: (50, 3), text: `== `
+    pattern:  1, capture: 2 - markup.heading.2, start: (50, 3), end: (50, 35), text: `Complex Mathematical Expressions`
+    pattern: 10, capture: 0 - markup.heading, start: (50, 3), end: (50, 35), text: `Complex Mathematical Expressions`
+    pattern: 124, capture: 31 - text, start: (52, 0), end: (54, 0), text: `Integration by parts: latexmath:[\int u \, dv = uv - \int v \, du]
+
+`
+    pattern: 126, capture: 31 - text, start: (52, 0), end: (52, 11), text: `Integration`
+    pattern: 126, capture: 31 - text, start: (52, 11), end: (52, 14), text: ` by`
+    pattern: 126, capture: 31 - text, start: (52, 14), end: (52, 20), text: ` parts`
+    pattern: 127, capture: 31 - text, start: (52, 20), end: (52, 21), text: `:`
+    pattern: 126, capture: 31 - text, start: (52, 21), end: (52, 31), text: ` latexmath`
+    pattern: 127, capture: 31 - text, start: (52, 31), end: (52, 32), text: `:`
+    pattern: 126, capture: 31 - text, start: (52, 35), end: (52, 37), text: `nt`
+    pattern: 126, capture: 31 - text, start: (52, 37), end: (52, 39), text: ` u`
+    pattern: 126, capture: 31 - text, start: (52, 42), end: (52, 45), text: ` dv`
+    pattern: 126, capture: 31 - text, start: (52, 45), end: (52, 47), text: ` =`
+    pattern: 126, capture: 31 - text, start: (52, 47), end: (52, 50), text: ` uv`
+    pattern: 130, capture: 31 - text, start: (52, 51), end: (52, 52), text: `-`
+    pattern: 126, capture: 31 - text, start: (52, 55), end: (52, 57), text: `nt`
+    pattern: 126, capture: 31 - text, start: (52, 57), end: (52, 59), text: ` v`
+    pattern: 126, capture: 31 - text, start: (52, 62), end: (52, 65), text: ` du`
+    pattern: 124, capture: 31 - text, start: (54, 0), end: (56, 0), text: `Matrix multiplication: asciimath:[[[a,b],[c,d]] * [[x],[y]] = [[ax+by],[cx+dy]]]
+
+`
+    pattern: 126, capture: 31 - text, start: (54, 0), end: (54, 6), text: `Matrix`
+    pattern: 126, capture: 31 - text, start: (54, 6), end: (54, 21), text: ` multiplication`
+    pattern: 127, capture: 31 - text, start: (54, 21), end: (54, 22), text: `:`
+    pattern: 126, capture: 31 - text, start: (54, 22), end: (54, 32), text: ` asciimath`
+    pattern: 127, capture: 31 - text, start: (54, 32), end: (54, 33), text: `:`
+    pattern: 128, capture: 31 - text, start: (54, 48), end: (54, 49), text: `*`
+    pattern: 126, capture: 31 - text, start: (54, 59), end: (54, 61), text: ` =`
+    pattern: 124, capture: 31 - text, start: (56, 0), end: (59, 0), text: `[latexmath]
 ++++
 \begin{matrix}
-\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e \\
-\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s} \\
-\nabla \times \mathbf{F} = \left(\frac{\partial F_z}{\partial y} - \frac{\partial F_y}{\partial z}\right)\mathbf{i}
-\end{matrix}
-++++`
-pattern: 111, capture: 39 - keyword.directive, start: (56, 0), end: (57, 0), text: `[latexmath]
-
-pattern: 55, capture: 26 - markup.raw.block, start: (57, 0), end: (63, 4), text: `++++
-\begin{matrix}
-\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e \\
-\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s} \\
-\nabla \times \mathbf{F} = \left(\frac{\partial F_z}{\partial y} - \frac{\partial F_y}{\partial z}\right)\mathbf{i}
-\end{matrix}
-++++`
-pattern: 82, capture: 28 - punctuation.delimiter, start: (57, 0), end: (58, 0), text: `++++
-
-pattern: 68, capture: 28 - punctuation.delimiter, start: (57, 0), end: (58, 0), text: `++++
-
-pattern: 118, capture: 29 - text, start: (58, 0), end: (63, 0), text: `\begin{matrix}
-\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e \\
-\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s} \\
-\nabla \times \mathbf{F} = \left(\frac{\partial F_z}{\partial y} - \frac{\partial F_y}{\partial z}\right)\mathbf{i}
-\end{matrix}
-
-pattern: 122, capture: 29 - text, start: (58, 0), end: (59, 0), text: `\begin{matrix}
-
-pattern: 88, capture: 29 - text, start: (58, 0), end: (59, 0), text: `\begin{matrix}
-
-pattern: 122, capture: 29 - text, start: (59, 0), end: (60, 0), text: `\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e \\
-
-pattern: 88, capture: 29 - text, start: (59, 0), end: (60, 0), text: `\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e \\
-
-pattern: 122, capture: 29 - text, start: (60, 0), end: (61, 0), text: `\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s} \\
-
-pattern: 88, capture: 29 - text, start: (60, 0), end: (61, 0), text: `\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s} \\
-
-pattern: 122, capture: 29 - text, start: (61, 0), end: (62, 0), text: `\nabla \times \mathbf{F} = \left(\frac{\partial F_z}{\partial y} - \frac{\partial F_y}{\partial z}\right)\mathbf{i}
-
-pattern: 88, capture: 29 - text, start: (61, 0), end: (62, 0), text: `\nabla \times \mathbf{F} = \left(\frac{\partial F_z}{\partial y} - \frac{\partial F_y}{\partial z}\right)\mathbf{i}
-
-pattern: 122, capture: 29 - text, start: (62, 0), end: (63, 0), text: `\end{matrix}
-
-pattern: 88, capture: 29 - text, start: (62, 0), end: (63, 0), text: `\end{matrix}
-
-pattern: 83, capture: 28 - punctuation.delimiter, start: (63, 0), end: (63, 4), text: `++++`
-pattern: 69, capture: 28 - punctuation.delimiter, start: (63, 0), end: (63, 4), text: `++++`
+`
+    pattern: 118, capture: 25 - attribute, start: (56, 0), end: (57, 0), text: `[latexmath]
+`
+    pattern: 119, capture: 25 - attribute, start: (56, 0), end: (57, 0), text: `[latexmath]
+`
+    pattern: 125, capture: 31 - text, start: (57, 3), end: (58, 0), text: `+
+`
+    pattern: 154, capture: 16 - punctuation.special, start: (57, 3), end: (58, 0), text: `+
+`
+    pattern: 126, capture: 31 - text, start: (58, 2), end: (58, 14), text: `egin{matrix}`
+    pattern: 124, capture: 31 - text, start: (59, 0), end: (60, 0), text: `\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e \\
+`
+    pattern: 129, capture: 31 - text, start: (59, 2), end: (59, 4), text: `im`
+    pattern: 129, capture: 31 - text, start: (59, 4), end: (59, 5), text: `_`
+    pattern: 126, capture: 31 - text, start: (59, 5), end: (59, 7), text: `{n`
+    pattern: 126, capture: 31 - text, start: (59, 10), end: (59, 11), text: `o`
+    pattern: 126, capture: 31 - text, start: (59, 14), end: (59, 19), text: `nfty}`
+    pattern: 126, capture: 31 - text, start: (59, 22), end: (59, 27), text: `eft(1`
+    pattern: 126, capture: 31 - text, start: (59, 27), end: (59, 29), text: ` +`
+    pattern: 126, capture: 31 - text, start: (59, 32), end: (59, 41), text: `rac{1}{n}`
+    pattern: 133, capture: 31 - text, start: (59, 43), end: (59, 49), text: `ight)^`
+    pattern: 126, capture: 31 - text, start: (59, 49), end: (59, 50), text: `n`
+    pattern: 126, capture: 31 - text, start: (59, 50), end: (59, 52), text: ` =`
+    pattern: 126, capture: 31 - text, start: (59, 52), end: (59, 54), text: ` e`
+    pattern: 124, capture: 31 - text, start: (60, 0), end: (61, 0), text: `\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s} \\
+`
+    pattern: 126, capture: 31 - text, start: (60, 2), end: (60, 8), text: `eta(s)`
+    pattern: 126, capture: 31 - text, start: (60, 8), end: (60, 10), text: ` =`
+    pattern: 129, capture: 31 - text, start: (60, 13), end: (60, 15), text: `um`
+    pattern: 129, capture: 31 - text, start: (60, 15), end: (60, 16), text: `_`
+    pattern: 126, capture: 31 - text, start: (60, 16), end: (60, 21), text: `{n=1}`
+    pattern: 125, capture: 31 - text, start: (60, 21), end: (60, 42), text: `^{\infty} \frac{1}{n^`
+    pattern: 23, capture: 20 - markup.underline, start: (60, 21), end: (60, 42), text: `^{\infty} \frac{1}{n^`
+    pattern: 24, capture: 20 - markup.underline, start: (60, 21), end: (60, 22), text: `^`
+    pattern: 26, capture: 20 - markup.underline, start: (60, 22), end: (60, 41), text: `{\infty} \frac{1}{n`
+    pattern: 25, capture: 20 - markup.underline, start: (60, 41), end: (60, 42), text: `^`
+    pattern: 126, capture: 31 - text, start: (60, 42), end: (60, 44), text: `s}`
+    pattern: 124, capture: 31 - text, start: (61, 0), end: (62, 0), text: `\nabla \times \mathbf{F} = \left(\frac{\partial F_z}{\partial y} - \frac{\partial F_y}{\partial z}\right)\mathbf{i}
+`
+    pattern: 126, capture: 31 - text, start: (61, 2), end: (61, 6), text: `abla`
+    pattern: 126, capture: 31 - text, start: (61, 9), end: (61, 13), text: `imes`
+    pattern: 126, capture: 31 - text, start: (61, 16), end: (61, 24), text: `athbf{F}`
+    pattern: 126, capture: 31 - text, start: (61, 24), end: (61, 26), text: ` =`
+    pattern: 126, capture: 31 - text, start: (61, 29), end: (61, 33), text: `eft(`
+    pattern: 126, capture: 31 - text, start: (61, 35), end: (61, 39), text: `rac{`
+    pattern: 126, capture: 31 - text, start: (61, 41), end: (61, 47), text: `artial`
+    pattern: 126, capture: 31 - text, start: (61, 47), end: (61, 49), text: ` F`
+    pattern: 129, capture: 31 - text, start: (61, 49), end: (61, 50), text: `_`
+    pattern: 126, capture: 31 - text, start: (61, 50), end: (61, 53), text: `z}{`
+    pattern: 126, capture: 31 - text, start: (61, 55), end: (61, 61), text: `artial`
+    pattern: 126, capture: 31 - text, start: (61, 61), end: (61, 64), text: ` y}`
+    pattern: 130, capture: 31 - text, start: (61, 65), end: (61, 66), text: `-`
+    pattern: 126, capture: 31 - text, start: (61, 69), end: (61, 73), text: `rac{`
+    pattern: 126, capture: 31 - text, start: (61, 75), end: (61, 81), text: `artial`
+    pattern: 126, capture: 31 - text, start: (61, 81), end: (61, 83), text: ` F`
+    pattern: 129, capture: 31 - text, start: (61, 83), end: (61, 84), text: `_`
+    pattern: 126, capture: 31 - text, start: (61, 84), end: (61, 87), text: `y}{`
+    pattern: 126, capture: 31 - text, start: (61, 89), end: (61, 95), text: `artial`
+    pattern: 126, capture: 31 - text, start: (61, 95), end: (61, 98), text: ` z}`
+    pattern: 126, capture: 31 - text, start: (61, 100), end: (61, 105), text: `ight)`
+    pattern: 126, capture: 31 - text, start: (61, 107), end: (61, 115), text: `athbf{i}`
+    pattern: 124, capture: 31 - text, start: (62, 0), end: (63, 0), text: `\end{matrix}
+`
+    pattern: 126, capture: 31 - text, start: (62, 2), end: (62, 12), text: `nd{matrix}`
+    pattern: 124, capture: 31 - text, start: (63, 0), end: (63, 4), text: `++++`
+    pattern: 126, capture: 31 - text, start: (63, 0), end: (63, 4), text: `++++`

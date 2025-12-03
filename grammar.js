@@ -31,6 +31,8 @@ module.exports = grammar({
     $.AUTOLINK_BOUNDARY,
     $.ATTRIBUTE_LIST_START,
     $.PLAIN_COLON,
+    $.INLINE_MACRO_NAME,
+    $.BLOCK_MACRO_NAME,
     $.INLINE_MACRO_MARKER,
     $.BLOCK_MACRO_MARKER,
     $.DELIMITED_BLOCK_CONTENT_LINE,
@@ -44,6 +46,8 @@ module.exports = grammar({
     $.PLAIN_LESS_THAN,
     $.PLAIN_GREATER_THAN,
     $.PLAIN_DOUBLE_QUOTE,
+    $.PLAIN_LEFT_BRACKET,
+    $.PLAIN_RIGHT_BRACKET,
     $.INTERNAL_XREF_OPEN,
     $.INTERNAL_XREF_CLOSE,
   ],
@@ -58,7 +62,21 @@ module.exports = grammar({
     [$.description_item],
     [$.callout_item],
     [$.inline_element, $.explicit_link],
-    [$.document_header, $.source_file],
+    // [$.document_header, $.source_file],
+  ],
+
+  inline: ($) => [
+    $.plain_colon,
+    $.plain_asterisk,
+    $.plain_underscore,
+    $.plain_dash,
+    $.plain_quote,
+    $.plain_double_quote,
+    $.plain_caret,
+    $.plain_less_than,
+    $.plain_greater_than,
+    $.plain_left_bracket,
+    $.plain_right_bracket,
   ],
 
   rules: {
@@ -95,7 +113,6 @@ module.exports = grammar({
     document_header: ($) =>
       prec.right(
         seq(
-          repeat($._blank_line),
           field("title", $.document_title),
           field("author", $.author_line),
           field("revision", $.revision_line),
@@ -131,19 +148,7 @@ module.exports = grammar({
 
     author_name: ($) => token(seq(/[\w'.-]+/, repeat(seq(/[ \t]+/, /[\w'.-]+/)))),
 
-    author_email: ($) =>
-      token(
-        prec(
-          5,
-          seq(
-            "<",
-            /[A-Za-z0-9._%+\-]+/, // local part
-            "@",
-            /[A-Za-z0-9.\-]+/,
-            ">",
-          ),
-        ),
-      ),
+    author_email: ($) => token(prec(5, /<[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+>/)),
 
     revision_line: ($) =>
       seq(
@@ -803,22 +808,26 @@ module.exports = grammar({
         $.plain_caret,
         $.plain_less_than,
         $.plain_greater_than,
+        $.plain_left_bracket,
+        $.plain_right_bracket,
         $.plain_text,
       ),
 
     plain_text: ($) => prec.left(-50, $._plain_text_segment),
 
-    plain_colon: ($) => $.PLAIN_COLON, // :
-    plain_asterisk: ($) => $.PLAIN_ASTERISK, // *
-    plain_underscore: ($) => $.PLAIN_UNDERSCORE, // _
-    plain_dash: ($) => $.PLAIN_DASH, // -
-    plain_quote: ($) => $.PLAIN_QUOTE, // '
-    plain_double_quote: ($) => $.PLAIN_DOUBLE_QUOTE, // "
-    plain_caret: ($) => $.PLAIN_CARET, // ^
-    plain_less_than: ($) => $.PLAIN_LESS_THAN, // <
-    plain_greater_than: ($) => $.PLAIN_GREATER_THAN, // >
+    plain_colon: ($) => alias($.PLAIN_COLON, $.plain_colon), // :
+    plain_asterisk: ($) => alias($.PLAIN_ASTERISK, $.plain_asterisk), // *
+    plain_underscore: ($) => alias($.PLAIN_UNDERSCORE, $.plain_underscore), // _
+    plain_dash: ($) => alias($.PLAIN_DASH, $.plain_dash), // -
+    plain_quote: ($) => alias($.PLAIN_QUOTE, $.plain_quote), // '
+    plain_double_quote: ($) => alias($.PLAIN_DOUBLE_QUOTE, $.plain_double_quote), // "
+    plain_caret: ($) => alias($.PLAIN_CARET, $.plain_caret), // ^
+    plain_less_than: ($) => alias($.PLAIN_LESS_THAN, $.plain_less_than), // <
+    plain_greater_than: ($) => alias($.PLAIN_GREATER_THAN, $.plain_greater_than), // >
+    plain_left_bracket: ($) => alias($.PLAIN_LEFT_BRACKET, $.plain_left_bracket), // [
+    plain_right_bracket: ($) => alias($.PLAIN_RIGHT_BRACKET, $.plain_right_bracket), // ]
 
-    _plain_text_segment: ($) => token(prec(-1, /[A-Za-z0-9!$\.,'"()+\/=%?#\{\}]+/)),
+    _plain_text_segment: ($) => token(prec(-1, /[A-Za-z0-9!$&@\.,'"()+\/=%?#\{\}]+/)),
 
     escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
 
@@ -1096,7 +1105,7 @@ module.exports = grammar({
     inline_macro: ($) =>
       prec.right(
         seq(
-          field("name", alias($._plain_text_segment, $.macro_name)),
+          field("name", alias($.INLINE_MACRO_NAME, $.macro_name)),
           field("open", $.INLINE_MACRO_MARKER),
           field("body", optional($.macro_body)),
           "]",
@@ -1107,8 +1116,8 @@ module.exports = grammar({
       prec.right(
         seq(
           optional(field("metadata", $.metadata)),
-          field("name", alias($._plain_text_segment, $.macro_name)),
-          field("open", $.BLOCK_MACRO_MARKER),
+          field("name", alias($.BLOCK_MACRO_NAME, $.macro_name)),
+          field("target", alias($.BLOCK_MACRO_MARKER, $.macro_target)),
           field("body", optional($.macro_body)),
           "]",
           optional($._line_ending),

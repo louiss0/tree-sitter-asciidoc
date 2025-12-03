@@ -363,12 +363,12 @@
           }
         ]
       },
-      "open": {
+      "target": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "BLOCK_MACRO_MARKER",
+            "type": "macro_target",
             "named": true
           }
         ]
@@ -1416,11 +1416,19 @@
           "named": true
         },
         {
+          "type": "plain_left_bracket",
+          "named": true
+        },
+        {
           "type": "plain_less_than",
           "named": true
         },
         {
           "type": "plain_quote",
+          "named": true
+        },
+        {
+          "type": "plain_right_bracket",
           "named": true
         },
         {
@@ -2127,144 +2135,9 @@
     "fields": {}
   },
   {
-    "type": "plain_asterisk",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "PLAIN_ASTERISK",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "plain_caret",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "PLAIN_CARET",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "plain_colon",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "PLAIN_COLON",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "plain_dash",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "PLAIN_DASH",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "plain_double_quote",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "PLAIN_DOUBLE_QUOTE",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "plain_greater_than",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "PLAIN_GREATER_THAN",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "plain_less_than",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "PLAIN_LESS_THAN",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "plain_quote",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "PLAIN_QUOTE",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "plain_text",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "plain_underscore",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "PLAIN_UNDERSCORE",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "revision_line",
@@ -3616,10 +3489,6 @@
     "named": true
   },
   {
-    "type": "BLOCK_MACRO_MARKER",
-    "named": true
-  },
-  {
     "type": "DELIMITED_BLOCK_CONTENT_LINE",
     "named": true
   },
@@ -3681,42 +3550,6 @@
   },
   {
     "type": "PASSTHROUGH_FENCE_START",
-    "named": true
-  },
-  {
-    "type": "PLAIN_ASTERISK",
-    "named": true
-  },
-  {
-    "type": "PLAIN_CARET",
-    "named": true
-  },
-  {
-    "type": "PLAIN_COLON",
-    "named": true
-  },
-  {
-    "type": "PLAIN_DASH",
-    "named": true
-  },
-  {
-    "type": "PLAIN_DOUBLE_QUOTE",
-    "named": true
-  },
-  {
-    "type": "PLAIN_GREATER_THAN",
-    "named": true
-  },
-  {
-    "type": "PLAIN_LESS_THAN",
-    "named": true
-  },
-  {
-    "type": "PLAIN_QUOTE",
-    "named": true
-  },
-  {
-    "type": "PLAIN_UNDERSCORE",
     "named": true
   },
   {
@@ -3920,6 +3753,10 @@
     "named": true
   },
   {
+    "type": "macro_target",
+    "named": true
+  },
+  {
     "type": "menu:",
     "named": false
   },
@@ -3942,6 +3779,50 @@
   {
     "type": "pass:[",
     "named": false
+  },
+  {
+    "type": "plain_asterisk",
+    "named": true
+  },
+  {
+    "type": "plain_caret",
+    "named": true
+  },
+  {
+    "type": "plain_colon",
+    "named": true
+  },
+  {
+    "type": "plain_dash",
+    "named": true
+  },
+  {
+    "type": "plain_double_quote",
+    "named": true
+  },
+  {
+    "type": "plain_greater_than",
+    "named": true
+  },
+  {
+    "type": "plain_left_bracket",
+    "named": true
+  },
+  {
+    "type": "plain_less_than",
+    "named": true
+  },
+  {
+    "type": "plain_quote",
+    "named": true
+  },
+  {
+    "type": "plain_right_bracket",
+    "named": true
+  },
+  {
+    "type": "plain_underscore",
+    "named": true
   },
   {
     "type": "revision_date",

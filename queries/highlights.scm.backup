@@ -41,8 +41,8 @@
 (monospace_constrained content: (monospace_text) @markup.raw)
 
 ; Superscript (^text^) and subscript (~text~)
-(superscript content: (superscript_text) @markup.underline)
-(subscript content: (subscript_text) @markup.underline)
+(superscript content: (superscript_content) @markup.underline)
+(subscript content: (subscript_content) @markup.underline)
 
 ; =============================================================================
 ; LINKS AND CROSS-REFERENCES

@@ -11,7 +11,6 @@ This is content after the include.
 (source_file
   (block_macro
     (macro_name)
-    (BLOCK_MACRO_MARKER)
     (macro_target))
   (paragraph
     (inline_seq_nonempty
@@ -35,7 +34,6 @@ Another paragraph.
 (source_file
   (block_macro
     (macro_name)
-    (BLOCK_MACRO_MARKER)
     (macro_target)
     (macro_body))
   (paragraph
@@ -56,7 +54,6 @@ Text after include.
 (source_file
   (block_macro
     (macro_name)
-    (BLOCK_MACRO_MARKER)
     (macro_target)
     (macro_body))
   (paragraph
@@ -78,7 +75,6 @@ More content.
 (source_file
   (block_macro
     (macro_name)
-    (BLOCK_MACRO_MARKER)
     (macro_target)
     (macro_body))
   (paragraph
@@ -99,7 +95,6 @@ Final paragraph.
 (source_file
   (block_macro
     (macro_name)
-    (BLOCK_MACRO_MARKER)
     (macro_target)
     (macro_body))
   (paragraph
@@ -120,7 +115,6 @@ Following content.
 (source_file
   (block_macro
     (macro_name)
-    (BLOCK_MACRO_MARKER)
     (macro_target))
   (paragraph
     (inline_seq_nonempty
@@ -148,7 +142,6 @@ More text here.
       title: (title)
       content: (block_macro
         name: (macro_name)
-        open: (BLOCK_MACRO_MARKER)
         target: (macro_target)
         body: (macro_body))))
   (section
@@ -176,15 +169,12 @@ include::conclusion.adoc[]
 (source_file
   (block_macro
     (macro_name)
-    (BLOCK_MACRO_MARKER)
     (macro_target))
   (block_macro
     (macro_name)
-    (BLOCK_MACRO_MARKER)
     (macro_target))
   (block_macro
     (macro_name)
-    (BLOCK_MACRO_MARKER)
     (macro_target)))
 
 ================================================================================
@@ -200,7 +190,6 @@ Text after.
 (source_file
   (block_macro
     (macro_name)
-    (BLOCK_MACRO_MARKER)
     (macro_target))
   (paragraph
     (inline_seq_nonempty
@@ -222,8 +211,7 @@ This should be a paragraph.
     (inline_seq_nonempty
       (inline_macro
         (macro_name)
-        (INLINE_MACRO_MARKER)
-        (macro_body))))
+        (INLINE_MACRO_MARKER))))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
@@ -244,7 +232,18 @@ This should be a paragraph.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_colon
+        (PLAIN_COLON))
+      (plain_left_bracket
+        (PLAIN_LEFT_BRACKET))
+      (plain_left_bracket
+        (PLAIN_LEFT_BRACKET))
+      (plain_dash
+        (PLAIN_DASH))
+      (plain_dash
+        (PLAIN_DASH))
       (plain_text)))
   (paragraph
     content: (inline_seq_nonempty
