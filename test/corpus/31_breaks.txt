@@ -7,8 +7,8 @@ Three quotes should be used as a thematic break.
 ---
 
 (source_file
-  (thematic_break
-    (THEMATIC_BREAK)))
+  (thematic_break))
+
 
 =========
 Three underscores should be used as a thematic break.
@@ -19,8 +19,7 @@ ___
 ---
 
 (source_file
-  (thematic_break
-    (THEMATIC_BREAK)))
+  (thematic_break))
 
 =========
 Three asterisks should be used as a thematic break.
@@ -31,8 +30,8 @@ Three asterisks should be used as a thematic break.
 ---
 
 (source_file
-  (thematic_break
-    (THEMATIC_BREAK)))
+  (thematic_break))
+
 
 =========
 Three less than signs should be used as a page break.
@@ -43,5 +42,5 @@ Three less than signs should be used as a page break.
 ---
 
 (source_file
-  (page_break
-    (PAGE_BREAK)))
+  (page_break)
+  )

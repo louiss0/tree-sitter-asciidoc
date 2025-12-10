@@ -14,8 +14,7 @@ This has *bold* text in it.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content
-            (plain_text))
+          content: (strong_content)
           close: (strong_close)))
       (plain_text)
       (plain_text)
@@ -37,8 +36,7 @@ This has _italic_ text in it.
       (inline_element
         (emphasis
           open: (emphasis_open)
-          content: (emphasis_content
-            (plain_text))
+          content: (emphasis_content)
           close: (emphasis_close)))
       (plain_text)
       (plain_text)
@@ -59,10 +57,8 @@ This has `code` text in it.
       (plain_text)
       (inline_element
         (monospace
-          open: (monospace_tick_open)
-          content: (monospace_tick_content
-            (plain_text))
-          close: (monospace_tick_close)))
+          open: (monospace_open)
+          close: (monospace_close)))
       (plain_text)
       (plain_text)
       (plain_text))))
@@ -75,23 +71,7 @@ This has *unclosed bold and _unclosed italic and `unclosed code.
 
 ---
 
-(source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (plain_asterisk)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_underscore)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_backtick)
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+(source_file )
 
 ================================================================================
 Mixed formatting elements
@@ -109,23 +89,19 @@ This has *bold* and _italic_ and `code` together.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content
-            (plain_text))
+          content: (strong_content)
           close: (strong_close)))
       (plain_text)
       (inline_element
         (emphasis
           open: (emphasis_open)
-          content: (emphasis_content
-            (plain_text))
+          content: (emphasis_content)
           close: (emphasis_close)))
       (plain_text)
       (inline_element
         (monospace
-          open: (monospace_tick_open)
-          content: (monospace_tick_content
-            (plain_text))
-          close: (monospace_tick_close)))
+          open: (monospace_open)
+          close: (monospace_close)))
       (plain_text))))
 
 ================================================================================
@@ -144,7 +120,6 @@ This has ^superscript^ and ~subscript~ text.
       (inline_element
         (superscript
           open: (superscript_open)
-          content: (superscript_text)
           close: (superscript_close)))
       (plain_text)
       (inline_element

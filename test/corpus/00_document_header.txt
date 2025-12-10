@@ -16,8 +16,13 @@ v1.0, 1-15-2024: First release
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       date: (revision_date)
@@ -266,8 +271,13 @@ v1.0, 1-15-2024: First release
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       date: (revision_date)
@@ -297,8 +307,13 @@ v1.0, 1-15-2024: First release
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       date: (revision_date)
@@ -332,8 +347,13 @@ v1.0, 1-15-2024: First release
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       date: (revision_date)
@@ -368,8 +388,13 @@ v1.0, 1-15-2024: First release
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       date: (revision_date)
@@ -404,8 +429,14 @@ v1.0, 1-15-2024: First release
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       date: (revision_date)
@@ -434,9 +465,15 @@ v1.0, 1-15-2024: First release
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name)
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       date: (revision_date)
@@ -465,10 +502,17 @@ v1.0, 1-15-2024: First release
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name)
-        author: (author_name)
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       date: (revision_date)
@@ -497,11 +541,19 @@ v1.0, 1-15-2024: First release
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name)
-        author: (author_name)
-        author: (author_name)
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       date: (revision_date)
@@ -532,10 +584,15 @@ v1.0, 1-15-2024: First release
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name)
-        author: (author_name)
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       date: (revision_date)
@@ -568,8 +625,13 @@ v7.5
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       separator: (header_break)))
@@ -596,8 +658,13 @@ Alice Example <alice@example.com>
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       date: (revision_date)
@@ -625,8 +692,13 @@ Alice Example <alice@example.com>
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       remark: (revision_remark)
@@ -654,8 +726,13 @@ v7.5, 1-29-2020: A new analysis
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       date: (revision_date)
@@ -686,8 +763,13 @@ Alice Example <alice@example.com>
       text: (document_title_text))
     author: (author_line
       authors: (author_list
-        author: (author_name))
-      email: (author_email))
+        author: (author_name
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
       date: (revision_date)

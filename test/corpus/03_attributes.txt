@@ -23,13 +23,13 @@ More text.
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (paragraph
@@ -43,7 +43,7 @@ More text.
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (paragraph
@@ -71,12 +71,12 @@ Content here
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon)))
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon)))
       content: (paragraph
         content: (inline_seq_nonempty
@@ -101,13 +101,13 @@ Attribute entries with spaces in values
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value)))))
 
@@ -134,7 +134,7 @@ More content
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (paragraph
@@ -144,7 +144,7 @@ More content
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (paragraph
@@ -172,13 +172,13 @@ Body
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (paragraph

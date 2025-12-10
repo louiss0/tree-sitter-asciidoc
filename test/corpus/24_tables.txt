@@ -82,10 +82,13 @@ Table with Title and Metadata
 
 (source_file
   (table_block
-    title: (table_title
-      text: (table_title_text))
-    metadata: (metadata
-      id_roles: (id_and_roles))
+    title: (block_title)
+    attributes: (table_attributes
+      (plain_left_bracket)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (plain_right_bracket))
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content

@@ -28,8 +28,7 @@ Final paragraph.
       marker: (unordered_list_marker)
       content: (inline_seq_nonempty
         (plain_text)
-        (plain_text))))
-  (unordered_list
+        (plain_text)))
     items: (unordered_list_item
       marker: (unordered_list_marker)
       content: (inline_seq_nonempty
@@ -46,8 +45,7 @@ Final paragraph.
       content: (inline_seq_nonempty
         (plain_text)
         (plain_text)
-        (plain_text))))
-  (ordered_list
+        (plain_text)))
     items: (ordered_list_item
       marker: (ordered_list_marker)
       content: (inline_seq_nonempty
@@ -88,7 +86,7 @@ More content here.
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (paragraph
@@ -105,8 +103,7 @@ More content here.
           marker: (unordered_list_marker)
           content: (inline_seq_nonempty
             (plain_text)
-            (plain_text))))
-      content: (unordered_list
+            (plain_text)))
         items: (unordered_list_item
           marker: (unordered_list_marker)
           content: (inline_seq_nonempty
@@ -126,8 +123,7 @@ More content here.
           marker: (ordered_list_marker)
           content: (inline_seq_nonempty
             (plain_text)
-            (plain_text))))
-      content: (ordered_list
+            (plain_text)))
         items: (ordered_list_item
           marker: (ordered_list_marker)
           content: (inline_seq_nonempty

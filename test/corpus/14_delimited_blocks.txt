@@ -62,35 +62,16 @@ ____
 ---
 
 (source_file
-  (thematic_break
-    marker: (THEMATIC_BREAK))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_double_quote)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_double_quote)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_dash)
-      (plain_dash)
-      (plain_text)
-      (plain_text)))
-  (thematic_break
-    marker: (THEMATIC_BREAK)))
+  (asciidoc_blockquote
+    open: (asciidoc_blockquote_open
+      (QUOTE_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (asciidoc_blockquote_close
+      (QUOTE_FENCE_END))))
 
 ================================================================================
 Sidebar block with content
@@ -104,26 +85,16 @@ It's displayed separately from main text.
 ---
 
 (source_file
-  (thematic_break
-    (THEMATIC_BREAK))
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)))
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_quote)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)))
-  (thematic_break
-    (THEMATIC_BREAK)))
+  (sidebar_block
+    (sidebar_open
+      (SIDEBAR_FENCE_START))
+    (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    (sidebar_close
+      (SIDEBAR_FENCE_END))))
 
 ================================================================================
 Passthrough block with content
@@ -170,9 +141,14 @@ Can contain any content.
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE))
       (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
     close: (openblock_close
-      (OPENBLOCK_FENCE_END))))
+      (OPENBLOCK_FENCE_END)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_dash))))
 
 ====
 System.out.println("Hello");
@@ -209,14 +185,14 @@ ____
 ---
 
 (source_file
-  (thematic_break
-    marker: (THEMATIC_BREAK))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)))
-  (thematic_break
-    marker: (THEMATIC_BREAK)))
+  (asciidoc_blockquote
+    open: (asciidoc_blockquote_open
+      (QUOTE_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (asciidoc_blockquote_close
+      (QUOTE_FENCE_END))))
 
 ================================================================================
 Content with near-delimiters not at beginning of line
@@ -260,6 +236,11 @@ Another -- delimiter
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE))
       (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
     close: (openblock_close
-      (OPENBLOCK_FENCE_END))))
+      (OPENBLOCK_FENCE_END)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_dash))))

@@ -13,8 +13,12 @@ This is [big]#large text# here.
       (plain_text)
       (inline_element
         (role_span
-          roles: (role_list)
-          content: (role_content)))
+          roles: (role_attribute_list
+            (plain_left_bracket)
+            (plain_text)
+            (plain_right_bracket))
+          open: (role_span_open)
+          close: (role_span_close)))
       (plain_text))))
 
 ================================================================================
@@ -27,23 +31,17 @@ This is [highlight]#*bold* and _italic_# text.
 
 (source_file
   (paragraph
-    content: (inline_seq_nonempty
+    (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (inline_element
         (role_span
-          roles: (role_list)
-          content: (role_content
-            (strong
-              open: (strong_open)
-              content: (strong_content
-            (plain_text))
-              close: (strong_close))
-            (emphasis
-              open: (emphasis_open)
-              content: (emphasis_content
-            (plain_text))
-              close: (emphasis_close)))))
+          (role_attribute_list
+            (plain_left_bracket)
+            (plain_text)
+            (plain_right_bracket))
+          (role_span_open)
+          (role_span_close)))
       (plain_text))))
 
 ================================================================================
@@ -57,25 +55,26 @@ Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].
 
 (source_file
   (paragraph
-    content: (inline_seq_nonempty
+    (inline_seq_nonempty
       (plain_text)
       (inline_macro
-        name: (macro_name)
-        open: (INLINE_MACRO_MARKER)
-        body: (macro_body))
+        (macro_name)
+        (macro_body)
+        (macro_close))
       (plain_text)
-      (plain_text))
-    content: (inline_seq_nonempty
-      (plain_text)
-      (inline_macro
-        name: (macro_name)
-        open: (INLINE_MACRO_MARKER)
-        body: (macro_body))
+      (plain_text)))
+  (paragraph
+    (inline_seq_nonempty
       (plain_text)
       (inline_macro
-        name: (macro_name)
-        open: (INLINE_MACRO_MARKER)
-        body: (macro_body))
+        (macro_name)
+        (macro_body)
+        (macro_close))
+      (plain_text)
+      (inline_macro
+        (macro_name)
+        (macro_body)
+        (macro_close))
       (plain_text))))
 
 ================================================================================
@@ -89,25 +88,25 @@ Go to menu:File[Open] option.
 
 (source_file
   (paragraph
-    content: (inline_seq_nonempty
+    (inline_seq_nonempty
       (plain_text)
       (inline_macro
-        name: (macro_name)
-        open: (INLINE_MACRO_MARKER)
-        body: (macro_body))
+        (macro_name)
+        (macro_body)
+        (macro_close))
       (plain_text)
       (plain_text)
       (inline_macro
-        name: (macro_name)
-        open: (INLINE_MACRO_MARKER)
-        body: (macro_body))
+        (macro_name)
+        (macro_body)
+        (macro_close))
       (plain_text)))
   (paragraph
-    content: (inline_seq_nonempty
+    (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (inline_element
-        (ui_menu))
+      (inline_macro
+        (macro_name)
+        (macro_body)
+        (macro_close))
       (plain_text))))
-
-

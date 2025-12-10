@@ -12,40 +12,13 @@ video::clip.mp4[autoplay]
 
 (source_file
   (block_macro
-    name: (macro_name)
-    target: (macro_target)
-    body: (macro_body))
+    open: (macro_name)
+    body: (macro_body)
+    close: (macro_close))
   (block_macro
-    name: (macro_name)
-    target: (macro_target))
+    open: (macro_name)
+    close: (macro_close))
   (block_macro
-    name: (macro_name)
-    target: (macro_target)
-    body: (macro_body)))
-
-================================================================================
-Block macros with metadata
-================================================================================
-
-[.float-right]
-diagram::workflow[]
-
-[role=alert]
-video::clip.mp4[autoplay]
-
---------------------------------------------------------------------------------
-
-(source_file
-  (block_macro
-    metadata: (metadata
-      attributes: (block_attributes
-        (ATTRIBUTE_LIST_START)))
-    name: (macro_name)
-    target: (macro_target))
-  (block_macro
-    metadata: (metadata
-      attributes: (block_attributes
-        (ATTRIBUTE_LIST_START)))
-    name: (macro_name)
-    target: (macro_target)
-    body: (macro_body)))
+    open: (macro_name)
+    body: (macro_body)
+    close: (macro_close)))

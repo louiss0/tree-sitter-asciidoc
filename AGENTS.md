@@ -16,6 +16,7 @@ When committing changes, ensure that the commit message follows the angular conv
 unless they are used only as the grammar's start rule.
 - Grammar rules must not be left recursive; rewrite such productions so they consume a token before recurring.
 - Follow the guide's pattern: capture the language-bearing node and attach metadata with directives such as `(#set! injection.language language)`, `(#set! injection.include-children)`, or `(#set! injection.combined)` when the embedded region spans multiple children.
+- Never write debug code in the scanner file
 
 ### Additional limitations from "Writing the Grammar"
 

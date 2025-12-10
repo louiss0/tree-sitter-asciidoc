@@ -20,7 +20,7 @@ endif::[]
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (conditional_block
@@ -80,7 +80,7 @@ endif::[]
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (conditional_block
@@ -210,29 +210,30 @@ endif::[]
         (section_level_2
           marker: (section_marker_2)
           title: (title)
+          content: (paragraph
+            metadata: (metadata
+              attributes: (block_attributes
+                (ATTRIBUTE_LIST_START)))
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)))
+          content: (paragraph
+            metadata: (metadata
+              attributes: (block_attributes
+                (ATTRIBUTE_LIST_START)))
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)))
           content: (unordered_list
             items: (unordered_list_item
               marker: (unordered_list_marker)
               content: (inline_seq_nonempty
                 (plain_text)
-                (plain_text)
-                (plain_text))))
-          content: (unordered_list
+                (plain_text)))
             items: (unordered_list_item
               marker: (unordered_list_marker)
-              content: (inline_seq_nonempty
-                (plain_text)
-                (plain_text)
-                (plain_text))))
-          content: (ordered_list
-            items: (ordered_list_item
-              marker: (ordered_list_marker)
-              content: (inline_seq_nonempty
-                (plain_text)
-                (plain_text))))
-          content: (ordered_list
-            items: (ordered_list_item
-              marker: (ordered_list_marker)
               content: (inline_seq_nonempty
                 (plain_text)
                 (plain_text))))

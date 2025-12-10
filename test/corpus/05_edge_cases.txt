@@ -42,14 +42,16 @@ Invalid attribute patterns should be paragraphs
       (plain_text)))
   (paragraph
     content: (inline_seq_nonempty
-      (plain_colon)
-      (plain_text)
+      (plain_colon)))
+  (paragraph
+    content: (inline_seq_nonempty
       (plain_dash)
-      (plain_text)
       (plain_dash)
-      (plain_text)
       (plain_dash)
-      (plain_text)
+      (plain_dash)
+      (plain_dash)
+      (plain_dash)
+      (plain_dash)
       (plain_dash)
       (plain_text)))
   (paragraph
@@ -59,13 +61,17 @@ Invalid attribute patterns should be paragraphs
       (plain_text)
       (plain_text)
       (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_colon)
-      (plain_colon)
-      (plain_colon)
-      (plain_text)
-      (plain_text))))
+  (description_list
+    items: (description_item
+      term: (description_term
+        (plain_colon))
+      delimiter: (description_delimiter
+        (description_delimiter)
+        (description_delimiter))
+      details: (description_content
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))))
 
 ================================================================================
 Attributes with spaces in values and empty values

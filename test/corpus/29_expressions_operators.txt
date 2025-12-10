@@ -11,21 +11,22 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      directive: (ifeval_open)
-      content: (paragraph
-        content: (inline_seq_nonempty
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
           (plain_text)
           (plain_text)
           (plain_text)
           (plain_text)
           (plain_text)))
-      end: (endif_directive))))
+      (endif_directive))))
 
 ================================================================================
 Numeric comparison
 ================================================================================
 
 ifeval::[{countTotal} > 5]
+la
 endif::[]
 
 ---
@@ -33,14 +34,18 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      directive: (ifeval_open)
-      end: (endif_directive))))
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
+      (endif_directive))))
 
 ================================================================================
 Logical operators
 ================================================================================
 
 ifeval::[{aValue} && {bValue}]
+wha
 endif::[]
 
 ---
@@ -48,14 +53,18 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      directive: (ifeval_open)
-      end: (endif_directive))))
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
+      (endif_directive))))
 
 ================================================================================
 Logical NOT operator
 ================================================================================
 
 ifeval::[!{flagState}]
+beem
 endif::[]
 
 ---
@@ -63,14 +72,18 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      directive: (ifeval_open)
-      end: (endif_directive))))
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
+      (endif_directive))))
 
 ================================================================================
 Complex arithmetic expression
 ================================================================================
 
 ifeval::[{xValue} + {yValue} * 2 > 10]
+whoo
 endif::[]
 
 ---
@@ -78,14 +91,19 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      directive: (ifeval_open)
-      end: (endif_directive))))
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
+      (endif_directive))))
 
 ================================================================================
 Grouped expressions with parentheses
 ================================================================================
 
 ifeval::[({xValue} + {yValue}) * 2 == {resultValue}]
+
+Boo
 endif::[]
 
 ---
@@ -93,14 +111,18 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      directive: (ifeval_open)
-      end: (endif_directive))))
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
+      (endif_directive))))
 
 ================================================================================
 Boolean literals
 ================================================================================
 
 ifeval::[true && false]
+ Bam
 endif::[]
 
 ---
@@ -108,5 +130,8 @@ endif::[]
 (source_file
   (conditional_block
     (ifeval_block
-      directive: (ifeval_open)
-      end: (endif_directive))))
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
+      (endif_directive))))

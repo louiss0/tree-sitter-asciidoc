@@ -11,7 +11,7 @@ This is content after the include.
 (source_file
   (block_macro
     (macro_name)
-    (macro_target))
+    (macro_close))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
@@ -34,8 +34,8 @@ Another paragraph.
 (source_file
   (block_macro
     (macro_name)
-    (macro_target)
-    (macro_body))
+    (macro_body)
+    (macro_close))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
@@ -54,8 +54,8 @@ Text after include.
 (source_file
   (block_macro
     (macro_name)
-    (macro_target)
-    (macro_body))
+    (macro_body)
+    (macro_close))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
@@ -75,8 +75,8 @@ More content.
 (source_file
   (block_macro
     (macro_name)
-    (macro_target)
-    (macro_body))
+    (macro_body)
+    (macro_close))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
@@ -95,8 +95,8 @@ Final paragraph.
 (source_file
   (block_macro
     (macro_name)
-    (macro_target)
-    (macro_body))
+    (macro_body)
+    (macro_close))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
@@ -115,7 +115,7 @@ Following content.
 (source_file
   (block_macro
     (macro_name)
-    (macro_target))
+    (macro_close))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
@@ -141,9 +141,9 @@ More text here.
       marker: (section_marker_2)
       title: (title)
       content: (block_macro
-        name: (macro_name)
-        target: (macro_target)
-        body: (macro_body))))
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -169,13 +169,13 @@ include::conclusion.adoc[]
 (source_file
   (block_macro
     (macro_name)
-    (macro_target))
+    (macro_close))
   (block_macro
     (macro_name)
-    (macro_target))
+    (macro_close))
   (block_macro
     (macro_name)
-    (macro_target)))
+    (macro_close)))
 
 ================================================================================
 Include with empty options
@@ -190,7 +190,7 @@ Text after.
 (source_file
   (block_macro
     (macro_name)
-    (macro_target))
+    (macro_close))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
@@ -209,9 +209,13 @@ This should be a paragraph.
 (source_file
   (paragraph
     (inline_seq_nonempty
-      (inline_macro
-        (macro_name)
-        (INLINE_MACRO_MARKER))))
+      (plain_text)
+      (plain_colon)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (plain_left_bracket)
+      (plain_right_bracket)))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
@@ -230,25 +234,4 @@ This should be a paragraph.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_colon
-        (PLAIN_COLON))
-      (plain_left_bracket
-        (PLAIN_LEFT_BRACKET))
-      (plain_left_bracket
-        (PLAIN_LEFT_BRACKET))
-      (plain_dash
-        (PLAIN_DASH))
-      (plain_dash
-        (PLAIN_DASH))
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+(source_file)

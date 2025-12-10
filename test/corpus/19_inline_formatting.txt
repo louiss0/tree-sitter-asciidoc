@@ -8,31 +8,27 @@ This is *bold* text and _italic_ text and `monospace` text.
 
 (source_file
   (paragraph
-    content: (inline_seq_nonempty
+    (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (inline_element
         (strong
-          open: (strong_open)
-          content: (strong_content
-            (plain_text))
-          close: (strong_close)))
+          (strong_open)
+          (strong_content)
+          (strong_close)))
       (plain_text)
       (plain_text)
       (inline_element
         (emphasis
-          open: (emphasis_open)
-          content: (emphasis_content
-            (plain_text))
-          close: (emphasis_close)))
+          (emphasis_open)
+          (emphasis_content)
+          (emphasis_close)))
       (plain_text)
       (plain_text)
       (inline_element
         (monospace
-          open: (monospace_tick_open)
-          content: (monospace_tick_content
-            (plain_text))
-          close: (monospace_tick_close)))
+          (monospace_open)
+          (monospace_close)))
       (plain_text))))
 
 ================================================================================
@@ -45,24 +41,21 @@ This is E=mc^2^ and H~2~O.
 
 (source_file
   (paragraph
-    content: (inline_seq_nonempty
+    (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (plain_text)
       (inline_element
         (superscript
-          open: (superscript_open)
-          content: (superscript_content
-            (plain_text))
-          close: (superscript_close)))
+          (superscript_open)
+          (superscript_close)))
       (plain_text)
       (plain_text)
       (inline_element
         (subscript
-          open: (subscript_open)
-          content: (subscript_content
-            (plain_text))
-          close: (subscript_close)))
+          (subscript_open)
+          (subscript_text)
+          (subscript_close)))
       (plain_text))))
 
 ================================================================================
@@ -75,22 +68,14 @@ This is *bold _italic_ text* mixed.
 
 (source_file
   (paragraph
-    content: (inline_seq_nonempty
+    (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (inline_element
         (strong
-          open: (strong_open)
-          content: (strong_content
-            (plain_text)
-            (inline_element
-              (emphasis
-                open: (emphasis_open)
-                content: (emphasis_content
-                  (plain_text))
-                close: (emphasis_close)))
-            (plain_text))
-          close: (strong_close)))
+          (strong_open)
+          (strong_content)
+          (strong_close)))
       (plain_text))))
 
 ================================================================================
@@ -140,12 +125,14 @@ Visit https://example.com[Example Site] for more info.
 
 (source_file
   (paragraph
-    content: (inline_seq_nonempty
+    (inline_seq_nonempty
       (plain_text)
       (inline_element
         (explicit_link
-          url: (auto_link)
-          text: (link_text)))
+          (auto_link)
+          (plain_left_bracket)
+          (link_text)
+          (plain_right_bracket)))
       (plain_text)
       (plain_text)
       (plain_text))))

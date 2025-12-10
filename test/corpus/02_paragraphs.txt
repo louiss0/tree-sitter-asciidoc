@@ -123,14 +123,13 @@ Just one line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_caret)
       (plain_text))))
 
 ================================================================================
 Paragraph with asterisk
 ================================================================================
 
-Just one line*
+Just *one line
 
 --------------------------------------------------------------------------------
 
@@ -138,15 +137,16 @@ Just one line*
   (paragraph
     (inline_seq_nonempty
       (plain_text)
+      (plain_asterisk)
       (plain_text)
       (plain_text)
-      (plain_asterisk))))
+      )))
 
 ================================================================================
 Paragraph with underscore
 ================================================================================
 
-Just one line_
+Just _one line
 
 --------------------------------------------------------------------------------
 
@@ -154,9 +154,10 @@ Just one line_
   (paragraph
     (inline_seq_nonempty
       (plain_text)
+      (plain_underscore)
       (plain_text)
       (plain_text)
-      (plain_underscore))))
+      )))
 
 ================================================================================
 Paragraph with single quote
@@ -239,10 +240,10 @@ Just one <line
       (plain_text))))
 
 ================================================================================
-Paragraph with Caret
+Paragraph with Greater Than
 ================================================================================
 
-Just one ^line
+Just one >line
 
 --------------------------------------------------------------------------------
 
@@ -251,23 +252,9 @@ Just one ^line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
+      (plain_greater_than)
       (plain_text))))
 
-================================================================================
-Paragraph with Less than
-================================================================================
-
-Just <one line
-
---------------------------------------------------------------------------------
-
-(source_file
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_less_than)
-      (plain_text)
-      (plain_text))))
 
 ================================================================================
 Paragraph with Comma
@@ -303,6 +290,24 @@ Just one {line
       (plain_text))))
 
 ================================================================================
+Paragraph with right brace
+================================================================================
+
+
+Just} one line
+
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+
+================================================================================
 Paragraph with left bracket
 ================================================================================
 
@@ -313,6 +318,7 @@ Just one [line
 (source_file
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
       (plain_text)
       (plain_text)
       (plain_text))))
@@ -328,6 +334,7 @@ Just one ]line
 (source_file
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
       (plain_text)
       (plain_text)
       (plain_text))))
@@ -397,6 +404,21 @@ Paragraph with at sign
 ================================================================================
 
 Just one @line
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Paragraph with backtick
+================================================================================
+
+Just one `line
 
 --------------------------------------------------------------------------------
 

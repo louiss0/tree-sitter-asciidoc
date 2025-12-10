@@ -42,7 +42,9 @@ Visit https://example.com[Example Site] for more info.
       (inline_element
         (explicit_link
           url: (auto_link)
-          text: (link_text)))
+          (plain_left_bracket)
+          text: (link_text)
+          (plain_right_bracket)))
       (plain_text)
       (plain_text)
       (plain_text))))
@@ -62,7 +64,9 @@ Visit https://example.com[*Bold* _Link_ Text] here.
       (inline_element
         (explicit_link
           url: (auto_link)
-          text: (link_text)))
+          (plain_left_bracket)
+          text: (link_text)
+          (plain_right_bracket)))
       (plain_text))))
 
 ================================================================================
@@ -78,8 +82,10 @@ Here is image:logo.png[Company Logo] in text.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (inline_element
-        (image))
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
       (plain_text)
       (plain_text))))
 
@@ -94,7 +100,11 @@ See image::diagram.svg[System Architecture,width=500] below.
 (source_file
   (paragraph
     content: (inline_seq_nonempty
-      (plain_text)
-      (inline_element
-        (image))
+      (plain_text)))
+  (block_macro
+    open: (macro_name)
+    body: (macro_body)
+    close: (macro_close))
+  (paragraph
+    content: (inline_seq_nonempty
       (plain_text))))

@@ -1,0 +1,326 @@
+  07_ordered_lists:
+     81. ✓ [32mSimple ordered list[0m
+     82. ✓ [32mOrdered list with multiple digits[0m
+     83. ✗ [31mNested ordered list[0m
+     84. ✗ [31mNested ordered list with siblings[0m
+     85. ✗ [31mThree levels of nesting[0m
+     86. ✗ [31mNesting and return[0m
+     87. ✗ [31mRepeated nesting[0m
+     88. ✗ [31mDeep nesting[0m
+     89. ✗ [31mZig-zag nesting[0m
+     90. ✗ [31mNesting in later items[0m
+     91. ✗ [31mDeep siblings[0m
+     92. ✗ [31mMulti-level dedent[0m
+     93. ✓ [32mNot a list - missing space after period[0m
+     94. ✓ [32mNot a list - decimal number in paragraph[0m
+
+10 failures:
+
+correct / [32mexpected[0m / [31munexpected[0m
+
+  1. Nested ordered list:
+
+    (source_file
+      (ordered_list
+        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+            (plain_text)
+[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)
+[0m[31m          (plain_text))))[0m
+[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)
+[0m[32m            (plain_text)))))[0m
+
+
+  2. Nested ordered list with siblings:
+
+    (source_file
+      (ordered_list
+        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+            (plain_text)
+[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)
+[0m[31m          (plain_text))))[0m
+[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)
+[0m[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)
+[0m[32m            (plain_text)))))[0m
+
+
+  3. Three levels of nesting:
+
+    (source_file
+      (ordered_list
+        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+            (plain_text)
+[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)
+[0m[31m          (plain_text))))[0m
+[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)
+[0m[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)
+[0m[32m            (plain_text)))))[0m
+
+
+  4. Nesting and return:
+
+    (source_file
+      (ordered_list
+        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+            (plain_text)
+[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)))
+[0m[31m      (ordered_list
+[0m[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)
+[0m[32m            (plain_text)))
+[0m        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+            (plain_text)
+            (plain_text)))))
+
+
+  5. Repeated nesting:
+
+    (source_file
+      (ordered_list
+        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)))
+[0m[31m      (ordered_list
+[0m[32m            (plain_text)))
+[0m        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text))))[0m
+[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))))[0m
+
+
+  6. Deep nesting:
+
+    (source_file
+      (ordered_list
+        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text))))[0m
+[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))))[0m
+
+
+  7. Zig-zag nesting:
+
+    (source_file
+      (ordered_list
+        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text))))[0m
+[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))))[0m
+
+
+  8. Nesting in later items:
+
+    (source_file
+      (ordered_list
+        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+            (plain_text)))
+        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text))))[0m
+[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))))[0m
+
+
+  9. Deep siblings:
+
+    (source_file
+      (ordered_list
+        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text))))[0m
+[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))))[0m
+
+
+  10. Multi-level dedent:
+
+    (source_file
+      (ordered_list
+        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+[31m            (plain_text))))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)))
+[0m[31m      (paragraph
+[0m[31m        (inline_seq_nonempty
+[0m[31m          (plain_text)
+[0m[31m          (plain_text)))
+[0m[31m      (ordered_list
+[0m[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))
+[0m[32m        (ordered_list_item
+[0m[32m          (ordered_list_marker)
+[0m[32m          (inline_seq_nonempty
+[0m[32m            (plain_text)))
+[0m        (ordered_list_item
+          (ordered_list_marker)
+          (inline_seq_nonempty
+            (plain_text)))))
+

@@ -207,13 +207,13 @@ Subsection content
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (paragraph
@@ -227,7 +227,7 @@ Subsection content
       content: (attribute_entry
         name: (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
         value: (attribute_value))
       content: (paragraph

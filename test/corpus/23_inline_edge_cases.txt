@@ -13,7 +13,9 @@ Visit http://example.com`code`[link text] for details.
       (inline_element
         (explicit_link
           url: (auto_link)
-          text: (link_text)))
+          (plain_left_bracket)
+          text: (link_text)
+          (plain_right_bracket)))
       (plain_text)
       (plain_text))))
 
@@ -32,18 +34,12 @@ This is [important]#*bold* and _italic_ text# here.
       (plain_text)
       (inline_element
         (role_span
-          roles: (role_list)
-          content: (role_content
-            (strong
-              open: (strong_open)
-              content: (strong_content
-            (plain_text))
-              close: (strong_close))
-            (emphasis
-              open: (emphasis_open)
-              content: (emphasis_content
-            (plain_text))
-              close: (emphasis_close)))))
+          roles: (role_attribute_list
+            (plain_left_bracket)
+            (plain_text)
+            (plain_right_bracket))
+          open: (role_span_open)
+          close: (role_span_close)))
       (plain_text))))
 
 ================================================================================
@@ -90,11 +86,14 @@ This is *bold with \* asterisk* text.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content
-            (plain_text))
+          content: (strong_content)
           close: (strong_close)))
-      (plain_text))))
-
+      (plain_text)))
+  (unordered_list
+    items: (unordered_list_item
+      marker: (unordered_list_marker)
+      content: (inline_seq_nonempty
+        (plain_text)))))
 
 ================================================================================
 Escaped delimiters in emphasis
@@ -109,12 +108,12 @@ This is _italic with \_ underscore_ text.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (inline_element
-        (emphasis
-          open: (emphasis_open)
-          content: (emphasis_content
-            (plain_text))
-          close: (emphasis_close)))
+      (plain_underscore)
+      (plain_text)
+      (plain_text)
+      (escaped_char)
+      (plain_text)
+      (plain_underscore)
       (plain_text))))
 
 ================================================================================
@@ -132,10 +131,8 @@ This is `code with \` backtick` text.
       (plain_text)
       (inline_element
         (monospace
-          open: (monospace_tick_open)
-          content: (monospace_tick_content
-            (plain_text))
-          close: (monospace_tick_close)))
+          open: (monospace_open)
+          close: (monospace_close)))
       (plain_text))))
 
 ================================================================================
@@ -154,11 +151,8 @@ This is ^super with \^ caret^ text.
       (inline_element
         (superscript
           open: (superscript_open)
-          content: (superscript_content
-            (plain_text))
           close: (superscript_close)))
       (plain_text))))
-
 
 ================================================================================
 Escaped delimiters in subscript
@@ -176,8 +170,7 @@ This is ~sub with \~ tilde~ text.
       (inline_element
         (subscript
           open: (subscript_open)
-          content: (subscript_content
-            (plain_text))
+          content: (subscript_text)
           close: (subscript_close)))
       (plain_text))))
 
@@ -196,8 +189,12 @@ This is [role]#text with \# hash# here.
       (plain_text)
       (inline_element
         (role_span
-          roles: (role_list)
-          content: (role_content)))
+          roles: (role_attribute_list
+            (plain_left_bracket)
+            (plain_text)
+            (plain_right_bracket))
+          open: (role_span_open)
+          close: (role_span_close)))
       (plain_text)
       (plain_text))))
 
@@ -217,8 +214,7 @@ This is *bold with `mono and ^super^`* text.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content
-            (plain_text))
+          content: (strong_content)
           close: (strong_close)))
       (plain_text))))
 
@@ -232,29 +228,24 @@ This is *bold {userName}* and `code {currentVersion}` and ^super{levelCount}^.
 
 (source_file
   (paragraph
-    content: (inline_seq_nonempty
+    (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (inline_element
         (strong
-          open: (strong_open)
-          content: (strong_content
-            (plain_text))
-          close: (strong_close)))
+          (strong_open)
+          (strong_content)
+          (strong_close)))
       (plain_text)
       (inline_element
         (monospace
-          open: (monospace_tick_open)
-          content: (monospace_tick_content
-            (plain_text))
-          close: (monospace_tick_close)))
+          (monospace_open)
+          (monospace_close)))
       (plain_text)
       (inline_element
-            (superscript
-              open: (superscript_open)
-              content: (superscript_content
-            (plain_text))
-              close: (superscript_close)))))
+        (superscript
+          (superscript_open)
+          (superscript_close)))
       (plain_text))))
 
 ================================================================================
@@ -379,14 +370,14 @@ Use stem:[a^2 + b^2] and kbd:[Ctrl+*Bold*] commands.
     content: (inline_seq_nonempty
       (plain_text)
       (inline_macro
-        name: (macro_name)
-        open: (INLINE_MACRO_MARKER)
-        body: (macro_body))
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
       (plain_text)
       (inline_macro
-        name: (macro_name)
-        open: (INLINE_MACRO_MARKER)
-        body: (macro_body))
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
       (plain_text))))
 
 ================================================================================
@@ -416,15 +407,19 @@ Use image:logo.png[Logo] and https://example.com[Site] here.
 
 (source_file
   (paragraph
-    content: (inline_seq_nonempty
+    (inline_seq_nonempty
       (plain_text)
-      (inline_element
-        (image))
+      (inline_macro
+        (macro_name)
+        (macro_body)
+        (macro_close))
       (plain_text)
       (inline_element
         (explicit_link
-          url: (auto_link)
-          text: (link_text)))
+          (auto_link)
+          (plain_left_bracket)
+          (link_text)
+          (plain_right_bracket)))
       (plain_text))))
 
 ================================================================================
@@ -441,32 +436,25 @@ Multiple consecutive inline elements
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content
-            (plain_text))
+          content: (strong_content)
           close: (strong_close)))
       (inline_element
         (emphasis
           open: (emphasis_open)
-          content: (emphasis_content
-            (plain_text))
+          content: (emphasis_content)
           close: (emphasis_close)))
       (inline_element
         (monospace
-          open: (monospace_tick_open)
-          content: (monospace_tick_content
-            (plain_text))
-          close: (monospace_tick_close)))
+          open: (monospace_open)
+          close: (monospace_close)))
       (inline_element
         (superscript
           open: (superscript_open)
-          content: (superscript_content
-            (plain_text))
           close: (superscript_close)))
       (inline_element
         (subscript
           open: (subscript_open)
-          content: (subscript_content
-            (plain_text))
+          content: (subscript_text)
           close: (subscript_close)))
       (inline_element
         (attribute_substitution)))))
@@ -479,17 +467,7 @@ This has ** and __ and `` empty markers.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (inline_element
-        (strong
-          open: (strong_open)
-          content: (strong_content
-            (plain_text))
-          close: (MISSING strong_close))))))
+(source_file)
 
 ================================================================================
 Role span with dots in name
@@ -506,13 +484,10 @@ This is [role.with.dots]#styled text# here.
       (plain_text)
       (inline_element
         (role_span
-          roles: (role_list)
-          content: (role_content)))
+          roles: (role_attribute_list
+            (plain_left_bracket)
+            (plain_text)
+            (plain_right_bracket))
+          open: (role_span_open)
+          close: (role_span_close)))
       (plain_text))))
-
-
-
-
-
-
-

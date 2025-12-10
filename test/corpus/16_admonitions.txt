@@ -15,52 +15,52 @@ CAUTION: Proceed with extreme caution.
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    (paragraph_admonition
-      label: (admonition_label)
-      content: (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-  (paragraph
-    (paragraph_admonition
-      label: (admonition_label)
-      content: (inline_seq_nonempty
-        (plain_text)
-        (plain_quote)
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-  (paragraph
-    (paragraph_admonition
-      label: (admonition_label)
-      content: (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-  (paragraph
-    (paragraph_admonition
-      label: (admonition_label)
-      content: (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-  (paragraph
-    (paragraph_admonition
-      label: (admonition_label)
-      content: (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)))))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_quote)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Admonition Blocks with Example
@@ -85,8 +85,10 @@ Pro tip: Always read the documentation first!
 
 (source_file
   (block_admonition
-    label: (admonition_attribute
-      (ATTRIBUTE_LIST_START))
+    type: (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
     block: (example_block
       open: (example_open
         (EXAMPLE_FENCE_START))
@@ -98,8 +100,10 @@ Pro tip: Always read the documentation first!
       close: (example_close
         (EXAMPLE_FENCE_END))))
   (block_admonition
-    label: (admonition_attribute
-      (ATTRIBUTE_LIST_START))
+    type: (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
     block: (example_block
       open: (example_open
         (EXAMPLE_FENCE_START))
@@ -138,41 +142,54 @@ This is a sidebar admonition.
 
 (source_file
   (block_admonition
-    label: (admonition_attribute
-      (ATTRIBUTE_LIST_START))
-    block: (listing_block
-      open: (listing_open
+    (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    (listing_block
+      (listing_open
         (LISTING_FENCE_START))
-      content: (block_content
+      (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
         (content_line
           (DELIMITED_BLOCK_CONTENT_LINE))
         (content_line
           (DELIMITED_BLOCK_CONTENT_LINE)))
-      close: (listing_close
+      (listing_close
         (LISTING_FENCE_END))))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_dash)
+      (plain_dash)
+      (plain_dash)))
   (block_admonition
-    label: (admonition_attribute
-      (ATTRIBUTE_LIST_START))
-    block: (literal_block
-      open: (literal_open
+    (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    (literal_block
+      (literal_open
         (LITERAL_FENCE_START))
-      content: (block_content
+      (block_content
         (content_line
           (DELIMITED_BLOCK_CONTENT_LINE))
         (content_line
           (DELIMITED_BLOCK_CONTENT_LINE)))
-      close: (literal_close
+      (literal_close
         (LITERAL_FENCE_END))))
   (block_admonition
-    label: (admonition_attribute
-      (ATTRIBUTE_LIST_START))
-    block: (sidebar_block
-      open: (sidebar_open
+    (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    (sidebar_block
+      (sidebar_open
         (SIDEBAR_FENCE_START))
-      content: (block_content
+      (block_content
         (content_line
           (DELIMITED_BLOCK_CONTENT_LINE)))
-      close: (sidebar_close
+      (sidebar_close
         (SIDEBAR_FENCE_END)))))
 
 ================================================================================
@@ -188,49 +205,53 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    (paragraph_admonition
-      label: (admonition_label)
-      content: (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_dash)
-        (plain_text)
-        (inline_element
-          (internal_xref
-            target: (xref_target)))
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-  (paragraph
-    (paragraph_admonition
-      label: (admonition_label)
-      content: (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (inline_element
-          (external_xref))
-        (plain_text)
-        (plain_text)
-        (plain_text))))
-  (paragraph
-    (paragraph_admonition
-      label: (admonition_label)
-      content: (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (inline_element
-          (footnote_inline))
-        (plain_text)
-        (plain_text)))))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (inline_element
+        (internal_xref
+          (xref_target)))
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        (macro_name)
+        (macro_body)
+        (macro_close))
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        (macro_name)
+        (macro_body)
+        (macro_close))
+      (plain_text)
+      (plain_text))))
 
 ====
 Block admonitions work in sections as well.
@@ -248,24 +269,3 @@ Another paragraph after the admonition.
       (plain_text)
       (plain_text)
       (plain_text))))
-
-====
-This should not be an admonition block.
-====
-
-NOTE: This is a valid admonition again.
-
---------------------------------------------------------------------------------
-
-(source_file
-  (paragraph
-    (paragraph_admonition
-      label: (admonition_label)
-      content: (inline_seq_nonempty
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_text)))))
-

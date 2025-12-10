@@ -3,19 +3,33 @@ Nested delimited blocks
 ================================================================================
 
 ====
-Example block with content.
+Outer example block.
+
+****
+
+Inner sidebar block.
+
+****
+
+====
 
 ----
 
 (source_file
   (example_block
-    open: (example_open
+    (example_open
       (EXAMPLE_FENCE_START))
-    content: (block_content
+    (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (example_close
-      (MISSING EXAMPLE_FENCE_END))))
+    (example_close
+      (EXAMPLE_FENCE_END))))
 
 ================================================================================
 Complex table structures
@@ -39,9 +53,13 @@ Complex table structures
 
 (source_file
   (table_block
-    metadata: (metadata
-      attributes: (block_attributes
-        (ATTRIBUTE_LIST_START)))
+    attributes: (table_attributes
+      (plain_left_bracket)
+      (plain_text)
+      (plain_double_quote)
+      (plain_text)
+      (plain_double_quote)
+      (plain_right_bracket))
     open: (table_open
       (TABLE_FENCE_START))
     content: (table_content
@@ -263,65 +281,69 @@ Enabled: {enabledAttr}
 (source_file
   (section
     (section_level_2
-      marker: (section_marker_2)
-      title: (title)
-      content: (attribute_entry
-        name: (attribute_name
+      (section_marker_2)
+      (title)
+      (attribute_entry
+        (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
-        value: (attribute_value))
-      content: (attribute_entry
-        name: (attribute_name
+        (attribute_value))
+      (attribute_entry
+        (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
-        value: (attribute_value))
-      content: (attribute_entry
-        name: (attribute_name
+        (attribute_value))
+      (attribute_entry
+        (attribute_name
           (plain_colon)
-          (plain_text)
+          (attribute_name_text)
           (plain_colon))
-        value: (attribute_value))
-      content: (paragraph
-        content: (inline_seq_nonempty
-          (plain_text)
-          (plain_colon)
-          (inline_element
-            (attribute_substitution)))
-        content: (inline_seq_nonempty
-          (plain_text)
-          (plain_colon)
-          (inline_element
-            (attribute_substitution)))
-        content: (inline_seq_nonempty
+        (attribute_value))
+      (paragraph
+        (inline_seq_nonempty
           (plain_text)
           (plain_colon)
           (inline_element
             (attribute_substitution))))
-      content: (paragraph
-        content: (inline_seq_nonempty
-          (plain_colon)
+      (paragraph
+        (inline_seq_nonempty
           (plain_text)
-          (plain_colon))
-        content: (inline_seq_nonempty
           (plain_colon)
+          (inline_element
+            (attribute_substitution))))
+      (paragraph
+        (inline_seq_nonempty
           (plain_text)
+          (plain_colon)
+          (inline_element
+            (attribute_substitution))))
+      (attribute_entry
+        (attribute_name
+          (plain_colon)
+          (attribute_name_text)
           (plain_colon)))
-      content: (paragraph
-        content: (inline_seq_nonempty
+      (attribute_entry
+        (attribute_name
+          (plain_colon)
+          (attribute_name_text)
+          (plain_colon)))
+      (paragraph
+        (inline_seq_nonempty
           (plain_text)
           (plain_colon)
           (inline_element
-            (attribute_substitution)))
-        content: (inline_seq_nonempty
+            (attribute_substitution))))
+      (paragraph
+        (inline_seq_nonempty
           (plain_text)
           (plain_colon)
           (inline_element
-            (attribute_substitution)))
-        content: (inline_seq_nonempty
+            (attribute_substitution))))
+      (paragraph
+        (inline_seq_nonempty
           (plain_text)
           (plain_colon)
           (inline_element
             (attribute_substitution)))))))
-

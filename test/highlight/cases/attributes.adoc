@@ -1,8 +1,0 @@
-:author: John Doe
-:version: 1.0.0
-:email: john.doe@example.com
-:description: Sample AsciiDoc document with attributes
-
-:blank-value:
-:numeric-attr: 42
-:boolean-attr: true
