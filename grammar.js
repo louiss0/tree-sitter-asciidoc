@@ -842,7 +842,8 @@ module.exports = grammar({
     plain_right_bracket: () => token("]"),
     plain_backtick: () => token("`"),
 
-    escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
+    // Any escaped single character: blocks delimiter interpretations
+    escaped_char: ($) => token.immediate(seq("\\", /[^\r\n]/)),
 
     // Strong formatting (*bold* or **bold**)
     strong: ($) =>
@@ -869,8 +870,8 @@ module.exports = grammar({
           $.monospace,
           $.superscript,
           $.subscript,
-          token.immediate(/\\[*_`^~]/), // escaped formatting chars
-          token.immediate(/[^*\r\n]+/), // other text
+          $.escaped_char,
+          token.immediate(/[^*\\\r\n]+/), // other text
         ),
       ),
 
@@ -899,8 +900,8 @@ module.exports = grammar({
           $.monospace,
           $.superscript,
           $.subscript,
-          token.immediate(/\\[*_`^~]/), // escaped formatting chars
-          token.immediate(/[^_\r\n]+/), // other text
+          $.escaped_char,
+          token.immediate(/[^_\\\r\n]+/), // other text
         ),
       ),
 
@@ -911,12 +912,12 @@ module.exports = grammar({
         choice(
           seq(
             field("open", alias(token("``"), $.monospace_open)),
-            field("content", token.immediate(/[^`\r\n]+/)),
+            field("content", repeat1(choice($.escaped_char, token.immediate(/[^`\\\r\n]+/)))),
             field("close", alias(token("``"), $.monospace_close)),
           ),
           seq(
             field("open", alias($.plain_backtick, $.monospace_open)),
-            field("content", token.immediate(/[^`\r\n]+/)),
+            field("content", repeat1(choice($.escaped_char, token.immediate(/[^`\\\r\n]+/)))),
             field("close", alias($.plain_backtick, $.monospace_close)),
           ),
         ),
@@ -928,7 +929,7 @@ module.exports = grammar({
         5,
         seq(
           field("open", alias($.plain_caret, $.superscript_open)),
-          field("content", token.immediate(/|[^\^\r\n]+/)),
+          field("content", repeat1(choice($.escaped_char, token.immediate(/[^\\^\r\n]+/)))),
           field("close", alias($.plain_caret, $.superscript_close)),
         ),
       ),
@@ -945,7 +946,7 @@ module.exports = grammar({
 
     subscript_open: ($) => "~",
     subscript_close: ($) => "~",
-    subscript_text: ($) => token.immediate(/[^~\r\n]+/),
+    subscript_text: ($) => repeat1(choice($.escaped_char, token.immediate(/[^~\\\r\n]+/))),
 
     // Subscript (~sub~)
     highlight: ($) =>
@@ -960,7 +961,7 @@ module.exports = grammar({
 
     highlight_open: ($) => "#",
     highlight_close: ($) => "#",
-    highlight_text: ($) => token.immediate(/|[^#\r\n]+/),
+    highlight_text: ($) => repeat1(choice($.escaped_char, token.immediate(/[^#\\\r\n]+/))),
 
     // ANCHORS & CROSS-REFERENCES
     inline_anchor: ($) =>

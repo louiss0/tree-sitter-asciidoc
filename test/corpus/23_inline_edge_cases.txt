@@ -86,14 +86,10 @@ This is *bold with \* asterisk* text.
       (inline_element
         (strong
           open: (strong_open)
-          content: (strong_content)
+          content: (strong_content
+            (escaped_char))
           close: (strong_close)))
-      (plain_text)))
-  (unordered_list
-    items: (unordered_list_item
-      marker: (unordered_list_marker)
-      content: (inline_seq_nonempty
-        (plain_text)))))
+      (plain_text))))
 
 ================================================================================
 Escaped delimiters in emphasis
@@ -108,12 +104,12 @@ This is _italic with \_ underscore_ text.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_underscore)
-      (plain_text)
-      (plain_text)
-      (escaped_char)
-      (plain_text)
-      (plain_underscore)
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content
+            (escaped_char))
+          close: (emphasis_close)))
       (plain_text))))
 
 ================================================================================
@@ -132,6 +128,7 @@ This is `code with \` backtick` text.
       (inline_element
         (monospace
           open: (monospace_open)
+          content: (escaped_char)
           close: (monospace_close)))
       (plain_text))))
 
@@ -151,6 +148,7 @@ This is ^super with \^ caret^ text.
       (inline_element
         (superscript
           open: (superscript_open)
+          content: (escaped_char)
           close: (superscript_close)))
       (plain_text))))
 
@@ -170,7 +168,8 @@ This is ~sub with \~ tilde~ text.
       (inline_element
         (subscript
           open: (subscript_open)
-          content: (subscript_text)
+          content: (subscript_text
+            (escaped_char))
           close: (subscript_close)))
       (plain_text))))
 
