@@ -14,14 +14,12 @@ Simple unordered list with asterisk
       (unordered_list_marker)
       (inline_seq_nonempty
         (plain_text)
-        (plain_text))))
-  (unordered_list
+        (plain_text)))
     (unordered_list_item
       (unordered_list_marker)
       (inline_seq_nonempty
         (plain_text)
-        (plain_text))))
-  (unordered_list
+        (plain_text)))
     (unordered_list_item
       (unordered_list_marker)
       (inline_seq_nonempty
@@ -44,14 +42,12 @@ Simple unordered list with hyphen
       (unordered_list_marker)
       (inline_seq_nonempty
         (plain_text)
-        (plain_text))))
-  (unordered_list
+        (plain_text)))
     (unordered_list_item
       (unordered_list_marker)
       (inline_seq_nonempty
         (plain_text)
-        (plain_text))))
-  (unordered_list
+        (plain_text)))
     (unordered_list_item
       (unordered_list_marker)
       (inline_seq_nonempty
@@ -74,14 +70,12 @@ Mixed unordered list markers
       (unordered_list_marker)
       (inline_seq_nonempty
         (plain_text)
-        (plain_text))))
-  (unordered_list
+        (plain_text)))
     (unordered_list_item
       (unordered_list_marker)
       (inline_seq_nonempty
         (plain_text)
-        (plain_text))))
-  (unordered_list
+        (plain_text)))
     (unordered_list_item
       (unordered_list_marker)
       (inline_seq_nonempty
@@ -110,3 +104,283 @@ Not a list - missing space after marker
     (inline_seq_nonempty
       (plain_dash)
       (plain_text))))
+
+================================================================================
+Nested list with asterisk
+================================================================================
+
+* Level 1
+  * Level 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text))
+      (unordered_list
+        (unordered_list_marker)
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Nested list with hyphen
+================================================================================
+
+- Level 1
+  - Level 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text))
+      (unordered_list
+        (unordered_list_marker)
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Nested list mixed (asterisk then hyphen)
+================================================================================
+
+* Level 1
+  - Level 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text))
+      (unordered_list
+        (unordered_list_marker)
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Nested list mixed (hyphen then asterisk)
+================================================================================
+
+- Level 1
+  * Level 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text))
+      (unordered_list
+        (unordered_list_marker)
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Three levels of nesting
+================================================================================
+
+* Level 1
+  * Level 2
+    * Level 3
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text))
+      (unordered_list
+        (unordered_list_marker)
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))
+        (unordered_list
+          (unordered_list_marker)
+          (inline_seq_nonempty
+            (plain_text)
+            (plain_text)))))))
+
+================================================================================
+Four levels of nesting
+================================================================================
+
+- Level 1
+  - Level 2
+    - Level 3
+      - Level 4
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text))
+      (unordered_list
+        (unordered_list_marker)
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))
+        (unordered_list
+          (unordered_list_marker)
+          (inline_seq_nonempty
+            (plain_text)
+            (plain_text))
+          (unordered_list
+            (unordered_list_marker)
+            (inline_seq_nonempty
+              (plain_text)
+              (plain_text))))))))
+
+================================================================================
+Multiple nested items
+================================================================================
+
+* Level 1
+  * Item A
+  * Item B
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text))
+      (unordered_list
+        (unordered_list_marker)
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))
+        (unordered_list
+          (unordered_list_marker)
+          (inline_seq_nonempty
+            (plain_text)
+            (plain_text)))))))
+
+================================================================================
+Multiple parents with nesting
+================================================================================
+
+* Parent 1
+  * Child 1
+* Parent 2
+  * Child 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text))
+      (unordered_list
+        (unordered_list_marker)
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text))
+      (unordered_list
+        (unordered_list_marker)
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Zigzag nesting
+================================================================================
+
+* Level 1
+  * Level 2
+    * Level 3
+  * Level 2b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text))
+      (unordered_list
+        (unordered_list_marker)
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))
+        (unordered_list
+          (unordered_list_marker)
+          (inline_seq_nonempty
+            (plain_text)
+            (plain_text))
+          (unordered_list
+            (unordered_list_marker)
+            (inline_seq_nonempty
+              (plain_text)
+              (plain_text))))))))
+
+================================================================================
+Deep nesting return
+================================================================================
+
+* Level 1
+  * Level 2
+    * Level 3
+* Level 1b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unordered_list
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text))
+      (unordered_list
+        (unordered_list_marker)
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text))
+        (unordered_list
+          (unordered_list_marker)
+          (inline_seq_nonempty
+            (plain_text)
+            (plain_text)))))
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text)))))
