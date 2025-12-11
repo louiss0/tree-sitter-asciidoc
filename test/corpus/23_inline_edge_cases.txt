@@ -475,7 +475,8 @@ This has ** and __ and `` empty markers.
         (strong
           open: (strong_open)
           content: (strong_content)
-          close: (MISSING strong_close))))))
+          close: (strong_close
+            (MISSING "**")))))))
 
 ================================================================================
 Role span with dots in name

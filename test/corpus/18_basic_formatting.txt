@@ -76,8 +76,12 @@ This has *unclosed bold and _unclosed italic and `unclosed code.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_asterisk)))
-  (ERROR))
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close
+            (MISSING "*")))))))
 
 ================================================================================
 Mixed formatting elements

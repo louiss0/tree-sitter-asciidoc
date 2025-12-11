@@ -67,36 +67,28 @@ These look like conditionals but are malformed.
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_colon)
-      (plain_colon)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_colon)
-      (plain_colon)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_colon)
-      (plain_colon)
-      (plain_text)
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+      (block_macro
+        (macro_name)
+        (macro_body)
+        (macro_close))
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_colon)
+          (plain_colon)))
+      (block_macro
+        (macro_name)
+        (macro_body)
+        (MISSING macro_close))
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text))))
 
 ================================================================================
 Triple colons are not conditionals
@@ -195,10 +187,7 @@ endif::[]
       marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
-        name: (attribute_name
-          (plain_colon)
-          (attribute_name_text)
-          (plain_colon))
+        name: (attribute_name)
         value: (attribute_value))
       content: (conditional_block
         (ifdef_block
@@ -246,10 +235,7 @@ endif::[]
       marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
-        name: (attribute_name
-          (plain_colon)
-          (attribute_name_text)
-          (plain_colon))
+        name: (attribute_name)
         value: (attribute_value))
       content: (conditional_block
         (ifdef_block
@@ -263,10 +249,7 @@ endif::[]
               (plain_text)))
           end: (endif_directive)))
       content: (attribute_entry
-        name: (attribute_name
-          (plain_colon)
-          (attribute_name_text)
-          (plain_colon))
+        name: (attribute_name)
         value: (attribute_value))
       content: (conditional_block
         (ifndef_block
