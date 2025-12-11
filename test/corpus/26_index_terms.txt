@@ -258,7 +258,7 @@ This indexterm[missing-colon] should be text.
     (plain_dash)
     (plain_text)
     (plain_right_bracket)
-    (ERROR)))
+    (UNEXPECTED ' ')))
 
 ================================================================================
 Not an index term - incomplete concealed

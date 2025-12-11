@@ -466,7 +466,16 @@ This has ** and __ and `` empty markers.
 
 --------------------------------------------------------------------------------
 
-(source_file)
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (MISSING strong_close))))))
 
 ================================================================================
 Role span with dots in name

@@ -207,4 +207,4 @@ This should be parsed as a generic attribute list followed by paragraph.
       (plain_left_bracket)
       (admonition_label)
       (plain_right_bracket))
-    (ERROR)))
+    (UNEXPECTED ' ')))

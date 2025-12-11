@@ -191,13 +191,9 @@ This should be a paragraph.
 (source_file
   (paragraph
     (inline_seq_nonempty
-      (plain_text)
-      (plain_colon)
-      (plain_text)
-      (plain_dash)
-      (plain_text)
-      (plain_left_bracket)
-      (plain_right_bracket)))
+      (inline_macro
+        (macro_name)
+        (macro_close))))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
@@ -220,11 +216,11 @@ This should be a paragraph.
   (block_macro
     (macro_name)
     (macro_body)
-    (macro_close))
+    (MISSING macro_close))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text)))))
+      (plain_text))))

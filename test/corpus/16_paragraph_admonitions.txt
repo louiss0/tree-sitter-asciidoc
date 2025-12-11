@@ -127,7 +127,7 @@ NOTE: This note contains *bold text* and other formatting.
       (plain_text))))
 
 ================================================================================
-Empty NOTE paragraph
+Empty NOTE paragraph emits ERROR
 ================================================================================
 
 NOTE:
@@ -135,10 +135,9 @@ NOTE:
 ---
 
 (source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_colon))))
+  (ERROR
+    (admonition_label)
+    (plain_colon)))
 
 ================================================================================
 Not an admonition - lowercase label

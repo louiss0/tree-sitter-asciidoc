@@ -364,7 +364,7 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
           close: (MISSING ">>"))))))
 
 ================================================================================
-Malformed footnotes should be plain text
+Malformed footnotes emit missing macro_close
 ================================================================================
 
 This has foot note:[spaced] and footnote:[unclosed and regular text.
@@ -374,36 +374,18 @@ This has foot note:[spaced] and footnote:[unclosed and regular text.
 (source_file
   (paragraph
     content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_colon)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_colon)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
       (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (MISSING macro_close)))))
 
 ================================================================================
 Complex cross-reference targets

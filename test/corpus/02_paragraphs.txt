@@ -137,10 +137,8 @@ Just *one line
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_asterisk)
-      (plain_text)
-      (plain_text)
-      )))
+      (plain_asterisk)))
+  (ERROR))
 
 ================================================================================
 Paragraph with underscore
@@ -154,10 +152,8 @@ Just _one line
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_underscore)
-      (plain_text)
-      (plain_text)
-      )))
+      (plain_underscore)))
+  (ERROR))
 
 ================================================================================
 Paragraph with single quote
@@ -220,8 +216,8 @@ Just one ^line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_caret)
-      (plain_text))))
+      (plain_caret)))
+  (ERROR))
 
 ================================================================================
 Paragraph with Less than
@@ -428,7 +424,8 @@ Just one `line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_backtick)))
+  (ERROR))
 
 ================================================================================
 Paragraph with exclamation

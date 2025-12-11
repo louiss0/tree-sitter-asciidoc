@@ -64,14 +64,20 @@ This has `code` text in it.
       (plain_text))))
 
 ================================================================================
-Unclosed formatting should be plain text
+Unclosed formatting emits inline ERROR
 ================================================================================
 
 This has *unclosed bold and _unclosed italic and `unclosed code.
 
 ---
 
-(source_file )
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_asterisk)))
+  (ERROR))
 
 ================================================================================
 Mixed formatting elements
