@@ -308,7 +308,7 @@ Just} one line
 
 
 ================================================================================
-Paragraph with left bracket
+Paragraph with unmatched left bracket
 ================================================================================
 
 Just one [line
@@ -320,11 +320,12 @@ Just one [line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text)
-      (plain_text))))
+      (plain_left_bracket)))
+  (ERROR
+    (plain_text)))
 
 ================================================================================
-Paragraph with right bracket
+Paragraph with stray right bracket
 ================================================================================
 
 Just one ]line
@@ -336,7 +337,7 @@ Just one ]line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text)
+      (plain_right_bracket)
       (plain_text))))
 
 ================================================================================

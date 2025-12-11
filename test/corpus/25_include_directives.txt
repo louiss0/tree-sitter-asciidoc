@@ -207,7 +207,7 @@ This should be a paragraph.
       (plain_text))))
 
 ================================================================================
-Not an include - malformed brackets
+Include macro with malformed brackets
 ================================================================================
 
 include::malformed.adoc[missing-end
@@ -216,4 +216,15 @@ This should be a paragraph.
 
 --------------------------------------------------------------------------------
 
-(source_file)
+(source_file
+  (block_macro
+    (macro_name)
+    (macro_body)
+    (macro_close))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))))

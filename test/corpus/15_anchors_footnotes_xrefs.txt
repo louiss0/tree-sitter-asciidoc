@@ -309,7 +309,7 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
       (plain_text))))
 
 ================================================================================
-Malformed anchors produce errors
+Malformed anchors with unmatched brackets
 ================================================================================
 
 This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
@@ -319,39 +319,27 @@ This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
 (source_file
   (paragraph
     content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
+      (plain_left_bracket)
+      (ERROR
+        (plain_left_bracket)
+        (plain_text)
+        (plain_text)
+        (plain_right_bracket))
+      (plain_right_bracket)
       (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+      (plain_left_bracket)
+      (plain_left_bracket)))
+  (ERROR
+    (plain_text)
+    (plain_text)
+    (plain_text)
+    (plain_text)
+    (plain_text)))
 
 ================================================================================
-Malformed cross-references should be plain text
+Malformed cross-references with unmatched brackets
 ================================================================================
 
 This has < <spaced xref> > and <<unclosed xref and regular text.
@@ -361,36 +349,19 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
 (source_file
   (paragraph
     content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_less_than)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_less_than)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_greater_than)))
-  (paragraph
-    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_less_than)
+      (plain_less_than)
+      (plain_text)
+      (plain_text)
+      (plain_greater_than)
       (plain_greater_than)
       (plain_text)
-      (plain_less_than)
-      (plain_less_than)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+      (inline_element
+        (internal_xref
+          target: (xref_target)
+          close: (MISSING ">>"))))))
 
 ================================================================================
 Malformed footnotes should be plain text

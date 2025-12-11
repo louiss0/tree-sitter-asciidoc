@@ -193,7 +193,7 @@ TIP block with metadata
       (plain_dash))))
 
 ================================================================================
-Not an admonition block - no delimited block following
+Bracketed admonition list without block
 ================================================================================
 
 [NOTE]
@@ -202,22 +202,9 @@ This should be parsed as a generic attribute list followed by paragraph.
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    (inline_seq_nonempty
+  (ERROR
+    (attribute_admonition_list
       (plain_left_bracket)
-      (plain_text)
-      (plain_right_bracket)))
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+      (admonition_label)
+      (plain_right_bracket))
+    (ERROR)))
