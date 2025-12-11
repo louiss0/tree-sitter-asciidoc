@@ -28,6 +28,12 @@ module.exports = grammar({
     $.LIST_CONTINUATION,
     $.AUTOLINK_BOUNDARY,
     $.DELIMITED_BLOCK_CONTENT_LINE,
+
+    // NEW: list markers provided by external scanner
+    $.UNORDERED_LIST_MARKER,
+    $.ORDERED_LIST_MARKER,
+    $.INDENTED_UNORDERED_LIST_MARKER,
+    $.INDENTED_ORDERED_LIST_MARKER,
   ],
 
   extras: ($) => [
@@ -632,14 +638,6 @@ module.exports = grammar({
 
     content_line: ($) => $.DELIMITED_BLOCK_CONTENT_LINE,
 
-    // List marker tokens (no longer external)
-    UNORDERED_LIST_MARKER: ($) => token.immediate(prec(5, /(?:\*{1,5}|-)[ \t]+/)),
-
-    ORDERED_LIST_MARKER: ($) => token.immediate(prec(5, /[0-9]+\.[ \t]+/)),
-
-    INDENTED_UNORDERED_LIST_MARKER: ($) => token(prec(5, /[ \t]+(?:\*{1,5}|-)[ \t]+/)),
-
-    INDENTED_ORDERED_LIST_MARKER: ($) => token(prec(5, /[ \t]+[0-9]+\.[ \t]+/)),
 
     // LISTS
     unordered_list: ($) => prec.right(field("items", repeat1($.unordered_list_item))),

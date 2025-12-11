@@ -2452,50 +2452,6 @@
       "type": "SYMBOL",
       "name": "DELIMITED_BLOCK_CONTENT_LINE"
     },
-    "UNORDERED_LIST_MARKER": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 5,
-        "content": {
-          "type": "PATTERN",
-          "value": "(?:\\*{1,5}|-)[ \\t]+"
-        }
-      }
-    },
-    "ORDERED_LIST_MARKER": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 5,
-        "content": {
-          "type": "PATTERN",
-          "value": "[0-9]+\\.[ \\t]+"
-        }
-      }
-    },
-    "INDENTED_UNORDERED_LIST_MARKER": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 5,
-        "content": {
-          "type": "PATTERN",
-          "value": "[ \\t]+(?:\\*{1,5}|-)[ \\t]+"
-        }
-      }
-    },
-    "INDENTED_ORDERED_LIST_MARKER": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 5,
-        "content": {
-          "type": "PATTERN",
-          "value": "[ \\t]+[0-9]+\\.[ \\t]+"
-        }
-      }
-    },
     "unordered_list": {
       "type": "PREC_RIGHT",
       "value": 0,
@@ -5357,6 +5313,22 @@
     {
       "type": "SYMBOL",
       "name": "DELIMITED_BLOCK_CONTENT_LINE"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "UNORDERED_LIST_MARKER"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ORDERED_LIST_MARKER"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "INDENTED_UNORDERED_LIST_MARKER"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "INDENTED_ORDERED_LIST_MARKER"
     }
   ],
   "inline": [],
