@@ -834,7 +834,7 @@ module.exports = grammar({
     plain_backtick: () => token("`"),
 
     // Any escaped single character: blocks delimiter interpretations
-    escaped_char: ($) => token.immediate(seq("\\", /[^\r\n]/)),
+    escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
 
     // Strong formatting (*bold* or **bold**)
     strong: ($) =>

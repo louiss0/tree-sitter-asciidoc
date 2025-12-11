@@ -95,15 +95,11 @@ Monospace with `code *not strong* here` content.
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
-      (ERROR
-        (ERROR))
       (escaped_char)
       (plain_text)
       (plain_text)
       (escaped_char)
       (plain_text)
-      (ERROR
-        (ERROR))
       (escaped_char)
       (plain_text)
       (plain_text)
