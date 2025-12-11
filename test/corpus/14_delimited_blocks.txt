@@ -141,14 +141,9 @@ Can contain any content.
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE))
       (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
     close: (openblock_close
-      (OPENBLOCK_FENCE_END)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_dash))))
+      (OPENBLOCK_FENCE_END))))
 
 ====
 System.out.println("Hello");
@@ -236,11 +231,6 @@ Another -- delimiter
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE))
       (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
     close: (openblock_close
-      (OPENBLOCK_FENCE_END)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_dash))))
+      (OPENBLOCK_FENCE_END))))

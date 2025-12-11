@@ -7,7 +7,8 @@ Three quotes should be used as a thematic break.
 ---
 
 (source_file
-  (thematic_break))
+  (thematic_break
+    (THEMATIC_BREAK)))
 
 
 =========
@@ -19,7 +20,8 @@ ___
 ---
 
 (source_file
-  (thematic_break))
+  (thematic_break
+    (THEMATIC_BREAK)))
 
 =========
 Three asterisks should be used as a thematic break.
@@ -30,7 +32,8 @@ Three asterisks should be used as a thematic break.
 ---
 
 (source_file
-  (thematic_break))
+  (thematic_break
+    (THEMATIC_BREAK)))
 
 
 =========

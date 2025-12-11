@@ -11,25 +11,7 @@ module.exports = grammar({
   name: "asciidoc",
 
   externals: ($) => [
-    $.EXAMPLE_FENCE_START,
-    $.EXAMPLE_FENCE_END,
-    $.LISTING_FENCE_START,
-    $.LISTING_FENCE_END,
-    $.LITERAL_FENCE_START,
-    $.LITERAL_FENCE_END,
-    $.QUOTE_FENCE_START,
-    $.QUOTE_FENCE_END,
-    $.SIDEBAR_FENCE_START,
-    $.SIDEBAR_FENCE_END,
-    $.PASSTHROUGH_FENCE_START,
-    $.PASSTHROUGH_FENCE_END,
-    $.OPENBLOCK_FENCE_START,
-    $.OPENBLOCK_FENCE_END,
     $.LIST_CONTINUATION,
-    $.AUTOLINK_BOUNDARY,
-    $.DELIMITED_BLOCK_CONTENT_LINE,
-
-    // NEW: list markers provided by external scanner
     $.UNORDERED_LIST_MARKER,
     $.ORDERED_LIST_MARKER,
     $.INDENTED_UNORDERED_LIST_MARKER,
@@ -452,15 +434,7 @@ module.exports = grammar({
 
     passthrough_close: ($) => $.PASSTHROUGH_FENCE_END,
 
-    thematic_break: ($) =>
-      prec.left(
-        20,
-        choice(
-          token("***"),
-          token("'''"), // still fine as plain tokens
-          token("___"),
-        ),
-      ),
+    thematic_break: ($) => field("marker", $.THEMATIC_BREAK),
 
     page_break: ($) => prec.left(25, seq(token("<<<"), $._blank_line)),
 
@@ -636,7 +610,43 @@ module.exports = grammar({
 
     block_content: ($) => repeat1(choice($.content_line, $._blank_line)),
 
-    content_line: ($) => $.DELIMITED_BLOCK_CONTENT_LINE,
+    content_line: ($) => seq($.DELIMITED_BLOCK_CONTENT_LINE, $._line_ending),
+
+    EXAMPLE_FENCE_START: ($) => token(prec(60, /={4,}[ \t]*\r?\n/)),
+    EXAMPLE_FENCE_END: ($) => token(prec(60, /={4,}[ \t]*\r?\n/)),
+
+    LISTING_FENCE_START: ($) => token(prec(55, /-{4,}[ \t]*\r?\n/)),
+    LISTING_FENCE_END: ($) => token(prec(55, /-{4,}[ \t]*\r?\n/)),
+
+    LITERAL_FENCE_START: ($) => token(prec(50, /\.{4,}[ \t]*\r?\n/)),
+    LITERAL_FENCE_END: ($) => token(prec(50, /\.{4,}[ \t]*\r?\n/)),
+
+    QUOTE_FENCE_START: ($) => token(prec(45, /_{4,}[ \t]*\r?\n/)),
+    QUOTE_FENCE_END: ($) => token(prec(45, /_{4,}[ \t]*\r?\n/)),
+
+    SIDEBAR_FENCE_START: ($) => token(prec(40, /\*{4,}[ \t]*\r?\n/)),
+    SIDEBAR_FENCE_END: ($) => token(prec(40, /\*{4,}[ \t]*\r?\n/)),
+
+    PASSTHROUGH_FENCE_START: ($) => token(prec(35, /\+{4,}[ \t]*\r?\n/)),
+    PASSTHROUGH_FENCE_END: ($) => token(prec(35, /\+{4,}[ \t]*\r?\n/)),
+
+    OPENBLOCK_FENCE_START: ($) => token(prec(30, /--[ \t]*\r?\n/)),
+    OPENBLOCK_FENCE_END: ($) => token(prec(30, /--[ \t]*\r?\n/)),
+
+    THEMATIC_BREAK: ($) =>
+      token(
+        prec(
+          25,
+          choice(
+            /\*[ \t]*\*[ \t]*\*[ \t]*(?:\*[ \t]*)*\r?\n/,
+            /-[ \t]*-[ \t]*-[ \t]*(?:-[ \t]*)*\r?\n/,
+            /_[ \t]*_[ \t]*_[ \t]*(?:_[ \t]*)*\r?\n/,
+            /'[ \t]*'[ \t]*'[ \t]*(?:'[ \t]*)*\r?\n/,
+          ),
+        ),
+      ),
+
+    DELIMITED_BLOCK_CONTENT_LINE: ($) => token(prec(1, /[^\r\n]+/)),
 
     // LISTS
     unordered_list: ($) => prec.right(field("items", repeat1($.unordered_list_item))),
@@ -842,17 +852,21 @@ module.exports = grammar({
         1,
         choice(
           seq(
-            field("open", alias(token("**"), $.strong_open)),
+            field("open", alias($._strong_double_marker, $.strong_open)),
             field("content", $.strong_content),
-            field("close", alias(token("**"), $.strong_close)),
+            field("close", alias($._strong_double_marker, $.strong_close)),
           ),
           seq(
-            field("open", alias($.plain_asterisk, $.strong_open)),
+            field("open", alias($._strong_single_marker, $.strong_open)),
             field("content", $.strong_content),
-            field("close", alias($.plain_asterisk, $.strong_close)),
+            field("close", alias($._strong_single_marker, $.strong_close)),
           ),
         ),
       ),
+
+    _strong_double_marker: ($) => token(prec(15, "**")),
+
+    _strong_single_marker: ($) => token(prec(5, "*")),
 
     strong_content: ($) =>
       repeat1(
