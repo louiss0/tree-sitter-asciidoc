@@ -284,22 +284,13 @@ Enabled: {enabledAttr}
       (section_marker_2)
       (title)
       (attribute_entry
-        (attribute_name
-          (plain_colon)
-          (attribute_name_text)
-          (plain_colon))
+        (attribute_name)
         (attribute_value))
       (attribute_entry
-        (attribute_name
-          (plain_colon)
-          (attribute_name_text)
-          (plain_colon))
+        (attribute_name)
         (attribute_value))
       (attribute_entry
-        (attribute_name
-          (plain_colon)
-          (attribute_name_text)
-          (plain_colon))
+        (attribute_name)
         (attribute_value))
       (paragraph
         (inline_seq_nonempty
@@ -320,15 +311,9 @@ Enabled: {enabledAttr}
           (inline_element
             (attribute_substitution))))
       (attribute_entry
-        (attribute_name
-          (plain_colon)
-          (attribute_name_text)
-          (plain_colon)))
+        (attribute_name))
       (attribute_entry
-        (attribute_name
-          (plain_colon)
-          (attribute_name_text)
-          (plain_colon)))
+        (attribute_name))
       (paragraph
         (inline_seq_nonempty
           (plain_text)

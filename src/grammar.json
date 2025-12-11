@@ -69,15 +69,15 @@
         },
         {
           "type": "SYMBOL",
+          "name": "callout_list"
+        },
+        {
+          "type": "SYMBOL",
           "name": "unordered_list"
         },
         {
           "type": "SYMBOL",
           "name": "ordered_list"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "callout_list"
         },
         {
           "type": "SYMBOL",
@@ -1362,21 +1362,15 @@
       }
     },
     "attribute_name": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "plain_colon"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "attribute_name_text"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "plain_colon"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 40,
+        "content": {
+          "type": "PATTERN",
+          "value": ":[A-Za-z_!][A-Za-z0-9_!-]*:"
         }
-      ]
+      }
     },
     "example_block": {
       "type": "SEQ",
@@ -2073,16 +2067,28 @@
       ]
     },
     "ifdef_open": {
-      "type": "PATTERN",
-      "value": "ifdef::[^\\[\\]:\\r\\n]+\\[\\]"
+      "type": "PREC",
+      "value": 20,
+      "content": {
+        "type": "PATTERN",
+        "value": "ifdef::[^\\[\\]:\\r\\n]+\\[\\]"
+      }
     },
     "ifeval_open": {
-      "type": "PATTERN",
-      "value": "ifeval::\\[[^\\[\\]:\\r\\n]+\\]"
+      "type": "PREC",
+      "value": 20,
+      "content": {
+        "type": "PATTERN",
+        "value": "ifeval::\\[[^\\[\\]:\\r\\n]+\\]"
+      }
     },
     "ifndef_open": {
-      "type": "PATTERN",
-      "value": "ifndef::[^\\[\\]:\\r\\n]+\\[\\]"
+      "type": "PREC",
+      "value": 20,
+      "content": {
+        "type": "PATTERN",
+        "value": "ifndef::[^\\[\\]:\\r\\n]+\\[\\]"
+      }
     },
     "endif_directive": {
       "type": "PATTERN",
@@ -2840,42 +2846,12 @@
     },
     "callout_list": {
       "type": "PREC_RIGHT",
-      "value": 0,
+      "value": 15,
       "content": {
-        "type": "FIELD",
-        "name": "items",
+        "type": "REPEAT1",
         "content": {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "callout_item"
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_blank_line"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "callout_item"
-                  }
-                ]
-              }
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "callout_item"
         }
       }
     },

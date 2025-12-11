@@ -77,9 +77,9 @@ module.exports = grammar({
       choice(
         $.section,
         $.attribute_entry,
+        $.callout_list,
         $.unordered_list,
         $.ordered_list,
-        $.callout_list,
         $.block_macro,
         $.block_admonition,
         $.inline_admonition,
@@ -378,7 +378,7 @@ module.exports = grammar({
 
     attribute_name_text: ($) => token(/[A-Za-z_!][A-Za-z0-9_!-]+/), // letter/underscore first
 
-    attribute_name: ($) => seq($.plain_colon, $.attribute_name_text, $.plain_colon),
+    attribute_name: ($) => token(prec(40, /:[A-Za-z_!][A-Za-z0-9_!-]*:/)),
 
     // DELIMITED BLOCKS
     example_block: ($) =>
@@ -551,11 +551,11 @@ module.exports = grammar({
         $._blank_line,
       ),
 
-    ifdef_open: ($) => /ifdef::[^\[\]:\r\n]+\[\]/,
+    ifdef_open: ($) => prec(20, /ifdef::[^\[\]:\r\n]+\[\]/),
 
-    ifeval_open: ($) => /ifeval::\[[^\[\]:\r\n]+\]/,
+    ifeval_open: ($) => prec(20, /ifeval::\[[^\[\]:\r\n]+\]/),
 
-    ifndef_open: ($) => /ifndef::[^\[\]:\r\n]+\[\]/,
+    ifndef_open: ($) => prec(20, /ifndef::[^\[\]:\r\n]+\[\]/),
 
     endif_directive: ($) => /endif::\[\]/,
 
@@ -637,7 +637,6 @@ module.exports = grammar({
     block_content: ($) => repeat1(choice($.content_line, $._blank_line)),
 
     content_line: ($) => $.DELIMITED_BLOCK_CONTENT_LINE,
-
 
     // LISTS
     unordered_list: ($) => prec.right(field("items", repeat1($.unordered_list_item))),
@@ -728,13 +727,7 @@ module.exports = grammar({
     description_content: ($) => $._inline_text,
 
     // CALLOUT LISTS
-    callout_list: ($) =>
-      prec.right(
-        field(
-          "items",
-          seq($.callout_item, repeat(seq(optional($._blank_line), $.callout_item))),
-        ),
-      ),
+    callout_list: ($) => prec.right(15, repeat1($.callout_item)),
 
     callout_item: ($) =>
       seq(

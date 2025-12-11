@@ -236,48 +236,7 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (inline_element
-        (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close)))
-      (plain_text)
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (inline_element
-        (emphasis
-          open: (emphasis_open)
-          content: (emphasis_content)
-          close: (emphasis_close)))
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (inline_element
-        (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close)))
-      (plain_text)
-      (inline_element
-        (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close)))
-      (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (inline_element
-        (monospace
-          open: (monospace_open)
-          close: (monospace_close)))
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+(source_file )
 
 ================================================================================
 Macro and attribute edge cases

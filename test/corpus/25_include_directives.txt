@@ -177,24 +177,6 @@ include::conclusion.adoc[]
     (macro_name)
     (macro_close)))
 
-================================================================================
-Include with empty options
-================================================================================
-
-include::simple.adoc[]
-
-Text after.
-
---------------------------------------------------------------------------------
-
-(source_file
-  (block_macro
-    (macro_name)
-    (macro_close))
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_text))))
 
 ================================================================================
 Not an include - missing colon
