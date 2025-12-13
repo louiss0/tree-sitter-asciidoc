@@ -553,40 +553,25 @@
     }
   },
   {
-    "type": "description_content",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "inline_seq_nonempty",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "description_item",
     "named": true,
     "fields": {
-      "details": {
+      "anchor": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "description_content",
+            "type": "description_term",
             "named": true
           }
         ]
       },
-      "term": {
-        "multiple": false,
-        "required": true,
+      "children": {
+        "multiple": true,
+        "required": false,
         "types": [
           {
-            "type": "description_term",
+            "type": "description_list",
             "named": true
           }
         ]
@@ -596,6 +581,14 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "description_term",
+          "named": true
+        },
+        {
+          "type": "inline_seq_nonempty",
+          "named": true
+        },
         {
           "type": "list_item_continuation",
           "named": true
@@ -607,7 +600,17 @@
     "type": "description_list",
     "named": true,
     "fields": {
-      "items": {
+      "details": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "description_item",
+            "named": true
+          }
+        ]
+      },
+      "term": {
         "multiple": true,
         "required": true,
         "types": [
@@ -617,6 +620,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "description_item",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1729,6 +1742,10 @@
           },
           {
             "type": "ordered_list",
+            "named": true
+          },
+          {
+            "type": "paragraph",
             "named": true
           },
           {

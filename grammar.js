@@ -7,6 +7,40 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
+function buildDescriptionTerm($, markerToken) {
+  return alias(
+    prec(15, seq(optional(field("anchor", $.inline_anchor)), markerToken)),
+    $.description_term,
+  );
+}
+
+function buildDescriptionItem($, inlineTerm, breakTerm, childList) {
+  const attachments = [$.list_item_continuation];
+  if (childList) {
+    attachments.push(field("children", childList));
+  }
+
+  const attachmentRule = attachments.length === 1 ? attachments[0] : choice(...attachments);
+
+  return alias(
+    prec.right(
+      1,
+      seq(
+        choice(
+          seq(
+            field("term", inlineTerm),
+            optional(field("details", $.description_content)),
+            $._line_ending,
+          ),
+          field("term", breakTerm),
+        ),
+        repeat(attachmentRule),
+      ),
+    ),
+    $.description_item,
+  );
+}
+
 module.exports = grammar({
   name: "asciidoc",
 
@@ -720,21 +754,139 @@ module.exports = grammar({
       ),
 
     // DESCRIPTION LISTS
-    // Two consecutive colons, used as the description delimiter
+    // Modeled like sections: parent level starts with :: and nested children add colons.
+    description_list: ($) =>
+      prec.right(choice($._description_list_level_2, $._description_list_semicolon)),
 
-    description_list: ($) => prec.right(2, field("items", repeat1($.description_item))),
+    _description_list_level_2: ($) => prec.right(1, repeat1($._description_item_level_2)),
+    _description_list_level_3: ($) => prec.right(1, repeat1($._description_item_level_3)),
+    _description_list_level_4: ($) => prec.right(1, repeat1($._description_item_level_4)),
+    _description_list_level_5: ($) => prec.right(1, repeat1($._description_item_level_5)),
+    _description_list_level_6: ($) => prec.right(1, repeat1($._description_item_level_6)),
 
-    description_item: ($) =>
-      seq(
-        field("term", $.description_term),
-        optional(field("details", $.description_content)),
-        $._line_ending,
-        repeat($.list_item_continuation),
+    _description_list_semicolon: ($) => prec.right(1, repeat1($._description_item_semicolon)),
+
+    _description_item_level_2: ($) =>
+      buildDescriptionItem(
+        $,
+        $._description_term_level_2_inline,
+        $._description_term_level_2_break,
+        alias($._description_list_level_3, $.description_list),
       ),
 
-    description_term: ($) => token(prec(5, /[A-Za-z0-9_-]+::[ \t]+/)),
+    _description_item_level_3: ($) =>
+      buildDescriptionItem(
+        $,
+        $._description_term_level_3_inline,
+        $._description_term_level_3_break,
+        alias($._description_list_level_4, $.description_list),
+      ),
+
+    _description_item_level_4: ($) =>
+      buildDescriptionItem(
+        $,
+        $._description_term_level_4_inline,
+        $._description_term_level_4_break,
+        alias($._description_list_level_5, $.description_list),
+      ),
+
+    _description_item_level_5: ($) =>
+      buildDescriptionItem(
+        $,
+        $._description_term_level_5_inline,
+        $._description_term_level_5_break,
+        alias($._description_list_level_6, $.description_list),
+      ),
+
+    _description_item_level_6: ($) =>
+      buildDescriptionItem(
+        $,
+        $._description_term_level_6_inline,
+        $._description_term_level_6_break,
+      ),
+
+    _description_item_semicolon: ($) =>
+      buildDescriptionItem(
+        $,
+        $._description_term_semicolon_inline,
+        $._description_term_semicolon_break,
+      ),
+
+    _description_term_level_2_inline: ($) =>
+      buildDescriptionTerm($, $.description_term_inline_marker_2),
+    _description_term_level_2_break: ($) =>
+      buildDescriptionTerm($, $.description_term_break_marker_2),
+
+    _description_term_level_3_inline: ($) =>
+      buildDescriptionTerm($, $.description_term_inline_marker_3),
+    _description_term_level_3_break: ($) =>
+      buildDescriptionTerm($, $.description_term_break_marker_3),
+
+    _description_term_level_4_inline: ($) =>
+      buildDescriptionTerm($, $.description_term_inline_marker_4),
+    _description_term_level_4_break: ($) =>
+      buildDescriptionTerm($, $.description_term_break_marker_4),
+
+    _description_term_level_5_inline: ($) =>
+      buildDescriptionTerm($, $.description_term_inline_marker_5),
+    _description_term_level_5_break: ($) =>
+      buildDescriptionTerm($, $.description_term_break_marker_5),
+
+    _description_term_level_6_inline: ($) =>
+      buildDescriptionTerm($, $.description_term_inline_marker_6),
+    _description_term_level_6_break: ($) =>
+      buildDescriptionTerm($, $.description_term_break_marker_6),
+
+    _description_term_semicolon_inline: ($) =>
+      buildDescriptionTerm($, $.description_term_inline_marker_semicolon),
+    _description_term_semicolon_break: ($) =>
+      buildDescriptionTerm($, $.description_term_break_marker_semicolon),
+
+    description_item: ($) =>
+      choice(
+        $._description_item_level_2,
+        $._description_item_level_3,
+        $._description_item_level_4,
+        $._description_item_level_5,
+        $._description_item_level_6,
+        $._description_item_semicolon,
+      ),
+
+    description_term: ($) =>
+      choice(
+        $._description_term_level_2_inline,
+        $._description_term_level_2_break,
+        $._description_term_level_3_inline,
+        $._description_term_level_3_break,
+        $._description_term_level_4_inline,
+        $._description_term_level_4_break,
+        $._description_term_level_5_inline,
+        $._description_term_level_5_break,
+        $._description_term_level_6_inline,
+        $._description_term_level_6_break,
+        $._description_term_semicolon_inline,
+        $._description_term_semicolon_break,
+      ),
 
     description_content: ($) => $._inline_text,
+
+    description_term_inline_marker_2: ($) => token(prec(50, /[^\r\n:;]+::[ \t]+/)),
+    description_term_break_marker_2: ($) => token(prec(50, /[^\r\n:;]+::[ \t]*\r?\n/)),
+
+    description_term_inline_marker_3: ($) => token(prec(55, /[^\r\n:;]+:::[ \t]+/)),
+    description_term_break_marker_3: ($) => token(prec(55, /[^\r\n:;]+:::[ \t]*\r?\n/)),
+
+    description_term_inline_marker_4: ($) => token(prec(60, /[^\r\n:;]+::::[ \t]+/)),
+    description_term_break_marker_4: ($) => token(prec(60, /[^\r\n:;]+::::[ \t]*\r?\n/)),
+
+    description_term_inline_marker_5: ($) => token(prec(65, /[^\r\n:;]+:::::[ \t]+/)),
+    description_term_break_marker_5: ($) => token(prec(65, /[^\r\n:;]+:::::[ \t]*\r?\n/)),
+
+    description_term_inline_marker_6: ($) => token(prec(70, /[^\r\n:;]+::::::[ \t]+/)),
+    description_term_break_marker_6: ($) => token(prec(70, /[^\r\n:;]+::::::[ \t]*\r?\n/)),
+
+    description_term_inline_marker_semicolon: ($) => token(prec(45, /[^\r\n:;]+;;[ \t]+/)),
+    description_term_break_marker_semicolon: ($) => token(prec(45, /[^\r\n:;]+;;[ \t]*\r?\n/)),
 
     // CALLOUT LISTS
     callout_list: ($) => prec.right(15, repeat1($.callout_item)),
@@ -755,6 +907,7 @@ module.exports = grammar({
         field(
           "block",
           choice(
+            $.paragraph,
             $.open_block,
             $.example_block,
             $.listing_block,
