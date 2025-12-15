@@ -237,6 +237,5 @@
 (plain_quote)         @punctuation.special
 (plain_underscore)    @punctuation.delimiter
 (plain_asterisk)      @punctuation.special
-(plain_text)          @text
 
 (hard_break) @punctuation.special
