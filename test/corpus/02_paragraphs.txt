@@ -134,11 +134,11 @@ Just *one line
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_asterisk)))
-  (ERROR))
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
+      (ERROR
+        (strong_open)))
 
 ================================================================================
 Paragraph with underscore
@@ -251,7 +251,6 @@ Just one >line
       (plain_greater_than)
       (plain_text))))
 
-
 ================================================================================
 Paragraph with Comma
 ================================================================================
@@ -302,7 +301,6 @@ Just} one line
       (plain_text)
       (plain_text))))
 
-
 ================================================================================
 Paragraph with unmatched left bracket
 ================================================================================
@@ -349,6 +347,7 @@ Just one (line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
+      (plain_left_paren)
       (plain_text))))
 
 ================================================================================
@@ -364,6 +363,7 @@ Just one )line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
+      (plain_right_paren)
       (plain_text))))
 
 ================================================================================

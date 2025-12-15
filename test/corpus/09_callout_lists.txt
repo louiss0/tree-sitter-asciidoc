@@ -19,7 +19,8 @@ Simple callout list
       (callout_marker)
       (inline_seq_nonempty
         (plain_text)
-        (plain_text)))
+        (plain_text))))
+  (callout_list
     (callout_item
       (callout_marker)
       (inline_seq_nonempty

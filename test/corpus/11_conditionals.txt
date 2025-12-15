@@ -136,9 +136,9 @@ Another:: item
 
 (source_file
   (description_list
-    items: (description_item
-      term: (description_term)
-      details: (description_content
+    (description_list_item
+      term: (description_item_term)
+      definition: (description_item_definition
         (inline_seq_nonempty
           (plain_text)))))
   (conditional_block
@@ -151,9 +151,9 @@ Another:: item
           (plain_text)))
       end: (endif_directive)))
   (description_list
-    items: (description_item
-      term: (description_term)
-      details: (description_content
+    (description_list_item
+      term: (description_item_term)
+      definition: (description_item_definition
         (inline_seq_nonempty
           (plain_text))))))
 

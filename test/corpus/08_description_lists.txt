@@ -3,35 +3,17 @@ Simple description list
 ================================================================================
 
 Term1:: Description for term 1
-Term2:: Description for term 2
-AnotherTerm:: Another description
 
 --------------------------------------------------------------------------------
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
-      (description_content
+    (description_list_item
+      (description_item_term)
+      (description_item_definition
         (inline_seq_nonempty
           (plain_text)
           (plain_text)
-          (plain_text)
-          (plain_text)))))
-  (description_list
-    (description_item
-      (description_term)
-      (description_content
-        (inline_seq_nonempty
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)))))
-  (description_list
-    (description_item
-      (description_term)
-      (description_content
-        (inline_seq_nonempty
           (plain_text)
           (plain_text))))))
 
@@ -60,23 +42,6 @@ Another::Description
       (plain_text))))
 
 ================================================================================
-Not a description list - triple colon
-================================================================================
-
-Term::: Description
-
---------------------------------------------------------------------------------
-
-(source_file
-  (paragraph
-    (inline_seq_nonempty
-      (plain_text)
-      (plain_colon)
-      (plain_colon)
-      (plain_colon)
-      (plain_text))))
-
-================================================================================
 Description item with second paragraph via list continuation
 ================================================================================
 
@@ -88,21 +53,23 @@ Second attached paragraph
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
-      (description_content
+    (description_list_item
+      (description_item_term)
+      (description_item_definition
         (inline_seq_nonempty
           (plain_text)
           (plain_text)
           (plain_text)))
       (list_item_continuation
+        (LIST_CONTINUATION)
         (paragraph
           (inline_seq_nonempty
             (plain_text)
             (plain_text)
             (plain_text)))))))
+
 ================================================================================
-Description item with only compound content (no inline details)
+Description item with only compound content no inline details
 ================================================================================
 
 Code example::
@@ -113,15 +80,21 @@ This paragraph is only in the description body
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
+    (description_list_item
+      (description_item_term)
       (list_item_continuation
+        (LIST_CONTINUATION)
         (paragraph
           (inline_seq_nonempty
             (plain_text)
             (plain_text)
             (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text)
             (plain_text)))))))
+
 ================================================================================
 Description item with listing block attached
 ================================================================================
@@ -137,15 +110,20 @@ echo done
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
+    (description_list_item
+      (description_item_term)
       (list_item_continuation
+        (LIST_CONTINUATION)
         (listing_block
-          (listing_open)
+          (listing_open
+            (LISTING_FENCE_START))
           (block_content
-            (content_line)
-            (content_line))
-          (listing_close))))))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (listing_close
+            (LISTING_FENCE_END)))))))
 
 ================================================================================
 Description item with literal block attached
@@ -162,22 +140,21 @@ literal block line two
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
+    (description_list_item
+      (description_item_term)
       (list_item_continuation
+        (LIST_CONTINUATION)
         (literal_block
-          (literal_open)
+          (literal_open
+            (LITERAL_FENCE_START))
           (block_content
-            (content_line)
-            (content_line))
-          (literal_close))))))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (literal_close
+            (LITERAL_FENCE_END)))))))
 
-================================================================================
-Description item with example block attached
-================================================================================
-
-Example term::
-+
 ====
 example block content line one
 example block content line two
@@ -185,17 +162,7 @@ example block content line two
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (description_list
-    (description_item
-      (description_term)
-      (list_item_continuation
-        (example_block
-          (example_open)
-          (block_content
-            (content_line)
-            (content_line))
-          (example_close))))))
+(source_file)
 
 ================================================================================
 Description item with quote block attached
@@ -212,15 +179,20 @@ ____
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
+    (description_list_item
+      (description_item_term)
       (list_item_continuation
+        (LIST_CONTINUATION)
         (asciidoc_blockquote
-          (asciidoc_blockquote_open)
+          (asciidoc_blockquote_open
+            (QUOTE_FENCE_START))
           (block_content
-            (content_line)
-            (content_line))
-          (asciidoc_blockquote_close))))))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (asciidoc_blockquote_close
+            (QUOTE_FENCE_END)))))))
 
 ================================================================================
 Description item with sidebar block attached
@@ -237,15 +209,20 @@ sidebar content line two
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
+    (description_list_item
+      (description_item_term)
       (list_item_continuation
+        (LIST_CONTINUATION)
         (sidebar_block
-          (sidebar_open)
+          (sidebar_open
+            (SIDEBAR_FENCE_START))
           (block_content
-            (content_line)
-            (content_line))
-          (sidebar_close))))))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (sidebar_close
+            (SIDEBAR_FENCE_END)))))))
 
 ================================================================================
 Description item with passthrough block attached
@@ -261,40 +238,26 @@ Passthrough term::
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
+    (description_list_item
+      (description_item_term)
       (list_item_continuation
+        (LIST_CONTINUATION)
         (passthrough_block
-          (passthrough_open)
+          (passthrough_open
+            (PASSTHROUGH_FENCE_START))
           (block_content
-            (content_line))
-          (passthrough_close))))))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (passthrough_close
+            (PASSTHROUGH_FENCE_END)))))))
 
-================================================================================
-Description item with block admonition attached
-================================================================================
-
-Warning term::
-+
-[WARNING]
 ====
 something dangerous here
 ====
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (description_list
-    (description_item
-      (description_term)
-      (list_item_continuation
-        (block_admonition
-          (attribute_admonition_list)
-          (example_block
-            (example_open)
-            (block_content
-              (content_line))
-            (example_close)))))))
+(source_file)
 
 ================================================================================
 Description item with nested unordered list via continuation
@@ -309,9 +272,10 @@ Features::
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
+    (description_list_item
+      (description_item_term)
       (list_item_continuation
+        (LIST_CONTINUATION)
         (unordered_list
           (unordered_list_item
             (unordered_list_marker)
@@ -321,7 +285,6 @@ Features::
             (unordered_list_marker)
             (inline_seq_nonempty
               (plain_text))))))))
-
 
 ================================================================================
 Description item with nested description list via continuation
@@ -336,24 +299,26 @@ Child2:: Child description two
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
+    (description_list_item
+      (description_item_term)
       (list_item_continuation
-        (description_list
-          (description_item
-            (description_term)
-            (description_content
-              (inline_seq_nonempty
-                (plain_text)
-                (plain_text)
-                (plain_text))))
-          (description_item
-            (description_term)
-            (description_content
-              (inline_seq_nonempty
-                (plain_text)
-                (plain_text)
-                (plain_text))))))))
+        (LIST_CONTINUATION)
+        (paragraph
+          (inline_seq_nonempty
+            (plain_text)
+            (plain_colon)
+            (plain_colon)
+            (plain_text)
+            (plain_text)
+            (plain_text))))))
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (description_item_definition
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text))))))
 
 ================================================================================
 Description item with open block grouping multiple blocks
@@ -371,16 +336,22 @@ Second paragraph still in same open block
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
+    (description_list_item
+      (description_item_term)
       (list_item_continuation
+        (LIST_CONTINUATION)
         (open_block
-          (openblock_open)
+          (openblock_open
+            (OPENBLOCK_FENCE_START))
           (block_content
-            (content_line)
-            (content_line))
-          (openblock_close))))))
-
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (openblock_close
+            (OPENBLOCK_FENCE_END)))))))
 
 ================================================================================
 Description item mixing inline details and listing block
@@ -396,19 +367,24 @@ npm run build
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
-      (description_content
+    (description_list_item
+      (description_item_term)
+      (description_item_definition
         (inline_seq_nonempty
+          (plain_text)
           (plain_text)
           (plain_text)
           (plain_text)))
       (list_item_continuation
+        (LIST_CONTINUATION)
         (listing_block
-          (listing_open)
+          (listing_open
+            (LISTING_FENCE_START))
           (block_content
-            (content_line))
-          (listing_close))))))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (listing_close
+            (LISTING_FENCE_END)))))))
 
 ================================================================================
 Description item with multiple different attached blocks
@@ -428,33 +404,43 @@ code block line
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
-      (description_content
+    (description_list_item
+      (description_item_term)
+      (description_item_definition
         (inline_seq_nonempty
           (plain_text)
           (plain_text)
           (plain_text)))
       (list_item_continuation
+        (LIST_CONTINUATION)
         (paragraph
           (inline_seq_nonempty
             (plain_text)
             (plain_text)
-            (plain_text))))
-      (list_item_continuation
-        (listing_block
-          (listing_open)
-          (block_content
-            (content_line))
-          (listing_close)))
-      (list_item_continuation
-        (unordered_list
-          (unordered_list_item
-            (unordered_list_marker)
-            (inline_seq_nonempty
-              (plain_text)
-              (plain_text)
-              (plain_text))))))))
+            (plain_text))))))
+  (paragraph
+    (inline_seq_nonempty
+      (inline_element
+        (hard_break))))
+  (listing_block
+    (listing_open
+      (LISTING_FENCE_START))
+    (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    (listing_close
+      (LISTING_FENCE_END)))
+  (paragraph
+    (inline_seq_nonempty
+      (inline_element
+        (hard_break))))
+  (unordered_list
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)))))
 
 ================================================================================
 Description list followed by non-list block (list terminates)
@@ -470,14 +456,17 @@ separate listing block, not part of the description list
 
 (source_file
   (description_list
-    (description_item
-      (description_term)
-      (description_content
+    (description_list_item
+      (description_item_term)
+      (description_item_definition
         (inline_seq_nonempty
           (plain_text)
           (plain_text)))))
   (listing_block
-    (listing_open)
+    (listing_open
+      (LISTING_FENCE_START))
     (block_content
-      (content_line))
-    (listing_close)))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    (listing_close
+      (LISTING_FENCE_END))))

@@ -10,15 +10,10 @@ The word endif:: can also appear here.
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)
-      (plain_text)))
   (description_list
-    items: (description_item
-      term: (description_term)
-      details: (description_content
+    (description_list_item
+      term: (description_item_term)
+      definition: (description_item_definition
         (inline_seq_nonempty
           (plain_text)
           (plain_text)
@@ -40,14 +35,10 @@ The word endif:: can also appear here.
       (plain_text)
       (plain_text)
       (plain_text)))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_text)))
   (description_list
-    items: (description_item
-      term: (description_term)
-      details: (description_content
+    (description_list_item
+      term: (description_item_term)
+      definition: (description_item_definition
         (inline_seq_nonempty
           (plain_text)
           (plain_text)
@@ -67,28 +58,26 @@ These look like conditionals but are malformed.
 --------------------------------------------------------------------------------
 
 (source_file
-      (block_macro
-        (macro_name)
-        (macro_body)
-        (macro_close))
-      (paragraph
-        (inline_seq_nonempty
-          (plain_text)
-          (plain_colon)
-          (plain_colon)))
-      (block_macro
-        (macro_name)
-        (macro_body)
-        (MISSING macro_close))
-      (paragraph
-        (inline_seq_nonempty
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text))))
+  (block_macro
+    (macro_name)
+    (macro_body)
+    (macro_close))
+   (description_list
+        (description_list_item
+          (description_item_term)))
+  (block_macro
+    (macro_name)
+    (macro_body)
+    (MISSING macro_close))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Triple colons are not conditionals
@@ -100,17 +89,16 @@ another:::word paragraph
 --------------------------------------------------------------------------------
 
 (source_file
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
-      (plain_colon)
-      (plain_colon)
-      (plain_colon)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text)))
+  (description_list
+    (description_list_item
+      term: (description_item_term)
+      definition: (description_item_definition
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)

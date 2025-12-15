@@ -272,7 +272,11 @@ This ((incomplete)) should be text.
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
+      (plain_left_paren)
+      (plain_left_paren)
       (plain_text)
+      (plain_right_paren)
+      (plain_right_paren)
       (plain_text)
       (plain_text)
       (plain_text))))

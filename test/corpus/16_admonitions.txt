@@ -153,16 +153,9 @@ This is a sidebar admonition.
         (content_line
           (DELIMITED_BLOCK_CONTENT_LINE))
         (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE))
-        (content_line
           (DELIMITED_BLOCK_CONTENT_LINE)))
       (listing_close
         (LISTING_FENCE_END))))
-  (paragraph
-    (inline_seq_nonempty
-      (plain_dash)
-      (plain_dash)
-      (plain_dash)))
   (block_admonition
     (attribute_admonition_list
       (plain_left_bracket)

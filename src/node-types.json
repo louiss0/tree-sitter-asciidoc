@@ -553,25 +553,40 @@
     }
   },
   {
-    "type": "description_item",
+    "type": "description_item_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "inline_seq_nonempty",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "description_list",
     "named": true,
     "fields": {
-      "anchor": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "description_term",
-            "named": true
-          }
-        ]
-      },
-      "children": {
+      "definition": {
         "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "description_list",
+            "type": "description_item_definition",
+            "named": true
+          }
+        ]
+      },
+      "term": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "description_item_term",
             "named": true
           }
         ]
@@ -582,11 +597,7 @@
       "required": false,
       "types": [
         {
-          "type": "description_term",
-          "named": true
-        },
-        {
-          "type": "inline_seq_nonempty",
+          "type": "description_list_item",
           "named": true
         },
         {
@@ -597,25 +608,25 @@
     }
   },
   {
-    "type": "description_list",
+    "type": "description_list_item",
     "named": true,
     "fields": {
-      "details": {
-        "multiple": true,
+      "definition": {
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "description_item",
+            "type": "description_item_definition",
             "named": true
           }
         ]
       },
       "term": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "description_item",
+            "type": "description_item_term",
             "named": true
           }
         ]
@@ -626,7 +637,7 @@
       "required": false,
       "types": [
         {
-          "type": "description_item",
+          "type": "list_item_continuation",
           "named": true
         }
       ]
@@ -638,7 +649,7 @@
     "fields": {
       "author": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "author_line",
@@ -648,7 +659,7 @@
       },
       "revision": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "revision_line",
@@ -1631,6 +1642,10 @@
           "named": true
         },
         {
+          "type": "plain_left_paren",
+          "named": true
+        },
+        {
           "type": "plain_less_than",
           "named": true
         },
@@ -1640,6 +1655,10 @@
         },
         {
           "type": "plain_right_bracket",
+          "named": true
+        },
+        {
+          "type": "plain_right_paren",
           "named": true
         },
         {
@@ -2097,10 +2116,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "description_list",
-          "named": true
-        },
         {
           "type": "list_item_continuation",
           "named": true
@@ -3531,10 +3546,6 @@
         "required": true,
         "types": [
           {
-            "type": "description_list",
-            "named": true
-          },
-          {
             "type": "inline_seq_nonempty",
             "named": true
           },
@@ -3601,10 +3612,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "description_list",
-          "named": true
-        },
         {
           "type": "list_item_continuation",
           "named": true
@@ -3753,7 +3760,7 @@
     "named": true
   },
   {
-    "type": "description_term",
+    "type": "description_item_term",
     "named": true
   },
   {
@@ -3865,6 +3872,10 @@
     "named": true
   },
   {
+    "type": "plain_left_paren",
+    "named": true
+  },
+  {
     "type": "plain_less_than",
     "named": true
   },
@@ -3874,6 +3885,10 @@
   },
   {
     "type": "plain_right_bracket",
+    "named": true
+  },
+  {
+    "type": "plain_right_paren",
     "named": true
   },
   {

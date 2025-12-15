@@ -205,16 +205,10 @@ Subsection content
       marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
-        name: (attribute_name
-          (plain_colon)
-          (attribute_name_text)
-          (plain_colon))
+        name: (attribute_name)
         value: (attribute_value))
       content: (attribute_entry
-        name: (attribute_name
-          (plain_colon)
-          (attribute_name_text)
-          (plain_colon))
+        name: (attribute_name)
         value: (attribute_value))
       content: (paragraph
         content: (inline_seq_nonempty
@@ -225,10 +219,7 @@ Subsection content
       marker: (section_marker_2)
       title: (title)
       content: (attribute_entry
-        name: (attribute_name
-          (plain_colon)
-          (attribute_name_text)
-          (plain_colon))
+        name: (attribute_name)
         value: (attribute_value))
       content: (paragraph
         content: (inline_seq_nonempty
