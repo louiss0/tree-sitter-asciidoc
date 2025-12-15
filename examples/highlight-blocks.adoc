@@ -1,0 +1,101 @@
+= Block Showcase
+:author: Block Writer
+
+Intro paragraph before any section.
+
+.Example block before sections
+====
+Pre-section example content.
+====
+
+== Example Blocks
+
+.Example with title inside section
+====
+Line one
+Line two
+====
+
+====
+Example without title in section
+====
+
+== Listing Blocks
+
+[source,js]
+----
+console.log('listing block with source info');
+----
+
+----
+Second listing block without attributes.
+----
+
+== Literal Blocks
+
+....
+Literal block preserves  *all*  markup like `code`.
+....
+
+....
+Another literal block spanning
+multiple lines and {author} substitution.
+....
+
+== Quote Blocks
+
+____
+Quoted block with inline formatting and role[.quote]#role text#.
+____
+
+____
+Second quote block without extra text.
+____
+
+== Sidebar Blocks
+
+****
+Sidebar content with *bold* and _italic_.
+****
+
+****
+.Sidebar with title
+Sidebar plus extra paragraph.
+****
+
+== Passthrough Blocks
+
+++++
+<div class="note">Raw passthrough HTML</div>
+++++
+
+++++
+Passthrough block without HTML, still raw text.
+++++
+
+== Open Blocks and Mixed Content
+
+--
+Open block line one.
+
+* list inside open block
+* second bullet
+--
+
+--
+.Open block with nested example
+====
+Nested example content
+====
+--
+
+== Blocks outside sections
+
+[source]
+----
+Listing block after sections.
+----
+
+++++
+Trailing passthrough at root.
+++++

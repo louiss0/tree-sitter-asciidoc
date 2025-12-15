@@ -1,0 +1,150 @@
+= Text Formatting Showcase
+:author: Format Tester
+:revnumber: 0.9
+:purpose: highlight stress test
+
+== Attribute usage
+Project {purpose} ensures coverage across inline constructs.
+
+NOTE: Inline admonitions like this should highlight the keyword.
+
+// Comment explaining that following lines mix formatting.
+
+=== Formatting parade
+The following lines intentionally combine _emphasis_, *strong*, mono, and #highlight# markers.
+Each numbered sentence introduces ^sup^, ~sub~, role[.lead]#role spans#, and attribute substitutions {purpose}.
+
+01. *Bold* _italic_ code #highlight 1# ^sup^1^ ~sub_1~ link:https://example.com/1[link 1] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[1]
+02. *Bold* _italic_ code #highlight 2# ^sup^2^ ~sub_2~ link:https://example.com/2[link 2] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[2]
+03. *Bold* _italic_ code #highlight 3# ^sup^3^ ~sub_3~ link:https://example.com/3[link 3] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[3]
+04. *Bold* _italic_ code #highlight 4# ^sup^4^ ~sub_4~ link:https://example.com/4[link 4] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[4]
+05. *Bold* _italic_ code #highlight 5# ^sup^5^ ~sub_5~ link:https://example.com/5[link 5] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[5]
+06. *Bold* _italic_ code #highlight 6# ^sup^6^ ~sub_6~ link:https://example.com/6[link 6] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[6]
+07. *Bold* _italic_ code #highlight 7# ^sup^7^ ~sub_7~ link:https://example.com/7[link 7] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[7]
+08. *Bold* _italic_ code #highlight 8# ^sup^8^ ~sub_8~ link:https://example.com/8[link 8] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[8]
+09. *Bold* _italic_ code #highlight 9# ^sup^9^ ~sub_9~ link:https://example.com/9[link 9] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[9]
+10. *Bold* _italic_ code #highlight 10# ^sup^10^ ~sub_10~ link:https://example.com/10[link 10] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[10]
+11. *Bold* _italic_ code #highlight 11# ^sup^11^ ~sub_11~ link:https://example.com/11[link 11] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[11]
+12. *Bold* _italic_ code #highlight 12# ^sup^12^ ~sub_12~ link:https://example.com/12[link 12] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[12]
+13. *Bold* _italic_ code #highlight 13# ^sup^13^ ~sub_13~ link:https://example.com/13[link 13] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[13]
+14. *Bold* _italic_ code #highlight 14# ^sup^14^ ~sub_14~ link:https://example.com/14[link 14] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[14]
+15. *Bold* _italic_ code #highlight 15# ^sup^15^ ~sub_15~ link:https://example.com/15[link 15] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[15]
+16. *Bold* _italic_ code #highlight 16# ^sup^16^ ~sub_16~ link:https://example.com/16[link 16] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[16]
+17. *Bold* _italic_ code #highlight 17# ^sup^17^ ~sub_17~ link:https://example.com/17[link 17] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[17]
+18. *Bold* _italic_ code #highlight 18# ^sup^18^ ~sub_18~ link:https://example.com/18[link 18] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[18]
+19. *Bold* _italic_ code #highlight 19# ^sup^19^ ~sub_19~ link:https://example.com/19[link 19] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[19]
+20. *Bold* _italic_ code #highlight 20# ^sup^20^ ~sub_20~ link:https://example.com/20[link 20] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[20]
+21. *Bold* _italic_ code #highlight 21# ^sup^21^ ~sub_21~ link:https://example.com/21[link 21] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[21]
+22. *Bold* _italic_ code #highlight 22# ^sup^22^ ~sub_22~ link:https://example.com/22[link 22] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[22]
+23. *Bold* _italic_ code #highlight 23# ^sup^23^ ~sub_23~ link:https://example.com/23[link 23] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[23]
+24. *Bold* _italic_ code #highlight 24# ^sup^24^ ~sub_24~ link:https://example.com/24[link 24] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[24]
+25. *Bold* _italic_ code #highlight 25# ^sup^25^ ~sub_25~ link:https://example.com/25[link 25] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[25]
+26. *Bold* _italic_ code #highlight 26# ^sup^26^ ~sub_26~ link:https://example.com/26[link 26] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[26]
+27. *Bold* _italic_ code #highlight 27# ^sup^27^ ~sub_27~ link:https://example.com/27[link 27] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[27]
+28. *Bold* _italic_ code #highlight 28# ^sup^28^ ~sub_28~ link:https://example.com/28[link 28] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[28]
+29. *Bold* _italic_ code #highlight 29# ^sup^29^ ~sub_29~ link:https://example.com/29[link 29] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[29]
+30. *Bold* _italic_ code #highlight 30# ^sup^30^ ~sub_30~ link:https://example.com/30[link 30] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[30]
+31. *Bold* _italic_ code #highlight 31# ^sup^31^ ~sub_31~ link:https://example.com/31[link 31] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[31]
+32. *Bold* _italic_ code #highlight 32# ^sup^32^ ~sub_32~ link:https://example.com/32[link 32] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[32]
+33. *Bold* _italic_ code #highlight 33# ^sup^33^ ~sub_33~ link:https://example.com/33[link 33] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[33]
+34. *Bold* _italic_ code #highlight 34# ^sup^34^ ~sub_34~ link:https://example.com/34[link 34] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[34]
+35. *Bold* _italic_ code #highlight 35# ^sup^35^ ~sub_35~ link:https://example.com/35[link 35] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[35]
+36. *Bold* _italic_ code #highlight 36# ^sup^36^ ~sub_36~ link:https://example.com/36[link 36] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[36]
+37. *Bold* _italic_ code #highlight 37# ^sup^37^ ~sub_37~ link:https://example.com/37[link 37] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[37]
+38. *Bold* _italic_ code #highlight 38# ^sup^38^ ~sub_38~ link:https://example.com/38[link 38] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[38]
+39. *Bold* _italic_ code #highlight 39# ^sup^39^ ~sub_39~ link:https://example.com/39[link 39] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[39]
+40. *Bold* _italic_ code #highlight 40# ^sup^40^ ~sub_40~ link:https://example.com/40[link 40] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[40]
+41. *Bold* _italic_ code #highlight 41# ^sup^41^ ~sub_41~ link:https://example.com/41[link 41] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[41]
+42. *Bold* _italic_ code #highlight 42# ^sup^42^ ~sub_42~ link:https://example.com/42[link 42] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[42]
+43. *Bold* _italic_ code #highlight 43# ^sup^43^ ~sub_43~ link:https://example.com/43[link 43] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[43]
+44. *Bold* _italic_ code #highlight 44# ^sup^44^ ~sub_44~ link:https://example.com/44[link 44] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[44]
+45. *Bold* _italic_ code #highlight 45# ^sup^45^ ~sub_45~ link:https://example.com/45[link 45] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[45]
+46. *Bold* _italic_ code #highlight 46# ^sup^46^ ~sub_46~ link:https://example.com/46[link 46] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[46]
+47. *Bold* _italic_ code #highlight 47# ^sup^47^ ~sub_47~ link:https://example.com/47[link 47] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[47]
+48. *Bold* _italic_ code #highlight 48# ^sup^48^ ~sub_48~ link:https://example.com/48[link 48] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[48]
+49. *Bold* _italic_ code #highlight 49# ^sup^49^ ~sub_49~ link:https://example.com/49[link 49] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[49]
+50. *Bold* _italic_ code #highlight 50# ^sup^50^ ~sub_50~ link:https://example.com/50[link 50] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[50]
+51. *Bold* _italic_ code #highlight 51# ^sup^51^ ~sub_51~ link:https://example.com/51[link 51] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[51]
+52. *Bold* _italic_ code #highlight 52# ^sup^52^ ~sub_52~ link:https://example.com/52[link 52] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[52]
+53. *Bold* _italic_ code #highlight 53# ^sup^53^ ~sub_53~ link:https://example.com/53[link 53] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[53]
+54. *Bold* _italic_ code #highlight 54# ^sup^54^ ~sub_54~ link:https://example.com/54[link 54] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[54]
+55. *Bold* _italic_ code #highlight 55# ^sup^55^ ~sub_55~ link:https://example.com/55[link 55] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[55]
+56. *Bold* _italic_ code #highlight 56# ^sup^56^ ~sub_56~ link:https://example.com/56[link 56] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[56]
+57. *Bold* _italic_ code #highlight 57# ^sup^57^ ~sub_57~ link:https://example.com/57[link 57] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[57]
+58. *Bold* _italic_ code #highlight 58# ^sup^58^ ~sub_58~ link:https://example.com/58[link 58] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[58]
+59. *Bold* _italic_ code #highlight 59# ^sup^59^ ~sub_59~ link:https://example.com/59[link 59] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[59]
+60. *Bold* _italic_ code #highlight 60# ^sup^60^ ~sub_60~ link:https://example.com/60[link 60] icon:warning[] kbd:ENTER[] btn:Save[] macro:call[60]
+
+=== Inline lists
+* Item uses mono, *bold*, and menu:File[Save As].
+* Another item mixes role[.strong]#role text# with passthrough +++<b>HTML</b>+++.
+* Attribute {purpose} shows constant substitution.
+
+=== Paragraph mashups
+Paragraph 1 includes (((term))) index terms, xref<<inline-demo,see inline>>, and url:https://openai.com[bare link].
+Paragraph 2 references [[[cite-key,Inline Cite]]] and {purpose} again with code and *bold* combos.
+Paragraph 3: role[.quote]#inline roles# mixed with #highlights# and inline macro icon:info[].
+
+=== Mixed inline table
+|===
+|Format |Example
+|Strong |*bold value*
+|Emphasis |_underline italics_
+|Mono |inline code snippet
+|Highlight |#bright idea#
+|Roles |role[.kbd]#fake role#
+|Macros |kbd:CTRL+S[] and btn:Submit[] and icon:heart[]
+|===
+
+== Dense paragraph block
+Paragraph 61: *bold*, _italic_, mono, #hi-61#, role[.small]#small text#, icon:star[], kbd:61[], macro:call[arg61], xref<<inline-demo,line 61>>.
+Paragraph 62: *bold*, _italic_, mono, #hi-62#, role[.small]#small text#, icon:star[], kbd:62[], macro:call[arg62], xref<<inline-demo,line 62>>.
+Paragraph 63: *bold*, _italic_, mono, #hi-63#, role[.small]#small text#, icon:star[], kbd:63[], macro:call[arg63], xref<<inline-demo,line 63>>.
+Paragraph 64: *bold*, _italic_, mono, #hi-64#, role[.small]#small text#, icon:star[], kbd:64[], macro:call[arg64], xref<<inline-demo,line 64>>.
+Paragraph 65: *bold*, _italic_, mono, #hi-65#, role[.small]#small text#, icon:star[], kbd:65[], macro:call[arg65], xref<<inline-demo,line 65>>.
+Paragraph 66: *bold*, _italic_, mono, #hi-66#, role[.small]#small text#, icon:star[], kbd:66[], macro:call[arg66], xref<<inline-demo,line 66>>.
+Paragraph 67: *bold*, _italic_, mono, #hi-67#, role[.small]#small text#, icon:star[], kbd:67[], macro:call[arg67], xref<<inline-demo,line 67>>.
+Paragraph 68: *bold*, _italic_, mono, #hi-68#, role[.small]#small text#, icon:star[], kbd:68[], macro:call[arg68], xref<<inline-demo,line 68>>.
+Paragraph 69: *bold*, _italic_, mono, #hi-69#, role[.small]#small text#, icon:star[], kbd:69[], macro:call[arg69], xref<<inline-demo,line 69>>.
+Paragraph 70: *bold*, _italic_, mono, #hi-70#, role[.small]#small text#, icon:star[], kbd:70[], macro:call[arg70], xref<<inline-demo,line 70>>.
+Paragraph 71: *bold*, _italic_, mono, #hi-71#, role[.small]#small text#, icon:star[], kbd:71[], macro:call[arg71], xref<<inline-demo,line 71>>.
+Paragraph 72: *bold*, _italic_, mono, #hi-72#, role[.small]#small text#, icon:star[], kbd:72[], macro:call[arg72], xref<<inline-demo,line 72>>.
+Paragraph 73: *bold*, _italic_, mono, #hi-73#, role[.small]#small text#, icon:star[], kbd:73[], macro:call[arg73], xref<<inline-demo,line 73>>.
+Paragraph 74: *bold*, _italic_, mono, #hi-74#, role[.small]#small text#, icon:star[], kbd:74[], macro:call[arg74], xref<<inline-demo,line 74>>.
+Paragraph 75: *bold*, _italic_, mono, #hi-75#, role[.small]#small text#, icon:star[], kbd:75[], macro:call[arg75], xref<<inline-demo,line 75>>.
+Paragraph 76: *bold*, _italic_, mono, #hi-76#, role[.small]#small text#, icon:star[], kbd:76[], macro:call[arg76], xref<<inline-demo,line 76>>.
+Paragraph 77: *bold*, _italic_, mono, #hi-77#, role[.small]#small text#, icon:star[], kbd:77[], macro:call[arg77], xref<<inline-demo,line 77>>.
+Paragraph 78: *bold*, _italic_, mono, #hi-78#, role[.small]#small text#, icon:star[], kbd:78[], macro:call[arg78], xref<<inline-demo,line 78>>.
+Paragraph 79: *bold*, _italic_, mono, #hi-79#, role[.small]#small text#, icon:star[], kbd:79[], macro:call[arg79], xref<<inline-demo,line 79>>.
+Paragraph 80: *bold*, _italic_, mono, #hi-80#, role[.small]#small text#, icon:star[], kbd:80[], macro:call[arg80], xref<<inline-demo,line 80>>.
+Paragraph 81: *bold*, _italic_, mono, #hi-81#, role[.small]#small text#, icon:star[], kbd:81[], macro:call[arg81], xref<<inline-demo,line 81>>.
+Paragraph 82: *bold*, _italic_, mono, #hi-82#, role[.small]#small text#, icon:star[], kbd:82[], macro:call[arg82], xref<<inline-demo,line 82>>.
+Paragraph 83: *bold*, _italic_, mono, #hi-83#, role[.small]#small text#, icon:star[], kbd:83[], macro:call[arg83], xref<<inline-demo,line 83>>.
+Paragraph 84: *bold*, _italic_, mono, #hi-84#, role[.small]#small text#, icon:star[], kbd:84[], macro:call[arg84], xref<<inline-demo,line 84>>.
+Paragraph 85: *bold*, _italic_, mono, #hi-85#, role[.small]#small text#, icon:star[], kbd:85[], macro:call[arg85], xref<<inline-demo,line 85>>.
+Paragraph 86: *bold*, _italic_, mono, #hi-86#, role[.small]#small text#, icon:star[], kbd:86[], macro:call[arg86], xref<<inline-demo,line 86>>.
+Paragraph 87: *bold*, _italic_, mono, #hi-87#, role[.small]#small text#, icon:star[], kbd:87[], macro:call[arg87], xref<<inline-demo,line 87>>.
+Paragraph 88: *bold*, _italic_, mono, #hi-88#, role[.small]#small text#, icon:star[], kbd:88[], macro:call[arg88], xref<<inline-demo,line 88>>.
+Paragraph 89: *bold*, _italic_, mono, #hi-89#, role[.small]#small text#, icon:star[], kbd:89[], macro:call[arg89], xref<<inline-demo,line 89>>.
+Paragraph 90: *bold*, _italic_, mono, #hi-90#, role[.small]#small text#, icon:star[], kbd:90[], macro:call[arg90], xref<<inline-demo,line 90>>.
+Paragraph 91: *bold*, _italic_, mono, #hi-91#, role[.small]#small text#, icon:star[], kbd:91[], macro:call[arg91], xref<<inline-demo,line 91>>.
+Paragraph 92: *bold*, _italic_, mono, #hi-92#, role[.small]#small text#, icon:star[], kbd:92[], macro:call[arg92], xref<<inline-demo,line 92>>.
+Paragraph 93: *bold*, _italic_, mono, #hi-93#, role[.small]#small text#, icon:star[], kbd:93[], macro:call[arg93], xref<<inline-demo,line 93>>.
+Paragraph 94: *bold*, _italic_, mono, #hi-94#, role[.small]#small text#, icon:star[], kbd:94[], macro:call[arg94], xref<<inline-demo,line 94>>.
+Paragraph 95: *bold*, _italic_, mono, #hi-95#, role[.small]#small text#, icon:star[], kbd:95[], macro:call[arg95], xref<<inline-demo,line 95>>.
+Paragraph 96: *bold*, _italic_, mono, #hi-96#, role[.small]#small text#, icon:star[], kbd:96[], macro:call[arg96], xref<<inline-demo,line 96>>.
+Paragraph 97: *bold*, _italic_, mono, #hi-97#, role[.small]#small text#, icon:star[], kbd:97[], macro:call[arg97], xref<<inline-demo,line 97>>.
+Paragraph 98: *bold*, _italic_, mono, #hi-98#, role[.small]#small text#, icon:star[], kbd:98[], macro:call[arg98], xref<<inline-demo,line 98>>.
+Paragraph 99: *bold*, _italic_, mono, #hi-99#, role[.small]#small text#, icon:star[], kbd:99[], macro:call[arg99], xref<<inline-demo,line 99>>.
+Paragraph 100: *bold*, _italic_, mono, #hi-100#, role[.small]#small text#, icon:star[], kbd:100[], macro:call[arg100], xref<<inline-demo,line 100>>.
+Paragraph 101: *bold*, _italic_, mono, #hi-101#, role[.small]#small text#, icon:star[], kbd:101[], macro:call[arg101], xref<<inline-demo,line 101>>.
+Paragraph 102: *bold*, _italic_, mono, #hi-102#, role[.small]#small text#, icon:star[], kbd:102[], macro:call[arg102], xref<<inline-demo,line 102>>.
+Paragraph 103: *bold*, _italic_, mono, #hi-103#, role[.small]#small text#, icon:star[], kbd:103[], macro:call[arg103], xref<<inline-demo,line 103>>.
+Paragraph 104: *bold*, _italic_, mono, #hi-104#, role[.small]#small text#, icon:star[], kbd:104[], macro:call[arg104], xref<<inline-demo,line 104>>.
+Paragraph 105: *bold*, _italic_, mono, #hi-105#, role[.small]#small text#, icon:star[], kbd:105[], macro:call[arg105], xref<<inline-demo,line 105>>.
+Paragraph 106: *bold*, _italic_, mono, #hi-106#, role[.small]#small text#, icon:star[], kbd:106[], macro:call[arg106], xref<<inline-demo,line 106>>.
+Paragraph 107: *bold*, _italic_, mono, #hi-107#, role[.small]#small text#, icon:star[], kbd:107[], macro:call[arg107], xref<<inline-demo,line 107>>.
+Paragraph 108: *bold*, _italic_, mono, #hi-108#, role[.small]#small text#, icon:star[], kbd:108[], macro:call[arg108], xref<<inline-demo,line 108>>.
+Paragraph 109: *bold*, _italic_, mono, #hi-109#, role[.small]#small text#, icon:star[], kbd:109[], macro:call[arg109], xref<<inline-demo,line 109>>.
+Paragraph 110: *bold*, _italic_, mono, #hi-110#, role[.small]#small text#, icon:star[], kbd:110[], macro:call[arg110], xref<<inline-demo,line 110>>.
+

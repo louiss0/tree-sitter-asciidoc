@@ -1,0 +1,22 @@
+:project: Highlight Showcase
+:revnumber: 2.1
+:phase: beta
+
+////
+Block comment should be ignored but ensures comment node exists.
+////
+
+[[inline-demo]]
+=== Inline Coverage Demo
+
+Some introductory text with {project} attribute substitution.
+
+NOTE: Inline admonition should be highlighted properly.
+
+role-name#Inline role span# mixes with `monospace`, *strong*, _emphasis_, ^sup^, ~sub~, and #highlighted text#.
+
+Pass-through +++<span class="raw">raw html</span>+++ is also present.
+
+xref<<inline-demo,Self reference>> plus [[[bib-id,Bibliography entry]]] anchors.
+
+`macro:call[sample]` inline macro and url:https://example.com[Explicit Link] alongside bare https://openai.com URL.

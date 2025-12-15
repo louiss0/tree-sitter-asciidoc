@@ -1,0 +1,45 @@
+= Table Playground
+:author: Table Tester
+
+== Basic table
+
+|===
+|Name |Role |Notes
+
+|Alice |Admin |*bold* `_italic_`
+|Bob   |User  |link:https://example.com[profile]
+|===
+
+== Attribute-heavy table
+
+[cols="1,1,2",options="header"]
+|===
+|Key |Value |Description
+
+|timeout |30s |#highlighted# duration
+|retries |3   |role[.note]#note span#
+|enabled |true|{author} flag
+|===
+
+== Cells with specs
+
+|===
+|Normal |Cell
+
+2+|Merged across two rows
+|Row 2 col 1 |Row 2 col 2
+|===
+
+== Tables mixed with lists
+
+|===
+|Feature |Details
+
+|List block
+|
+* item one
+** nested
+*** deeper
+|Inline formatting
+|`code` *bold* _italic_
+|===

@@ -1,0 +1,72 @@
+= List Zoo
+:author: List Maker
+
+== Unordered Variations
+
+* Star level 1
+  * Star level 2
+    * Star level 3
+      * Star level 4
+        * Star level 5
+
+- Dash level 1
+  - Dash level 2
+    - Dash level 3
+      - Dash level 4
+        - Dash level 5
+
++ Plus level 1
+  + Plus level 2
+    + Plus level 3
+      + Plus level 4
+        + Plus level 5
+
+== Ordered Variations
+
+1. Decimal level 1
+  1. Decimal level 2
+    1. Decimal level 3
+      1. Decimal level 4
+        1. Decimal level 5
+
+== Mixed Nested Variations
+
+* Mixed U1
+  * Mixed U2
+    1. Mixed O3
+      2. Mixed O4
+        3. Mixed O5
+
+1. Mixed O1
+  2. Mixed O2
+    * Mixed U3
+      * Mixed U4
+        * Mixed U5
+
+== Description List Variations
+
+term 1:: definition 1
+term 2:: definition 2
+term 3:: definition 3
+term 4:: definition 4
+term 5:: definition 5
+
+term A:: level 1
+term A::
++
+term B::: level 2
+term B:::
++
+term C:::: level 3
+term C::::
++
+term D::::: level 4
+term D:::::
++
+term E:::::: level 5
+
+== Callout Samples
+
+<1> Top level callout
+<2> Second level explanation
+<3> Third level continuation

@@ -20,11 +20,12 @@ module.exports = grammar({
 
   extras: ($) => [
     /[ \t]+/, // Allow spaces and tabs but not newlines
-    $._block_comment,
-    $._line_comment,
+    $.comment,
   ],
 
   conflicts: ($) => [[$.inline_element, $.explicit_link]],
+
+  word: ($) => $._plain_text_segment,
 
   rules: {
     source_file: ($) =>
@@ -358,6 +359,10 @@ module.exports = grammar({
     // DELIMITED BLOCKS
     example_block: ($) =>
       seq(
+        optional(field("title", $.block_title)),
+        optional(
+          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+        ),
         field("open", $.example_open),
         optional(field("content", $.block_content)),
         field("close", $.example_close),
@@ -370,6 +375,10 @@ module.exports = grammar({
     // Listing blocks
     listing_block: ($) =>
       seq(
+        optional(field("title", $.block_title)),
+        optional(
+          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+        ),
         field("open", $.listing_open),
         optional(field("content", $.block_content)),
         field("close", $.listing_close),
@@ -382,6 +391,10 @@ module.exports = grammar({
     // AsciiDoc quote blocks (fenced with ____)
     asciidoc_blockquote: ($) =>
       seq(
+        optional(field("title", $.block_title)),
+        optional(
+          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+        ),
         field("open", $.asciidoc_blockquote_open),
         optional(field("content", $.block_content)),
         field("close", $.asciidoc_blockquote_close),
@@ -394,6 +407,10 @@ module.exports = grammar({
     // Literal blocks
     literal_block: ($) =>
       seq(
+        optional(field("title", $.block_title)),
+        optional(
+          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+        ),
         field("open", $.literal_open),
         optional(field("content", $.block_content)),
         field("close", $.literal_close),
@@ -406,6 +423,10 @@ module.exports = grammar({
     // Sidebar blocks
     sidebar_block: ($) =>
       seq(
+        optional(field("title", $.block_title)),
+        optional(
+          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+        ),
         field("open", $.sidebar_open),
         optional(field("content", $.block_content)),
         field("close", $.sidebar_close),
@@ -418,6 +439,10 @@ module.exports = grammar({
     // Passthrough blocks
     passthrough_block: ($) =>
       seq(
+        optional(field("title", $.block_title)),
+        optional(
+          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+        ),
         field("open", $.passthrough_open),
         optional(field("content", $.block_content)),
         field("close", $.passthrough_close),
@@ -434,6 +459,10 @@ module.exports = grammar({
     // Open blocks
     open_block: ($) =>
       seq(
+        optional(field("title", $.block_title)),
+        optional(
+          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+        ),
         field("open", $.openblock_open),
         optional(field("content", $.block_content)),
         field("close", $.openblock_close),
@@ -901,6 +930,7 @@ module.exports = grammar({
         $.internal_xref,
         $.explicit_link,
         $.auto_link,
+        $.highlight,
 
         $.passthrough_triple_plus,
 
@@ -1228,6 +1258,8 @@ module.exports = grammar({
       ),
 
     macro_body: ($) => token.immediate(/[^\]\[\r\n]+/),
+
+    comment: ($) => choice($._block_comment, $._line_comment),
 
     // Block comments (//// ... ////), can span multiple lines
     _block_comment: ($) => token(prec(-10, /\/{4,}[\s\S]*?\/{4,}[ \t]*\r?\n?/)),
