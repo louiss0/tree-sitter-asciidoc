@@ -1,10 +1,10 @@
 ## Tests that are failing
-- Not run in this iteration; please execute `npx tree-sitter test` to ensure grammar/query updates pass.
+- Not run yet; execute `npx tree-sitter test` before handing off to catch regressions.
 
 ## What bugs are present
-- None observed during highlight query verification, but editor-specific highlighting still needs human validation.
+- None observed so far. Highlights 1–125 render correctly, but the remaining highlight outputs still need human review and may hide issues.
 
 ## What to do next
-- Run the full tree-sitter test suite and fix any regressions.
-- Manually inspect highlighting in target editors to confirm anchors, macros, and brackets look correct with real themes.
-- Trim or reorganize the new example fixtures if they need to be split for automated tests.
+- Continue inspecting `test/highlight/highlight-126.html` through `highlight-300.html` for mislabelled spans or empty files.
+- Re-run `npx tree-sitter highlight -n <n> --html --css-classes` for any failing cases and adjust queries if captures are wrong.
+- After manual review, run `npx tree-sitter test` to ensure grammar/query updates pass before shipping.
