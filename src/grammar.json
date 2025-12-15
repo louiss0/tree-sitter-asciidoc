@@ -3641,22 +3641,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "external_xref"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "footnote_inline"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "footnote_ref"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "footnoteref"
-        },
-        {
-          "type": "SYMBOL",
           "name": "explicit_link"
         },
         {
@@ -3812,7 +3796,7 @@
     },
     "_plain_text_segment": {
       "type": "PATTERN",
-      "value": "[A-Za-z0-9!$&@\\.,+\\/=%?#\\{\\}]+"
+      "value": "[A-Za-z0-9!$&@\\.,+\\/=%?#]+"
     },
     "plain_colon": {
       "type": "TOKEN",
@@ -3889,6 +3873,20 @@
       "content": {
         "type": "STRING",
         "value": "]"
+      }
+    },
+    "plain_left_brace": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "{"
+      }
+    },
+    "plain_right_brace": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "}"
       }
     },
     "plain_backtick": {
@@ -4669,102 +4667,6 @@
         "value": "[^>\\r\\n]+"
       }
     },
-    "external_xref": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "xref:"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^\\[\\r\\n]+"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "plain_left_bracket"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^\\]\\r\\n]*"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "plain_right_bracket"
-        }
-      ]
-    },
-    "footnote_inline": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "footnote:"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "plain_left_bracket"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^\\]\\r\\n]+"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "plain_right_bracket"
-        }
-      ]
-    },
-    "footnote_ref": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "footnote:"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^\\[\\r\\n]+"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "plain_left_bracket"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^\\]\\r\\n]*"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "plain_right_bracket"
-        }
-      ]
-    },
-    "footnoteref": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "footnoteref:"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^\\[\\r\\n]+"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "plain_left_bracket"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^\\]\\r\\n]*"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "plain_right_bracket"
-        }
-      ]
-    },
     "explicit_link": {
       "type": "PREC_DYNAMIC",
       "value": 2000,
@@ -4880,15 +4782,43 @@
       ]
     },
     "attribute_substitution": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\{[a-z]+(?:[A-Z][a-z0-9]+)+\\}"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "plain_left_brace"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "plain_text"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "plain_colon"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "plain_text"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "plain_text"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "plain_right_brace"
         }
-      }
+      ]
     },
     "_attribute_list": {
       "type": "PREC",

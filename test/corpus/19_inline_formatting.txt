@@ -91,10 +91,16 @@ Hello {userName} from {homeLocation}!
     content: (inline_seq_nonempty
       (plain_text)
       (inline_element
-        (attribute_substitution))
+        (attribute_substitution
+          (plain_left_brace)
+          (plain_text)
+          (plain_right_brace)))
       (plain_text)
       (inline_element
-        (attribute_substitution))
+        (attribute_substitution
+          (plain_left_brace)
+          (plain_text)
+          (plain_right_brace)))
       (plain_text))))
 
 ================================================================================

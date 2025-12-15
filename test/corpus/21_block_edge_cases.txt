@@ -297,19 +297,28 @@ Enabled: {enabledAttr}
           (plain_text)
           (plain_colon)
           (inline_element
-            (attribute_substitution))))
+            (attribute_substitution
+              (plain_left_brace)
+              (plain_text)
+              (plain_right_brace)))))
       (paragraph
         (inline_seq_nonempty
           (plain_text)
           (plain_colon)
           (inline_element
-            (attribute_substitution))))
+            (attribute_substitution
+              (plain_left_brace)
+              (plain_text)
+              (plain_right_brace)))))
       (paragraph
         (inline_seq_nonempty
           (plain_text)
           (plain_colon)
           (inline_element
-            (attribute_substitution))))
+            (attribute_substitution
+              (plain_left_brace)
+              (plain_text)
+              (plain_right_brace)))))
       (attribute_entry
         (attribute_name))
       (attribute_entry
@@ -319,16 +328,25 @@ Enabled: {enabledAttr}
           (plain_text)
           (plain_colon)
           (inline_element
-            (attribute_substitution))))
+            (attribute_substitution
+              (plain_left_brace)
+              (plain_text)
+              (plain_right_brace)))))
       (paragraph
         (inline_seq_nonempty
           (plain_text)
           (plain_colon)
           (inline_element
-            (attribute_substitution))))
+            (attribute_substitution
+              (plain_left_brace)
+              (plain_text)
+              (plain_right_brace)))))
       (paragraph
         (inline_seq_nonempty
           (plain_text)
           (plain_colon)
           (inline_element
-            (attribute_substitution)))))))
+            (attribute_substitution
+              (plain_left_brace)
+              (plain_text)
+              (plain_right_brace))))))))

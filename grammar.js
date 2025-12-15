@@ -899,10 +899,6 @@ module.exports = grammar({
         $.inline_anchor,
         $.bibliography_entry,
         $.internal_xref,
-        $.external_xref,
-        $.footnote_inline,
-        $.footnote_ref,
-        $.footnoteref,
         $.explicit_link,
         $.auto_link,
 
@@ -942,7 +938,7 @@ module.exports = grammar({
       ),
 
     plain_text: ($) => prec.left(-50, $._plain_text_segment),
-    _plain_text_segment: ($) => /[A-Za-z0-9!$&@\.,+\/=%?#\{\}]+/,
+    _plain_text_segment: ($) => /[A-Za-z0-9!$&@\.,+\/=%?#]+/,
 
     plain_colon: ($) => token(":"),
     plain_asterisk: ($) => token("*"),
@@ -955,6 +951,8 @@ module.exports = grammar({
     plain_greater_than: () => token(">"),
     plain_left_bracket: () => token("["),
     plain_right_bracket: () => token("]"),
+    plain_left_brace: () => token("{"),
+    plain_right_brace: () => token("}"),
     plain_backtick: () => token("`"),
     plain_left_paren: () => token("("),
     plain_right_paren: () => token(")"),
@@ -1131,25 +1129,6 @@ module.exports = grammar({
     xref_target: ($) => token.immediate(/[^>,\r\n]+/),
 
     xref_text: ($) => token.immediate(/[^>\r\n]+/),
-
-    external_xref: ($) =>
-      seq("xref:", /[^\[\r\n]+/, $.plain_left_bracket, /[^\]\r\n]*/, $.plain_right_bracket),
-
-    footnote_inline: ($) =>
-      seq("footnote:", $.plain_left_bracket, /[^\]\r\n]+/, $.plain_right_bracket),
-
-    footnote_ref: ($) =>
-      seq("footnote:", /[^\[\r\n]+/, $.plain_left_bracket, /[^\]\r\n]*/, $.plain_right_bracket),
-
-    footnoteref: ($) =>
-      seq(
-        "footnoteref:",
-        /[^\[\r\n]+/,
-        $.plain_left_bracket,
-        /[^\]\r\n]*/,
-        $.plain_right_bracket,
-      ),
-
     // EXPLICIT LINKS - URL followed by [text] (uses auto_link, higher precedence)
     explicit_link: ($) =>
       prec.dynamic(
@@ -1187,7 +1166,13 @@ module.exports = grammar({
         ),
         seq("++", token.immediate(/[^+]+/), "++"),
       ),
-    attribute_substitution: ($) => token(prec(10, /\{[a-z]+(?:[A-Z][a-z0-9]+)+\}/)),
+
+    attribute_substitution: ($) =>
+      seq(
+        $.plain_left_brace,
+        choice(seq($.plain_text, $.plain_colon, $.plain_text), $.plain_text),
+        $.plain_right_brace,
+      ),
 
     _attribute_list: ($) =>
       prec(
