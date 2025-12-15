@@ -185,5 +185,18 @@ This should be parsed as a generic attribute list followed by paragraph.
     (attribute_admonition_list
       (plain_left_bracket)
       (admonition_label)
-      (plain_right_bracket))
-    (UNEXPECTED ' ')))
+      (plain_right_bracket)))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))

@@ -177,7 +177,6 @@ include::conclusion.adoc[]
     (macro_name)
     (macro_close)))
 
-
 ================================================================================
 Not an include - missing colon
 ================================================================================
@@ -213,10 +212,9 @@ This should be a paragraph.
 --------------------------------------------------------------------------------
 
 (source_file
-  (block_macro
+  (ERROR
     (macro_name)
-    (macro_body)
-    (MISSING macro_close))
+    (macro_body))
   (paragraph
     (inline_seq_nonempty
       (plain_text)

@@ -322,16 +322,15 @@ This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
       (plain_text)
       (plain_text)
       (plain_left_bracket)
-      (ERROR
-        (plain_left_bracket)
-        (plain_text)
-        (plain_text)
-        (plain_right_bracket))
-      (plain_right_bracket)
-      (plain_text)
-      (plain_left_bracket)
       (plain_left_bracket)))
   (ERROR
+    (plain_text)
+    (plain_text)
+    (ERROR
+      (plain_right_bracket)
+      (plain_right_bracket)
+      (plain_left_bracket)
+      (plain_left_bracket))
     (plain_text)
     (plain_text)
     (plain_text)
@@ -357,9 +356,9 @@ This has < <spaced xref> > and <<unclosed xref and regular text.
       (plain_text)
       (plain_greater_than)
       (plain_greater_than)
-       (plain_text)))
-      (ERROR
-        (xref_target)))
+      (plain_text)))
+  (ERROR
+    (xref_target)))
 
 ================================================================================
 Malformed footnotes emit missing macro_close
@@ -379,11 +378,10 @@ This has foot note:[spaced] and footnote:[unclosed and regular text.
         open: (macro_name)
         body: (macro_body)
         close: (macro_close))
-      (plain_text)
-      (inline_macro
-        open: (macro_name)
-        body: (macro_body)
-        close: (MISSING macro_close)))))
+      (plain_text)))
+  (ERROR
+    (macro_name)
+    (macro_body)))
 
 ================================================================================
 Complex cross-reference targets

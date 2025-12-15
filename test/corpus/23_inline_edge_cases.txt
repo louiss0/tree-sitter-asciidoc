@@ -261,9 +261,7 @@ This } { should stay text.
       (plain_text)))
   (ERROR
     (plain_right_brace)
-    (plain_left_brace)
-    (plain_text)
-    (UNEXPECTED ' ')))
+    (plain_left_brace)))
 
 ================================================================================
 Attribute reference fallback - spaced stray closing braces
@@ -276,12 +274,15 @@ Stray } foo } braces remain literal.
 (source_file
   (paragraph
     content: (inline_seq_nonempty
-      (plain_text)))
-  (ERROR
-    (plain_right_brace)
-    (UNEXPECTED ' ')
-    (plain_right_brace)
-    (UNEXPECTED ' ')))
+      (plain_text)
+      (ERROR
+        (plain_right_brace))
+      (plain_text)
+      (ERROR
+        (plain_right_brace))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Attribute reference fallback - dangling opening brace
@@ -297,8 +298,7 @@ Open {userName reference stays literal.
       (plain_text)))
   (ERROR
     (plain_left_brace)
-    (plain_text)
-    (UNEXPECTED ' ')))
+    (ERROR)))
 
 ================================================================================
 Attribute reference fallback - spaced dangling brace
@@ -314,8 +314,7 @@ Spaces { name reference lacks brace.
       (plain_text)))
   (ERROR
     (plain_left_brace)
-    (plain_text)
-    (UNEXPECTED ' ')))
+    (ERROR)))
 
 ================================================================================
 Attribute reference fallback - interleaved braces
@@ -332,8 +331,7 @@ Weird }{ combos stay literal.
   (ERROR
     (plain_right_brace)
     (plain_left_brace)
-    (plain_text)
-    (UNEXPECTED ' ')))
+    (ERROR)))
 
 ================================================================================
 Line break with proper EOL

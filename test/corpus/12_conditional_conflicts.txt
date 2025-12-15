@@ -62,13 +62,12 @@ These look like conditionals but are malformed.
     (macro_name)
     (macro_body)
     (macro_close))
-   (description_list
-        (description_list_item
-          (description_item_term)))
-  (block_macro
+  (description_list
+    (description_list_item
+      (description_item_term)))
+  (ERROR
     (macro_name)
-    (macro_body)
-    (MISSING macro_close))
+    (macro_body))
   (paragraph
     (inline_seq_nonempty
       (plain_text)

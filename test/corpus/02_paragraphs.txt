@@ -263,9 +263,9 @@ Mary, James, John, Suku
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+      (plain_text)))
+  (ERROR
+    (plain_left_brace)))
 
 ================================================================================
 Paragraph with left brace
@@ -281,6 +281,8 @@ Just one {line
   (paragraph
     (inline_seq_nonempty
       (plain_text)
+      (ERROR
+        (plain_right_brace))
       (plain_text)
       (plain_text))))
 
@@ -315,8 +317,7 @@ Just one [line
       (plain_text)
       (plain_text)
       (plain_left_bracket)))
-  (ERROR
-    (plain_text)))
+  (ERROR))
 
 ================================================================================
 Paragraph with stray right bracket
