@@ -84,6 +84,7 @@ unless they are used only as the grammar's start rule.
 - `identifier`: bare variable/attribute names; also a good candidate for the grammar's `word` helper token.
 - `comment`: whitespace-like trivia that usually belongs in `extras`.
 - `string`: captures literal text constructs; the doc uses this name consistently across grammars.
+
 ## Things to do
 
 - If the grammar has a field use that for the query!
@@ -99,7 +100,6 @@ unless they are used only as the grammar's start rule.
 - When a sequence can repeat, model it with `_list` helpers that use `seq` plus `repeat`/`repeat1` so separators and trailing punctuation stay explicit and easy to maintain.
 - When the parser reports conflicts, first refactor the productions (factoring shared prefixes or using fields); only extend the `conflicts` array after exhausting simpler fixes.
 - When two tokens must appear with no skipped extras, wrap the follower with `token.immediate` or move the pair into the external scanner per the grammar guide.
-- When a feature seems to require lookahead, restructure it so the grammar consumes a distinguishing prefix before recursing, because Tree-sitter cannot rely on lookahead regexes.
 - When new behavior might demand tests, pause and ask the user for approval before writing or running them, per the repository workflow rules.
 
 ## Commands 
