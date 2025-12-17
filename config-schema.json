@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
@@ -19,27 +19,18 @@
             "type": "string",
             "description": "The name converted to CamelCase.",
             "pattern": "^\\w+$",
-            "examples": [
-              "Rust",
-              "HTML"
-            ]
+            "examples": ["Rust", "HTML"]
           },
           "title": {
             "type": "string",
             "description": "The title of the language.",
-            "examples": [
-              "Rust",
-              "HTML"
-            ]
+            "examples": ["Rust", "HTML"]
           },
           "scope": {
             "type": "string",
             "description": "The TextMate scope that represents this language.",
             "pattern": "^(source|text)(\\.[\\w\\-]+)+$",
-            "examples": [
-              "source.rust",
-              "text.html"
-            ]
+            "examples": ["source.rust", "text.html"]
           },
           "path": {
             "type": "string",
@@ -148,10 +139,7 @@
           }
         },
         "additionalProperties": false,
-        "required": [
-          "name",
-          "scope"
-        ]
+        "required": ["name", "scope"]
       },
       "minItems": 1
     },
@@ -172,9 +160,7 @@
         "description": {
           "type": "string",
           "description": "The project's description.",
-          "examples": [
-            "Rust grammar for tree-sitter"
-          ]
+          "examples": ["Rust grammar for tree-sitter"]
         },
         "links": {
           "type": "object",
@@ -191,9 +177,7 @@
             }
           },
           "additionalProperties": false,
-          "required": [
-            "repository"
-          ]
+          "required": ["repository"]
         },
         "authors": {
           "type": "array",
@@ -214,9 +198,7 @@
               }
             },
             "additionalProperties": false,
-            "required": [
-              "name"
-            ]
+            "required": ["name"]
           },
           "minItems": 1
         },
@@ -228,10 +210,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "version",
-        "links"
-      ]
+      "required": ["version", "links"]
     },
     "bindings": {
       "type": "object",
@@ -278,9 +257,5 @@
     }
   },
   "additionalProperties": false,
-  "required": [
-    "grammars",
-    "metadata"
-  ]
+  "required": ["grammars", "metadata"]
 }
-
