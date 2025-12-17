@@ -52,6 +52,7 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
       (inline_element
         (superscript
           open: (superscript_open)
+          content: (superscript_content)
           close: (superscript_close)))
       (plain_text)
       (inline_element
@@ -122,6 +123,7 @@ Monospace with `code *not strong* here` content.
       (inline_element
         (monospace
           open: (monospace_open)
+          content: (monospace_content)
           close: (monospace_close)))
       (plain_text))))
 
@@ -274,6 +276,7 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
       (inline_element
         (monospace
           open: (monospace_open)
+          content: (monospace_content)
           close: (monospace_close)))
       (plain_text)
       (plain_text)

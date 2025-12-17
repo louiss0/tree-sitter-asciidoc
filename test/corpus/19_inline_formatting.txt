@@ -28,6 +28,7 @@ This is *bold* text and _italic_ text and `monospace` text.
       (inline_element
         (monospace
           (monospace_open)
+          (monospace_content)
           (monospace_close)))
       (plain_text))))
 
@@ -48,6 +49,7 @@ This is E=mc^2^ and H~2~O.
       (inline_element
         (superscript
           (superscript_open)
+          (superscript_content)
           (superscript_close)))
       (plain_text)
       (plain_text)

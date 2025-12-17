@@ -4491,23 +4491,28 @@
                 "type": "FIELD",
                 "name": "content",
                 "content": {
-                  "type": "REPEAT1",
+                  "type": "ALIAS",
                   "content": {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "escaped_char"
-                      },
-                      {
-                        "type": "IMMEDIATE_TOKEN",
-                        "content": {
-                          "type": "PATTERN",
-                          "value": "[^`\\\\\\r\\n]+"
+                    "type": "REPEAT1",
+                    "content": {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "escaped_char"
+                        },
+                        {
+                          "type": "IMMEDIATE_TOKEN",
+                          "content": {
+                            "type": "PATTERN",
+                            "value": "[^`\\\\\\r\\n]+"
+                          }
                         }
-                      }
-                    ]
-                  }
+                      ]
+                    }
+                  },
+                  "named": true,
+                  "value": "monospace_content"
                 }
               },
               {
@@ -4548,23 +4553,28 @@
                 "type": "FIELD",
                 "name": "content",
                 "content": {
-                  "type": "REPEAT1",
+                  "type": "ALIAS",
                   "content": {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "escaped_char"
-                      },
-                      {
-                        "type": "IMMEDIATE_TOKEN",
-                        "content": {
-                          "type": "PATTERN",
-                          "value": "[^`\\\\\\r\\n]+"
+                    "type": "REPEAT1",
+                    "content": {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "escaped_char"
+                        },
+                        {
+                          "type": "IMMEDIATE_TOKEN",
+                          "content": {
+                            "type": "PATTERN",
+                            "value": "[^`\\\\\\r\\n]+"
+                          }
                         }
-                      }
-                    ]
-                  }
+                      ]
+                    }
+                  },
+                  "named": true,
+                  "value": "monospace_content"
                 }
               },
               {
@@ -4608,23 +4618,28 @@
             "type": "FIELD",
             "name": "content",
             "content": {
-              "type": "REPEAT1",
+              "type": "ALIAS",
               "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "escaped_char"
-                  },
-                  {
-                    "type": "IMMEDIATE_TOKEN",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "[^\\\\^\\r\\n]+"
+                "type": "REPEAT1",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "escaped_char"
+                    },
+                    {
+                      "type": "IMMEDIATE_TOKEN",
+                      "content": {
+                        "type": "PATTERN",
+                        "value": "[^\\\\^\\r\\n]+"
+                      }
                     }
-                  }
-                ]
-              }
+                  ]
+                }
+              },
+              "named": true,
+              "value": "superscript_content"
             }
           },
           {

@@ -123,7 +123,6 @@ Just one line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text)
       (plain_text))))
 
 ================================================================================
@@ -135,11 +134,11 @@ Just *one line
 --------------------------------------------------------------------------------
 
 (source_file
-      (paragraph
-        (inline_seq_nonempty
-          (plain_text)))
-      (ERROR
-        (strong_open)))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)))
+  (ERROR
+    (strong_open)))
 
 ================================================================================
 Paragraph with underscore

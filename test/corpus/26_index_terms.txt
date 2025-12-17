@@ -236,6 +236,7 @@ The *bold* text with indexterm:[formatting] and `code` examples.
       (inline_element
         (monospace
           open: (monospace_open)
+          content: (monospace_content)
           close: (monospace_close)))
       (plain_text))))
 

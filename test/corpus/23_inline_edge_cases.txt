@@ -128,7 +128,8 @@ This is `code with \` backtick` text.
       (inline_element
         (monospace
           open: (monospace_open)
-          content: (escaped_char)
+          content: (monospace_content
+            (escaped_char))
           close: (monospace_close)))
       (plain_text))))
 
@@ -148,7 +149,8 @@ This is ^super with \^ caret^ text.
       (inline_element
         (superscript
           open: (superscript_open)
-          content: (escaped_char)
+          content: (superscript_content
+            (escaped_char))
           close: (superscript_close)))
       (plain_text))))
 
@@ -239,11 +241,13 @@ This is *bold {userName}* and `code {currentVersion}` and ^super{levelCount}^.
       (inline_element
         (monospace
           (monospace_open)
+          (monospace_content)
           (monospace_close)))
       (plain_text)
       (inline_element
         (superscript
           (superscript_open)
+          (superscript_content)
           (superscript_close)))
       (plain_text))))
 
@@ -442,10 +446,12 @@ Multiple consecutive inline elements
       (inline_element
         (monospace
           open: (monospace_open)
+          content: (monospace_content)
           close: (monospace_close)))
       (inline_element
         (superscript
           open: (superscript_open)
+          content: (superscript_content)
           close: (superscript_close)))
       (inline_element
         (subscript
@@ -453,7 +459,10 @@ Multiple consecutive inline elements
           content: (subscript_text)
           close: (subscript_close)))
       (inline_element
-        (attribute_substitution)))))
+        (attribute_substitution
+          (plain_left_brace)
+          (plain_text)
+          (plain_right_brace))))))
 
 ================================================================================
 Empty inline constructs (edge case)

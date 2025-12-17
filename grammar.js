@@ -931,9 +931,7 @@ module.exports = grammar({
         $.explicit_link,
         $.auto_link,
         $.highlight,
-
         $.passthrough_triple_plus,
-
         $.attribute_substitution,
         $.role_span,
         $.index_term,
@@ -1061,12 +1059,24 @@ module.exports = grammar({
         choice(
           seq(
             field("open", alias(token("``"), $.monospace_open)),
-            field("content", repeat1(choice($.escaped_char, token.immediate(/[^`\\\r\n]+/)))),
+            field(
+              "content",
+              alias(
+                repeat1(choice($.escaped_char, token.immediate(/[^`\\\r\n]+/))),
+                $.monospace_content,
+              ),
+            ),
             field("close", alias(token("``"), $.monospace_close)),
           ),
           seq(
             field("open", alias($.plain_backtick, $.monospace_open)),
-            field("content", repeat1(choice($.escaped_char, token.immediate(/[^`\\\r\n]+/)))),
+            field(
+              "content",
+              alias(
+                repeat1(choice($.escaped_char, token.immediate(/[^`\\\r\n]+/))),
+                $.monospace_content,
+              ),
+            ),
             field("close", alias($.plain_backtick, $.monospace_close)),
           ),
         ),
@@ -1078,7 +1088,13 @@ module.exports = grammar({
         5,
         seq(
           field("open", alias($.plain_caret, $.superscript_open)),
-          field("content", repeat1(choice($.escaped_char, token.immediate(/[^\\^\r\n]+/)))),
+          field(
+            "content",
+            alias(
+              repeat1(choice($.escaped_char, token.immediate(/[^\\^\r\n]+/))),
+              $.superscript_content,
+            ),
+          ),
           field("close", alias($.plain_caret, $.superscript_close)),
         ),
       ),
@@ -1097,7 +1113,7 @@ module.exports = grammar({
     subscript_close: ($) => "~",
     subscript_text: ($) => repeat1(choice($.escaped_char, token.immediate(/[^~\\\r\n]+/))),
 
-    // Subscript (~sub~)
+    // Highlight (#highlight#)
     highlight: ($) =>
       prec.left(
         5,
