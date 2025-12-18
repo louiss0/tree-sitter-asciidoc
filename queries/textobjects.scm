@@ -10,7 +10,6 @@
 
 ; Sections as functions (outer includes title, inner is content only)
 [
-  (section_level_1)
   (section_level_2)
   (section_level_3)
   (section_level_4)
@@ -19,7 +18,6 @@
 ] @function.outer
 
 [
-  (section_level_1 content: (_) @function.inner)
   (section_level_2 content: (_) @function.inner)
   (section_level_3 content: (_) @function.inner)
   (section_level_4 content: (_) @function.inner)
@@ -27,12 +25,12 @@
   (section_level_6 content: (_) @function.inner)
 ]
 
-; Top-level sections (levels 1-2) as classes
-[(section_level_1) (section_level_2)] @class.outer
+; Top-level sections (levels 2-3) as classes
+[(section_level_2) (section_level_3)] @class.outer
 
 [
-  (section_level_1 content: (_) @class.inner)
   (section_level_2 content: (_) @class.inner)
+  (section_level_3 content: (_) @class.inner)
 ]
 
 ; ============================================================================
@@ -47,11 +45,6 @@
 ; Listing blocks
 (listing_block) @block.outer
 (listing_block
-  (block_content) @block.inner)
-
-; Fenced code blocks
-(fenced_code_block) @block.outer
-(fenced_code_block
   (block_content) @block.inner)
 
 ; Literal blocks
@@ -88,9 +81,8 @@
 ; COMMENTS - Comment text objects
 ; ============================================================================
 
-(block_comment) @comment.outer
-(block_comment
-  (comment_line)+ @comment.inner)
+(comment) @comment.outer
+(comment) @comment.inner
 
 ; ============================================================================
 ; LISTS - Treat list items as parameters
@@ -107,9 +99,9 @@
   content: (_) @parameter.inner)
 
 ; Description list items
-(description_item) @parameter.outer
-(description_item
-  (_) @parameter.inner)
+(description_list_item) @parameter.outer
+(description_list_item
+  definition: (description_item_definition) @parameter.inner)
 
 ; List continuations
 (list_item_continuation) @parameter.outer
@@ -143,20 +135,12 @@
 ; Internal cross-references
 (internal_xref) @link.outer
 
-; External cross-references
-(external_xref) @link.outer
-
 ; Anchors
 (anchor) @link.outer
 (inline_anchor) @link.outer
 
 ; Bibliography entries
 (bibliography_entry) @link.outer
-
-; Footnotes
-(footnote_inline) @link.outer
-(footnote_ref) @link.outer
-(footnoteref) @link.outer
 
 ; ============================================================================
 ; ATTRIBUTES - Attribute text objects
@@ -166,9 +150,6 @@
 (attribute_entry
   value: (attribute_value) @attribute.inner)
 
-; Attribute references
-(attribute_reference) @attribute.outer
-
 ; Block attributes
 (block_attributes) @attribute.outer
 
@@ -177,21 +158,7 @@
 ; ============================================================================
 
 ; Include directives
-(include_directive) @call.outer
-
-; Images
-(image) @call.outer
-
-; Math macros
-(math_macro) @call.outer
-
-; UI macros
-(ui_kbd) @call.outer
-(ui_btn) @call.outer
-(ui_menu) @call.outer
-
-; Passthrough macros
-(pass_macro) @call.outer
+; MACROS - Treat as calls
 (passthrough_triple_plus) @call.outer
 
 ; Index terms
@@ -221,17 +188,12 @@
 ; Superscript
 (superscript) @text.outer
 (superscript
-  content: (superscript_text) @text.inner)
+  content: (superscript_content) @text.inner)
 
 ; Subscript
 (subscript) @text.outer
 (subscript
   content: (subscript_text) @text.inner)
-
-; Role spans
-(role_span) @text.outer
-(role_span
-  content: (role_content) @text.inner)
 
 ; ============================================================================
 ; PARAGRAPHS - Paragraph text objects
@@ -240,6 +202,3 @@
 (paragraph) @text.outer
 (paragraph
   content: (_) @text.inner)
-
-; Paragraph admonitions
-(paragraph_admonition) @text.outer

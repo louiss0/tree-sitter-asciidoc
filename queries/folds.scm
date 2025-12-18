@@ -1,16 +1,11 @@
 ; queries/folds.scm
 (document_header) @fold
 
-<<<<<<< HEAD
-; Fold sections with better precision
-(section) @fold
-=======
 (section_level_2) @fold
 (section_level_3) @fold
 (section_level_4) @fold
 (section_level_5) @fold
 (section_level_6) @fold
->>>>>>> develop
 
 (unordered_list)   @fold
 (ordered_list)     @fold
