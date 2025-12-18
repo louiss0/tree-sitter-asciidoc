@@ -1,0 +1,153 @@
+================================================================================
+Basic attribute entries
+================================================================================
+
+== Title
+:revNumber: 1.2.3
+:authorName: Alice
+
+Some text.
+
+== Subsection
+:roleAdmin: admin
+
+More text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Attribute entries without values
+================================================================================
+
+== Document
+:imagesDir:
+:sourceHighlighter:
+
+Content here
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name))
+      content: (attribute_entry
+        name: (attribute_name))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Attribute entries with spaces in values
+================================================================================
+
+== Info
+:titleText: My Great Document
+:longDescription: This is a long description with spaces
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value)))))
+
+================================================================================
+Mixed attributes and other content
+================================================================================
+
+== Section Title
+:authorName: Bob
+
+First paragraph
+
+:versionValue: 2.0
+
+More content
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)))
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Snake and dashed attribute names
+================================================================================
+
+== Variants
+:snake_case_name: value
+:dash-case-name: other
+
+Body
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text))))))

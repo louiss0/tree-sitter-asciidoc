@@ -1,0 +1,202 @@
+================================================================================
+This is a note block.
+================================================================================
+
+[NOTE]
+----
+This is a note block.
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_admonition
+    (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    (listing_block
+      (listing_open
+        (LISTING_FENCE_START))
+      (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      (listing_close
+        (LISTING_FENCE_END)))))
+
+================================================================================
+TIP block with sidebar delimiters
+================================================================================
+
+[TIP]
+****
+This is a tip block with sidebar content.
+Useful information here.
+****
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_admonition
+    type: (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    block: (sidebar_block
+      open: (sidebar_open
+        (SIDEBAR_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (sidebar_close
+        (SIDEBAR_FENCE_END)))))
+
+================================================================================
+IMPORTANT block with quote delimiters
+================================================================================
+
+[IMPORTANT]
+____
+"This is important quoted content."
+-- Author
+____
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_admonition
+    type: (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    block: (asciidoc_blockquote
+      open: (asciidoc_blockquote_open
+        (QUOTE_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (asciidoc_blockquote_close
+        (QUOTE_FENCE_END)))))
+
+================================================================================
+WARNING block with listing delimiters
+================================================================================
+
+[WARNING]
+----
+echo "This command can be dangerous"
+rm -rf /path/to/files
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_admonition
+    type: (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    block: (listing_block
+      open: (listing_open
+        (LISTING_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (listing_close
+        (LISTING_FENCE_END)))))
+
+================================================================================
+CAUTION block with literal delimiters
+================================================================================
+
+[CAUTION]
+....
+  Be very careful
+    with this
+    literal content
+....
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_admonition
+    (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    (literal_block
+      (literal_open
+        (LITERAL_FENCE_START))
+      (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      (literal_close
+        (LITERAL_FENCE_END)))))
+
+================================================================================
+TIP block with metadata
+================================================================================
+
+.Helpful Tip
+[TIP]
+----
+  echo "This tip has multiple metadata lines"
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_admonition
+    title: (block_title)
+    type: (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    block: (listing_block
+      open: (listing_open
+        (LISTING_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (listing_close
+        (LISTING_FENCE_END)))))
+
+================================================================================
+Bracketed admonition list without block
+================================================================================
+
+[NOTE]
+This should be parsed as a generic attribute list followed by paragraph.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket)))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))

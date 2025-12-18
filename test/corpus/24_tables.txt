@@ -1,0 +1,321 @@
+================================================================================
+Basic Table
+================================================================================
+
+|===
+|Name |Age |City
+
+|John Doe
+|30
+|New York
+
+|Jane Smith
+|25
+|Los Angeles
+|===
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (table_block
+    open: (table_open
+      (TABLE_FENCE_START))
+    content: (table_content
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))))
+    close: (table_close
+      (TABLE_FENCE_END))))
+
+================================================================================
+Table with Title and Metadata
+================================================================================
+
+.Employee Information
+[#emp-table.data]
+|===
+|Name |Department |Salary
+
+|John Doe
+|Engineering
+|$75,000
+
+|Jane Smith
+|Marketing
+|$65,000
+|===
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (table_block
+    title: (block_title)
+    attributes: (table_attributes
+      (plain_left_bracket)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (plain_right_bracket))
+    open: (table_open
+      (TABLE_FENCE_START))
+    content: (table_content
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))))
+    close: (table_close
+      (TABLE_FENCE_END))))
+
+================================================================================
+Table with Cell Specifications - Spans and Formats
+================================================================================
+
+|===
+|h|Header 1 |h|Header 2 |h|Header 3
+
+|2+|Spanning Cell
+|Regular Cell
+
+|l|Left Aligned
+|m|Center Aligned
+|s|Right Aligned
+
+|3.2+|Row and Column Span
+|===
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (table_block
+    open: (table_open
+      (TABLE_FENCE_START))
+    content: (table_content
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))))
+    close: (table_close
+      (TABLE_FENCE_END))))
+
+================================================================================
+Table with AsciiDoc Content in Cells
+================================================================================
+
+|===
+|Feature |Description
+
+|a|*Bold text* in AsciiDoc cell
+|Regular cell with plain text
+|===
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (table_block
+    open: (table_open
+      (TABLE_FENCE_START))
+    content: (table_content
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))))
+    close: (table_close
+      (TABLE_FENCE_END))))
+
+================================================================================
+Empty Table and Edge Cases
+================================================================================
+
+|===
+|===
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (table_block
+    open: (table_open
+      (TABLE_FENCE_START))
+    close: (table_close
+      (TABLE_FENCE_END))))
+
+================================================================================
+Table with Empty Cells
+================================================================================
+
+|===
+|Name |Age |
+
+|John
+|
+|New York
+|===
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (table_block
+    open: (table_open
+      (TABLE_FENCE_START))
+    content: (table_content
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))))
+    close: (table_close
+      (TABLE_FENCE_END))))

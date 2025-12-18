@@ -1,0 +1,52 @@
+================================================================================
+Simple callout list
+================================================================================
+
+<1> First callout
+<2> Second callout
+<10> Tenth callout
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (callout_list
+    (callout_item
+      (callout_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text)))
+    (callout_item
+      (callout_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text))))
+  (callout_list
+    (callout_item
+      (callout_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text)))))
+
+================================================================================
+Not a callout list - missing space after marker
+================================================================================
+
+<1>NotACallout
+
+<2>NotACallout
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (plain_less_than)
+      (plain_text)
+      (plain_greater_than)
+      (plain_text)))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_less_than)
+      (plain_text)
+      (plain_greater_than)
+      (plain_text))))

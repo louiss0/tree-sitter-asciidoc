@@ -1,0 +1,24 @@
+================================================================================
+Block macros without attributes
+================================================================================
+
+diagram::workflow[title="Data Flow",opts="interactive"]
+
+customblock::widget[]
+
+video::clip.mp4[autoplay]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_macro
+    open: (macro_name)
+    body: (macro_body)
+    close: (macro_close))
+  (block_macro
+    open: (macro_name)
+    close: (macro_close))
+  (block_macro
+    open: (macro_name)
+    body: (macro_body)
+    close: (macro_close)))

@@ -10,1145 +10,1457 @@
 module.exports = grammar({
   name: "asciidoc",
 
-  externals: $ => [
-    $.EXAMPLE_FENCE_START,
-    $.EXAMPLE_FENCE_END,
-    $.LISTING_FENCE_START,
-    $.LISTING_FENCE_END,
-    $.BACKTICK_FENCE_START,
-    $.BACKTICK_FENCE_END,
-    $.LITERAL_FENCE_START,
-    $.LITERAL_FENCE_END,
-    $.QUOTE_FENCE_START,
-    $.QUOTE_FENCE_END,
-    $.SIDEBAR_FENCE_START,
-    $.SIDEBAR_FENCE_END,
-    $.PASSTHROUGH_FENCE_START,
-    $.PASSTHROUGH_FENCE_END,
-    $.OPENBLOCK_FENCE_START,
-    $.OPENBLOCK_FENCE_END,
+  externals: ($) => [
     $.LIST_CONTINUATION,
-    $.AUTOLINK_BOUNDARY,
-    $.ATTRIBUTE_LIST_START,
-    $.DELIMITED_BLOCK_CONTENT_LINE
+    $.UNORDERED_LIST_MARKER,
+    $.ORDERED_LIST_MARKER,
+    $.INDENTED_UNORDERED_LIST_MARKER,
+    $.INDENTED_ORDERED_LIST_MARKER,
   ],
 
-  extras: $ => [
-    /[ \t]/  // Allow spaces and tabs but not newlines
+  extras: ($) => [
+    /[ \t]+/, // Allow spaces and tabs but not newlines
+    $.comment,
   ],
 
-  conflicts: $ => [
-    [$.unordered_list_item],
-    [$.ordered_list_item], 
-    [$.description_item],
-    [$.callout_item],
-    [$.inline_element, $.explicit_link],
-    [$.attribute_content, $.role_list],
-    [$.external_xref],
-    [$.paragraph_admonition]
-  ],
+  conflicts: ($) => [[$.inline_element, $.explicit_link]],
+
+  word: ($) => $._plain_text_segment,
 
   rules: {
-    source_file: $ => repeat($._element),
+    source_file: ($) =>
+      choice(
+        // Case 1: Document with a real header.
+        //
+        // The header MUST be the very first thing in the file
+        // (no leading blank lines). After that, just normal blocks.
+        prec(
+          1,
+          seq(
+            field("header", $.document_header),
+            repeat(choice($._blank_line, $._block_element)),
+          ),
+        ),
 
-    _element: $ => choice(
-      $.section,
-      $.unordered_list,
-      $.ordered_list,
-      $.description_list,
-      $.callout_list,
-      $.attribute_entry,
-      $.example_block,
-      $.listing_block,
-      $.fenced_code_block,
-      $.asciidoc_blockquote,
-      $.markdown_blockquote,
-      $.literal_block,
-      $.sidebar_block,
-      $.passthrough_block,
-      $.open_block,
-      $.conditional_block,
-      $.include_directive,
-      $.block_comment,
-      $.table_block,
-      $.paragraph,
-      $._blank_line,
-    ),
+        // Case 2: Headerless document.
+        //
+        // Arbitrary mix of blank lines and blocks; any "header-looking"
+        // lines here are treated as normal content (paragraphs/sections).
+        repeat(choice($._blank_line, $._block_element)),
+      ),
+
+    _block_element: ($) =>
+      choice(
+        $.section,
+        $.attribute_entry,
+        $.description_list,
+        $.callout_list,
+        $.unordered_list,
+        $.ordered_list,
+        $.block_macro,
+        $.block_admonition,
+        $.inline_admonition,
+        $.example_block,
+        $.listing_block,
+        $.asciidoc_blockquote,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.table_block,
+        $.thematic_break,
+        $.page_break,
+        $.paragraph,
+      ),
+
+    document_header: ($) =>
+      prec.right(
+        seq(
+          field("title", $.document_title),
+          optional(field("author", $.author_line)),
+          optional(field("revision", $.revision_line)),
+        ),
+      ),
+
+    document_title: ($) =>
+      seq(
+        field("marker", $.document_title_marker),
+        field("text", $.document_title_text),
+        $._line_ending,
+      ),
+
+    document_title_marker: ($) => token(prec(60, seq("=", /[ \t]+/))),
+
+    document_title_text: ($) => token(prec(55, /[^\r\n]+/)),
+
+    author_line: ($) =>
+      seq(
+        field("authors", $.author_list),
+        optional(field("email", $.author_email)),
+        $._line_ending,
+      ),
+
+    author_list: ($) =>
+      seq(
+        field("author", prec(5, $.author_name)),
+        repeat(seq($._author_separator, field("author", $.author_name))),
+      ),
+
+    _author_separator: ($) => $.plain_comma,
+
+    author_name: ($) =>
+      prec.right(seq($.plain_text, repeat(choice($.plain_text, $.plain_dash)))),
+
+    // INLINE “plain” email inside header
+    author_email: ($) =>
+      prec.right(
+        seq(
+          field("open", $.plain_less_than),
+          field("address", alias($._author_email_address, $.plain_text)),
+          field("close", $.plain_greater_than),
+        ),
+      ),
+
+    _author_email_address: () => token.immediate(/[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+/),
+
+    revision_line: ($) =>
+      seq(
+        field("version", $.revision_version),
+        optional(seq($.plain_comma, field("date", $.revision_date))),
+        optional(seq($.plain_colon, field("remark", $.revision_remark))),
+        $._line_ending,
+        field("separator", alias($._blank_line, $.header_break)),
+      ),
+
+    revision_version: ($) => token(prec(5, seq(optional(token("v")), /[0-9]+(?:\.[0-9]+)*/))),
+
+    revision_date: ($) => token(prec(5, /[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}/)),
+
+    revision_remark: ($) => token(prec(5, /[^\r\n]+/)),
 
     // SECTIONS - level-based hierarchy for proper sibling relationships
-    section: $ => choice(
-      $.section_level_1,
-      $.section_level_2,
-      $.section_level_3,
-      $.section_level_4,
-      $.section_level_5,
-      $.section_level_6
-    ),
-    
-    section_level_1: $ => prec.right(seq(
-      optional($.anchor),
-      field('marker', $.section_marker_1),
-      field('title', $.title),
-      $._line_ending,
-      field('content', repeat(choice(
-        $.attribute_entry,
-        $.paragraph,
-        $.unordered_list,
-        $.ordered_list,
-        $.description_list,
-        $.callout_list,
-        $.example_block,
-        $.listing_block,
-        $.fenced_code_block,
-        $.fenced_code_block,
-        $.fenced_code_block,
-        $.fenced_code_block,
-        $.fenced_code_block,
-        $.fenced_code_block,
-        $.asciidoc_blockquote,
-        $.markdown_blockquote,
-        $.literal_block,
-        $.sidebar_block,
-        $.passthrough_block,
-        $.open_block,
-        $.conditional_block,
-        $.include_directive,
-        $.block_comment,
-        $.table_block,
-        $.section_level_2,  // Only nested sections can be level_2+
-        $._blank_line
-      )))
-    )),
-    
-    section_level_2: $ => prec.right(seq(
-      optional($.anchor),
-      field('marker', $.section_marker_2),
-      field('title', $.title),
-      $._line_ending,
-      field('content', repeat(choice(
-        $.attribute_entry,
-        $.paragraph,
-        $.unordered_list,
-        $.ordered_list,
-        $.description_list,
-        $.callout_list,
-        $.example_block,
-        $.listing_block,
-        $.asciidoc_blockquote,
-        $.markdown_blockquote,
-        $.literal_block,
-        $.sidebar_block,
-        $.passthrough_block,
-        $.open_block,
-        $.conditional_block,
-        $.include_directive,
-        $.block_comment,
-        $.table_block,
+    section: ($) =>
+      choice(
+        $.section_level_2,
         $.section_level_3,
-        $._blank_line
-      )))
-    )),
-    
-    section_level_3: $ => prec.right(seq(
-      optional($.anchor),
-      field('marker', $.section_marker_3),
-      field('title', $.title),
-      $._line_ending,
-      field('content', repeat(choice(
-        $.attribute_entry,
-        $.paragraph,
-        $.unordered_list,
-        $.ordered_list,
-        $.description_list,
-        $.callout_list,
-        $.example_block,
-        $.listing_block,
-        $.asciidoc_blockquote,
-        $.markdown_blockquote,
-        $.literal_block,
-        $.sidebar_block,
-        $.passthrough_block,
-        $.open_block,
-        $.conditional_block,
-        $.include_directive,
-        $.block_comment,
-        $.table_block,
         $.section_level_4,
-        $._blank_line
-      )))
-    )),
-    
-    section_level_4: $ => prec.right(seq(
-      optional($.anchor),
-      field('marker', $.section_marker_4),
-      field('title', $.title),
-      $._line_ending,
-      field('content', repeat(choice(
-        $.attribute_entry,
-        $.paragraph,
-        $.unordered_list,
-        $.ordered_list,
-        $.description_list,
-        $.callout_list,
-        $.example_block,
-        $.listing_block,
-        $.asciidoc_blockquote,
-        $.markdown_blockquote,
-        $.literal_block,
-        $.sidebar_block,
-        $.passthrough_block,
-        $.open_block,
-        $.conditional_block,
-        $.include_directive,
-        $.block_comment,
-        $.table_block,
         $.section_level_5,
-        $._blank_line
-      )))
-    )),
-    
-    section_level_5: $ => prec.right(seq(
-      optional($.anchor),
-      field('marker', $.section_marker_5),
-      field('title', $.title),
-      $._line_ending,
-      field('content', repeat(choice(
-        $.attribute_entry,
-        $.paragraph,
-        $.unordered_list,
-        $.ordered_list,
-        $.description_list,
-        $.callout_list,
-        $.example_block,
-        $.listing_block,
-        $.asciidoc_blockquote,
-        $.markdown_blockquote,
-        $.literal_block,
-        $.sidebar_block,
-        $.passthrough_block,
-        $.open_block,
-        $.conditional_block,
-        $.include_directive,
-        $.block_comment,
-        $.table_block,
         $.section_level_6,
-        $._blank_line
-      )))
-    )),
-    
-    section_level_6: $ => prec.right(seq(
-      optional($.anchor),
-      field('marker', $.section_marker_6),
-      field('title', $.title),
-      $._line_ending,
-      field('content', repeat(choice(
-        $.attribute_entry,
-        $.paragraph,
-        $.unordered_list,
-        $.ordered_list,
-        $.description_list,
-        $.callout_list,
-        $.example_block,
-        $.listing_block,
-        $.asciidoc_blockquote,
-        $.markdown_blockquote,
-        $.literal_block,
-        $.sidebar_block,
-        $.passthrough_block,
-        $.open_block,
-        $.conditional_block,
-        $.include_directive,
-        $.block_comment,
-        $.table_block,
-        $._blank_line
-      )))
-    )),
-    
-    title: $ => token.immediate(/[^\r\n]+/),
+      ),
 
-    section_marker_1: $ => token(prec(50, seq('=', /[ \t]+/))),
-    section_marker_2: $ => token(prec(45, seq('==', /[ \t]+/))),
-    section_marker_3: $ => token(prec(40, seq('===', /[ \t]+/))),
-    section_marker_4: $ => token(prec(35, seq('====', /[ \t]+/))),
-    section_marker_5: $ => token(prec(30, seq('=====', /[ \t]+/))),
-    section_marker_6: $ => token(prec(25, seq('======', /[ \t]+/))),
+    section_level_2: ($) =>
+      prec.right(
+        seq(
+          optional($.anchor),
+          field("marker", $.section_marker_2),
+          field("title", $.title),
+          $._line_ending,
+          field(
+            "content",
+            repeat(
+              choice(
+                $.attribute_entry,
+                $.paragraph,
+                $.unordered_list,
+                $.ordered_list,
+                $.description_list,
+                $.callout_list,
+                $.block_admonition,
+                $.example_block,
+                $.listing_block,
+                $.asciidoc_blockquote,
+                $.literal_block,
+                $.sidebar_block,
+                $.passthrough_block,
+                $.open_block,
+                $.conditional_block,
+                $.block_macro,
+                $.inline_admonition,
+                $.table_block,
+                $.section_level_3,
+                $._blank_line,
+              ),
+            ),
+          ),
+        ),
+      ),
+
+    section_level_3: ($) =>
+      prec.right(
+        seq(
+          optional($.anchor),
+          field("marker", $.section_marker_3),
+          field("title", $.title),
+          $._line_ending,
+          field(
+            "content",
+            repeat(
+              choice(
+                $.attribute_entry,
+                $.paragraph,
+                $.unordered_list,
+                $.ordered_list,
+                $.description_list,
+                $.callout_list,
+                $.block_admonition,
+                $.example_block,
+                $.listing_block,
+                $.asciidoc_blockquote,
+                $.literal_block,
+                $.sidebar_block,
+                $.passthrough_block,
+                $.open_block,
+                $.conditional_block,
+                $.block_macro,
+                $.inline_admonition,
+                $.table_block,
+                $.section_level_4,
+                $._blank_line,
+              ),
+            ),
+          ),
+        ),
+      ),
+
+    section_level_4: ($) =>
+      prec.right(
+        seq(
+          optional($.anchor),
+          field("marker", $.section_marker_4),
+          field("title", $.title),
+          $._line_ending,
+          field(
+            "content",
+            repeat(
+              choice(
+                $.attribute_entry,
+                $.paragraph,
+                $.unordered_list,
+                $.ordered_list,
+                $.description_list,
+                $.callout_list,
+                $.block_admonition,
+                $.example_block,
+                $.listing_block,
+                $.asciidoc_blockquote,
+                $.literal_block,
+                $.sidebar_block,
+                $.passthrough_block,
+                $.open_block,
+                $.conditional_block,
+                $.block_macro,
+                $.inline_admonition,
+                $.table_block,
+                $.section_level_5,
+                $._blank_line,
+              ),
+            ),
+          ),
+        ),
+      ),
+
+    section_level_5: ($) =>
+      prec.right(
+        seq(
+          optional($.anchor),
+          field("marker", $.section_marker_5),
+          field("title", $.title),
+          $._line_ending,
+          field(
+            "content",
+            repeat(
+              choice(
+                $.attribute_entry,
+                $.paragraph,
+                $.unordered_list,
+                $.ordered_list,
+                $.description_list,
+                $.callout_list,
+                $.block_admonition,
+                $.example_block,
+                $.listing_block,
+                $.asciidoc_blockquote,
+                $.literal_block,
+                $.sidebar_block,
+                $.passthrough_block,
+                $.open_block,
+                $.conditional_block,
+                $.block_macro,
+                $.inline_admonition,
+                $.table_block,
+                $.section_level_6,
+                $._blank_line,
+              ),
+            ),
+          ),
+        ),
+      ),
+
+    section_level_6: ($) =>
+      prec.right(
+        seq(
+          optional($.anchor),
+          field("marker", $.section_marker_6),
+          field("title", $.title),
+          $._line_ending,
+          field(
+            "content",
+            repeat(
+              choice(
+                $.attribute_entry,
+                $.paragraph,
+                $.unordered_list,
+                $.ordered_list,
+                $.description_list,
+                $.callout_list,
+                $.block_admonition,
+                $.example_block,
+                $.listing_block,
+                $.asciidoc_blockquote,
+                $.literal_block,
+                $.sidebar_block,
+                $.passthrough_block,
+                $.open_block,
+                $.conditional_block,
+                $.block_macro,
+                $.inline_admonition,
+                $.table_block,
+                $._blank_line,
+              ),
+            ),
+          ),
+        ),
+      ),
+
+    title: ($) => token.immediate(/[^\r\n]+/),
+
+    section_marker_2: ($) => token(prec(45, seq("==", /[ \t]+/))),
+    section_marker_3: ($) => token(prec(40, seq("===", /[ \t]+/))),
+    section_marker_4: ($) => token(prec(35, seq("====", /[ \t]+/))),
+    section_marker_5: ($) => token(prec(30, seq("=====", /[ \t]+/))),
+    section_marker_6: ($) => token(prec(25, seq("======", /[ \t]+/))),
 
     // ATTRIBUTE ENTRIES - Support both :name: and :name: value forms
-    // Using token to make it atomic and prevent partial matches that cause segfaults
-    attribute_entry: $ => choice(
-      // Standard form: :name: value or :name:
+    // Keep the delimiters explicit so highlight queries can capture the identifier directly.
+    attribute_entry: ($) =>
       seq(
-        field('name', token(prec(25, seq(':', /[a-zA-Z0-9_-]+/, ':')))),
-        field('value', optional(seq(/[ \t]+/, $.attribute_value))),
-        $._line_ending
+        field("name", $.attribute_name),
+        optional(field("value", seq(token.immediate(/[ \t]+/), $.attribute_value))),
+        $._line_ending,
       ),
-      // Unset form: :!name: or :name!:
-      seq(
-        field('name', token(prec(25, choice(
-          seq(':', '!', /[a-zA-Z0-9_-]+/, ':'),
-          seq(':', /[a-zA-Z0-9_-]+/, '!', ':')
-        )))),
-        optional(/[ \t]+/),
-        $._line_ending
-      )
-    ),
-    
-    attribute_value: $ => /[^\r\n]+/,
+
+    attribute_value: ($) => /[^\r\n]+/,
+
+    attribute_name_text: ($) => token(/[A-Za-z_!][A-Za-z0-9_!-]+/), // letter/underscore first
+
+    attribute_name: ($) => token(prec(40, /:[A-Za-z_!][A-Za-z0-9_!-]*:/)),
 
     // DELIMITED BLOCKS
-    example_block: $ => seq(
-      optional($.metadata),
-      field('open', $.example_open),
-      optional(field('content', $.block_content)),
-      field('close', $.example_close)
-    ),
-    
-    example_open: $ => $.EXAMPLE_FENCE_START,
-    
-    example_close: $ => $.EXAMPLE_FENCE_END,
-    
+    example_block: ($) =>
+      seq(
+        optional(field("title", $.block_title)),
+        optional(
+          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+        ),
+        field("open", $.example_open),
+        optional(field("content", $.block_content)),
+        field("close", $.example_close),
+      ),
+
+    example_open: ($) => $.EXAMPLE_FENCE_START,
+
+    example_close: ($) => $.EXAMPLE_FENCE_END,
+
     // Listing blocks
-    listing_block: $ => seq(
-      optional($.metadata),
-      field('open', $.listing_open),
-      optional(field('content', $.block_content)),
-      field('close', $.listing_close)
-    ),
-    
-    listing_open: $ => $.LISTING_FENCE_START,
-    
-    listing_close: $ => $.LISTING_FENCE_END,
-    
-    // Fenced code blocks (markdown-style with backticks)
-    fenced_code_block: $ => seq(
-      field('open', $.backtick_fence_open),
-      optional(field('content', $.block_content)),
-      field('close', $.backtick_fence_close)
-    ),
-    
-    backtick_fence_open: $ => $.BACKTICK_FENCE_START,
-    
-    backtick_fence_close: $ => $.BACKTICK_FENCE_END,
-    
+    listing_block: ($) =>
+      seq(
+        optional(field("title", $.block_title)),
+        optional(
+          choice(
+            seq(field("attributes", $.source_block_attributes), $._line_ending),
+            field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+          ),
+        ),
+        field("open", $.listing_open),
+        optional(field("content", $.block_content)),
+        field("close", $.listing_close),
+      ),
+
+    listing_open: ($) => $.LISTING_FENCE_START,
+
+    listing_close: ($) => $.LISTING_FENCE_END,
+
     // AsciiDoc quote blocks (fenced with ____)
-    asciidoc_blockquote: $ => seq(
-      optional($.metadata),
-      field('open', $.asciidoc_blockquote_open),
-      field('content', $.block_content),
-      field('close', $.asciidoc_blockquote_close)
-    ),
-    
-    asciidoc_blockquote_open: $ => $.QUOTE_FENCE_START,
-    
-    asciidoc_blockquote_close: $ => $.QUOTE_FENCE_END,
-    
-    // Markdown-style blockquotes (lines starting with >)
-    markdown_blockquote: $ => prec.right(seq(
-      optional($.metadata),
-      repeat1($.markdown_blockquote_line)
-    )),
-    
-    markdown_blockquote_line: $ => seq(
-      field('marker', $.markdown_blockquote_marker),
-      optional(field('content', $.text_with_inlines)),
-      $._line_ending
-    ),
-    
-    markdown_blockquote_marker: $ => token(prec(15, seq(
-      repeat1('>'),
-      optional(/[ \t]+/)
-    ))),
-    
+    asciidoc_blockquote: ($) =>
+      seq(
+        optional(field("title", $.block_title)),
+        optional(
+          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+        ),
+        field("open", $.asciidoc_blockquote_open),
+        optional(field("content", $.block_content)),
+        field("close", $.asciidoc_blockquote_close),
+      ),
+
+    asciidoc_blockquote_open: ($) => $.QUOTE_FENCE_START,
+
+    asciidoc_blockquote_close: ($) => $.QUOTE_FENCE_END,
+
     // Literal blocks
-    literal_block: $ => seq(
-      optional($.metadata),
-      field('open', $.literal_open),
-      field('content', $.block_content),
-      field('close', $.literal_close)
-    ),
-    
-    literal_open: $ => $.LITERAL_FENCE_START,
-    
-    literal_close: $ => $.LITERAL_FENCE_END,
-    
+    literal_block: ($) =>
+      seq(
+        optional(field("title", $.block_title)),
+        optional(
+          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+        ),
+        field("open", $.literal_open),
+        optional(field("content", $.block_content)),
+        field("close", $.literal_close),
+      ),
+
+    literal_open: ($) => $.LITERAL_FENCE_START,
+
+    literal_close: ($) => $.LITERAL_FENCE_END,
+
     // Sidebar blocks
-    sidebar_block: $ => seq(
-      optional($.metadata),
-      $.sidebar_open,
-      $.block_content,
-      $.sidebar_close
-    ),
-    
-    sidebar_open: $ => $.SIDEBAR_FENCE_START,
-    
-    sidebar_close: $ => $.SIDEBAR_FENCE_END,
-    
+    sidebar_block: ($) =>
+      seq(
+        optional(field("title", $.block_title)),
+        optional(
+          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+        ),
+        field("open", $.sidebar_open),
+        optional(field("content", $.block_content)),
+        field("close", $.sidebar_close),
+      ),
+
+    sidebar_open: ($) => $.SIDEBAR_FENCE_START,
+
+    sidebar_close: ($) => $.SIDEBAR_FENCE_END,
+
     // Passthrough blocks
-    passthrough_block: $ => seq(
-      optional($.metadata),
-      $.passthrough_open,
-      $.block_content,
-      $.passthrough_close
-    ),
-    
-    passthrough_open: $ => $.PASSTHROUGH_FENCE_START,
-    
-    passthrough_close: $ => $.PASSTHROUGH_FENCE_END,
-    
+    passthrough_block: ($) =>
+      seq(
+        optional(field("title", $.block_title)),
+        optional(
+          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+        ),
+        field("open", $.passthrough_open),
+        optional(field("content", $.block_content)),
+        field("close", $.passthrough_close),
+      ),
+
+    passthrough_open: ($) => $.PASSTHROUGH_FENCE_START,
+
+    passthrough_close: ($) => $.PASSTHROUGH_FENCE_END,
+
+    thematic_break: ($) => field("marker", $.THEMATIC_BREAK),
+
+    page_break: ($) => prec.left(25, seq(token("<<<"), $._blank_line)),
+
     // Open blocks
-    open_block: $ => seq(
-      optional($.metadata),
-      field('open', $.openblock_open),
-      field('content', $.block_content),
-      field('close', $.openblock_close)
-    ),
-    
-    openblock_open: $ => $.OPENBLOCK_FENCE_START,
-    
-    openblock_close: $ => $.OPENBLOCK_FENCE_END,
-    
+    open_block: ($) =>
+      seq(
+        optional(field("title", $.block_title)),
+        optional(
+          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+        ),
+        field("open", $.openblock_open),
+        optional(field("content", $.block_content)),
+        field("close", $.openblock_close),
+      ),
+
+    openblock_open: ($) => $.OPENBLOCK_FENCE_START,
+
+    openblock_close: ($) => $.OPENBLOCK_FENCE_END,
+
+    // BLOCK ADMONITIONS - Handle [ADMONITION] followed by supported delimited blocks
+    block_admonition: ($) =>
+      prec(
+        30,
+        seq(
+          optional(field("title", $.block_title)),
+          field("type", $.attribute_admonition_list),
+          field(
+            "block",
+            choice(
+              $.example_block,
+              $.listing_block,
+              $.asciidoc_blockquote,
+              $.literal_block,
+              $.sidebar_block,
+              $.passthrough_block,
+              $.open_block,
+            ),
+          ),
+        ),
+      ),
+
+    attribute_admonition_list: ($) =>
+      prec(
+        20, // any positive number > 0; just needs to beat the default
+        seq(
+          $.plain_left_bracket,
+          $.admonition_label,
+          repeat($.plain_text),
+          $.plain_right_bracket,
+          $._line_ending,
+        ),
+      ),
+
+    inline_admonition: ($) =>
+      prec.right(
+        seq(
+          field("label", seq($.admonition_label, $.plain_colon)),
+          field("content", $._inline_text),
+        ),
+      ),
+
+    // Legacy token-based admonition_label for backward compatibility
+    admonition_label: ($) =>
+      choice(
+        token("NOTE"),
+        token("TIP"),
+        token("IMPORTANT"),
+        token("WARNING"),
+        token("CAUTION"),
+      ),
+
     // CONDITIONAL BLOCKS - with higher precedence to resolve conflicts with description lists
-    conditional_block: $ => prec(10, choice(
-      $.ifdef_block,
-      $.ifndef_block,
-      $.ifeval_block
-    )),
-    
-    ifdef_block: $ => prec.right(seq(
-      field('directive', $.ifdef_open),
-      field('content', repeat($._element)),
-      field('end', optional($.endif_directive))
-    )),
-    
-    ifndef_block: $ => prec.right(seq(
-      field('directive', $.ifndef_open),
-      field('content', repeat($._element)),
-      field('end', optional($.endif_directive))
-    )),
-    
-    ifeval_block: $ => prec.right(seq(
-      field('directive', $.ifeval_open),
-      field('content', repeat($._element)),
-      field('end', optional($.endif_directive))
-    )),
-    
-    ifdef_open: $ => token(prec(75, /ifdef::[^\[\r\n]*\[[^\]\r\n]*\][ \t]*\r?\n/)),
-    
-    ifndef_open: $ => token(prec(75, /ifndef::[^\[\r\n]*\[[^\]\r\n]*\][ \t]*\r?\n/)),
-    
-    ifeval_open: $ => token(prec(75, /ifeval::\[[^\]\r\n]+\][ \t]*\r?\n/)),
-    
+    conditional_block: ($) => prec(10, choice($.ifdef_block, $.ifndef_block, $.ifeval_block)),
+
+    ifdef_block: ($) =>
+      seq(
+        field("directive", $.ifdef_open),
+        $._blank_line,
+        field("content", repeat(choice($._block_element, $._blank_line))),
+        field("end", $.endif_directive),
+        $._blank_line,
+      ),
+
+    ifndef_block: ($) =>
+      seq(
+        field("directive", $.ifndef_open),
+        $._blank_line,
+        field("content", repeat(choice($._block_element, $._blank_line))),
+        field("end", $.endif_directive),
+        $._blank_line,
+      ),
+
+    ifeval_block: ($) =>
+      seq(
+        field("directive", $.ifeval_open),
+        $._blank_line,
+        field("content", repeat(choice($._block_element, $._blank_line))),
+        field("end", $.endif_directive),
+        $._blank_line,
+      ),
+
+    ifdef_open: ($) => prec(20, /ifdef::[^\[\]:\r\n]+\[\]/),
+
+    ifeval_open: ($) => prec(20, /ifeval::\[[^\[\]:\r\n]+\]/),
+
+    ifndef_open: ($) => prec(20, /ifndef::[^\[\]:\r\n]+\[\]/),
+
+    endif_directive: ($) => /endif::\[\]/,
+
     // EXPRESSIONS - for ifeval conditions (fixed to eliminate recursion)
     // Use prec.left/right with explicit precedence levels to avoid recursion
-    expression: $ => $.logical_expression,
-    
+    expression: ($) => $.logical_expression,
+
     // Precedence level 1: Logical operators (&&, ||, and, or) - lowest precedence, left-associative
-    logical_expression: $ => choice(
-      prec.left(1, seq($.logical_expression, choice('&&', '||', 'and', 'or'), $.comparison_expression)),
-      $.comparison_expression
-    ),
-    
+    logical_expression: ($) =>
+      choice(
+        prec.left(
+          1,
+          seq(
+            $.logical_expression,
+            choice(token("&&"), token("||"), token("and"), token("or")),
+            $.comparison_expression,
+          ),
+        ),
+        $.comparison_expression,
+      ),
+
     // Precedence level 2: Comparison operators (==, !=, <, >, <=, >=), left-associative
-    comparison_expression: $ => choice(
-      prec.left(2, seq($.comparison_expression, choice('==', '!=', '<', '>', '<=', '>='), $.additive_expression)),
-      $.additive_expression
-    ),
-    
+    comparison_expression: ($) =>
+      choice(
+        prec.left(
+          2,
+          seq(
+            $.comparison_expression,
+            choice(
+              token("=="),
+              token("!="),
+              $.plain_less_than,
+              $.plain_greater_than,
+              token("<="),
+              token(">="),
+            ),
+            $.additive_expression,
+          ),
+        ),
+        $.additive_expression,
+      ),
+
     // Precedence level 3: Additive operators (+, -), left-associative
-    additive_expression: $ => choice(
-      prec.left(3, seq($.additive_expression, choice('+', '-'), $.multiplicative_expression)),
-      $.multiplicative_expression
-    ),
-    
+    additive_expression: ($) =>
+      choice(
+        prec.left(
+          3,
+          seq(
+            $.additive_expression,
+            choice($.plain_plus, $.plain_dash),
+            $.multiplicative_expression,
+          ),
+        ),
+        $.multiplicative_expression,
+      ),
+
     // Precedence level 4: Multiplicative operators (*, /, %), left-associative
-    multiplicative_expression: $ => choice(
-      prec.left(4, seq($.multiplicative_expression, choice('*', '/', '%'), $.unary_expression)),
-      $.unary_expression
-    ),
-    
+    multiplicative_expression: ($) =>
+      choice(
+        prec.left(
+          4,
+          seq(
+            $.multiplicative_expression,
+            choice($.plain_asterisk, $.plain_slash, $.plain_percent),
+            $.unary_expression,
+          ),
+        ),
+        $.unary_expression,
+      ),
+
     // Precedence level 5: Unary operators (!, -), right-associative
-    unary_expression: $ => choice(
-      prec.right(5, seq(choice('!', '-'), $.unary_expression)),
-      $.primary_expression
-    ),
-    
+    unary_expression: ($) =>
+      choice(
+        prec.right(5, seq(choice($.plain_exclamation, $.plain_dash), $.unary_expression)),
+        $.primary_expression,
+      ),
+
     // Highest precedence: Primary and grouped expressions
-    primary_expression: $ => choice(
-      $.grouped_expression,
-      $.string_literal,
-      $.numeric_literal,
-      $.boolean_literal,
-      $.attribute_reference
-    ),
-    
-    grouped_expression: $ => seq('(', $.expression, ')'),
-    
-    string_literal: $ => choice(
-      seq('"', /[^"\r\n]*/, '"'),
-      seq("'", /[^'\r\n]*/, "'")
-    ),
-    
-    numeric_literal: $ => token(choice(
-      /\d+\.\d+/,  // float
-      /\d+/        // integer
-    )),
-    
-    boolean_literal: $ => choice('true', 'false'),
-    
-    endif_directive: $ => seq(
-      'endif::',
-      '[',
-      optional(/[^\]\r\n]*/),  // optional content
-      ']',
-      optional($._line_ending)
-    ),
-    
-    // METADATA
-    metadata: $ => prec.right(repeat1(choice(
-      $.block_attributes,
-      $.id_and_roles,
-      $.block_title
-    ))),
-    
-    // Treat block attributes as a single token to simplify AST and avoid duplicate nodes
-    block_attributes: $ => token(prec(3, /\[[^\]\r\n]+\][ \t]*\r?\n/)),
-    
-    attribute_content: $ => /[^\]\r\n]+/,
-    
-    id_and_roles: $ => seq(
-      '[',
-      /#[^\]\r\n]+/,  // content starting with # for ID
-      ']',
-      $._line_ending
-    ),
-    
-    block_title: $ => prec(-1, seq(
-      '.',
-      /[^\r\n]+/,  // title text
-      $._line_ending
-    )),
-    
-    // INCLUDE DIRECTIVES - require complete syntax
-    include_directive: $ => token(prec(5, /include::[^\[\r\n]+\[[^\]\r\n]*\][ \t]*\r?\n/)),
-    
-    block_content: $ => repeat1(choice(
-      $.content_line,
-      $._blank_line
-    )),
-    
-    content_line: $ => $.DELIMITED_BLOCK_CONTENT_LINE,
+    primary_expression: ($) =>
+      choice(
+        $.grouped_expression,
+        $.string_literal,
+        $.numeric_literal,
+        $.boolean_literal,
+        $.attribute_substitution,
+      ),
+
+    grouped_expression: ($) => seq($.plain_left_paren, $.expression, $.plain_right_paren),
+
+    string_literal: ($) =>
+      choice(
+        seq($.plain_double_quote, /[^"\r\n]*/, $.plain_double_quote),
+        seq($.plain_quote, /[^'\r\n]*/, $.plain_quote),
+      ),
+
+    numeric_literal: ($) =>
+      token(
+        choice(
+          /\d+\.\d+/, // float
+          /\d+/, // integer
+        ),
+      ),
+
+    boolean_literal: ($) => choice(token("true"), token("false")),
+
+    block_title: ($) => token(prec(15, /\.[\w\d \t_]+\r?\n/)),
+
+    block_content: ($) => repeat1(choice($.content_line, $._blank_line)),
+
+    content_line: ($) => seq($.DELIMITED_BLOCK_CONTENT_LINE, $._line_ending),
+
+    EXAMPLE_FENCE_START: ($) => token(prec(60, /={4,}[ \t]*\r?\n/)),
+    EXAMPLE_FENCE_END: ($) => token(prec(60, /={4,}[ \t]*\r?\n/)),
+
+    LISTING_FENCE_START: ($) => token(prec(55, /-{4,}[ \t]*\r?\n/)),
+    LISTING_FENCE_END: ($) => token(prec(55, /-{4,}[ \t]*\r?\n/)),
+
+    LITERAL_FENCE_START: ($) => token(prec(50, /\.{4,}[ \t]*\r?\n/)),
+    LITERAL_FENCE_END: ($) => token(prec(50, /\.{4,}[ \t]*\r?\n/)),
+
+    QUOTE_FENCE_START: ($) => token(prec(45, /_{4,}[ \t]*\r?\n/)),
+    QUOTE_FENCE_END: ($) => token(prec(45, /_{4,}[ \t]*\r?\n/)),
+
+    SIDEBAR_FENCE_START: ($) => token(prec(40, /\*{4,}[ \t]*\r?\n/)),
+    SIDEBAR_FENCE_END: ($) => token(prec(40, /\*{4,}[ \t]*\r?\n/)),
+
+    PASSTHROUGH_FENCE_START: ($) => token(prec(35, /\+{4,}[ \t]*\r?\n/)),
+    PASSTHROUGH_FENCE_END: ($) => token(prec(35, /\+{4,}[ \t]*\r?\n/)),
+
+    OPENBLOCK_FENCE_START: ($) => token(prec(30, /--[ \t]*\r?\n/)),
+    OPENBLOCK_FENCE_END: ($) => token(prec(30, /--[ \t]*\r?\n/)),
+
+    THEMATIC_BREAK: ($) =>
+      token(
+        prec(
+          25,
+          choice(
+            /\*[ \t]*\*[ \t]*\*[ \t]*(?:\*[ \t]*)*\r?\n/,
+            /-[ \t]*-[ \t]*-[ \t]*(?:-[ \t]*)*\r?\n/,
+            /_[ \t]*_[ \t]*_[ \t]*(?:_[ \t]*)*\r?\n/,
+            /'[ \t]*'[ \t]*'[ \t]*(?:'[ \t]*)*\r?\n/,
+          ),
+        ),
+      ),
+
+    DELIMITED_BLOCK_CONTENT_LINE: ($) => token(prec(1, /[^\r\n]+/)),
 
     // LISTS
-    unordered_list: $ => prec.right(seq(
-      $.unordered_list_item,
-      repeat($.unordered_list_item)
-    )),
-    
-    unordered_list_item: $ => seq(
-      $._unordered_list_marker,
-      field('content', $.text_with_inlines),
-      $._line_ending,
-      repeat($.list_item_continuation)
-    ),
-    
-    _unordered_list_marker: $ => token(prec(10, /[ \t]*[*-][ \t]+/)),
-    
-    ordered_list: $ => prec.right(seq(
-      $.ordered_list_item,
-      repeat($.ordered_list_item)
-    )),
-    
-    ordered_list_item: $ => seq(
-      $._ordered_list_marker,
-      field('content', $.text_with_inlines),
-      $._line_ending,
-      repeat($.list_item_continuation)
-    ),
-    
-    _ordered_list_marker: $ => token(prec(15, seq(/[0-9]+/, '.', /[ \t]+/))),
+    unordered_list: ($) => prec.right(field("items", repeat1($.unordered_list_item))),
+
+    unordered_list_item: ($) =>
+      prec.right(
+        1,
+        seq(
+          field("marker", alias($.UNORDERED_LIST_MARKER, $.unordered_list_marker)),
+          field("content", $._inline_text),
+          $._line_ending,
+          repeat(
+            choice(
+              $.list_item_continuation,
+              alias($._nested_unordered_list, $.unordered_list),
+              alias($._nested_ordered_list, $.ordered_list),
+            ),
+          ),
+        ),
+      ),
+
+    ordered_list: ($) => prec.right(field("items", repeat1($.ordered_list_item))),
+
+    ordered_list_item: ($) =>
+      prec.right(
+        1,
+        seq(
+          field("marker", alias($.ORDERED_LIST_MARKER, $.ordered_list_marker)),
+          field("content", $._inline_text),
+          $._line_ending,
+          repeat(
+            choice(
+              $.list_item_continuation,
+              alias($._nested_unordered_list, $.unordered_list),
+              alias($._nested_ordered_list, $.ordered_list),
+            ),
+          ),
+        ),
+      ),
+
+    _nested_unordered_list: ($) =>
+      prec.right(field("items", repeat1($._nested_unordered_list_item))),
+
+    _nested_unordered_list_item: ($) =>
+      prec.right(
+        seq(
+          field("marker", alias($.INDENTED_UNORDERED_LIST_MARKER, $.unordered_list_marker)),
+          field("content", $._inline_text),
+          $._line_ending,
+          repeat(
+            choice(
+              $.list_item_continuation,
+              alias($._nested_unordered_list, $.unordered_list),
+              alias($._nested_ordered_list, $.ordered_list),
+              // $.description_list,
+            ),
+          ),
+        ),
+      ),
+
+    _nested_ordered_list: ($) =>
+      prec.right(field("items", repeat1($._nested_ordered_list_item))),
+
+    _nested_ordered_list_item: ($) =>
+      prec.right(
+        seq(
+          field("marker", alias($.INDENTED_ORDERED_LIST_MARKER, $.ordered_list_marker)),
+          field("content", $._inline_text),
+          $._line_ending,
+          repeat(
+            choice(
+              $.list_item_continuation,
+              alias($._nested_unordered_list, $.unordered_list),
+              alias($._nested_ordered_list, $.ordered_list),
+              alias($._nested_description_list, $.description_list),
+            ),
+          ),
+        ),
+      ),
 
     // DESCRIPTION LISTS
-    description_list: $ => prec.right(2, seq(
-      $.description_item,
-      repeat($.description_item)
-    )),
-    
-    description_item: $ => seq(
-      $._description_marker,
-      $.description_content,
-      $._line_ending,
-      repeat($.list_item_continuation)
-    ),
-    
-    _description_marker: $ => token(prec(20, /[^\s\r\n:]+::[ \t]+/)),
-    description_content: $ => $.text_with_inlines,
+
+    // Modeled like sections: parent level starts with :: and nested children add colons.
+    description_list: ($) =>
+      prec.right(25, seq($.description_list_item, repeat($.description_list_item))),
+
+    description_list_item: ($) =>
+      choice(
+        $._description_list_item_level_1,
+        $._description_list_item_level_2,
+        $._description_list_item_level_3,
+        $._description_list_item_level_4,
+        $._description_list_item_level_5,
+      ),
+
+    _description_list_item_level_1: ($) =>
+      prec.right(
+        1,
+        seq(
+          choice(
+            seq(
+              field("term", alias(token(/[^:\r\n]+(::|;;)([ \t]+)/), $.description_item_term)),
+              field("definition", alias($._inline_text, $.description_item_definition)),
+              $._line_ending,
+            ),
+            field("term", alias(token(/[^:\r\n]+(::|;;)\r?\n/), $.description_item_term)),
+          ),
+          repeat($.list_item_continuation),
+        ),
+      ),
+    _description_list_item_level_2: ($) =>
+      prec.right(
+        1,
+        seq(
+          choice(
+            seq(
+              field(
+                "term",
+                alias(token(/[^:\r\n]+(:::|;;;)([ \t]+)/), $.description_item_term),
+              ),
+              field("definition", alias($._inline_text, $.description_item_definition)),
+              $._line_ending,
+            ),
+            field("term", alias(token(/[^:\r\n]+(:::|;;;)\r?\n/), $.description_item_term)),
+          ),
+          repeat($.list_item_continuation),
+        ),
+      ),
+    _description_list_item_level_3: ($) =>
+      prec.right(
+        1,
+        seq(
+          choice(
+            seq(
+              field(
+                "term",
+                alias(token(/[^:\r\n]+(::::|;;;;)([ \t]+)/), $.description_item_term),
+              ),
+              field("definition", alias($._inline_text, $.description_item_definition)),
+              $._line_ending,
+            ),
+            field("term", alias(token(/[^:\r\n]+(::::|;;;;)\r?\n/), $.description_item_term)),
+          ),
+          repeat($.list_item_continuation),
+        ),
+      ),
+    _description_list_item_level_4: ($) =>
+      prec.right(
+        1,
+        seq(
+          choice(
+            seq(
+              field(
+                "term",
+                alias(token(/[^:\r\n]+(:::::|;;;;;)([ \t]+)/), $.description_item_term),
+              ),
+              field("definition", alias($._inline_text, $.description_item_definition)),
+              $._line_ending,
+            ),
+            field("term", alias(token(/[^:\r\n]+(:::::|;;;;;)\r?\n/), $.description_item_term)),
+          ),
+          repeat($.list_item_continuation),
+        ),
+      ),
+    _description_list_item_level_5: ($) =>
+      prec.right(
+        1,
+        seq(
+          choice(
+            seq(
+              field(
+                "term",
+                alias(token(/[^:\r\n]+(::::::|;;;;;;)([ \t]+)/), $.description_item_term),
+              ),
+              field("definition", alias($._inline_text, $.description_item_definition)),
+              $._line_ending,
+            ),
+            field(
+              "term",
+              alias(token(/[^:\r\n]+(::::::|;;;;;;)\r?\n/), $.description_item_term),
+            ),
+          ),
+          repeat($.list_item_continuation),
+        ),
+      ),
+
+    // A nested description list must be deeper than the parent level.
+    // i.e. it cannot start with level_1 (::)
+    _nested_description_list: ($) =>
+      prec.right(
+        25,
+        seq(
+          choice(
+            $._description_list_item_level_2,
+            $._description_list_item_level_3,
+            $._description_list_item_level_4,
+            $._description_list_item_level_5,
+          ),
+          repeat(
+            choice(
+              $._description_list_item_level_2,
+              $._description_list_item_level_3,
+              $._description_list_item_level_4,
+              $._description_list_item_level_5,
+            ),
+          ),
+        ),
+      ),
 
     // CALLOUT LISTS
-    callout_list: $ => prec.right(seq(
-      $.callout_item,
-      repeat($.callout_item)
-    )),
-    
-    callout_item: $ => seq(
-      $.CALLOUT_MARKER,
-      field('content', $.text_with_inlines),
-      $._line_ending,
-      repeat($.list_item_continuation)
-    ),
-    
-    CALLOUT_MARKER: $ => token(prec(5, /<[0-9]+>[ \t]+/)),
+    callout_list: ($) => prec.right(25, seq($.callout_item, repeat($.callout_item))),
+
+    callout_item: ($) =>
+      seq(
+        field("marker", alias($.CALLOUT_MARKER, $.callout_marker)),
+        field("content", $._inline_text),
+        repeat($.list_item_continuation),
+        $._line_ending,
+      ),
+
+    CALLOUT_MARKER: ($) => token(prec(10, /<[0-9]+>[ \t]+/)),
 
     // LIST CONTINUATIONS
-    list_item_continuation: $ => seq(
-      $.LIST_CONTINUATION,
-      choice(
-        $.paragraph,
-        $.open_block,
-        $.example_block,
-        $.listing_block,
-        $.asciidoc_blockquote,
-        $.markdown_blockquote,
-        $.literal_block,
-        $.sidebar_block,
-        $.passthrough_block,
-        $.table_block,
-        $.block_comment,
-        $.conditional_block,
-        // Allow nested lists in continuations
-        $.unordered_list,
-        $.ordered_list,
-        $.description_list
-      )
-    ),
-
-    // LIST_CONTINUATION handled by external scanner
-    // LIST_CONTINUATION: $ => token(seq('+', /[ \t]*/, /\r?\n/)),
+    list_item_continuation: ($) =>
+      seq(
+        $.LIST_CONTINUATION,
+        field(
+          "block",
+          choice(
+            $.paragraph,
+            $.open_block,
+            $.example_block,
+            $.listing_block,
+            $.asciidoc_blockquote,
+            $.literal_block,
+            $.sidebar_block,
+            $.passthrough_block,
+            $.block_admonition,
+            $.unordered_list,
+            $.ordered_list,
+            alias($._nested_description_list, $.description_list),
+          ),
+        ),
+      ),
 
     // PARAGRAPHS
-    paragraph: $ => prec.right(1, seq(
-      optional($.metadata),
-      choice(
-        $.paragraph_admonition,
-        field('content', $.text_with_inlines)
-      ),
-      optional($._line_ending)
-    )),
-
-    // PARAGRAPH ADMONITIONS - Handle both content and empty forms
-    paragraph_admonition: $ => seq(
-      field('type', $.admonition_type),
-      ':',
-      optional(/[ \t]+/),
-      field('content', optional($.text_with_inlines))
-    ),
-    
-    admonition_type: $ => choice(
-      'NOTE',
-      'TIP',
-      'IMPORTANT',
-      'WARNING',
-      'CAUTION'
-    ),
-    
-    // Legacy token-based admonition_label for backward compatibility
-    admonition_label: $ => token(prec(1, choice(
-      seq('NOTE', ':', /[ \t]+/),
-      seq('TIP', ':', /[ \t]+/),
-      seq('IMPORTANT', ':', /[ \t]+/),
-      seq('WARNING', ':', /[ \t]+/),
-      seq('CAUTION', ':', /[ \t]+/)
-    ))),
-
-    text_with_inlines: $ => prec.right(repeat1(choice(
-      seq(/[ \t\f]+/, $._text_element),    // Spaced elements
-      $._text_element                      // Direct elements
-    ))),
-    
-    _text_element: $ => choice(
-      prec(2000, $.inline_element),
-      $.text_segment,
-      $.text_period,
-      $.text_colon,
-      $.text_angle_bracket,
-      $.text_brace,
-      $.text_hash,
-      $.text_bracket,
-      $.text_paren,
-      $.text_caret,
-      $.text_tilde,
-      // Error recovery: treat orphaned formatting chars as text
-      prec(1, '*'),
-      prec(1, '_'),
-      prec(1, '`')
-    ),
-    
-    text_segment: $ => token(prec(-1, /[^\s\r\n:*_\`^~\[\]<>\{}#()|]+/)),
-    
-    // Error recovery: fallback for any remaining characters
-    error_recovery: $ => prec(-1000, /./),
-    
-    // For periods after inline elements
-    text_period: $ => '.',
-    
-    // For colons in invalid attribute patterns
-    text_colon: $ => ':',
-    
-    // For angle brackets in invalid callout patterns
-    text_angle_bracket: $ => choice('<', '>'),
-    
-    // For curly braces in invalid attribute patterns
-    text_brace: $ => choice('{', '}'),
-    
-    // For hash symbols in invalid role span patterns
-    text_hash: $ => '#',
-    
-    // For brackets in invalid patterns
-    text_bracket: $ => choice('[', ']'),
-    
-    // For parentheses in invalid patterns
-    text_paren: $ => choice('(', ')'),
-    
-    // For carets in invalid superscript patterns
-    text_caret: $ => '^',
-    
-    // For tildes in invalid subscript patterns
-    text_tilde: $ => '~',
-    
+    paragraph: ($) => prec.right(1, field("content", $._inline_text)),
 
     // INLINE FORMATTING
-    inline_element: $ => choice(
-      $.strong,
-      $.emphasis,
-      $.monospace,
-      $.superscript,
-      $.subscript,
-      $.inline_anchor,
-      $.bibliography_entry,
-      $.internal_xref,
-      $.external_xref,
-      $.link_macro,
-      $.footnote_inline,
-      $.footnote_ref,
-      $.footnoteref,
-      $.explicit_link,
-      $.auto_link,
-      $.image,
-      $.passthrough_triple_plus,
-      $.pass_macro,
-      $.attribute_reference,
-      $.role_span,
-      $.math_macro,
-      $.ui_macro,
-      $.index_term,
-      $.line_break
-    ),
+    inline_element: ($) =>
+      choice(
+        $.strong,
+        $.emphasis,
+        $.monospace,
+        $.superscript,
+        $.subscript,
+        $.inline_anchor,
+        $.bibliography_entry,
+        $.internal_xref,
+        $.explicit_link,
+        $.auto_link,
+        $.highlight,
+        $.passthrough_triple_plus,
+        $.attribute_substitution,
+        $.index_term,
+        $.hard_break,
+      ),
 
-    // Strong formatting (*bold*)
-    strong: $ => prec(50, seq(
-      field('open', $.strong_open),
-      field('content', $.strong_content),
-      field('close', $.strong_close)
-    )),
+    _inline_text: ($) => prec.right(seq($.inline_seq_nonempty, repeat($.inline_seq_nonempty))),
 
-    strong_open: $ => '*',
-    strong_close: $ => '*',
-    strong_content: $ => repeat1(choice(
-      $.text_segment,
-      $.emphasis,
-      $.monospace,
-      $.superscript,
-      $.subscript,
-      token.immediate(/\\[*_`^~]/),  // escaped formatting chars
-      token.immediate(/[^*\r\n]+/)   // other text
-    )),
+    inline_seq_nonempty: ($) =>
+      prec.right(seq($._inline_core_unit, repeat($._inline_core_unit))),
 
-    // Emphasis formatting (_italic_)
-    emphasis: $ => prec(50, seq(
-      field('open', $.emphasis_open),
-      field('content', $.emphasis_content),
-      field('close', $.emphasis_close)
-    )),
+    _inline_core_unit: ($) =>
+      choice(
+        $.inline_macro,
+        $.inline_element,
+        $.escaped_char,
+        $.plain_colon,
+        $.plain_asterisk,
+        $.plain_underscore,
+        $.plain_dash,
+        $.plain_quote,
+        $.plain_double_quote,
+        $.plain_caret,
+        $.plain_less_than,
+        $.plain_greater_than,
+        $.plain_text,
+        $.plain_left_bracket,
+        $.plain_right_bracket,
+        $.plain_backtick,
+        $.plain_left_paren,
+        $.plain_right_paren,
+      ),
 
-    emphasis_open: $ => '_',
-    emphasis_close: $ => '_',
-    emphasis_content: $ => repeat1(choice(
-      $.text_segment,
-      $.strong,
-      $.monospace,
-      $.superscript,
-      $.subscript,
-      token.immediate(/\\[*_`^~]/),  // escaped formatting chars
-      token.immediate(/[^_\r\n]+/)   // other text
-    )),
+    plain_text: ($) => prec.left(-50, $._plain_text_segment),
+    _plain_text_segment: ($) => /[A-Za-z0-9!$&@\.,+\/=%?#]+/,
 
-    // Monospace formatting (`code`)
-    monospace: $ => prec(50, seq(
-      field('open', $.monospace_open),
-      field('content', $.monospace_content),
-      field('close', $.monospace_close)
-    )),
+    plain_colon: ($) => token(":"),
+    plain_asterisk: ($) => token("*"),
+    plain_underscore: ($) => token("_"), // _
+    plain_dash: ($) => token("-"),
+    plain_quote: ($) => token("'"),
+    plain_double_quote: ($) => token('"'),
+    plain_caret: ($) => token("^"),
+    plain_less_than: () => token("<"),
+    plain_greater_than: () => token(">"),
+    plain_left_bracket: () => token("["),
+    plain_right_bracket: () => token("]"),
+    plain_left_brace: () => token("{"),
+    plain_right_brace: () => token("}"),
+    plain_backtick: () => token("`"),
+    plain_left_paren: () => token("("),
+    plain_right_paren: () => token(")"),
+    plain_comma: ($) => token(","),
+    plain_plus: ($) => token("+"),
+    plain_tilde: ($) => token("~"),
+    plain_pipe: ($) => token("|"),
+    plain_dot: ($) => token("."),
+    plain_slash: ($) => token("/"),
+    plain_percent: ($) => token("%"),
+    plain_exclamation: ($) => token("!"),
 
-    monospace_open: $ => '`',
-    monospace_close: $ => '`',
-    monospace_content: $ => repeat1(choice(
-      token.immediate(/\\[*_`^~]/),  // escaped formatting chars
-      token.immediate(/[^`\r\n]+/)   // plain text (no nesting in monospace)
-    )),
+    // Any escaped single character: blocks delimiter interpretations
+    escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
+
+    // Strong formatting (*bold* or **bold**)
+    strong: ($) =>
+      prec.left(
+        1,
+        choice(
+          seq(
+            field("open", alias($._strong_double_marker, $.strong_open)),
+            field("content", $.strong_content),
+            field("close", alias($._strong_double_marker, $.strong_close)),
+          ),
+          seq(
+            field("open", alias($._strong_single_marker, $.strong_open)),
+            field("content", $.strong_content),
+            field("close", alias($._strong_single_marker, $.strong_close)),
+          ),
+        ),
+      ),
+
+    _strong_double_marker: ($) => token(prec(15, "**")),
+
+    _strong_single_marker: ($) => token(prec(5, "*")),
+
+    strong_content: ($) =>
+      repeat1(
+        choice(
+          $.emphasis,
+          $.monospace,
+          $.superscript,
+          $.subscript,
+          $.escaped_char,
+          token.immediate(/[^*\\\r\n]+/), // other text
+        ),
+      ),
+
+    // Emphasis formatting (_italic_ or __italic__)
+    emphasis: ($) =>
+      prec.left(
+        5,
+        choice(
+          seq(
+            field("open", alias(token("__"), $.emphasis_open)),
+            field("content", $.emphasis_content),
+            field("close", alias(token("__"), $.emphasis_close)),
+          ),
+          seq(
+            field("open", alias($.plain_underscore, $.emphasis_open)),
+            field("content", $.emphasis_content),
+            field("close", alias($.plain_underscore, $.emphasis_close)),
+          ),
+        ),
+      ),
+
+    emphasis_content: ($) =>
+      repeat1(
+        choice(
+          $.strong,
+          $.monospace,
+          $.superscript,
+          $.subscript,
+          $.escaped_char,
+          token.immediate(/[^_\\\r\n]+/), // other text
+        ),
+      ),
+
+    // Monospace formatting (`code` and ``intraword``)
+    monospace: ($) =>
+      prec.left(
+        5,
+        choice(
+          seq(
+            field("open", alias(token("``"), $.monospace_open)),
+            field(
+              "content",
+              alias(
+                repeat1(choice($.escaped_char, token.immediate(/[^`\\\r\n]+/))),
+                $.monospace_content,
+              ),
+            ),
+            field("close", alias(token("``"), $.monospace_close)),
+          ),
+          seq(
+            field("open", alias($.plain_backtick, $.monospace_open)),
+            field(
+              "content",
+              alias(
+                repeat1(choice($.escaped_char, token.immediate(/[^`\\\r\n]+/))),
+                $.monospace_content,
+              ),
+            ),
+            field("close", alias($.plain_backtick, $.monospace_close)),
+          ),
+        ),
+      ),
 
     // Superscript (^super^)
-    superscript: $ => prec(100, seq(
-      field('open', $.superscript_open),
-      field('content', $.superscript_text),
-      field('close', $.superscript_close)
-    )),
-    
-    superscript_open: $ => '^',
-    superscript_close: $ => '^',
-    superscript_text: $ => token.immediate(/(?:\\.|[^\^\r\n])+/),
-
+    superscript: ($) =>
+      prec.left(
+        5,
+        seq(
+          field("open", alias($.plain_caret, $.superscript_open)),
+          field(
+            "content",
+            alias(
+              repeat1(choice($.escaped_char, token.immediate(/[^\\^\r\n]+/))),
+              $.superscript_content,
+            ),
+          ),
+          field("close", alias($.plain_caret, $.superscript_close)),
+        ),
+      ),
     // Subscript (~sub~)
-    subscript: $ => prec(100, seq(
-      field('open', $.subscript_open),
-      field('content', $.subscript_text),
-      field('close', $.subscript_close)
-    )),
-    
-    subscript_open: $ => '~',
-    subscript_close: $ => '~',
-    subscript_text: $ => token.immediate(/(?:\\.|[^~\r\n])+/),
+    subscript: ($) =>
+      prec.left(
+        5,
+        seq(
+          field("open", $.subscript_open),
+          field("content", $.subscript_text),
+          field("close", $.subscript_close),
+        ),
+      ),
+
+    subscript_open: ($) => $.plain_tilde,
+    subscript_close: ($) => $.plain_tilde,
+    subscript_text: ($) => repeat1(choice($.escaped_char, token.immediate(/[^~\\\r\n]+/))),
+
+    // Highlight / role spans (#highlight# or [.role]#text#)
+    highlight: ($) =>
+      prec.left(
+        5,
+        seq(
+          optional(field("roles", alias($._attribute_list, $.role_attribute_list))),
+          field("content", $.highlight_text),
+        ),
+      ),
+
+    highlight_text: ($) => prec(20, seq("#", repeat1(choice(/\\./, /[^#\\\r\n]/)), "#")),
 
     // ANCHORS & CROSS-REFERENCES
-    inline_anchor: $ => token(prec(10, choice(
-      /\[\[[^\],\r\n]+\]\]/,  // [[id]]
-      /\[\[[^\],\r\n]+,[^\]\r\n]+\]\]/  // [[id,text]]
-    ))),
-    
+    inline_anchor: ($) =>
+      token(
+        prec(
+          10,
+          choice(
+            /\[\[[^\],\r\n]+\]\]/, // [[id]]
+            /\[\[[^\],\r\n]+,[^\]\r\n]+\]\]/, // [[id,text]]
+          ),
+        ),
+      ),
+
     // Bibliography entries [[[ref]]]
-    bibliography_entry: $ => seq(
-      '[[[',
-      field('id', $.bibliography_id),
-      optional(seq(',', field('description', $.bibliography_text))),
-      ']]]'
-    ),
-    
-    bibliography_id: $ => /[^,\]\r\n]+/,
-    bibliography_text: $ => /[^\]\r\n]+/,
-    
+    bibliography_entry: ($) =>
+      seq(
+        token("[[["),
+        field("id", $.bibliography_id),
+        optional(seq($.plain_comma, field("description", $.bibliography_text))),
+        token("]]]"),
+      ),
+
+    bibliography_id: ($) => /[^,\]\r\n]+/,
+    bibliography_text: ($) => /[^\]\r\n]+/,
+
     // Block anchors (stand-alone) - must be atomic to prevent partial matches
-    anchor: $ => token(prec(2, choice(
-      /\[\[[^\],\r\n]+\]\][ \t]*\r?\n/,  // [[id]]
-      /\[\[[^\],\r\n]+,[^\]\r\n]+\]\][ \t]*\r?\n/  // [[id,text]]
-    ))),
-
-    internal_xref: $ => choice(
-      seq(
-        '<<',
-        field('target', /[^>,\r\n]+/),
-        optional(seq(',', field('text', /[^>\r\n]+/))),
-        '>>'
+    anchor: ($) =>
+      token(
+        prec(
+          2,
+          choice(
+            /\[\[[^\],\r\n]+\]\][ \t]*\r?\n/, // [[id]]
+            /\[\[[^\],\r\n]+,[^\]\r\n]+\]\][ \t]*\r?\n/, // [[id,text]]
+          ),
+        ),
       ),
-      // Fallback for incomplete xrefs
-      seq('<<', /[^>]+/)
-    ),
 
-    external_xref: $ => choice(
+    internal_xref: ($) =>
       seq(
-        'xref:',
-        field('path', /[^\[\r\n]+/),
-        '[',
-        field('text', optional(/[^\]\r\n]+/)),
-        ']'
+        field("open", token("<<")),
+        field("target", $.xref_target),
+        optional(seq($.plain_comma, field("text", $.xref_text))),
+        field("close", token(">>")),
       ),
-      // Fallback for malformed xrefs
-      seq('xref:', /[^\[\r\n]+/)
-    ),
 
+    xref_target: ($) => token.immediate(/[^>,\r\n]+/),
 
-    footnote_inline: $ => seq(
-      'footnote:[',
-      /[^\]\r\n]+/,  // footnote text
-      ']'
-    ),
-
-    footnote_ref: $ => seq(
-      'footnote:',
-      /[^\[\r\n]+/,  // reference id
-      '[',
-      optional(/[^\]\r\n]+/),  // optional text
-      ']'
-    ),
-
-    footnoteref: $ => seq(
-      'footnoteref:',
-      /[^\[\r\n]+/,  // reference id
-      '[',
-      optional(/[^\]\r\n]+/),  // optional text
-      ']'
-    ),
-
+    xref_text: ($) => token.immediate(/[^>\r\n]+/),
     // EXPLICIT LINKS - URL followed by [text] (uses auto_link, higher precedence)
-    explicit_link: $ => prec.dynamic(2000, seq(
-      field('url', $.auto_link),
-      token('['),
-      field('text', optional($.link_text)),
-      token(']')
-    )),
+    explicit_link: ($) =>
+      prec.dynamic(
+        2000,
+        seq(
+          field("url", $.auto_link),
+          $.plain_left_bracket,
+          field("text", optional($.link_text)),
+          $.plain_right_bracket,
+        ),
+      ),
 
-    // LINK MACRO - link:URL[text]
-    link_macro: $ => prec(10, seq(
-      'link:',
-      /[^\[\r\n]+/,
-      '[',
-      optional($.link_text),
-      ']'
-    )),
-    
     // AUTO LINKS - standalone URLs as simple tokens
-    auto_link: $ => token(prec(5, choice(
-      /https?:\/\/[^\s\[\]<>"']+/,
-      /ftp:\/\/[^\s\[\]<>"']+/,
-      /mailto:[^\s\[\]<>"']+/
-    ))),
-    
-    link_text: $ => /[^\]\r\n]+/,
-    
-    bracketed_text: $ => /[^\]\r\n]+/,
+    auto_link: ($) =>
+      token(
+        prec(
+          5,
+          choice(
+            /https?:\/\/[^\s\[\]<>"']+/,
+            /ftp:\/\/[^\s\[\]<>"']+/,
+            /mailto:[^\s\[\]<>"']+/,
+          ),
+        ),
+      ),
 
-    // IMAGES
-    image: $ => choice(
-      seq('image:', /[^\[\r\n]+/, '[', optional(/[^\]\r\n]+/), ']'),
-      seq('image::', /[^\[\r\n]+/, '[', optional(/[^\]\r\n]+/), ']')
-    ),
+    link_text: ($) => /[^\]\r\n]+/,
 
     // PASSTHROUGH
-    passthrough_triple_plus: $ => seq(
-      '+++',
-      /[^+]+/,  // content without + characters (simplified)
-      '+++'
-    ),
-    
-    pass_macro: $ => choice(
-      // With substitutions
-      seq(
-        token(prec(15, seq('pass:', /[a-zA-Z,]+/))),
-        '[',
-        /[^\]\r\n]*/,  // content
-        ']'
+    passthrough_triple_plus: ($) =>
+      choice(
+        seq(
+          token("+++"),
+          token.immediate(/[^+]+/), // content without + characters (simplified)
+          token("+++"),
+        ),
+        seq(token("++"), token.immediate(/[^+]+/), token("++")),
       ),
-      // Without substitutions
+
+    attribute_substitution: ($) =>
       seq(
-        'pass:[',
-        /[^\]\r\n]*/,  // content
-        ']'
-      )
-    ),
+        $.plain_left_brace,
+        choice(seq($.plain_text, $.plain_colon, $.plain_text), $.plain_text),
+        $.plain_right_brace,
+      ),
 
-    // ATTRIBUTE REFERENCES
-    attribute_reference: $ => token(prec(10, seq(
-      '{',
-      /[^}\r\n]+/,
-      '}'
-    ))),
+    _attribute_list: ($) =>
+      prec(
+        20,
+        seq(
+          $.plain_left_bracket,
+          repeat1(
+            choice(
+              $.plain_text,
+              $.plain_dash,
+              $.plain_underscore,
+              $.plain_quote,
+              $.plain_double_quote,
+            ),
+          ),
+          $.plain_right_bracket,
+        ),
+      ),
 
-    // ROLE SPANS
-    role_span: $ => prec(2, seq(
-      '[',
-      field('roles', $.role_list),  // Support multiple roles and IDs
-      ']',
-      '#',
-      field('content', $.role_content),
-      '#'
-    )),
-    
-    // Must start with . or # to be valid role/ID syntax
-    role_list: $ => /[.#][^\]\r\n]+/,
-    
-    role_content: $ => repeat1(choice(
-      prec(100, $.strong),
-      prec(100, $.emphasis),
-      prec(100, $.monospace),
-      prec(100, $.superscript),
-      prec(100, $.subscript),
-      prec(100, $.explicit_link),
-      prec(100, $.attribute_reference),
-      token.immediate(/[^#\r\n*_`^~\[\{]+/),  // Plain text, avoiding formatting chars
-      token.immediate(/[*_`^~\[\{]/)  // Individual formatting chars when not part of patterns
-    )),
+    _attribute_list_with_line_ending: ($) => seq($._attribute_list, $._line_ending),
 
-    // MATH MACROS
-    math_macro: $ => choice(
-      $.stem_inline,
-      $.latexmath_inline,
-      $.asciimath_inline
-    ),
-    
-    // Keep as tokens to avoid parsing conflicts but allow separate node types
-    stem_inline: $ => token(seq('stem:[', /[^\]\r\n]+/, ']')),
-    latexmath_inline: $ => token(seq('latexmath:[', /[^\]\r\n]+/, ']')),
-    asciimath_inline: $ => token(seq('asciimath:[', /[^\]\r\n]+/, ']')),
+    source_block_attributes: ($) =>
+      prec(
+        25,
+        seq(
+          field(
+            "keyword",
+            alias(token(prec(60, /\[(?:source)?,/)), $.source_attribute_keyword),
+          ),
+          field("language", alias($.plain_text, $.source_language)),
+          $.plain_right_bracket,
+        ),
+      ),
 
-    // UI MACROS
-    ui_macro: $ => choice(
-      $.ui_kbd,
-      $.ui_btn,
-      $.ui_menu
-    ),
+    // INLINE MACROS
+    inline_macro: ($) =>
+      prec.right(
+        20,
+        seq(
+          field("open", alias(token(/[a-zA-Z0-9_-]+:[^:\r\n]*\[/), $.macro_name)),
+          optional(field("body", $.macro_body)),
+          field("close", alias($.plain_right_bracket, $.macro_close)),
+        ),
+      ),
 
-    ui_kbd: $ => seq('kbd:[', /[^\]\r\n]+/, ']'),
-    ui_btn: $ => seq('btn:[', /[^\]\r\n]+/, ']'),
-    ui_menu: $ => seq('menu:', /[^\[\r\n]+/, '[', /[^\]\r\n]+/, ']'),
+    block_macro: ($) =>
+      prec.right(
+        20,
+        seq(
+          field("open", alias(token(/[a-zA-Z0-9_-]+::[^:\r\n]*\[/), $.macro_name)),
+          optional(field("body", $.macro_body)),
+          field("close", alias($.plain_right_bracket, $.macro_close)),
+        ),
+      ),
 
-    // BLOCK COMMENTS
-    block_comment: $ => seq(
-      token(seq('////', /[ \t]*/, /\r?\n/)),  // opening delimiter (hidden)
-      repeat1($.comment_line),
-      token(seq('////', /[ \t]*/, optional(/\r?\n/)))  // closing delimiter (hidden)
-    ),
+    macro_body: ($) => token.immediate(/[^\]\[\r\n]+/),
 
-    comment_line: $ => /[^\r\n]*\r?\n/,
+    comment: ($) => choice($._block_comment, $._line_comment),
+
+    // Block comments (//// ... ////), can span multiple lines
+    _block_comment: ($) => token(prec(-10, /\/{4,}[^\r\n]*\/{4,}\r?\n?/)),
+
+    // Line comments (// ...), single line
+    _line_comment: ($) => token(prec(100, /\/{2,}[^\r\n]*/)),
 
     // INDEX TERMS - with fallback for malformed constructs
-    index_term: $ => choice(
-      $.index_term_macro,
-      $.index_term2_macro,
-      $.concealed_index_term
-    ),
+    index_term: ($) => choice($.index_term_macro, $.index_term2_macro, $.concealed_index_term),
 
-    index_term_macro: $ => choice(
-      seq(
-        'indexterm:[',
-        field('terms', $.index_text),
-        ']'
+    index_term_macro: ($) =>
+      choice(
+        seq(
+          token(prec(100, "indexterm:")),
+          $.plain_left_bracket,
+          field("terms", $.index_text),
+          $.plain_right_bracket,
+        ),
       ),
-      // Fallback for malformed (missing bracket)
-      seq('indexterm:', /[^\[\r\n]+/)
-    ),
 
-    index_term2_macro: $ => choice(
-      seq(
-        'indexterm2:[',
-        field('terms', $.index_text),
-        ']'
+    index_term2_macro: ($) =>
+      choice(
+        seq(
+          token(prec(100, "indexterm2:")),
+          $.plain_left_bracket,
+          field("terms", $.index_text),
+          $.plain_right_bracket,
+        ),
       ),
-      // Fallback for malformed
-      seq('indexterm2:', /[^\[\r\n]+/)
-    ),
 
-    concealed_index_term: $ => choice(
-      seq(
-        '(((',
-        field('terms', $.index_text),
-        ')))'
-      ),
-      // Fallback for incomplete concealed term
-      seq('(((', /[^\)]+/)
-    ),
+    concealed_index_term: ($) =>
+      choice(seq(token(prec(50, "(((")), field("terms", $.index_text), token(prec(50, ")))")))),
 
-    index_text: $ => choice(
-      seq(
-        field('primary', $.index_term_text),
-        ',',
-        field('secondary', $.index_term_text),
-        ',',
-        field('tertiary', $.index_term_text)
+    index_text: ($) =>
+      choice(
+        seq(
+          field("primary", $.index_term_text),
+          $.plain_comma,
+          field("secondary", $.index_term_text),
+          $.plain_comma,
+          field("tertiary", $.index_term_text),
+        ),
+        seq(
+          field("primary", $.index_term_text),
+          $.plain_comma,
+          field("secondary", $.index_term_text),
+        ),
+        field("primary", $.index_term_text),
       ),
-      seq(
-        field('primary', $.index_term_text),
-        ',',
-        field('secondary', $.index_term_text)
-      ),
-      field('primary', $.index_term_text)
-    ),
 
-    index_term_text: $ => /[^,\]\)\r\n]+/,
+    index_term_text: ($) => /[^,\]\)\r\n]+/,
 
     // TABLES
-    table_block: $ => prec.right(10, seq(
-      optional($.metadata),
-      field('open', $.table_open),
-      optional(field('content', $.table_content)),
-      field('close', $.table_close)
-    )),
+    table_block: ($) =>
+      prec.right(
+        10,
+        seq(
+          optional(field("title", $.block_title)),
+          optional(
+            field("attributes", alias($._attribute_list_with_line_ending, $.table_attributes)),
+          ),
+          $._table_block_body,
+        ),
+      ),
+
+    _table_block_body: ($) =>
+      seq(
+        field("open", $.table_open),
+        optional(field("content", $.table_content)),
+        field("close", $.table_close),
+      ),
 
     // Recognize table fences in grammar (one or two pipes followed by === and optional spaces, then newline)
-    table_open: $ => alias(token(prec(200, /\|{1,2}={3}[ \t]*\r?\n/)), $.TABLE_FENCE_START),
+    table_open: ($) => alias(token(prec(200, /\|{1,2}={3}[ \t]*\r?\n/)), $.TABLE_FENCE_START),
 
-    table_close: $ => alias(token(prec(200, /\|{1,2}={3}[ \t]*\r?\n/)), $.TABLE_FENCE_END),
+    table_close: ($) => alias(token(prec(200, /\|{1,2}={3}[ \t]*\r?\n/)), $.TABLE_FENCE_END),
 
     // Table content does not admit metadata - only rows or blank lines;
     // allow non-pipe lines as content lines for stability
-    table_free_line: $ => token(prec(1, /[^|\r\n].*\r?\n/)),
+    table_free_line: ($) => token(prec(1, /[^|\r\n].*\r?\n/)),
 
-    table_content: $ => repeat1(
-      choice(
-        $.table_row,
-        alias($.table_free_line, $.content_line),
-        alias($._blank_line, $.content_line)
-      )
-    ),
+    table_content: ($) =>
+      repeat1(
+        choice(
+          field("row", $.table_row),
+          alias($.table_free_line, $.content_line),
+          alias($._blank_line, $.content_line),
+        ),
+      ),
 
-    table_row: $ => prec(4, seq(
-      repeat1($.table_cell),
-      $._line_ending
-    )),
+    table_row: ($) => prec(4, seq(field("cells", repeat1($.table_cell)), $._line_ending)),
 
     // Table cells - distinguish cells with specs from regular cells
-    table_cell: $ => choice(
-      // Cell with spec: | followed by cell_spec (which includes closing |) then content
-      prec.left(200, prec.dynamic(200, seq(
-        '|',
-        $.cell_spec,
-        field('content', $.cell_content)
-      ))),
-      // Header cell: || followed by content (not =)
-      prec(90, seq(token(prec(65, /\|\|[^=\r\n]/)), field('content', $.cell_content))),
-      // Regular cell: | followed by optional content  
-      prec(-100, seq(
-        token(prec(60, '|')),
-        field('content', $.cell_content)
-      ))
-    ),
+    table_cell: ($) =>
+      choice(
+        // Cell with spec: | followed by cell_spec (which includes closing |) then content
+        prec.left(
+          200,
+          prec.dynamic(
+            200,
+            seq($.plain_pipe, field("spec", $.cell_spec), field("content", $.cell_content)),
+          ),
+        ),
+        // Header cell: || followed by content (not =)
+        prec(90, seq(token(prec(65, /\|\|[^=\r\n]/)), field("content", $.cell_content))),
+        // Regular cell: | followed by optional content
+        prec(-100, seq(token(prec(60, "|")), field("content", $.cell_content))),
+      ),
 
     // Cell specifications for table cells - includes closing pipe
-    cell_spec: $ => token(choice(
-      // Span + format + closing pipe
-      seq(choice(
-        seq(/\d+/, '.', /\d+/, '+'),  // 2.3+
-        seq(/\d+/, '+'),                // 2+
-        seq('.', /\d+/, '+')            // .3+
-      ), /[halmrs]/, '|'),
-      // Span only + closing pipe
-      seq(choice(
-        seq(/\d+/, '.', /\d+/, '+'),
-        seq(/\d+/, '+'),
-        seq('.', /\d+/, '+')
-      ), '|'),
-      // Format only + closing pipe
-      seq(/[halmrs]/, '|')
-    )),
-
-    // Keep these for backward compatibility or future use
-    span_spec: $ => choice(
-      token(seq(/\d+/, '.', /\d+/, '+')),
-      token(seq(/\d+/, '+')),
-      token(seq('.', /\d+/, '+'))
-    ),
-
-    format_spec: $ => /[halmrs]/,
+    cell_spec: ($) =>
+      token(
+        choice(
+          // Span + format + closing pipe
+          seq(
+            choice(
+              seq(/\d+/, ".", /\d+/, "+"), // 2.3+
+              seq(/\d+/, "+"), // 2+
+              seq(".", /\d+/, "+"), // .3+
+            ),
+            /[halmrs]/,
+            "|",
+          ),
+          // Span only + closing pipe
+          seq(choice(seq(/\d+/, ".", /\d+/, "+"), seq(/\d+/, "+"), seq(".", /\d+/, "+")), "|"),
+          // Format only + closing pipe
+          seq(/[halmrs]/, "|"),
+        ),
+      ),
 
     // Disallow metadata inside table content by keeping cell_content strictly literal
-    cell_content: $ => $.cell_literal_text,
+    cell_content: ($) => $.cell_literal_text,
 
-    cell_literal_text: $ => /[^|\r\n]*/,
+    cell_literal_text: ($) => /[^|\r\n]*/,
 
-    // LINE BREAKS
-    line_break: $ => token(prec(2, seq(
-      '+',
-      /\r?\n/
-    ))),
+    // LINE BREAKS - hard line break: space-or-tab + "+" before newline
+    hard_break: ($) => token(prec(2, seq("+", /\r?\n/))),
+    line_break: ($) => alias($.hard_break, $.line_break),
 
     // BASIC TOKENS
-    _line_ending: $ => choice('\r\n', '\n'),
-    _blank_line: $ => token(prec(-1, /[ \t]*\r?\n/)),
-  }
+    _line_ending: ($) => token(prec(-2, /\r?\n/)),
+    _blank_line: ($) => token(prec(-1, /[ \t]*\r?\n/)),
+  },
 });

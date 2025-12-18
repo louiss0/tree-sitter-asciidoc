@@ -1,0 +1,137 @@
+================================================================================
+Basic comparison operators
+================================================================================
+
+ifeval::['{fooValue}' == 'bar']
+Content when condition is true
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      (endif_directive))))
+
+================================================================================
+Numeric comparison
+================================================================================
+
+ifeval::[{countTotal} > 5]
+la
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
+      (endif_directive))))
+
+================================================================================
+Logical operators
+================================================================================
+
+ifeval::[{aValue} && {bValue}]
+wha
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
+      (endif_directive))))
+
+================================================================================
+Logical NOT operator
+================================================================================
+
+ifeval::[!{flagState}]
+beem
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
+      (endif_directive))))
+
+================================================================================
+Complex arithmetic expression
+================================================================================
+
+ifeval::[{xValue} + {yValue} * 2 > 10]
+whoo
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
+      (endif_directive))))
+
+================================================================================
+Grouped expressions with parentheses
+================================================================================
+
+ifeval::[({xValue} + {yValue}) * 2 == {resultValue}]
+
+Boo
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
+      (endif_directive))))
+
+================================================================================
+Boolean literals
+================================================================================
+
+ifeval::[true && false]
+ Bam
+endif::[]
+
+---
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      (ifeval_open)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)))
+      (endif_directive))))

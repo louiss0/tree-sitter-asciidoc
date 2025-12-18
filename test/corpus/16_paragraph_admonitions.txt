@@ -1,0 +1,272 @@
+================================================================================
+NOTE paragraph admonition
+================================================================================
+
+NOTE: This is a note paragraph with important information.
+
+---
+
+(source_file
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+TIP paragraph admonition
+================================================================================
+
+TIP: Here's a helpful tip for users.
+
+---
+
+(source_file
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_quote)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+IMPORTANT paragraph admonition
+================================================================================
+
+IMPORTANT: This is crucial information to remember.
+
+---
+
+(source_file
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+WARNING paragraph admonition
+================================================================================
+
+WARNING: Be careful with this operation.
+
+---
+
+(source_file
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+CAUTION paragraph admonition
+================================================================================
+
+CAUTION: Proceed with caution when making changes.
+
+---
+
+(source_file
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+NOTE paragraph with inline elements
+================================================================================
+
+NOTE: This note contains *bold text* and other formatting.
+
+---
+
+(source_file
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          (strong_open)
+          (strong_content)
+          (strong_close)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Empty NOTE paragraph emits ERROR
+================================================================================
+
+NOTE:
+
+---
+
+(source_file
+  (ERROR
+    (admonition_label)
+    (plain_colon)))
+
+================================================================================
+Not an admonition - lowercase label
+================================================================================
+
+note: This should be a regular paragraph, not an admonition.
+
+---
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Not an admonition - missing space after colon
+================================================================================
+
+NOTE:This should be a regular paragraph.
+
+---
+
+(source_file
+  (inline_admonition
+    label: (admonition_label)
+    label: (plain_colon)
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Not an admonition - invalid label
+================================================================================
+
+INFO: This is not a valid admonition type.
+
+---
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Multiple admonition paragraphs
+================================================================================
+
+NOTE: First admonition paragraph.
+
+WARNING: Second admonition paragraph.
+
+TIP: Third admonition paragraph.
+
+---
+
+(source_file
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Admonition paragraph in section
+================================================================================
+
+== Section Title
+
+NOTE: This admonition is inside a section.
+
+Regular paragraph text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (inline_admonition
+        label: (admonition_label)
+        label: (plain_colon)
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text))))))

@@ -1,5 +1,6 @@
-; AsciiDoc language injections for embedded syntax highlighting
+; queries/injections.scm
 
+<<<<<<< HEAD
 ; Markdown-style fenced code blocks with ` ``` `
 ; Capture language from the fence open line
 ((fenced_code_block
@@ -25,3 +26,31 @@
 ((listing_block
   (block_content) @injection.content)
  (#set! injection.language "text"))
+=======
+(listing_block
+  (source_block_attributes
+    (source_language) @injection.language)
+  (block_content) @injection.content
+  (#set! injection.include-children))
+
+(listing_block
+  (block_content) @injection.content)
+
+(literal_block
+  (block_content) @injection.content)
+
+(passthrough_block
+  (block_content) @injection.content)
+
+(example_block
+  (block_content) @injection.content)
+
+(asciidoc_blockquote
+  (block_content) @injection.content)
+
+(open_block
+  (block_content) @injection.content)
+
+(sidebar_block
+  (block_content) @injection.content)
+>>>>>>> develop

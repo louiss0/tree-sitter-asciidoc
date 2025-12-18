@@ -1,0 +1,404 @@
+================================================================================
+Inline anchor with text
+================================================================================
+
+This paragraph has [[anchor-id,anchor text]] with text.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (inline_anchor))
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Block anchor without text
+================================================================================
+
+[[block-anchor]]
+== Section Title
+
+Content after block anchor.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (inline_anchor))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Block anchor with text
+================================================================================
+
+[[block-anchor,Block anchor text]]
+== Section Title
+
+Content after block anchor with text.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (inline_anchor))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Internal cross-reference without text
+================================================================================
+
+See the <<target-section>> for more information.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (internal_xref
+          target: (xref_target)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Internal cross-reference with text
+================================================================================
+
+See the <<target-section,target section>> for details.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (internal_xref
+          target: (xref_target)
+          (plain_comma)
+          text: (xref_text)))
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+External cross-reference without text
+================================================================================
+
+Check out xref:other-file.adoc[].
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        close: (macro_close))
+      (plain_text))))
+
+================================================================================
+External cross-reference with text
+================================================================================
+
+Check out xref:other-file.adoc[Other Document].
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text))))
+
+================================================================================
+Inline footnote
+================================================================================
+
+This has a footnote footnote:[This is a footnote] in it.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Referenced footnote without text
+================================================================================
+
+This has a footnote footnote:ref1[] reference.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        close: (macro_close))
+      (plain_text))))
+
+================================================================================
+Referenced footnote with text
+================================================================================
+
+This has footnote:ref1[Referenced footnote text] in it.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Footnote reference without text
+================================================================================
+
+This uses footnoteref:ref1[] to reference a footnote.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        close: (macro_close))
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Footnote reference with text
+================================================================================
+
+This uses footnoteref:ref1[Footnote reference text] with text.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Mixed inline elements in paragraph
+================================================================================
+
+Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[link].
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (inline_anchor))
+      (plain_text)
+      (inline_element
+        (internal_xref
+          target: (xref_target)))
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text))))
+
+================================================================================
+Adjacent inline elements
+================================================================================
+
+Adjacent[[anchor]]<<xref>>footnote:[note]elements.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (inline_anchor))
+      (inline_element
+        (internal_xref
+          target: (xref_target)))
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text))))
+
+================================================================================
+Malformed anchors with unmatched brackets
+================================================================================
+
+This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_left_bracket)
+      (plain_left_bracket)))
+  (ERROR
+    (plain_text)
+    (plain_text)
+    (ERROR
+      (plain_right_bracket)
+      (plain_right_bracket)
+      (plain_left_bracket)
+      (plain_left_bracket))
+    (plain_text)
+    (plain_text)
+    (plain_text)
+    (plain_text)
+    (plain_text)))
+
+================================================================================
+Malformed cross-references with unmatched brackets
+================================================================================
+
+This has < <spaced xref> > and <<unclosed xref and regular text.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_less_than)
+      (plain_less_than)
+      (plain_text)
+      (plain_text)
+      (plain_greater_than)
+      (plain_greater_than)
+      (plain_text)))
+  (ERROR
+    (xref_target)))
+
+================================================================================
+Malformed footnotes emit missing macro_close
+================================================================================
+
+This has foot note:[spaced] and footnote:[unclosed and regular text.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)))
+  (ERROR
+    (macro_name)
+    (macro_body)))
+
+================================================================================
+Complex cross-reference targets
+================================================================================
+
+See xref:../other/doc.adoc#section1[Complex target] for details.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)
+      (plain_text))))

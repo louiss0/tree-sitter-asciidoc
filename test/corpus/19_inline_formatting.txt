@@ -1,0 +1,164 @@
+================================================================================
+Basic inline formatting
+================================================================================
+
+This is *bold* text and _italic_ text and `monospace` text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          (strong_open)
+          (strong_content)
+          (strong_close)))
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (emphasis
+          (emphasis_open)
+          (emphasis_content)
+          (emphasis_close)))
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (monospace
+          (monospace_open)
+          (monospace_content)
+          (monospace_close)))
+      (plain_text))))
+
+================================================================================
+Superscript and subscript
+================================================================================
+
+This is E=mc^2^ and H~2~O.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (superscript
+          (superscript_open)
+          (superscript_content)
+          (superscript_close)))
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (subscript
+          (subscript_open
+            (plain_tilde))
+          (subscript_text)
+          (subscript_close
+            (plain_tilde))))
+      (plain_text))))
+
+================================================================================
+Nested formatting
+================================================================================
+
+This is *bold _italic_ text* mixed.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          (strong_open)
+          (strong_content)
+          (strong_close)))
+      (plain_text))))
+
+================================================================================
+Attribute references
+================================================================================
+
+Hello {userName} from {homeLocation}!
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (attribute_substitution
+          (plain_left_brace)
+          (plain_text)
+          (plain_right_brace)))
+      (plain_text)
+      (inline_element
+        (attribute_substitution
+          (plain_left_brace)
+          (plain_text)
+          (plain_right_brace)))
+      (plain_text))))
+
+================================================================================
+Auto links
+================================================================================
+
+Visit https://example.com for more info.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (auto_link))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Links with text
+================================================================================
+
+Visit https://example.com[Example Site] for more info.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (explicit_link
+          (auto_link)
+          (plain_left_bracket)
+          (link_text)
+          (plain_right_bracket)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Passthrough
+================================================================================
+
+This +++*should not be bold*+++ text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (passthrough_triple_plus))
+      (plain_text))))

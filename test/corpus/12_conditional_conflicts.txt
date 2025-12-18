@@ -1,0 +1,252 @@
+================================================================================
+Paragraphs with directive-like words
+================================================================================
+
+This paragraph contains ifdef:: and ifndef:: words but
+they are in the middle of sentences, not at start of lines.
+
+The word endif:: can also appear here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      term: (description_item_term)
+      definition: (description_item_definition
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_colon)
+          (plain_colon)
+          (plain_text)
+          (plain_text)))))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (description_list
+    (description_list_item
+      term: (description_item_term)
+      definition: (description_item_definition
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Malformed conditional directives stay as blocks
+================================================================================
+
+ifdef::attr[extra content after bracket]
+ifndef::
+ifeval::[incomplete
+
+These look like conditionals but are malformed.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_macro
+    (macro_name)
+    (macro_body)
+    (macro_close))
+  (description_list
+    (description_list_item
+      (description_item_term)))
+  (ERROR
+    (macro_name)
+    (macro_body))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Triple colons are not conditionals
+================================================================================
+
+something::: this is not a conditional
+another:::word paragraph
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      term: (description_item_term)
+      definition: (description_item_definition
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_colon)
+      (plain_colon)
+      (plain_colon)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+No targets in ifdef should still work
+================================================================================
+
+ifdef::[]
+Content without specific target
+endif::[]
+
+ifndef::[]
+Content for ifndef without target
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_macro
+    open: (macro_name)
+    close: (macro_close))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (block_macro
+    open: (macro_name)
+    close: (macro_close))
+  (block_macro
+    open: (macro_name)
+    close: (macro_close))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (block_macro
+    open: (macro_name)
+    close: (macro_close)))
+
+================================================================================
+Conditionals with attributes inside sections
+================================================================================
+
+== Main Section
+
+:debugMode: true
+
+ifdef::debugMode[]
+Debug information here
+endif::[]
+
+=== Subsection
+
+ifndef::productionBuild[]
+Development content
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (conditional_block
+        (ifdef_block
+          directive: (ifdef_open)
+          content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)))
+          end: (endif_directive)))
+      content: (section_level_3
+        marker: (section_marker_3)
+        title: (title)
+        content: (conditional_block
+          (ifndef_block
+            directive: (ifndef_open)
+            content: (paragraph
+              content: (inline_seq_nonempty
+                (plain_text)
+                (plain_text)))
+            end: (endif_directive)))))))
+
+================================================================================
+Mixing attributes and conditionals
+================================================================================
+
+== Attribute Conditional Mix
+:attrOneValue: value1
+
+ifdef::attrOneValue[]
+Content when attrOneValue is set
+endif::[]
+
+:attrTwoValue: value2
+
+ifndef::missing[]
+Content when missing is not set
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (conditional_block
+        (ifdef_block
+          directive: (ifdef_open)
+          content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)))
+          end: (endif_directive)))
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (conditional_block
+        (ifndef_block
+          directive: (ifndef_open)
+          content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)))
+          end: (endif_directive))))))

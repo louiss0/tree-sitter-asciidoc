@@ -1,54 +1,32 @@
-; AsciiDoc code folding - enhanced patterns
+; queries/folds.scm
+(document_header) @fold
 
+<<<<<<< HEAD
 ; Fold sections with better precision
 (section) @fold
+=======
+(section_level_2) @fold
+(section_level_3) @fold
+(section_level_4) @fold
+(section_level_5) @fold
+(section_level_6) @fold
+>>>>>>> develop
 
-; Fold delimited blocks - content only
-(example_block 
-  (block_content) @fold)
+(unordered_list)   @fold
+(ordered_list)     @fold
+(description_list) @fold
+(callout_list)     @fold
 
-(listing_block 
-  (block_content) @fold)
-  
-(literal_block 
-  (block_content) @fold)
-  
-(asciidoc_blockquote 
-  (block_content) @fold)
-  
-(markdown_blockquote) @fold
-  
-(sidebar_block 
-  (block_content) @fold)
-  
-(passthrough_block 
-  (block_content) @fold)
-  
-(open_block 
-  (block_content) @fold)
+(example_block)        @fold
+(listing_block)        @fold
+(asciidoc_blockquote)  @fold
+(literal_block)        @fold
+(sidebar_block)        @fold
+(passthrough_block)    @fold
+(open_block)           @fold
+(table_block)          @fold
 
-; Fold tables - content only
-(table_block 
-  (table_content) @fold)
-
-; Fold comments
-(block_comment) @fold
-
-; Fold conditional blocks if they exist
 (conditional_block) @fold
-
-; Fold lists - only if multiple items
-(unordered_list 
-  (unordered_list_item)
-  (unordered_list_item)+ @fold)
-  
-(ordered_list 
-  (ordered_list_item) 
-  (ordered_list_item)+ @fold)
-  
-(description_list 
-  (description_item)
-  (description_item)+ @fold)
-
-; Fold list continuations
-(list_item_continuation) @fold
+(ifdef_block)       @fold
+(ifndef_block)      @fold
+(ifeval_block)      @fold

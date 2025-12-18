@@ -1,0 +1,472 @@
+================================================================================
+Simple description list
+================================================================================
+
+Term1:: Description for term 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (description_item_definition
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Not a description list - missing space after double colon
+================================================================================
+
+Term::Description
+
+Another::Description
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon)
+      (plain_colon)
+      (plain_text)))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_colon)
+      (plain_colon)
+      (plain_text))))
+
+================================================================================
+Description item with second paragraph via list continuation
+================================================================================
+
+Term:: First description paragraph
++
+Second attached paragraph
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (description_item_definition
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (paragraph
+          (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
+            (plain_text)))))))
+
+================================================================================
+Description item with only compound content no inline details
+================================================================================
+
+Code example::
++
+This paragraph is only in the description body
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (paragraph
+          (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text)))))))
+
+================================================================================
+Description item with listing block attached
+================================================================================
+
+Command::
++
+----
+ls -la
+echo done
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (listing_block
+          (listing_open
+            (LISTING_FENCE_START))
+          (block_content
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (listing_close
+            (LISTING_FENCE_END)))))))
+
+================================================================================
+Description item with literal block attached
+================================================================================
+
+Literal::
++
+....
+literal block line one
+literal block line two
+....
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (literal_block
+          (literal_open
+            (LITERAL_FENCE_START))
+          (block_content
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (literal_close
+            (LITERAL_FENCE_END)))))))
+
+====
+example block content line one
+example block content line two
+====
+
+--------------------------------------------------------------------------------
+
+(source_file)
+
+================================================================================
+Description item with quote block attached
+================================================================================
+
+Quote term::
++
+____
+quoted content line one
+quoted content line two
+____
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (asciidoc_blockquote
+          (asciidoc_blockquote_open
+            (QUOTE_FENCE_START))
+          (block_content
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (asciidoc_blockquote_close
+            (QUOTE_FENCE_END)))))))
+
+================================================================================
+Description item with sidebar block attached
+================================================================================
+
+Sidebar term::
++
+****
+sidebar content line one
+sidebar content line two
+****
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (sidebar_block
+          (sidebar_open
+            (SIDEBAR_FENCE_START))
+          (block_content
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (sidebar_close
+            (SIDEBAR_FENCE_END)))))))
+
+================================================================================
+Description item with passthrough block attached
+================================================================================
+
+Passthrough term::
++
+++++
+<raw> passthrough content line </raw>
+++++
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (passthrough_block
+          (passthrough_open
+            (PASSTHROUGH_FENCE_START))
+          (block_content
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (passthrough_close
+            (PASSTHROUGH_FENCE_END)))))))
+
+====
+something dangerous here
+====
+
+--------------------------------------------------------------------------------
+
+(source_file)
+
+================================================================================
+Description item with nested unordered list via continuation
+================================================================================
+
+Features::
++
+* simple
+* powerful
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (unordered_list
+          (unordered_list_item
+            (unordered_list_marker)
+            (inline_seq_nonempty
+              (plain_text)))
+          (unordered_list_item
+            (unordered_list_marker)
+            (inline_seq_nonempty
+              (plain_text))))))))
+
+================================================================================
+Description item with nested description list via continuation
+================================================================================
+
+Parent term::
++
+Child1:: Child description one
+Child2:: Child description two
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (paragraph
+          (inline_seq_nonempty
+            (plain_text)
+            (plain_colon)
+            (plain_colon)
+            (plain_text)
+            (plain_text)
+            (plain_text))))))
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (description_item_definition
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Description item with open block grouping multiple blocks
+================================================================================
+
+Grouped term::
++
+--
+First paragraph inside open block
++
+Second paragraph still in same open block
+--
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (open_block
+          (openblock_open
+            (OPENBLOCK_FENCE_START))
+          (block_content
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE))
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (openblock_close
+            (OPENBLOCK_FENCE_END)))))))
+
+================================================================================
+Description item mixing inline details and listing block
+================================================================================
+
+Build:: Run the build command
++
+----
+npm run build
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (description_item_definition
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (listing_block
+          (listing_open
+            (LISTING_FENCE_START))
+          (block_content
+            (content_line
+              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (listing_close
+            (LISTING_FENCE_END)))))))
+
+================================================================================
+Description item with multiple different attached blocks
+================================================================================
+
+Complex term:: Inline description text
++
+First attached paragraph
++
+----
+code block line
+----
++
+* nested list item
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (description_item_definition
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      (list_item_continuation
+        (LIST_CONTINUATION)
+        (paragraph
+          (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
+            (plain_text))))))
+  (paragraph
+    (inline_seq_nonempty
+      (inline_element
+        (hard_break))))
+  (listing_block
+    (listing_open
+      (LISTING_FENCE_START))
+    (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    (listing_close
+      (LISTING_FENCE_END)))
+  (paragraph
+    (inline_seq_nonempty
+      (inline_element
+        (hard_break))))
+  (unordered_list
+    (unordered_list_item
+      (unordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)))))
+
+================================================================================
+Description list followed by non-list block (list terminates)
+================================================================================
+
+Term:: Description text
+
+----
+separate listing block, not part of the description list
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      (description_item_term)
+      (description_item_definition
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)))))
+  (listing_block
+    (listing_open
+      (LISTING_FENCE_START))
+    (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    (listing_close
+      (LISTING_FENCE_END))))

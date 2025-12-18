@@ -1,0 +1,145 @@
+================================================================================
+Simple strong formatting
+================================================================================
+
+This has *bold* text in it.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Simple emphasis formatting
+================================================================================
+
+This has _italic_ text in it.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Simple monospace formatting
+================================================================================
+
+This has `code` text in it.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (monospace
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Unclosed formatting emits inline ERROR
+================================================================================
+
+This has *unclosed bold and _unclosed italic and `unclosed code.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close
+            (MISSING "*")))))))
+
+================================================================================
+Mixed formatting elements
+================================================================================
+
+This has *bold* and _italic_ and `code` together.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
+      (plain_text)
+      (inline_element
+        (monospace
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
+      (plain_text))))
+
+================================================================================
+Simple superscript and subscript
+================================================================================
+
+This has ^superscript^ and ~subscript~ text.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (superscript
+          open: (superscript_open)
+          content: (superscript_content)
+          close: (superscript_close)))
+      (plain_text)
+      (inline_element
+        (subscript
+          open: (subscript_open
+            (plain_tilde))
+          content: (subscript_text)
+          close: (subscript_close
+            (plain_tilde))))
+      (plain_text))))

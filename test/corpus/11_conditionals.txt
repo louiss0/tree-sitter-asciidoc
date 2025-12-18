@@ -1,0 +1,277 @@
+================================================================================
+Basic ifdef block
+================================================================================
+
+== Conditional Document
+:backendMode: pdf
+
+ifdef::backendMode[]
+== PDF Content
+Paragraph under conditional.
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (conditional_block
+        (ifdef_block
+          directive: (ifdef_open)
+          content: (section
+            (section_level_2
+              marker: (section_marker_2)
+              title: (title)
+              content: (paragraph
+                content: (inline_seq_nonempty
+                  (plain_text)
+                  (plain_text)
+                  (plain_text)))))
+          end: (endif_directive))))))
+
+================================================================================
+Basic ifndef block
+================================================================================
+
+ifndef::draft[]
+Final content only.
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (conditional_block
+    (ifndef_block
+      directive: (ifndef_open)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      end: (endif_directive))))
+
+================================================================================
+Basic ifeval block
+================================================================================
+
+== Evaluation Document
+:levelThreshold: 2
+
+ifeval::[{levelThreshold} > 1]
+== Title
+Content for level greater than 1.
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (conditional_block
+        (ifeval_block
+          directive: (ifeval_open)
+          content: (section
+            (section_level_2
+              marker: (section_marker_2)
+              title: (title)
+              content: (paragraph
+                content: (inline_seq_nonempty
+                  (plain_text)
+                  (plain_text)
+                  (plain_text)
+                  (plain_text)
+                  (plain_text)
+                  (plain_text)))))
+          end: (endif_directive))))))
+
+================================================================================
+Nested conditionals
+================================================================================
+
+ifdef::a[]
+ifdef::b[]
+Inner content
+endif::[]
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (conditional_block
+    (ifdef_block
+      directive: (ifdef_open)
+      content: (conditional_block
+        (ifdef_block
+          directive: (ifdef_open)
+          content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)))
+          end: (endif_directive)))
+      end: (endif_directive))))
+
+================================================================================
+Mixed conditional and description list
+================================================================================
+
+Term:: definition
+
+ifdef::flag[]
+Content inside conditional
+endif::[]
+
+Another:: item
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (description_list
+    (description_list_item
+      term: (description_item_term)
+      definition: (description_item_definition
+        (inline_seq_nonempty
+          (plain_text)))))
+  (conditional_block
+    (ifdef_block
+      directive: (ifdef_open)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      end: (endif_directive)))
+  (description_list
+    (description_list_item
+      term: (description_item_term)
+      definition: (description_item_definition
+        (inline_seq_nonempty
+          (plain_text))))))
+
+================================================================================
+Multiple attribute targets
+================================================================================
+
+ifdef::attr1,attr2,attr3[]
+Multiple attributes checked
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (conditional_block
+    (ifdef_block
+      directive: (ifdef_open)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      end: (endif_directive))))
+
+================================================================================
+Conditional with lists and sections
+================================================================================
+
+ifdef::backend[]
+== Section in conditional
+
+- List item 1
+- List item 2
+
+1. Ordered item
+2. Another item
+
+Another paragraph
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (conditional_block
+    (ifdef_block
+      directive: (ifdef_open)
+      content: (section
+        (section_level_2
+          marker: (section_marker_2)
+          title: (title)
+          content: (unordered_list
+            items: (unordered_list_item
+              marker: (unordered_list_marker)
+              content: (inline_seq_nonempty
+                (plain_text)
+                (plain_text)
+                (plain_text)))
+            items: (unordered_list_item
+              marker: (unordered_list_marker)
+              content: (inline_seq_nonempty
+                (plain_text)
+                (plain_text)
+                (plain_text))))
+          content: (ordered_list
+            items: (ordered_list_item
+              marker: (ordered_list_marker)
+              content: (inline_seq_nonempty
+                (plain_text)
+                (plain_text)))
+            items: (ordered_list_item
+              marker: (ordered_list_marker)
+              content: (inline_seq_nonempty
+                (plain_text)
+                (plain_text))))
+          content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)))))
+      end: (endif_directive))))
+
+================================================================================
+Empty conditional block
+================================================================================
+
+ifdef::nonexistent[]
+endif::[]
+
+Normal content
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (conditional_block
+    (ifdef_block
+      directive: (ifdef_open)
+      end: (endif_directive)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Complex ifeval expression
+================================================================================
+
+ifeval::["{versionNumber}" >= "2.0"]
+New feature content
+endif::[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (conditional_block
+    (ifeval_block
+      directive: (ifeval_open)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      end: (endif_directive))))

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ; ============================================================================
 ; AsciiDoc Tags Queries
 ; ============================================================================
@@ -114,3 +115,12 @@
 (sidebar_block
   (metadata
     (block_title) @name) @definition.struct)
+=======
+; queries/tags.scm
+(document_title_text) @name
+(title)               @name
+
+(attribute_name)  @name
+(anchor)          @name
+(bibliography_id) @name
+>>>>>>> develop

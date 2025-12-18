@@ -1,0 +1,129 @@
+================================================================================
+Lists mixed with paragraphs
+================================================================================
+
+This is a paragraph.
+
+* First item
+* Second item
+
+Another paragraph here.
+
+1. First ordered item
+2. Second ordered item
+
+Final paragraph.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (unordered_list
+    items: (unordered_list_item
+      marker: (unordered_list_marker)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)))
+    items: (unordered_list_item
+      marker: (unordered_list_marker)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text))))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (ordered_list
+    items: (ordered_list_item
+      marker: (ordered_list_marker)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)))
+    items: (ordered_list_item
+      marker: (ordered_list_marker)
+      content: (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text))))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Lists mixed with sections and attributes
+================================================================================
+
+== Document Title
+:authorName: John Doe
+
+This is a paragraph under the title.
+
+* Item one
+* Item two
+
+== Subsection
+
+More content here.
+
+1. Numbered item
+2. Another numbered item
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (attribute_entry
+        name: (attribute_name)
+        value: (attribute_value))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      content: (unordered_list
+        items: (unordered_list_item
+          marker: (unordered_list_marker)
+          content: (inline_seq_nonempty
+            (plain_text)
+            (plain_text)))
+        items: (unordered_list_item
+          marker: (unordered_list_marker)
+          content: (inline_seq_nonempty
+            (plain_text)
+            (plain_text))))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      content: (ordered_list
+        items: (ordered_list_item
+          marker: (ordered_list_marker)
+          content: (inline_seq_nonempty
+            (plain_text)
+            (plain_text)))
+        items: (ordered_list_item
+          marker: (ordered_list_marker)
+          content: (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
+            (plain_text)))))))

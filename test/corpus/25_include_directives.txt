@@ -1,0 +1,224 @@
+================================================================================
+Basic include without options
+================================================================================
+
+include::chapter01.adoc[]
+
+This is content after the include.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_macro
+    (macro_name)
+    (macro_close))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Include with leveloffset option
+================================================================================
+
+include::intro.adoc[leveloffset=+1]
+
+Another paragraph.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_macro
+    (macro_name)
+    (macro_body)
+    (macro_close))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Include with line ranges
+================================================================================
+
+include::examples.adoc[lines=10..20]
+
+Text after include.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_macro
+    (macro_name)
+    (macro_body)
+    (macro_close))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Include with tags
+================================================================================
+
+include::code.adoc[tag=example,indent=0]
+
+More content.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_macro
+    (macro_name)
+    (macro_body)
+    (macro_close))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Include with multiple options
+================================================================================
+
+include::document.adoc[leveloffset=+2,lines=1..50,opts=optional]
+
+Final paragraph.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_macro
+    (macro_name)
+    (macro_body)
+    (macro_close))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Include with path containing subdirectories
+================================================================================
+
+include::chapters/getting-started/intro.adoc[]
+
+Following content.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_macro
+    (macro_name)
+    (macro_close))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Include in section
+================================================================================
+
+== Chapter One
+
+include::chapter-one-content.adoc[leveloffset=+1]
+
+== Chapter Two
+
+More text here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (block_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Multiple includes
+================================================================================
+
+include::intro.adoc[]
+
+include::chapter01.adoc[]
+
+include::conclusion.adoc[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_macro
+    (macro_name)
+    (macro_close))
+  (block_macro
+    (macro_name)
+    (macro_close))
+  (block_macro
+    (macro_name)
+    (macro_close)))
+
+================================================================================
+Not an include - missing colon
+================================================================================
+
+include:single-colon.adoc[]
+
+This should be a paragraph.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (inline_macro
+        (macro_name)
+        (macro_close))))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Include macro with malformed brackets
+================================================================================
+
+include::malformed.adoc[missing-end
+
+This should be a paragraph.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (macro_name)
+    (macro_body))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))

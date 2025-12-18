@@ -1,0 +1,264 @@
+================================================================================
+Basic Paragraph Admonitions
+================================================================================
+
+NOTE: This is a simple note.
+
+TIP: Here's a helpful tip for you.
+
+IMPORTANT: This information is very important.
+
+WARNING: Be careful with this!
+
+CAUTION: Proceed with extreme caution.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_quote)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Admonition Blocks with Example
+================================================================================
+
+[NOTE]
+====
+This is a note block with multiple lines.
+
+It can contain paragraphs and other content.
+====
+
+[TIP]
+====
+Pro tip: Always read the documentation first!
+
+- This can include
+- Lists and other content
+====
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_admonition
+    type: (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    block: (example_block
+      open: (example_open
+        (EXAMPLE_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (example_close
+        (EXAMPLE_FENCE_END))))
+  (block_admonition
+    type: (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    block: (example_block
+      open: (example_open
+        (EXAMPLE_FENCE_START))
+      content: (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      close: (example_close
+        (EXAMPLE_FENCE_END)))))
+
+================================================================================
+Admonition Blocks with Different Delimited Block Types
+================================================================================
+
+[WARNING]
+----
+# This is dangerous code
+rm -rf /
+----
+
+[IMPORTANT]
+....
+This is literal content.
+  With preserved formatting.
+....
+
+[CAUTION]
+****
+This is a sidebar admonition.
+****
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_admonition
+    (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    (listing_block
+      (listing_open
+        (LISTING_FENCE_START))
+      (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      (listing_close
+        (LISTING_FENCE_END))))
+  (block_admonition
+    (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    (literal_block
+      (literal_open
+        (LITERAL_FENCE_START))
+      (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE))
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      (literal_close
+        (LITERAL_FENCE_END))))
+  (block_admonition
+    (attribute_admonition_list
+      (plain_left_bracket)
+      (admonition_label)
+      (plain_right_bracket))
+    (sidebar_block
+      (sidebar_open
+        (SIDEBAR_FENCE_START))
+      (block_content
+        (content_line
+          (DELIMITED_BLOCK_CONTENT_LINE)))
+      (sidebar_close
+        (SIDEBAR_FENCE_END)))))
+
+================================================================================
+Complex Paragraph Admonitions with Inline Elements
+================================================================================
+
+NOTE: This note contains a cross-reference <<section-id>> in the text.
+
+TIP: Check out this external link xref:other.adoc[Other Document] for more info.
+
+IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_dash)
+      (plain_text)
+      (inline_element
+        (internal_xref
+          (xref_target)))
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        (macro_name)
+        (macro_body)
+        (macro_close))
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (inline_admonition
+    (admonition_label)
+    (plain_colon)
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_macro
+        (macro_name)
+        (macro_body)
+        (macro_close))
+      (plain_text)
+      (plain_text))))
+
+====
+Block admonitions work in sections as well.
+====
+
+Another paragraph after the admonition.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))

@@ -1,0 +1,452 @@
+================================================================================
+Unicode word boundaries in formatting
+================================================================================
+
+Text with *héllo* and _naïve_ formatting.
+
+Japanese text with *こんにちは* and _世界_ formatting.
+
+Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_colon)
+      (inline_element
+        (superscript
+          open: (superscript_open)
+          content: (superscript_content)
+          close: (superscript_close)))
+      (plain_text)
+      (inline_element
+        (subscript
+          open: (subscript_open
+            (plain_tilde))
+          content: (subscript_text)
+          close: (subscript_close
+            (plain_tilde))))
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Delimiter adjacency and escape handling
+================================================================================
+
+Adjacent *strong* and _emphasis_ formatting.
+
+Escaped \*not strong\* and \_not emphasis\_.
+
+Mixed: *strong _with emphasis_ inside*.
+
+Monospace with `code *not strong* here` content.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (escaped_char)
+      (plain_text)
+      (plain_text)
+      (escaped_char)
+      (plain_text)
+      (escaped_char)
+      (plain_text)
+      (plain_text)
+      (escaped_char)
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_colon)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (monospace
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
+      (plain_text))))
+
+================================================================================
+Complex autolink boundary detection
+================================================================================
+
+Visit https://example.com/path?query=value&other=test for more.
+
+Link with punctuation: https://docs.com/api#section.
+
+Multiple URLs: https://first.com, https://second.org!
+
+Email addresses: contact@example.com.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (auto_link))
+      (plain_text)
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_colon)
+      (inline_element
+        (auto_link))))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_colon)
+      (inline_element
+        (auto_link))
+      (inline_element
+        (auto_link))))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_colon)
+      (plain_text))))
+
+================================================================================
+Role spans with complex attributes
+================================================================================
+
+[.highlight]#Important text# with role.
+
+[.red.bold#special]#Custom styling# with multiple attributes.
+
+[%nowrap]#No wrap content# with options.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (highlight
+          roles: (role_attribute_list
+            (plain_left_bracket)
+            (plain_text)
+            (plain_right_bracket))
+          content: (highlight_text)))
+      (plain_text)
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (highlight
+          roles: (role_attribute_list
+            (plain_left_bracket)
+            (plain_text)
+            (plain_right_bracket))
+          content: (highlight_text)))
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (highlight
+          roles: (role_attribute_list
+            (plain_left_bracket)
+            (plain_text)
+            (plain_right_bracket))
+          content: (highlight_text)))
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Nested formatting edge cases
+================================================================================
+
+*Strong with `code` inside* normal text.
+
+_Emphasis with ^superscript^ and ~subscript~ mixed_.
+
+**Unconstrained **with** double** asterisks.
+
+++Complex `monospace with _emphasis_` not parsed++ content.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (monospace
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Macro and attribute edge cases
+================================================================================
+
+Multiple attributes: kbd:[Ctrl+Alt+Del] and btn:[Submit].
+
+Math notation: stem:[E = mc^2] and asciimath:[sum_(i=1)^n x_i].
+
+Footnote variations: footnote:[Simple note] and footnoteref:ref1[Referenced note].
+
+Complex image: image::path/file.png[Alt text,width=100,height=50].
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_colon)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_colon)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_colon)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_colon)))
+  (block_macro
+    open: (macro_name)
+    body: (macro_body)
+    close: (macro_close))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text))))
+
+================================================================================
+Cross-reference and anchor combinations
+================================================================================
+
+See <<introduction>> for basics and <<advanced,Advanced Topics>>.
+
+External references: xref:guide.adoc[User Guide] and xref:api.adoc#methods[API Methods].
+
+Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (internal_xref
+          target: (xref_target)))
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (internal_xref
+          target: (xref_target)
+          (plain_comma)
+          text: (xref_text)))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_colon)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_right_bracket)
+      (plain_text))))
+
+================================================================================
+Passthrough and raw content edge cases
+================================================================================
+
+Inline passthrough: pass:[<script>alert('test')</script>] content.
+
+Triple plus passthrough: +++<div class="raw">HTML content</div>+++ text.
+
+Nested pass: pass:c[{code-block}] with substitution.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_colon)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_colon)
+      (inline_element
+        (passthrough_triple_plus))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_colon)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)
+      (plain_text))))

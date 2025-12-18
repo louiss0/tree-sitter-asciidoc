@@ -1,0 +1,529 @@
+================================================================================
+URL followed by monospace (precedence test)
+================================================================================
+
+Visit http://example.com`code`[link text] for details.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (explicit_link
+          url: (auto_link)
+          (plain_left_bracket)
+          text: (link_text)
+          (plain_right_bracket)))
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Inline inside role span content
+================================================================================
+
+This is [important]#*bold* and _italic_ text# here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (highlight
+          roles: (role_attribute_list
+            (plain_left_bracket)
+            (plain_text)
+            (plain_right_bracket))
+          content: (highlight_text)))
+      (plain_text))))
+
+================================================================================
+Crossing styles (should fallback gracefully)
+================================================================================
+
+
+--------------------------------------------------------------------------------
+
+(source_file)
+
+================================================================================
+Trailing plus without EOL (should not create line_break)
+================================================================================
+
+This has a plus+ in the middle.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Escaped delimiters in strong
+================================================================================
+
+This is *bold with \* asterisk* text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content
+            (escaped_char))
+          close: (strong_close)))
+      (plain_text))))
+
+================================================================================
+Escaped delimiters in emphasis
+================================================================================
+
+This is _italic with \_ underscore_ text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content
+            (escaped_char))
+          close: (emphasis_close)))
+      (plain_text))))
+
+================================================================================
+Escaped delimiters in monospace
+================================================================================
+
+This is `code with \` backtick` text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (monospace
+          open: (monospace_open)
+          content: (monospace_content
+            (escaped_char))
+          close: (monospace_close)))
+      (plain_text))))
+
+================================================================================
+Escaped delimiters in superscript
+================================================================================
+
+This is ^super with \^ caret^ text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (superscript
+          open: (superscript_open)
+          content: (superscript_content
+            (escaped_char))
+          close: (superscript_close)))
+      (plain_text))))
+
+================================================================================
+Escaped delimiters in subscript
+================================================================================
+
+This is ~sub with \~ tilde~ text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (subscript
+          open: (subscript_open
+            (plain_tilde))
+          content: (subscript_text
+            (escaped_char))
+          close: (subscript_close
+            (plain_tilde))))
+      (plain_text))))
+
+================================================================================
+Escaped delimiters in role span
+================================================================================
+
+This is [role]#text with \# hash# here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (highlight
+          roles: (role_attribute_list
+            (plain_left_bracket)
+            (plain_text)
+            (plain_right_bracket))
+          content: (highlight_text)))
+      (plain_text))))
+
+================================================================================
+Complex nesting with multiple styles
+================================================================================
+
+This is *bold with `mono and ^super^`* text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (plain_text))))
+
+================================================================================
+Attribute reference inside various constructs
+================================================================================
+
+This is *bold {userName}* and `code {currentVersion}` and ^super{levelCount}^.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          (strong_open)
+          (strong_content)
+          (strong_close)))
+      (plain_text)
+      (inline_element
+        (monospace
+          (monospace_open)
+          (monospace_content)
+          (monospace_close)))
+      (plain_text)
+      (inline_element
+        (superscript
+          (superscript_open)
+          (superscript_content)
+          (superscript_close)))
+      (plain_text))))
+
+================================================================================
+Attribute reference fallback - close then open braces
+================================================================================
+
+This } { should stay text.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (ERROR
+        (plain_right_brace))
+      (inline_element
+        (attribute_substitution
+          (plain_left_brace)
+          (plain_text)
+          (MISSING plain_right_brace)))
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Attribute reference fallback - spaced stray closing braces
+================================================================================
+
+Stray } foo } braces remain literal.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (ERROR
+        (plain_right_brace))
+      (plain_text)
+      (ERROR
+        (plain_right_brace))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Attribute reference fallback - dangling opening brace
+================================================================================
+
+Open {userName reference stays literal.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (attribute_substitution
+          (plain_left_brace)
+          (plain_text)
+          (MISSING plain_right_brace)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Attribute reference fallback - spaced dangling brace
+================================================================================
+
+Spaces { name reference lacks brace.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (attribute_substitution
+          (plain_left_brace)
+          (plain_text)
+          (MISSING plain_right_brace)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Attribute reference fallback - interleaved braces
+================================================================================
+
+Weird }{ combos stay literal.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (ERROR
+        (plain_right_brace))
+      (inline_element
+        (attribute_substitution
+          (plain_left_brace)
+          (plain_text)
+          (MISSING plain_right_brace)))
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Line break with proper EOL
+================================================================================
+
+First line +
+Second line here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (hard_break))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Macro precedence over formatting
+================================================================================
+
+Use stem:[a^2 + b^2] and kbd:[Ctrl+*Bold*] commands.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text)
+      (inline_macro
+        open: (macro_name)
+        body: (macro_body)
+        close: (macro_close))
+      (plain_text))))
+
+================================================================================
+Passthrough precedence over everything
+================================================================================
+
+This +++*bold* `code` _italic_+++ is literal.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (inline_element
+        (passthrough_triple_plus))
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Image and link precedence
+================================================================================
+
+Use image:logo.png[Logo] and https://example.com[Site] here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (inline_macro
+        (macro_name)
+        (macro_body)
+        (macro_close))
+      (plain_text)
+      (inline_element
+        (explicit_link
+          (auto_link)
+          (plain_left_bracket)
+          (link_text)
+          (plain_right_bracket)))
+      (plain_text))))
+
+================================================================================
+Multiple consecutive inline elements
+================================================================================
+
+*Bold*_italic_`code`^super^~sub~{customAttr}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close)))
+      (inline_element
+        (emphasis
+          open: (emphasis_open)
+          content: (emphasis_content)
+          close: (emphasis_close)))
+      (inline_element
+        (monospace
+          open: (monospace_open)
+          content: (monospace_content)
+          close: (monospace_close)))
+      (inline_element
+        (superscript
+          open: (superscript_open)
+          content: (superscript_content)
+          close: (superscript_close)))
+      (inline_element
+        (subscript
+          open: (subscript_open
+            (plain_tilde))
+          content: (subscript_text)
+          close: (subscript_close
+            (plain_tilde))))
+      (inline_element
+        (attribute_substitution
+          (plain_left_brace)
+          (plain_text)
+          (plain_right_brace))))))
+
+================================================================================
+Empty inline constructs (edge case)
+================================================================================
+
+This has ** and __ and `` empty markers.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (strong
+          open: (strong_open)
+          content: (strong_content)
+          close: (strong_close
+            (MISSING "**")))))))
+
+================================================================================
+Role span with dots in name
+================================================================================
+
+This is [role.with.dots]#styled text# here.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (highlight
+          roles: (role_attribute_list
+            (plain_left_bracket)
+            (plain_text)
+            (plain_right_bracket))
+          content: (highlight_text)))
+      (plain_text))))

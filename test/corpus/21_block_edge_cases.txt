@@ -1,0 +1,352 @@
+================================================================================
+Nested delimited blocks
+================================================================================
+
+====
+Outer example block.
+
+****
+
+Inner sidebar block.
+
+****
+
+====
+
+----
+
+(source_file
+  (example_block
+    (example_open
+      (EXAMPLE_FENCE_START))
+    (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    (example_close
+      (EXAMPLE_FENCE_END))))
+
+================================================================================
+Complex table structures
+================================================================================
+
+[options="header"]
+|===
+| Name | Age | City
+
+| Alice
+| 30
+| New York
+
+2+| Merged cell content
+| Single cell
+
+| Bob | 25 | London
+|===
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (table_block
+    attributes: (table_attributes
+      (plain_left_bracket)
+      (plain_text)
+      (plain_double_quote)
+      (plain_text)
+      (plain_double_quote)
+      (plain_right_bracket))
+    open: (table_open
+      (TABLE_FENCE_START))
+    content: (table_content
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text))))
+      (content_line)
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))))
+    close: (table_close
+      (TABLE_FENCE_END))))
+
+================================================================================
+Conditional blocks with nesting
+================================================================================
+
+ifdef::draft[]
+Draft content here.
+
+ifndef::production[]
+Development notes.
+
+ifeval::["{versionNumber}" >= "2.0"]
+Version 2.0+ features.
+endif::[]
+
+Back to development notes.
+endif::[]
+
+Final draft content.
+endif::[]
+
+Production content.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (conditional_block
+    (ifdef_block
+      directive: (ifdef_open)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      content: (conditional_block
+        (ifndef_block
+          directive: (ifndef_open)
+          content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)))
+          content: (conditional_block
+            (ifeval_block
+              directive: (ifeval_open)
+              content: (paragraph
+                content: (inline_seq_nonempty
+                  (plain_text)
+                  (plain_text)
+                  (plain_text)))
+              end: (endif_directive)))
+          content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)))
+          end: (endif_directive)))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      end: (endif_directive)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text))))
+
+================================================================================
+Section nesting with anchors
+================================================================================
+
+== Document Title
+
+[[section1]]
+== First Section
+
+Content for first section.
+
+[[section2]]
+=== Subsection
+
+More detailed content.
+
+[[section3,Custom Section Title]]
+==== Deep Section
+
+Final content with custom anchor.
+
+== Second Top Section
+
+Back to level 2.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (inline_element
+            (inline_anchor))))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (inline_element
+            (inline_anchor))))
+      content: (section_level_3
+        marker: (section_marker_3)
+        title: (title)
+        content: (paragraph
+          content: (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
+            (plain_text)))
+        content: (paragraph
+          content: (inline_seq_nonempty
+            (inline_element
+              (inline_anchor))))
+        content: (section_level_4
+          marker: (section_marker_4)
+          title: (title)
+          content: (paragraph
+            content: (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)))))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text))))))
+
+================================================================================
+Attribute edge cases with references
+================================================================================
+
+== Attribute Edge Cases
+:authorName: John Doe
+:versionNumber: 2.1.0
+:customAttribute: Special value
+
+Author: {authorName}
+Version: {versionNumber}
+Custom: {customAttribute}
+
+:!disabled-attr:
+:enabled-attr!:
+
+Undefined: {undefinedAttr}
+Disabled: {disabledAttr}
+Enabled: {enabledAttr}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    (section_level_2
+      (section_marker_2)
+      (title)
+      (attribute_entry
+        (attribute_name)
+        (attribute_value))
+      (attribute_entry
+        (attribute_name)
+        (attribute_value))
+      (attribute_entry
+        (attribute_name)
+        (attribute_value))
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_colon)
+          (inline_element
+            (attribute_substitution
+              (plain_left_brace)
+              (plain_text)
+              (plain_right_brace)))))
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_colon)
+          (inline_element
+            (attribute_substitution
+              (plain_left_brace)
+              (plain_text)
+              (plain_right_brace)))))
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_colon)
+          (inline_element
+            (attribute_substitution
+              (plain_left_brace)
+              (plain_text)
+              (plain_right_brace)))))
+      (attribute_entry
+        (attribute_name))
+      (attribute_entry
+        (attribute_name))
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_colon)
+          (inline_element
+            (attribute_substitution
+              (plain_left_brace)
+              (plain_text)
+              (plain_right_brace)))))
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_colon)
+          (inline_element
+            (attribute_substitution
+              (plain_left_brace)
+              (plain_text)
+              (plain_right_brace)))))
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_colon)
+          (inline_element
+            (attribute_substitution
+              (plain_left_brace)
+              (plain_text)
+              (plain_right_brace))))))))

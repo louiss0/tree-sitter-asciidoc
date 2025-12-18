@@ -148,7 +148,7 @@ attribute_entry = ':', attr_name, ':', [ ' ', attr_value ], newline ;
 attr_name = id_start, { id_char } ;
 attr_value = { non_newline_char } ;
 
-attribute_reference = '{', attr_name, '}' ;
+attribute_substitution = '{', attr_name, '}' ;
 
 block_attributes = '[', attributes_text, ']', newline ;
 attributes_text = { non_newline_char - ']' } ;
@@ -319,9 +319,9 @@ table_row = { table_cell }, newline ;
 table_cell = [ cell_spec ], '|', cell_content ;
 
 (* Cell Specifications (colspan.rowspan+|, format specifiers) *)
-cell_spec = [ span_spec ], [ format_spec ] ;
-span_spec = digit, { digit }, [ '.', digit, { digit } ], '+' ;
-format_spec = format_char ;
+cell_spec = [ span_component ], [ format_char ], '|' ;
+span_component = ( digit, { digit }, '.', digit, { digit } | digit, { digit } | '.', digit, { digit } ), '+' ;
+format_char = 'h' | 'a' | 'l' | 'm' | 'r' | 's' ;
 format_char = 'a' | 'l' | 'm' | 's' | 'h' | 'd' ;
 
 cell_content = { non_newline_char - '|' } ;
@@ -376,7 +376,7 @@ inline_content = { inline_element } ;
 
 inline_element = inline_passthrough
                | passthrough_macro
-               | attribute_reference
+               | attribute_substitution
                | cross_reference
                | external_reference
                | link
