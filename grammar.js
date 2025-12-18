@@ -1287,7 +1287,10 @@ module.exports = grammar({
       prec(
         25,
         seq(
-          field("keyword", alias(token(prec(60, /\[source,/)), $.source_attribute_keyword)),
+          field(
+            "keyword",
+            alias(token(prec(60, /\[(?:source)?,/)), $.source_attribute_keyword),
+          ),
           field("language", alias($.plain_text, $.source_language)),
           $.plain_right_bracket,
         ),

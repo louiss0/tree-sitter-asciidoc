@@ -5326,7 +5326,7 @@
                   "value": 60,
                   "content": {
                     "type": "PATTERN",
-                    "value": "\\[source,"
+                    "value": "\\[(?:source)?,"
                   }
                 }
               },
