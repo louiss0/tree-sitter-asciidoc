@@ -107,7 +107,7 @@ module.exports = grammar({
         repeat(seq($._author_separator, field("author", $.author_name))),
       ),
 
-    _author_separator: ($) => ",",
+    _author_separator: ($) => $.plain_comma,
 
     author_name: ($) =>
       prec.right(seq($.plain_text, repeat(choice($.plain_text, $.plain_dash)))),
@@ -127,13 +127,13 @@ module.exports = grammar({
     revision_line: ($) =>
       seq(
         field("version", $.revision_version),
-        optional(seq(",", field("date", $.revision_date))),
-        optional(seq(":", field("remark", $.revision_remark))),
+        optional(seq($.plain_comma, field("date", $.revision_date))),
+        optional(seq($.plain_colon, field("remark", $.revision_remark))),
         $._line_ending,
         field("separator", alias($._blank_line, $.header_break)),
       ),
 
-    revision_version: ($) => token(prec(5, seq(optional("v"), /[0-9]+(?:\.[0-9]+)*/))),
+    revision_version: ($) => token(prec(5, seq(optional(token("v")), /[0-9]+(?:\.[0-9]+)*/))),
 
     revision_date: ($) => token(prec(5, /[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}/)),
 
@@ -518,7 +518,14 @@ module.exports = grammar({
       ),
 
     // Legacy token-based admonition_label for backward compatibility
-    admonition_label: ($) => choice("NOTE", "TIP", "IMPORTANT", "WARNING", "CAUTION"),
+    admonition_label: ($) =>
+      choice(
+        token("NOTE"),
+        token("TIP"),
+        token("IMPORTANT"),
+        token("WARNING"),
+        token("CAUTION"),
+      ),
 
     // CONDITIONAL BLOCKS - with higher precedence to resolve conflicts with description lists
     conditional_block: ($) => prec(10, choice($.ifdef_block, $.ifndef_block, $.ifeval_block)),
@@ -567,7 +574,11 @@ module.exports = grammar({
       choice(
         prec.left(
           1,
-          seq($.logical_expression, choice("&&", "||", "and", "or"), $.comparison_expression),
+          seq(
+            $.logical_expression,
+            choice(token("&&"), token("||"), token("and"), token("or")),
+            $.comparison_expression,
+          ),
         ),
         $.comparison_expression,
       ),
@@ -579,7 +590,14 @@ module.exports = grammar({
           2,
           seq(
             $.comparison_expression,
-            choice("==", "!=", "<", ">", "<=", ">="),
+            choice(
+              token("=="),
+              token("!="),
+              $.plain_less_than,
+              $.plain_greater_than,
+              token("<="),
+              token(">="),
+            ),
             $.additive_expression,
           ),
         ),
@@ -589,7 +607,14 @@ module.exports = grammar({
     // Precedence level 3: Additive operators (+, -), left-associative
     additive_expression: ($) =>
       choice(
-        prec.left(3, seq($.additive_expression, choice("+", "-"), $.multiplicative_expression)),
+        prec.left(
+          3,
+          seq(
+            $.additive_expression,
+            choice($.plain_plus, $.plain_dash),
+            $.multiplicative_expression,
+          ),
+        ),
         $.multiplicative_expression,
       ),
 
@@ -598,14 +623,21 @@ module.exports = grammar({
       choice(
         prec.left(
           4,
-          seq($.multiplicative_expression, choice("*", "/", "%"), $.unary_expression),
+          seq(
+            $.multiplicative_expression,
+            choice($.plain_asterisk, $.plain_slash, $.plain_percent),
+            $.unary_expression,
+          ),
         ),
         $.unary_expression,
       ),
 
     // Precedence level 5: Unary operators (!, -), right-associative
     unary_expression: ($) =>
-      choice(prec.right(5, seq(choice("!", "-"), $.unary_expression)), $.primary_expression),
+      choice(
+        prec.right(5, seq(choice($.plain_exclamation, $.plain_dash), $.unary_expression)),
+        $.primary_expression,
+      ),
 
     // Highest precedence: Primary and grouped expressions
     primary_expression: ($) =>
@@ -619,7 +651,11 @@ module.exports = grammar({
 
     grouped_expression: ($) => seq($.plain_left_paren, $.expression, $.plain_right_paren),
 
-    string_literal: ($) => choice(seq('"', /[^"\r\n]*/, '"'), seq("'", /[^'\r\n]*/, "'")),
+    string_literal: ($) =>
+      choice(
+        seq($.plain_double_quote, /[^"\r\n]*/, $.plain_double_quote),
+        seq($.plain_quote, /[^'\r\n]*/, $.plain_quote),
+      ),
 
     numeric_literal: ($) =>
       token(
@@ -629,7 +665,7 @@ module.exports = grammar({
         ),
       ),
 
-    boolean_literal: ($) => choice("true", "false"),
+    boolean_literal: ($) => choice(token("true"), token("false")),
 
     block_title: ($) => token(prec(15, /\.[\w\d \t_]+\r?\n/)),
 
@@ -986,6 +1022,14 @@ module.exports = grammar({
     plain_backtick: () => token("`"),
     plain_left_paren: () => token("("),
     plain_right_paren: () => token(")"),
+    plain_comma: ($) => token(","),
+    plain_plus: ($) => token("+"),
+    plain_tilde: ($) => token("~"),
+    plain_pipe: ($) => token("|"),
+    plain_dot: ($) => token("."),
+    plain_slash: ($) => token("/"),
+    plain_percent: ($) => token("%"),
+    plain_exclamation: ($) => token("!"),
 
     // Any escaped single character: blocks delimiter interpretations
     escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
@@ -1111,8 +1155,8 @@ module.exports = grammar({
         ),
       ),
 
-    subscript_open: ($) => "~",
-    subscript_close: ($) => "~",
+    subscript_open: ($) => $.plain_tilde,
+    subscript_close: ($) => $.plain_tilde,
     subscript_text: ($) => repeat1(choice($.escaped_char, token.immediate(/[^~\\\r\n]+/))),
 
     // Highlight / role spans (#highlight# or [.role]#text#)
@@ -1142,10 +1186,10 @@ module.exports = grammar({
     // Bibliography entries [[[ref]]]
     bibliography_entry: ($) =>
       seq(
-        "[[[",
+        token("[[["),
         field("id", $.bibliography_id),
-        optional(seq(",", field("description", $.bibliography_text))),
-        "]]]",
+        optional(seq($.plain_comma, field("description", $.bibliography_text))),
+        token("]]]"),
       ),
 
     bibliography_id: ($) => /[^,\]\r\n]+/,
@@ -1167,7 +1211,7 @@ module.exports = grammar({
       seq(
         field("open", token("<<")),
         field("target", $.xref_target),
-        optional(seq(",", field("text", $.xref_text))),
+        optional(seq($.plain_comma, field("text", $.xref_text))),
         field("close", token(">>")),
       ),
 
@@ -1205,11 +1249,11 @@ module.exports = grammar({
     passthrough_triple_plus: ($) =>
       choice(
         seq(
-          "+++",
+          token("+++"),
           token.immediate(/[^+]+/), // content without + characters (simplified)
-          "+++",
+          token("+++"),
         ),
-        seq("++", token.immediate(/[^+]+/), "++"),
+        seq(token("++"), token.immediate(/[^+]+/), token("++")),
       ),
 
     attribute_substitution: ($) =>
@@ -1310,12 +1354,16 @@ module.exports = grammar({
       choice(
         seq(
           field("primary", $.index_term_text),
-          ",",
+          $.plain_comma,
           field("secondary", $.index_term_text),
-          ",",
+          $.plain_comma,
           field("tertiary", $.index_term_text),
         ),
-        seq(field("primary", $.index_term_text), ",", field("secondary", $.index_term_text)),
+        seq(
+          field("primary", $.index_term_text),
+          $.plain_comma,
+          field("secondary", $.index_term_text),
+        ),
         field("primary", $.index_term_text),
       ),
 
@@ -1369,7 +1417,7 @@ module.exports = grammar({
           200,
           prec.dynamic(
             200,
-            seq("|", field("spec", $.cell_spec), field("content", $.cell_content)),
+            seq($.plain_pipe, field("spec", $.cell_spec), field("content", $.cell_content)),
           ),
         ),
         // Header cell: || followed by content (not =)

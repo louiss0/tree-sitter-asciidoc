@@ -107,7 +107,7 @@
 (internal_xref
   "<<" @punctuation.special
   (xref_target) @markup.link
-  ("," @punctuation.delimiter (xref_text) @markup.link.label)?
+  ((plain_comma) @punctuation.delimiter (xref_text) @markup.link.label)?
   ">>" @punctuation.special)
 
 (inline_anchor) @markup.link
