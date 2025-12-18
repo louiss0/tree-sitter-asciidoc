@@ -3,7 +3,7 @@
 
 ## Rules 
 
-When committing changes, ensure that the commit message follows the angular conventional commit format.
+After every push give me the full commit hash! 
 
 ## Limitations
 
