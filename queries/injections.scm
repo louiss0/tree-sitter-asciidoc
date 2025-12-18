@@ -2,8 +2,9 @@
 
 (listing_block
   (source_block_attributes
-    (source_language) @injection.language)
+    (source_language) @language)
   (block_content) @injection.content
+  (#set! injection.language language)
   (#set! injection.include-children))
 
 (listing_block
