@@ -298,3 +298,27 @@ Listing block with json source
     close: (listing_close
       (LISTING_FENCE_END))))
 
+================================================================================
+Listing block with java source and no src keyword
+================================================================================
+
+[,java]
+----
+System.out.println(1);
+----
+
+------------------------------------------------
+
+(source_file
+  (listing_block
+    (source_block_attributes
+      (source_attribute_keyword)
+      (source_language)
+      (plain_right_bracket))
+    (listing_open
+      (LISTING_FENCE_START))
+    (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    (listing_close
+      (LISTING_FENCE_END))))
