@@ -109,6 +109,7 @@ See the <<target-section,target section>> for details.
       (inline_element
         (internal_xref
           target: (xref_target)
+          (plain_comma)
           text: (xref_text)))
       (plain_text)
       (plain_text))))
@@ -322,19 +323,15 @@ This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
       (plain_text)
       (plain_text)
       (plain_left_bracket)
-      (inline_element
-        (highlight
-          roles: (role_attribute_list
-            (plain_left_bracket)
-            (plain_text)
-            (plain_text)
-            (plain_right_bracket))
-          content: (MISSING highlight_text)))
-      (plain_right_bracket)
-      (plain_text)
-      (plain_left_bracket)
       (plain_left_bracket)))
   (ERROR
+    (plain_text)
+    (plain_text)
+    (ERROR
+      (plain_right_bracket)
+      (plain_right_bracket)
+      (plain_left_bracket)
+      (plain_left_bracket))
     (plain_text)
     (plain_text)
     (plain_text)

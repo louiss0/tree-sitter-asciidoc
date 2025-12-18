@@ -55,9 +55,11 @@ This is E=mc^2^ and H~2~O.
       (plain_text)
       (inline_element
         (subscript
-          (subscript_open)
+          (subscript_open
+            (plain_tilde))
           (subscript_text)
-          (subscript_close)))
+          (subscript_close
+            (plain_tilde))))
       (plain_text))))
 
 ================================================================================

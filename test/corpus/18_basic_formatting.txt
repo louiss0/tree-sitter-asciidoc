@@ -137,7 +137,9 @@ This has ^superscript^ and ~subscript~ text.
       (plain_text)
       (inline_element
         (subscript
-          open: (subscript_open)
+          open: (subscript_open
+            (plain_tilde))
           content: (subscript_text)
-          close: (subscript_close)))
+          close: (subscript_close
+            (plain_tilde))))
       (plain_text))))

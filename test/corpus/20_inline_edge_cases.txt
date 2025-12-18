@@ -57,9 +57,11 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
       (plain_text)
       (inline_element
         (subscript
-          open: (subscript_open)
+          open: (subscript_open
+            (plain_tilde))
           content: (subscript_text)
-          close: (subscript_close)))
+          close: (subscript_close
+            (plain_tilde))))
       (plain_text)
       (plain_text))))
 
@@ -377,6 +379,7 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
       (inline_element
         (internal_xref
           target: (xref_target)
+          (plain_comma)
           text: (xref_text)))
       (plain_text)))
   (paragraph

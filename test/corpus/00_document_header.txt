@@ -25,7 +25,9 @@ v1.0, 1-15-2024: First release
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_comma)
       date: (revision_date)
+      (plain_colon)
       remark: (revision_remark)
       separator: (header_break)))
   (section
@@ -280,7 +282,9 @@ v1.0, 1-15-2024: First release
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_comma)
       date: (revision_date)
+      (plain_colon)
       remark: (revision_remark)
       separator: (header_break)))
   (paragraph
@@ -316,7 +320,9 @@ v1.0, 1-15-2024: First release
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_comma)
       date: (revision_date)
+      (plain_colon)
       remark: (revision_remark)
       separator: (header_break)))
   (section
@@ -356,7 +362,9 @@ v1.0, 1-15-2024: First release
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_comma)
       date: (revision_date)
+      (plain_colon)
       remark: (revision_remark)
       separator: (header_break)))
   (section
@@ -397,7 +405,9 @@ v1.0, 1-15-2024: First release
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_comma)
       date: (revision_date)
+      (plain_colon)
       remark: (revision_remark)
       separator: (header_break)))
   (section
@@ -439,7 +449,9 @@ v1.0, 1-15-2024: First release
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_comma)
       date: (revision_date)
+      (plain_colon)
       remark: (revision_remark)
       separator: (header_break)))
   (section
@@ -476,7 +488,9 @@ v1.0, 1-15-2024: First release
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_comma)
       date: (revision_date)
+      (plain_colon)
       remark: (revision_remark)
       separator: (header_break)))
   (section
@@ -515,7 +529,9 @@ v1.0, 1-15-2024: First release
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_comma)
       date: (revision_date)
+      (plain_colon)
       remark: (revision_remark)
       separator: (header_break)))
   (section
@@ -556,7 +572,9 @@ v1.0, 1-15-2024: First release
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_comma)
       date: (revision_date)
+      (plain_colon)
       remark: (revision_remark)
       separator: (header_break)))
   (section
@@ -595,7 +613,9 @@ v1.0, 1-15-2024: First release
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_comma)
       date: (revision_date)
+      (plain_colon)
       remark: (revision_remark)
       separator: (header_break)))
   (section
@@ -667,6 +687,7 @@ Alice Example <alice@example.com>
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_comma)
       date: (revision_date)
       separator: (header_break)))
   (section
@@ -701,6 +722,7 @@ Alice Example <alice@example.com>
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_colon)
       remark: (revision_remark)
       separator: (header_break)))
   (section
@@ -735,7 +757,9 @@ v7.5, 1-29-2020: A new analysis
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_comma)
       date: (revision_date)
+      (plain_colon)
       remark: (revision_remark)
       separator: (header_break)))
   (section
@@ -772,7 +796,9 @@ Alice Example <alice@example.com>
         close: (plain_greater_than)))
     revision: (revision_line
       version: (revision_version)
+      (plain_comma)
       date: (revision_date)
+      (plain_colon)
       remark: (revision_remark)
       separator: (header_break)))
   (section

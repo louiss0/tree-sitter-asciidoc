@@ -40,7 +40,9 @@ The indexterm:[databases,relational,PostgreSQL] system is robust.
             (plain_left_bracket)
             terms: (index_text
               primary: (index_term_text)
+              (plain_comma)
               secondary: (index_term_text)
+              (plain_comma)
               tertiary: (index_term_text))
             (plain_right_bracket))))
       (plain_text)
@@ -65,6 +67,7 @@ The indexterm:[programming,languages] are diverse.
             (plain_left_bracket)
             terms: (index_text
               primary: (index_term_text)
+              (plain_comma)
               secondary: (index_term_text))
             (plain_right_bracket))))
       (plain_text)
@@ -132,7 +135,9 @@ The (((databases,SQL,PostgreSQL))) is feature-rich.
           (concealed_index_term
             terms: (index_text
               primary: (index_term_text)
+              (plain_comma)
               secondary: (index_term_text)
+              (plain_comma)
               tertiary: (index_term_text)))))
       (plain_text)
       (plain_text)
@@ -173,6 +178,7 @@ Both indexterm:[Java] and indexterm2:[Python] are indexterm:[programming,languag
             (plain_left_bracket)
             terms: (index_text
               primary: (index_term_text)
+              (plain_comma)
               secondary: (index_term_text))
             (plain_right_bracket))))
       (plain_text))))
@@ -252,19 +258,13 @@ This indexterm[missing-colon] should be text.
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
-      (plain_text)
-        (inline_element
-          (highlight
-            roles: (role_attribute_list
-              (plain_left_bracket)
-              (plain_text)
-              (plain_dash)
-              (plain_text)
-              (plain_right_bracket))
-            content: (MISSING highlight_text)))
-      (plain_text)
-      (plain_text)
-      (plain_text))))
+      (plain_text)))
+  (ERROR
+    (plain_left_bracket)
+    (plain_text)
+    (plain_dash)
+    (plain_text)
+    (plain_right_bracket)))
 
 ================================================================================
 Not an index term - incomplete concealed
