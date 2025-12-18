@@ -1,0 +1,300 @@
+================================================================================
+Listing block with python source
+================================================================================
+
+[source,python]
+----
+print(1)
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (listing_block
+    attributes: (source_block_attributes
+      keyword: (source_attribute_keyword)
+      language: (source_language)
+      (plain_right_bracket))
+    open: (listing_open
+      (LISTING_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
+
+================================================================================
+Listing block with js source
+================================================================================
+
+[source,js]
+----
+console.log(1)
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (listing_block
+    attributes: (source_block_attributes
+      keyword: (source_attribute_keyword)
+      language: (source_language)
+      (plain_right_bracket))
+    open: (listing_open
+      (LISTING_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
+
+================================================================================
+Listing block with java source
+================================================================================
+
+[source,java]
+----
+System.out.println(1);
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (listing_block
+    attributes: (source_block_attributes
+      keyword: (source_attribute_keyword)
+      language: (source_language)
+      (plain_right_bracket))
+    open: (listing_open
+      (LISTING_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
+
+================================================================================
+Listing block with c source
+================================================================================
+
+[source,c]
+----
+printf("%d", 1);
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (listing_block
+    attributes: (source_block_attributes
+      keyword: (source_attribute_keyword)
+      language: (source_language)
+      (plain_right_bracket))
+    open: (listing_open
+      (LISTING_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
+
+================================================================================
+Listing block with cpp source
+================================================================================
+
+[source,cpp]
+----
+std::cout << 1;
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (listing_block
+    attributes: (source_block_attributes
+      keyword: (source_attribute_keyword)
+      language: (source_language)
+      (plain_right_bracket))
+    open: (listing_open
+      (LISTING_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
+
+================================================================================
+Listing block with go source
+================================================================================
+
+[source,go]
+----
+fmt.Println(1)
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (listing_block
+    attributes: (source_block_attributes
+      keyword: (source_attribute_keyword)
+      language: (source_language)
+      (plain_right_bracket))
+    open: (listing_open
+      (LISTING_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
+
+================================================================================
+Listing block with rust source
+================================================================================
+
+[source,rust]
+----
+println!("{}", 1);
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (listing_block
+    attributes: (source_block_attributes
+      keyword: (source_attribute_keyword)
+      language: (source_language)
+      (plain_right_bracket))
+    open: (listing_open
+      (LISTING_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
+
+================================================================================
+Listing block with ruby source
+================================================================================
+
+[source,ruby]
+----
+puts 1
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (listing_block
+    attributes: (source_block_attributes
+      keyword: (source_attribute_keyword)
+      language: (source_language)
+      (plain_right_bracket))
+    open: (listing_open
+      (LISTING_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
+
+================================================================================
+Listing block with php source
+================================================================================
+
+[source,php]
+----
+echo 1;
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (listing_block
+    attributes: (source_block_attributes
+      keyword: (source_attribute_keyword)
+      language: (source_language)
+      (plain_right_bracket))
+    open: (listing_open
+      (LISTING_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
+
+================================================================================
+Listing block with bash source
+================================================================================
+
+[source,bash]
+----
+echo 1
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (listing_block
+    attributes: (source_block_attributes
+      keyword: (source_attribute_keyword)
+      language: (source_language)
+      (plain_right_bracket))
+    open: (listing_open
+      (LISTING_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
+
+================================================================================
+Listing block with sql source
+================================================================================
+
+[source,sql]
+----
+SELECT 1;
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (listing_block
+    attributes: (source_block_attributes
+      keyword: (source_attribute_keyword)
+      language: (source_language)
+      (plain_right_bracket))
+    open: (listing_open
+      (LISTING_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
+
+================================================================================
+Listing block with json source
+================================================================================
+
+[source,json]
+----
+{"value": 1}
+----
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (listing_block
+    attributes: (source_block_attributes
+      keyword: (source_attribute_keyword)
+      language: (source_language)
+      (plain_right_bracket))
+    open: (listing_open
+      (LISTING_FENCE_START))
+    content: (block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (listing_close
+      (LISTING_FENCE_END))))
+

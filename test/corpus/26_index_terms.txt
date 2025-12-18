@@ -252,13 +252,19 @@ This indexterm[missing-colon] should be text.
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
-      (plain_text)))
-  (ERROR
-    (plain_left_bracket)
-    (plain_text)
-    (plain_dash)
-    (plain_text)
-    (plain_right_bracket)))
+      (plain_text)
+        (inline_element
+          (highlight
+            roles: (role_attribute_list
+              (plain_left_bracket)
+              (plain_text)
+              (plain_dash)
+              (plain_text)
+              (plain_right_bracket))
+            content: (MISSING highlight_text)))
+      (plain_text)
+      (plain_text)
+      (plain_text))))
 
 ================================================================================
 Not an index term - incomplete concealed

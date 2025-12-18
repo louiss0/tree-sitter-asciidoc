@@ -12,13 +12,12 @@ This is [big]#large text# here.
       (plain_text)
       (plain_text)
       (inline_element
-        (role_span
+        (highlight
           roles: (role_attribute_list
             (plain_left_bracket)
             (plain_text)
             (plain_right_bracket))
-          open: (role_span_open)
-          close: (role_span_close)))
+          content: (highlight_text)))
       (plain_text))))
 
 ================================================================================
@@ -31,17 +30,16 @@ This is [highlight]#*bold* and _italic_# text.
 
 (source_file
   (paragraph
-    (inline_seq_nonempty
+    content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
       (inline_element
-        (role_span
-          (role_attribute_list
+        (highlight
+          roles: (role_attribute_list
             (plain_left_bracket)
             (plain_text)
             (plain_right_bracket))
-          (role_span_open)
-          (role_span_close)))
+          content: (highlight_text)))
       (plain_text))))
 
 ================================================================================

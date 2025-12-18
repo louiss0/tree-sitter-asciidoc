@@ -377,7 +377,10 @@ module.exports = grammar({
       seq(
         optional(field("title", $.block_title)),
         optional(
-          field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+          choice(
+            seq(field("attributes", $.source_block_attributes), $._line_ending),
+            field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+          ),
         ),
         field("open", $.listing_open),
         optional(field("content", $.block_content)),
@@ -933,7 +936,6 @@ module.exports = grammar({
         $.highlight,
         $.passthrough_triple_plus,
         $.attribute_substitution,
-        $.role_span,
         $.index_term,
         $.hard_break,
       ),
@@ -1113,20 +1115,17 @@ module.exports = grammar({
     subscript_close: ($) => "~",
     subscript_text: ($) => repeat1(choice($.escaped_char, token.immediate(/[^~\\\r\n]+/))),
 
-    // Highlight (#highlight#)
+    // Highlight / role spans (#highlight# or [.role]#text#)
     highlight: ($) =>
       prec.left(
         5,
         seq(
-          field("open", $.highlight_open),
+          optional(field("roles", alias($._attribute_list, $.role_attribute_list))),
           field("content", $.highlight_text),
-          field("close", $.highlight_close),
         ),
       ),
 
-    highlight_open: ($) => "#",
-    highlight_close: ($) => "#",
-    highlight_text: ($) => repeat1(choice($.escaped_char, token.immediate(/[^#\\\r\n]+/))),
+    highlight_text: ($) => prec(20, seq("#", repeat1(choice(/\\./, /[^#\\\r\n]/)), "#")),
 
     // ANCHORS & CROSS-REFERENCES
     inline_anchor: ($) =>
@@ -1240,15 +1239,13 @@ module.exports = grammar({
 
     _attribute_list_with_line_ending: ($) => seq($._attribute_list, $._line_ending),
 
-    // ROLE SPANS
-    role_span: ($) =>
+    source_block_attributes: ($) =>
       prec(
-        5,
+        25,
         seq(
-          field("roles", alias($._attribute_list, $.role_attribute_list)),
-          field("open", alias(token.immediate("#"), $.role_span_open)),
-          field("content", /[^#\r\n]+/),
-          field("close", alias(token.immediate("#"), $.role_span_close)),
+          field("keyword", alias(token(prec(60, /\[source,/)), $.source_attribute_keyword)),
+          field("language", alias($.plain_text, $.source_language)),
+          $.plain_right_bracket,
         ),
       ),
 
@@ -1278,10 +1275,10 @@ module.exports = grammar({
     comment: ($) => choice($._block_comment, $._line_comment),
 
     // Block comments (//// ... ////), can span multiple lines
-    _block_comment: ($) => token(prec(-10, /\/{4,}[\s\S]*?\/{4,}[ \t]*\r?\n?/)),
+    _block_comment: ($) => token(prec(-10, /\/{4,}[^\r\n]*\/{4,}\r?\n?/)),
 
     // Line comments (// ...), single line
-    _line_comment: ($) => token(prec(-10, /\/{2,}[^\r\n]*/)),
+    _line_comment: ($) => token(prec(100, /\/{2,}[^\r\n]*/)),
 
     // INDEX TERMS - with fallback for malformed constructs
     index_term: ($) => choice($.index_term_macro, $.index_term2_macro, $.concealed_index_term),

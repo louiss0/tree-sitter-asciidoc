@@ -35,6 +35,10 @@
 (attribute_name)  @property
 (attribute_value) @string
 
+(source_block_attributes) @attribute
+(source_attribute_keyword) @keyword
+(source_language) @type
+
 
 ; =========================
 ; Attribute substitutions
@@ -129,9 +133,6 @@
 (passthrough_triple_plus) @markup.raw
 
 (role_attribute_list) @attribute
-(role_span_open)      @punctuation.special
-(role_span_close)     @punctuation.special
-(role_span)           @markup.raw
 
 
 ; =========================

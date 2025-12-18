@@ -32,14 +32,13 @@ This is [important]#*bold* and _italic_ text# here.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (inline_element
-        (role_span
-          roles: (role_attribute_list
-            (plain_left_bracket)
-            (plain_text)
-            (plain_right_bracket))
-          open: (role_span_open)
-          close: (role_span_close)))
+        (inline_element
+          (highlight
+            roles: (role_attribute_list
+              (plain_left_bracket)
+              (plain_text)
+              (plain_right_bracket))
+            content: (highlight_text)))
       (plain_text))))
 
 ================================================================================
@@ -188,16 +187,14 @@ This is [role]#text with \# hash# here.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (inline_element
-        (role_span
-          roles: (role_attribute_list
-            (plain_left_bracket)
-            (plain_text)
-            (plain_right_bracket))
-          open: (role_span_open)
-          close: (role_span_close)))
-      (plain_text)
-      (plain_text))))
+        (inline_element
+          (highlight
+            roles: (role_attribute_list
+              (plain_left_bracket)
+              (plain_text)
+              (plain_right_bracket))
+            content: (highlight_text)))
+        (plain_text))))
 
 ================================================================================
 Complex nesting with multiple styles
@@ -497,12 +494,11 @@ This is [role.with.dots]#styled text# here.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (inline_element
-        (role_span
-          roles: (role_attribute_list
-            (plain_left_bracket)
-            (plain_text)
-            (plain_right_bracket))
-          open: (role_span_open)
-          close: (role_span_close)))
-      (plain_text))))
+        (inline_element
+          (highlight
+            roles: (role_attribute_list
+              (plain_left_bracket)
+              (plain_text)
+              (plain_right_bracket))
+            content: (highlight_text)))
+        (plain_text))))

@@ -189,38 +189,35 @@ Role spans with complex attributes
   (paragraph
     content: (inline_seq_nonempty
       (inline_element
-        (role_span
+        (highlight
           roles: (role_attribute_list
             (plain_left_bracket)
             (plain_text)
             (plain_right_bracket))
-          open: (role_span_open)
-          close: (role_span_close)))
+          content: (highlight_text)))
       (plain_text)
       (plain_text)))
   (paragraph
     content: (inline_seq_nonempty
       (inline_element
-        (role_span
+        (highlight
           roles: (role_attribute_list
             (plain_left_bracket)
             (plain_text)
             (plain_right_bracket))
-          open: (role_span_open)
-          close: (role_span_close)))
+          content: (highlight_text)))
       (plain_text)
       (plain_text)
       (plain_text)))
   (paragraph
     content: (inline_seq_nonempty
       (inline_element
-        (role_span
+        (highlight
           roles: (role_attribute_list
             (plain_left_bracket)
             (plain_text)
             (plain_right_bracket))
-          open: (role_span_open)
-          close: (role_span_close)))
+          content: (highlight_text)))
       (plain_text)
       (plain_text))))
 
