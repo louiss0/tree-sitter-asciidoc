@@ -16,12 +16,15 @@ module.exports = grammar({
     $.ORDERED_LIST_MARKER,
     $.INDENTED_UNORDERED_LIST_MARKER,
     $.INDENTED_ORDERED_LIST_MARKER,
+    $.THEMATIC_BREAK,
+    $.BLOCK_QUOTE_MARKER,
+    $.FENCED_CODE_BLOCK_START_BACKTICK,
+    $.FENCED_CODE_BLOCK_END_BACKTICK,
+    $.FENCED_CODE_BLOCK_START_TILDE,
+    $.FENCED_CODE_BLOCK_END_TILDE,
   ],
 
-  extras: ($) => [
-    /[ \t]+/, // Allow spaces and tabs but not newlines
-    $.comment,
-  ],
+  extras: ($) => [$.comment],
 
   conflicts: ($) => [[$.inline_element, $.explicit_link]],
 
@@ -62,6 +65,8 @@ module.exports = grammar({
         $.inline_admonition,
         $.example_block,
         $.listing_block,
+        $.fenced_code_block,
+        $.block_quote,
         $.asciidoc_blockquote,
         $.literal_block,
         $.sidebar_block,
@@ -97,20 +102,22 @@ module.exports = grammar({
     author_line: ($) =>
       seq(
         field("authors", $.author_list),
-        optional(field("email", $.author_email)),
+        optional(seq($._whitespace, field("email", $.author_email))),
         $._line_ending,
       ),
 
     author_list: ($) =>
       seq(
         field("author", prec(5, $.author_name)),
-        repeat(seq($._author_separator, field("author", $.author_name))),
+        repeat(
+          seq($._author_separator, optional($._whitespace), field("author", $.author_name)),
+        ),
       ),
 
     _author_separator: ($) => $.plain_comma,
 
     author_name: ($) =>
-      prec.right(seq($.plain_text, repeat(choice($.plain_text, $.plain_dash)))),
+      prec.right(seq($.plain_text, repeat(choice($.plain_text, $.plain_dash, $._whitespace)))),
 
     // INLINE “plain” email inside header
     author_email: ($) =>
@@ -127,8 +134,10 @@ module.exports = grammar({
     revision_line: ($) =>
       seq(
         field("version", $.revision_version),
-        optional(seq($.plain_comma, field("date", $.revision_date))),
-        optional(seq($.plain_colon, field("remark", $.revision_remark))),
+        optional(seq($.plain_comma, optional($._whitespace), field("date", $.revision_date))),
+        optional(
+          seq($.plain_colon, optional($._whitespace), field("remark", $.revision_remark)),
+        ),
         $._line_ending,
         field("separator", alias($._blank_line, $.header_break)),
       ),
@@ -169,6 +178,8 @@ module.exports = grammar({
                 $.block_admonition,
                 $.example_block,
                 $.listing_block,
+                $.fenced_code_block,
+                $.block_quote,
                 $.asciidoc_blockquote,
                 $.literal_block,
                 $.sidebar_block,
@@ -206,6 +217,8 @@ module.exports = grammar({
                 $.block_admonition,
                 $.example_block,
                 $.listing_block,
+                $.fenced_code_block,
+                $.block_quote,
                 $.asciidoc_blockquote,
                 $.literal_block,
                 $.sidebar_block,
@@ -243,6 +256,8 @@ module.exports = grammar({
                 $.block_admonition,
                 $.example_block,
                 $.listing_block,
+                $.fenced_code_block,
+                $.block_quote,
                 $.asciidoc_blockquote,
                 $.literal_block,
                 $.sidebar_block,
@@ -280,6 +295,8 @@ module.exports = grammar({
                 $.block_admonition,
                 $.example_block,
                 $.listing_block,
+                $.fenced_code_block,
+                $.block_quote,
                 $.asciidoc_blockquote,
                 $.literal_block,
                 $.sidebar_block,
@@ -317,6 +334,8 @@ module.exports = grammar({
                 $.block_admonition,
                 $.example_block,
                 $.listing_block,
+                $.fenced_code_block,
+                $.block_quote,
                 $.asciidoc_blockquote,
                 $.literal_block,
                 $.sidebar_block,
@@ -364,7 +383,7 @@ module.exports = grammar({
           field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
         ),
         field("open", $.example_open),
-        optional(field("content", $.block_content)),
+        optional(field("content", $._example_block_content)),
         field("close", $.example_close),
       ),
 
@@ -390,6 +409,51 @@ module.exports = grammar({
     listing_open: ($) => $.LISTING_FENCE_START,
 
     listing_close: ($) => $.LISTING_FENCE_END,
+
+    fenced_code_block: ($) =>
+      prec.right(
+        seq(
+          optional(field("title", $.block_title)),
+          optional(
+            field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+          ),
+          field(
+            "open",
+            choice(
+              alias($.FENCED_CODE_BLOCK_START_BACKTICK, $.fenced_code_block_delimiter),
+              alias($.FENCED_CODE_BLOCK_START_TILDE, $.fenced_code_block_delimiter),
+            ),
+          ),
+          field("content", repeat($.FENCED_CODE_CONTENT_LINE)),
+          field(
+            "close",
+            choice(
+              alias($.FENCED_CODE_BLOCK_END_BACKTICK, $.fenced_code_block_delimiter),
+              alias($.FENCED_CODE_BLOCK_END_TILDE, $.fenced_code_block_delimiter),
+            ),
+          ),
+        ),
+      ),
+
+    FENCED_CODE_CONTENT_LINE: ($) => token(prec(1, /[^\r\n]*\r?\n/)),
+
+    // Markdown-style block quotes
+    block_quote: ($) =>
+      prec.right(
+        choice(
+          seq(
+            field("marker", alias($.BLOCK_QUOTE_MARKER, $.block_quote_marker)),
+            field("content", repeat1(choice($._blank_line, $._block_element))),
+          ),
+          repeat1(
+            seq(
+              field("marker", alias($.BLOCK_QUOTE_MARKER, $.block_quote_marker)),
+              optional(field("content", $._inline_text)),
+              $._line_ending,
+            ),
+          ),
+        ),
+      ),
 
     // AsciiDoc quote blocks (fenced with ____)
     asciidoc_blockquote: ($) =>
@@ -431,7 +495,7 @@ module.exports = grammar({
           field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
         ),
         field("open", $.sidebar_open),
-        optional(field("content", $.block_content)),
+        optional(field("content", $._sidebar_block_content)),
         field("close", $.sidebar_close),
       ),
 
@@ -503,7 +567,7 @@ module.exports = grammar({
         seq(
           $.plain_left_bracket,
           $.admonition_label,
-          repeat($.plain_text),
+          repeat(choice($.plain_text, $._whitespace)),
           $.plain_right_bracket,
           $._line_ending,
         ),
@@ -671,6 +735,62 @@ module.exports = grammar({
 
     block_content: ($) => repeat1(choice($.content_line, $._blank_line)),
 
+    _example_block_content: ($) => repeat1(choice($._blank_line, $._example_block_element)),
+
+    _sidebar_block_content: ($) => repeat1(choice($._blank_line, $._sidebar_block_element)),
+
+    _example_block_element: ($) =>
+      choice(
+        $.section,
+        $.attribute_entry,
+        $.description_list,
+        $.callout_list,
+        $.unordered_list,
+        $.ordered_list,
+        $.block_macro,
+        $.block_admonition,
+        $.inline_admonition,
+        $.listing_block,
+        $.fenced_code_block,
+        $.block_quote,
+        $.asciidoc_blockquote,
+        $.literal_block,
+        $.sidebar_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.table_block,
+        $.thematic_break,
+        $.page_break,
+        $.paragraph,
+      ),
+
+    _sidebar_block_element: ($) =>
+      choice(
+        $.section,
+        $.attribute_entry,
+        $.description_list,
+        $.callout_list,
+        $.unordered_list,
+        $.ordered_list,
+        $.block_macro,
+        $.block_admonition,
+        $.inline_admonition,
+        $.example_block,
+        $.listing_block,
+        $.fenced_code_block,
+        $.block_quote,
+        $.asciidoc_blockquote,
+        $.literal_block,
+        $.passthrough_block,
+        $.open_block,
+        $.conditional_block,
+        $.table_block,
+        $.thematic_break,
+        $.page_break,
+        $.paragraph,
+      ),
+
     content_line: ($) => seq($.DELIMITED_BLOCK_CONTENT_LINE, $._line_ending),
 
     EXAMPLE_FENCE_START: ($) => token(prec(60, /={4,}[ \t]*\r?\n/)),
@@ -693,19 +813,6 @@ module.exports = grammar({
 
     OPENBLOCK_FENCE_START: ($) => token(prec(30, /--[ \t]*\r?\n/)),
     OPENBLOCK_FENCE_END: ($) => token(prec(30, /--[ \t]*\r?\n/)),
-
-    THEMATIC_BREAK: ($) =>
-      token(
-        prec(
-          25,
-          choice(
-            /\*[ \t]*\*[ \t]*\*[ \t]*(?:\*[ \t]*)*\r?\n/,
-            /-[ \t]*-[ \t]*-[ \t]*(?:-[ \t]*)*\r?\n/,
-            /_[ \t]*_[ \t]*_[ \t]*(?:_[ \t]*)*\r?\n/,
-            /'[ \t]*'[ \t]*'[ \t]*(?:'[ \t]*)*\r?\n/,
-          ),
-        ),
-      ),
 
     DELIMITED_BLOCK_CONTENT_LINE: ($) => token(prec(1, /[^\r\n]+/)),
 
@@ -941,6 +1048,8 @@ module.exports = grammar({
             $.open_block,
             $.example_block,
             $.listing_block,
+            $.fenced_code_block,
+            $.block_quote,
             $.asciidoc_blockquote,
             $.literal_block,
             $.sidebar_block,
@@ -996,6 +1105,7 @@ module.exports = grammar({
         $.plain_less_than,
         $.plain_greater_than,
         $.plain_text,
+        $._whitespace,
         $.plain_left_bracket,
         $.plain_right_bracket,
         $.plain_backtick,
@@ -1005,6 +1115,7 @@ module.exports = grammar({
 
     plain_text: ($) => prec.left(-50, $._plain_text_segment),
     _plain_text_segment: ($) => /[A-Za-z0-9!$&@\.,+\/=%?#]+/,
+    _whitespace: ($) => token(/[ \t]+/),
 
     plain_colon: ($) => token(":"),
     plain_asterisk: ($) => token("*"),
@@ -1275,6 +1386,7 @@ module.exports = grammar({
               $.plain_underscore,
               $.plain_quote,
               $.plain_double_quote,
+              $._whitespace,
             ),
           ),
           $.plain_right_bracket,

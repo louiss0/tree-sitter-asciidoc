@@ -203,6 +203,10 @@
 (TABLE_FENCE_START) @punctuation.special
 (TABLE_FENCE_END)   @punctuation.special
 
+(fenced_code_block_delimiter) @punctuation.special
+(FENCED_CODE_CONTENT_LINE)    @string
+(block_quote_marker) @markup.quote
+
 (THEMATIC_BREAK) @punctuation.special
 ("<<<")          @punctuation.special
 
