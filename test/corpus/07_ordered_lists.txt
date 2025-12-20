@@ -372,3 +372,31 @@ The price is 1.25 dollars and 2.50 euros.
       (plain_text)
       (plain_text)
       (plain_text))))
+
+================================================================================
+Dot ordered list
+================================================================================
+
+. First item
+. Second item
+. Third item
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ordered_list
+    (ordered_list_item
+      (ordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text)))
+    (ordered_list_item
+      (ordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text)))
+    (ordered_list_item
+      (ordered_list_marker)
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text)))))

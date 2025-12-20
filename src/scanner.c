@@ -12,6 +12,7 @@ enum TokenType {
   INDENTED_ORDERED_LIST_MARKER,
   THEMATIC_BREAK,
   BLOCK_QUOTE_MARKER,
+  BLOCK_TITLE,
   FENCED_CODE_BLOCK_START_BACKTICK,
   FENCED_CODE_BLOCK_END_BACKTICK,
   FENCED_CODE_BLOCK_START_TILDE,
@@ -125,7 +126,7 @@ static bool scan_ordered_list_marker(TSLexer *lexer, const bool *valid_symbols, 
     digits++;
   }
 
-  if (digits == 0 || lexer->lookahead != '.') {
+  if (lexer->lookahead != '.') {
     return false;
   }
   advance(lexer);
@@ -168,6 +169,67 @@ static bool scan_block_quote_marker(TSLexer *lexer, const bool *valid_symbols, u
   }
 
   lexer->result_symbol = BLOCK_QUOTE_MARKER;
+  lexer->mark_end(lexer);
+  return true;
+}
+
+static bool scan_dot_marker(TSLexer *lexer, const bool *valid_symbols, unsigned indent) {
+  if (lexer->lookahead != '.') {
+    return false;
+  }
+
+  advance(lexer);
+
+  if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+    if (!valid_symbols[ORDERED_LIST_MARKER] && !valid_symbols[INDENTED_ORDERED_LIST_MARKER]) {
+      return false;
+    }
+
+    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+      advance(lexer);
+    }
+
+    if (indent == 0) {
+      if (!valid_symbols[ORDERED_LIST_MARKER]) {
+        return false;
+      }
+      lexer->result_symbol = ORDERED_LIST_MARKER;
+    } else {
+      if (!valid_symbols[INDENTED_ORDERED_LIST_MARKER]) {
+        return false;
+      }
+      lexer->result_symbol = INDENTED_ORDERED_LIST_MARKER;
+    }
+
+    lexer->mark_end(lexer);
+    return true;
+  }
+
+  if (lexer->lookahead == '.' || lexer->lookahead == '\r' || lexer->lookahead == '\n' ||
+      lexer->eof(lexer)) {
+    return false;
+  }
+
+  if (!valid_symbols[BLOCK_TITLE] || indent > 0) {
+    return false;
+  }
+
+  while (lexer->lookahead != '\n' && lexer->lookahead != '\r' && !lexer->eof(lexer)) {
+    advance(lexer);
+  }
+
+  if (lexer->lookahead == '\r') {
+    advance(lexer);
+    if (lexer->lookahead == '\n') {
+      advance(lexer);
+    }
+  } else if (lexer->lookahead == '\n') {
+    advance(lexer);
+  } else {
+    return false;
+  }
+
+  lexer->result_symbol = BLOCK_TITLE;
   lexer->mark_end(lexer);
   return true;
 }
@@ -362,6 +424,10 @@ bool tree_sitter_asciidoc_external_scanner_scan(void *payload, TSLexer *lexer, c
 
     if (marker == '>') {
       return scan_block_quote_marker(lexer, valid_symbols, indent);
+    }
+
+    if (marker == '.') {
+      return scan_dot_marker(lexer, valid_symbols, indent);
     }
 
     if (marker == '+') {

@@ -809,3 +809,40 @@ Alice Example <alice@example.com>
     (section_level_2
       marker: (section_marker_2)
       title: (title))))
+
+================================================================================
+Revision line - ISO date format
+================================================================================
+= Revision ISO Date
+Alice Example <alice@example.com>
+v1.0, 2025-01-22: ISO date format
+
+== Overview
+
+--------------------------------------------------------------------------------
+
+(source_file
+  header: (document_header
+    title: (document_title
+      marker: (document_title_marker)
+      text: (document_title_text))
+    author: (author_line
+      authors: (author_list
+        author: (author_name
+          (plain_text)
+          (plain_text)))
+      email: (author_email
+        open: (plain_less_than)
+        address: (plain_text)
+        close: (plain_greater_than)))
+    revision: (revision_line
+      version: (revision_version)
+      (plain_comma)
+      date: (revision_date)
+      (plain_colon)
+      remark: (revision_remark)
+      separator: (header_break)))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title))))

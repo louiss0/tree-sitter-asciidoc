@@ -18,6 +18,7 @@ module.exports = grammar({
     $.INDENTED_ORDERED_LIST_MARKER,
     $.THEMATIC_BREAK,
     $.BLOCK_QUOTE_MARKER,
+    $.BLOCK_TITLE,
     $.FENCED_CODE_BLOCK_START_BACKTICK,
     $.FENCED_CODE_BLOCK_END_BACKTICK,
     $.FENCED_CODE_BLOCK_START_TILDE,
@@ -134,7 +135,16 @@ module.exports = grammar({
     revision_line: ($) =>
       seq(
         field("version", $.revision_version),
-        optional(seq($.plain_comma, optional($._whitespace), field("date", $.revision_date))),
+        optional(
+          seq(
+            $.plain_comma,
+            optional($._whitespace),
+            field(
+              "date",
+              choice($.revision_date, alias($._revision_date_short, $.revision_date)),
+            ),
+          ),
+        ),
         optional(
           seq($.plain_colon, optional($._whitespace), field("remark", $.revision_remark)),
         ),
@@ -144,7 +154,10 @@ module.exports = grammar({
 
     revision_version: ($) => token(prec(5, seq(optional(token("v")), /[0-9]+(?:\.[0-9]+)*/))),
 
-    revision_date: ($) => token(prec(5, /[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}/)),
+    revision_date: ($) => token(prec(10, /[0-9][0-9][0-9][0-9]-[0-9][0-9]?-[0-9][0-9]?/)),
+
+    _revision_date_short: ($) =>
+      token(prec(10, /[0-9][0-9]?-[0-9][0-9]?-[0-9][0-9][0-9][0-9]/)),
 
     revision_remark: ($) => token(prec(5, /[^\r\n]+/)),
 
@@ -378,7 +391,7 @@ module.exports = grammar({
     // DELIMITED BLOCKS
     example_block: ($) =>
       seq(
-        optional(field("title", $.block_title)),
+        optional(field("title", alias($.BLOCK_TITLE, $.block_title))),
         optional(
           field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
         ),
@@ -394,7 +407,7 @@ module.exports = grammar({
     // Listing blocks
     listing_block: ($) =>
       seq(
-        optional(field("title", $.block_title)),
+        optional(field("title", alias($.BLOCK_TITLE, $.block_title))),
         optional(
           choice(
             seq(field("attributes", $.source_block_attributes), $._line_ending),
@@ -413,7 +426,7 @@ module.exports = grammar({
     fenced_code_block: ($) =>
       prec.right(
         seq(
-          optional(field("title", $.block_title)),
+          optional(field("title", alias($.BLOCK_TITLE, $.block_title))),
           optional(
             field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
           ),
@@ -458,7 +471,7 @@ module.exports = grammar({
     // AsciiDoc quote blocks (fenced with ____)
     asciidoc_blockquote: ($) =>
       seq(
-        optional(field("title", $.block_title)),
+        optional(field("title", alias($.BLOCK_TITLE, $.block_title))),
         optional(
           field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
         ),
@@ -474,7 +487,7 @@ module.exports = grammar({
     // Literal blocks
     literal_block: ($) =>
       seq(
-        optional(field("title", $.block_title)),
+        optional(field("title", alias($.BLOCK_TITLE, $.block_title))),
         optional(
           field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
         ),
@@ -490,7 +503,7 @@ module.exports = grammar({
     // Sidebar blocks
     sidebar_block: ($) =>
       seq(
-        optional(field("title", $.block_title)),
+        optional(field("title", alias($.BLOCK_TITLE, $.block_title))),
         optional(
           field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
         ),
@@ -506,7 +519,7 @@ module.exports = grammar({
     // Passthrough blocks
     passthrough_block: ($) =>
       seq(
-        optional(field("title", $.block_title)),
+        optional(field("title", alias($.BLOCK_TITLE, $.block_title))),
         optional(
           field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
         ),
@@ -526,7 +539,7 @@ module.exports = grammar({
     // Open blocks
     open_block: ($) =>
       seq(
-        optional(field("title", $.block_title)),
+        optional(field("title", alias($.BLOCK_TITLE, $.block_title))),
         optional(
           field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
         ),
@@ -544,7 +557,7 @@ module.exports = grammar({
       prec(
         30,
         seq(
-          optional(field("title", $.block_title)),
+          optional(field("title", alias($.BLOCK_TITLE, $.block_title))),
           field("type", $.attribute_admonition_list),
           field(
             "block",
@@ -731,7 +744,7 @@ module.exports = grammar({
 
     boolean_literal: ($) => choice(token("true"), token("false")),
 
-    block_title: ($) => token(prec(15, /\.[\w\d \t_]+\r?\n/)),
+    block_title: ($) => alias($.BLOCK_TITLE, $.block_title),
 
     block_content: ($) => repeat1(choice($.content_line, $._blank_line)),
 
@@ -1489,7 +1502,7 @@ module.exports = grammar({
       prec.right(
         10,
         seq(
-          optional(field("title", $.block_title)),
+          optional(field("title", alias($.BLOCK_TITLE, $.block_title))),
           optional(
             field("attributes", alias($._attribute_list_with_line_ending, $.table_attributes)),
           ),
