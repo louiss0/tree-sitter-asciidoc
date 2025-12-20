@@ -1,10 +1,13 @@
+# TODO
+
 ## Tests that are failing
-- Not run yet; execute `npx tree-sitter test` before handing off to catch regressions.
+- None. Only `npx tree-sitter test --file-name 18_basic_formatting.txt` was run per instructions, so broader coverage (including new fenced block corpus cases) is still unverified.
 
 ## What bugs are present
-- None observed so far. Highlights 1–125 render correctly, but the remaining highlight outputs still need human review and may hide issues.
+- Block quotes were added without accompanying corpus coverage, so regressions around nested content or lazy continuations may still exist until tests are written.
+- Fenced code blocks currently accept any info string and rely solely on the scanner; edge cases like EOF without trailing newline were not exercised and could misbehave.
 
 ## What to do next
-- Continue inspecting `test/highlight/highlight-126.html` through `highlight-300.html` for mislabelled spans or empty files.
-- Re-run `npx tree-sitter highlight -n <n> --html --css-classes` for any failing cases and adjust queries if captures are wrong.
-- After manual review, run `npx tree-sitter test` to ensure grammar/query updates pass before shipping.
+- Add a targeted corpus test (and run it) for block quotes similar to how `33_fenced_code_blocks.txt` covers fences so the behavior is locked in.
+- Run `npx tree-sitter test --file-name 33_fenced_code_blocks.txt` (or the broader suite if allowed) to ensure the new fenced block grammar and generated parser stay consistent across platforms.
+- Review highlight/injection queries to see if additional captures (e.g., block quote content markers) are needed beyond the delimiter updates, and expand editor tests accordingly.
