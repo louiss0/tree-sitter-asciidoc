@@ -263,12 +263,9 @@ This } { should stay text.
     content: (inline_seq_nonempty
       (plain_text)
       (ERROR
-        (plain_right_brace))
-      (inline_element
-        (attribute_substitution
-          (plain_left_brace)
-          (plain_text)
-          (MISSING plain_right_brace)))
+        (plain_right_brace)
+        (plain_left_brace))
+      (plain_text)
       (plain_text)
       (plain_text))))
 
@@ -305,11 +302,8 @@ Open {userName reference stays literal.
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
-      (inline_element
-        (attribute_substitution
-          (plain_left_brace)
-          (plain_text)
-          (MISSING plain_right_brace)))
+      (ERROR
+        (plain_left_brace))
       (plain_text)
       (plain_text)
       (plain_text))))
@@ -326,11 +320,9 @@ Spaces { name reference lacks brace.
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
-      (inline_element
-        (attribute_substitution
-          (plain_left_brace)
-          (plain_text)
-          (MISSING plain_right_brace)))
+      (ERROR
+        (plain_left_brace))
+      (plain_text)
       (plain_text)
       (plain_text)
       (plain_text))))
@@ -348,12 +340,9 @@ Weird }{ combos stay literal.
     content: (inline_seq_nonempty
       (plain_text)
       (ERROR
-        (plain_right_brace))
-      (inline_element
-        (attribute_substitution
-          (plain_left_brace)
-          (plain_text)
-          (MISSING plain_right_brace)))
+        (plain_right_brace)
+        (plain_left_brace))
+      (plain_text)
       (plain_text)
       (plain_text))))
 

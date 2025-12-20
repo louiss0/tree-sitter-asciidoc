@@ -1,0 +1,74 @@
+================================================================================
+Block quote with multiple lines
+================================================================================
+
+> This is a quote.
+> It spans two lines.
+>
+> It also has a second paragraph.
+
+---
+
+(source_file
+  (block_quote
+    (block_quote_marker)
+    (paragraph
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)))
+    (block_quote
+      (block_quote_marker)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      (block_quote
+        (block_quote_marker)
+        (block_quote
+          (block_quote_marker)
+          (paragraph
+            (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text))))))))
+
+================================================================================
+Block quote with nested markers
+================================================================================
+
+>> Nested quote line
+>> Another nested line
+> Back to single marker
+
+---
+
+(source_file
+  (block_quote
+    (block_quote_marker)
+    (paragraph
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)))
+    (block_quote
+      (block_quote_marker)
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      (block_quote
+        (block_quote_marker)
+        (paragraph
+          (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text)))))))

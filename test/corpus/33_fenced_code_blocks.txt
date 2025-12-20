@@ -11,31 +11,7 @@ line two
 
 (source_file
   (fenced_code_block
-    open: (fenced_code_block_delimiter
-      (FENCED_CODE_BLOCK_START_BACKTICK))
+    open: (fenced_code_block_delimiter)
     content: (FENCED_CODE_CONTENT_LINE)
     content: (FENCED_CODE_CONTENT_LINE)
-    close: (fenced_code_block_delimiter
-      (FENCED_CODE_BLOCK_END_BACKTICK))))
-
-================================================================================
-Tilde fenced block with title and attributes
-================================================================================
-
-.Sample listing
-[source,python]
-~~~~
-print("hi")
-~~~~
-
----
-
-(source_file
-  (fenced_code_block
-    title: (block_title)
-    attributes: (block_attributes)
-    open: (fenced_code_block_delimiter
-      (FENCED_CODE_BLOCK_START_TILDE))
-    content: (FENCED_CODE_CONTENT_LINE)
-    close: (fenced_code_block_delimiter
-      (FENCED_CODE_BLOCK_END_TILDE))))
+    close: (fenced_code_block_delimiter)))

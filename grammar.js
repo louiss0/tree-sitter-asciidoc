@@ -102,7 +102,7 @@ module.exports = grammar({
     author_line: ($) =>
       seq(
         field("authors", $.author_list),
-        optional(seq($._whitespace, field("email", $.author_email))),
+        optional(seq(optional($._whitespace), field("email", $.author_email))),
         $._line_ending,
       ),
 

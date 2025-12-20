@@ -40,7 +40,7 @@
 ; Example blocks
 (example_block) @block.outer
 (example_block
-  (block_content) @block.inner)
+  content: (_) @block.inner)
 
 ; Listing blocks
 (listing_block) @block.outer
@@ -60,7 +60,7 @@
 ; Sidebar blocks
 (sidebar_block) @block.outer
 (sidebar_block
-  (block_content) @block.inner)
+  content: (_) @block.inner)
 
 ; Passthrough blocks
 (passthrough_block) @block.outer

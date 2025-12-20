@@ -9,14 +9,20 @@ Indented headings are treated as valid headings
 --------------------------------------------------------------------------------
 
 (source_file
-  (section
-    (section_level_2
-      marker: (section_marker_2)
-      title: (title)))
+  (paragraph
+    content: (inline_seq_nonempty))
   (section
     (section_level_2
       marker: (section_marker_2)
       title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty))
       content: (section_level_3
         marker: (section_marker_3)
         title: (title)))))

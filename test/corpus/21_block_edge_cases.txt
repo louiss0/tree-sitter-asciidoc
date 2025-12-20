@@ -19,15 +19,21 @@ Inner sidebar block.
   (example_block
     (example_open
       (EXAMPLE_FENCE_START))
-    (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
+    (paragraph
+      (inline_seq_nonempty
+        (plain_text)
+        (plain_text)
+        (plain_text)))
+    (sidebar_block
+      (sidebar_open
+        (SIDEBAR_FENCE_START))
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      (sidebar_close
+        (SIDEBAR_FENCE_END)))
     (example_close
       (EXAMPLE_FENCE_END))))
 

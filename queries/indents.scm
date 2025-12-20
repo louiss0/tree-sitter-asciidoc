@@ -9,6 +9,8 @@
 [
   (example_block)
   (listing_block)
+  (fenced_code_block)
+  (block_quote)
   (asciidoc_blockquote)
   (literal_block)
   (sidebar_block)

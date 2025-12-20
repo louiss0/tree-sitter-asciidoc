@@ -216,11 +216,18 @@ sidebar content line two
         (sidebar_block
           (sidebar_open
             (SIDEBAR_FENCE_START))
-          (block_content
-            (content_line
-              (DELIMITED_BLOCK_CONTENT_LINE))
-            (content_line
-              (DELIMITED_BLOCK_CONTENT_LINE)))
+          (paragraph
+            (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)))
+          (paragraph
+            (inline_seq_nonempty
+              (plain_text)
+              (plain_text)
+              (plain_text)
+              (plain_text)))
           (sidebar_close
             (SIDEBAR_FENCE_END)))))))
 

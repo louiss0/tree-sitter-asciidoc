@@ -92,11 +92,25 @@ Pro tip: Always read the documentation first!
     block: (example_block
       open: (example_open
         (EXAMPLE_FENCE_START))
-      content: (block_content
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE))
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE)))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
       close: (example_close
         (EXAMPLE_FENCE_END))))
   (block_admonition
@@ -107,13 +121,30 @@ Pro tip: Always read the documentation first!
     block: (example_block
       open: (example_open
         (EXAMPLE_FENCE_START))
-      content: (block_content
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE))
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE))
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE)))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_colon)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      content: (unordered_list
+        items: (unordered_list_item
+          marker: (unordered_list_marker)
+          content: (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
+            (plain_text)))
+        items: (unordered_list_item
+          marker: (unordered_list_marker)
+          content: (inline_seq_nonempty
+            (plain_text)
+            (plain_text)
+            (plain_text)
+            (plain_text))))
       close: (example_close
         (EXAMPLE_FENCE_END)))))
 
@@ -179,9 +210,13 @@ This is a sidebar admonition.
     (sidebar_block
       (sidebar_open
         (SIDEBAR_FENCE_START))
-      (block_content
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE)))
+      (paragraph
+        (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
       (sidebar_close
         (SIDEBAR_FENCE_END)))))
 

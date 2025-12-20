@@ -45,11 +45,21 @@ Useful information here.
     block: (sidebar_block
       open: (sidebar_open
         (SIDEBAR_FENCE_START))
-      content: (block_content
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE))
-        (content_line
-          (DELIMITED_BLOCK_CONTENT_LINE)))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)))
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)))
       close: (sidebar_close
         (SIDEBAR_FENCE_END)))))
 

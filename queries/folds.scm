@@ -14,6 +14,8 @@
 
 (example_block)        @fold
 (listing_block)        @fold
+(fenced_code_block)    @fold
+(block_quote)          @fold
 (asciidoc_blockquote)  @fold
 (literal_block)        @fold
 (sidebar_block)        @fold
