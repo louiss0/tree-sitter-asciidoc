@@ -82,10 +82,15 @@ module.exports = grammar({
 
     document_header: ($) =>
       prec.right(
-        seq(
+        choice(
+          seq(
+            field("title", $.document_title),
+            field("author", $.author_line),
+            field("revision", $.revision_line),
+          ),
+          seq(field("title", $.document_title), field("author", $.author_line)),
+          seq(field("title", $.document_title), field("revision", $.revision_line)),
           field("title", $.document_title),
-          optional(field("author", $.author_line)),
-          optional(field("revision", $.revision_line)),
         ),
       ),
 
@@ -149,15 +154,14 @@ module.exports = grammar({
           seq($.plain_colon, optional($._whitespace), field("remark", $.revision_remark)),
         ),
         $._line_ending,
-        field("separator", alias($._blank_line, $.header_break)),
       ),
 
-    revision_version: ($) => token(prec(5, seq(optional(token("v")), /[0-9]+(?:\.[0-9]+)*/))),
+    revision_version: ($) => token(prec(1, seq(optional(token("v")), /[0-9]+(?:\.[0-9]+)*/))),
 
-    revision_date: ($) => token(prec(10, /[0-9][0-9][0-9][0-9]-[0-9][0-9]?-[0-9][0-9]?/)),
+    revision_date: ($) => token(prec(20, /[0-9][0-9][0-9][0-9]-[0-9][0-9]?-[0-9][0-9]?/)),
 
     _revision_date_short: ($) =>
-      token(prec(10, /[0-9][0-9]?-[0-9][0-9]?-[0-9][0-9][0-9][0-9]/)),
+      token(prec(20, /[0-9][0-9]?-[0-9][0-9]?-[0-9][0-9][0-9][0-9]/)),
 
     revision_remark: ($) => token(prec(5, /[^\r\n]+/)),
 
@@ -425,6 +429,7 @@ module.exports = grammar({
 
     fenced_code_block: ($) =>
       prec.right(
+        50,
         seq(
           optional(field("title", alias($.BLOCK_TITLE, $.block_title))),
           optional(
@@ -837,6 +842,7 @@ module.exports = grammar({
         1,
         seq(
           field("marker", alias($.UNORDERED_LIST_MARKER, $.unordered_list_marker)),
+          optional(field("checkbox", $.checklist_marker)),
           field("content", $._inline_text),
           $._line_ending,
           repeat(
@@ -856,6 +862,7 @@ module.exports = grammar({
         1,
         seq(
           field("marker", alias($.ORDERED_LIST_MARKER, $.ordered_list_marker)),
+          optional(field("checkbox", $.checklist_marker)),
           field("content", $._inline_text),
           $._line_ending,
           repeat(
@@ -875,6 +882,7 @@ module.exports = grammar({
       prec.right(
         seq(
           field("marker", alias($.INDENTED_UNORDERED_LIST_MARKER, $.unordered_list_marker)),
+          optional(field("checkbox", $.checklist_marker)),
           field("content", $._inline_text),
           $._line_ending,
           repeat(
@@ -895,6 +903,7 @@ module.exports = grammar({
       prec.right(
         seq(
           field("marker", alias($.INDENTED_ORDERED_LIST_MARKER, $.ordered_list_marker)),
+          optional(field("checkbox", $.checklist_marker)),
           field("content", $._inline_text),
           $._line_ending,
           repeat(
@@ -907,6 +916,15 @@ module.exports = grammar({
           ),
         ),
       ),
+
+    checklist_marker: ($) =>
+      seq(
+        field("open", $.plain_left_bracket),
+        field("state", $._checklist_state),
+        field("close", $.plain_right_bracket),
+      ),
+
+    _checklist_state: ($) => token.immediate(/[xX* ]/),
 
     // DESCRIPTION LISTS
 
@@ -1110,7 +1128,7 @@ module.exports = grammar({
         $.escaped_char,
         $.plain_colon,
         $.plain_asterisk,
-        $.plain_underscore,
+        prec(-5, $.plain_underscore),
         $.plain_dash,
         $.plain_quote,
         $.plain_double_quote,
@@ -1121,9 +1139,9 @@ module.exports = grammar({
         $._whitespace,
         $.plain_left_bracket,
         $.plain_right_bracket,
-        $.plain_backtick,
         $.plain_left_paren,
         $.plain_right_paren,
+        $.plain_backtick,
       ),
 
     plain_text: ($) => prec.left(-50, $._plain_text_segment),
@@ -1225,7 +1243,7 @@ module.exports = grammar({
     // Monospace formatting (`code` and ``intraword``)
     monospace: ($) =>
       prec.left(
-        5,
+        10,
         choice(
           seq(
             field("open", alias(token("``"), $.monospace_open)),
@@ -1399,6 +1417,10 @@ module.exports = grammar({
               $.plain_underscore,
               $.plain_quote,
               $.plain_double_quote,
+              $.plain_comma,
+              $.plain_less_than,
+              $.plain_greater_than,
+              $.plain_caret,
               $._whitespace,
             ),
           ),
@@ -1436,9 +1458,14 @@ module.exports = grammar({
       prec.right(
         20,
         seq(
+          optional(field("title", alias($.BLOCK_TITLE, $.block_title))),
+          optional(
+            field("attributes", alias($._attribute_list_with_line_ending, $.block_attributes)),
+          ),
           field("open", alias(token(/[a-zA-Z0-9_-]+::[^:\r\n]*\[/), $.macro_name)),
           optional(field("body", $.macro_body)),
           field("close", alias($.plain_right_bracket, $.macro_close)),
+          $._line_ending,
         ),
       ),
 

@@ -318,7 +318,8 @@ Just one [line
       (plain_text)
       (plain_text)
       (plain_left_bracket)))
-  (ERROR))
+  (ERROR
+        (plain_text)))
 
 ================================================================================
 Paragraph with stray right bracket
@@ -426,8 +427,8 @@ Just one `line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_backtick)))
-  (ERROR))
+          (plain_backtick)))
+      (ERROR))
 
 ================================================================================
 Paragraph with exclamation

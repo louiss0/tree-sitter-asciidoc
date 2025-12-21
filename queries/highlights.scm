@@ -73,6 +73,7 @@
 ; =========================
 (unordered_list_marker) @markup.list
 (ordered_list_marker)   @markup.list
+(checklist_marker)      @markup.list
 (LIST_CONTINUATION)     @markup.list
 
 (callout_marker) @markup.list

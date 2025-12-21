@@ -93,18 +93,17 @@ Here is image:logo.png[Company Logo] in text.
 Block images
 ================================================================================
 
-See image::diagram.svg[System Architecture,width=500] below.
+See below.
+image::diagram.svg[System Architecture,width=500]
 
 --------------------------------------------------------------------------------
 
 (source_file
   (paragraph
     content: (inline_seq_nonempty
+      (plain_text)
       (plain_text)))
   (block_macro
     open: (macro_name)
     body: (macro_body)
-    close: (macro_close))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text))))
+    close: (macro_close)))

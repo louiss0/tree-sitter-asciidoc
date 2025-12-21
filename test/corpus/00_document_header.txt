@@ -28,8 +28,7 @@ v1.0, 1-15-2024: First release
       (plain_comma)
       date: (revision_date)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -285,8 +284,7 @@ v1.0, 1-15-2024: First release
       (plain_comma)
       date: (revision_date)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -323,8 +321,7 @@ v1.0, 1-15-2024: First release
       (plain_comma)
       date: (revision_date)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -365,8 +362,7 @@ v1.0, 1-15-2024: First release
       (plain_comma)
       date: (revision_date)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -408,8 +404,7 @@ v1.0, 1-15-2024: First release
       (plain_comma)
       date: (revision_date)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -452,8 +447,7 @@ v1.0, 1-15-2024: First release
       (plain_comma)
       date: (revision_date)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -491,8 +485,7 @@ v1.0, 1-15-2024: First release
       (plain_comma)
       date: (revision_date)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -532,8 +525,7 @@ v1.0, 1-15-2024: First release
       (plain_comma)
       date: (revision_date)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -575,8 +567,7 @@ v1.0, 1-15-2024: First release
       (plain_comma)
       date: (revision_date)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -616,8 +607,7 @@ v1.0, 1-15-2024: First release
       (plain_comma)
       date: (revision_date)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -653,8 +643,7 @@ v7.5
         address: (plain_text)
         close: (plain_greater_than)))
     revision: (revision_line
-      version: (revision_version)
-      separator: (header_break)))
+      version: (revision_version)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -688,8 +677,7 @@ Alice Example <alice@example.com>
     revision: (revision_line
       version: (revision_version)
       (plain_comma)
-      date: (revision_date)
-      separator: (header_break)))
+      date: (revision_date)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -723,8 +711,7 @@ Alice Example <alice@example.com>
     revision: (revision_line
       version: (revision_version)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -760,8 +747,7 @@ v7.5, 1-29-2020: A new analysis
       (plain_comma)
       date: (revision_date)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -799,8 +785,7 @@ Alice Example <alice@example.com>
       (plain_comma)
       date: (revision_date)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -840,8 +825,7 @@ v1.0, 2025-01-22: ISO date format
       (plain_comma)
       date: (revision_date)
       (plain_colon)
-      remark: (revision_remark)
-      separator: (header_break)))
+      remark: (revision_remark)))
   (section
     (section_level_2
       marker: (section_marker_2)

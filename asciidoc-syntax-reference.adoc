@@ -47,7 +47,7 @@ You can also combine styles: *_bold italic_*, `*bold monospace*`, and _`italic m
 
 [.custom-role]#This text has a custom role applied.#
 
-[big]#Large text# and [small]#small text#.
+#Large text# and [small]#small text#.
 
 == Headings
 
@@ -191,11 +191,11 @@ Link with protocol omitted: link:example.com[Example] (requires link: macro)
 
 ==== Nested Ordered List
 
-. Level 1
-.. Level 2
-... Level 3
-.... Level 4
-..... Level 5
+* Level 1
+** Level 2
+*** Level 3
+**** Level 4
+***** Level 5
 . Back to Level 1
 
 === Mixed Nested Lists
@@ -252,8 +252,10 @@ The ``mono``space can be applied mid-word.
 
 === Literal Code Block (Indented)
 
+```python
     def hello():
         print("Hello, World!")
+```
 
 === Delimited Code Block
 
@@ -424,7 +426,7 @@ image::https://via.placeholder.com/800x600[Image with Size,600,400]
 
 === Inline Image
 
-This paragraph contains an inline image:image:https://via.placeholder.com/50[Small Icon] within the text.
+This paragraph contains an inline image: image:https://via.placeholder.com/50[Small Icon] within the text.
 
 === Image with Link
 

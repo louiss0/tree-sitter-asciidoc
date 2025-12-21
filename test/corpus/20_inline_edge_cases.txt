@@ -291,7 +291,7 @@ Math notation: stem:[E = mc^2] and asciimath:[sum_(i=1)^n x_i].
 
 Footnote variations: footnote:[Simple note] and footnoteref:ref1[Referenced note].
 
-Complex image: image::path/file.png[Alt text,width=100,height=50].
+Complex image: image::path/file.png[Alt text,width=100,height=50]
 
 --------------------------------------------------------------------------------
 
@@ -349,10 +349,7 @@ Complex image: image::path/file.png[Alt text,width=100,height=50].
   (block_macro
     open: (macro_name)
     body: (macro_body)
-    close: (macro_close))
-  (paragraph
-    content: (inline_seq_nonempty
-      (plain_text))))
+    close: (macro_close)))
 
 ================================================================================
 Cross-reference and anchor combinations
