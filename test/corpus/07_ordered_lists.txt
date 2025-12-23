@@ -74,6 +74,9 @@ Nested ordered list
         (ordered_list_marker)
         (inline_seq_nonempty
           (plain_text)
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT))
           (plain_text))))))
 
 ================================================================================
@@ -97,11 +100,17 @@ Nested ordered list with siblings
         (ordered_list_marker)
         (inline_seq_nonempty
           (plain_text)
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT))
           (plain_text))
         (ordered_list
           (ordered_list_marker)
           (inline_seq_nonempty
             (plain_text)
+            (plain_text)
+            (plain_dot
+              (PLAIN_DOT))
             (plain_text)))))))
 
 ================================================================================
@@ -153,6 +162,9 @@ Nesting and return
         (ordered_list_marker)
         (inline_seq_nonempty
           (plain_text)
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT))
           (plain_text))))
     (ordered_list_item
       (ordered_list_marker)
@@ -240,14 +252,26 @@ Zig-zag nesting
       (ordered_list
         (ordered_list_marker)
         (inline_seq_nonempty
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT))
           (plain_text))
         (ordered_list
           (ordered_list_marker)
           (inline_seq_nonempty
+            (plain_text)
+            (plain_dot
+              (PLAIN_DOT))
+            (plain_text)
+            (plain_dot
+              (PLAIN_DOT))
             (plain_text))
           (ordered_list
             (ordered_list_marker)
             (inline_seq_nonempty
+              (plain_text)
+              (plain_dot
+                (PLAIN_DOT))
               (plain_text))))))))
 
 ================================================================================
@@ -273,6 +297,9 @@ Nesting in later items
       (ordered_list
         (ordered_list_marker)
         (inline_seq_nonempty
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT))
           (plain_text))))))
 
 ================================================================================
@@ -295,14 +322,29 @@ Deep siblings
       (ordered_list
         (ordered_list_marker)
         (inline_seq_nonempty
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT))
           (plain_text))
         (ordered_list
           (ordered_list_marker)
           (inline_seq_nonempty
+            (plain_text)
+            (plain_dot
+              (PLAIN_DOT))
+            (plain_text)
+            (plain_dot
+              (PLAIN_DOT))
             (plain_text))
           (ordered_list
             (ordered_list_marker)
             (inline_seq_nonempty
+              (plain_text)
+              (plain_dot
+                (PLAIN_DOT))
+              (plain_text)
+              (plain_dot
+                (PLAIN_DOT))
               (plain_text))))))))
 
 ================================================================================
@@ -325,10 +367,19 @@ Multi-level dedent
       (ordered_list
         (ordered_list_marker)
         (inline_seq_nonempty
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT))
           (plain_text))
         (ordered_list
           (ordered_list_marker)
           (inline_seq_nonempty
+            (plain_text)
+            (plain_dot
+              (PLAIN_DOT))
+            (plain_text)
+            (plain_dot
+              (PLAIN_DOT))
             (plain_text)))))
     (ordered_list_item
       (ordered_list_marker)
@@ -348,9 +399,15 @@ Not a list - missing space after period
 (source_file
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
       (plain_text)))
   (paragraph
     (inline_seq_nonempty
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
       (plain_text))))
 
 ================================================================================
@@ -368,10 +425,18 @@ The price is 1.25 dollars and 2.50 euros.
       (plain_text)
       (plain_text)
       (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Dot ordered list

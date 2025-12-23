@@ -54,12 +54,16 @@ Useful information here.
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_text)))
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT))))
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
-          (plain_text)))
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT))))
       close: (sidebar_close
         (SIDEBAR_FENCE_END)))))
 
@@ -209,4 +213,6 @@ This should be parsed as a generic attribute list followed by paragraph.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))

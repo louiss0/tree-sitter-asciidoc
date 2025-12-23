@@ -30,11 +30,14 @@ The word endif:: can also appear here.
       (plain_text)
       (plain_text)
       (plain_text)
+      (plain_comma)
       (plain_text)
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (description_list
     (description_list_item
       term: (description_item_term)
@@ -43,7 +46,9 @@ The word endif:: can also appear here.
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_text))))))
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT)))))))
 
 ================================================================================
 Malformed conditional directives stay as blocks
@@ -76,7 +81,9 @@ These look like conditionals but are malformed.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Triple colons are not conditionals

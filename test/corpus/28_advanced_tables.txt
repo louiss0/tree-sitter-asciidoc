@@ -421,7 +421,7 @@ Table with metadata and complex specifications
 ================================================================================
 
 .Employee Information
-[#employee-table.data-table]
+[employee-table.data-table]
 |===
 |h|Name |h|Department 2+h|Contact Information
 
@@ -449,6 +449,9 @@ Phone: *555-9012*
       (plain_left_bracket)
       (plain_text)
       (plain_dash)
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
       (plain_text)
       (plain_dash)
       (plain_text)

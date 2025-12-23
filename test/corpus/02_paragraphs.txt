@@ -263,8 +263,11 @@ Mary, James, John, Suku
   (paragraph
     (inline_seq_nonempty
       (plain_text)
+      (plain_comma)
       (plain_text)
+      (plain_comma)
       (plain_text)
+      (plain_comma)
       (plain_text))))
 
 ================================================================================
@@ -281,9 +284,9 @@ Just one {line
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_text)))
-  (ERROR
-    (plain_left_brace)))
+      (plain_text)
+      (plain_left_brace)))
+  (ERROR))
 
 ================================================================================
 Paragraph with right brace
@@ -299,8 +302,7 @@ Just} one line
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (ERROR
-        (plain_right_brace))
+      (plain_right_brace)
       (plain_text)
       (plain_text))))
 
@@ -319,7 +321,7 @@ Just one [line
       (plain_text)
       (plain_left_bracket)))
   (ERROR
-        (plain_text)))
+    (plain_text)))
 
 ================================================================================
 Paragraph with stray right bracket
@@ -382,6 +384,7 @@ Just one %line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
+      (plain_percent)
       (plain_text))))
 
 ================================================================================
@@ -426,9 +429,9 @@ Just one `line
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_text)
-          (plain_backtick)))
-      (ERROR))
+      (plain_text)))
+  (ERROR
+    (monospace_open)))
 
 ================================================================================
 Paragraph with exclamation
@@ -443,6 +446,7 @@ Just one !line
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
+      (plain_exclamation)
       (plain_text))))
 
 ================================================================================
@@ -457,8 +461,9 @@ Just one #line
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_text)
-      (plain_text))))
+      (plain_text)))
+      (ERROR
+        (highlight_open)))
 
 ================================================================================
 Paragraph with equals
@@ -503,7 +508,8 @@ Just one line?
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_question_mark))))
 
 ================================================================================
 Paragraph with period
@@ -518,4 +524,6 @@ Just one line.
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))

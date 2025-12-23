@@ -26,7 +26,9 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
           open: (emphasis_open)
           content: (emphasis_content)
           close: (emphasis_close)))
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -43,7 +45,9 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
           open: (emphasis_open)
           content: (emphasis_content)
           close: (emphasis_close)))
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -63,7 +67,9 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
           close: (subscript_close
             (plain_tilde))))
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Delimiter adjacency and escape handling
@@ -94,7 +100,9 @@ Monospace with `code *not strong* here` content.
           open: (emphasis_open)
           content: (emphasis_content)
           close: (emphasis_close)))
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -107,7 +115,8 @@ Monospace with `code *not strong* here` content.
       (plain_text)
       (plain_text)
       (escaped_char)
-      (plain_text)))
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -117,7 +126,8 @@ Monospace with `code *not strong* here` content.
           open: (strong_open)
           content: (strong_content)
           close: (strong_close)))
-      (plain_text)))
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -127,7 +137,9 @@ Monospace with `code *not strong* here` content.
           open: (monospace_open)
           content: (monospace_content)
           close: (monospace_close)))
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Complex autolink boundary detection
@@ -150,7 +162,9 @@ Email addresses: contact@example.com.
       (inline_element
         (auto_link))
       (plain_text)
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -173,7 +187,12 @@ Email addresses: contact@example.com.
       (plain_text)
       (plain_text)
       (plain_colon)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Role spans with complex attributes
@@ -181,7 +200,7 @@ Role spans with complex attributes
 
 [.highlight]#Important text# with role.
 
-[.red.bold#special]#Custom styling# with multiple attributes.
+[.red.bold special]#Custom styling# with multiple attributes.
 
 [%nowrap]#No wrap content# with options.
 
@@ -194,34 +213,54 @@ Role spans with complex attributes
         (highlight
           roles: (role_attribute_list
             (plain_left_bracket)
+            (plain_dot
+              (PLAIN_DOT))
             (plain_text)
             (plain_right_bracket))
-          content: (highlight_text)))
+          open: (highlight_open)
+          content: (highlight_text)
+          close: (highlight_close)))
       (plain_text)
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (inline_element
         (highlight
           roles: (role_attribute_list
             (plain_left_bracket)
+            (plain_dot
+              (PLAIN_DOT))
+            (plain_text)
+            (plain_dot
+              (PLAIN_DOT))
+            (plain_text)
             (plain_text)
             (plain_right_bracket))
-          content: (highlight_text)))
+          open: (highlight_open)
+          content: (highlight_text)
+          close: (highlight_close)))
       (plain_text)
       (plain_text)
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
+      (plain_left_bracket)
+      (plain_percent)
+      (plain_text)
+      (plain_right_bracket)
       (inline_element
         (highlight
-          roles: (role_attribute_list
-            (plain_left_bracket)
-            (plain_text)
-            (plain_right_bracket))
-          content: (highlight_text)))
+          open: (highlight_open)
+          content: (highlight_text)
+          close: (highlight_close)))
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Nested formatting edge cases
@@ -239,47 +278,48 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
 
 (source_file
   (paragraph
-    content: (inline_seq_nonempty
+    (inline_seq_nonempty
       (inline_element
         (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close)))
+          (strong_open)
+          (strong_content)
+          (strong_close)))
       (plain_text)
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
-    content: (inline_seq_nonempty
+    (inline_seq_nonempty
       (inline_element
         (emphasis
-          open: (emphasis_open)
-          content: (emphasis_content)
-          close: (emphasis_close)))
-      (plain_text)))
+          (emphasis_open)
+          (emphasis_content)
+          (emphasis_close)))
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
-    content: (inline_seq_nonempty
+    (inline_seq_nonempty
       (inline_element
         (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close)))
+          (strong_open)
+          (strong_content)
+          (strong_close)))
       (plain_text)
       (inline_element
         (strong
-          open: (strong_open)
-          content: (strong_content)
-          close: (strong_close)))
-      (plain_text)))
+          (strong_open)
+          (strong_content)
+          (strong_close)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
-    content: (inline_seq_nonempty
-      (plain_text)
+    (inline_seq_nonempty
       (inline_element
-        (monospace
-          open: (monospace_open)
-          content: (monospace_content)
-          close: (monospace_close)))
+        (passthrough_triple_plus))
       (plain_text)
-      (plain_text)
-      (plain_text))))
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Macro and attribute edge cases
@@ -310,7 +350,8 @@ Complex image: image::path/file.png[Alt text,width=100,height=50]
         open: (macro_name)
         body: (macro_body)
         close: (macro_close))
-      (plain_text)))
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -325,7 +366,8 @@ Complex image: image::path/file.png[Alt text,width=100,height=50]
         open: (macro_name)
         body: (macro_body)
         close: (macro_close))
-      (plain_text)))
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -340,7 +382,8 @@ Complex image: image::path/file.png[Alt text,width=100,height=50]
         open: (macro_name)
         body: (macro_body)
         close: (macro_close))
-      (plain_text)))
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -378,7 +421,8 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
           target: (xref_target)
           (plain_comma)
           text: (xref_text)))
-      (plain_text)))
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -393,7 +437,8 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
         open: (macro_name)
         body: (macro_body)
         close: (macro_close))
-      (plain_text)))
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -402,7 +447,9 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
         body: (macro_body)
         close: (macro_close))
       (plain_right_bracket)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Passthrough and raw content edge cases
@@ -426,7 +473,9 @@ Nested pass: pass:c[{code-block}] with substitution.
         open: (macro_name)
         body: (macro_body)
         close: (macro_close))
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -435,7 +484,9 @@ Nested pass: pass:c[{code-block}] with substitution.
       (plain_colon)
       (inline_element
         (passthrough_triple_plus))
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -446,4 +497,6 @@ Nested pass: pass:c[{code-block}] with substitution.
         body: (macro_body)
         close: (macro_close))
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))

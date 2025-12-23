@@ -59,10 +59,17 @@ v2.0, 2-20-2024: Delayed blank start
       (plain_text)
       (plain_less_than)
       (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)
       (plain_greater_than)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)
+      (plain_comma)
       (plain_text)
       (plain_dash)
       (plain_text)
@@ -104,10 +111,17 @@ v3.0, 3-21-2024: Two blanks
       (plain_text)
       (plain_less_than)
       (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)
       (plain_greater_than)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)
+      (plain_comma)
       (plain_text)
       (plain_dash)
       (plain_text)
@@ -147,10 +161,17 @@ v4.0, 4-22-2024: Leading spaces
       (plain_text)
       (plain_less_than)
       (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)
       (plain_greater_than)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)
+      (plain_comma)
       (plain_text)
       (plain_dash)
       (plain_text)
@@ -190,10 +211,17 @@ v5.0, 5-22-2024: Leading tab
       (plain_text)
       (plain_less_than)
       (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)
       (plain_greater_than)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)
+      (plain_comma)
       (plain_text)
       (plain_dash)
       (plain_text)
@@ -235,10 +263,17 @@ v6.0, 6-22-2024: Leading blank with padding
       (plain_text)
       (plain_less_than)
       (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)
       (plain_greater_than)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)
+      (plain_comma)
       (plain_text)
       (plain_dash)
       (plain_text)
@@ -437,6 +472,8 @@ v1.0, 1-15-2024: First release
         author: (author_name
           (plain_text)
           (plain_text)
+          (plain_dot
+            (PLAIN_DOT))
           (plain_text)))
       email: (author_email
         open: (plain_less_than)
@@ -473,7 +510,9 @@ v1.0, 1-15-2024: First release
       authors: (author_list
         author: (author_name
           (plain_text)
-          (plain_text)
+          (plain_text))
+        (plain_comma)
+        author: (author_name
           (plain_text)
           (plain_text)))
       email: (author_email
@@ -511,9 +550,13 @@ v1.0, 1-15-2024: First release
       authors: (author_list
         author: (author_name
           (plain_text)
+          (plain_text))
+        (plain_comma)
+        author: (author_name
           (plain_text)
-          (plain_text)
-          (plain_text)
+          (plain_text))
+        (plain_comma)
+        author: (author_name
           (plain_text)
           (plain_text)))
       email: (author_email
@@ -551,11 +594,17 @@ v1.0, 1-15-2024: First release
       authors: (author_list
         author: (author_name
           (plain_text)
+          (plain_text))
+        (plain_comma)
+        author: (author_name
           (plain_text)
+          (plain_text))
+        (plain_comma)
+        author: (author_name
           (plain_text)
-          (plain_text)
-          (plain_text)
-          (plain_text)
+          (plain_text))
+        (plain_comma)
+        author: (author_name
           (plain_text)
           (plain_text)))
       email: (author_email
@@ -595,7 +644,13 @@ v1.0, 1-15-2024: First release
       authors: (author_list
         author: (author_name
           (plain_text)
+          (plain_text))
+        (plain_comma)
+        author: (author_name
           (plain_text)
+          (plain_text))
+        (plain_comma)
+        author: (author_name
           (plain_text)
           (plain_text)))
       email: (author_email

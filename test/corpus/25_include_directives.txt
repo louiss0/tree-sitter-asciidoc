@@ -19,7 +19,9 @@ This is content after the include.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Include with leveloffset option
@@ -39,7 +41,9 @@ Another paragraph.
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Include with line ranges
@@ -60,7 +64,9 @@ Text after include.
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Include with tags
@@ -80,7 +86,9 @@ More content.
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Include with multiple options
@@ -100,7 +108,9 @@ Final paragraph.
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Include with path containing subdirectories
@@ -119,7 +129,9 @@ Following content.
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Include in section
@@ -152,7 +164,9 @@ More text here.
         content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
-          (plain_text))))))
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT)))))))
 
 ================================================================================
 Multiple includes
@@ -199,7 +213,9 @@ This should be a paragraph.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Include macro with malformed brackets
@@ -221,4 +237,6 @@ This should be a paragraph.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))

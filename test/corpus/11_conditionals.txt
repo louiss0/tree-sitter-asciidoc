@@ -31,7 +31,9 @@ endif::[]
                 content: (inline_seq_nonempty
                   (plain_text)
                   (plain_text)
-                  (plain_text)))))
+                  (plain_text)
+                  (plain_dot
+                    (PLAIN_DOT))))))
           end: (endif_directive))))))
 
 ================================================================================
@@ -52,7 +54,9 @@ endif::[]
         content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
-          (plain_text)))
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT))))
       end: (endif_directive))))
 
 ================================================================================
@@ -91,7 +95,9 @@ endif::[]
                   (plain_text)
                   (plain_text)
                   (plain_text)
-                  (plain_text)))))
+                  (plain_text)
+                  (plain_dot
+                    (PLAIN_DOT))))))
           end: (endif_directive))))))
 
 ================================================================================

@@ -22,7 +22,9 @@ Final paragraph.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (unordered_list
     items: (unordered_list_item
       marker: (unordered_list_marker)
@@ -38,7 +40,9 @@ Final paragraph.
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (ordered_list
     items: (ordered_list_item
       marker: (ordered_list_marker)
@@ -55,7 +59,9 @@ Final paragraph.
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Lists mixed with sections and attributes
@@ -94,7 +100,9 @@ More content here.
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_text)))
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT))))
       content: (unordered_list
         items: (unordered_list_item
           marker: (unordered_list_marker)
@@ -114,7 +122,9 @@ More content here.
         content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
-          (plain_text)))
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT))))
       content: (ordered_list
         items: (ordered_list_item
           marker: (ordered_list_marker)

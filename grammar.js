@@ -10,6 +10,8 @@
 module.exports = grammar({
   name: "asciidoc",
 
+  inline: ($) => [$.punctuation],
+
   externals: ($) => [
     $.LIST_CONTINUATION,
     $.UNORDERED_LIST_MARKER,
@@ -19,6 +21,7 @@ module.exports = grammar({
     $.THEMATIC_BREAK,
     $.BLOCK_QUOTE_MARKER,
     $.BLOCK_TITLE,
+    $.PLAIN_DOT,
     $.FENCED_CODE_BLOCK_START_BACKTICK,
     $.FENCED_CODE_BLOCK_END_BACKTICK,
     $.FENCED_CODE_BLOCK_START_TILDE,
@@ -27,7 +30,10 @@ module.exports = grammar({
 
   extras: ($) => [$.comment],
 
-  conflicts: ($) => [[$.inline_element, $.explicit_link]],
+  conflicts: ($) => [
+    [$._inline_core_unit, $.subscript_open],
+    [$.inline_element, $.explicit_link],
+  ],
 
   word: ($) => $._plain_text_segment,
 
@@ -123,7 +129,12 @@ module.exports = grammar({
     _author_separator: ($) => $.plain_comma,
 
     author_name: ($) =>
-      prec.right(seq($.plain_text, repeat(choice($.plain_text, $.plain_dash, $._whitespace)))),
+      prec.right(
+        seq(
+          $.plain_text,
+          repeat(choice($.plain_text, $.plain_dash, $.plain_dot, $._whitespace)),
+        ),
+      ),
 
     // INLINE “plain” email inside header
     author_email: ($) =>
@@ -1099,9 +1110,9 @@ module.exports = grammar({
     // INLINE FORMATTING
     inline_element: ($) =>
       choice(
+        $.monospace,
         $.strong,
         $.emphasis,
-        $.monospace,
         $.superscript,
         $.subscript,
         $.inline_anchor,
@@ -1126,28 +1137,42 @@ module.exports = grammar({
         $.inline_macro,
         $.inline_element,
         $.escaped_char,
+        $.punctuation,
+        $.plain_text,
+        $._whitespace,
+      ),
+
+    plain_text: ($) => prec.left(-50, $._plain_text_segment),
+    _plain_text_segment: ($) => /[A-Za-z0-9$&@=]+/,
+    _whitespace: ($) => token(/[ \t]+/),
+
+    punctuation: ($) =>
+      choice(
         $.plain_colon,
         $.plain_asterisk,
-        prec(-5, $.plain_underscore),
+        $.plain_underscore,
         $.plain_dash,
         $.plain_quote,
         $.plain_double_quote,
         $.plain_caret,
         $.plain_less_than,
         $.plain_greater_than,
-        $.plain_text,
-        $._whitespace,
         $.plain_left_bracket,
         $.plain_right_bracket,
+        $.plain_left_brace,
+        $.plain_right_brace,
         $.plain_left_paren,
         $.plain_right_paren,
-        $.plain_backtick,
+        $.plain_comma,
+        $.plain_plus,
+        $.plain_tilde,
+        $.plain_pipe,
+        $.plain_dot,
+        $.plain_slash,
+        $.plain_percent,
+        $.plain_exclamation,
+        $.plain_question_mark,
       ),
-
-    plain_text: ($) => prec.left(-50, $._plain_text_segment),
-    _plain_text_segment: ($) => /[A-Za-z0-9!$&@\.,+\/=%?#]+/,
-    _whitespace: ($) => token(/[ \t]+/),
-
     plain_colon: ($) => token(":"),
     plain_asterisk: ($) => token("*"),
     plain_underscore: ($) => token("_"), // _
@@ -1161,17 +1186,18 @@ module.exports = grammar({
     plain_right_bracket: () => token("]"),
     plain_left_brace: () => token("{"),
     plain_right_brace: () => token("}"),
-    plain_backtick: () => token("`"),
+
     plain_left_paren: () => token("("),
     plain_right_paren: () => token(")"),
     plain_comma: ($) => token(","),
     plain_plus: ($) => token("+"),
     plain_tilde: ($) => token("~"),
     plain_pipe: ($) => token("|"),
-    plain_dot: ($) => token("."),
+    plain_dot: ($) => $.PLAIN_DOT,
     plain_slash: ($) => token("/"),
     plain_percent: ($) => token("%"),
     plain_exclamation: ($) => token("!"),
+    plain_question_mark: ($) => token("?"),
 
     // Any escaped single character: blocks delimiter interpretations
     escaped_char: ($) => token(seq("\\", /[^\r\n]/)),
@@ -1257,7 +1283,7 @@ module.exports = grammar({
             field("close", alias(token("``"), $.monospace_close)),
           ),
           seq(
-            field("open", alias($.plain_backtick, $.monospace_open)),
+            field("open", alias(token("`"), $.monospace_open)),
             field(
               "content",
               alias(
@@ -1265,7 +1291,7 @@ module.exports = grammar({
                 $.monospace_content,
               ),
             ),
-            field("close", alias($.plain_backtick, $.monospace_close)),
+            field("close", alias(token("`"), $.monospace_close)),
           ),
         ),
       ),
@@ -1289,7 +1315,7 @@ module.exports = grammar({
     // Subscript (~sub~)
     subscript: ($) =>
       prec.left(
-        5,
+        15,
         seq(
           field("open", $.subscript_open),
           field("content", $.subscript_text),
@@ -1307,11 +1333,13 @@ module.exports = grammar({
         5,
         seq(
           optional(field("roles", alias($._attribute_list, $.role_attribute_list))),
+          field("open", alias(token("#"), $.highlight_open)),
           field("content", $.highlight_text),
+          field("close", alias(token("#"), $.highlight_close)),
         ),
       ),
 
-    highlight_text: ($) => prec(20, seq("#", repeat1(choice(/\\./, /[^#\\\r\n]/)), "#")),
+    highlight_text: ($) => repeat1(choice(/\\./, /[^#\\\r\n]/)),
 
     // ANCHORS & CROSS-REFERENCES
     inline_anchor: ($) =>
@@ -1399,10 +1427,13 @@ module.exports = grammar({
       ),
 
     attribute_substitution: ($) =>
-      seq(
-        $.plain_left_brace,
-        choice(seq($.plain_text, $.plain_colon, $.plain_text), $.plain_text),
-        $.plain_right_brace,
+      prec.right(
+        15,
+        seq(
+          $.plain_left_brace,
+          choice(seq($.plain_text, $.plain_colon, $.plain_text), $.plain_text),
+          $.plain_right_brace,
+        ),
       ),
 
     _attribute_list: ($) =>
@@ -1418,6 +1449,7 @@ module.exports = grammar({
               $.plain_quote,
               $.plain_double_quote,
               $.plain_comma,
+              $.plain_dot,
               $.plain_less_than,
               $.plain_greater_than,
               $.plain_caret,

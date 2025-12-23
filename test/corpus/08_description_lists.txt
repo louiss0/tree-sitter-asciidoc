@@ -144,16 +144,38 @@ literal block line two
       (description_item_term)
       (list_item_continuation
         (LIST_CONTINUATION)
-        (literal_block
-          (literal_open
-            (LITERAL_FENCE_START))
-          (block_content
-            (content_line
-              (DELIMITED_BLOCK_CONTENT_LINE))
-            (content_line
-              (DELIMITED_BLOCK_CONTENT_LINE)))
-          (literal_close
-            (LITERAL_FENCE_END)))))))
+        (paragraph
+          (inline_seq_nonempty
+            (plain_dot
+              (PLAIN_DOT))
+            (plain_dot
+              (PLAIN_DOT))
+            (plain_dot
+              (PLAIN_DOT))
+            (plain_dot
+              (PLAIN_DOT)))))))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ====
 example block content line one

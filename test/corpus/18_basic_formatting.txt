@@ -18,7 +18,9 @@ This has *bold* text in it.
           close: (strong_close)))
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Simple emphasis formatting
@@ -40,7 +42,9 @@ This has _italic_ text in it.
           close: (emphasis_close)))
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Simple monospace formatting
@@ -62,7 +66,9 @@ This has `code` text in it.
           close: (monospace_close)))
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Unclosed formatting emits inline ERROR
@@ -114,7 +120,9 @@ This has *bold* and _italic_ and `code` together.
           open: (monospace_open)
           content: (monospace_content)
           close: (monospace_close)))
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Simple superscript and subscript
@@ -142,4 +150,23 @@ This has ^superscript^ and ~subscript~ text.
           content: (subscript_text)
           close: (subscript_close
             (plain_tilde))))
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
+
+================================================================================
+Simple highlighting
+================================================================================
+
+#highlighted text#
+
+----
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (highlight
+          open: (highlight_open)
+          content: (highlight_text)
+          close: (highlight_close))))))

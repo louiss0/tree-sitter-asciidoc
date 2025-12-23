@@ -18,7 +18,9 @@ NOTE: This is a note paragraph with important information.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 TIP paragraph admonition
@@ -40,7 +42,9 @@ TIP: Here's a helpful tip for users.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 IMPORTANT paragraph admonition
@@ -60,7 +64,9 @@ IMPORTANT: This is crucial information to remember.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 WARNING paragraph admonition
@@ -79,7 +85,9 @@ WARNING: Be careful with this operation.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 CAUTION paragraph admonition
@@ -99,7 +107,9 @@ CAUTION: Proceed with caution when making changes.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 NOTE paragraph with inline elements
@@ -124,7 +134,9 @@ NOTE: This note contains *bold text* and other formatting.
           (strong_close)))
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Empty NOTE paragraph emits ERROR
@@ -158,9 +170,12 @@ note: This should be a regular paragraph, not an admonition.
       (plain_text)
       (plain_text)
       (plain_text)
+      (plain_comma)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Not an admonition - missing space after colon
@@ -180,7 +195,9 @@ NOTE:This should be a regular paragraph.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Not an admonition - invalid label
@@ -201,7 +218,9 @@ INFO: This is not a valid admonition type.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Multiple admonition paragraphs
@@ -222,21 +241,27 @@ TIP: Third admonition paragraph.
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (inline_admonition
     (admonition_label)
     (plain_colon)
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text)))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))))
   (inline_admonition
     (admonition_label)
     (plain_colon)
     (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Admonition paragraph in section
@@ -264,9 +289,13 @@ Regular paragraph text.
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_text)))
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT))))
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
-          (plain_text))))))
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT)))))))

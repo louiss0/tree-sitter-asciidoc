@@ -135,6 +135,11 @@
 
 (role_attribute_list) @attribute
 
+; =========================
+; Punctuation
+; =========================
+(plain_dot) @punctuation.delimiter
+
 
 ; =========================
 ; Macros
@@ -236,7 +241,6 @@
 (plain_colon)         @punctuation.delimiter
 (plain_less_than)     @punctuation.bracket
 (plain_greater_than)  @punctuation.bracket
-(plain_backtick)      @punctuation.bracket
 (plain_caret)         @punctuation.special
 (plain_dash)          @punctuation.delimiter
 (plain_double_quote)  @punctuation.special

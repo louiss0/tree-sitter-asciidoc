@@ -15,7 +15,9 @@ This paragraph has [[anchor-id,anchor text]] with text.
       (inline_element
         (inline_anchor))
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Block anchor without text
@@ -42,7 +44,9 @@ Content after block anchor.
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_text))))))
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT)))))))
 
 ================================================================================
 Block anchor with text
@@ -71,7 +75,9 @@ Content after block anchor with text.
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_text))))))
+          (plain_text)
+          (plain_dot
+            (PLAIN_DOT)))))))
 
 ================================================================================
 Internal cross-reference without text
@@ -91,7 +97,9 @@ See the <<target-section>> for more information.
           target: (xref_target)))
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Internal cross-reference with text
@@ -112,7 +120,9 @@ See the <<target-section,target section>> for details.
           (plain_comma)
           text: (xref_text)))
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 External cross-reference without text
@@ -130,7 +140,8 @@ Check out xref:other-file.adoc[].
       (inline_macro
         open: (macro_name)
         close: (macro_close))
-      (plain_text))))
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 External cross-reference with text
@@ -149,7 +160,8 @@ Check out xref:other-file.adoc[Other Document].
         open: (macro_name)
         body: (macro_body)
         close: (macro_close))
-      (plain_text))))
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Inline footnote
@@ -171,7 +183,9 @@ This has a footnote footnote:[This is a footnote] in it.
         body: (macro_body)
         close: (macro_close))
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Referenced footnote without text
@@ -191,7 +205,9 @@ This has a footnote footnote:ref1[] reference.
       (inline_macro
         open: (macro_name)
         close: (macro_close))
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Referenced footnote with text
@@ -211,7 +227,9 @@ This has footnote:ref1[Referenced footnote text] in it.
         body: (macro_body)
         close: (macro_close))
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Footnote reference without text
@@ -232,7 +250,9 @@ This uses footnoteref:ref1[] to reference a footnote.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Footnote reference with text
@@ -252,7 +272,9 @@ This uses footnoteref:ref1[Footnote reference text] with text.
         body: (macro_body)
         close: (macro_close))
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Mixed inline elements in paragraph
@@ -284,7 +306,8 @@ Here we have [[anchor1]] and <<xref1>> and footnote:[note] and xref:doc.adoc[lin
         open: (macro_name)
         body: (macro_body)
         close: (macro_close))
-      (plain_text))))
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Adjacent inline elements
@@ -307,7 +330,9 @@ Adjacent[[anchor]]<<xref>>footnote:[note]elements.
         open: (macro_name)
         body: (macro_body)
         close: (macro_close))
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Malformed anchors with unmatched brackets
@@ -337,7 +362,9 @@ This has [ [spaced anchor] ] and [[unclosed anchor and regular text.
     (plain_text)
     (plain_text)
     (plain_text)
-    (plain_text)))
+    (plain_text)
+    (plain_dot
+      (PLAIN_DOT))))
 
 ================================================================================
 Malformed cross-references with unmatched brackets
@@ -404,4 +431,6 @@ See xref:../other/doc.adoc#section1[Complex target] for details.
         body: (macro_body)
         close: (macro_close))
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))

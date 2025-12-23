@@ -30,7 +30,9 @@ This is *bold* text and _italic_ text and `monospace` text.
           (monospace_open)
           (monospace_content)
           (monospace_close)))
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Superscript and subscript
@@ -60,13 +62,17 @@ This is E=mc^2^ and H~2~O.
           (subscript_text)
           (subscript_close
             (plain_tilde))))
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Nested formatting
 ================================================================================
 
-This is *bold _italic_ text* mixed.
+This is *bold _italic_ text* mixed __*italic bold*__
+
+Monospace related `*monospace bold*`  `#monospace highlight#`
 
 --------------------------------------------------------------------------------
 
@@ -80,7 +86,30 @@ This is *bold _italic_ text* mixed.
           (strong_open)
           (strong_content)
           (strong_close)))
-      (plain_text))))
+      (plain_text)
+      (inline_element
+        (emphasis
+          (emphasis_open)
+          (emphasis_content
+            (strong
+              (strong_open)
+              (strong_content)
+              (strong_close)))
+          (emphasis_close)))))
+  (paragraph
+    (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (inline_element
+        (monospace
+          (monospace_open)
+          (monospace_content)
+          (monospace_close)))
+      (inline_element
+        (monospace
+          (monospace_open)
+          (monospace_content)
+          (monospace_close))))))
 
 ================================================================================
 Attribute references
@@ -105,7 +134,7 @@ Hello {userName} from {homeLocation}!
           (plain_left_brace)
           (plain_text)
           (plain_right_brace)))
-      (plain_text))))
+      (plain_exclamation))))
 
 ================================================================================
 Auto links
@@ -123,7 +152,9 @@ Visit https://example.com for more info.
         (auto_link))
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Links with text
@@ -145,7 +176,9 @@ Visit https://example.com[Example Site] for more info.
           (plain_right_bracket)))
       (plain_text)
       (plain_text)
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Passthrough
@@ -161,4 +194,6 @@ This +++*should not be bold*+++ text.
       (plain_text)
       (inline_element
         (passthrough_triple_plus))
-      (plain_text))))
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT)))))

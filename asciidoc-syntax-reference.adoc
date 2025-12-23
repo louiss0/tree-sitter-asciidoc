@@ -31,7 +31,7 @@ This paragraph demonstrates _italic text_ and __it__alic within a word.
 
 This paragraph demonstrates `monospace text` and ``mono``space within a word.
 
-This paragraph demonstrates #highlighted text# and ##high##lighted within a word.
+This paragraph demonstrates #highlighted text# and #high# lighted within a word.
 
 This paragraph demonstrates ~subscript~ text like H~2~O.
 
@@ -42,6 +42,8 @@ This paragraph demonstrates [.underline]#underlined text# with a role.
 This paragraph demonstrates [.line-through]#strikethrough text# with a role.
 
 You can also combine styles: *_bold italic_*, `*bold monospace*`, and _`italic monospace`_.
+
+
 
 === Custom Styled Text
 

@@ -36,18 +36,35 @@ Literal block with content
 ---
 
 (source_file
-  (literal_block
-    open: (literal_open
-      (LITERAL_FENCE_START))
-    content: (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (literal_close
-      (LITERAL_FENCE_END))))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 AsciiDoc blockquote with content
@@ -93,7 +110,9 @@ It's displayed separately from main text.
         (plain_text)
         (plain_text)
         (plain_text)
-        (plain_text)))
+        (plain_text)
+        (plain_dot
+          (PLAIN_DOT))))
     (paragraph
       (inline_seq_nonempty
         (plain_text)
@@ -103,7 +122,9 @@ It's displayed separately from main text.
         (plain_text)
         (plain_text)
         (plain_text)
-        (plain_text)))
+        (plain_text)
+        (plain_dot
+          (PLAIN_DOT))))
     (sidebar_close
       (SIDEBAR_FENCE_END))))
 
@@ -212,16 +233,56 @@ Also a line with....suffix
 ---
 
 (source_file
-  (literal_block
-    open: (literal_open
-      (LITERAL_FENCE_START))
-    content: (block_content
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE))
-      (content_line
-        (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (literal_close
-      (LITERAL_FENCE_END))))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)
+      (plain_text)
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_text)))
+  (paragraph
+    content: (inline_seq_nonempty
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT))
+      (plain_dot
+        (PLAIN_DOT)))))
 
 ================================================================================
 Open block with nested-looking delimiters

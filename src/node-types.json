@@ -341,6 +341,10 @@
           "named": true
         },
         {
+          "type": "plain_dot",
+          "named": true
+        },
+        {
           "type": "plain_text",
           "named": true
         }
@@ -466,6 +470,10 @@
         },
         {
           "type": "plain_dash",
+          "named": true
+        },
+        {
+          "type": "plain_dot",
           "named": true
         },
         {
@@ -1334,12 +1342,32 @@
     "type": "highlight",
     "named": true,
     "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "highlight_close",
+            "named": true
+          }
+        ]
+      },
       "content": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "highlight_text",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "highlight_open",
             "named": true
           }
         ]
@@ -2039,10 +2067,6 @@
           "named": true
         },
         {
-          "type": "plain_backtick",
-          "named": true
-        },
-        {
           "type": "plain_caret",
           "named": true
         },
@@ -2051,7 +2075,15 @@
           "named": true
         },
         {
+          "type": "plain_comma",
+          "named": true
+        },
+        {
           "type": "plain_dash",
+          "named": true
+        },
+        {
+          "type": "plain_dot",
           "named": true
         },
         {
@@ -2059,7 +2091,15 @@
           "named": true
         },
         {
+          "type": "plain_exclamation",
+          "named": true
+        },
+        {
           "type": "plain_greater_than",
+          "named": true
+        },
+        {
+          "type": "plain_left_brace",
           "named": true
         },
         {
@@ -2075,7 +2115,27 @@
           "named": true
         },
         {
+          "type": "plain_percent",
+          "named": true
+        },
+        {
+          "type": "plain_pipe",
+          "named": true
+        },
+        {
+          "type": "plain_plus",
+          "named": true
+        },
+        {
+          "type": "plain_question_mark",
+          "named": true
+        },
+        {
           "type": "plain_quote",
+          "named": true
+        },
+        {
+          "type": "plain_right_brace",
           "named": true
         },
         {
@@ -2087,7 +2147,15 @@
           "named": true
         },
         {
+          "type": "plain_slash",
+          "named": true
+        },
+        {
           "type": "plain_text",
+          "named": true
+        },
+        {
+          "type": "plain_tilde",
           "named": true
         },
         {
@@ -2790,6 +2858,21 @@
     "fields": {}
   },
   {
+    "type": "plain_dot",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "PLAIN_DOT",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "plain_text",
     "named": true,
     "fields": {}
@@ -2862,6 +2945,10 @@
         },
         {
           "type": "plain_dash",
+          "named": true
+        },
+        {
+          "type": "plain_dot",
           "named": true
         },
         {
@@ -4112,6 +4199,10 @@
           "named": true
         },
         {
+          "type": "plain_dot",
+          "named": true
+        },
+        {
           "type": "plain_double_quote",
           "named": true
         },
@@ -4451,10 +4542,6 @@
     }
   },
   {
-    "type": "#",
-    "named": false
-  },
-  {
     "type": "(((",
     "named": false
   },
@@ -4513,6 +4600,10 @@
   {
     "type": "NOTE",
     "named": false
+  },
+  {
+    "type": "PLAIN_DOT",
+    "named": true
   },
   {
     "type": "TABLE_FENCE_END",
@@ -4619,6 +4710,14 @@
     "named": true
   },
   {
+    "type": "highlight_close",
+    "named": true
+  },
+  {
+    "type": "highlight_open",
+    "named": true
+  },
+  {
     "type": "index_term_text",
     "named": true
   },
@@ -4663,10 +4762,6 @@
     "named": true
   },
   {
-    "type": "plain_backtick",
-    "named": true
-  },
-  {
     "type": "plain_caret",
     "named": true
   },
@@ -4684,6 +4779,10 @@
   },
   {
     "type": "plain_double_quote",
+    "named": true
+  },
+  {
+    "type": "plain_exclamation",
     "named": true
   },
   {
@@ -4707,7 +4806,19 @@
     "named": true
   },
   {
+    "type": "plain_percent",
+    "named": true
+  },
+  {
     "type": "plain_pipe",
+    "named": true
+  },
+  {
+    "type": "plain_plus",
+    "named": true
+  },
+  {
+    "type": "plain_question_mark",
     "named": true
   },
   {
@@ -4724,6 +4835,10 @@
   },
   {
     "type": "plain_right_paren",
+    "named": true
+  },
+  {
+    "type": "plain_slash",
     "named": true
   },
   {

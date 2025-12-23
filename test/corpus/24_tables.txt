@@ -65,7 +65,7 @@ Table with Title and Metadata
 ================================================================================
 
 .Employee Information
-[#emp-table.data]
+[emp-table.data]
 |===
 |Name |Department |Salary
 
@@ -87,6 +87,9 @@ Table with Title and Metadata
       (plain_left_bracket)
       (plain_text)
       (plain_dash)
+      (plain_text)
+      (plain_dot
+        (PLAIN_DOT))
       (plain_text)
       (plain_right_bracket))
     open: (table_open
