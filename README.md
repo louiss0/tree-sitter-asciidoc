@@ -306,7 +306,7 @@ language-server = { command = "asciidoc-language-server" }
 ```
 
 #### **Zed Editor**
-Built-in support via Tree-sitter community grammars.
+Used bu the [zed-asciidoc](https://github.com/dunyakirkali/zed-asciidoc) extension for syntax highlighting.
 
 #### **VS Code**
 Used by AsciiDoc extensions for syntax highlighting and structure analysis.
