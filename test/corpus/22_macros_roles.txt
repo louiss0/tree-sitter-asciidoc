@@ -21,8 +21,7 @@ This is [big]#large text# here.
           content: (highlight_text)
           close: (highlight_close)))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Role spans with nested formatting
@@ -47,8 +46,7 @@ This is [highlight]#*bold* and _italic_# text.
           content: (highlight_text)
           close: (highlight_close)))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Math macros
@@ -69,8 +67,7 @@ Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].
         (macro_close))
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
@@ -83,8 +80,7 @@ Also latexmath:[\frac{a}{b}] and asciimath:[sum_(i=1)^n i^3].
         (macro_name)
         (macro_body)
         (macro_close))
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 UI macros
@@ -110,8 +106,7 @@ Go to menu:File[Open] option.
         (macro_body)
         (macro_close))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
@@ -121,5 +116,4 @@ Go to menu:File[Open] option.
         (macro_body)
         (macro_close))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))

@@ -24,8 +24,7 @@ CAUTION: Proceed with extreme caution.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (inline_admonition
     (admonition_label)
     (plain_colon)
@@ -38,8 +37,7 @@ CAUTION: Proceed with extreme caution.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (inline_admonition
     (admonition_label)
     (plain_colon)
@@ -49,8 +47,7 @@ CAUTION: Proceed with extreme caution.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (inline_admonition
     (admonition_label)
     (plain_colon)
@@ -68,8 +65,7 @@ CAUTION: Proceed with extreme caution.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Admonition Blocks with Example
@@ -99,8 +95,7 @@ Pro tip: Always read the documentation first!
       (admonition_label)
       (plain_right_bracket))
     block: (example_block
-      open: (example_open
-        (EXAMPLE_FENCE_START))
+      open: (example_open)
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
@@ -111,8 +106,7 @@ Pro tip: Always read the documentation first!
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_dot
-            (PLAIN_DOT))))
+          (plain_dot)))
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
@@ -122,18 +116,15 @@ Pro tip: Always read the documentation first!
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_dot
-            (PLAIN_DOT))))
-      close: (example_close
-        (EXAMPLE_FENCE_END))))
+          (plain_dot)))
+      close: (example_close)))
   (block_admonition
     type: (attribute_admonition_list
       (plain_left_bracket)
       (admonition_label)
       (plain_right_bracket))
     block: (example_block
-      open: (example_open
-        (EXAMPLE_FENCE_START))
+      open: (example_open)
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
@@ -159,8 +150,7 @@ Pro tip: Always read the documentation first!
             (plain_text)
             (plain_text)
             (plain_text))))
-      close: (example_close
-        (EXAMPLE_FENCE_END)))))
+      close: (example_close))))
 
 ================================================================================
 Admonition Blocks with Different Delimited Block Types
@@ -192,38 +182,33 @@ This is a sidebar admonition.
       (admonition_label)
       (plain_right_bracket))
     (listing_block
-      (listing_open
-        (LISTING_FENCE_START))
+      (listing_open)
       (block_content
         (content_line
           (DELIMITED_BLOCK_CONTENT_LINE))
         (content_line
           (DELIMITED_BLOCK_CONTENT_LINE)))
-      (listing_close
-        (LISTING_FENCE_END))))
+      (listing_close)))
   (block_admonition
     (attribute_admonition_list
       (plain_left_bracket)
       (admonition_label)
       (plain_right_bracket))
     (literal_block
-      (literal_open
-        (LITERAL_FENCE_START))
+      (literal_open)
       (block_content
         (content_line
           (DELIMITED_BLOCK_CONTENT_LINE))
         (content_line
           (DELIMITED_BLOCK_CONTENT_LINE)))
-      (literal_close
-        (LITERAL_FENCE_END))))
+      (literal_close)))
   (block_admonition
     (attribute_admonition_list
       (plain_left_bracket)
       (admonition_label)
       (plain_right_bracket))
     (sidebar_block
-      (sidebar_open
-        (SIDEBAR_FENCE_START))
+      (sidebar_open)
       (paragraph
         (inline_seq_nonempty
           (plain_text)
@@ -231,10 +216,8 @@ This is a sidebar admonition.
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_dot
-            (PLAIN_DOT))))
-      (sidebar_close
-        (SIDEBAR_FENCE_END)))))
+          (plain_dot)))
+      (sidebar_close))))
 
 ================================================================================
 Complex Paragraph Admonitions with Inline Elements
@@ -262,12 +245,13 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
       (plain_text)
       (inline_element
         (internal_xref
-          (xref_target)))
+          (internal_xref_open)
+          (xref_target)
+          (internal_xref_close)))
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (inline_admonition
     (admonition_label)
     (plain_colon)
@@ -284,8 +268,7 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (inline_admonition
     (admonition_label)
     (plain_colon)
@@ -300,8 +283,7 @@ IMPORTANT: This has a footnote footnote:[Important footnote text] for reference.
         (macro_close))
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ====
 Block admonitions work in sections as well.
@@ -319,5 +301,4 @@ Another paragraph after the admonition.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))

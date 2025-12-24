@@ -32,8 +32,7 @@ endif::[]
                   (plain_text)
                   (plain_text)
                   (plain_text)
-                  (plain_dot
-                    (PLAIN_DOT))))))
+                  (plain_dot)))))
           end: (endif_directive))))))
 
 ================================================================================
@@ -55,8 +54,7 @@ endif::[]
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_dot
-            (PLAIN_DOT))))
+          (plain_dot)))
       end: (endif_directive))))
 
 ================================================================================
@@ -96,8 +94,7 @@ endif::[]
                   (plain_text)
                   (plain_text)
                   (plain_text)
-                  (plain_dot
-                    (PLAIN_DOT))))))
+                  (plain_dot)))))
           end: (endif_directive))))))
 
 ================================================================================

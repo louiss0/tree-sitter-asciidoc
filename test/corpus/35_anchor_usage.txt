@@ -1,0 +1,218 @@
+================================================================================
+Section anchor target
+================================================================================
+
+[[section-anchor]]
+== Anchored Section
+Section content begins immediately after the heading.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (anchor
+          open: (anchor_open)
+          id: (anchor_id)
+          close: (anchor_close)))))
+  (section
+    (section_level_2
+      marker: (section_marker_2)
+      title: (title)
+      content: (paragraph
+        content: (inline_seq_nonempty
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_text)
+          (plain_dot))))))
+
+================================================================================
+Unordered list anchor
+================================================================================
+
+[[unordered-list-anchor]]
+* [[unordered-item-anchor]] Unordered
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (anchor
+          open: (anchor_open)
+          id: (anchor_id)
+          close: (anchor_close)))))
+  (unordered_list
+    items: (unordered_list_item
+      marker: (unordered_list_marker)
+      (anchor
+        open: (anchor_open)
+        id: (anchor_id)
+        close: (anchor_close))
+      content: (inline_seq_nonempty
+        (plain_text)))))
+
+================================================================================
+Ordered list anchor
+================================================================================
+
+[[ordered-list-anchor]]
+. [[ordered-item-anchor]] Ordered
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (anchor
+          open: (anchor_open)
+          id: (anchor_id)
+          close: (anchor_close)))))
+  (ordered_list
+    items: (ordered_list_item
+      marker: (ordered_list_marker)
+      (anchor
+        open: (anchor_open)
+        id: (anchor_id)
+        close: (anchor_close))
+      content: (inline_seq_nonempty
+        (plain_text)))))
+
+====
+Block content is still anchored through the metadata line before the fence.
+====
+
+---
+
+(source_file)
+
+================================================================================
+Callout list anchor
+================================================================================
+
+[[callout-list-anchor]]
+<1> [[callout-item-anchor-1]] Callout text anchored at the start.
+<2> [[callout-item-anchor-2]] Another callout entry also begins with an anchor.
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (anchor
+          open: (anchor_open)
+          id: (anchor_id)
+          close: (anchor_close)))))
+  (callout_list
+    (callout_item
+      marker: (callout_marker)
+      content: (inline_seq_nonempty
+        (inline_element
+          (anchor
+            open: (anchor_open)
+            id: (anchor_id)
+            close: (anchor_close)))
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_dot)))
+    (callout_item
+      marker: (callout_marker)
+      content: (inline_seq_nonempty
+        (inline_element
+          (anchor
+            open: (anchor_open)
+            id: (anchor_id)
+            close: (anchor_close)))
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_text)
+        (plain_dot)))))
+
+================================================================================
+Table anchor target
+================================================================================
+
+[[table-anchor]]
+[cols="1"]
+|===
+| Title cell
+|===
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (anchor
+          open: (anchor_open)
+          id: (anchor_id)
+          close: (anchor_close)))))
+  (table_block
+    attributes: (table_attributes
+      (plain_left_bracket)
+      (plain_text)
+      (plain_double_quote)
+      (plain_text)
+      (plain_double_quote)
+      (plain_right_bracket))
+    open: (table_open)
+    content: (table_content
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))))
+    close: (table_close)))
+
+================================================================================
+Table cell anchor target
+================================================================================
+
+[[table-cell-anchor]]
+[cols="1"]
+|===
+|[[cell-anchor]] Cell entry
+|===
+
+---
+
+(source_file
+  (paragraph
+    content: (inline_seq_nonempty
+      (inline_element
+        (anchor
+          open: (anchor_open)
+          id: (anchor_id)
+          close: (anchor_close)))))
+  (table_block
+    attributes: (table_attributes
+      (plain_left_bracket)
+      (plain_text)
+      (plain_double_quote)
+      (plain_text)
+      (plain_double_quote)
+      (plain_right_bracket))
+    open: (table_open)
+    content: (table_content
+      row: (table_row
+        cells: (table_cell
+          content: (cell_content
+            (cell_literal_text)))))
+    close: (table_close)))

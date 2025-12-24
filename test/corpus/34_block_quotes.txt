@@ -18,8 +18,7 @@ Block quote with multiple lines
         (plain_text)
         (plain_text)
         (plain_text)
-        (plain_dot
-          (PLAIN_DOT))))
+        (plain_dot)))
     (block_quote
       (block_quote_marker)
       (paragraph
@@ -28,8 +27,7 @@ Block quote with multiple lines
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_dot
-            (PLAIN_DOT))))
+          (plain_dot)))
       (block_quote
         (block_quote_marker)
         (block_quote
@@ -42,8 +40,7 @@ Block quote with multiple lines
               (plain_text)
               (plain_text)
               (plain_text)
-              (plain_dot
-                (PLAIN_DOT)))))))))
+              (plain_dot))))))))
 
 ================================================================================
 Block quote with nested markers

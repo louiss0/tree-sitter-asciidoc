@@ -11,7 +11,12 @@ line two
 
 (source_file
   (fenced_code_block
-    open: (fenced_code_block_delimiter)
-    content: (FENCED_CODE_CONTENT_LINE)
-    content: (FENCED_CODE_CONTENT_LINE)
-    close: (fenced_code_block_delimiter)))
+    open: (fenced_code_block_open
+      delimiter: (fenced_code_delimiter))
+    content: (fenced_code_block_content
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE))
+      (content_line
+        (DELIMITED_BLOCK_CONTENT_LINE)))
+    close: (fenced_code_block_close
+      delimiter: (fenced_code_delimiter))))

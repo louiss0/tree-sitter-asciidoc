@@ -21,8 +21,7 @@ The indexterm:[database] is important in computing.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Hierarchical index term with secondary and tertiary
@@ -50,8 +49,7 @@ The indexterm:[databases,relational,PostgreSQL] system is robust.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Index term with secondary only
@@ -76,8 +74,7 @@ The indexterm:[programming,languages] are diverse.
             (plain_right_bracket))))
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Visible index term (indexterm2)
@@ -101,8 +98,7 @@ The indexterm2:[API] is well documented.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Concealed index term
@@ -125,8 +121,7 @@ The (((PostgreSQL))) database system is powerful.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Concealed index term with hierarchy
@@ -153,8 +148,7 @@ The (((databases,SQL,PostgreSQL))) is feature-rich.
       (plain_text)
       (plain_dash)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Multiple index terms in paragraph
@@ -193,8 +187,7 @@ Both indexterm:[Java] and indexterm2:[Python] are indexterm:[programming,languag
               (plain_comma)
               secondary: (index_term_text))
             (plain_right_bracket))))
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Index terms with special characters
@@ -224,8 +217,7 @@ The indexterm:[C++] and indexterm:[.NET Framework] platforms.
               primary: (index_term_text))
             (plain_right_bracket))))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Mixed index terms with other inline elements
@@ -260,8 +252,7 @@ The *bold* text with indexterm:[formatting] and `code` examples.
           content: (monospace_content)
           close: (monospace_close)))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Index term macro with malformed brackets
@@ -271,22 +262,17 @@ This indexterm[missing-colon] should be text.
 
 --------------------------------------------------------------------------------
 
-(source_file (paragraph
+(source_file
+      (paragraph
         (inline_seq_nonempty
           (plain_text)
-          (plain_text)
-          (plain_left_bracket)))
+          (plain_text)))
       (ERROR
+        (plain_left_bracket)
         (plain_text)
         (plain_dash)
         (plain_text)
-        (ERROR
-          (plain_right_bracket))
-        (plain_text)
-        (plain_text)
-        (plain_text)
-        (plain_dot
-          (PLAIN_DOT))))
+        (plain_right_bracket)))
 
 ================================================================================
 Not an index term - incomplete concealed
@@ -308,5 +294,4 @@ This ((incomplete)) should be text.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))

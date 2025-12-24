@@ -106,19 +106,17 @@
   (plain_right_bracket) @punctuation.bracket)
 
 (internal_xref
-  "<<" @punctuation.special
+  (internal_xref_open) @punctuation.special
   (xref_target) @markup.link
   ((plain_comma) @punctuation.delimiter (xref_text) @markup.link.label)?
-  ">>" @punctuation.special)
+  (internal_xref_close) @punctuation.special)
 
-(inline_anchor) @markup.link
-(anchor)        @markup.link
+(anchor) @markup.link
 
 (bibliography_entry) @markup.link
 (bibliography_entry
-  (bibliography_id) @definition.label)
-(bibliography_entry
-  (bibliography_text) @string)
+  (bibliography_id) @definition.label
+  (bibliography_description) @string)
 
 
 ; =========================
@@ -181,40 +179,15 @@
 (ifndef_block)      @keyword
 (ifeval_block)      @keyword
 
-
-; =========================
-; Blocks: fences / markers
-; =========================
-(EXAMPLE_FENCE_START) @punctuation.special
-(EXAMPLE_FENCE_END)   @punctuation.special
-
-(LISTING_FENCE_START) @punctuation.special
-(LISTING_FENCE_END)   @punctuation.special
-
-(LITERAL_FENCE_START) @punctuation.special
-(LITERAL_FENCE_END)   @punctuation.special
-
-(QUOTE_FENCE_START) @punctuation.special
-(QUOTE_FENCE_END)   @punctuation.special
-
-(SIDEBAR_FENCE_START) @punctuation.special
-(SIDEBAR_FENCE_END)   @punctuation.special
-
-(PASSTHROUGH_FENCE_START) @punctuation.special
-(PASSTHROUGH_FENCE_END)   @punctuation.special
-
-(OPENBLOCK_FENCE_START) @punctuation.special
-(OPENBLOCK_FENCE_END)   @punctuation.special
-
-(TABLE_FENCE_START) @punctuation.special
-(TABLE_FENCE_END)   @punctuation.special
-
-(fenced_code_block_delimiter) @punctuation.special
-(FENCED_CODE_CONTENT_LINE)    @string
+(fenced_code_block_open
+  (fenced_code_delimiter) @punctuation.special)
+(fenced_code_block_language) @type
+(fenced_code_block_content) @string
+(fenced_code_block_close
+  (fenced_code_delimiter) @punctuation.special)
 (block_quote_marker) @markup.quote
 
-(THEMATIC_BREAK) @punctuation.special
-("<<<")          @punctuation.special
+(thematic_break) @punctuation.special
 
 
 ; =========================

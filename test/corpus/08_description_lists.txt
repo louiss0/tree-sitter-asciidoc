@@ -61,7 +61,8 @@ Second attached paragraph
           (plain_text)
           (plain_text)))
       (list_item_continuation
-        (LIST_CONTINUATION)
+        (list_continuation
+          (LIST_CONTINUATION))
         (paragraph
           (inline_seq_nonempty
             (plain_text)
@@ -83,7 +84,8 @@ This paragraph is only in the description body
     (description_list_item
       (description_item_term)
       (list_item_continuation
-        (LIST_CONTINUATION)
+        (list_continuation
+          (LIST_CONTINUATION))
         (paragraph
           (inline_seq_nonempty
             (plain_text)
@@ -113,17 +115,16 @@ echo done
     (description_list_item
       (description_item_term)
       (list_item_continuation
-        (LIST_CONTINUATION)
+        (list_continuation
+          (LIST_CONTINUATION))
         (listing_block
-          (listing_open
-            (LISTING_FENCE_START))
+          (listing_open)
           (block_content
             (content_line
               (DELIMITED_BLOCK_CONTENT_LINE))
             (content_line
               (DELIMITED_BLOCK_CONTENT_LINE)))
-          (listing_close
-            (LISTING_FENCE_END)))))))
+          (listing_close))))))
 
 ================================================================================
 Description item with literal block attached
@@ -143,17 +144,14 @@ literal block line two
     (description_list_item
       (description_item_term)
       (list_item_continuation
-        (LIST_CONTINUATION)
+        (list_continuation
+          (LIST_CONTINUATION))
         (paragraph
           (inline_seq_nonempty
-            (plain_dot
-              (PLAIN_DOT))
-            (plain_dot
-              (PLAIN_DOT))
-            (plain_dot
-              (PLAIN_DOT))
-            (plain_dot
-              (PLAIN_DOT)))))))
+            (plain_dot)
+            (plain_dot)
+            (plain_dot)
+            (plain_dot))))))
   (paragraph
     (inline_seq_nonempty
       (plain_text)
@@ -168,14 +166,10 @@ literal block line two
       (plain_text)))
   (paragraph
     (inline_seq_nonempty
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot)
+      (plain_dot)
+      (plain_dot)
+      (plain_dot))))
 
 ====
 example block content line one
@@ -204,17 +198,16 @@ ____
     (description_list_item
       (description_item_term)
       (list_item_continuation
-        (LIST_CONTINUATION)
+        (list_continuation
+          (LIST_CONTINUATION))
         (asciidoc_blockquote
-          (asciidoc_blockquote_open
-            (QUOTE_FENCE_START))
+          (asciidoc_blockquote_open)
           (block_content
             (content_line
               (DELIMITED_BLOCK_CONTENT_LINE))
             (content_line
               (DELIMITED_BLOCK_CONTENT_LINE)))
-          (asciidoc_blockquote_close
-            (QUOTE_FENCE_END)))))))
+          (asciidoc_blockquote_close))))))
 
 ================================================================================
 Description item with sidebar block attached
@@ -234,10 +227,10 @@ sidebar content line two
     (description_list_item
       (description_item_term)
       (list_item_continuation
-        (LIST_CONTINUATION)
+        (list_continuation
+          (LIST_CONTINUATION))
         (sidebar_block
-          (sidebar_open
-            (SIDEBAR_FENCE_START))
+          (sidebar_open)
           (paragraph
             (inline_seq_nonempty
               (plain_text)
@@ -250,8 +243,7 @@ sidebar content line two
               (plain_text)
               (plain_text)
               (plain_text)))
-          (sidebar_close
-            (SIDEBAR_FENCE_END)))))))
+          (sidebar_close))))))
 
 ================================================================================
 Description item with passthrough block attached
@@ -270,15 +262,14 @@ Passthrough term::
     (description_list_item
       (description_item_term)
       (list_item_continuation
-        (LIST_CONTINUATION)
+        (list_continuation
+          (LIST_CONTINUATION))
         (passthrough_block
-          (passthrough_open
-            (PASSTHROUGH_FENCE_START))
+          (passthrough_open)
           (block_content
             (content_line
               (DELIMITED_BLOCK_CONTENT_LINE)))
-          (passthrough_close
-            (PASSTHROUGH_FENCE_END)))))))
+          (passthrough_close))))))
 
 ====
 something dangerous here
@@ -304,7 +295,8 @@ Features::
     (description_list_item
       (description_item_term)
       (list_item_continuation
-        (LIST_CONTINUATION)
+        (list_continuation
+          (LIST_CONTINUATION))
         (unordered_list
           (unordered_list_item
             (unordered_list_marker)
@@ -331,7 +323,8 @@ Child2:: Child description two
     (description_list_item
       (description_item_term)
       (list_item_continuation
-        (LIST_CONTINUATION)
+        (list_continuation
+          (LIST_CONTINUATION))
         (paragraph
           (inline_seq_nonempty
             (plain_text)
@@ -368,10 +361,10 @@ Second paragraph still in same open block
     (description_list_item
       (description_item_term)
       (list_item_continuation
-        (LIST_CONTINUATION)
+        (list_continuation
+          (LIST_CONTINUATION))
         (open_block
-          (openblock_open
-            (OPENBLOCK_FENCE_START))
+          (openblock_open)
           (block_content
             (content_line
               (DELIMITED_BLOCK_CONTENT_LINE))
@@ -379,8 +372,7 @@ Second paragraph still in same open block
               (DELIMITED_BLOCK_CONTENT_LINE))
             (content_line
               (DELIMITED_BLOCK_CONTENT_LINE)))
-          (openblock_close
-            (OPENBLOCK_FENCE_END)))))))
+          (openblock_close))))))
 
 ================================================================================
 Description item mixing inline details and listing block
@@ -405,15 +397,14 @@ npm run build
           (plain_text)
           (plain_text)))
       (list_item_continuation
-        (LIST_CONTINUATION)
+        (list_continuation
+          (LIST_CONTINUATION))
         (listing_block
-          (listing_open
-            (LISTING_FENCE_START))
+          (listing_open)
           (block_content
             (content_line
               (DELIMITED_BLOCK_CONTENT_LINE)))
-          (listing_close
-            (LISTING_FENCE_END)))))))
+          (listing_close))))))
 
 ================================================================================
 Description item with multiple different attached blocks
@@ -441,7 +432,8 @@ code block line
           (plain_text)
           (plain_text)))
       (list_item_continuation
-        (LIST_CONTINUATION)
+        (list_continuation
+          (LIST_CONTINUATION))
         (paragraph
           (inline_seq_nonempty
             (plain_text)
@@ -452,13 +444,11 @@ code block line
       (inline_element
         (hard_break))))
   (listing_block
-    (listing_open
-      (LISTING_FENCE_START))
+    (listing_open)
     (block_content
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
-    (listing_close
-      (LISTING_FENCE_END)))
+    (listing_close))
   (paragraph
     (inline_seq_nonempty
       (inline_element
@@ -492,10 +482,8 @@ separate listing block, not part of the description list
           (plain_text)
           (plain_text)))))
   (listing_block
-    (listing_open
-      (LISTING_FENCE_START))
+    (listing_open)
     (block_content
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
-    (listing_close
-      (LISTING_FENCE_END))))
+    (listing_close)))

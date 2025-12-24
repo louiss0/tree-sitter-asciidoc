@@ -137,7 +137,6 @@
 
 ; Anchors
 (anchor) @link.outer
-(inline_anchor) @link.outer
 
 ; Bibliography entries
 (bibliography_entry) @link.outer

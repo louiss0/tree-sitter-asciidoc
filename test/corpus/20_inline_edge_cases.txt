@@ -27,8 +27,7 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
           content: (emphasis_content)
           close: (emphasis_close)))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -46,8 +45,7 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
           content: (emphasis_content)
           close: (emphasis_close)))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -68,8 +66,7 @@ Mathematical symbols: ^α² + β²^ and ~H₂O~ with Unicode.
             (plain_tilde))))
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Delimiter adjacency and escape handling
@@ -101,8 +98,7 @@ Monospace with `code *not strong* here` content.
           content: (emphasis_content)
           close: (emphasis_close)))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -115,8 +111,7 @@ Monospace with `code *not strong* here` content.
       (plain_text)
       (plain_text)
       (escaped_char)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -126,8 +121,7 @@ Monospace with `code *not strong* here` content.
           open: (strong_open)
           content: (strong_content)
           close: (strong_close)))
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -138,8 +132,7 @@ Monospace with `code *not strong* here` content.
           content: (monospace_content)
           close: (monospace_close)))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Complex autolink boundary detection
@@ -163,8 +156,7 @@ Email addresses: contact@example.com.
         (auto_link))
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -188,11 +180,9 @@ Email addresses: contact@example.com.
       (plain_text)
       (plain_colon)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))
+      (plain_dot)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Role spans with complex attributes
@@ -213,8 +203,7 @@ Role spans with complex attributes
         (highlight
           roles: (role_attribute_list
             (plain_left_bracket)
-            (plain_dot
-              (PLAIN_DOT))
+            (plain_dot)
             (plain_text)
             (plain_right_bracket))
           open: (highlight_open)
@@ -222,19 +211,16 @@ Role spans with complex attributes
           close: (highlight_close)))
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (inline_element
         (highlight
           roles: (role_attribute_list
             (plain_left_bracket)
-            (plain_dot
-              (PLAIN_DOT))
+            (plain_dot)
             (plain_text)
-            (plain_dot
-              (PLAIN_DOT))
+            (plain_dot)
             (plain_text)
             (plain_text)
             (plain_right_bracket))
@@ -244,8 +230,7 @@ Role spans with complex attributes
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_left_bracket)
@@ -259,8 +244,7 @@ Role spans with complex attributes
           close: (highlight_close)))
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Nested formatting edge cases
@@ -286,8 +270,7 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
           (strong_close)))
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     (inline_seq_nonempty
       (inline_element
@@ -295,8 +278,7 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
           (emphasis_open)
           (emphasis_content)
           (emphasis_close)))
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     (inline_seq_nonempty
       (inline_element
@@ -311,15 +293,13 @@ _Emphasis with ^superscript^ and ~subscript~ mixed_.
           (strong_content)
           (strong_close)))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     (inline_seq_nonempty
       (inline_element
         (passthrough_triple_plus))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Macro and attribute edge cases
@@ -350,8 +330,7 @@ Complex image: image::path/file.png[Alt text,width=100,height=50]
         open: (macro_name)
         body: (macro_body)
         close: (macro_close))
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -366,8 +345,7 @@ Complex image: image::path/file.png[Alt text,width=100,height=50]
         open: (macro_name)
         body: (macro_body)
         close: (macro_close))
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -382,8 +360,7 @@ Complex image: image::path/file.png[Alt text,width=100,height=50]
         open: (macro_name)
         body: (macro_body)
         close: (macro_close))
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -412,17 +389,20 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
       (plain_text)
       (inline_element
         (internal_xref
-          target: (xref_target)))
+          open: (internal_xref_open)
+          target: (xref_target)
+          close: (internal_xref_close)))
       (plain_text)
       (plain_text)
       (plain_text)
       (inline_element
         (internal_xref
+          open: (internal_xref_open)
           target: (xref_target)
           (plain_comma)
-          text: (xref_text)))
-      (plain_dot
-        (PLAIN_DOT))))
+          text: (xref_text)
+          close: (internal_xref_close)))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -437,8 +417,7 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
         open: (macro_name)
         body: (macro_body)
         close: (macro_close))
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -448,8 +427,7 @@ Mixed anchors: [[bookmark]] and [[custom,Custom Label]] text.
         close: (macro_close))
       (plain_right_bracket)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Passthrough and raw content edge cases
@@ -474,8 +452,7 @@ Nested pass: pass:c[{code-block}] with substitution.
         body: (macro_body)
         close: (macro_close))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -485,8 +462,7 @@ Nested pass: pass:c[{code-block}] with substitution.
       (inline_element
         (passthrough_triple_plus))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -498,5 +474,4 @@ Nested pass: pass:c[{code-block}] with substitution.
         close: (macro_close))
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))

@@ -18,8 +18,7 @@ Basic Table
 
 (source_file
   (table_block
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -57,8 +56,7 @@ Basic Table
         cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))
 
 ================================================================================
 Table with Title and Metadata
@@ -88,12 +86,10 @@ Table with Title and Metadata
       (plain_text)
       (plain_dash)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))
+      (plain_dot)
       (plain_text)
       (plain_right_bracket))
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -131,8 +127,7 @@ Table with Title and Metadata
         cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))
 
 ================================================================================
 Table with Cell Specifications - Spans and Formats
@@ -155,8 +150,7 @@ Table with Cell Specifications - Spans and Formats
 
 (source_file
   (table_block
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -219,8 +213,7 @@ Table with Cell Specifications - Spans and Formats
         cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))
 
 ================================================================================
 Table with AsciiDoc Content in Cells
@@ -237,8 +230,7 @@ Table with AsciiDoc Content in Cells
 
 (source_file
   (table_block
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -259,8 +251,7 @@ Table with AsciiDoc Content in Cells
         cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))
 
 ================================================================================
 Empty Table and Edge Cases
@@ -273,10 +264,8 @@ Empty Table and Edge Cases
 
 (source_file
   (table_block
-    open: (table_open
-      (TABLE_FENCE_START))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    open: (table_open)
+    close: (table_close)))
 
 ================================================================================
 Table with Empty Cells
@@ -294,8 +283,7 @@ Table with Empty Cells
 
 (source_file
   (table_block
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -320,5 +308,4 @@ Table with Empty Cells
         cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))

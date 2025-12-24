@@ -19,8 +19,7 @@ This has *bold* text in it.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Simple emphasis formatting
@@ -43,8 +42,7 @@ This has _italic_ text in it.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Simple monospace formatting
@@ -67,8 +65,7 @@ This has `code` text in it.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Unclosed formatting emits inline ERROR
@@ -121,8 +118,7 @@ This has *bold* and _italic_ and `code` together.
           content: (monospace_content)
           close: (monospace_close)))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Simple superscript and subscript
@@ -151,8 +147,7 @@ This has ^superscript^ and ~subscript~ text.
           close: (subscript_close
             (plain_tilde))))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Simple highlighting

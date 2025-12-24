@@ -461,9 +461,9 @@ Just one #line
   (paragraph
     (inline_seq_nonempty
       (plain_text)
-      (plain_text)))
-      (ERROR
-        (highlight_open)))
+      (plain_text)
+      (plain_hash)
+      (plain_text))))
 
 ================================================================================
 Paragraph with equals
@@ -525,5 +525,4 @@ Just one line.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))

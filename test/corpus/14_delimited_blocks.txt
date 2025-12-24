@@ -9,10 +9,8 @@ Empty example block
 
 (source_file
   (example_block
-    open: (example_open
-      (EXAMPLE_FENCE_START))
-    close: (example_close
-      (EXAMPLE_FENCE_END))))
+    open: (example_open)
+    close: (example_close)))
 
 ====
 This is example content
@@ -38,14 +36,10 @@ Literal block with content
 (source_file
   (paragraph
     content: (inline_seq_nonempty
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)
+      (plain_dot)
+      (plain_dot)
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)))
@@ -57,14 +51,10 @@ Literal block with content
       (plain_text)))
   (paragraph
     content: (inline_seq_nonempty
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot)
+      (plain_dot)
+      (plain_dot)
+      (plain_dot))))
 
 ================================================================================
 AsciiDoc blockquote with content
@@ -80,15 +70,13 @@ ____
 
 (source_file
   (asciidoc_blockquote
-    open: (asciidoc_blockquote_open
-      (QUOTE_FENCE_START))
+    open: (asciidoc_blockquote_open)
     content: (block_content
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE))
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (asciidoc_blockquote_close
-      (QUOTE_FENCE_END))))
+    close: (asciidoc_blockquote_close)))
 
 ================================================================================
 Sidebar block with content
@@ -103,16 +91,14 @@ It's displayed separately from main text.
 
 (source_file
   (sidebar_block
-    (sidebar_open
-      (SIDEBAR_FENCE_START))
+    (sidebar_open)
     (paragraph
       (inline_seq_nonempty
         (plain_text)
         (plain_text)
         (plain_text)
         (plain_text)
-        (plain_dot
-          (PLAIN_DOT))))
+        (plain_dot)))
     (paragraph
       (inline_seq_nonempty
         (plain_text)
@@ -123,10 +109,8 @@ It's displayed separately from main text.
         (plain_text)
         (plain_text)
         (plain_text)
-        (plain_dot
-          (PLAIN_DOT))))
-    (sidebar_close
-      (SIDEBAR_FENCE_END))))
+        (plain_dot)))
+    (sidebar_close)))
 
 ================================================================================
 Passthrough block with content
@@ -142,8 +126,7 @@ Raw HTML content
 
 (source_file
   (passthrough_block
-    (passthrough_open
-      (PASSTHROUGH_FENCE_START))
+    (passthrough_open)
     (block_content
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE))
@@ -151,8 +134,7 @@ Raw HTML content
         (DELIMITED_BLOCK_CONTENT_LINE))
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
-    (passthrough_close
-      (PASSTHROUGH_FENCE_END))))
+    (passthrough_close)))
 
 ================================================================================
 Open block with content
@@ -167,15 +149,13 @@ Can contain any content.
 
 (source_file
   (open_block
-    open: (openblock_open
-      (OPENBLOCK_FENCE_START))
+    open: (openblock_open)
     content: (block_content
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE))
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (openblock_close
-      (OPENBLOCK_FENCE_END))))
+    close: (openblock_close)))
 
 ====
 System.out.println("Hello");
@@ -213,13 +193,11 @@ ____
 
 (source_file
   (asciidoc_blockquote
-    open: (asciidoc_blockquote_open
-      (QUOTE_FENCE_START))
+    open: (asciidoc_blockquote_open)
     content: (block_content
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (asciidoc_blockquote_close
-      (QUOTE_FENCE_END))))
+    close: (asciidoc_blockquote_close)))
 
 ================================================================================
 Content with near-delimiters not at beginning of line
@@ -235,26 +213,18 @@ Also a line with....suffix
 (source_file
   (paragraph
     content: (inline_seq_nonempty
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)
+      (plain_dot)
+      (plain_dot)
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
+      (plain_dot)
+      (plain_dot)
+      (plain_dot)
+      (plain_dot)
       (plain_text)
       (plain_text)
       (plain_text)))
@@ -264,25 +234,17 @@ Also a line with....suffix
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
+      (plain_dot)
+      (plain_dot)
+      (plain_dot)
+      (plain_dot)
       (plain_text)))
   (paragraph
     content: (inline_seq_nonempty
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT))
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot)
+      (plain_dot)
+      (plain_dot)
+      (plain_dot))))
 
 ================================================================================
 Open block with nested-looking delimiters
@@ -297,12 +259,10 @@ Another -- delimiter
 
 (source_file
   (open_block
-    open: (openblock_open
-      (OPENBLOCK_FENCE_START))
+    open: (openblock_open)
     content: (block_content
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE))
       (content_line
         (DELIMITED_BLOCK_CONTENT_LINE)))
-    close: (openblock_close
-      (OPENBLOCK_FENCE_END))))
+    close: (openblock_close)))

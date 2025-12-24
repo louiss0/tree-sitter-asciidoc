@@ -30,8 +30,7 @@ More text.
         content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
-          (plain_dot
-            (PLAIN_DOT))))))
+          (plain_dot)))))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -43,8 +42,7 @@ More text.
         content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
-          (plain_dot
-            (PLAIN_DOT)))))))
+          (plain_dot))))))
 
 ================================================================================
 Attribute entries without values

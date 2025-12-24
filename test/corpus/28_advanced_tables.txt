@@ -14,8 +14,7 @@ Table with column spanning
 
 (source_file
   (table_block
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -46,8 +45,7 @@ Table with column spanning
         cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))
 
 ================================================================================
 Table with row spanning
@@ -66,8 +64,7 @@ Table with row spanning
 
 (source_file
   (table_block
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -108,8 +105,7 @@ Table with row spanning
         cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))
 
 ================================================================================
 Table with both column and row spanning
@@ -128,8 +124,7 @@ Table with both column and row spanning
 
 (source_file
   (table_block
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -158,8 +153,7 @@ Table with both column and row spanning
         cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))
 
 ================================================================================
 Table with format specifications
@@ -177,8 +171,7 @@ Table with format specifications
 
 (source_file
   (table_block
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -224,8 +217,7 @@ Table with format specifications
         cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))
 
 ================================================================================
 Table with header format
@@ -242,8 +234,7 @@ Table with header format
 
 (source_file
   (table_block
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -285,8 +276,7 @@ Table with header format
         cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))
 
 ================================================================================
 Table with combined span and format specifications
@@ -308,8 +298,7 @@ Table with combined span and format specifications
 
 (source_file
   (table_block
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -350,8 +339,7 @@ Table with combined span and format specifications
         cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))
 
 ================================================================================
 Table with empty cells and edge cases
@@ -369,8 +357,7 @@ Table with empty cells and edge cases
 
 (source_file
   (table_block
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -413,8 +400,7 @@ Table with empty cells and edge cases
         cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))
 
 ================================================================================
 Table with metadata and complex specifications
@@ -450,14 +436,12 @@ Phone: *555-9012*
       (plain_text)
       (plain_dash)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))
+      (plain_dot)
       (plain_text)
       (plain_dash)
       (plain_text)
       (plain_right_bracket))
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -513,5 +497,4 @@ Phone: *555-9012*
             (cell_literal_text))))
       (content_line)
       (content_line))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))

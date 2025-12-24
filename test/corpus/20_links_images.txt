@@ -16,8 +16,7 @@ Also check out http://test.org and ftp://files.com/download.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
@@ -50,8 +49,7 @@ Visit https://example.com[Example Site] for more info.
       (plain_text)
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Links with formatted text
@@ -72,8 +70,7 @@ Visit https://example.com[*Bold* _Link_ Text] here.
           text: (link_text)
           (plain_right_bracket)))
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Inline images
@@ -94,8 +91,7 @@ Here is image:logo.png[Company Logo] in text.
         close: (macro_close))
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Block images
@@ -111,8 +107,7 @@ image::diagram.svg[System Architecture,width=500]
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT))))
+      (plain_dot)))
   (block_macro
     open: (macro_name)
     body: (macro_body)

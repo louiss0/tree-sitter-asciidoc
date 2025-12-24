@@ -7,7 +7,6 @@
   (plain_text) @reference.constant)
 
 (anchor)        @definition.label
-(inline_anchor) @definition.label
 
 (internal_xref
   (xref_target) @reference.label)

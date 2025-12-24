@@ -17,29 +17,23 @@ Inner sidebar block.
 
 (source_file
   (example_block
-    (example_open
-      (EXAMPLE_FENCE_START))
+    (example_open)
     (paragraph
       (inline_seq_nonempty
         (plain_text)
         (plain_text)
         (plain_text)
-        (plain_dot
-          (PLAIN_DOT))))
+        (plain_dot)))
     (sidebar_block
-      (sidebar_open
-        (SIDEBAR_FENCE_START))
+      (sidebar_open)
       (paragraph
         (inline_seq_nonempty
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_dot
-            (PLAIN_DOT))))
-      (sidebar_close
-        (SIDEBAR_FENCE_END)))
-    (example_close
-      (EXAMPLE_FENCE_END))))
+          (plain_dot)))
+      (sidebar_close))
+    (example_close)))
 
 ================================================================================
 Complex table structures
@@ -70,8 +64,7 @@ Complex table structures
       (plain_text)
       (plain_double_quote)
       (plain_right_bracket))
-    open: (table_open
-      (TABLE_FENCE_START))
+    open: (table_open)
     content: (table_content
       row: (table_row
         cells: (table_cell
@@ -113,8 +106,7 @@ Complex table structures
         cells: (table_cell
           content: (cell_content
             (cell_literal_text)))))
-    close: (table_close
-      (TABLE_FENCE_END))))
+    close: (table_close)))
 
 ================================================================================
 Conditional blocks with nesting
@@ -149,8 +141,7 @@ Production content.
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_dot
-            (PLAIN_DOT))))
+          (plain_dot)))
       content: (conditional_block
         (ifndef_block
           directive: (ifndef_open)
@@ -158,8 +149,7 @@ Production content.
             content: (inline_seq_nonempty
               (plain_text)
               (plain_text)
-              (plain_dot
-                (PLAIN_DOT))))
+              (plain_dot)))
           content: (conditional_block
             (ifeval_block
               directive: (ifeval_open)
@@ -167,13 +157,11 @@ Production content.
                 content: (inline_seq_nonempty
                   (plain_text)
                   (plain_text)
-                  (plain_dot
-                    (PLAIN_DOT))
+                  (plain_dot)
                   (plain_text)
                   (plain_plus)
                   (plain_text)
-                  (plain_dot
-                    (PLAIN_DOT))))
+                  (plain_dot)))
               end: (endif_directive)))
           content: (paragraph
             content: (inline_seq_nonempty
@@ -181,23 +169,20 @@ Production content.
               (plain_text)
               (plain_text)
               (plain_text)
-              (plain_dot
-                (PLAIN_DOT))))
+              (plain_dot)))
           end: (endif_directive)))
       content: (paragraph
         content: (inline_seq_nonempty
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_dot
-            (PLAIN_DOT))))
+          (plain_dot)))
       end: (endif_directive)))
   (paragraph
     content: (inline_seq_nonempty
       (plain_text)
       (plain_text)
-      (plain_dot
-        (PLAIN_DOT)))))
+      (plain_dot))))
 
 ================================================================================
 Section nesting with anchors
@@ -234,7 +219,10 @@ Back to level 2.
       content: (paragraph
         content: (inline_seq_nonempty
           (inline_element
-            (inline_anchor))))))
+            (anchor
+              open: (anchor_open)
+              id: (anchor_id)
+              close: (anchor_close)))))))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -245,12 +233,14 @@ Back to level 2.
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_dot
-            (PLAIN_DOT))))
+          (plain_dot)))
       content: (paragraph
         content: (inline_seq_nonempty
           (inline_element
-            (inline_anchor))))
+            (anchor
+              open: (anchor_open)
+              id: (anchor_id)
+              close: (anchor_close)))))
       content: (section_level_3
         marker: (section_marker_3)
         title: (title)
@@ -259,12 +249,16 @@ Back to level 2.
             (plain_text)
             (plain_text)
             (plain_text)
-            (plain_dot
-              (PLAIN_DOT))))
+            (plain_dot)))
         content: (paragraph
           content: (inline_seq_nonempty
             (inline_element
-              (inline_anchor))))
+              (anchor
+                open: (anchor_open)
+                id: (anchor_id)
+                (plain_comma)
+                description: (anchor_description)
+                close: (anchor_close)))))
         content: (section_level_4
           marker: (section_marker_4)
           title: (title)
@@ -275,8 +269,7 @@ Back to level 2.
               (plain_text)
               (plain_text)
               (plain_text)
-              (plain_dot
-                (PLAIN_DOT))))))))
+              (plain_dot)))))))
   (section
     (section_level_2
       marker: (section_marker_2)
@@ -287,8 +280,7 @@ Back to level 2.
           (plain_text)
           (plain_text)
           (plain_text)
-          (plain_dot
-            (PLAIN_DOT)))))))
+          (plain_dot))))))
 
 ================================================================================
 Attribute edge cases with references
