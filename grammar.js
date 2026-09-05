@@ -439,6 +439,7 @@ module.exports = grammar({
 
     fenced_code_block: ($) =>
       seq(
+        optional(field("title", alias($._block_title, $.block_title))),
         field("open", $.fenced_code_block_open),
         field("content", alias($.block_content, $.fenced_code_block_content)),
         field("close", $.fenced_code_block_close),

@@ -1260,6 +1260,16 @@
             "named": true
           }
         ]
+      },
+      "title": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block_title",
+            "named": true
+          }
+        ]
       }
     }
   },
